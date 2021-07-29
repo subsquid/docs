@@ -70,4 +70,5 @@ A Hydra pipeline has two principal components: Hydra Indexer and Hydra Processor
 * [Install](install-hydra.md) Hydra toolkit 
 * Hydra [tutorial](quick-start.md): spin a query node in under five minutes 
 * Learn how to define your own data [schema](schema-spec/) and [mappings](mappings/) to run a Hydra Indexer
+* Check [FAQ](faq.md) for the most common gotchas
 
