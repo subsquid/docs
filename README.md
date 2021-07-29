@@ -14,6 +14,28 @@ A Substrate query node framework. Hydra gives a smooth way to provide powerful G
 
 That's where Hydra gets you covered. Define your data model and the Hydra indexer will get it in sync with the chain. On top of that, you get a batteries-included GraphQL server with comprehensive filtering, pagination, and even full-text search capabilities.
 
+## Hydra Quickstart
+
+### Prerequisites
+
+- Node 14.x
+- Yarn
+
+### Option 1
+
+Clone the [template repo](https://github.com/subsquid/hydra-templatee) and follow the instructions in README. The project is ready for hacking!
+
+### Option 2
+
+Run
+
+```text
+$ npx @subsquid/hydra-cli@next scaffold
+```
+
+and answer the prompts. It will generate a sample project and README with setup instructions.
+
+
 ## Architecture one-liner
 
 A Hydra query node ingests substrate events in a multi-step pipeline:
@@ -35,16 +57,6 @@ The following Hydra Indexer endpoints are currently available and are ready to b
 
 Get in touch with [Subsquid](mailto:dz@subsquid.io) to get your chain indexed by Subsquid.
 You can also set up a self-hosted Hydra Indexer as described in the [docs](hydra-indexer.md).
-
-## Hydra CLI quickstart
-
-Run
-
-```text
-$ npx @subsquid/hydra-cli@next scaffold
-```
-
-and answer the prompts. It will generate a sample project and README with setup instructions.
 
 ## Bird-eye overview
 

@@ -2,6 +2,11 @@
 
 A cli tool for running a [Hydra](https://joystream.org/hydra) query node
 
+## Prerequisites
+
+- Node 14.x+
+- Yarn
+
 ## Install
 
 Using `npx`:
