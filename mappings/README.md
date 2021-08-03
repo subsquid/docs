@@ -20,7 +20,7 @@ mappings:
       handler: timestampCall
 ```
 
-Handers receive a signle argument of type defined in `@subsquid/hydra-common`
+Handlers receive a single argument of type defined in `@subsquid/hydra-common`
 
 *  `eventHanlder` receives a single argument of type `EventContext & StoreContext`
 * `extrinsicHandler`receives a single argument of type `ExtrinsicContext & StoreContext`
