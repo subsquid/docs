@@ -54,7 +54,7 @@ OPTIONS
   --indexer=indexer        Indexer URL to source events
 ```
 
-## Qickstart
+## Quickstart
 
 Before the first run, the processor should set up auxiliary database tables required for its work:
 
