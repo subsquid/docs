@@ -23,7 +23,7 @@ That's where Hydra gets you covered. Define your data model and the Hydra indexe
 
 ### Option 1
 
-Clone the [template repo](https://github.com/subsquid/hydra-templatee) and follow the instructions in README. The project is ready for hacking!
+Clone the [template repo](https://github.com/subsquid/hydra-template) and follow the instructions in README. The project is ready for hacking!
 
 ### Option 2
 
