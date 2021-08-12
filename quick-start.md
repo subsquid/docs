@@ -165,7 +165,7 @@ Hydra Processor connects to a Hydra Indexer gateway for sourcing the indexed blo
 Set `INDEXER_ENDPOINT_URL` in `.env` to the local indexer `http://localhost:4001/graphql` and run
 
 ```text
-yarn processor:run
+yarn processor:start
 ```
 
 ## 7. Run Query Node API
