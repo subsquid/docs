@@ -49,10 +49,13 @@ type Member @entity {
 For variant relations to work an additional field is added to variant type which is db only field \(which means it is not visible in the graphql API\). This field is will be generated from relation field name + 'id' ie. in the schema above relation name is `event` so the auto generated field name is `eventId`. This field is not optional and mapping author must set it properly.
 
 ```typescript
-async function handle_Member(db: DB, event: SubstrateEvent) {
+async function handle_Member({
+  store,
+  event
+}: EventContext & StoreContext) {
   // Create an event from BoughtMemberEvent or MemberInvitation and save to db
   let event = new InvitedMemberEvent({ handle: 'joy' })
-  event = await db.save<InvitedMemberEvent>(event)
+  event = await store.save<InvitedMemberEvent>(event)
 
   // Create variant instance and set eventId property
   const invitation = new MemberInvitation()
@@ -62,7 +65,7 @@ async function handle_Member(db: DB, event: SubstrateEvent) {
   // Create new member and set the source property
   const member = new Member({ handle: 'hydra', isVerified: true })
   member.source = invitation
-  await db.save<Member>(member)
+  await store.save<Member>(member)
 }
 ```
 
