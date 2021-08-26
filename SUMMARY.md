@@ -15,7 +15,7 @@
   * [Mapping Filters](mappings/mapping-filters.md)
   * [Mapping Types](mappings/mapping-types.md)
 * [Schema](schema-spec/README.md)
-  * [The Goodies](schema-spec/the-query-goodies.md)
+  * [OpenCRUD filtering](schema-spec/the-query-goodies.md)
   * [Entities](schema-spec/entities.md)
   * [Enums](schema-spec/enums.md)
   * [Interfaces](schema-spec/interfaces.md)
