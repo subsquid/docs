@@ -130,15 +130,18 @@ Each GraphQL entity has a corresponding TypeORM entity and we use these entities
 We will create a new post for an existing user:
 
 ```typescript
-export async function handleNewPost(db: DB, event: SubstrateEvent) {
-    const { userId, title } = event.params;
-    const user = await db.get(User, { where: { id: userId } });
+export async function handleNewPost({
+  store,
+  event
+}: EventContext & StoreContext) {
+    const [userId, title] = new SomeModule.SomeEvent(event).params
+    const user = await store.get(User, { where: { id: userId } });
 
     const newPost = new Post();
     newPost.title = title;
     newPost.author = user;
 
-    db.save<Post>(newPost);
+    store.save<Post>(newPost);
 }
 ```
 
