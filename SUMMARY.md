@@ -20,6 +20,7 @@
   * [Enums](schema-spec/enums.md)
   * [Interfaces](schema-spec/interfaces.md)
   * [Algebraic types](schema-spec/variant-types.md)
+  * [JSON types](schema-spec/jsontype.md)
   * [Full-text queries](schema-spec/full-text-queries.md)
   * [Entity Relationships](schema-spec/entity-relationship.md)
   * [Cross filtering](schema-spec/cross-filters.md)
