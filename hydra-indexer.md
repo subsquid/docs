@@ -4,16 +4,12 @@ Hydra Indexer is a daemon that ingests raw substrate data such as events and ext
 
 ## Installation
 
-The indexer exits if an unrecoverable error occurs. It is therefore advisable to run the indexer with a process manager, such as [PM2](https://pm2.keymetrics.io/) or Docker.
+Hydra Indexer is distributed as a set of docker containers.
+Please have a look at [https://github.com/subsquid/hydra-template/blob/main/indexer/docker-compose.yml](https://github.com/subsquid/hydra-template/blob/main/indexer/docker-compose.yml)
+for an example of how to setup your own indexer instance.
 
-### Prerequisites
 
-* Node 12.x
-* Postgres database
-* Redis instances
-* \(Optional\) Docker
-
-### Environment variables
+## Environment variables
 
 The indexer is set up using the following environment variables
 
@@ -26,39 +22,14 @@ The indexer is set up using the following environment variables
 | DB\_HOST | - | **Yes** | Database host |
 | DB\_USER | - | **Yes** | Database user |
 | DB\_PASS | - | **Yes** | Database password |
-| DB\_LOGGING | `error` | No | TypeORM logging level |
-| TYPES\_JSON | - | No | Path to a JSON type definition with custom Substrate types |
 | BLOCK\_HEIGHT | 0 | No | Block height to start indexing. Ignored if the database already contains indexed blocks |
+| TYPES\_JSON | - | No | Path to a JSON file with [custom types](https://polkadot.js.org/docs/api/start/types.extend#extension) (`ApiPromise.create({types: TYPES_JSON})`) |
+| TYPES\_ALIAS | - | No | Path to a JSON file with [type aliases](https://polkadot.js.org/docs/api/start/types.extend#type-clashes) (`ApiPromise.create({typesAlias: TYPES_ALIAS})`) |
+| SPEC\_TYPES | - | No | Path to a JSON file with [spec types](https://polkadot.js.org/docs/api/start/types.extend#node-and-chain-specific-types) (`ApiPromise.create({typesSpec: SPEC_TYPES})`) |
+| CHAIN\_TYPES | - | No | Path to a JSON file with [chain types](https://polkadot.js.org/docs/api/start/types.extend#node-and-chain-specific-types) (`ApiPromise.create({typesChain: CHAIN_TYPES})`) |
+| BUNDLE\_TYPES | - | No | Path to a JSON file with `typesBundle` (`ApiPromise.create({typesChain: BUNDLE_TYPES})`) |
 
-### Manual setup
-
-Run
-
-```bash
-yarn && yarn build
-```
-
-For setting up the database and running the migrations, run `yarn db:bootstrap`. Make sure the environment variables `DB_*` are set.
-
-For starting the indexer, run `yarn start:prod`.
-
-### Docker image
-
-There are pre-built runnable docker images in `joystream/hydra-indexer` docker repo. The default command is `yarn start:prod`.
-
-First, bootstrap the database:
-
-```bash
-docker run -e DB_HOST=... -e DB_PORT=... -e DB_NAME=... -e DB_PASS=... -e DB_USER=... joystream/hydra-indexer sh -c 'yarn db:bootstrap'
-```
-
-Then run the indexer \(make sure that all the required environment variables are set\)
-
-```bash
-docker run -e ... joystream/hydra-indexer
-```
-
-## Advanced environment variables
+### Advanced environment variables
 
 Some optional environment variables are available for fine-tuning.
 
@@ -70,4 +41,4 @@ Some optional environment variables are available for fine-tuning.
 | BLOCK\_PRODUCER\_FETCH\_RETRIES | 3 | Number of attempts fetching each a block before throwing an error. Set to `-1` for indefinite attempts |
 | SUBSTRATE\_API\_TIMEOUT | `1000 * 60 * 5` | Timeout in \(milliseconds\) for API calls |
 | NEW\_BLOCK\_TIMEOUT\_MS | `60 * 10 * 1000` | Panic if no blockchain blocks have been received within this time |
-
+| DB\_LOGGING | `error` | No | TypeORM logging level |

@@ -31,4 +31,3 @@
 * [What's new in Hydra v3](announcing-hydra-v3.md)
 * [FAQ](faq.md)
 * [Quickstart](quick-start.md)
-

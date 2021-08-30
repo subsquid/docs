@@ -8,7 +8,7 @@ description: Common gotchas and how-tos
 
 This error indicates that the indexer type definitions are not properly set. Hydra Indexer v3 takes the default types from `@polkadot/api@4.2.1` which is compatible with runtimes built on Substrate 3.x but may cause errors when run against older versions of Substrate
 
-Make sure that 
+Make sure that
 
 * All the custom types are properly defined in the type definition json and the indexer has picked them up
 * `Adress` and `Signature` are decoded properly. [This page](https://polkadot.js.org/docs/api/FAQ/#i-cannot-send-transactions-sending-yields-decoding-failures) may be helpful for troubleshooting
@@ -24,6 +24,3 @@ Export the data into a json file and load into the database via a one-off preBlo
 ## How do I deal with runtime upgrades?
 
 To inject some new data, define a one-off block hook triggered at the block height with the upgrade. In order to have different versions of event/extrinsic handlers for pre- and post- upgrade, use `specVersion` [filter](docs/mappings/mapping-filters.md#mapping-filter).
-
-
-

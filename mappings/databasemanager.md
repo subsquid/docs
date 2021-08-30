@@ -76,4 +76,3 @@ export interface ExtrinsicContext extends BlockContext {
   extrinsic: SubstrateExtrinsic
 }
 ```
-
