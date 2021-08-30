@@ -126,7 +126,7 @@ to build the mappings into a js module. Make sure the mappings are rebuilt after
 
 ## 5. Run Hydra Indexer locally
 
-Hydra's two-tier architecture separates data ingesting and indexing \(done by Hydra Indexer\) and processing \(done by Hydra Processor, of course\). Hydra Indexer + API gateway is a set-and-forget service which requires maintainance only when there is a major runtime upgrade.  The scaffolder conveniently creatres a stub for running the indexer stack with docker-compose, as defined in `docker-compose-indexer.yml`
+Hydra's two-tier architecture separates data ingesting and indexing \(done by Hydra Indexer\) and processing \(done by Hydra Processor, of course\). Hydra Indexer + API gateway is a set-and-forget service which requires maintainance only when there is a major runtime upgrade.  The scaffolder conveniently creates a stub for running the indexer stack with docker-compose, as defined in `docker-compose-indexer.yml`
 
 The `WS_PROVIDER_ENDPOINT_URI`environment variable defines the node to connect. Additionally, one can map volumes as json files with runtime type definitions. The following environment variables 
 
