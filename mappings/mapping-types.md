@@ -6,7 +6,7 @@ description: >-
 
 # Mapping Types
 
-The manifest file provides flexible control over when and which mappings are executed by the processor. All mappings are identified by the exported function name, as defined by the `handler` property. 
+The manifest file provides flexible control over when and which mappings are executed by the processor. All mappings are identified by the exported function name, as defined by the `handler` property.
 
 The following types are supported:
 
@@ -14,7 +14,7 @@ The following types are supported:
 
 ```yaml
 eventHandlers:
-    - event: balances.Transfer 
+    - event: balances.Transfer
       handler: balancesTransfer
 ```
 
@@ -22,14 +22,14 @@ eventHandlers:
 
 ```yaml
 extrinsicHandlers:
-    - extrinsic: timestamp.set 
+    - extrinsic: timestamp.set
       handler: timestampCall
       triggerEvents: # optional list of events triggering the execution
         - system.ExtrinsicSuccess
         - system.ExtrinsicFailure
 ```
 
-* Pre-block hooks: Executed prior to any events in the block. 
+* Pre-block hooks: Executed prior to any events in the block.
 
 ```yaml
 preBlockHooks:
@@ -42,8 +42,3 @@ preBlockHooks:
 preBlockHooks:
     - handler: preHook
 ```
-
-### Mapping Filters
-
-
-
