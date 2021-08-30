@@ -18,6 +18,6 @@ on how to launch the sample project.
 
 Read more about
 
-* [Database/GraphQL schema definition](docs/schema-spec/)
-* [Mappings](docs/mappings/)
+* [Database/GraphQL schema definition](schema-spec/)
+* [Mappings](mappings/)
 * [Typesafe interfaces for substrate events and extrinsics](hydra-typegen.md)
