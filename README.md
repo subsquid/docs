@@ -59,7 +59,7 @@ You can also set up a self-hosted Hydra Indexer as described in the [docs](hydra
 
 ## Bird-eye overview
 
-A Hydra pipeline has two principal components: Hydra Indexer and Hydra Processor. Hydra Indexer ingests raw data from a substrate chain. Hydra Processor transforms the raw data pulled fron the Indexer into domain-level entities defined by the user. The shape of entities is defined in `schema.graphql`. The data transformation rules (or "mappings") are stateless Javascript functions defining how the Substrate runtime event data should be handled. The set of runtime events, event filters and other Processor settings are defined in `manifest.yml`. `hydra-cli` provides additional scaffolding and codegen tooling for running and developing a Hydra Processor tailored for the provided schema file.
+A Hydra pipeline has two principal components: Hydra Indexer and Hydra Processor. Hydra Indexer ingests raw data from a substrate chain. Hydra Processor transforms the raw data pulled from the Indexer into domain-level entities defined by the user. The shape of entities is defined in `schema.graphql`. The data transformation rules (or "mappings") are stateless Javascript functions defining how the Substrate runtime event data should be handled. The set of runtime events, event filters and other Processor settings are defined in `manifest.yml`. `hydra-cli` provides additional scaffolding and codegen tooling for running and developing a Hydra Processor tailored for the provided schema file.
 
 ![Hydra Indexer \(top\) and Hydra Processor \(bottom\) data flows](./.gitbook/assets/hydra-diagram.png)
 
