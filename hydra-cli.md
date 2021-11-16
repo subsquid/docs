@@ -179,18 +179,32 @@ OPTIONS
   --silent                       If present, the scaffolder is non-interactive and uses only provided CLI flags
 ```
 
-## `hydra-cli app:create`
+## `hydra-cli auth`
 
-Create an app
+Manage credentials for the hydra-cli
 
 ```
-Create a new app
+Manage credentials for the hydra-cli
 
 USAGE
   $ hydra-cli app:create
 
 OPTIONS
-  -n, --name=name                (required) new app name
+  -k, --key=key                (required) access key, obtained from squid web-page
+```
+
+## `hydra-cli app:create`
+
+Creates a new squid
+
+```
+Creates a new squid for authenticated user
+
+USAGE
+  $ hydra-cli app:create
+
+OPTIONS
+  -n, --name=name                (required) new squid name
   -s, --source=source            (required) source code url
   -d, --description=description  description
   -l, --logo=logo                logo url
@@ -199,16 +213,16 @@ OPTIONS
 
 ## `hydra-cli app:update`
 
-Update an app
+Edits squid information
 
 ```
-Update an app
+Edits squid information
 
 USAGE
   $ hydra-cli app:update
 
 OPTIONS
-  -n, --name=name                (required) app name
+  -n, --name=name                (required) squid name
   -d, --description=description  description
   -l, --logo=logo                logo url
   -s, --source=source            source code url 
@@ -217,46 +231,46 @@ OPTIONS
 
 ## `hydra-cli app:deploy`
 
-Create a new deployment
+Deploys a new squid version
 
 ```
-Create a new deployment
+Deploys a new squid version
 
 USAGE
   $ hydra-cli app:deploy
 
 OPTIONS
-  -n, --name=name                (required) app name
-  -v, --version=version          (required) deployment version name
+  -n, --name=name                (required) squid name
+  -v, --version=version          (required) version name
 ```
 
 ## `hydra-cli app:ls`
 
-Display all apps or deployments
+Display all squids or it's versions
 
 ```
-Display all apps or deployments
+Display all squids or it's versions
 
 USAGE
   $ hydra-cli app:ls
 
 OPTIONS
-  -n, --name=name                app name. If present, display all deployments of this app
+  -n, --name=name                squid name. If presents, display all versions of this squid
   -t, --truncate                 [default: false] Truncate output to fit screen
 ```
 
 ## `hydra-cli app:delete`
 
-Delete an app or deployment
+Delete a squid or it's version
 
 ```
-Delete an app or deployment
+Delete a squid or it's version
 
 USAGE
   $ hydra-cli app:delete
 
 OPTIONS
-  -n, --name=name                (required) app name
-  -v, --version=version          deployment version name. If specified, will be deleted deployment with specific version
+  -n, --name=name                (required) squid name
+  -v, --version=version          squid version name. If presents, specific squid version well be removed
 ```
 <!-- commandsstop -->
