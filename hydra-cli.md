@@ -44,6 +44,11 @@ and answer the prompts. This will generate a sample project and README with setu
 * [`hydra-cli db:revert`](#hydra-cli-dbrevert)
 * [`hydra-cli help [COMMAND]`](#hydra-cli-help-command)
 * [`hydra-cli scaffold`](#hydra-cli-scaffold)
+* [`hydra-cli app:create`](#hydra-cli-appcreate)
+* [`hydra-cli app:update`](#hydra-cli-appupdate)
+* [`hydra-cli app:deploy`](#hydra-cli-appdeploy)
+* [`hydra-cli app:ls`](#hydra-cli-appls)
+* [`hydra-cli app:delete`](#hydra-cli-appdelete)
 
 ## `hydra-cli codegen`
 
@@ -174,4 +179,84 @@ OPTIONS
   --silent                       If present, the scaffolder is non-interactive and uses only provided CLI flags
 ```
 
+## `hydra-cli app:create`
+
+Create an app
+
+```
+Create a new app
+
+USAGE
+  $ hydra-cli app:create
+
+OPTIONS
+  -n, --name=name                (required) new app name
+  -s, --source=source            (required) source code url
+  -d, --description=description  description
+  -l, --logo=logo                logo url
+  -w, --website=website          website url
+```
+
+## `hydra-cli app:update`
+
+Update an app
+
+```
+Update an app
+
+USAGE
+  $ hydra-cli app:update
+
+OPTIONS
+  -n, --name=name                (required) app name
+  -d, --description=description  description
+  -l, --logo=logo                logo url
+  -s, --source=source            source code url 
+  -w, --website=website          website url
+```
+
+## `hydra-cli app:deploy`
+
+Create a new deployment
+
+```
+Create a new deployment
+
+USAGE
+  $ hydra-cli app:deploy
+
+OPTIONS
+  -n, --name=name                (required) app name
+  -v, --version=version          (required) deployment version name
+```
+
+## `hydra-cli app:ls`
+
+Display all apps or deployments
+
+```
+Display all apps or deployments
+
+USAGE
+  $ hydra-cli app:ls
+
+OPTIONS
+  -n, --name=name                app name. If present, display all deployments of this app
+  -t, --truncate                 [default: false] Truncate output to fit screen
+```
+
+## `hydra-cli app:delete`
+
+Delete an app or deployment
+
+```
+Delete an app or deployment
+
+USAGE
+  $ hydra-cli app:delete
+
+OPTIONS
+  -n, --name=name                (required) app name
+  -v, --version=version          deployment version name. If specified, will be deleted deployment with specific version
+```
 <!-- commandsstop -->
