@@ -187,7 +187,7 @@ Manage credentials for the hydra-cli
 Manage credentials for the hydra-cli
 
 USAGE
-  $ hydra-cli app:create
+  $ hydra-cli auth
 
 OPTIONS
   -k, --key=key                (required) access key, obtained from squid web-page
