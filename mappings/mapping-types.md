@@ -39,6 +39,6 @@ preBlockHooks:
 * Post-block hooks. Executed after all the event and extrinsic mappings in the block
 
 ```yaml
-preBlockHooks:
-    - handler: preHook
+postBlockHooks:
+    - handler: postHook
 ```
