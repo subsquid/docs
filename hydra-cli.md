@@ -44,12 +44,12 @@ and answer the prompts. This will generate a sample project and README with setu
 * [`hydra-cli db:revert`](#hydra-cli-dbrevert)
 * [`hydra-cli help [COMMAND]`](#hydra-cli-help-command)
 * [`hydra-cli scaffold`](#hydra-cli-scaffold)
-* [`hydra-cli app:create`](#hydra-cli-appcreate)
-* [`hydra-cli app:update`](#hydra-cli-appupdate)
-* [`hydra-cli app:deploy`](#hydra-cli-appdeploy)
-* [`hydra-cli app:ls`](#hydra-cli-appls)
-* [`hydra-cli app:delete`](#hydra-cli-appdelete)
-
+* [`hydra-cli squid:create`](#hydra-cli-squidcreate)
+* [`hydra-cli squid:update`](#hydra-cli-squidupdate)
+* [`hydra-cli squid:release`](#hydra-cli-squidrelease)
+* [`hydra-cli squid:ls`](#hydra-cli-squidls)
+* [`hydra-cli squid:kill`](#hydra-cli-squidkill)
+* [`hydra-cli squid:tail`](#hydra-cli-squidtail)
 ## `hydra-cli codegen`
 
 Analyze graphql schema and generate model/server files
@@ -193,7 +193,7 @@ OPTIONS
   -k, --key=key                (required) access key, obtained from squid web-page
 ```
 
-## `hydra-cli app:create`
+## `hydra-cli squid:create`
 
 Creates a new squid
 
@@ -201,17 +201,15 @@ Creates a new squid
 Creates a new squid for authenticated user
 
 USAGE
-  $ hydra-cli app:create
+  $ hydra-cli squid:create <squid_name>
 
 OPTIONS
-  -n, --name=name                (required) new squid name
-  -s, --source=source            (required) source code url
   -d, --description=description  description
   -l, --logo=logo                logo url
   -w, --website=website          website url
 ```
 
-## `hydra-cli app:update`
+## `hydra-cli squid:update`
 
 Edits squid information
 
@@ -219,32 +217,31 @@ Edits squid information
 Edits squid information
 
 USAGE
-  $ hydra-cli app:update
+  $ hydra-cli squid:update <squid_name>
 
 OPTIONS
-  -n, --name=name                (required) squid name
   -d, --description=description  description
   -l, --logo=logo                logo url
   -s, --source=source            source code url 
   -w, --website=website          website url
 ```
 
-## `hydra-cli app:deploy`
+## `hydra-cli squid:release`
 
-Deploys a new squid version
+Release a Squid (means deploying a version of the squid)
 
 ```
-Deploys a new squid version
+Release a Squid (means deploying a version of the squid)
 
 USAGE
-  $ hydra-cli app:deploy
+  $ hydra-cli squid:release <squid_name>@<version_name>
 
 OPTIONS
-  -n, --name=name                (required) squid name
-  -v, --version=version          (required) version name
+  -s, --source=source                  deploy url. If presents, will be used instead git remote url
+  -d, --description=description        description of version
 ```
 
-## `hydra-cli app:ls`
+## `hydra-cli squid:ls`
 
 Display all squids or it's versions
 
@@ -252,25 +249,37 @@ Display all squids or it's versions
 Display all squids or it's versions
 
 USAGE
-  $ hydra-cli app:ls
+  $ hydra-cli squid:ls
 
 OPTIONS
   -n, --name=name                squid name. If presents, display all versions of this squid
   -t, --truncate                 [default: false] Truncate output to fit screen
 ```
 
-## `hydra-cli app:delete`
+## `hydra-cli squid:kill`
 
-Delete a squid or it's version
+Kill a squid or it's version
 
 ```
-Delete a squid or it's version
+Kill a squid or it's version
 
 USAGE
-  $ hydra-cli app:delete
+  $ hydra-cli squid:kill <squid_name>
+  $ hydra-cli squid:kill <squid_name>@<version_name>
+```
+
+## `hydra-cli squid:tail`
+
+Tail squid logs
+
+```
+Tail squid logs
+
+USAGE
+  $ hydra-cli squid:tail <squid_name>@<version_name>
 
 OPTIONS
-  -n, --name=name                (required) squid name
-  -v, --version=version          squid version name. If presents, specific squid version well be removed
+  -f, --follow=follow               [default: false] Will continue streaming the new logs
+  -l, --lines=lines                 [default: 50] Output a specific number of lines (if "follow" is false)
 ```
 <!-- commandsstop -->
