@@ -45,7 +45,6 @@ and answer the prompts. This will generate a sample project and README with setu
 * [`hydra-cli help [COMMAND]`](#hydra-cli-help-command)
 * [`hydra-cli scaffold`](#hydra-cli-scaffold)
 * [`hydra-cli squid:create`](#hydra-cli-squidcreate)
-* [`hydra-cli squid:update`](#hydra-cli-squidupdate)
 * [`hydra-cli squid:release`](#hydra-cli-squidrelease)
 * [`hydra-cli squid:ls`](#hydra-cli-squidls)
 * [`hydra-cli squid:kill`](#hydra-cli-squidkill)
@@ -206,23 +205,6 @@ USAGE
 OPTIONS
   -d, --description=description  description
   -l, --logo=logo                logo url
-  -w, --website=website          website url
-```
-
-## `hydra-cli squid:update`
-
-Edits squid information
-
-```
-Edits squid information
-
-USAGE
-  $ hydra-cli squid:update <squid_name>
-
-OPTIONS
-  -d, --description=description  description
-  -l, --logo=logo                logo url
-  -s, --source=source            source code url 
   -w, --website=website          website url
 ```
 
