@@ -14,4 +14,3 @@
 * [Reference](reference/README.md)
   * [Squid CLI](reference/squid-cli.md)
 * [FAQ](faq.md)
-* [Sorting](sort-query-results.md)
