@@ -12,7 +12,7 @@ A Substrate query node framework. Subsquid provides app developers with a way to
 
 For example, expired [Kusama Treasury](https://wiki.polkadot.network/docs/en/learn-treasury) spending [proposals](https://kusama.subscan.io/event?module=Treasury\&event=Proposed) are pruned from the state of the [Kusama blockchain](https://polkascan.io/kusama), so querying, say, one-year-old proposals is problematic. Indeed, one has to track the evolution of the state by sequentially applying the Treasury events and [extrinsics ](key-concepts/extrinsic-in-substrate.md)in each historical block.
 
-That's where Subsquid gets you covered. Define your data model and the Squid Archive will get it in sync with the chain. On top of that, you get a batteries-included GraphQL server with comprehensive filtering, pagination, and even full-text search capabilities.
+That's where Subsquid gets you covered. Define your data model and the Squid will get it in sync with the chain. On top of that, you get a batteries-included GraphQL server with comprehensive filtering, pagination, and even full-text search capabilities.
 
 ### Data retrieval made ~~easy~~ easier :smile:
 
@@ -22,11 +22,9 @@ Poor data leads to poor products, and before we know it, blockchain solutions ar
 
 This is where Subsquid comes in. Subsquid has a multi-layered [architecture](key-concepts/architecture.md), composed of [Squid Archive(s)](key-concepts/architecture.md#squid-archive) and [Squid(s)](key-concepts/architecture.md#squid).
 
-Taking the example of Polkadot ecosystem, which is the first of many blockchains Subsquid will serve: it includes several `parachains` which are used by different projects that require very different datasets. This means that the type of data moving around the Polkadot ecosystem is not only large in volume, but also in variety.&#x20;
-
 Subsquid is rapidly deploying Squid Archives to gather data from these blockchains on behalf of developers who wish to use this data in order to develop DApps.\
 These Squid Archives are constantly ingesting and categorizing (_archiving_, hence the name... :stuck\_out\_tongue\_winking\_eye:) data from the blockchain they were built to synchronize with.
 
-The power of Subsquid is the provided framework, which allows developers to build their APIs with technology and approach they might already be familiar with, on top of blockchain data provided by Squid Archives, instead of direct gRPC node access, thus reducing the friction and inertia to start a new project.
+The power of Subsquid is the provided framework, which allows developers to build their APIs with technology and approach they might already be familiar with. All of this, on top of blockchain data provided by Squid Archives, instead of direct gRPC node access, thus reducing the friction and inertia to start a new project.
 
 So start building! Head over to our [Quickstart](quickstart.md), find examples in our [Recipes](recipes/) section or follow the [Tutorial](tutorial/) for a slower pace approach.
