@@ -25,6 +25,6 @@ This is where Subsquid comes in. Subsquid has a multi-layered [architecture](key
 Subsquid is rapidly deploying Squid Archives to gather data from these blockchains on behalf of developers who wish to use this data in order to develop DApps.\
 These Squid Archives are constantly ingesting and categorizing (_archiving_, hence the name... :stuck\_out\_tongue\_winking\_eye:) data from the blockchain they were built to synchronize with.
 
-The power of Subsquid is the provided framework, which allows developers to build their APIs with technology and approach they might already be familiar with. All of this, on top of blockchain data provided by Squid Archives, instead of direct gRPC node access, thus reducing the friction and inertia to start a new project.
+The power of Subsquid is the provided framework, which allows developers to create their APIs with technology and approach they might already be familiar with. All of this can be developed on top of blockchain data provided by Squid Archives, instead of direct gRPC node access, thus reducing the friction and inertia to start a new project.
 
 So start building! Head over to our [Quickstart](quickstart.md), find examples in our [Recipes](recipes/) section or follow the [Tutorial](tutorial/) for a slower pace approach.
