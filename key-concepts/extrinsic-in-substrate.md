@@ -1,2 +1,0 @@
-# Extrinsic in Substrate
-
