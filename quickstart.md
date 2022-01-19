@@ -14,6 +14,8 @@ description: >-
 * node 16.x
 * docker
 
+For more information on how to set up the Development Environment, take a look at the [Tutorial on this topic](tutorial/development-environment-set-up.md)
+
 ### Run the template project
 
 Clone the Squid Template repository
@@ -61,3 +63,5 @@ In a new terminal window
 ```bash
 npx squid-graphql-server
 ```
+
+For a tutorial on how to deploy your project to our Cloud-hosted&#x20;

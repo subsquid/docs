@@ -4,13 +4,15 @@ description: Introducing Subsquid, a GraphQL query node for substrate chains.
 
 # Overview
 
-A Substrate query node framework. Subsquid provides app developers with a way to build powerful GraphQL queries over Substrate blockchain state and history.
+Subsquid provides app developers with a way to build powerful GraphQL queries over Substrate blockchain state and history.
 
 ## What is Subsquid
 
-[Subsquid ](https://subsquid.io)is a query node framework for Substrate-based blockchains. A query node ingests data from a substrate chain and provides rich, domain-specific, and highly customizable access to the blockchain data, far beyond the scope of direct RPC calls.
+[Subsquid ](https://subsquid.io)is a query node framework for Substrate-based blockchains. To greatly simplify it, it can be thought as an ETL tool, with a GraphQL server included.
 
-For example, expired [Kusama Treasury](https://wiki.polkadot.network/docs/en/learn-treasury) spending [proposals](https://kusama.subscan.io/event?module=Treasury\&event=Proposed) are pruned from the state of the [Kusama blockchain](https://polkascan.io/kusama), so querying, say, one-year-old proposals is problematic. Indeed, one has to track the evolution of the state by sequentially applying the Treasury events and [extrinsics ](key-concepts/extrinsic-in-substrate.md)in each historical block.
+A query node ingests data from a substrate chain and provides rich, domain-specific, and highly customizable access to the blockchain data, far beyond the scope of direct RPC calls.
+
+For example, expired [Kusama Treasury](https://wiki.polkadot.network/docs/en/learn-treasury) spending [proposals](https://kusama.subscan.io/event?module=Treasury\&event=Proposed) are pruned from the state of the [Kusama blockchain](https://polkascan.io/kusama), so querying, say, one-year-old proposals is problematic. Indeed, one has to track the evolution of the state by sequentially applying the Treasury [events and extrinsics](key-concepts/substrate.md) in each historical block.
 
 That's where Subsquid gets you covered. Define your data model and the Squid will get it in sync with the chain. On top of that, you get a batteries-included GraphQL server with comprehensive filtering, pagination, and even full-text search capabilities.
 
