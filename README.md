@@ -8,7 +8,7 @@ Subsquid provides app developers with a way to build powerful GraphQL queries ov
 
 ## What is Subsquid
 
-[Subsquid ](https://subsquid.io)is a query node framework for Substrate-based blockchains. To greatly simplify it, it can be thought as an ETL tool, with a GraphQL server included.
+[Subsquid ](https://subsquid.io)is a query node framework for Substrate-based blockchains. In very simple terms, Subsquid can be thought of as an ETL tool, with a GraphQL server included.
 
 A query node ingests data from a substrate chain and provides rich, domain-specific, and highly customizable access to the blockchain data, far beyond the scope of direct RPC calls.
 

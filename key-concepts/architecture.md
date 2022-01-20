@@ -26,7 +26,7 @@ A Squid is a query node for ingesting, transforming and presenting Substrate blo
 
 Thanks to the Subsquid framework, it is possible to:
 
-* define the [database schema](../recipes/how-to-define-your-database-schema.md), [data type and entity definitions](../generate-typescript-definitions-for-substrate-events-and-calls.md)
+* define the [database schema](../recipes/how-to-define-a-database-schema.md), [data type and entity definitions](../tutorial/generate-typescript-definitions.md)
 * transform and store chain data efficiently
 * present it thanks to the included [GraphQL server](graphql-server.md)
 
@@ -40,4 +40,4 @@ A Squid Archive continuously collects data from the blockchain to allow querying
 
 A Squid Archive can be shared by multiple Squids, which means it is possible to segment how data is presented, based on the user's needs, without having to replicate the data source.
 
-To launch your own Squid Archive for a particular Blockchain, head over to [our dedicated page](../recipes/how-to-launch-a-squid-archive-for-a-blockchain.md).
+To launch your own Squid Archive for a particular Blockchain, head over to [our dedicated page](../recipes/how-to-launch-a-squid-archive.md).
