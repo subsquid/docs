@@ -14,6 +14,8 @@ A Squid query node consists of the following core parts:
 * PostgreSQL (Data Storage)
 * GraphQL Server
 
+![Squid and Squid Archive are the main components](<../.gitbook/assets/Squid Architecture diagram.png>)
+
 The Squid project takes as an input a high-level GraphQL-like schema modeling the blockchain data ("entities") to be indexed. The mappings describe the event handlers telling the indexer how the blockchain events affect the schema entities.
 
 Once the schema and the mappings are set up, the [Squid Archive](architecture.md#squid-archive) prepares the database and starts the continuous scan of the blockchain, processing the events through the mappings and updating the entities in the database.
@@ -26,7 +28,7 @@ A Squid is a query node for ingesting, transforming and presenting Substrate blo
 
 Thanks to the Subsquid framework, it is possible to:
 
-* define the [database schema](../recipes/how-to-define-your-database-schema.md), [data type and entity definitions](../generate-typescript-definitions-for-substrate-events-and-calls.md)
+* define the [database schema](../recipes/how-to-define-a-database-schema.md), [data type and entity definitions](../tutorial/generate-typescript-definitions.md)
 * transform and store chain data efficiently
 * present it thanks to the included [GraphQL server](graphql-server.md)
 
@@ -40,4 +42,4 @@ A Squid Archive continuously collects data from the blockchain to allow querying
 
 A Squid Archive can be shared by multiple Squids, which means it is possible to segment how data is presented, based on the user's needs, without having to replicate the data source.
 
-To launch your own Squid Archive for a particular Blockchain, head over to [our dedicated page](../recipes/how-to-launch-a-squid-archive-for-a-blockchain.md).
+To launch your own Squid Archive for a particular Blockchain, head over to [our dedicated page](../recipes/how-to-launch-a-squid-archive.md).
