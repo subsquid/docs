@@ -14,6 +14,8 @@ A Squid query node consists of the following core parts:
 * PostgreSQL (Data Storage)
 * GraphQL Server
 
+![Squid and Squid Archive are the main components](<../.gitbook/assets/Squid Architecture diagram.png>)
+
 The Squid project takes as an input a high-level GraphQL-like schema modeling the blockchain data ("entities") to be indexed. The mappings describe the event handlers telling the indexer how the blockchain events affect the schema entities.
 
 Once the schema and the mappings are set up, the [Squid Archive](architecture.md#squid-archive) prepares the database and starts the continuous scan of the blockchain, processing the events through the mappings and updating the entities in the database.
