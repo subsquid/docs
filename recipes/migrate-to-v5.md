@@ -63,7 +63,7 @@ However, the newest version brings massive upgrades to types. Now it can automat
 
 For this reason, it is recommended to replace the old types with new ones.
 
-The process to generate types is explained in the [dedicated tutorial](generate-typescript-definitions.md) and details about type bundles can be found in the [Cheatsheet](../faq/cheatsheet.md#where-do-i-get-a-type-bundle-for-my-chain).
+The process to generate types is explained in the [dedicated tutorial](../tutorial/generate-typescript-definitions.md) and details about type bundles can be found in the [Cheatsheet](../faq/cheatsheet.md#where-do-i-get-a-type-bundle-for-my-chain).
 
 ## Mappings
 
