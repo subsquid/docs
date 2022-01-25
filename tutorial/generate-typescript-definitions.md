@@ -1,47 +1,24 @@
 ---
 description: >-
-  Event and call data come to mapping handlers as raw untyped json. Not only it
-  is unclear what the exact structure of a particular event or call is, but it
-  can also rather frequently change over time.
+  Learn how to leverage Subsquid SDK automated tools to create TypeScript
+  classes for Substrate Events and calls.
 ---
 
-# Generate TypeScript definitions for substrate events and calls
+# Generate TypeScript definitions
 
-Squid framework provides tools for generation of type-safe, spec version aware wrappers around events and calls.
+## Overview
 
-The end result looks like this:
+[Event](../key-concepts/substrate.md#events) and call data are ingested as raw untyped JSON by Processor mapping handlers. Not only it is unclear what the exact structure of a particular event or call is, but it can also rather frequently change over time.
 
-```javascript
-/**
- * Normalized `balances.Transfer` event data
- */
-interface TransferEvent {
-    from: Uint8Array
-    to: Uint8Array
-    amount: bigint
-}
+Runtime upgrades may change the event data and even the event logic altogether, but Squid gets you covered with first-class support for runtime upgrades.
 
-function getTransferEvent(ctx: EventHandlerContext): TransferEvent {
-    // instanciate type-safe facade around event data
-    let event = new BalancesTransferEvent(ctx)
-    if (event.isV1020) {
-        let [from, to, amount, fee] = event.asV1020
-        return {from, to, amount}
-    } else if (event.isV1050) {
-        let [from, to, amount] = event.asV1050
-        return {from, to, amount}
-    } else {
-        // This cast will assert, 
-        // that the type of a given event matches
-        // the type of generated facade.
-        return event.asLatest
-    }
-}
-```
+Subsquid SDK comes with a tool called **substrate metadata explorer** which makes it easy to keep track of all runtime upgrades happened so far. This can then be fed to a different tool called **typegen**, to generate type-safe, spec version-aware wrappers around events and calls.
 
-Generation of type-safe wrappers for events and calls is currently a two-step process.
+This is why the generation of type-safe wrappers for events and calls is currently a two-step process.
 
-First, you need to explore the chain to find blocks which introduce new spec version and fetch corresponding metadata.
+### Chain exploration
+
+First, you need to explore the chain to find blocks that introduce a new spec version and fetch corresponding metadata.
 
 ```
 npx squid-substrate-metadata-explorer \
@@ -50,9 +27,11 @@ npx squid-substrate-metadata-explorer \
   --out kusamaVersions.json
 ```
 
-In the above command `--archive` parameter is optional, but it speeds up the process significantly. From scratch exploration of Kusama network without archive takes 20-30 minutes.
+In the above command, the `--archive` parameter is optional, but it speeds up the process significantly. The exploration of the Kusama network from scratch, without an archive, takes 20-30 minutes.
 
-You can pass the result of previous exploration to `--out` parameter. In that case exploration will start from the last known block and thus will take much less time.
+You can pass the result of any previous exploration to the `--out` parameter. In that case, exploration will start from the last known block and thus will take much less time.
+
+### Types generation
 
 After chain exploration is complete you can use `squid-substrate-typegen(1)` to generate required wrappers.
 
@@ -75,3 +54,5 @@ Where `typegen.json` config file has the following structure:
   ]
 }
 ```
+
+A type-safe definition for each and every version of the event will be generated. Most of the time, one should be able to infer a normalized interface together with some glue code to make it fit the runtime-specific versions. Head over to the page explaining [Typegen concepts](../key-concepts/typegen.md) for more clarity.
