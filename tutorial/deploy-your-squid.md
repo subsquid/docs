@@ -1,2 +1,55 @@
+---
+description: Launch a Squid node archive hosted in the Cloud by Subsquid
+---
+
 # Deploy your Squid
 
+Subsquid offers a Saas version of the query node, to further accelerate the development and reduce obstacles.
+
+The process is quite simple, but here's a step-by-step guide
+
+## Visit our website
+
+Head over to [app.subsquid.io](https://app.subsquid.io) and login with your [GitHub](https://github.com) account, by clicking on **Sign In**
+
+![Subsquid Saas homepage](<../.gitbook/assets/subsquid saas.png>)
+
+## Create your Squid
+
+Once logged in, a list of projects is presented. The first time it will be empty, so click on **Create squid** to start
+
+![Squid projects list](<../.gitbook/assets/subsquid saas1.png>)
+
+Fill in the form to provide details for the project and click **Next**
+
+![Squid creation form](<../.gitbook/assets/subsquid saas2.png>)
+
+## Deploy your code
+
+It is possible to create multiple deployments of a Squid project, called `versions`. To begin, create your first version, by following the provided steps
+
+![Create the first version for this project by following the indicated steps](<../.gitbook/assets/subsquid saas3.png>)
+
+With a couple of notes and clarifications:
+
+* It is actually better to fork or create a separate repository, rather than cloning the template. This will come in handy when developing and making changes
+* The URL to the GitHub repository, as well as the branch needs to be provided for the last command, by substituting `<github url>` and `<github branch>` and the same goes with `<squid_version>`, which is the version name for this deployment. For example:\
+  `sqd squid:release MassimoTest@one --source https://github.com/RaekwonIII/squid-template#main`
+
+## Check the deployed Squid
+
+The top of the page will change following the deployment of the first version. A line will appear, with multiple fields:
+
+* **version**: the name entered in the command for the deployment
+* **endpoint**: the URL of the GraphiQL console for this query node
+* **status**: for monitoring purposes.
+
+![Squid management panel](<../.gitbook/assets/subsquid saas4.png>)
+
+A version can be edited or destroyed by accessing the actions next to the status.
+
+Similarly, the Squid itself can be edited or deleted by accessing the actions next to the Squid name.
+
+## What's next?
+
+To learn how to create a new version, modify the template, build custom APIs for any Substrate chain, take a look at the dedicated [Tutorial](generate-typescript-definitions.md).
