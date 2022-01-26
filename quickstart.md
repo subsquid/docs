@@ -64,4 +64,4 @@ In a new terminal window
 npx squid-graphql-server
 ```
 
-For a tutorial on how to deploy your project to our Cloud-hosted&#x20;
+To learn how to deploy your project to our Cloud-hosted solution, head over to the dedicated [tutorial](tutorial/deploy-your-squid.md).

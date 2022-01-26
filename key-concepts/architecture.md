@@ -13,7 +13,7 @@ This is very useful for the vast majority of developers, as it adds a layer of a
 The Squid data pipeline consists of two core components:
 
 * **Squid Archive**: data source, can be shared by multiple query nodes
-* **Squid**: the data transformation part of the pipeline, a query node composed of ****&#x20;
+* **Squid**: the data transformation part of the pipeline, a query node composed of:
   * **Processor**: each node has one, but can have multiple, if connected to multiple chains
   * **Database**: A PostgreSQL database where processed data is stored
   * **GraphQL Server**: every query node comes with a gateway to present processed data
@@ -30,7 +30,7 @@ The GraphQL Server is a separate web server providing a GraphQL API (more on the
 
 A Squid is a query node for ingesting, transforming, and presenting Substrate blockchain data.
 
-A Squid replaces direct gRPC node access with more performant API calls toSquid Archive gateways, allowing bandwidth reduction and quick synchronization of the API with the historical on-chain data. It can be run locally, in a server, or deployed to the Cloud, thanks to our SaaS solution.
+A Squid replaces direct gRPC node access with more performant API calls to Squid Archive gateways, allowing bandwidth reduction and quick synchronization of the API with the historical on-chain data. It can be run locally, in a server, or deployed to the Cloud, thanks to our SaaS solution.
 
 Thanks to the Subsquid framework, it is possible to:
 

@@ -6,17 +6,11 @@ description: >-
 
 # Generate TypeScript definitions
 
-## Overview
+The intent of this page is to showcase the necessary commands, parameters, and configuration. Head over to the page explaining [Typegen concepts](../key-concepts/typegen.md) for more clarity.
 
-[Event](../key-concepts/substrate.md#events) and call data are ingested as raw untyped JSON by Processor mapping handlers. Not only it is unclear what the exact structure of a particular event or call is, but it can also rather frequently change over time.
+The generation of type-safe wrappers for events and calls is currently a two-step process.
 
-Runtime upgrades may change the event data and even the event logic altogether, but Squid gets you covered with first-class support for runtime upgrades.
-
-Subsquid SDK comes with a tool called **substrate metadata explorer** which makes it easy to keep track of all runtime upgrades happened so far. This can then be fed to a different tool called **typegen**, to generate type-safe, spec version-aware wrappers around events and calls.
-
-This is why the generation of type-safe wrappers for events and calls is currently a two-step process.
-
-### Chain exploration
+## Chain exploration
 
 First, you need to explore the chain to find blocks that introduce a new spec version and fetch corresponding metadata.
 
@@ -31,9 +25,9 @@ In the above command, the `--archive` parameter is optional, but it speeds up th
 
 You can pass the result of any previous exploration to the `--out` parameter. In that case, exploration will start from the last known block and thus will take much less time.
 
-### Types generation
+## Types generation
 
-After chain exploration is complete you can use `squid-substrate-typegen(1)` to generate required wrappers.
+After chain exploration is complete you can use `squid-substrate-typegen` to generate required wrappers.
 
 ```
 npx squid-substrate-typegen typegen.json
@@ -55,4 +49,4 @@ Where `typegen.json` config file has the following structure:
 }
 ```
 
-A type-safe definition for each and every version of the event will be generated. Most of the time, one should be able to infer a normalized interface together with some glue code to make it fit the runtime-specific versions. Head over to the page explaining [Typegen concepts](../key-concepts/typegen.md) for more clarity.
+A type-safe definition for each and every version of the event will be generated. Most of the time, one should be able to infer a normalized interface together with some glue code to make it fit the runtime-specific versions.

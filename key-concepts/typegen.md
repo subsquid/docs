@@ -1,10 +1,26 @@
+---
+description: >-
+  Squid Typegen is a code generation tool for creating Typescript types for
+  substrate Events and Extrinsics.
+---
+
 # Typegen
 
-Squid Typegen is a code generation tool for creating Typescript types for substrate [Events](substrate.md#events) and [Extrinsics](substrate.md#extrinsics).
+## Overview
 
-This comes in very handy when expressing the business logic, mapping Events and Extrinsics with database Entities defined in the GraphQL schema, because having Class wrappers around them makes it much easier to develop Event Handlers and manage multiple metadata versions of a blockchain.
+[Event](substrate.md#events) and call data are ingested as raw untyped JSON by Processor mapping handlers. Not only it is unclear what the exact structure of a particular event or call is, but it can also rather frequently change over time.
 
-If we take the example of the Kusama blockchain, specifically, we might be interested in the `'balance.Transfer'` event. The process (described in this [Tutorial](../tutorial/generate-typescript-definitions.md)) to generate wrapper classes needs to explore the entire history of the blockchain (which can be done thanks to the command) first. The `squid-substrate-metadata-explorer` will output something like this:
+Runtime upgrades may change the event data and even the event logic altogether, but Squid gets you covered with first-class support for runtime upgrades.
+
+This comes in very handy when expressing the business logic, mapping Events and Extrinsics with database Entities defined in the GraphQL schema because having Class wrappers around them makes it much easier to develop Event Handlers and manage multiple metadata versions of a blockchain.
+
+Subsquid SDK comes with a tool called `substrate metadata explorer` which makes it easy to keep track of all runtime upgrades happened so far. This can then be fed to a different tool called `typegen`, to generate type-safe, spec version-aware wrappers around events and calls.
+
+Let's look at an example.
+
+## Blockchain metadata
+
+If we take the example of the Kusama blockchain, specifically, we might be interested in the `'balance.Transfer'` event. In order to generate wrapper classes, the first thing to do is to explore the entire history of the blockchain and extract its metadata. The `squid-substrate-metadata-explorer` command (for more information on how to run it, head over to the [Tutorial](../tutorial/generate-typescript-definitions.md)) will write it to a file and it will look like this:
 
 ```json
 [
@@ -18,7 +34,9 @@ If we take the example of the Kusama blockchain, specifically, we might be inter
 ]
 ```
 
-Where the metadata field is cut for brevity, and the rest of the file is omitted. The point is that for every available [Runtime](substrate.md#runtime) version of the blockchain, some metadata is available to be decoded and explored, and this metadata contains the necessary information to process its Events and Extrinsics.
+Where the `metadata` field is cut, and the rest of the file is omitted for brevity. The point is that for every available [Runtime](substrate.md#runtime) version of the blockchain, some metadata is available to be decoded and explored, and this metadata contains the necessary information to process its Events and Extrinsics.
+
+## TypeScript class wrappers
 
 This is then used by the `typegen` command, to decode and interpret the metadata, and then use it to generate this TypeScript class:
 
@@ -76,7 +94,7 @@ export class BalancesTransferEvent {
 
 ```
 
-Which manages different metadata versions, including the starting hash for each of them and how to process (decode) the event itself.
+Which manages different runtime versions, including the starting hash for each of them and how to process (decode) the event itself.
 
 This is better explained in the section dedicated to the [Processor and Event mapping](processor.md), but, given the class definition for a `BalanceTransferEvent`, such a class can be used to handle events like this:
 
@@ -102,4 +120,4 @@ function getTransferEvent(ctx: EventHandlerContext): TransferEvent {
 }
 ```
 
-Where the event metadata version is checked and the metadata is extracted accordingly, making things a lot easier.
+Where upon processing an event, its metadata version is checked and the metadata is extracted accordingly, making things a lot easier.
