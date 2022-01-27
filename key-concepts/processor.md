@@ -20,70 +20,15 @@ The real Squid developer experience starts with defining their own data schema, 
 
 The definition of a schema, and specifically knowing what Entities to identify in it, requires a level of domain knowledge that is beyond the scope of this page. Refer to the related [Recipe ](../recipes/define-a-squid-schema.md)for operational guidance, but in this context, we will take the [squid template](https://github.com/subsquid/squid-template) as an example.
 
-In the template, the `Account` and `HistoricalBalance` have been defined in the `schema.graphql` and two TypeScript models have been automatically generated for them:
-
-{% code title="account.model.ts" %}
-```typescript
-import {Entity as Entity_, Column as Column_, PrimaryColumn as PrimaryColumn_, OneToMany as OneToMany_} from "typeorm"
-import * as marshal from "./marshal"
-import {HistoricalBalance} from "./historicalBalance.model"
-
-@Entity_()
-export class Account {
-  constructor(props?: Partial<Account>) {
-    Object.assign(this, props)
-  }
-
-  /**
-   * Account address
-   */
-  @PrimaryColumn_()
-  id!: string
-
-  @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-  balance!: bigint
-
-  @OneToMany_(() => HistoricalBalance, e => e.account)
-  historicalBalances!: HistoricalBalance[]
-}
-
-```
-{% endcode %}
-
-{% code title="historicalBalance.model.ts" %}
-```typescript
-import {Entity as Entity_, Column as Column_, PrimaryColumn as PrimaryColumn_, ManyToOne as ManyToOne_, Index as Index_} from "typeorm"
-import * as marshal from "./marshal"
-import {Account} from "./account.model"
-
-@Entity_()
-export class HistoricalBalance {
-  constructor(props?: Partial<HistoricalBalance>) {
-    Object.assign(this, props)
-  }
-
-  @PrimaryColumn_()
-  id!: string
-
-  @Index_()
-  @ManyToOne_(() => Account, {nullable: false})
-  account!: Account
-
-  @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-  balance!: bigint
-
-  @Column_("timestamp with time zone", {nullable: false})
-  date!: Date
-}
-
-```
-{% endcode %}
+In the template, the `Account` and `HistoricalBalance` have been defined in the `schema.graphql` and two TypeScript models have been automatically generated for them. These can be found in two files in `src/model/generated/`.
 
 Although not central to the description of the Processor, this is important because these Entities are the ones being impacted by the code defined in the Processor itself, and most importantly: they will be saved and persisted in the database and made available to API clients, via the GraphQL server.
 
 ## Processor customization
 
 The Processor customization starts with the `processor.ts` file, this is where a `SubstrateProcessor` is instantiated and configured.
+
+It's worth noticing that the `Account` and `HistoricalBalance` classes mentioned in the previous section are imported at the top of the file.
 
 ```typescript
 import * as ss58 from "@subsquid/ss58"
