@@ -61,7 +61,3 @@ Unsigned transactions are to be considered an exception, they are seldom used an
 An Event is a way for a Runtime to notify external entities such as users, chain explorers or dApps about changes or conditions in the runtime itself.
 
 For more information on how Events are defined, what information they can contain and when they are emitted, head over to the [official documentation about it](https://docs.substrate.io/v3/runtime/events-and-errors/).&#x20;
-
-
-
-## Why Substrate

@@ -34,7 +34,7 @@ With a couple of notes and clarifications:
 
 * It is actually better to fork or create a separate repository, rather than cloning the template. This will come in handy when developing and making changes
 * The URL to the GitHub repository, as well as the branch needs to be provided for the last command, by substituting `<github url>` and `<github branch>` and the same goes with `<squid_version>`, which is the version name for this deployment. For example:\
-  `sqd squid:release MassimoTest@one --source https://github.com/RaekwonIII/squid-template#main`
+  `sqd squid:release Test@one --source https://github.com/RaekwonIII/squid-template#main`
 
 ## Check the deployed Squid
 
@@ -52,4 +52,4 @@ Similarly, the Squid itself can be edited or deleted by accessing the actions ne
 
 ## What's next?
 
-To learn how to create a new version, modify the template, build custom APIs for any Substrate chain, take a look at the dedicated [Tutorial](generate-typescript-definitions.md).
+To learn how to create a new version, modify the template, build custom APIs for any Substrate chain, take a look at the dedicated [Tutorial](../recipes/generate-typescript-definitions.md).
