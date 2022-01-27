@@ -8,19 +8,21 @@ description: >-
 
 ## Overview
 
-[Event](substrate.md#events) and call data are ingested as raw untyped JSON by Processor mapping handlers. Not only it is unclear what the exact structure of a particular event or call is, but it can also rather frequently change over time.
+[Event](substrate.md#events) and [call](substrate.md#extrinsics) data are ingested as raw untyped JSON by the Processor. Not only it is unclear what the exact structure of a particular event or call is, but it can also rather frequently change over time.
 
 Runtime upgrades may change the event data and even the event logic altogether, but Squid gets you covered with first-class support for runtime upgrades.
 
-This comes in very handy when expressing the business logic, mapping Events and Extrinsics with database Entities defined in the GraphQL schema because having Class wrappers around them makes it much easier to develop Event Handlers and manage multiple metadata versions of a blockchain.
+This comes in very handy when expressing the business logic, mapping Events and Extrinsics with database Entities defined in the GraphQL schema. Having Class wrappers around them makes it much easier to develop Event or Extrinsic Handlers as well as pre or post-block "hooks" and manage multiple metadata versions of a blockchain.
 
-Subsquid SDK comes with a tool called `substrate metadata explorer` which makes it easy to keep track of all runtime upgrades happened so far. This can then be fed to a different tool called `typegen`, to generate type-safe, spec version-aware wrappers around events and calls.
+Subsquid SDK comes with a CLI tool called `substrate metadata explorer` which makes it easy to keep track of all runtime upgrades within a certain blockchain. This can then be provided to a different CLI tool called `typegen`, to generate type-safe, spec version-aware wrappers around events and calls.
 
-Let's look at an example.
+Let's take the [squid template](https://github.com/subsquid/squid-template) as an example.
 
 ## Blockchain metadata
 
-If we take the example of the Kusama blockchain, specifically, we might be interested in the `'balance.Transfer'` event. In order to generate wrapper classes, the first thing to do is to explore the entire history of the blockchain and extract its metadata. The `squid-substrate-metadata-explorer` command (for more information on how to run it, head over to the [Tutorial](../tutorial/generate-typescript-definitions.md)) will write it to a file and it will look like this:
+The template is configured to explore the Kusama blockchain, specifically processing the `'balance.Transfer'` event.
+
+In order to generate wrapper classes, the first thing to do is to explore the entire history of the blockchain and extract its metadata. The `squid-substrate-metadata-explorer` command (for more information on how to run it, head over to the [Recipe](../recipes/generate-typescript-definitions.md)) will write it to a file and it will look like this:
 
 ```json
 [
@@ -34,13 +36,13 @@ If we take the example of the Kusama blockchain, specifically, we might be inter
 ]
 ```
 
-Where the `metadata` field is cut, and the rest of the file is omitted for brevity. The point is that for every available [Runtime](substrate.md#runtime) version of the blockchain, some metadata is available to be decoded and explored, and this metadata contains the necessary information to process its Events and Extrinsics.
+Where the `metadata` field is cut here, and the rest of the file is omitted for brevity, but there are multiple objects such as this one in this relatively large file. The point is that for every available [Runtime](substrate.md#runtime) version of the blockchain, some metadata is available to be decoded and explored, and this metadata contains the necessary information to process its Events and Extrinsics.
 
 ## TypeScript class wrappers
 
-This is then used by the `typegen` command, to decode and interpret the metadata, and then use it to generate this TypeScript class:
+This file is then used by the `typegen` command (again, look at the [Recipe](../recipes/generate-typescript-definitions.md) for how to configure it and run it), to decode and interpret the metadata, and then use that to generate this TypeScript class:
 
-```javascript
+```typescript
 export class BalancesTransferEvent {
   constructor(private ctx: EventContext) {
     assert(this.ctx.event.name === 'balances.Transfer')
@@ -98,7 +100,7 @@ Which manages different runtime versions, including the starting hash for each o
 
 This is better explained in the section dedicated to the [Processor and Event mapping](processor.md), but, given the class definition for a `BalanceTransferEvent`, such a class can be used to handle events like this:
 
-```javascript
+```typescript
 processor.addEventHandler('balances.Transfer', async ctx => {
     let transfer = getTransferEvent(ctx)
     // ...
@@ -120,4 +122,8 @@ function getTransferEvent(ctx: EventHandlerContext): TransferEvent {
 }
 ```
 
-Where upon processing an event, its metadata version is checked and the metadata is extracted accordingly, making things a lot easier.
+Where, upon processing an event, its metadata version is checked and the metadata is extracted accordingly, making things a lot easier.
+
+## What's next?
+
+Head over to the [Processor](processor.md) page, for more information on how processing Events impacts database Entities.
