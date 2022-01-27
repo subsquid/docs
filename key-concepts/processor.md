@@ -20,25 +20,7 @@ The real Squid developer experience starts with defining their own data schema, 
 
 The definition of a schema, and specifically knowing what Entities to identify in it, requires a level of domain knowledge that is beyond the scope of this page. Refer to the related [Recipe ](../recipes/define-a-squid-schema.md)for operational guidance, but in this context, we will take the [squid template](https://github.com/subsquid/squid-template) as an example.
 
-In it, the `Account` and `HistoricalBalance` have been defined in the `schema.graphql`:&#x20;
-
-```graphql
-type Account @entity {
-  "Account address"
-  id: ID!
-  balance: BigInt!
-  historicalBalances: [HistoricalBalance!] @derivedFrom(field: "account")
-}
-
-type HistoricalBalance @entity {
-  id: ID!
-  account: Account!
-  balance: BigInt!
-  date: DateTime!
-}
-```
-
-The code generation process described here leads to auto-generated TypeScript models:
+In the template, the `Account` and `HistoricalBalance` have been defined in the `schema.graphql` and two TypeScript models have been automatically generated for them:
 
 {% code title="account.model.ts" %}
 ```typescript
@@ -193,12 +175,10 @@ function getTransferEvent(ctx: EventHandlerContext): TransferEvent {
 
 This code attaches an asynchronous function to the processor, that, similarly to a pub-sub system, gets triggered when the `'balances.Transfer'` event is encountered.
 
-The business logic itself is not relevant for the scope of this page, what's worth noting is that `ctx` is the `BlockHandlerContext`, which stores not only information about the block itself, but the `Store`, which in this case is the database, so when this line is executed:
+The business logic itself is not relevant for the scope of this page, what's worth noting is that `ctx` is the `BlockHandlerContext`, which stores not only information about the block itself, but the `Store`, which in this case is the database, so when the following line is executed, the `Account` Entity is created or updated with the relevant information.
 
 ```typescript
     await ctx.store.save(fromAcc)
 ```
-
-The `Account` Entity is created or updated with the relevant information.
 
 The logic in the `getTransferEvent` and how it is tied to the `BalancesTransferEvent` wrapper for an event has been described in [the previous section](typegen.md) but has been reported here because the added context might further clarify it.
