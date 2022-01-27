@@ -1,10 +1,11 @@
 ---
-description: Guide on how to migrate to Squid v5 from previous version
+description: >-
+  Version 5 of Squid introduced many changes, and a good part of them are not
+  retro-compatible, so some actions are required to update and make sure the
+  project still runs as it's supposed to.
 ---
 
 # Migrate to v5
-
-Version 5 of Squid introduced many changes, and a good part of them are not retro-compatible, so some actions are required to update and make sure the project still runs as it's supposed to.
 
 ## Package update
 
@@ -63,7 +64,7 @@ However, the newest version brings massive upgrades to types. Now it can automat
 
 For this reason, it is recommended to replace the old types with new ones.
 
-The process to generate types is explained in the [dedicated tutorial](../tutorial/generate-typescript-definitions.md) and details about type bundles can be found in the [Cheatsheet](broken-reference).
+The process to generate types is explained in the [dedicated tutorial](generate-typescript-definitions.md) and details about type bundles can be found in the [Cheatsheet](broken-reference).
 
 ## Mappings
 
@@ -72,25 +73,25 @@ One more thing to do is to update package paths and names in the codebase.
 Furthermore, `manifest.yml` is no longer used. The typegen section contained in it has been transferred to the `typegen.json` file as mentioned in the previous section.\
 The other part, referring to mappings, now uses the logic of the processor class.
 
-Instead of specifying the necessary parameters in `manifest.yml`, you should define a processor object and set them there. Here is [an example](https://github.com/subsquid/squid-template/blob/main/src/processor.ts), let's go through it:
+Instead of specifying the necessary parameters in `manifest.yml`, you should define a processor object and set them there (for more information head to the [conceptual guide on the subject](../key-concepts/processor.md)). Here is [an example](https://github.com/subsquid/squid-template/blob/main/src/processor.ts), let's go through it:
 
 #### Initialization
 
 The parameter passed is a custom name
 
-```javascript
+```typescript
 const processor = new SubstrateProcessor('kusama_balances')
 ```
 
 #### Setting the number of blocks per request to be processed
 
-```javascript
+```typescript
 processor.setBatchSize(500)
 ```
 
 #### Setting Squid Archive and chain addresses:
 
-```
+```typescript
 processor.setDataSource({
     archive: 'https://kusama.indexer.gc.subsquid.io/v4/graphql', 
     chain: 'wss://kusama-rpc.polkadot.io'
@@ -99,26 +100,26 @@ processor.setDataSource({
 
 Moreover, you can set demanded range of blocks with:&#x20;
 
-```
+```typescript
 processor.setBlockRange({from: , to: })
 ```
 
 #### Add events and extrinsic handlers or pre/postBlock hooks, using:
 
-```
+```typescript
 processor.addEventHandler(eventName, fn)
 processor.addExtrinsicHandler(extrinsicName, fn)
 ```
 
 The function `fn` can be one of the existing handlers. For example:
 
-```
+```typescript
 processor.addEventHandler('balances.Transfer', ctx => balancesTransfer(ctx));
 ```
 
 Where `balancesTransfer(ctx)` is the previously existing handler, as defined:
 
-```
+```typescript
 export async function balancesTransfer({ 
     store, 
     event, 
@@ -131,13 +132,13 @@ export async function balancesTransfer({
 
 However, it’s recommended to modify the event arguments handling inside the function according to new type processing. From the example linked above, it should go from this:
 
-```
+```typescript
 const [from, to, value] = new Balances.TransferEvent(event).params;
 ```
 
 To this:
 
-```
+```typescript
 function getTransferEvent(ctx: EventHandlerContext): TransferEvent { 
     let event = new BalancesTransferEvent(ctx)
     if (event.isV1020) { 
