@@ -21,7 +21,7 @@ A [Squid Archive](architecture.md#squid-archive) is set up to continuously scan 
 
 In the context of a Squid query node, a Processor is responsible to get data from a Squid Archive, transform it, and store it in the database.
 
-The GraphQL Server is a separate web server providing a GraphQL API (more on the [official website](https://graphql.org)) for the entities in the data store.&#x20;
+The GraphQL Server is a separate web server providing a GraphQL API (more on the [official website](https://graphql.org)) for the entities in the data store.
 
 ### Squid
 
@@ -37,7 +37,7 @@ Thanks to the Subsquid framework, it is possible to:
 
 * define the [database schema](../recipes/define-a-squid-schema.md), [data type, and entity definitions](../recipes/generate-typescript-definitions.md)
 * transform and store chain data efficiently
-* present it thanks to the included [GraphQL server](broken-reference)
+* present it thanks to the included [GraphQL server](https://github.com/subsquid/docs/blob/v5/key-concepts/broken-reference/README.md)
 
 Subsquid provides developers with a high-level GraphQL-like schema and codegen tools to model blockchain data with Entities and define data types.
 
