@@ -31,15 +31,17 @@ A Squid is a query node for transforming, and presenting Substrate blockchain da
 * **Database**: A PostgreSQL database where processed data is stored
 * **GraphQL Server**: every query node comes with a gateway to present processed data
 
-A Squid replaces direct gRPC node access with more performant API calls to Squid Archive gateways, allowing bandwidth reduction and quick synchronization of the API with the historical on-chain data. It can be run locally, in a server, or deployed to the Cloud, thanks to our SaaS solution.
+A Squid replaces direct gRPC node access with more performant API calls to Squid Archive gateways, allowing bandwidth reduction and quick synchronization of the API with the historical on-chain data. It can be run locally, in a server, or deployed to the Cloud, thanks to [our SaaS solution](../tutorial/deploy-your-squid.md).
 
 Thanks to the Subsquid framework, it is possible to:
 
 * define the [database schema](../recipes/define-a-squid-schema.md), [data type, and entity definitions](../recipes/generate-typescript-definitions.md)
 * transform and store chain data efficiently
-* present it thanks to the included [GraphQL server](https://github.com/subsquid/docs/blob/v5/key-concepts/broken-reference/README.md)
+* present it thanks to the included GraphQL server
 
-Subsquid provides developers with a high-level GraphQL-like schema and codegen tools to model blockchain data with Entities and define data types.
+Subsquid provides developers with a high-level GraphQL-like schema and codegen tools to model blockchain data with Entities. One of the advantages is the removal of boilerplate code to unbox, but the main one is certainly the elimination of incorrect data types due to wrong decoding, missing parameters.
+
+What's even more important, when handling unstructured data from events, the data format may change from one block to the next one, due to runtime upgrades, and without type safety and automation guaranteed by typegen, managing these alterations would be a nightmare.
 
 The Processor extracts data from a Squid Archive Endpoint and does Transform-Load operations, saving to the database. The transform-load logic is fully custom and defined by the developer.
 
