@@ -53,6 +53,8 @@ The API requests are resolved by the GraphQL server by sourcing data from the Pr
 
 A Squid Archive is responsible for continuously ingesting raw data from the blockchain, decoding it, and saving it in a database for easier access through GraphQL APIs.
 
+![](<../.gitbook/assets/Squid Archive components.png>)
+
 It includes the following components and services:
 
 * Substrate archive
