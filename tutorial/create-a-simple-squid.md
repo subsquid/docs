@@ -34,7 +34,7 @@ git clone git@github.com:<account>/squid-template.git
 
 Next, just follow the [Quickstart](../quickstart.md) to get the project up and running, here's a list of commands to run in quick succession:
 
-```
+```bash
 npm ci
 npm run build
 docker compose up -d
@@ -51,6 +51,10 @@ Bear in mind this is not strictly **necessary**, but it is always useful to chec
 For this specific project, we will need to install a new dependency since the [type definitions](../faq/where-do-i-get-a-type-bundle-for-my-chain.md) for the Crust blockchain are implemented in the `@crustio/types-definition` package.
 
 Navigate to the repository's root window in a command line console and install it.
+
+```
+npm i @crustio/types-definition
+```
 
 ![Install Crust type definition](https://i.gyazo.com/e135e7aa19b6217d1b701df8f51a91d2.gif)
 
@@ -114,7 +118,7 @@ This all requires some implicit knowledge of the blockchain itself ([here's a ti
 
 To finalize this step, it is necessary to run the `codegen` tool, to generate TypeScript Entity classes for our schema definition:
 
-```
+```bash
 npx sqd codegen
 ```
 
@@ -124,7 +128,7 @@ The process to generate wrappers around TypeScript wrappers around Events and Ex
 
 What matters in the context of this tutorial, is to pay attention to the `chain`, `archive` and `out` parameters, which refer to the related WebSocket address of the Crust blockchain, the Squid Archive synchronized with it (this is optional, but helps speed up the process) and the output file simply contains the chain name as a good naming convention (this is useful in case of multiple chains handled in the same project or folder).
 
-```
+```bash
 npx squid-substrate-metadata-explorer \
 		--chain wss://rpc-crust-mainnet.decoo.io \
 		--archive https://crust.indexer.gc.subsquid.io/v4/graphql \
@@ -158,7 +162,7 @@ Similar to what's been said in the previous chapter, this requires knowledge of 
 
 And finally, run the command to generate type-safe TypeScript wrappers around the metadata
 
-```
+```bash
 npx squid-substrate-typegen typegen.json
 ```
 
@@ -438,13 +442,13 @@ Squid project automatically manages the database connection and schema, via an [
 
 First, we need to get rid of the template's default migration:
 
-```
+```bash
 rm -rf db/migrations/*.js
 ```
 
 Then, make sure the Postgres docker container is running, in order to have a database to connect to, and run the following commands:
 
-```
+```bash
 npx sqd db drop
 npx sqd db create
 npx sqd db create-migration Init
@@ -461,3 +465,36 @@ These will, in order:
 
 ![A migration has been applied to the database](https://i.gyazo.com/ee22b66e2f876a09d34a12c341d4cd65.gif)
 
+## Launch the project
+
+It's finally time to run the processor
+
+```bash
+node -r dotenv/config lib/processor.js
+```
+
+Launch the GraphQL server (in a separate command line console window)
+
+```
+npx squid-graphql-server
+```
+
+And see the results for ourselves the result of our hard work, by visiting the `localhost:3000` URL in a browser:
+
+TODO add screenshot
+
+From here, we can perform queries such as this one, to find which files have been added or deleted by an account:
+
+```graphql
+query AccountFiles{
+  accountById(id: <accountID>) {
+    workReports {
+      addedFiles
+      deletedFiles
+    }
+  }
+}
+
+```
+
+It is advisable to search for an Account first and grab its ID.
