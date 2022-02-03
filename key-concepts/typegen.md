@@ -8,11 +8,11 @@ description: >-
 
 ## Overview
 
-[Event](substrate.md#events) and [call](substrate.md#extrinsics) data are ingested as raw untyped JSON by the Processor. Not only it is unclear what the exact structure of a particular event or call is, but it can also rather frequently change over time.
+[Event](substrate.md#events) and [call](substrate.md#extrinsics) data are ingested as raw untyped JSON by the Processor. Not only is it unclear what the exact structure of a particular event or call is but, rather frequently, it can change over time.
 
-Runtime upgrades may change the event data and even the event logic altogether, but Squid gets you covered with first-class support for runtime upgrades.
+Runtime upgrades may change the event data and even the event logic altogether. Fortunately, Squid has got you covered with first-class support for runtime upgrades.
 
-This comes in very handy when expressing the business logic, mapping Events and Extrinsics with database Entities defined in the GraphQL schema. Having Class wrappers around them makes it much easier to develop Event or Extrinsic Handlers as well as pre or post-block "hooks" and manage multiple metadata versions of a blockchain.
+This comes in very handy when expressing business logic, mapping Events, and Extrinsics with database Entities defined in the GraphQL schema. Having Class wrappers around them makes it much easier to develop Event or Extrinsic Handlers, as well as pre- or post-block "hooks" and manage multiple metadata versions of a blockchain.
 
 Subsquid SDK comes with a CLI tool called `substrate metadata explorer` which makes it easy to keep track of all runtime upgrades within a certain blockchain. This can then be provided to a different CLI tool called `typegen`, to generate type-safe, spec version-aware wrappers around events and calls.
 
@@ -22,7 +22,7 @@ Let's take the [squid template](https://github.com/subsquid/squid-template) as a
 
 The template is configured to explore the Kusama blockchain, specifically processing the `'balance.Transfer'` event.
 
-In order to generate wrapper classes, the first thing to do is to explore the entire history of the blockchain and extract its metadata. The `squid-substrate-metadata-explorer` command (for more information on how to run it, head over to the [Recipe](../recipes/generate-typescript-definitions.md)) will write it to a file and it will look like this:
+In order to generate wrapper classes, the first thing to do is to explore the entire history of the blockchain and extract its metadata. The `squid-substrate-metadata-explorer` command (for more information on how to run it, head over to this [Recipe](../recipes/generate-typescript-definitions.md)) will write it to a file. It will look like this:
 
 ```json
 [
@@ -40,7 +40,7 @@ Where the `metadata` field is cut here, and the rest of the file is omitted for 
 
 ## TypeScript class wrappers
 
-This file is then used by the `typegen` command (again, look at the [Recipe](../recipes/generate-typescript-definitions.md) for how to configure it and run it), to decode and interpret the metadata, and then use that to generate this TypeScript class:
+This file is then used by the `typegen` command (again, look at the [Recipe](../recipes/generate-typescript-definitions.md) for how to configure and run it) to decode and interpret the metadata, and then uses that to generate this TypeScript class:
 
 ```typescript
 export class BalancesTransferEvent {
@@ -93,12 +93,11 @@ export class BalancesTransferEvent {
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 }
-
 ```
 
-Which manages different runtime versions, including the starting hash for each of them and how to process (decode) the event itself.
+This manages different runtime versions, including the starting hash for each and instructions for how to process (decode) the event itself.
 
-This is better explained in the section dedicated to the [Processor and Event mapping](processor.md), but, given the class definition for a `BalanceTransferEvent`, such a class can be used to handle events like this:
+All of this is better explained in the section dedicated to the [Processor and Event mapping](processor.md), but, given the class definition for a `BalanceTransferEvent`, such a class can be used to handle events such as this:
 
 ```typescript
 processor.addEventHandler('balances.Transfer', async ctx => {
@@ -122,7 +121,7 @@ function getTransferEvent(ctx: EventHandlerContext): TransferEvent {
 }
 ```
 
-Where, upon processing an event, its metadata version is checked and the metadata is extracted accordingly, making things a lot easier.
+Where, upon processing an event, its metadata version is checked, and the metadata is extracted accordingly, making things a lot easier.
 
 ## What's next?
 
