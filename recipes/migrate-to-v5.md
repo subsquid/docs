@@ -58,13 +58,13 @@ Also, `Dockerfile` , `docker-compose.yml`, `.env`, files should be replaced with
 
 ## Types update (optional but recommended)
 
-Just as with the previous version, it is possible to circumvent the `typegen`  feature and parse all received JSON documents manually.
+Just as with the previous version, it is possible to circumvent the `typegen` feature and parse all received JSON documents manually.
 
 However, the newest version brings massive upgrades to types. Now it can automatically create different types for the same event, depending on the spec version, preventing future crashes and bugs.
 
 For this reason, it is recommended to replace the old types with new ones.
 
-The process to generate types is explained in the [dedicated tutorial](generate-typescript-definitions.md) and details about type bundles can be found in the [Cheatsheet](broken-reference).
+The process to generate types is explained in the [dedicated tutorial](generate-typescript-definitions.md) and details about type bundles can be found in the [Cheatsheet](../faq/where-do-i-get-a-type-bundle-for-my-chain.md).
 
 ## Mappings
 
@@ -98,7 +98,7 @@ processor.setDataSource({
 })
 ```
 
-Moreover, you can set demanded range of blocks with:&#x20;
+Moreover, you can set demanded range of blocks with:
 
 ```typescript
 processor.setBlockRange({from: , to: })

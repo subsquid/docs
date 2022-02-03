@@ -9,6 +9,7 @@
   * [Processor](key-concepts/processor.md)
 * [Tutorial](tutorial/README.md)
   * [Development Environment set up](tutorial/development-environment-set-up.md)
+  * [Create a simple Squid](tutorial/create-a-simple-squid.md)
   * [GraphQL](tutorial/graphql/README.md)
     * [Queries](tutorial/graphql/queries.md)
     * [Paginate query results](tutorial/graphql/paginate-query-results.md)
