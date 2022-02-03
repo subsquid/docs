@@ -15,7 +15,7 @@ The Squid data pipeline consists of two core components:
 * **Squid Archive**: data source, can be shared by multiple query nodes
 * **Squid**: the data transformation part of the pipeline
 
-![Squid and Squid Archive are the main components](<../.gitbook/assets/Squid Architecture diagram.png>)
+![Squid and Squid Archive are the main components](<../.gitbook/assets/Squid Architecture.png>)
 
 A [Squid Archive](architecture.md#squid-archive) is set up to continuously scan the blockchain it was developed for, process blocks, and save them in a database, along with [Events](substrate.md#events) and [Extrinsics](substrate.md#extrinsics) defined for that specific blockchain.
 
@@ -53,7 +53,7 @@ The API requests are resolved by the GraphQL server by sourcing data from the Pr
 
 A Squid Archive is responsible for continuously ingesting raw data from the blockchain, decoding it, and saving it in a database for easier access through GraphQL APIs.
 
-![](<../.gitbook/assets/Squid Archive components.png>)
+![](<../.gitbook/assets/Squid Archive components (1).png>)
 
 It includes the following components and services:
 
