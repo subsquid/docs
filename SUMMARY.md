@@ -17,7 +17,7 @@
   * [Deploy your Squid](tutorial/deploy-your-squid.md)
 * [Recipes](recipes/README.md)
   * [Migrate to v5](recipes/migrate-to-v5.md)
-  * [How to launch a Squid Archive](recipes/how-to-launch-a-squid-archive.md)
+  * [How to launch an Archive](recipes/how-to-launch-a-squid-archive.md)
   * [Generate TypeScript definitions](recipes/generate-typescript-definitions.md)
   * [Define a Squid Schema](recipes/define-a-squid-schema.md)
 * [Reference](reference/README.md)
