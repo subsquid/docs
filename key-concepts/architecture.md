@@ -12,16 +12,38 @@ This is very useful for the vast majority of developers, as it adds a layer of a
 
 The Squid data pipeline consists of two core components:
 
-* **Squid Archive**: data source, can be shared by multiple query nodes
+* **Archive**: data source, can be shared by multiple query nodes
 * **Squid**: the data transformation part of the pipeline
 
-![Squid and Squid Archive are the main components](<../.gitbook/assets/Squid Architecture.png>)
+![Squid and Archive are the main components](<../.gitbook/assets/Squid Architecture.png>)
 
-A [Squid Archive](architecture.md#squid-archive) is set up to continuously scan the blockchain it was developed for, process blocks, and save them in a database, along with [Events](substrate.md#events) and [Extrinsics](substrate.md#extrinsics) defined for that specific blockchain.
+A[ Archive](architecture.md#squid-archive) is set up to continuously scan the blockchain it was developed for, process blocks, and save them in a database, along with [Events](substrate.md#events) and [Extrinsics](substrate.md#extrinsics) defined for that specific blockchain.
 
-In the context of a Squid query node, a Processor is responsible to get data from a Squid Archive, transform it, and store it in the database.
+In the context of a Squid query node, a Processor is responsible to get data from an Archive, transform it, and store it in the database.
 
 The GraphQL Server is a separate web server providing a GraphQL API (more on the [official website](https://graphql.org)) for the entities in the data store.
+
+### Archive
+
+Archives should not be confused with [Archive nodes](https://wiki.polkadot.network/docs/maintain-sync#types-of-nodes), although the concept is pretty similar, since both preserve the full blockchain history, without any pruning. The difference is that our Archives are special services, with specific endpoints, tailored for data retrieval.
+
+An Archive is responsible for continuously ingesting raw data from the blockchain, decoding it, and saving it in a database for easier access through GraphQL APIs. Its main purpose is to provide a service, to be a high-performance, higher level data source for Squid(s).
+
+An Archive includes the following components and services:
+
+* Substrate archive
+* Postgres database
+* Redis data storage
+* Status service
+* GraphQL Gateway
+
+![Archive components diagram](<../.gitbook/assets/Squid Archive components (1).png>)
+
+Ultimately, the Substrate Archive extracts Block Information, [Events](substrate.md#events), and [Extrinsics](substrate.md#extrinsics), then writes them to a Postgres database, while the status updates are saved in a Redis key-value database. Archived data is available for clients' queries, thanks to a GraphQL server running as part of every Squid Archive node.
+
+An Archive can be shared by multiple Squids, which means it is possible to segment how data is presented, based on the user's needs, without having to replicate the data source.
+
+To launch your own Archive for a particular Blockchain, head over to [our dedicated page](../recipes/how-to-launch-a-squid-archive.md) on the topic.
 
 ### Squid
 
@@ -31,7 +53,7 @@ A Squid is a query node for transforming and presenting Substrate blockchain dat
 * **Database**: a PostgreSQL database where processed data is stored
 * **GraphQL Server**: every query node comes with a gateway to present processed data
 
-A Squid replaces direct gRPC node access with more performant API calls to Squid Archive gateways, allowing bandwidth reduction and quick synchronization of the API with the historical on-chain data. It can be run locally, on a server, or deployed to the Cloud using [our SaaS solution](../tutorial/deploy-your-squid.md).
+A Squid replaces direct gRPC node access with more performant API calls to Archive gateways, allowing bandwidth reduction and quick synchronization of the API with the historical on-chain data. It can be run locally, on a server, or deployed to the Cloud using [our SaaS solution](../tutorial/deploy-your-squid.md).
 
 Thanks to the Subsquid framework, it is possible to:
 
@@ -41,30 +63,11 @@ Thanks to the Subsquid framework, it is possible to:
 
 Subsquid provides developers with a high-level GraphQL-like schema and codegen tools to model blockchain data with Entities. One of the advantages, here, is the removal of boilerplate code to unbox. A more significant advantage is certainly the elimination of incorrect data types due to wrong decoding and missing parameters.
 
-Even more importantly, when handling unstructured data from events, the data format may change from one block to the next, due to runtime upgrades. Without type safety and automation guaranteed by typegen, managing these alterations would be a nightmare.
+Even more importantly, when handling unstructured data from events, the data format may change from one block to the next, due to runtime upgrades. Without type safety and automation guaranteed by [typegen](typegen.md), managing these alterations would be a nightmare.
 
-The Processor extracts data from a Squid Archive Endpoint and does Transform-Load operations, saving it to the database. The transform-load logic is fully custom and defined by the developer.
+The Processor extracts data from an Archive Endpoint and does Transform-Load operations, saving it to the database. The transform-load logic is fully custom and defined by the developer.
 
 Once the schema and the mappings are set up, and the node is launched, it will start the continuous scan of the blockchain, processing the events through the Event handlers and updating the entities in the database.
 
 The API requests are resolved by the GraphQL server by sourcing data from the Processor database. [OpenCRUD](https://www.opencrud.org) filtering, entity relations, pagination, and text queries are supported out-of-the-box by the API.
 
-### Squid archive
-
-A Squid Archive is responsible for continuously ingesting raw data from the blockchain, decoding it, and saving it in a database for easier access through GraphQL APIs.
-
-![](<../.gitbook/assets/Squid Archive components (1).png>)
-
-It includes the following components and services:
-
-* Substrate archive
-* Postgres database
-* Redis
-* Status service
-* GraphQL Gateway
-
-Ultimately, the Substrate Archive extracts Block Information, [Events](substrate.md#events), and [Extrinsics](substrate.md#extrinsics), then writes them to a Postgres Database, while the status updates are saved in a Redis cache. Archived data is available for clients' queries, thanks to a GraphQL server running as part of every Squid Archive node.
-
-A Squid Archive can be shared by multiple Squids, which means it is possible to segment how data is presented, based on the user's needs, without having to replicate the data source.
-
-To launch your own Squid Archive for a particular Blockchain, head over to [our dedicated page](../recipes/how-to-launch-a-squid-archive.md) on the topic.
