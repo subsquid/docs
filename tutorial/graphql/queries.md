@@ -65,7 +65,7 @@ Please look at the cross-filters documentation.
 
 You can use the `where` argument in your queries to filter results based on some field’s values. You can even use multiple filters in the same where clause using the `AND` or the `OR` operators.
 
-For example, to fetch data for `Joy Channel`:
+For example, to fetch data for a channel named `Joy Channel`:
 
 ```graphql
 query {
