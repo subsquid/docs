@@ -24,13 +24,13 @@ The first thing to do, although it might sound trivial to GitHub experts, is to 
 
 ![How to fork a repository on GitHub](<../.gitbook/assets/Screenshot 2022-02-02 111440.png>)
 
-Next, clone the created repository (be careful of changing `<account>` with your own account
+Next, clone the created repository (be careful of changing `<account>` with your own account)
 
 ```
 git clone git@github.com:<account>/squid-template.git
 ```
 
-For reference on the complete work, you can find the entire project [here](https://github.com/RaekwonIII/squid-template).
+For reference on the complete work, you can find the entire project [here](https://github.com/RaekwonIII/squid-template/tree/crust-integration-demo).
 
 ### Run the project
 
@@ -124,7 +124,7 @@ To finalize this step, it is necessary to run the `codegen` tool, to generate Ty
 npx sqd codegen
 ```
 
-## Generate TypeScript types
+## Generate TypeScript interfaces
 
 The process to generate wrappers around TypeScript wrappers around Events and Extrinsics has a [dedicated page](../key-concepts/typegen.md) to explain it and a quick [Recipe](../recipes/generate-typescript-definitions.md) to guide you through it, so it is advised to consult them for more information.
 
@@ -322,7 +322,6 @@ Similar to what's been said in the previous chapter, this requires knowledge of 
   ],
   "calls": []
 }
-
 ```
 {% endcode %}
 
@@ -415,7 +414,6 @@ export class SworkWorksReportSuccessEvent {
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 }
-
 ```
 {% endcode %}
 
@@ -438,11 +436,11 @@ processor.setDataSource({
     archive: 'https://crust.indexer.gc.subsquid.io/v4/graphql',
     chain: 'wss://rpc-crust-mainnet.decoo.io'
 });
-processor.setBlockRange({from: 583000}); // this is the starting block for exploring the change, please don't mind it.
+processor.setBlockRange({from: 583000}); // this is the starting block for exploring the chain, please don't mind it.
 processor.setTypesBundle(crustTypes);
 ```
 
-Next,  because the added and deleted files are matrices, we are going to declare a function to handle that, for our own convenience. Simply add this code to the `src/processor.ts` file, anywhere.
+Next, because the added and deleted files are matrices, we are going to declare a function to handle that, for our own convenience. Simply add this code to the `src/processor.ts` file, anywhere.
 
 ```typescript
 function stringifyArray(list: any[]): any[] {
@@ -668,7 +666,6 @@ async function getOrCreate<T extends {id: string}>(
 type EntityConstructor<T> = {
     new (...args: any[]): T
 }
-
 ```
 {% endcode %}
 
@@ -738,7 +735,6 @@ query AccountFiles{
     }
   }
 }
-
 ```
 
 It is advisable to search for an Account first and grab its ID.

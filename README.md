@@ -1,5 +1,7 @@
 ---
 description: Introducing Subsquid, a GraphQL query node for substrate chains.
+cover: .gitbook/assets/discord-1584x200.png
+coverY: 0
 ---
 
 # Overview

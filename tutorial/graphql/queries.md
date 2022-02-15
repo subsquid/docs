@@ -65,7 +65,7 @@ Please look at the cross-filters documentation.
 
 You can use the `where` argument in your queries to filter results based on some field’s values. You can even use multiple filters in the same where clause using the `AND` or the `OR` operators.
 
-For example, to fetch data for `Joy Channel`:
+For example, to fetch data for a channel named `Joy Channel`:
 
 ```graphql
 query {
@@ -164,47 +164,6 @@ query Query2 {
   videos(where: { title_endsWith: "cryptocurrency" }) {
     id
     title
-  }
-}
-```
-
-#### **Using multiple filters in the same query (`AND`, `OR`)**
-
-You can group multiple parameters in the same where argument using the `AND` or the `OR` operators to filter results based on more than one criteria.
-
-Example `AND`:
-
-Fetch a list of videos published in a specific time-frame:
-
-```graphql
-query {
-  videos(
-    where: {
-      AND: [
-        { publishedOn_gte: "2021-01-05" }
-        { publishedOn_lte: "2020-01-05" }
-      ]
-    }
-  ) {
-    id
-    title
-    publishedOn
-  }
-}
-```
-
-Example `OR`:
-
-Fetch a list of videos that are **either** explicit, **or** published after 05/01/2021:
-
-```graphql
-query {
-  videos(
-    where: { OR: [{ publishedOn_gte: "2021-01-05" }, { isExplicit_eq: true }] }
-  ) {
-    id
-    title
-    isExplicit
   }
 }
 ```
