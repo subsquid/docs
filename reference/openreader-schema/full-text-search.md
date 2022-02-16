@@ -4,9 +4,9 @@ description: How to define a schema that allows full text search across fields
 
 # Full text search
 
-The last Directive implemented in OpenReader this reference is discussing is `@fulltext`.
+On top of other Directives implemented in OpenReader defined in the previous page, there is one that might deserve a special mention.
 
-This particular annotation can only be applied to `String` Scalar fields and will allow queries to search some text in the entire field.
+The `@fulltext` annotation can only be applied to `String` Scalar fields and will allow queries to search some text in the entire field.
 
 Let's take a look at a very simple schema making use of this:
 
