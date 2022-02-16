@@ -4,9 +4,9 @@ description: How to define a schema that allows full text search across fields
 
 # Full text search
 
-The last Directive implemented in OpenReader this reference is discussing is `@fulltext`.
+On top of other Directives implemented in OpenReader defined in the previous page, there is one that might deserve a special mention.
 
-This particular annotation can only be applied to `String` Scalar fields and will allow queries to search some text in the entire field.
+The `@fulltext` annotation can only be applied to `String` Scalar fields and will allow queries to search some text in the entire field.
 
 Let's take a look at a very simple schema making use of this:
 
@@ -38,7 +38,7 @@ type Account @entity {
 ```
 {% endcode %}
 
-There are other annotations, treated in the [related page](annotations-directives.md), and indexes are explained in the [previous page](indexes.md), what we are interested here is the `comment` field of `Transfer` type, which will automatically generate a new query, with the named specified in the `query` parameter.
+There are other annotations, treated in the [related page](annotations-directives.md), what we are interested here is the `comment` field of `Transfer` type, which will automatically generate a new query, with the named specified in the `query` parameter.
 
 To see it in action, here is an example:
 

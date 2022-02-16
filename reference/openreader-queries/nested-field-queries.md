@@ -2,7 +2,7 @@
 
 ## Overview
 
-With OpenReader, fields of an Entity that contain fields themselves are shown as nested fields and it is possible to filter these as well.
+With OpenReader, fields of an Entity that contain fields themselves are shown as nested fields and it is possible to filter these as well. GraphQL queries can traverse related objects and their fields, letting clients fetch lots of related data in one request, instead of making several roundtrips as one would need in a classic REST architecture.
 
 As an example, this query searches for all `accounts` whose balance is bigger than a threshold value, fetching the `id`, `balance` simple fields, and the `historicalBalances` **nested field**.
 
