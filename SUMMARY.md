@@ -24,7 +24,6 @@
   * [Squid CLI](reference/squid-cli.md)
   * [OpenReader Schema](reference/openreader-schema/README.md)
     * [Annotations (Directives)](reference/openreader-schema/annotations-directives.md)
-    * [Indexes](reference/openreader-schema/indexes.md)
     * [Full text search](reference/openreader-schema/full-text-search.md)
     * [JSON fields](reference/openreader-schema/json-fields.md)
     * [BigInt fields](reference/openreader-schema/bigint-fields.md)

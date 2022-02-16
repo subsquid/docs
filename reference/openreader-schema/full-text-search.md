@@ -38,7 +38,7 @@ type Account @entity {
 ```
 {% endcode %}
 
-There are other annotations, treated in the [related page](annotations-directives.md), and indexes are explained in the [previous page](indexes.md), what we are interested here is the `comment` field of `Transfer` type, which will automatically generate a new query, with the named specified in the `query` parameter.
+There are other annotations, treated in the [related page](annotations-directives.md), what we are interested here is the `comment` field of `Transfer` type, which will automatically generate a new query, with the named specified in the `query` parameter.
 
 To see it in action, here is an example:
 
