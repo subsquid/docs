@@ -1,7 +1,7 @@
 ---
 description: >-
-  The `SubstrateProcessor` is the main actor in transforming and loading
-  on-chain data, according to pre-defined database model
+  The SubstrateProcessor is the main actor in transforming and loading on-chain
+  data, according to pre-defined database model
 ---
 
 # Processor
