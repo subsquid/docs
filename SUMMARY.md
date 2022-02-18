@@ -40,6 +40,7 @@
     * [String/Regex queries](reference/openreader-queries/string-regex-queries.md)
     * [Resolve Union types/interfaces](reference/openreader-queries/resolve-union-types-interfaces.md)
   * [Substrate Processor](reference/substrate-processor.md)
+  * [Store interface](reference/store-interface.md)
   * [Squid Substrate metadata explorer](reference/squid-substrate-metadata-explorer.md)
   * [Squid substrate typegen](reference/squid-substrate-typegen.md)
 * [FAQ](faq/README.md)
