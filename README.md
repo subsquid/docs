@@ -8,7 +8,7 @@ coverY: 0
 
 ## Welcome
 
-Welcome to the Subsquid Gitbook! This documentation is intended to introduce the general public to Subsquid, as well as to serve as a guide for anyone who may be developing software using the Subsquid query node framework.
+Welcome to Subsquid! This documentation is intended to introduce the general public to the project, as well as to serve as a guide for anyone who may be developing software using the Subsquid query node framework.
 
 The various sections and pages of this material cover a variety of subjects. The documentation includes an overview of all the project's key concepts. Also included are operational guides, as well as plenty of reference material.
 
