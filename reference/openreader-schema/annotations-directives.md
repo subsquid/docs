@@ -170,3 +170,5 @@ type Account @entity {
 You could quickly note that the `@index` directive has been used both on a single field (`from`) and on an entire entity (`Transfer`), specifying which fields will serve as indices of uniqueness for the entity itself (in this case, both `blocks` and `extrinsicId`).
 
 As mentioned before, this will make sure that an index on the `from` field of the `Transfer` table will be created, but will also create a joint index out of the `block` and `extrinsicId` fields.
+
+On a final note, it is worth noticing that [Foreign Keys](https://en.wikipedia.org/wiki/Foreign\_key) are indexed by default. So in this case, `fromAccount` and `toAccount` in the `Transfer` table will also be indexed.
