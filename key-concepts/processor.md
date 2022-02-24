@@ -18,7 +18,7 @@ The real Squid developer experience starts with defining one's own data schema, 
 
 ## Entities and Schema definition
 
-The definition of a schema, and specifically knowing what Entities to identify in it, requires a level of domain knowledge that is beyond the scope of this page. Refer to the related [Recipe ](../recipes/define-a-squid-schema.md)for operational guidance, but in this context, we will take the [Squid template](https://github.com/subsquid/squid-template) as an example.
+The definition of a schema, and specifically knowing what Entities to identify in it, requires a level of domain knowledge that is beyond the scope of this page. Refer to the related [Recipe ](../recipes/running-a-squid/define-a-squid-schema.md)for operational guidance, but in this context, we will take the [Squid template](https://github.com/subsquid/squid-template) as an example.
 
 In the template, the `Account` and `HistoricalBalance` have been defined in the `schema.graphql,` and two TypeScript models have been automatically generated for them. These can be found in two files in `src/model/generated/`.
 

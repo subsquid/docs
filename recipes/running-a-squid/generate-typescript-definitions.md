@@ -4,9 +4,9 @@ description: >-
   classes for Substrate Events and calls.
 ---
 
-# Generate TypeScript definitions
+# Generate interfaces for Events and Extrinsics
 
-The intent of this page is to showcase the necessary commands, parameters, and configuration. Head over to the page explaining [Typegen](../key-concepts/typegen.md) for more clarity on the concepts behind it.
+The intent of this page is to showcase the necessary commands, parameters, and configuration. Head over to the page explaining [Typegen](../../key-concepts/typegen.md) for more clarity on the concepts behind it.
 
 The generation of type-safe wrappers for events and calls is currently a two-step process.
 

@@ -1,8 +1,8 @@
 ---
-description: Launch a Squid node archive hosted in the Cloud by Subsquid
+description: Launch a Squid node hosted in the Cloud by Subsquid
 ---
 
-# Deploy your Squid
+# Deploy your first Squid
 
 Subsquid offers a Saas version of the query node, to further accelerate the development and reduce obstacles.
 
@@ -28,7 +28,7 @@ Fill in the form to provide details for the project and click **Next**
 
 It is possible to create multiple deployments of a Squid project, called `versions`. To begin, create your first version, by following the provided steps
 
-![Create the first version for this project by following the indicated steps](<../.gitbook/assets/subsquid saas3.png>)
+![Create the first version for this project by following the indicated steps](<../.gitbook/assets/SquidSaas full.png>)
 
 With a couple of notes and clarifications:
 
@@ -38,13 +38,13 @@ With a couple of notes and clarifications:
 
 ## Check the deployed Squid
 
-The top of the page will change following the deployment of the first version. A line will appear, with multiple fields:
+As a result of the new release, a line will appear at the top of the page, with multiple fields:
 
 * **version**: the name entered in the command for the deployment
 * **endpoint**: the URL of the GraphiQL console for this query node
 * **status**: for monitoring purposes.
 
-![Squid management panel](<../.gitbook/assets/subsquid saas4.png>)
+![Squid management panel](../.gitbook/assets/SquidSaas.png)
 
 A version can be edited or destroyed by accessing the actions next to the status.
 
@@ -52,4 +52,4 @@ Similarly, the Squid itself can be edited or deleted by accessing the actions ne
 
 ## What's next?
 
-To learn how to create a new version, modify the template, build custom APIs for any Substrate chain, take a look at the dedicated [Tutorial](../recipes/generate-typescript-definitions.md).
+To learn how to create a new version, modify the template, build custom APIs for any Substrate chain, take a look at the dedicated [Tutorial](../recipes/running-a-squid/generate-typescript-definitions.md).
