@@ -57,7 +57,7 @@ A Squid replaces direct gRPC node access with more performant API calls to Archi
 
 Thanks to the Subsquid framework, it is possible to:
 
-* define the [database schema](../recipes/define-a-squid-schema.md), [data type, and entity definitions](../recipes/generate-typescript-definitions.md)
+* define the [database schema](../recipes/running-a-squid/define-a-squid-schema.md), [data type, and entity definitions](../recipes/running-a-squid/generate-typescript-definitions.md)
 * transform and store chain data efficiently
 * present it thanks to the included GraphQL server
 

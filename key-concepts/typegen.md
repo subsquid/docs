@@ -22,7 +22,7 @@ Let's take the [squid template](https://github.com/subsquid/squid-template) as a
 
 The template is configured to explore the Kusama blockchain, specifically processing the `'balance.Transfer'` event.
 
-In order to generate wrapper classes, the first thing to do is to explore the entire history of the blockchain and extract its metadata. The `squid-substrate-metadata-explorer` command (for more information on how to run it, head over to this [Recipe](../recipes/generate-typescript-definitions.md)) will write it to a file. It will look like this:
+In order to generate wrapper classes, the first thing to do is to explore the entire history of the blockchain and extract its metadata. The `squid-substrate-metadata-explorer` command (for more information on how to run it, head over to this [Recipe](../recipes/running-a-squid/generate-typescript-definitions.md)) will write it to a file. It will look like this:
 
 ```json
 [
@@ -40,7 +40,7 @@ Where the `metadata` field is cut here, and the rest of the file is omitted for 
 
 ## TypeScript class wrappers
 
-This file is then used by the `typegen` command (again, look at the [Recipe](../recipes/generate-typescript-definitions.md) for how to configure and run it) to decode and interpret the metadata, and then uses that to generate this TypeScript class:
+This file is then used by the `typegen` command (again, look at the [Recipe](../recipes/running-a-squid/generate-typescript-definitions.md) for how to configure and run it) to decode and interpret the metadata, and then uses that to generate this TypeScript class:
 
 ```typescript
 export class BalancesTransferEvent {

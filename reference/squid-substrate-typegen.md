@@ -61,4 +61,4 @@ This is a brief description of the various fields:
 | `events`        | list of Events to generate                                                                                                                                                                                           |
 | `calls`         | list of calls (or Extrinsics) to generate                                                                                                                                                                            |
 
-For a more in-depth explanation of the subject, head over to the [dedicated page](../key-concepts/typegen.md) and for a practical guide, take a look at the [dedicated Recipe](../recipes/generate-typescript-definitions.md).&#x20;
+For a more in-depth explanation of the subject, head over to the [dedicated page](../key-concepts/typegen.md) and for a practical guide, take a look at the [dedicated Recipe](../recipes/running-a-squid/generate-typescript-definitions.md).&#x20;
