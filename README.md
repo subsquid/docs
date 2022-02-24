@@ -36,6 +36,36 @@ Subsquid is rapidly deploying Archives to gather data from available blockchains
 
 The power of Subsquid is the framework it provides. This framework allows developers to create APIs using the technology and techniques with which they are already familiar. All of this can be developed on top of blockchain data provided by Archives, instead of direct gRPC node access, thus reducing the friction and inertia of starting a new project.
 
-## What's next?
+## Where do I start?
 
-Start building! Head over to our [Quickstart](quickstart.md) section, learn more about the project's [Key Concepts](key-concepts/), find implementional examples in our [Recipes](recipes/) section, or check out our easy-to-follow [Tutorial](tutorial/) for a slower pace approach.
+This documentation provides information for all degrees of expertise, varying from complete beginner, to those who only need a refresher on specific commands.
+
+To jump straight into the action, follow our [Quickstart](quickstart.md) page. You'll get the template project up and running and start familiarizing with the SDK.
+
+{% content-ref url="quickstart.md" %}
+[quickstart.md](quickstart.md)
+{% endcontent-ref %}
+
+If you want to learn more about the project, head over to the [Key Concepts](key-concepts/) section, where you can learn about the fundamentals and get to know more about our multi-layer Architecture
+
+{% content-ref url="key-concepts/" %}
+[key-concepts](key-concepts/)
+{% endcontent-ref %}
+
+To see an example and learn how to customize the template project to fit your own needs, take a look at this Tutorial
+
+{% content-ref url="tutorial/create-a-simple-squid.md" %}
+[create-a-simple-squid.md](tutorial/create-a-simple-squid.md)
+{% endcontent-ref %}
+
+For information about how to deploy a Squid API using our SaaS cloud hosting, visit this page
+
+{% content-ref url="recipes/deploying-a-squid/" %}
+[deploying-a-squid](recipes/deploying-a-squid/)
+{% endcontent-ref %}
+
+If you need information on how to migrate from previous versions, head over to the dedicated guide:
+
+{% content-ref url="recipes/migrate-to-v5.md" %}
+[migrate-to-v5.md](recipes/migrate-to-v5.md)
+{% endcontent-ref %}
