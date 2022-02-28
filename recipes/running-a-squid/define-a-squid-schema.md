@@ -33,7 +33,6 @@ type HistoricalBalance @entity {
   balance: BigInt!
   date: DateTime!
 }
-
 ```
 {% endcode %}
 
@@ -51,9 +50,12 @@ The command will:
 
 * Read the `schema.graphql` file and parse it
 * Create one model file in `src/model/generated` for each entity encountered
-* Create a database migration in `db/migrations` to apply necessary alterations to the database
-  * Migrations have to be executed every time a change is done to the schema, in order for the processor to work correctly)
-  * The generated file should not be modified or executed, the `sqd db migrate` command handles that
+
+{% hint style="info" %}
+It is worth stressing that database migrations have to be executed every time a change is done to the schema, in order for the processor to work correctly).
+
+Migration files are JavaScript files, but should not be modified or executed, the `sqd db migrate` command handles that
+{% endhint %}
 
 ### Generated models
 
@@ -83,7 +85,6 @@ export class Account {
   @OneToMany_(() => HistoricalBalance, e => e.account)
   historicalBalances!: HistoricalBalance[]
 }
-
 ```
 {% endcode %}
 
@@ -112,7 +113,6 @@ export class HistoricalBalance {
   @Column_("timestamp with time zone", {nullable: false})
   date!: Date
 }
-
 ```
 {% endcode %}
 

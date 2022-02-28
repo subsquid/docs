@@ -19,7 +19,7 @@
   * [Migrate to v5](recipes/migrate-to-v5.md)
   * [How to launch an Archive](recipes/how-to-launch-a-squid-archive.md)
   * [Running a Squid](recipes/running-a-squid/README.md)
-    * [Local runs, adjusting the starting block height](recipes/running-a-squid/local-runs-adjusting-the-starting-block-height.md)
+    * [Local runs](recipes/running-a-squid/local-runs.md)
     * [Define a Squid Schema](recipes/running-a-squid/define-a-squid-schema.md)
     * [Schema updates](recipes/running-a-squid/schema-updates.md)
     * [Generate interfaces for Events and Extrinsics](recipes/running-a-squid/generate-typescript-definitions.md)
