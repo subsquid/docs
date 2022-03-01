@@ -4,9 +4,9 @@ description: Launch a Squid node hosted in the Cloud by Subsquid
 
 # Deploy your first Squid
 
-Subsquid offers a Saas version of the query node, to further accelerate the development and reduce obstacles.
+Subsquid offers a _Software as a Service_ (SaaS) hosting, to further accelerate the development and reduce obstacles. This way, builders can focus on coding their business logic into the APIs, without having to worry about deployment and hosting.
 
-The process is quite simple, but here's a step-by-step guide
+The process is quite simple, but here's a step-by-step guide.
 
 ## Visit our website
 
