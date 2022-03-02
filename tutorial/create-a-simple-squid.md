@@ -40,6 +40,7 @@ Next, just follow the [Quickstart](../quickstart.md) to get the project up and r
 npm ci
 npm run build
 docker compose up -d
+npx sqd db create
 npx sqd db migrate
 node -r dotenv/config lib/processor.js
 # open a separate terminal for this next command
