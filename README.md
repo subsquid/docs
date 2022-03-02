@@ -42,6 +42,8 @@ This documentation provides information for all degrees of expertise, varying fr
 
 To jump straight into the action, follow our [Quickstart](quickstart.md) page. You'll get the template project up and running and start familiarizing with the SDK.
 
+[Quickstart](quickstart.md){: .btn }
+
 {% content-ref url="quickstart.md" %}
 [quickstart.md](quickstart.md)
 {% endcontent-ref %}
