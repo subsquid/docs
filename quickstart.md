@@ -42,6 +42,12 @@ npm run build
 docker compose up -d
 ```
 
+#### Create the database the Squid is configured to work with
+
+```bash
+npx sqd db create
+```
+
 #### Apply database migrations to the database
 
 ```bash
