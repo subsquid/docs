@@ -42,7 +42,9 @@ This documentation provides information for all degrees of expertise, varying fr
 
 To jump straight into the action, follow our [Quickstart](quickstart.md) page. You'll get the template project up and running and start familiarizing with the SDK.
 
-[Quickstart](quickstart.md){: .btn }
+<button name="button" onclick="http://www.google.com">Click me</button>
+
+{% include button.html button_name="My1 Button" button_class="outline-primary" url="google.com" %}
 
 {% content-ref url="quickstart.md" %}
 [quickstart.md](quickstart.md)
