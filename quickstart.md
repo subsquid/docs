@@ -59,7 +59,7 @@ npx sqd db migrate
 This command will block the terminal, fetching chain data transforming and storing it in the target database
 
 ```bash
-npm run processor:start
+node -r dotenv/config lib/processor.js
 ```
 
 #### Start the GraphQL server
