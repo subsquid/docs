@@ -61,7 +61,7 @@
   * [Store interface](reference/store-interface.md)
   * [Squid Substrate metadata explorer](reference/squid-substrate-metadata-explorer.md)
   * [Squid substrate typegen](reference/squid-substrate-typegen.md)
-* [FAQ](faq/README.md)
+* [Support](faq/README.md)
   * [Where do I get a type bundle for my chain?](faq/where-do-i-get-a-type-bundle-for-my-chain.md)
   * [How to run a processor against a different chain?](faq/how-to-run-a-processor-against-a-different-chain.md)
   * [How do I write the schema?](faq/how-do-i-write-the-schema.md)
@@ -71,3 +71,4 @@
   * [How do I deploy my API to the Subsquid Hosted service?](faq/how-do-i-deploy-my-api-to-the-subsquid-hosted-service.md)
   * [How do I know which events and extrinsics I need for the handlers?](faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers.md)
   * [How do I decode the event data? And how to deal with runtime upgrades?](faq/how-do-i-decode-the-event-data-and-how-to-deal-with-runtime-upgrades.md)
+  * [Bug reporting guidelines](faq/bug-reporting-guidelines.md)

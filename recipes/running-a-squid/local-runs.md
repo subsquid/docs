@@ -27,8 +27,12 @@ The `-d` additional parameter will launch the instance as a daemon, making sure 
 The processor should probably be considered the main component of a Squid, as, when launched, it will start fetching data from the Archive and transforming it. To start it, simply navigate to the project's main folder in a console window and launch the following command:
 
 ```bash
-npm run processor:start
+node -r dotenv/config lib/processor.js
 ```
+
+The `-r` parameter will make sure the processor reads the `.env` file that comes with the project, which defines variables for the Postgres database port and which port to expose for the GraphQL server.
+
+These can alternatively be defined as environment variables.
 
 ## Launch the GraphQL server
 

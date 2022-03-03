@@ -40,8 +40,24 @@ The power of Subsquid is the framework it provides. This framework allows develo
 
 This documentation provides information for all degrees of expertise, varying from complete beginner, to those who only need a refresher on specific commands.
 
-* [Jump into the action, familiarizing with the SDK](quickstart.md)
-* [Learn more about the project fundamentals and the multi-layer Architecture](key-concepts/)
-* [Find out how to customize the template project to fit your own needs](tutorial/create-a-simple-squid.md)
-* [See how to deploy a Squid API using our SaaS cloud hosting](tutorial/deploy-your-squid.md)
-* [Need information on how to migrate your project to v5?](recipes/migrate-to-v5.md)
+### Quickstart
+
+To jump straight into the action, get a local environment up and running, follow the [Quickstart](./#undefined) guide and start familiarizing with the SDK.
+
+### Key Concepts
+
+To take a more a more conceptual approach, learn more about the project fundamentals, dive deeper into the multi-layer Architecture, head over to the [Key Concepts](./#undefined) section.
+
+### Start developing
+
+If you are already familiar with the project and want to see an example of how to customize it for your own needs, follow the [Tutorial](tutorial/create-a-simple-squid.md) on how to do this.
+
+### SaaS
+
+Subsquid offers a Software as a Service, in the form of a Cloud-hosted solution for your APIs.
+
+In this [Tutorial](tutorial/deploy-your-squid.md) you can find out how that works.
+
+### Existing projects
+
+If you have an existing project and need to migrate to the latest Squid version, follow this [Guide](recipes/migrate-to-v5.md).
