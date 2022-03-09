@@ -40,3 +40,21 @@ The `Range` object in this context is an object containing two fields: `to` and 
 
 The ingestion loop, responsible to divide the blockchain exploration into batches, will sieve through all the subscribed Handlers, read their options and filter out those that specified a range that does not include the current batch of blocks.
 
+## `EvmLogHandlerOptions`
+
+```typescript
+export interface EvmLogHandlerOptions {
+    range?: Range
+    /**
+     * EVM topic filter as defined by https://docs.ethers.io/v5/concepts/events/#events--filters
+     */
+    filter?: EvmTopicSet[]
+}
+
+```
+
+The `Range` object in this context is an object containing two fields: `to` and `from`. Similarly to how it is possible to restrain the execution of the Processor by [setting a block range](../substrate-processor.md#start-block-global-execution-range), the same can be done with an `EvmLogHandler`.
+
+The ingestion loop, responsible to divide the blockchain exploration into batches, will sieve through all the subscribed Handlers, read their options and filter out those that specified a range that does not include the current batch of blocks.
+
+In a similar way (like the comment suggests), EVM natively offers the ability to filter by _Topic_, so that the Handler function is alerted only for a subset of Topics it is actually interested in.&#x20;

@@ -53,6 +53,7 @@
     * [String/Regex queries](reference/openreader-queries/string-regex-queries.md)
     * [Resolve Union types/interfaces](reference/openreader-queries/resolve-union-types-interfaces.md)
   * [Substrate Processor](reference/substrate-processor.md)
+  * [EVM Processor](reference/evm-processor.md)
   * [Handler functions](reference/handler-functions/README.md)
     * [Handler Interfaces](reference/handler-functions/handler-interfaces.md)
     * [Handler Options Interfaces](reference/handler-functions/handler-options-interfaces.md)
