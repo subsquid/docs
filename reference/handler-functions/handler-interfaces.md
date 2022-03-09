@@ -43,7 +43,7 @@ export class SubstrateProcessor {
 
 ## `ExtrinsicHandler`
 
-The ExtrinsicHandler is extremely similar to the EventHandler interface, just as the respective contexts are.
+The `ExtrinsicHandler` is extremely similar to the `EventHandler` interface, just as the respective contexts are.
 
 ```typescript
 export interface ExtrinsicHandler {
@@ -137,3 +137,40 @@ export class SubstrateProcessor {
 }
 
 ```
+
+## `EvmLogHandler`
+
+The `EvmLogHandler` is extremely similar to the `EventHandler` interface, just as the respective contexts are.
+
+```typescript
+export interface EvmLogHandler {
+    (ctx: EvmLogHandlerContext): Promise<void>
+}
+```
+
+This is how to attach an `EvmLogHandler` to a `SubstrateEvmProcessor`:
+
+```typescript
+export class SubstrateEvmProcessor extends SubstrateProcessor {
+    addEvmLogHandler(contractAddress: string, fn: EvmLogHandler): void
+    addEvmLogHandler(contractAddress: string, options: EvmLogHandlerOptions, fn: EvmLogHandler): void
+    addEvmLogHandler(contractAddress: string, fnOrOptions: EvmLogHandlerOptions | EvmLogHandler, fn?: EvmLogHandler): void {
+        this.assertNotRunning()
+        let handler: EvmLogHandler
+        let options: EvmLogHandlerOptions = {}
+        if (typeof fnOrOptions === 'function') {
+            handler = fnOrOptions
+        } else {
+            handler = assertNotNull(fn)
+            options = fnOrOptions
+        }
+        this.hooks.evmLog.push({
+            contractAddress,
+            handler,
+            ...options
+        })
+    }
+}
+
+```
+

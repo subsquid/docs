@@ -4,7 +4,7 @@ Handlers are a foundational ingredient of the Processor component of a Squid API
 
 The Processor class exposes methods to "attach" these Handlers to it and configure the type of occurrence that should trigger them.
 
-Each Handler "type" (`EventHandler`, `ExtrinsicHandler`, `BlockHandler`) should expect one argument: the Context, which, depending on the type of Handler, has a slightly different structure. Luckily the SDK defines an Interface for each Handler and one for each Context.
+Each Handler "type" (`EventHandler`, `ExtrinsicHandler`, `BlockHandler`, and `EvmLogHandler`) should expect one argument: the Context, which, depending on the type of Handler, has a slightly different structure. Luckily the SDK defines an Interface for each Handler and one for each Context.
 
 This section of the Reference documentation will provide information on:
 
