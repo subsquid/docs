@@ -8,6 +8,12 @@ The inner workings are similar in all aspects to the base Substrate Processor. A
 
 This page will go over the most important customizations a developer would want to make, when building their API.
 
+## Prerequisite
+
+It is important, before even starting, to verify that the Archive our Processor will be connecting to is EVM-compatible.
+
+To know exactly what this means, please check the related section in the [Archive guide](../recipes/how-to-launch-a-squid-archive.md#launch-archives-for-evm-compatible-blockchain).
+
 ## Importing and instantiating
 
 The `Substrate EVM Processor` is defined in an `npm` package that needs to be installed before being able to use it:
