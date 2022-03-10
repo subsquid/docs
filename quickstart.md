@@ -74,4 +74,4 @@ To learn how to deploy your project to our Cloud-hosted solution, head over to t
 
 #### The GraphQL playground
 
-Once the playground has
+Once the GraphQL server has started, you can visit the http://localhost:4350/graphql URL in a browser window, to start testing to query data, thanks to the GraphQL playground available.
