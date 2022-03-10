@@ -71,3 +71,7 @@ npx squid-graphql-server
 ```
 
 To learn how to deploy your project to our Cloud-hosted solution, head over to the dedicated [tutorial](tutorial/deploy-your-squid.md).
+
+#### The GraphQL playground
+
+Once the playground has

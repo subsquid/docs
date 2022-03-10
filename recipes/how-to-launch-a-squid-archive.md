@@ -53,3 +53,81 @@ If a specific blockchain is not listed in the repository, it is possible to add 
 4. The Archive needs to know which types the blockchain Runtime is using, and to instruct it, a types bundle JSON file needs to be passed in.
    * To know how to create such a file for a given chain, head over to [our dedicated page](../faq/where-do-i-get-a-type-bundle-for-my-chain.md)
 5. Create a pull-request towards the main repository
+
+### Launch Archives for EVM-compatible blockchain
+
+In the case of an EVM-compatible blockchain, you'd want to fully leverage the native support for EVM logs to process contracts, by making sure that the Archive is extracting that data from the blockchain itself.
+
+To do so, simply follow the procedure above, but make sure to check that the images for the `indexer` and `indexer-gateway` are, respectively:
+
+* `subsquid/hydra-evm-indexer:5`
+* &#x20;`subsquid/hydra-evm-indexer-gateway:5`
+
+Like so:
+
+{% code title="docker-compose.yml" %}
+```yaml
+version: "3.4"
+services:
+  db:
+    image: postgres:12
+    restart: always
+    volumes:
+      - /var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  indexer:
+    image: subsquid/hydra-evm-indexer:5
+    restart: unless-stopped
+    environment:
+      - WORKERS_NUMBER=5
+      - DB_NAME=indexer
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - DB_PORT=5432
+      - REDIS_URI=redis://redis:6379/0
+      - BLOCK_HEIGHT=0 # starting block height
+      - FORCE_HEIGHT=true
+      - WS_PROVIDER_ENDPOINT_URI= # chain WSS
+    depends_on:
+      - db
+      - redis
+    command: >
+      sh -c "yarn db:bootstrap && yarn start:prod"
+    ports:
+      - 9090:9090
+  indexer-gateway:
+    image: subsquid/hydra-evm-indexer-gateway:5
+    restart: unless-stopped
+    depends_on:
+      - redis
+      - db
+      - indexer-status-service
+      - indexer
+    ports:
+      - "4010:8080"
+    environment:
+      - DEV_MODE=true
+      - DB_NAME=indexer
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - DB_PORT=5432
+      - HYDRA_INDEXER_STATUS_SERVICE=http://indexer-status-service:8081/status
+  indexer-status-service:
+    image: subsquid/hydra-indexer-status-service:5
+    restart: unless-stopped
+    depends_on:
+      - redis
+    environment:
+      REDIS_URI: redis://redis:6379/0
+      PORT: 8081
+  redis:
+    image: redis:6.0-alpine
+    restart: always
+    ports:
+      - "6379"
+```
+{% endcode %}
