@@ -18,7 +18,7 @@ In the words of Polkadot and Parity Technologies founder, Gavin Wood:
 
 > Substrate is not a blockchain in itself, but akin to a blockchain SDK framework
 
-A blockchain built with Substrate does not necessarily have to be a Polkadot parachain. However, it can become one, if its developers so choose. \
+A blockchain built with Substrate does not necessarily have to be a Polkadot parachain. However, it can become one, if its developers so choose.\
 \
 Substrate makes it much easier than alternative methods to build Polkadot parachains, but a chain built with Substrate can exist independently.
 
@@ -63,3 +63,11 @@ Unsigned transactions are to be considered an exception, they are seldom used an
 An Event is a way for a Runtime to notify external entities such as users, chain explorers, or dApps about changes or conditions in the runtime itself.
 
 For more information on how Events are defined, what information they can contain, and when they are emitted, head over to the [official documentation](https://docs.substrate.io/v3/runtime/events-and-errors/).
+
+### Storage
+
+As previously mentioned, the Runtime is also referred to as the state transition function, since this is where the storage items that define a state, as well as functions that allow for transitioning from one state to another, are defined.
+
+It is the case, then to talk about Storage and Storage Items. Substrate offers a variety of ways to store information, thanks to modular and layered storage APIs, so that runtime developers can choose what fits their needs best.
+
+Storage items can be introduced by any Substrate pallet and become part of the blockchain state. The quality of these Storage items can vary from simpler values to very complex maps. The choice depends on the developer and Runtime logic.

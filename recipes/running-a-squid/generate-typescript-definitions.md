@@ -1,10 +1,10 @@
 ---
 description: >-
   Learn how to leverage Subsquid SDK automated tools to create TypeScript
-  classes for Substrate Events and calls.
+  classes for Substrate Events, calls and Storage items.
 ---
 
-# Generate interfaces for Events and Extrinsics
+# Generate type-safe interfaces
 
 The intent of this page is to showcase the necessary commands, parameters, and configuration. Head over to the page explaining [Typegen](../../key-concepts/typegen.md) for more clarity on the concepts behind it.
 
@@ -45,8 +45,19 @@ Where `typegen.json` config file has the following structure:
   ],
   "calls": [ // list of calls to generate
     "timestamp.set"
+  ],
+  "storage": [
+    "System.Account" // <-- Qualified storage item name: "${Prefix}.${item}"
   ]
 }
 ```
 
 A type-safe definition for each and every version of the event will be generated. Most of the time, one should be able to infer a normalized interface together with some glue code to make it fit the runtime-specific versions.
+
+{% hint style="info" %}
+**Note**: the Storage prefix is not transformed to `camelCase`, but kept "as is".
+{% endhint %}
+
+{% hint style="info" %}
+**Note**: the Storage prefix is equal to the pallet name in most cases, but it this should not be followed as a rule. You always need to verify the Storage prefix.
+{% endhint %}
