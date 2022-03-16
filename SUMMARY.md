@@ -22,7 +22,7 @@
     * [Local runs](recipes/running-a-squid/local-runs.md)
     * [Define a Squid Schema](recipes/running-a-squid/define-a-squid-schema.md)
     * [Schema updates](recipes/running-a-squid/schema-updates.md)
-    * [Generate interfaces for Events and Extrinsics](recipes/running-a-squid/generate-typescript-definitions.md)
+    * [Generate type-safe interfaces](recipes/running-a-squid/generate-typescript-definitions.md)
     * [Multi-chain processors](recipes/running-a-squid/multi-chain-processors.md)
     * [Building with Docker](recipes/running-a-squid/building-with-docker.md)
     * [Prometheus metrics](recipes/running-a-squid/prometheus-metrics.md)
