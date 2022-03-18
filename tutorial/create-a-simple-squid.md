@@ -56,7 +56,7 @@ For this specific project, we will need to install a new dependency since the [t
 Navigate to the repository's root window in a command line console and install it.
 
 ```
-npm i @crustio/type-definition
+npm i @crustio/type-definitions
 ```
 
 ![Install Crust type definition](https://i.gyazo.com/e135e7aa19b6217d1b701df8f51a91d2.gif)
