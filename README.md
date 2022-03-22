@@ -42,7 +42,7 @@ This documentation provides information for all degrees of expertise, varying fr
 
 ### Quickstart
 
-To jump straight into the action, get a local environment up and running, follow the [Quickstart](./#undefined) guide and start familiarizing with the SDK.
+To jump straight into the action, get a local environment up and running, follow the [Quickstart](quickstart.md) guide and start familiarizing with the SDK.
 
 ### Key Concepts
 
