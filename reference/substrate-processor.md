@@ -134,3 +134,74 @@ export class SubstrateProcessor {
 }
 ```
 {% endcode %}
+
+## Types Bundle
+
+It is mandatory for the Processor correct execution to specify the types Bundle it needs to take into account. I can be done this way:
+
+```typescript
+processor.setTypesBundle('kusama');
+```
+
+The function parameter can either be&#x20;
+
+* the name of a blockchain, for [which Subsquid has built-in typesBundle](https://github.com/subsquid/squid/tree/master/substrate-metadata/src/old/definitions)
+* the path to a JSON file containing the definitions
+* an object, containing the definitions, respecting the typing of the `OldTypesBundle` interface
+
+Here is how it's defined in the `SubstrateProcessor` class:
+
+{% code title="processor.ts" %}
+```typescript
+export class SubstrateProcessor {
+
+    // ...
+    setTypesBundle(bundle: string | OldTypesBundle): void {
+        this.assertNotRunning()
+        if (typeof bundle == 'string') {
+            this.typesBundle = getOldTypesBundle(bundle) || readOldTypesBundle(bundle)
+        } else {
+            this.typesBundle = bundle
+        }
+    }
+}
+```
+{% endcode %}
+
+Where the two `getOldTypesBundle` and `readOldTypesBundle`  functions are defined as such:
+
+{% code title="io.ts" %}
+```typescript
+export function getOldTypesBundle(chain: string): OldTypesBundle | undefined {
+    switch(chain) {
+        // ...
+        case 'kusama':
+            return require('./old/definitions/kusama').bundle
+        // ...
+        case 'polkadot':
+            return require('./old/definitions/polkadot').bundle
+        default:
+            return undefined
+    }
+}
+
+
+export function readOldTypesBundle(file: string): OldTypesBundle {
+    let content: string
+    try {
+        content = fs.readFileSync(file, 'utf-8')
+    } catch(e: any) {
+        throw new OldTypesBundleError(`Failed to read ${file}: ${e}`)
+    }
+    let json: any
+    try {
+        json = JSON.parse(content)
+    } catch(e: any) {
+        throw new OldTypesBundleError(`Failed to parse ${file}: ${e}`)
+    }
+    return json
+}
+```
+{% endcode %}
+
+Which, respectively, collect a built-in typesBundle from the [available list](https://github.com/subsquid/squid/tree/master/substrate-metadata/src/old/definitions), or process a JSON file, given its path.
