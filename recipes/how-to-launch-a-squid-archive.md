@@ -41,6 +41,20 @@ The provided docker compose setup is a minimal configuration best suitable for d
 
 To reliably run an Archive we recommend 16GB RAM and modern CPU. Database storage requirements depend on the size of the network. A rule of thumb is to reserve around 100 kb per block, so e.g. for Kusama with \~10M blocks one needs about 1Tb for Postgres storage.
 
+## Caveats for 🍏 M1 Macs
+
+A [known issue](https://github.com/subsquid/squid/issues/21) prevents M1 Macs from running the console. Possible workaround:
+
+1. [Clone subsquid/hydra repo](https://github.com/subsquid/hydra)
+2. checkout v5 branch
+3. build the gateway image with:
+
+```
+./scripts/docker-build.sh --target indexer-gateway -t subsquid/hydra-indexer-gateway:5
+```
+
+After that, you can run docker-compose as usual.
+
 ## Launch an Archive for a new blockchain
 
 If a specific blockchain is not listed in the repository, it is possible to add it by contributing to the repository itself, following these steps:
