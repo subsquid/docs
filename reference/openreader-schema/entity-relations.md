@@ -18,7 +18,7 @@ type Account @entity {
   "Account address"
   id: ID!
   balance: BigInt!
-  user: User! @derivedFrom(field: "account")
+  user: User @derivedFrom(field: "account")
 }
 
 type User @entity {
