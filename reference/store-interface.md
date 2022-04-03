@@ -180,17 +180,19 @@ export declare class EntityManager {
 Here are a couple of examples:
 
 ```typescript
-let schema = `"${processor}_status"`
-await em.query(`CREATE SCHEMA IF NOT EXISTS ${schema}`)
-await em.query(`
-  CREATE TABLE IF NOT EXISTS ${schema}."status" (
-    id int primary key,
-    height int not null
-  )
-`)
-await em.query(`INSERT INTO ${schema}.status (id, height) VALUES (0, -1)`)
-let height = await em.query('SELECT height FROM status WHERE id = 0');
+processor.addEventHandler("balances.Transfer", async (ctx) => {
 
+  let schema = `"${processor}_status"`
+  await ctx.store.query(`CREATE SCHEMA IF NOT EXISTS ${schema}`)
+  await ctx.store.query(`
+    CREATE TABLE IF NOT EXISTS ${schema}."status" (
+      id int primary key,
+      height int not null
+    )
+  `)
+  await ctx.store.query(`INSERT INTO ${schema}.status (id, height) VALUES (0, -1)`)
+  let height = await ctx.store.query('SELECT height FROM status WHERE id = 0');
+});
 ```
 
 ### Bulk updates
@@ -198,5 +200,5 @@ let height = await em.query('SELECT height FROM status WHERE id = 0');
 Examples of usage of ad-hoc queries include the possibility to perform bulk-updates:
 
 ```typescript
-await em.query(`UPDATE ${schema}.status SET height = $1 WHERE height < $1`, [blockNumber]
+await ctx.store.query(`UPDATE ${schema}.status SET height = $1 WHERE height < $1`, [blockNumber]
 ```

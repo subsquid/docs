@@ -58,6 +58,12 @@ Subsquid offers a Software as a Service, in the form of a Cloud-hosted solution 
 
 In this [Tutorial](tutorial/deploy-your-squid.md) you can find out how that works.
 
+### Squid Aquarium
+
+When someone choses to have their Squid to be **publicly** hosted by us, it will become visible in the [Aquarium](https://app.subsquid.io/aquarium).
+
+Visit and browse through interesting projects, created by our community!
+
 ### Existing projects
 
 If you have an existing project and need to migrate to the latest Squid version, follow this [Guide](recipes/migrate-to-v5.md).
