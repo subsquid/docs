@@ -50,6 +50,12 @@ A version can be edited or destroyed by accessing the actions next to the status
 
 Similarly, the Squid itself can be edited or deleted by accessing the actions next to the Squid name.
 
+## Browse the Aquarium
+
+When someone choses to have their Squid to be **publicly** hosted by us, it will become visible in the [Aquarium](https://app.subsquid.io/aquarium).
+
+Visit and browse through interesting projects, created by our community!
+
 ## What's next?
 
 To learn how to create a new version, modify the template, build custom APIs for any Substrate chain, take a look at the dedicated [Tutorial](../recipes/running-a-squid/generate-typescript-definitions.md).
