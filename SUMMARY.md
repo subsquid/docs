@@ -59,6 +59,7 @@
     * [Handler Options Interfaces](reference/handler-functions/handler-options-interfaces.md)
     * [Context Interfaces](reference/handler-functions/context-interfaces.md)
     * [Runtime upgrades](reference/handler-functions/runtime-upgrades.md)
+  * [Storage calls](reference/storage-calls.md)
   * [Store interface](reference/store-interface.md)
   * [Squid Substrate metadata explorer](reference/squid-substrate-metadata-explorer.md)
   * [Squid substrate typegen](reference/squid-substrate-typegen.md)
