@@ -1,14 +1,18 @@
 # Storage calls
 
-It is sometimes impossible to extract the required data with only event and extrinsic data. `StorageContext` exposes direct queries of [runtime storage](https://docs.substrate.io/v3/runtime/storage/) items via RPC. 
+It is sometimes impossible to extract the required data with only event and extrinsic data. `StorageContext` exposes direct queries of [runtime storage](https://docs.substrate.io/v3/runtime/storage/) items via RPC.
 
-Typegen generates wrappers for fully type-safe storage calls which cover all historical runtime upgrades. 
+## Generate Type-safe wrappers
 
-To enable storage calls: 
+Typegen generates wrappers for fully type-safe storage calls which cover all historical runtime upgrades.
+
+To enable storage calls:
+
 - List fully qualified names of the storage items to the `storage` section of [typegen config](./../key-concepts/typegen.md)
 - Rerun typegen
 
 Here's an example of the typegen config:
+
 ```json
 {
   "outDir": "src/types",
@@ -26,10 +30,10 @@ Here's an example of the typegen config:
 }
 ```
 
-To generate all available storage calls, simply set `"storege": true`.
+To generate all available storage calls, simply set `"storage": true`.
 
 {% hint style="info" %}
-Note: One can also consult subscan by navigating to the [Runtime section](https://kusama.subscan.io/runtime) and inspecting `Call Functions` of the pallet of interest.
+Note: One can also consult subscan by navigating to the [Runtime section](https://kusama.subscan.io/runtime) and inspecting `Storage Functions` of the pallet of interest.
 {% endhint %}
 
 Typegen will generate the file `types/storage.ts` with something similar to
@@ -55,7 +59,9 @@ export class SystemAccountStorage {
 }
 ```
 
-As can be seen above, the storage items are always retrieved at the "current" block height of `StorageContext`. The usage in a handler function is straighforward:
+## Process Storage items information in a Handler
+
+As previously mentioned, the storage items are always retrieved at the "current" block height of `StorageContext`. The usage in a handler function is straighforward:
 
 ```typescript
 processor.addPreHook({range: {from: 0, to: 0}}, async ctx => {
