@@ -32,7 +32,7 @@ In this [Tutorial](tutorial/deploy-your-squid.md) you can find out how that work
 
 Visit and browse through interesting projects, and publish your own for for cool perks from Subsquid!
 
-### Existing projects
+### Migration from earlier versions
 
 If you have an existing project and need to migrate to the latest Squid version, follow this [Guide](recipes/migrate-to-v5.md).
 
