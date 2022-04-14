@@ -148,10 +148,6 @@ It remains to be seen if this had any impacts on the definitions of the Events w
 
 One peculiar thing about the Crust chain and this example is that, at the moment of writing of this guide, its types have not been integrated into Squid's library.
 
-{% hint style="info" %}
-Update: the "crust" types bundle has been added to the list of built-ins, but for learning purposes, it's still useful to see how to create and use a types bundle JSON file.
-{% endhint %}
-
 This gives us a good opportunity to follow [this mini-guide](../faq/where-do-i-get-a-type-bundle-for-my-chain.md) and create an example, extracting a types bundle from crust's own library, to Subsquid required format.
 
 {% hint style="info" %}
