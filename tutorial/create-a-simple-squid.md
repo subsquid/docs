@@ -154,6 +154,10 @@ Update: the "crust" types bundle has been added to the list of built-ins, but fo
 
 This gives us a good opportunity to follow [this mini-guide](../faq/where-do-i-get-a-type-bundle-for-my-chain.md) and create an example, extracting a types bundle from crust's own library, to Subsquid required format.
 
+{% hint style="info" %}
+**Update**: the "crust" types bundle has been added to the list of built-ins, but for learning purposes, it's still useful to see how to create and use a types bundle JSON file.
+{% endhint %}
+
 <details>
 
 <summary>Here is the end result, copy it and paste it into a file named <code>crustTypesBundle.json</code></summary>
