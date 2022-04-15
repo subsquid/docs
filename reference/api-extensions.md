@@ -48,5 +48,6 @@ export class MyResolver {
 }
 ```
 
+Some great examples of custom Squid resolvers can be spotted in the wild in the [Rubik repo](https://github.com/kodadot/rubick/tree/main/src/server-extension) by KodaDot.
 
 For more examples of resolvers, see [TypeGraphQL repo](https://github.com/MichalLytek/type-graphql/tree/master/examples)
