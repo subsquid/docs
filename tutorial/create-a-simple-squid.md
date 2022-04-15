@@ -87,7 +87,7 @@ type WorkReport @entity {
   account: Account!
   addedFiles: [[String]]
   deletedFiles: [[String]]
-  extrinisicId: String
+  extrinsicId: String
   createdAt: DateTime!
   blockHash: String!
   blockNum: Int!
@@ -97,7 +97,7 @@ type JoinGroup @entity {
   id: ID!
   member: Account!
   owner: String!
-  extrinisicId: String
+  extrinsicId: String
   createdAt: DateTime!
   blockHash: String!
   blockNum: Int!
@@ -107,7 +107,7 @@ type StorageOrder @entity {
   id: ID!
   account: Account!
   fileCid: String!
-  extrinisicId: String
+  extrinsicId: String
   createdAt: DateTime!
   blockHash: String!
   blockNum: Int!
@@ -449,8 +449,10 @@ First of all, we need to import the generated Entity model classes, in order to 
 
 ```typescript
 import  {Account, WorkReport, JoinGroup, StorageOrder} from './model/generated'
-import { MarketFileSuccessEvent, SworkJoinGroupSuccessEvent, SworkWorksReportSuccessEvent } from './types/events'Then, we need to customize the processor, by giving it the right name, connecting it to the right Squid Archive and setting the correct types. This is done by substituting with the following code the top part of the file, that looks similar to it.
+import { MarketFileSuccessEvent, SworkJoinGroupSuccessEvent, SworkWorksReportSuccessEvent } from './types/events'
 ```
+
+Then, we need to customize the processor, by giving it the right name, connecting it to the right Squid Archive and setting the correct types. This is done by substituting with the following code the top part of the file, that looks similar to it.
 
 ```typescript
 const processor = new SubstrateProcessor('crust_example')
@@ -495,7 +497,7 @@ async function joinGroupSuccess(ctx: EventHandlerContext): Promise<void> {
   joinGroup.blockHash = ctx.block.hash;
   joinGroup.blockNum = ctx.block.height;
   joinGroup.createdAt = new Date(ctx.block.timestamp);
-  joinGroup.extrinisicId = ctx.extrinsic?.id;
+  joinGroup.extrinsicId = ctx.extrinsic?.id;
 
   await ctx.store.save(account);
   await ctx.store.save(joinGroup);
@@ -513,7 +515,7 @@ async function fileSuccess(ctx: EventHandlerContext): Promise<void> {
     storageOrder.blockHash = ctx.block.hash;
     storageOrder.blockNum = ctx.block.height;
     storageOrder.createdAt = new Date(ctx.block.timestamp);
-    storageOrder.extrinisicId = ctx.extrinsic?.id;
+    storageOrder.extrinsicId = ctx.extrinsic?.id;
 
     await ctx.store.save(account);
     await ctx.store.save(storageOrder);
@@ -539,7 +541,7 @@ async function workReportSuccess(ctx: EventHandlerContext): Promise<void> {
   workReport.blockHash = ctx.block.hash;
   workReport.blockNum = ctx.block.height;
   workReport.createdAt = new Date(ctx.block.timestamp);
-  workReport.extrinisicId = ctx.extrinsic?.id;
+  workReport.extrinsicId = ctx.extrinsic?.id;
   
   await ctx.store.save(account);
   await ctx.store.save(workReport);
@@ -561,137 +563,151 @@ processor.addEventHandler('swork.WorksReportSuccess', workReportSuccess);
 
 {% code title="processor.ts" %}
 ```typescript
-import {SubstrateProcessor, EventHandlerContext} from '@subsquid/substrate-processor'
-import  {Account, WorkReport, JoinGroup, StorageOrder} from './model/generated'
-import * as crustTypes from '@crustio/type-definitions'
+import {
+  SubstrateProcessor,
+  EventHandlerContext,
+  Store,
+} from "@subsquid/substrate-processor";
+import {
+  Account,
+  WorkReport,
+  JoinGroup,
+  StorageOrder,
+} from "./model/generated";
+import * as crustTypes from "@crustio/type-definitions";
+import {
+  MarketFileSuccessEvent,
+  SworkJoinGroupSuccessEvent,
+  SworkWorksReportSuccessEvent,
+} from "./types/events";
 
-const processor = new SubstrateProcessor('crust_example')
+const processor = new SubstrateProcessor("crust_example");
 processor.setDataSource({
-    archive: 'https://crust.indexer.gc.subsquid.io/v4/graphql',
-    chain: 'wss://rpc-crust-mainnet.decoo.io'
+  archive: "https://crust.indexer.gc.subsquid.io/v4/graphql",
+  chain: "wss://rpc-crust-mainnet.decoo.io",
 });
-processor.setBlockRange({from: 583000});
+processor.setBlockRange({ from: 583000 });
 processor.setTypesBundle(crustTypes);
-processor.addEventHandler('market.FileSuccess', fileSuccess);
-processor.addEventHandler('swork.JoinGroupSuccess', joinGroupSuccess);
-processor.addEventHandler('swork.WorksReportSuccess', workReportSuccess);
+processor.addEventHandler("market.FileSuccess", fileSuccess);
+processor.addEventHandler("swork.JoinGroupSuccess", joinGroupSuccess);
+processor.addEventHandler("swork.WorksReportSuccess", workReportSuccess);
 
 processor.run();
 
 function stringifyArray(list: any[]): any[] {
-  let listStr : any[] = [];
-  list = list[0]
-  for (let vec of list){
-    for (let i = 0; i < vec.length; i++){
+  let listStr: any[] = [];
+  list = list[0];
+  for (let vec of list) {
+    for (let i = 0; i < vec.length; i++) {
       vec[i] = String(vec[i]);
     }
     listStr.push(vec);
   }
-  return listStr
+  return listStr;
 }
 
-async function joinGroupSuccess({
-  store,
-  event,
-  block,
-  extrinsic,
-}: EventHandlerContext): Promise<void> {
-  const memberId = String(event.params[0].value);
-  const account = await getOrCreate(store, Account, memberId);
-  
+async function joinGroupSuccess(ctx: EventHandlerContext): Promise<void> {
+  let event = new SworkJoinGroupSuccessEvent(ctx);
+  const memberId = String(event.asV1[0]);
+  const account = await getOrCreate(ctx.store, Account, memberId);
   const joinGroup = new JoinGroup();
-  
-  joinGroup.id = event.id;
+
+  joinGroup.id = ctx.event.id;
   joinGroup.member = account;
-  joinGroup.owner = String(event.params[1].value);
+  joinGroup.owner = String(event.asV1[1]);
+  joinGroup.blockHash = ctx.block.hash;
+  joinGroup.blockNum = ctx.block.height;
+  joinGroup.createdAt = new Date(ctx.block.timestamp);
+  joinGroup.extrinisicId = ctx.extrinsic?.id;
 
-  joinGroup.blockHash = block.hash;
-  joinGroup.blockNum = block.height;
-  joinGroup.createdAt = new Date(block.timestamp);
-  joinGroup.extrinisicId = extrinsic?.id;
-  await store.save(account);
-  await store.save(joinGroup);
+  //console.log(joinGroup);
+  await ctx.store.save(account);
+  await ctx.store.save(joinGroup);
 }
 
-async function fileSuccess({
-  store,
-  event,
-  block,
-  extrinsic,
-}: EventHandlerContext): Promise<void> {
-    const accountId = String(event.params[0].value);
-    const account = await getOrCreate(store, Account, accountId);
+async function fileSuccess(ctx: EventHandlerContext): Promise<void> {
+  let event = new MarketFileSuccessEvent(ctx);
+  const accountId = String(event.asV1[0]);
+  const account = await getOrCreate(ctx.store, Account, accountId);
+  const storageOrder = new StorageOrder();
 
-    const storageOrder = new StorageOrder();
-    storageOrder.id = event.id;
-    storageOrder.account = account;
-    storageOrder.fileCid =  String(event.params[1].value);
-    storageOrder.blockHash = block.hash;
-    storageOrder.blockNum = block.height;
-    storageOrder.createdAt = new Date(block.timestamp);
-    storageOrder.extrinisicId = extrinsic?.id;
-    await store.save(account);
-    await store.save(storageOrder);
-  
+  storageOrder.id = ctx.event.id;
+  storageOrder.account = account;
+  storageOrder.fileCid = String(event.asV1[1]);
+  storageOrder.blockHash = ctx.block.hash;
+  storageOrder.blockNum = ctx.block.height;
+  storageOrder.createdAt = new Date(ctx.block.timestamp);
+  storageOrder.extrinisicId = ctx.extrinsic?.id;
+
+  //console.log(storageOrder);
+  await ctx.store.save(account);
+  await ctx.store.save(storageOrder);
 }
 
-async function workReportSuccess({
-  store,
-  event,
-  block,
-  extrinsic,
-}: EventHandlerContext): Promise<void> {
-  const accountId = String(event.params[0].value);
-  const accountPr = getOrCreate(store, Account, accountId);
-  const addedFilesObjPr = extrinsic?.args.find(arg => arg.name === "addedFiles");
-  const deletedFilesObjPr = extrinsic?.args.find(arg => arg.name === "deletedFiles");
+async function workReportSuccess(ctx: EventHandlerContext): Promise<void> {
+  let event = new SworkWorksReportSuccessEvent(ctx);
+  const accountId = String(event.asV1[0]);
+  const accountPr = getOrCreate(ctx.store, Account, accountId);
+  const addedFilesObjPr = ctx.extrinsic?.args.find(
+    (arg) => arg.name === "addedFiles"
+  );
+  const deletedFilesObjPr = ctx.extrinsic?.args.find(
+    (arg) => arg.name === "deletedFiles"
+  );
+  const [account, addFObj, delFObj] = await Promise.all([
+    accountPr,
+    addedFilesObjPr,
+    deletedFilesObjPr,
+  ]);
 
-  const [account,addFObj,delFObj] = await Promise.all([accountPr,addedFilesObjPr,deletedFilesObjPr]);
-  
   const workReport = new WorkReport();
-  
-  workReport.addedFiles = stringifyArray(Array(addFObj?.value))
-  workReport.deletedFiles = stringifyArray(Array(delFObj?.value))
-  if ((workReport.addedFiles.length > 0) || (workReport.deletedFiles.length > 0))
-  { workReport.account = account;
 
-  workReport.id = event.id;
-  workReport.blockHash = block.hash;
-  workReport.blockNum = block.height;
-  workReport.createdAt = new Date(block.timestamp);
-  workReport.extrinisicId = extrinsic?.id;
-  
-  await store.save(account);
-  await store.save(workReport);
+  //console.log(addFObj);
+  //console.log(delFObj);
+
+  workReport.addedFiles = stringifyArray(Array(addFObj?.value));
+  workReport.deletedFiles = stringifyArray(Array(delFObj?.value));
+  if (workReport.addedFiles.length > 0 || workReport.deletedFiles.length > 0) {
+    workReport.account = account;
+
+    workReport.id = ctx.event.id;
+    workReport.blockHash = ctx.block.hash;
+    workReport.blockNum = ctx.block.height;
+    workReport.createdAt = new Date(ctx.block.timestamp);
+    workReport.extrinisicId = ctx.extrinsic?.id;
+
+    await ctx.store.save(account);
+    await ctx.store.save(workReport);
   }
 }
 
-async function getOrCreate<T extends {id: string}>(
-    store: Store,
-    entityConstructor: EntityConstructor<T>,
-    id: string
+async function getOrCreate<T extends { id: string }>(
+  store: Store,
+  entityConstructor: EntityConstructor<T>,
+  id: string
 ): Promise<T> {
+  let e = await store.get<T>(entityConstructor, {
+    where: { id },
+  });
 
-    let e = await store.get<T>(entityConstructor, {
-        where: { id },
-    })
+  if (e == null) {
+    e = new entityConstructor();
+    e.id = id;
+  }
 
-    if (e == null) {
-        e = new entityConstructor()
-        e.id = id
-    }
-
-    return e
+  return e;
 }
-
 
 type EntityConstructor<T> = {
-    new (...args: any[]): T
-}
+  new (...args: any[]): T;
+};
+
 ```
 {% endcode %}
 
 </details>
+
+A repository with the entire project is also available on [GitHub](https://github.com/subsquid/squid-crust-example). If you like it, please leave a :star:
 
 ## Apply changes to the Database
 
@@ -744,7 +760,7 @@ Launch the GraphQL server (in a separate command line console window)
 npx squid-graphql-server
 ```
 
-And see the results for ourselves the result of our hard work, by visiting the `localhost:3000` URL in a browser and accessing the [GraphiQl](https://github.com/graphql/graphiql) console.
+And see the results for ourselves the result of our hard work, by visiting the `localhost:4350/graphql` URL in a browser and accessing the [GraphiQl](https://github.com/graphql/graphiql) console.
 
 From this window, we can perform queries such as this one, to find which files have been added or deleted by an account:
 
