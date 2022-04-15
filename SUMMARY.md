@@ -52,6 +52,7 @@
     * [JSON queries](reference/openreader-queries/json-queries.md)
     * [String/Regex queries](reference/openreader-queries/string-regex-queries.md)
     * [Resolve Union types/interfaces](reference/openreader-queries/resolve-union-types-interfaces.md)
+  * [API Extensions](reference/api-extensions.md)
   * [Substrate Processor](reference/substrate-processor.md)
   * [EVM Processor](reference/evm-processor.md)
   * [Handler functions](reference/handler-functions/README.md)
