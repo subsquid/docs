@@ -24,11 +24,48 @@ If that is the case, simply clone the repository
 git clone git@github.com:subsquid/squid-archive-setup.git
 ```
 
+### Launch the Archive locally
+
 Navigate to the corresponding folder in a command line console window and run
 
 ```
-docker-compose up
+docker-compose up -d
 ```
+
+{% hint style="info" %}
+The -d parameter is advised to avoid locking the console window and being flooded by log messages.
+{% endhint %}
+
+![This is what launching an Archive locally should look like](../.gitbook/assets/archive-docker-compose-up.png)
+
+To check that everything went well and verify the ports, launch the following command
+
+```bash
+docker container ls
+```
+
+The result should look like this (you could have more entries, if you launched other containers in a separate context):
+
+![List of running containers, their names, and ports](../.gitbook/assets/subsquid-archive-docker-container-ls.png)
+
+Now the last check to perform is visit the console, by typing this URL `http://localhost:4010/console` in a browser.
+
+### Use local Archive in a Squid API
+
+In order for a Squid API to use the Archive we just launched locally, it is necessary to change the values in the `setDataSource` function call, typically in the `processor.ts` file (if the project was not differently customized). The `archive` value should be set to `http://localhost:4010/v1/graphql`:
+
+{% code title="processor.ts" %}
+```typescript
+// ...
+
+processor.setDataSource({
+  archive: "http://localhost:4010/v1/graphql",
+  chain: "<insert chain WSS URL here>",
+});
+
+// ...
+```
+{% endcode %}
 
 ### Running in production environment
 
