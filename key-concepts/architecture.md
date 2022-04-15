@@ -37,7 +37,7 @@ An Archive includes the following components and services:
 * Status service
 * GraphQL Gateway
 
-![Archive components diagram](<../.gitbook/assets/Squid Archive components (1).png>)
+![Archive components diagram](<../.gitbook/assets/Squid Archive.png>)
 
 Ultimately, the Substrate Archive extracts block information, [Events](substrate.md#events), and [Extrinsics](substrate.md#extrinsics), then writes them to a Postgres database, while the status updates are saved in a Redis key-value database. Archived data is available for clients' queries, thanks to a GraphQL server running as part of every Squid Archive node.
 
