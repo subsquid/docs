@@ -35,3 +35,5 @@ sqd auth --key sqd_<deployment_key>
 ```
 
 It will always be visible on this page, but be careful, because it will also remain visible in your terminal history.
+
+To find out other important CLI commands for interacting with our SaaS solution are listed under the [dedicated subsection of complete CLI Reference](../../reference/squid-cli/#subcommands-for-squid-command).

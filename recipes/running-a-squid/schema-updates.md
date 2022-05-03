@@ -86,7 +86,7 @@ npm run build
 Once previous steps are complete, this one is easy enough, simply launch this command in a terminal window from the project's main folder:
 
 ```bash
-sqd db new-migration [migration-name]
+sqd db create-migration [migration-name]
 ```
 
 And a new file will be added to the `db/migrations` folder.
