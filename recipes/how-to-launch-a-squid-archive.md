@@ -73,7 +73,7 @@ The provided docker compose setup is a minimal configuration best suitable for d
 
 * Use a private gRPC endpoint (`WS_PROVIDER_ENDPOINT_URI` env variable in the docker file)
 * Use managed Postgres database with non-root access (`DB_*` env variables in the docker file)
-* Collect and monitor [Prometheus](https://prometheus.io) metrics exposed at port 9090
+* Collect and monitor [Prometheus](https://prometheus.io/) metrics exposed at port 9090
 * Increase `WORKERS_NUMBER` environment variable to speed up the syncing. Usually somewhere between 5-50 workers is a sweet spot depending on the gRPC endpoint capacity.
 
 To reliably run an Archive we recommend 16GB RAM and modern CPU. Database storage requirements depend on the size of the network. A rule of thumb is to reserve around 100 kb per block, so e.g. for Kusama with \~10M blocks one needs about 1Tb for Postgres storage.

@@ -6,7 +6,7 @@ This tutorial will take the Squid EVM template and go through all the necessary 
 
 The business logic to process such Events is very basic, and that is on purpose since the purpose of the Tutorial is to show a simple case, highlighting the changes a developer would typically apply to the template, removing unnecessary complexity.
 
-The blockchain used in this example will be the [Astar network](https://astar.network) and the final objective will be to observe which files have been added and deleted from the chain, as well as groups joined and storage orders placed by a determined account.
+The blockchain used in this example will be the [Astar network](https://astar.network/) and the final objective will be to observe which files have been added and deleted from the chain, as well as groups joined and storage orders placed by a determined account.
 
 ## Pre-requisites
 
