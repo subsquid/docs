@@ -1,6 +1,6 @@
 # Prometheus metrics
 
-The Subsquid SDK comes with [Prometheus](https://prometheus.io) metrics to monitor synchronization status. When launching the processor, it is sufficient to specify the port at which metrics should be served via the environment variable `PROCESSOR_PROMETHEUS_PORT`.
+The Subsquid SDK comes with [Prometheus](https://prometheus.io/) metrics to monitor synchronization status. When launching the processor, it is sufficient to specify the port at which metrics should be served via the environment variable `PROCESSOR_PROMETHEUS_PORT`.
 
 If not provided, a random port will be used and communicated at launch:
 
