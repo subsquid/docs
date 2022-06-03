@@ -30,7 +30,7 @@ Next, clone the created repository (be careful of changing `<account>` with your
 git clone git@github.com:<account>/squid-template.git
 ```
 
-For reference on the complete work, you can find the entire project [here](https://github.com/RaekwonIII/squid-template/tree/crust-integration-demo).
+For reference on the complete work, you can find the entire project [here](https://github.com/RaekwonIII/squid-template/tree/crust-integration-demo) - TODO(USE A PROPER LINK).
 
 ### Run the project
 
