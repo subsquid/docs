@@ -515,7 +515,7 @@ async function joinGroupSuccess(ctx: EventHandlerContext): Promise<void> {
   joinGroup.blockHash = ctx.block.hash;
   joinGroup.blockNum = ctx.block.height;
   joinGroup.createdAt = new Date(ctx.block.timestamp);
-  joinGroup.extrinisicId = ctx.extrinsic?.id;
+  joinGroup.extrinsicId = ctx.extrinsic?.id;
 
   await ctx.store.save(account);
   await ctx.store.save(joinGroup);
