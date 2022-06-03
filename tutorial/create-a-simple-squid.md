@@ -535,7 +535,7 @@ async function fileSuccess(ctx: EventHandlerContext): Promise<void> {
   storageOrder.blockHash = ctx.block.hash;
   storageOrder.blockNum = ctx.block.height;
   storageOrder.createdAt = new Date(ctx.block.timestamp);
-  storageOrder.extrinisicId = ctx.extrinsic?.id;
+  storageOrder.extrinsicId = ctx.extrinsic?.id;
 
   await ctx.store.save(account);
   await ctx.store.save(storageOrder);
@@ -568,7 +568,7 @@ async function workReportSuccess(ctx: EventHandlerContext): Promise<void> {
     workReport.blockHash = ctx.block.hash;
     workReport.blockNum = ctx.block.height;
     workReport.createdAt = new Date(ctx.block.timestamp);
-    workReport.extrinisicId = ctx.extrinsic?.id;
+    workReport.extrinsicId = ctx.extrinsic?.id;
 
     await ctx.store.save(account);
     await ctx.store.save(workReport);
@@ -647,7 +647,7 @@ async function joinGroupSuccess(ctx: EventHandlerContext): Promise<void> {
   joinGroup.blockHash = ctx.block.hash;
   joinGroup.blockNum = ctx.block.height;
   joinGroup.createdAt = new Date(ctx.block.timestamp);
-  joinGroup.extrinisicId = ctx.extrinsic?.id;
+  joinGroup.extrinsicId = ctx.extrinsic?.id;
 
   await ctx.store.save(account);
   await ctx.store.save(joinGroup);
@@ -667,7 +667,7 @@ async function fileSuccess(ctx: EventHandlerContext): Promise<void> {
   storageOrder.blockHash = ctx.block.hash;
   storageOrder.blockNum = ctx.block.height;
   storageOrder.createdAt = new Date(ctx.block.timestamp);
-  storageOrder.extrinisicId = ctx.extrinsic?.id;
+  storageOrder.extrinsicId = ctx.extrinsic?.id;
 
   await ctx.store.save(account);
   await ctx.store.save(storageOrder);
@@ -700,7 +700,7 @@ async function workReportSuccess(ctx: EventHandlerContext): Promise<void> {
     workReport.blockHash = ctx.block.hash;
     workReport.blockNum = ctx.block.height;
     workReport.createdAt = new Date(ctx.block.timestamp);
-    workReport.extrinisicId = ctx.extrinsic?.id;
+    workReport.extrinsicId = ctx.extrinsic?.id;
 
     await ctx.store.save(account);
     await ctx.store.save(workReport);
