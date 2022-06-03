@@ -36,16 +36,16 @@ For reference on the complete work, you can find the entire project [here](https
 
 Next, just follow the [Quickstart](../quickstart.md) to get the project up and running, here's a list of commands to run in quick succession:
 
-```bash
-npm ci
-npm run build
-docker compose up -d
-npx sqd db create
-npx sqd db migrate
-node -r dotenv/config lib/processor.js
-# open a separate terminal for this next command
-npx squid-graphql-server
-```
+  ```bash
+  npm ci
+  npm run build
+  docker compose up -d
+  npx sqd db create
+  npx sqd db migrate
+  node -r dotenv/config lib/processor.js
+  # open a separate terminal for this next command
+  npx squid-graphql-server
+  ```
 
 Bear in mind this is not strictly **necessary**, but it is always useful to check that everything is in order. If you are not interested, you could at least get the Postgres container running with `docker compose up -d`.
 
