@@ -447,7 +447,7 @@ export class SworkWorksReportSuccessEvent {
 
 After having obtained wrappers for Events and the metadata changes across different Runtime versions, it's finally time to define Handlers for these Events and attach them to our [Processor](../key-concepts/processor.md), and this is done in the `src/processor.ts` file in the project folder.
 
-First of all, we need to import the generated Entity model classes, in order to be able to use them in our code. And then, we need the type definitions of Crust events, so that they can be used to wrap them. So let's add these two lines at the top of our file:
+First of all, we need to import the generated Entity model classes, in order to be able to use them in our code. And then, we need the type definitions of Crust events, so that they can be used to wrap them. So let's add these two lines at the top TODO of our file:
 
 ```typescript
 import  {Account, WorkReport, JoinGroup, StorageOrder} from './model/generated'
