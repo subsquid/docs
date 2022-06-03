@@ -487,13 +487,13 @@ Here are the declarations for the Event handler functions, same as above, add th
 ```typescript
 async function joinGroupSuccess(ctx: EventHandlerContext): Promise<void> {
   let event = new SworkJoinGroupSuccessEvent(ctx);
-  const memberId = String(event.asLatest[0]);
+  const memberId = ss58.codec("crust").encode(event.asV1[0]);
   const account = await getOrCreate(ctx.store, Account, memberId);
   const joinGroup = new JoinGroup();
-  
+
   joinGroup.id = ctx.event.id;
   joinGroup.member = account;
-  joinGroup.owner = String(event.asLatest[1]);
+  joinGroup.owner = ss58.codec("crust").encode(event.asV1[1]);
   joinGroup.blockHash = ctx.block.hash;
   joinGroup.blockNum = ctx.block.height;
   joinGroup.createdAt = new Date(ctx.block.timestamp);
@@ -505,46 +505,55 @@ async function joinGroupSuccess(ctx: EventHandlerContext): Promise<void> {
 
 async function fileSuccess(ctx: EventHandlerContext): Promise<void> {
   let event = new MarketFileSuccessEvent(ctx);
-   const accountId = String(event.asLatest[0]);
-   const account = await getOrCreate(ctx.store, Account, accountId);
-   const storageOrder = new StorageOrder();
+  const accountId = ss58.codec("crust").encode(event.asV1[0]);
+  const account = await getOrCreate(ctx.store, Account, accountId);
+  const storageOrder = new StorageOrder();
 
-   storageOrder.id = ctx.event.id;
-   storageOrder.account = account;
-    storageOrder.fileCid =  String(event.asLatest[1]);
-    storageOrder.blockHash = ctx.block.hash;
-    storageOrder.blockNum = ctx.block.height;
-    storageOrder.createdAt = new Date(ctx.block.timestamp);
-    storageOrder.extrinsicId = ctx.extrinsic?.id;
+  storageOrder.id = ctx.event.id;
+  storageOrder.account = account;
+  storageOrder.fileCid = toHex(event.asV1[1]);
+  console.log("event fileCID", storageOrder.fileCid);
+  console.log("raw fileCID", String(ctx.event.params[1].value));
+  storageOrder.blockHash = ctx.block.hash;
+  storageOrder.blockNum = ctx.block.height;
+  storageOrder.createdAt = new Date(ctx.block.timestamp);
+  storageOrder.extrinsicId = ctx.extrinsic?.id;
 
-    await ctx.store.save(account);
-    await ctx.store.save(storageOrder);
-  
+  await ctx.store.save(account);
+  await ctx.store.save(storageOrder);
 }
 
 async function workReportSuccess(ctx: EventHandlerContext): Promise<void> {
   let event = new SworkWorksReportSuccessEvent(ctx);
-  const accountId = String(event.asLatest[0]);
+  const accountId = ss58.codec("crust").encode(event.asV1[0]);
   const accountPr = getOrCreate(ctx.store, Account, accountId);
-  const addedFilesObjPr = ctx.extrinsic?.args.find(arg => arg.name === "addedFiles");
-  const deletedFilesObjPr = ctx.extrinsic?.args.find(arg => arg.name === "deletedFiles");
-  const [account,addFObj,delFObj] = await Promise.all([accountPr,addedFilesObjPr,deletedFilesObjPr]);
-  
-  const workReport = new WorkReport();
-  
-  workReport.addedFiles = stringifyArray(Array(addFObj?.value))
-  workReport.deletedFiles = stringifyArray(Array(delFObj?.value))
-  if ((workReport.addedFiles.length > 0) || (workReport.deletedFiles.length > 0))
-  { workReport.account = account;
+  const addedFilesObjPr = ctx.extrinsic?.args.find(
+    (arg) => arg.name === "addedFiles"
+  );
+  const deletedFilesObjPr = ctx.extrinsic?.args.find(
+    (arg) => arg.name === "deletedFiles"
+  );
+  const [account, addFObj, delFObj] = await Promise.all([
+    accountPr,
+    addedFilesObjPr,
+    deletedFilesObjPr,
+  ]);
 
-  workReport.id = ctx.event.id;
-  workReport.blockHash = ctx.block.hash;
-  workReport.blockNum = ctx.block.height;
-  workReport.createdAt = new Date(ctx.block.timestamp);
-  workReport.extrinsicId = ctx.extrinsic?.id;
-  
-  await ctx.store.save(account);
-  await ctx.store.save(workReport);
+  const workReport = new WorkReport();
+
+  workReport.addedFiles = stringifyArray(Array(addFObj?.value));
+  workReport.deletedFiles = stringifyArray(Array(delFObj?.value));
+  if (workReport.addedFiles.length > 0 || workReport.deletedFiles.length > 0) {
+    workReport.account = account;
+
+    workReport.id = ctx.event.id;
+    workReport.blockHash = ctx.block.hash;
+    workReport.blockNum = ctx.block.height;
+    workReport.createdAt = new Date(ctx.block.timestamp);
+    workReport.extrinsicId = ctx.extrinsic?.id;
+
+    await ctx.store.save(account);
+    await ctx.store.save(workReport);
   }
 }
 ```
