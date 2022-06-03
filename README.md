@@ -16,7 +16,7 @@ To jump straight into the action, get a local environment up and running, follow
 
 ## Key Concepts
 
-To take a more a more conceptual approach, learn more about the project fundamentals, dive deeper into the modula architecture of Subsquid, head over to the [Key Concepts](./#undefined) section.
+To take a more a more conceptual approach, learn more about the project fundamentals, dive deeper into the modula architecture of Subsquid, head over to the [Key Concepts](key-concepts/architecture.md) section.
 
 ## Start developing
 
