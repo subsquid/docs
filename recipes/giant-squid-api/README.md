@@ -10,7 +10,7 @@ description: >-
 
 The subject of this guide is not how to build a Squid API project, but rather how to use one particular kind of Squid API.
 
-The Giant Squid API is a project developed by Subsquid, aimed ad uniting multiple smaller APIs into one single endpoint.
+The Giant Squid API is a project developed by Subsquid, aimed ad uniting smaller Squids into a one single GraphQL endpoint.
 
 ## API schema
 
