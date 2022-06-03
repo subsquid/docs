@@ -30,7 +30,7 @@ Next, clone the created repository (be careful of changing `<account>` with your
 git clone git@github.com:<account>/squid-template.git
 ```
 
-For reference on the complete work, you can find the entire project [here](https://github.com/RaekwonIII/squid-template/tree/crust-integration-demo).
+For reference on the complete work, you can find the entire project [here](https://github.com/subsquid/squid-crust-example).
 
 ### Run the project
 
@@ -47,7 +47,15 @@ node -r dotenv/config lib/processor.js
 npx squid-graphql-server
 ```
 
-Bear in mind this is not strictly **necessary**, but it is always useful to check that everything is in order. If you are not interested, you could at least get the Postgres container running with `docker compose up -d`.
+Bear in mind this is not strictly **necessary**, but it is always useful to check that everything is in order.
+
+{% hint style="info" %}
+These commands are supposed to be run the first time, right after cloning the template.
+
+Some, like `npx sqd db create`,  may throw an error, because the database had already been previously created.
+{% endhint %}
+
+If you are not interested, you could at least get the Postgres container running with `docker compose up -d`.
 
 ## Install new dependencies
 
@@ -119,11 +127,13 @@ It's worth noticing that the `Account` entity is almost completely derived and i
 
 This all requires some implicit knowledge of the blockchain itself ([here's a tip](../faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers.md) on how to obtain this information).
 
-To finalize this step, it is necessary to run the `codegen` tool, to generate TypeScript Entity classes for our schema definition:
+To finalize this step, it is necessary to run the `codegen` tool:
 
 ```bash
 npx sqd codegen
 ```
+
+This will automatically generate TypeScript Entity classes for our schema definition, which can be found under the `src/model/generated` folder in the project.
 
 ## Generate TypeScript interfaces
 
@@ -140,7 +150,7 @@ npx squid-substrate-metadata-explorer \
 		--out crustVersions.json
 ```
 
-The output is visible in the `crustVersions.json` file, and although the `metadata` field is intelligible, it's worth noting that there are 13 different `versions`, meaning the Runtime has changed 13 times.
+The output is visible in the `crustVersions.json` file, and although the `metadata` field is intelligible, it's worth noting that (at the time of creationg of this tutorial) there are 13 different `versions`, meaning the Runtime has changed 13 times.
 
 It remains to be seen if this had any impacts on the definitions of the Events we are interested in.
 
@@ -445,11 +455,19 @@ export class SworkWorksReportSuccessEvent {
 
 After having obtained wrappers for Events and the metadata changes across different Runtime versions, it's finally time to define Handlers for these Events and attach them to our [Processor](../key-concepts/processor.md), and this is done in the `src/processor.ts` file in the project folder.
 
-First of all, we need to import the generated Entity model classes, in order to be able to use them in our code. And then, we need the type definitions of Crust events, so that they can be used to wrap them. So let's add these two lines at the top of our file:
+We will end up replacing the code in this file almost entirely, leaving only a few useful pieces, but we are going to take a step-by-step approach, showing where essential changes have to be made, but the final result will be visible at the end of this section.
+
+First of all, we need to import the generated Entity model classes, in order to be able to use them in our code. And then, we need the type definitions of Crust events, so that they can be used to wrap them. Let's replace previous models and types import at the top of our file with these two lines:
 
 ```typescript
 import  {Account, WorkReport, JoinGroup, StorageOrder} from './model/generated'
 import { MarketFileSuccessEvent, SworkJoinGroupSuccessEvent, SworkWorksReportSuccessEvent } from './types/events'
+```
+
+And add the Crust types definition as well:
+
+```typescript
+import * as crustTypes from "@crustio/type-definitions";
 ```
 
 Then, we need to customize the processor, by giving it the right name, connecting it to the right Squid Archive and setting the correct types. This is done by substituting with the following code the top part of the file, that looks similar to it.
@@ -558,7 +576,7 @@ async function workReportSuccess(ctx: EventHandlerContext): Promise<void> {
 }
 ```
 
-Lastly, as mentioned earlier, we are going to get rid of the previous event handler, by replacing the code responsible for tying an anonymous function to the processor, with our own:
+Lastly, as mentioned earlier, we are going to get rid of the previous event handler, by replacing the code responsible for tying an arrow function to the processor, with our own, newly defined functions:
 
 ```typescript
 processor.addEventHandler('market.FileSuccess', fileSuccess);
