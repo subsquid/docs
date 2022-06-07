@@ -150,7 +150,7 @@ npx squid-substrate-metadata-explorer \
 		--out crustVersions.json
 ```
 
-The output is visible in the `crustVersions.json` file, and although the `metadata` field is intelligible, it's worth noting that (at the time of creationg of this tutorial) there are 13 different `versions`, meaning the Runtime has changed 13 times.
+The output is visible in the `crustVersions.json` file, and although the `metadata` field is intelligible, it's worth noting that (at the time of creating of this tutorial) there are 13 different `versions`, meaning the Runtime has changed 13 times.
 
 It remains to be seen if this had any impacts on the definitions of the Events we are interested in.
 
