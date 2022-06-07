@@ -287,5 +287,3 @@ interface CanFail {
 ```
 
 </details>
-
-## v
