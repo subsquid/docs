@@ -100,7 +100,7 @@ enum PayeeType {
   None
 }
 
-# current information about stash, controller, payee and staking role.
+# current information about stash, controller, payee and staking role
 type StakingInfo @entity {
   id: ID! #stash Id
   stash: Account! @unique
