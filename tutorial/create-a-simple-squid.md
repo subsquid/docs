@@ -52,7 +52,7 @@ Bear in mind this is not strictly **necessary**, but it is always useful to chec
 {% hint style="info" %}
 These commands are supposed to be run the first time, right after cloning the template.
 
-Some, like `npx sqd db create`,  may throw an error, because the database had already been previously created.
+Some, like `npx sqd db create`,  may throw an error, because the database had already been previously created. In this case just run `npx sqd db drop` and run `npx sqd db create` again.
 {% endhint %}
 
 If you are not interested, you could at least get the Postgres container running with `docker compose up -d`.
