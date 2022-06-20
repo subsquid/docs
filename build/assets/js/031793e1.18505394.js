@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunksubsquid_docs=self.webpackChunksubsquid_docs||[]).push([[1633],{62511:function(s){s.exports=JSON.parse('{"label":"facebook","permalink":"/blog/tags/facebook","allTagsPath":"/blog/tags","count":1}')}}]);

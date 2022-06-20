@@ -1,0 +1,265 @@
+@import url('https://fonts.googleAPIs.com/css2?family=Inter:wght@400;600;700&amp;display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .body--s {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: -0.02em;
+    }
+
+    .caption {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: -0.02em;
+    }
+}
+
+
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+    --fg-base--default: #20203A;
+    --fg-base--muted: #9494A0;
+    --fg-base--contrast: #FFFFFF;
+    --fg-base--indistinguishable: #9B9BA8;
+
+    --fg-role--accent-01: #0066DD;
+    --fg-role--accent-02: #BD9400;
+    --fg-role--success: #0F6D13;
+    --fg-role--error: #EB1239;
+    --fg-role--active: #8021C9;
+
+    --bg-base--default: #FFFFFF;
+    --bg-base--subtle: #F6F6F7;
+    --bg-base--mutedDefault: #FFFFFF;
+    --bg-base--mutedBlue: #E2E6F3;
+    --bg-base--indistinguishable: #E1E1E6;
+    --bg-base--contrast: #393B47;
+
+    --bg-transparent--blue--02: rgba(58, 148, 254, 0.2);
+    --bg-transparent--blue--05: rgba(58, 148, 254, 0.5);
+
+    --bg-role--building: #D8E3F1;
+    --bg-role--success: #DEF8DE;
+    --bg-role--error: #FBCED6;
+    --bg-role--syncing: #EECCED;
+    --bg-role--info: #BEFCF8;
+    --bg-role--notice: #F1DAFC;
+    --bg-role--warning: #F7EDB9;
+
+    --bg-trans--accentPink: rgba(76, 26, 116, 0.1);
+
+
+    --border-color-base--default: #D4D4E8;
+    --border-color-base--muted: #A4A4C6;
+    --border-color-base--subtle: #707082;
+    --border-color-base--contrast: #373B53;
+    --border-color-base--accentPurple: #B434F1;
+
+    --border-color-role--blue: #3A94FE;
+
+    --bg-empty: none;
+
+    --ifm-background-color: var(--bg-base--default);
+    --ifm-color-primary: var(--fg-role--accent-01);
+    --ifm-font-family-base: 'Inter', sans-serif;
+
+    --ifm-menu-color: var(--fg-base--default);
+
+    --ifm-menu-link-padding-vertical: 0;
+    --ifm-toc-border-color: transparent !important;
+    --doc-sidebar-width: 167px !important;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+    --fg-base--default: #F1F2F6;
+    --fg-base--muted: #7A7B8B;
+    --fg-base--contrast: #18181C;
+    --fg-base--indistinguishable: #424356;
+
+    --fg-role--accent-01: #3A94FE;
+    --fg-role--accent-02: #E0BF48;
+    --fg-role--success: #7BD17F;
+    --fg-role--error: #EE506D;
+    --fg-role--active: #C14FF6;
+
+    --bg-base--default: #18181C;
+    --bg-base--subtle: #26282F;
+    --bg-base--mutedDefault: #383841;
+    --bg-base--mutedBlue: #29293A;
+    --bg-base--indistinguishable: #1B1B1F;
+    --bg-base--contrast: #FAFAFA;
+
+    --bg-transparent--blue--02: rgba(58, 148, 254, 0.2);
+    --bg-transparent--blue--05: rgba(58, 148, 254, 0.5);
+
+    --bg-role--building: #28323F;
+    --bg-role--success: #1C2B1C;
+    --bg-role--error: #552830;
+    --bg-role--syncing: #392138;
+    --bg-role--info: #1D4D4A;
+    --bg-role--notice: #512864;
+    --bg-role--warning: #5C4128;
+
+    --bg-trans--accentPink: rgba(76, 26, 116, 0.1);
+
+
+    --border-color-base--default: #2F2F3A;
+    --border-color-base--subtle: #9A9AA7;
+    --border-color-base--muted: #484856;
+    --border-color-base--contrast: #FFFFFF;
+    --border-color-base--accentPurple: rgba(156, 36, 151, 1);
+
+    --border-color-role--blue: #3A94FE;
+
+    --bg-empty: none;
+
+    --ifm-background-color: var(--bg-base--default) !important;
+
+    --ifm-font-family-base: 'Inter', sans-serif;
+
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.markdown h1 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 40px;
+}
+
+.markdown h3 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 40px;
+}
+
+.markdown h2 {
+    --ifm-heading-color: var(--fg-base--muted);
+
+    @apply body--s mb-8 relative;
+}
+
+.markdown h2:before {
+    content: '';
+    @apply absolute left-0 w-full -bottom-8 border-x border-t border-border-color-base--default rounded-lg h-6;
+}
+
+.markdown h2:after {
+    content: '';
+    @apply absolute left-0 w-full -bottom-8 bg-bg-base--default h-3;
+}
+
+.markdown a {
+    @apply body--s;
+
+    color: var(--fg-role--active);
+}
+
+.markdown ul {
+    list-style: initial;
+    @apply pl-4 ml-12;
+}
+
+.codestep + div {
+    @apply ml-12;
+}
+
+.codestep + div code {
+    @apply p-6;
+}
+
+.buttonGroup_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-Content-styles-module {
+    @apply top-2/4 -translate-y-2/4 !important;
+}
+
+.buttonGroup_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-Content-styles-module button {
+    @apply rounded-full bg-bg-base--default text-fg-base--muted border border-border-color-base--default w-8 h-8 !important;
+}
+
+.theme-doc-sidebar-container {
+    margin-top: 0 !important;
+}
+
+.sidebar_node_modules-\@docusaurus-theme-classic-lib-theme-DocSidebar-Desktop-styles-module {
+    padding-top: 0 !important;
+}
+
+.main-wrapper {
+    @apply max-w-[1128px] mx-auto pt-14 w-full pb-[232px] !important;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.menu__list-item-collapsible--active {
+    background-color: transparent;
+}
+
+.menu.thin-scrollbar {
+    padding: 0;
+}
+
+.theme-doc-sidebar-menu {
+    --ifm-menu-link-sublist-icon: url('/static/img/menu-arrow.svg');
+}
+
+.theme-doc-sidebar-menu .menu__list-item:not(:first-child) {
+    @apply mt-4;
+}
+
+.theme-doc-sidebar-item-category .menu__list-item {
+    @apply mt-2 !important;
+    --ifm-menu-color: var(--fg-base--muted);
+}
+
+.menu {
+    @apply font-normal !important;
+}
+
+.menu__caret {
+    @apply p-0;
+    transform: rotate(0deg);
+}
+
+.menu__caret:before {
+    background: var(--ifm-menu-link-sublist-icon) 50% / 1rem 1rem;
+    transform: rotate(0deg);
+}
+
+.menu__list-item--collapsed .menu__caret:before {
+    transform: rotate(-90deg);
+}
+
+svg {
+    display: initial;
+}
+
+pre {
+    font-family: "PT Mono", monospace;
+}
+
+.language-bash .token-line, .language-bash .function {
+    color: var(--fg-role--accent-01) !important;
+}
+
+html {
+    font-family: var(--ifm-font-family-base) !important;
+}

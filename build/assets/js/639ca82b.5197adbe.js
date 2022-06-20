@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunksubsquid_docs=self.webpackChunksubsquid_docs||[]).push([[3266],{1633:function(e,u,n){n.r(u),n.d(u,{default:function(){return s}});var t=n(67294),c=n(55257);function s(){return t.createElement(c.Z,null,t.createElement("h1",null,"My React page"),t.createElement("p",null,"This is a React page"))}}}]);
