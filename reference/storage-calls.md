@@ -8,8 +8,8 @@ Typegen generates wrappers for fully type-safe storage calls which cover all his
 
 To enable storage calls:
 
-- List fully qualified names of the storage items to the `storage` section of [typegen config](./../key-concepts/typegen.md)
-- Rerun typegen
+* List fully qualified names of the storage items to the `storage` section of [typegen config](../key-concepts/typegen.md)
+* Rerun typegen
 
 Here's an example of the typegen config:
 
@@ -64,16 +64,10 @@ export class SystemAccountStorage {
 As previously mentioned, the storage items are always retrieved at the "current" block height of `StorageContext`. The usage in a handler function is straighforward:
 
 ```typescript
-processor.addPreHook({ range: { from: 0, to: 0 } }, async (ctx) => {
-  const accounts = new SystemAccountStorage(ctx);
-  const aliceAddress = ss58.decode(
-    "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"
-  ).bytes;
-  const aliceAccount = await accounts.getAsV1(aliceAddress);
-  assert(aliceAccount.data.free > 0);
-});
+processor.addPreHook({range: {from: 0, to: 0}}, async ctx => {
+    let accounts = new SystemAccountStorage(ctx)
+    let aliceAddress = ss58.decode('5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY').bytes
+    let aliceAccount = await accounts.getAsV1(aliceAddress)
+    assert(aliceAccount.data.free > 0)
+})
 ```
-
-{% hint style="info" %}
-Note: It's important to understand that `addPreHook` function accept block handler function that must accept a `BlockHandlerContext` argument. It is accepted, however, to instantiate a `SystemAccountStorage` with a `BlockHandlerContext`, like in this example, because `StorageContext` is a subset of such interface and all mandatory fields are respected.
-{% endhint %}
