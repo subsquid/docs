@@ -52,7 +52,7 @@ Bear in mind this is not strictly **necessary**, but it is always useful to chec
 {% hint style="info" %}
 These commands are supposed to be run the first time, right after cloning the template.
 
-Some, like `npx sqd db create`,  may throw an error, because the database had already been previously created. In this case just run `npx sqd db drop` and run `npx sqd db create` again.
+Some, like `npx sqd db create`, may throw an error, because the database had already been previously created. In this case just run `npx sqd db drop` and run `npx sqd db create` again.
 {% endhint %}
 
 If you are not interested, you could at least get the Postgres container running with `docker compose up -d`.
@@ -137,7 +137,7 @@ This will automatically generate TypeScript Entity classes for our schema defini
 
 ## Generate TypeScript interfaces
 
-The process to generate wrappers around TypeScript wrappers around Events and Extrinsics has a [dedicated page](../key-concepts/typegen.md) to explain it and a quick [Recipe](../recipes/running-a-squid/generate-typescript-definitions.md) to guide you through it, so it is advised to consult them for more information.
+The process to generate wrappers around TypeScript wrappers around Events and Extrinsics has a [dedicated page](../develop-a-squid/typegen.md) to explain it and a quick [Recipe](../develop-a-squid/substrate-support/generate-typescript-definitions.md) to guide you through it, so it is advised to consult them for more information.
 
 ### Chain exploration
 
@@ -453,7 +453,7 @@ export class SworkWorksReportSuccessEvent {
 
 ## Define and bind Event Handlers
 
-After having obtained wrappers for Events and the metadata changes across different Runtime versions, it's finally time to define Handlers for these Events and attach them to our [Processor](../key-concepts/processor.md), and this is done in the `src/processor.ts` file in the project folder.
+After having obtained wrappers for Events and the metadata changes across different Runtime versions, it's finally time to define Handlers for these Events and attach them to our [Processor](../develop-a-squid/processor.md), and this is done in the `src/processor.ts` file in the project folder.
 
 We will end up replacing the code in this file almost entirely, leaving only a few useful pieces, but we are going to take a step-by-step approach, showing where essential changes have to be made, but the final result will be visible at the end of this section.
 
@@ -727,7 +727,6 @@ async function getOrCreate<T extends { id: string }>(
 type EntityConstructor<T> = {
   new (...args: any[]): T;
 };
-
 ```
 {% endcode %}
 

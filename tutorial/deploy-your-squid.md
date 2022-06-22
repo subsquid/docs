@@ -58,4 +58,4 @@ Visit and browse through interesting projects, created by our community!
 
 ## What's next?
 
-To learn how to create a new version, modify the template, build custom APIs for any Substrate chain, take a look at the dedicated [Tutorial](../recipes/running-a-squid/generate-typescript-definitions.md).
+To learn how to create a new version, modify the template, build custom APIs for any Substrate chain, take a look at the dedicated [Tutorial](../develop-a-squid/substrate-support/generate-typescript-definitions.md).

@@ -16,7 +16,7 @@ To jump straight into the action, get a local environment up and running, follow
 
 ## Key Concepts
 
-To take a more a more conceptual approach, learn more about the project fundamentals, dive deeper into the modula architecture of Subsquid, head over to the [Key Concepts](key-concepts/architecture.md) section.
+To take a more a more conceptual approach, learn more about the project fundamentals, dive deeper into the modula architecture of Subsquid, head over to the [Key Concepts](develop-a-squid/architecture.md) section.
 
 ## Start developing
 
@@ -36,7 +36,7 @@ Visit and browse through interesting projects, and publish your own for for cool
 
 ## Migration from earlier versions
 
-If you have an existing project and need to migrate to the latest Squid version, follow this [Guide](recipes/migrate-to-v5.md).
+If you have an existing project and need to migrate to the latest Squid version, follow this [Guide](broken-reference).
 
 ## Bug bounties and community support
 
