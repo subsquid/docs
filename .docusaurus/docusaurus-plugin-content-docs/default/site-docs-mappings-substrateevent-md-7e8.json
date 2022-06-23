@@ -1,0 +1,25 @@
+{
+  "unversionedId": "mappings/substrateevent",
+  "id": "mappings/substrateevent",
+  "title": "SubstrateEvent",
+  "description": "Interface containing the required information about the emitted Substrate event",
+  "source": "@site/docs/mappings/substrateevent.md",
+  "sourceDirName": "mappings",
+  "slug": "/mappings/substrateevent",
+  "permalink": "/docs/mappings/substrateevent",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "description": "Interface containing the required information about the emitted Substrate event"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Mappings",
+    "permalink": "/docs/mappings/"
+  },
+  "next": {
+    "title": "Quickstart",
+    "permalink": "/docs/quickstart"
+  }
+}

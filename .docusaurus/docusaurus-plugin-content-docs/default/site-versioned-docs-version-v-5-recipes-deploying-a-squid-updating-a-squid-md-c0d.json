@@ -1,0 +1,25 @@
+{
+  "unversionedId": "recipes/deploying-a-squid/updating-a-squid",
+  "id": "version-v5/recipes/deploying-a-squid/updating-a-squid",
+  "title": "Updating a Squid",
+  "description": "With and without resetting the database",
+  "source": "@site/versioned_docs/version-v5/recipes/deploying-a-squid/updating-a-squid.md",
+  "sourceDirName": "recipes/deploying-a-squid",
+  "slug": "/recipes/deploying-a-squid/updating-a-squid",
+  "permalink": "/docs/v5/recipes/deploying-a-squid/updating-a-squid",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {
+    "description": "With and without resetting the database"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Releasing a Squid version",
+    "permalink": "/docs/v5/recipes/deploying-a-squid/releasing-a-squid-version"
+  },
+  "next": {
+    "title": "Giant Squid API",
+    "permalink": "/docs/v5/recipes/giant-squid-api/"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "permalink": "/blog/greetings",
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/blog/2021-02-28-greetings.md",
+  "source": "@site/blog/2021-02-28-greetings.md",
+  "title": "Greetings!",
+  "description": "Congratulations, you have made your first post!",
+  "date": "2021-02-28T00:00:00.000Z",
+  "formattedDate": "February 28, 2021",
+  "tags": [],
+  "readingTime": 0.1,
+  "truncated": false,
+  "authors": [
+    {
+      "name": "Joel Marcey",
+      "title": "Co-creator of Docusaurus 1",
+      "url": "https://github.com/JoelMarcey",
+      "image_url": "https://github.com/JoelMarcey.png",
+      "imageURL": "https://github.com/JoelMarcey.png"
+    },
+    {
+      "name": "Sébastien Lorber",
+      "title": "Docusaurus maintainer",
+      "url": "https://sebastienlorber.com",
+      "image_url": "https://github.com/slorber.png",
+      "tags": [
+        "greetings"
+      ],
+      "imageURL": "https://github.com/slorber.png"
+    }
+  ],
+  "frontMatter": {
+    "slug": "greetings",
+    "title": "Greetings!",
+    "authors": [
+      {
+        "name": "Joel Marcey",
+        "title": "Co-creator of Docusaurus 1",
+        "url": "https://github.com/JoelMarcey",
+        "image_url": "https://github.com/JoelMarcey.png",
+        "imageURL": "https://github.com/JoelMarcey.png"
+      },
+      {
+        "name": "Sébastien Lorber",
+        "title": "Docusaurus maintainer",
+        "url": "https://sebastienlorber.com",
+        "image_url": "https://github.com/slorber.png",
+        "tags": [
+          "greetings"
+        ],
+        "imageURL": "https://github.com/slorber.png"
+      }
+    ]
+  },
+  "prevItem": {
+    "title": "MDX Blog Post",
+    "permalink": "/blog/mdx-blog-post"
+  },
+  "nextItem": {
+    "title": "Long Blog Post",
+    "permalink": "/blog/long-blog-post"
+  }
+}

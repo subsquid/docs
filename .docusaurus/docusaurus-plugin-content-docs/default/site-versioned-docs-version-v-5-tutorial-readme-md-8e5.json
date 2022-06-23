@@ -1,0 +1,23 @@
+{
+  "unversionedId": "tutorial/README",
+  "id": "version-v5/tutorial/README",
+  "title": "Tutorial",
+  "description": "",
+  "source": "@site/versioned_docs/version-v5/tutorial/README.md",
+  "sourceDirName": "tutorial",
+  "slug": "/tutorial/",
+  "permalink": "/docs/v5/tutorial/",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Substrate Processor",
+    "permalink": "/docs/v5/reference/substrate-processor"
+  },
+  "next": {
+    "title": "Create a simple squid",
+    "permalink": "/docs/v5/tutorial/create-a-simple-squid"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "unversionedId": "reference/openreader-schema/full-text-search",
+  "id": "reference/openreader-schema/full-text-search",
+  "title": "Full text search",
+  "description": "How to define a schema that allows full text search across fields",
+  "source": "@site/docs/reference/openreader-schema/full-text-search.md",
+  "sourceDirName": "reference/openreader-schema",
+  "slug": "/reference/openreader-schema/full-text-search",
+  "permalink": "/docs/reference/openreader-schema/full-text-search",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "description": "How to define a schema that allows full text search across fields"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Entity Relations",
+    "permalink": "/docs/reference/openreader-schema/entity-relations"
+  },
+  "next": {
+    "title": "Interfaces",
+    "permalink": "/docs/reference/openreader-schema/interfaces"
+  }
+}

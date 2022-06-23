@@ -1,0 +1,23 @@
+{
+  "unversionedId": "recipes/deploying-a-squid/README",
+  "id": "recipes/deploying-a-squid/README",
+  "title": "Deploying a Squid",
+  "description": "This section goes over some of the most common tasks to accomplish when it comes to deploying a Squid to our SaaS.",
+  "source": "@site/docs/recipes/deploying-a-squid/README.md",
+  "sourceDirName": "recipes/deploying-a-squid",
+  "slug": "/recipes/deploying-a-squid/",
+  "permalink": "/docs/recipes/deploying-a-squid/",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Recipes",
+    "permalink": "/docs/recipes/"
+  },
+  "next": {
+    "title": "Maintaining multiple versions",
+    "permalink": "/docs/recipes/deploying-a-squid/maintaining-multiple-versions"
+  }
+}

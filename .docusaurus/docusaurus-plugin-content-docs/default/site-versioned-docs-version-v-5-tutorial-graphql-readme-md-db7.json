@@ -1,0 +1,25 @@
+{
+  "unversionedId": "tutorial/graphql/README",
+  "id": "version-v5/tutorial/graphql/README",
+  "title": "GraphQL",
+  "description": "Section dedicated to a small collection of tutorials about the main concepts of GraphQL APIs.",
+  "source": "@site/versioned_docs/version-v5/tutorial/graphql/README.md",
+  "sourceDirName": "tutorial/graphql",
+  "slug": "/tutorial/graphql/",
+  "permalink": "/docs/v5/tutorial/graphql/",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {
+    "description": "Section dedicated to a small collection of tutorials about the main concepts of GraphQL APIs."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Development Environment set up",
+    "permalink": "/docs/v5/tutorial/development-environment-set-up"
+  },
+  "next": {
+    "title": "Paginate query results",
+    "permalink": "/docs/v5/tutorial/graphql/paginate-query-results"
+  }
+}

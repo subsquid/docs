@@ -1,0 +1,23 @@
+{
+  "unversionedId": "recipes/running-a-squid/schema-updates",
+  "id": "recipes/running-a-squid/schema-updates",
+  "title": "Schema updates",
+  "description": "Over the course of development of an API it is often the case that new things are discovered, requests for changes happen, and so it may happen that a change to the previously defined schema is necessary.",
+  "source": "@site/docs/recipes/running-a-squid/schema-updates.md",
+  "sourceDirName": "recipes/running-a-squid",
+  "slug": "/recipes/running-a-squid/schema-updates",
+  "permalink": "/docs/recipes/running-a-squid/schema-updates",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Prometheus metrics",
+    "permalink": "/docs/recipes/running-a-squid/prometheus-metrics"
+  },
+  "next": {
+    "title": "Reference",
+    "permalink": "/docs/reference/"
+  }
+}

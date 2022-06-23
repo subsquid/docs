@@ -1,0 +1,573 @@
+{
+  "/__docusaurus/debug-fae": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-96-d-031"
+    }
+  },
+  "/__docusaurus/debug/config-dcd": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-96-d-031"
+    }
+  },
+  "/__docusaurus/debug/content-2fa": {
+    "__comp": "__comp---theme-debug-contentba-8-ce7",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-96-d-031"
+    },
+    "allContent": "allContent---docusaurus-debug-content-246-9aa"
+  },
+  "/__docusaurus/debug/globalData-8b1": {
+    "__comp": "__comp---theme-debug-global-dataede-0fa",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-96-d-031"
+    }
+  },
+  "/__docusaurus/debug/metadata-2bf": {
+    "__comp": "__comp---theme-debug-site-metadata-68-e-3d4",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-96-d-031"
+    }
+  },
+  "/__docusaurus/debug/registry-6f7": {
+    "__comp": "__comp---theme-debug-registry-679-501",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-96-d-031"
+    }
+  },
+  "/__docusaurus/debug/routes-557": {
+    "__comp": "__comp---theme-debug-routes-946-699",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-96-d-031"
+    }
+  },
+  "/blog-e4b": {
+    "__comp": "__comp---theme-blog-list-pagea-6-a-7ba",
+    "__context": {
+      "plugin": "plugin---blog-187-968"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---blog-766-e3c"
+      },
+      {
+        "content": "content---blogf-4-f-cd7"
+      },
+      {
+        "content": "content---blogf-96-107"
+      },
+      {
+        "content": "content---blog-871-381"
+      },
+      {
+        "content": "content---blog-925-e00"
+      }
+    ],
+    "metadata": "metadata---blogb-2-b-df1"
+  },
+  "/blog/archive-5c3": {
+    "__comp": "__comp---theme-blog-archive-page-9-e-4-1d8",
+    "__context": {
+      "plugin": "plugin---blog-187-968"
+    },
+    "archive": "archive---blog-archiveb-2-f-393"
+  },
+  "/blog/first-blog-post-516": {
+    "__comp": "__comp---theme-blog-post-pageccc-cab",
+    "__context": {
+      "plugin": "plugin---blog-187-968"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "content": "content---blog-first-blog-poste-27-4a1"
+  },
+  "/blog/greetings-f8a": {
+    "__comp": "__comp---theme-blog-post-pageccc-cab",
+    "__context": {
+      "plugin": "plugin---blog-187-968"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "content": "content---blog-greetingsa-7-a-c48"
+  },
+  "/blog/long-blog-post-935": {
+    "__comp": "__comp---theme-blog-post-pageccc-cab",
+    "__context": {
+      "plugin": "plugin---blog-187-968"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "content": "content---blog-long-blog-post-736-bc7"
+  },
+  "/blog/mdx-blog-post-53f": {
+    "__comp": "__comp---theme-blog-post-pageccc-cab",
+    "__context": {
+      "plugin": "plugin---blog-187-968"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "content": "content---blog-mdx-blog-post-593-37b"
+  },
+  "/blog/tags-e78": {
+    "__comp": "__comp---theme-blog-tags-list-page-01-a-d0b",
+    "__context": {
+      "plugin": "plugin---blog-187-968"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "tags": "tags---blog-tagsa-70-da2"
+  },
+  "/blog/tags/docusaurus-8a9": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---blog-187-968"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---blog-766-e3c"
+      },
+      {
+        "content": "content---blogf-4-f-cd7"
+      },
+      {
+        "content": "content---blog-871-381"
+      },
+      {
+        "content": "content---blog-925-e00"
+      }
+    ],
+    "tag": "tag---blog-tags-docusaurusa-80-728",
+    "listMetadata": "listMetadata---blog-tags-docusaurus-608-c09"
+  },
+  "/blog/tags/facebook-6aa": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---blog-187-968"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---blog-766-e3c"
+      }
+    ],
+    "tag": "tag---blog-tags-facebook-031-c52",
+    "listMetadata": "listMetadata---blog-tags-facebook-096-d31"
+  },
+  "/blog/tags/hello-30a": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---blog-187-968"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---blog-766-e3c"
+      },
+      {
+        "content": "content---blog-871-381"
+      }
+    ],
+    "tag": "tag---blog-tags-hello-30-a-bed",
+    "listMetadata": "listMetadata---blog-tags-hello-664-70a"
+  },
+  "/blog/tags/hola-765": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---blog-187-968"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---blog-925-e00"
+      }
+    ],
+    "tag": "tag---blog-tags-holae-16-18a",
+    "listMetadata": "listMetadata---blog-tags-hola-4-c-9-a24"
+  },
+  "/blog/welcome-e88": {
+    "__comp": "__comp---theme-blog-post-pageccc-cab",
+    "__context": {
+      "plugin": "plugin---blog-187-968"
+    },
+    "sidebar": "sidebar---blog-814-8ac",
+    "content": "content---blog-welcomed-9-f-ffb"
+  },
+  "/markdown-page-ebf": {
+    "__comp": "__comp---theme-mdx-page-1-f-3-b90",
+    "__context": {
+      "plugin": "plugin---markdown-page-8-cd-ab9"
+    },
+    "content": "content---markdown-page-393-028"
+  },
+  "/docs/-fdb": {
+    "__comp": "__comp---theme-doc-page-1-be-9be",
+    "__context": {
+      "plugin": "plugin---docs-94-f-822"
+    },
+    "versionMetadata": "versionMetadata---docs-935-739"
+  },
+  "/docs/-a8c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-c-37-4d0"
+  },
+  "/docs/faq/-dd0": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-faq-609-c82"
+  },
+  "/docs/faq/bug-reporting-guidelines-4b6": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-faq-bug-reporting-guidelinesab-2-828"
+  },
+  "/docs/faq/how-do-i-decode-the-event-data-and-how-to-deal-with-runtime-upgrades-514": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-faq-how-do-i-decode-the-event-data-and-how-to-deal-with-runtime-upgradesbbc-034"
+  },
+  "/docs/faq/how-do-i-deploy-my-api-to-the-subsquid-hosted-service-1b1": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-faq-how-do-i-deploy-my-api-to-the-subsquid-hosted-servicedae-af0"
+  },
+  "/docs/faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers-386": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-faq-how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlersf-05-017"
+  },
+  "/docs/faq/how-do-i-run-and-test-the-graphql-api-0a1": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-faq-how-do-i-run-and-test-the-graphql-api-8-d-4-be1"
+  },
+  "/docs/faq/how-do-i-start-the-processor-9ef": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-faq-how-do-i-start-the-processor-5-d-3-08d"
+  },
+  "/docs/faq/how-do-i-update-my-schema-1e2": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-faq-how-do-i-update-my-schemab-2-b-0f4"
+  },
+  "/docs/faq/how-do-i-write-the-schema-a0e": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-faq-how-do-i-write-the-schema-477-905"
+  },
+  "/docs/faq/how-to-run-a-processor-against-a-different-chain-a7a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-faq-how-to-run-a-processor-against-a-different-chaine-47-922"
+  },
+  "/docs/faq/where-do-i-get-a-type-bundle-for-my-chain-6ad": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-faq-where-do-i-get-a-type-bundle-for-my-chain-31-c-be0"
+  },
+  "/docs/key-concepts/-a13": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-key-concepts-e-7-d-94c"
+  },
+  "/docs/key-concepts/architecture-769": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-key-concepts-architecture-16-b-c5f"
+  },
+  "/docs/key-concepts/processor-45b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-key-concepts-processora-53-ef1"
+  },
+  "/docs/key-concepts/substrate-ba2": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-key-concepts-substrate-614-447"
+  },
+  "/docs/key-concepts/typegen-bd9": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-key-concepts-typegen-0-a-3-3de"
+  },
+  "/docs/mappings/-7a5": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-mappings-4-f-9-4e0"
+  },
+  "/docs/mappings/substrateevent-46b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-mappings-substrateevent-7-e-8-fec"
+  },
+  "/docs/quickstart-1f0": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-quickstart-748-5a5"
+  },
+  "/docs/recipes/-457": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-9-d-8-d41"
+  },
+  "/docs/recipes/deploying-a-squid/-f44": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-deploying-a-squid-208-137"
+  },
+  "/docs/recipes/deploying-a-squid/maintaining-multiple-versions-654": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-deploying-a-squid-maintaining-multiple-versions-8-c-1-bc8"
+  },
+  "/docs/recipes/deploying-a-squid/monitoring-and-sync-status-1f6": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-deploying-a-squid-monitoring-and-sync-statuse-18-3cd"
+  },
+  "/docs/recipes/deploying-a-squid/obtaining-a-deployment-key-9e6": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-deploying-a-squid-obtaining-a-deployment-keyc-88-f97"
+  },
+  "/docs/recipes/deploying-a-squid/releasing-a-squid-version-801": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-deploying-a-squid-releasing-a-squid-version-3-fc-811"
+  },
+  "/docs/recipes/deploying-a-squid/updating-a-squid-7f2": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-deploying-a-squid-updating-a-squid-54-f-9a3"
+  },
+  "/docs/recipes/giant-squid-api/-297": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-giant-squid-api-0-e-7-11c"
+  },
+  "/docs/recipes/giant-squid-api/client-example-945": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-giant-squid-api-client-examplecb-9-2c9"
+  },
+  "/docs/recipes/giant-squid-api/queries-67e": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-giant-squid-api-queries-462-bc5"
+  },
+  "/docs/recipes/how-to-launch-a-squid-archive-bce": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-how-to-launch-a-squid-archive-71-c-f27"
+  },
+  "/docs/recipes/migrate-to-v5-6b5": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-migrate-to-v-530-e-1a5"
+  },
+  "/docs/recipes/running-a-squid/-370": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-running-a-squid-962-1d1"
+  },
+  "/docs/recipes/running-a-squid/building-with-docker-b9b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-running-a-squid-building-with-docker-0-e-6-9b2"
+  },
+  "/docs/recipes/running-a-squid/define-a-squid-schema-394": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-running-a-squid-define-a-squid-schema-79-b-c42"
+  },
+  "/docs/recipes/running-a-squid/generate-typescript-definitions-313": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-running-a-squid-generate-typescript-definitions-48-a-dea"
+  },
+  "/docs/recipes/running-a-squid/local-runs-b40": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-running-a-squid-local-runs-28-e-448"
+  },
+  "/docs/recipes/running-a-squid/multi-chain-processors-71e": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-running-a-squid-multi-chain-processors-408-e86"
+  },
+  "/docs/recipes/running-a-squid/prometheus-metrics-854": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-running-a-squid-prometheus-metricscf-8-184"
+  },
+  "/docs/recipes/running-a-squid/schema-updates-29a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-recipes-running-a-squid-schema-updates-7-e-8-f07"
+  },
+  "/docs/reference/-123": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-747-36a"
+  },
+  "/docs/reference/api-extensions-c99": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-api-extensions-19-d-817"
+  },
+  "/docs/reference/evm-processor-a93": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-evm-processor-516-443"
+  },
+  "/docs/reference/handler-functions/-f32": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-handler-functions-646-20b"
+  },
+  "/docs/reference/handler-functions/context-interfaces-87c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-handler-functions-context-interfaces-312-226"
+  },
+  "/docs/reference/handler-functions/handler-interfaces-30b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-handler-functions-handler-interfaces-6-c-5-b18"
+  },
+  "/docs/reference/handler-functions/handler-options-interfaces-37b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-handler-functions-handler-options-interfaces-9-dc-c4a"
+  },
+  "/docs/reference/handler-functions/runtime-upgrades-a80": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-handler-functions-runtime-upgradesa-1-f-043"
+  },
+  "/docs/reference/openreader-queries/-20f": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-queries-4-a-3-f53"
+  },
+  "/docs/reference/openreader-queries/and-or-filters-23f": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-queries-and-or-filters-1-e-6-6f9"
+  },
+  "/docs/reference/openreader-queries/cross-relation-field-queries-558": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-queries-cross-relation-field-queries-53-e-260"
+  },
+  "/docs/reference/openreader-queries/json-queries-c86": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-queries-json-queries-13-a-b26"
+  },
+  "/docs/reference/openreader-queries/nested-field-queries-21d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-queries-nested-field-queries-920-6cf"
+  },
+  "/docs/reference/openreader-queries/resolve-union-types-interfaces-bc5": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-queries-resolve-union-types-interfaces-66-d-663"
+  },
+  "/docs/reference/openreader-queries/string-regex-queries-f79": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-queries-string-regex-queries-4-b-2-d30"
+  },
+  "/docs/reference/openreader-schema/-3ee": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-schema-7-a-3-28a"
+  },
+  "/docs/reference/openreader-schema/annotations-directives-84e": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-schema-annotations-directivesbf-7-002"
+  },
+  "/docs/reference/openreader-schema/bigint-fields-10c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-schema-bigint-fieldsf-98-5d2"
+  },
+  "/docs/reference/openreader-schema/bytes-fields-0ed": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-schema-bytes-fields-4-ce-270"
+  },
+  "/docs/reference/openreader-schema/datetime-fields-fd9": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-schema-datetime-fields-54-e-f2d"
+  },
+  "/docs/reference/openreader-schema/entity-relations-159": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-schema-entity-relations-6-eb-c7e"
+  },
+  "/docs/reference/openreader-schema/full-text-search-69a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-schema-full-text-search-72-d-86c"
+  },
+  "/docs/reference/openreader-schema/interfaces-ff2": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-schema-interfaces-036-cfa"
+  },
+  "/docs/reference/openreader-schema/json-fields-fdc": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-schema-json-fieldsd-5-d-310"
+  },
+  "/docs/reference/openreader-schema/union-types-320": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-openreader-schema-union-types-560-e54"
+  },
+  "/docs/reference/squid-cli/-a85": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-squid-cli-fcb-dfb"
+  },
+  "/docs/reference/squid-cli/auth-5ba": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-squid-cli-authf-62-f24"
+  },
+  "/docs/reference/squid-cli/codegen-59a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-squid-cli-codegen-7-de-9f0"
+  },
+  "/docs/reference/squid-cli/db-89f": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-squid-cli-db-8-c-0-c0a"
+  },
+  "/docs/reference/squid-cli/help-d8d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-squid-cli-helpa-90-29c"
+  },
+  "/docs/reference/squid-cli/installation-5d7": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-squid-cli-installationc-2-f-a4d"
+  },
+  "/docs/reference/squid-cli/squid-b36": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-squid-cli-squid-7-d-7-bb4"
+  },
+  "/docs/reference/squid-evm-typegen-e0a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-squid-evm-typegenad-0-629"
+  },
+  "/docs/reference/squid-substrate-metadata-explorer-302": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-squid-substrate-metadata-explorerc-17-49d"
+  },
+  "/docs/reference/squid-substrate-typegen-c02": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-squid-substrate-typegen-9-b-7-811"
+  },
+  "/docs/reference/storage-calls-c02": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-storage-callsee-3-787"
+  },
+  "/docs/reference/store-interface-3f1": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-store-interface-1-db-fe3"
+  },
+  "/docs/reference/substrate-processor-71a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-substrate-processorb-3-c-416"
+  },
+  "/docs/tutorial/-e56": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-tutorial-e-12-3e8"
+  },
+  "/docs/tutorial/create-a-simple-squid-9b8": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-tutorial-create-a-simple-squid-412-7cf"
+  },
+  "/docs/tutorial/create-an-evm-processing-squid-69b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-tutorial-create-an-evm-processing-squidf-76-818"
+  },
+  "/docs/tutorial/deploy-your-squid-2e8": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-tutorial-deploy-your-squid-6-c-7-a3d"
+  },
+  "/docs/tutorial/development-environment-set-up-613": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-tutorial-development-environment-set-up-3-b-9-227"
+  },
+  "/docs/tutorial/graphql/-a0e": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-tutorial-graphql-4-b-7-3cd"
+  },
+  "/docs/tutorial/graphql/paginate-query-results-398": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-tutorial-graphql-paginate-query-results-873-605"
+  },
+  "/docs/tutorial/graphql/queries-af0": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-tutorial-graphql-queries-448-70b"
+  },
+  "/docs/tutorial/graphql/sorting-d4f": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-tutorial-graphql-sorting-5-f-1-b9c"
+  },
+  "/docs/v5-ab0": {
+    "__comp": "__comp---theme-doc-page-1-be-9be",
+    "__context": {
+      "plugin": "plugin---docs-94-f-822"
+    },
+    "versionMetadata": "versionMetadata---docs-v-510-a-938"
+  },
+  "/docs/v5/-549": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-v-5-7-d-6-a8e"
+  },
+  "/-1af": {
+    "__comp": "__comp---site-src-pages-index-tsx-1-df-d3e",
+    "__context": {
+      "plugin": "plugin---markdown-page-8-cd-ab9"
+    },
+    "config": "config---5-e-9-4f3"
+  }
+}

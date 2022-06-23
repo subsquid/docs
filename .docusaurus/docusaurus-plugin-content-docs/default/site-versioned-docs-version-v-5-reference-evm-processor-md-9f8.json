@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/evm-processor",
+  "id": "version-v5/reference/evm-processor",
+  "title": "EVM Processor",
+  "description": "Subsquid API framework was initially built with Substrate blockchains in mind. It is fully and natively compatible with all network built with such scheme.",
+  "source": "@site/versioned_docs/version-v5/reference/evm-processor.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/evm-processor",
+  "permalink": "/docs/v5/reference/evm-processor",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "API Extensions",
+    "permalink": "/docs/v5/reference/api-extensions"
+  },
+  "next": {
+    "title": "Handler functions",
+    "permalink": "/docs/v5/reference/handler-functions/"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "unversionedId": "tutorial/graphql/paginate-query-results",
+  "id": "version-v5/tutorial/graphql/paginate-query-results",
+  "title": "Paginate query results",
+  "description": "When query results are too big, one can chose to limit them or divide them in \"chunks\"",
+  "source": "@site/versioned_docs/version-v5/tutorial/graphql/paginate-query-results.md",
+  "sourceDirName": "tutorial/graphql",
+  "slug": "/tutorial/graphql/paginate-query-results",
+  "permalink": "/docs/v5/tutorial/graphql/paginate-query-results",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {
+    "description": "When query results are too big, one can chose to limit them or divide them in \"chunks\""
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "GraphQL",
+    "permalink": "/docs/v5/tutorial/graphql/"
+  },
+  "next": {
+    "title": "Queries",
+    "permalink": "/docs/v5/tutorial/graphql/queries"
+  }
+}

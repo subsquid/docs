@@ -1,0 +1,23 @@
+{
+  "unversionedId": "faq/bug-reporting-guidelines",
+  "id": "faq/bug-reporting-guidelines",
+  "title": "Bug reporting guidelines",
+  "description": "Overview",
+  "source": "@site/docs/faq/bug-reporting-guidelines.md",
+  "sourceDirName": "faq",
+  "slug": "/faq/bug-reporting-guidelines",
+  "permalink": "/docs/faq/bug-reporting-guidelines",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Support",
+    "permalink": "/docs/faq/"
+  },
+  "next": {
+    "title": "How do I decode the event data? And how to deal with runtime upgrades?",
+    "permalink": "/docs/faq/how-do-i-decode-the-event-data-and-how-to-deal-with-runtime-upgrades"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "unversionedId": "recipes/deploying-a-squid/maintaining-multiple-versions",
+  "id": "recipes/deploying-a-squid/maintaining-multiple-versions",
+  "title": "Maintaining multiple versions",
+  "description": "At times, it may be useful to deploy multiple versions of the same Squid. For example, to test an advanced feature or to maintain retro-compatibility, following legacy-breaking changes.",
+  "source": "@site/docs/recipes/deploying-a-squid/maintaining-multiple-versions.md",
+  "sourceDirName": "recipes/deploying-a-squid",
+  "slug": "/recipes/deploying-a-squid/maintaining-multiple-versions",
+  "permalink": "/docs/recipes/deploying-a-squid/maintaining-multiple-versions",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Deploying a Squid",
+    "permalink": "/docs/recipes/deploying-a-squid/"
+  },
+  "next": {
+    "title": "Monitoring and sync status",
+    "permalink": "/docs/recipes/deploying-a-squid/monitoring-and-sync-status"
+  }
+}

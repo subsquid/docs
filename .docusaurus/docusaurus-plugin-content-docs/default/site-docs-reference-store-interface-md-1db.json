@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/store-interface",
+  "id": "reference/store-interface",
+  "title": "Store interface",
+  "description": "When working with Subsquid SDK and building on the SubstrateProcessor, the Store is a very important concept one. As briefly explained in the Key Concept page dedicated to the Processor, it serves as an interface for the data-persistence layer, often represented by a database.",
+  "source": "@site/docs/reference/store-interface.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/store-interface",
+  "permalink": "/docs/reference/store-interface",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Storage calls",
+    "permalink": "/docs/reference/storage-calls"
+  },
+  "next": {
+    "title": "Substrate Processor",
+    "permalink": "/docs/reference/substrate-processor"
+  }
+}

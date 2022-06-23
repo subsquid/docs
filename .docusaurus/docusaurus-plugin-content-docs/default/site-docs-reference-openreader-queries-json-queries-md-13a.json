@@ -1,0 +1,25 @@
+{
+  "unversionedId": "reference/openreader-queries/json-queries",
+  "id": "reference/openreader-queries/json-queries",
+  "title": "JSON queries",
+  "description": "Powerful queries leveraging JSON objects as fields in a schema",
+  "source": "@site/docs/reference/openreader-queries/json-queries.md",
+  "sourceDirName": "reference/openreader-queries",
+  "slug": "/reference/openreader-queries/json-queries",
+  "permalink": "/docs/reference/openreader-queries/json-queries",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "description": "Powerful queries leveraging JSON objects as fields in a schema"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Cross-relation field queries",
+    "permalink": "/docs/reference/openreader-queries/cross-relation-field-queries"
+  },
+  "next": {
+    "title": "Nested field queries",
+    "permalink": "/docs/reference/openreader-queries/nested-field-queries"
+  }
+}

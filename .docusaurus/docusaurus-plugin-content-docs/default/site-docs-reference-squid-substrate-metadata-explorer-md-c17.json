@@ -1,0 +1,25 @@
+{
+  "unversionedId": "reference/squid-substrate-metadata-explorer",
+  "id": "reference/squid-substrate-metadata-explorer",
+  "title": "Squid Substrate metadata explorer",
+  "description": "Reference page of the squid-substrate-metadata-explorer command line tool",
+  "source": "@site/docs/reference/squid-substrate-metadata-explorer.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/squid-substrate-metadata-explorer",
+  "permalink": "/docs/reference/squid-substrate-metadata-explorer",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "description": "Reference page of the squid-substrate-metadata-explorer command line tool"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Squid EVM typegen",
+    "permalink": "/docs/reference/squid-evm-typegen"
+  },
+  "next": {
+    "title": "squid-substrate-typegen",
+    "permalink": "/docs/reference/squid-substrate-typegen"
+  }
+}

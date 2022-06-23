@@ -1,0 +1,23 @@
+{
+  "unversionedId": "recipes/running-a-squid/multi-chain-processors",
+  "id": "version-v5/recipes/running-a-squid/multi-chain-processors",
+  "title": "Multi-chain processors",
+  "description": "Subsquid framework does not impose any limit's to the builder's creativity. Thanks to its modular structure and multi-layer architecture, it is possible to develop multiple processors, connected to multiple blockchain archives, as part of one single Squid API.",
+  "source": "@site/versioned_docs/version-v5/recipes/running-a-squid/multi-chain-processors.md",
+  "sourceDirName": "recipes/running-a-squid",
+  "slug": "/recipes/running-a-squid/multi-chain-processors",
+  "permalink": "/docs/v5/recipes/running-a-squid/multi-chain-processors",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Local runs",
+    "permalink": "/docs/v5/recipes/running-a-squid/local-runs"
+  },
+  "next": {
+    "title": "Prometheus metrics",
+    "permalink": "/docs/v5/recipes/running-a-squid/prometheus-metrics"
+  }
+}

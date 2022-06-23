@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/storage-calls",
+  "id": "version-v5/reference/storage-calls",
+  "title": "Storage calls",
+  "description": "It is sometimes impossible to extract the required data with only event and extrinsic data. StorageContext exposes direct queries of runtime storage items via RPC.",
+  "source": "@site/versioned_docs/version-v5/reference/storage-calls.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/storage-calls",
+  "permalink": "/docs/v5/reference/storage-calls",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "squid-substrate-typegen",
+    "permalink": "/docs/v5/reference/squid-substrate-typegen"
+  },
+  "next": {
+    "title": "Store interface",
+    "permalink": "/docs/v5/reference/store-interface"
+  }
+}

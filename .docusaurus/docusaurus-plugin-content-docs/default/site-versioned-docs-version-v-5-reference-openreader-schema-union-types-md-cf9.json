@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/openreader-schema/union-types",
+  "id": "version-v5/reference/openreader-schema/union-types",
+  "title": "Union types",
+  "description": "Union types may look similar to Interfaces and in some ways they are, but there is a very important difference between them and it is that Unions cannot specify common fields between types that are part of them.",
+  "source": "@site/versioned_docs/version-v5/reference/openreader-schema/union-types.md",
+  "sourceDirName": "reference/openreader-schema",
+  "slug": "/reference/openreader-schema/union-types",
+  "permalink": "/docs/v5/reference/openreader-schema/union-types",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "JSON fields",
+    "permalink": "/docs/v5/reference/openreader-schema/json-fields"
+  },
+  "next": {
+    "title": "Squid CLI Reference",
+    "permalink": "/docs/v5/reference/squid-cli/"
+  }
+}

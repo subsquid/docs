@@ -1,0 +1,25 @@
+{
+  "unversionedId": "quickstart",
+  "id": "quickstart",
+  "title": "Quickstart",
+  "description": "Getting started",
+  "source": "@site/docs/quickstart.mdx",
+  "sourceDirName": ".",
+  "slug": "/quickstart",
+  "permalink": "/docs/quickstart",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Quickstart"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "SubstrateEvent",
+    "permalink": "/docs/mappings/substrateevent"
+  },
+  "next": {
+    "title": "Recipes",
+    "permalink": "/docs/recipes/"
+  }
+}

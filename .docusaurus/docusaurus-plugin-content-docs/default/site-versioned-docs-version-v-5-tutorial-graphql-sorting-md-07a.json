@@ -1,0 +1,21 @@
+{
+  "unversionedId": "tutorial/graphql/sorting",
+  "id": "version-v5/tutorial/graphql/sorting",
+  "title": "Sorting",
+  "description": "The orderBy argument has been introduced in the previous section, but let's take a look at it in more detail.",
+  "source": "@site/versioned_docs/version-v5/tutorial/graphql/sorting.md",
+  "sourceDirName": "tutorial/graphql",
+  "slug": "/tutorial/graphql/sorting",
+  "permalink": "/docs/v5/tutorial/graphql/sorting",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {
+    "description": "The orderBy argument has been introduced in the previous section, but let's take a look at it in more detail."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Queries",
+    "permalink": "/docs/v5/tutorial/graphql/queries"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/openreader-schema/annotations-directives",
+  "id": "reference/openreader-schema/annotations-directives",
+  "title": "Annotations (Directives)",
+  "description": "Directives are a native feature of GraphQL, whose purpose is to affect execution of the query in any way the server desires when attached to fields. They are also commonly known as Annotations in other languages such as Java.",
+  "source": "@site/docs/reference/openreader-schema/annotations-directives.md",
+  "sourceDirName": "reference/openreader-schema",
+  "slug": "/reference/openreader-schema/annotations-directives",
+  "permalink": "/docs/reference/openreader-schema/annotations-directives",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "OpenReader Schema",
+    "permalink": "/docs/reference/openreader-schema/"
+  },
+  "next": {
+    "title": "BigInt fields",
+    "permalink": "/docs/reference/openreader-schema/bigint-fields"
+  }
+}

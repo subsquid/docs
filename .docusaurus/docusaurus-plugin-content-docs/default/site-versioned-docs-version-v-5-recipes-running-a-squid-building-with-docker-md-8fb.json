@@ -1,0 +1,23 @@
+{
+  "unversionedId": "recipes/running-a-squid/building-with-docker",
+  "id": "version-v5/recipes/running-a-squid/building-with-docker",
+  "title": "Building with Docker",
+  "description": "The squid template repository comes with a Dockerfile included.",
+  "source": "@site/versioned_docs/version-v5/recipes/running-a-squid/building-with-docker.md",
+  "sourceDirName": "recipes/running-a-squid",
+  "slug": "/recipes/running-a-squid/building-with-docker",
+  "permalink": "/docs/v5/recipes/running-a-squid/building-with-docker",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Running a Squid",
+    "permalink": "/docs/v5/recipes/running-a-squid/"
+  },
+  "next": {
+    "title": "Define a Squid Schema",
+    "permalink": "/docs/v5/recipes/running-a-squid/define-a-squid-schema"
+  }
+}

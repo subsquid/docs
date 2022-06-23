@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/openreader-schema/json-fields",
+  "id": "reference/openreader-schema/json-fields",
+  "title": "JSON fields",
+  "description": "Our OpenReader implementation allows the definition of complex objects as fields. The result is that queries can retrieve these fields as JSON objects. That's why we decided to call them JSON fields.",
+  "source": "@site/docs/reference/openreader-schema/json-fields.md",
+  "sourceDirName": "reference/openreader-schema",
+  "slug": "/reference/openreader-schema/json-fields",
+  "permalink": "/docs/reference/openreader-schema/json-fields",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Interfaces",
+    "permalink": "/docs/reference/openreader-schema/interfaces"
+  },
+  "next": {
+    "title": "Union types",
+    "permalink": "/docs/reference/openreader-schema/union-types"
+  }
+}

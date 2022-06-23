@@ -1,0 +1,25 @@
+{
+  "unversionedId": "reference/openreader-queries/README",
+  "id": "reference/openreader-queries/README",
+  "title": "OpenReader Queries",
+  "description": "Collections of Reference pages dedicated to GraphQL queries",
+  "source": "@site/docs/reference/openreader-queries/README.md",
+  "sourceDirName": "reference/openreader-queries",
+  "slug": "/reference/openreader-queries/",
+  "permalink": "/docs/reference/openreader-queries/",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "description": "Collections of Reference pages dedicated to GraphQL queries"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Runtime upgrades",
+    "permalink": "/docs/reference/handler-functions/runtime-upgrades"
+  },
+  "next": {
+    "title": "AND/OR filters",
+    "permalink": "/docs/reference/openreader-queries/and-or-filters"
+  }
+}

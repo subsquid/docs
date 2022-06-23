@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/openreader-queries/string-regex-queries",
+  "id": "reference/openreader-queries/string-regex-queries",
+  "title": "String/Regex queries",
+  "description": "",
+  "source": "@site/docs/reference/openreader-queries/string-regex-queries.md",
+  "sourceDirName": "reference/openreader-queries",
+  "slug": "/reference/openreader-queries/string-regex-queries",
+  "permalink": "/docs/reference/openreader-queries/string-regex-queries",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Resolve Union types/interfaces",
+    "permalink": "/docs/reference/openreader-queries/resolve-union-types-interfaces"
+  },
+  "next": {
+    "title": "OpenReader Schema",
+    "permalink": "/docs/reference/openreader-schema/"
+  }
+}

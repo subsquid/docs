@@ -1,0 +1,19 @@
+{
+  "unversionedId": "faq/README",
+  "id": "version-v5/faq/README",
+  "title": "Support",
+  "description": "Find answers to your questions",
+  "source": "@site/versioned_docs/version-v5/faq/README.md",
+  "sourceDirName": "faq",
+  "slug": "/faq/",
+  "permalink": "/docs/v5/faq/",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "next": {
+    "title": "Bug reporting guidelines",
+    "permalink": "/docs/v5/faq/bug-reporting-guidelines"
+  }
+}

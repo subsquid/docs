@@ -1,0 +1,23 @@
+{
+  "unversionedId": "recipes/deploying-a-squid/monitoring-and-sync-status",
+  "id": "version-v5/recipes/deploying-a-squid/monitoring-and-sync-status",
+  "title": "Monitoring and sync status",
+  "description": "The Subsquid SDK offers a useful command line tool to monitor the Cloud-deployed Squid. the tail subcommand will output the logs of a Squid, when providing its name and version.",
+  "source": "@site/versioned_docs/version-v5/recipes/deploying-a-squid/monitoring-and-sync-status.md",
+  "sourceDirName": "recipes/deploying-a-squid",
+  "slug": "/recipes/deploying-a-squid/monitoring-and-sync-status",
+  "permalink": "/docs/v5/recipes/deploying-a-squid/monitoring-and-sync-status",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Maintaining multiple versions",
+    "permalink": "/docs/v5/recipes/deploying-a-squid/maintaining-multiple-versions"
+  },
+  "next": {
+    "title": "Obtaining a deployment key",
+    "permalink": "/docs/v5/recipes/deploying-a-squid/obtaining-a-deployment-key"
+  }
+}

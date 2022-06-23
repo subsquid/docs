@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/squid-substrate-typegen",
+  "id": "reference/squid-substrate-typegen",
+  "title": "squid-substrate-typegen",
+  "description": "[//]: # (---)",
+  "source": "@site/docs/reference/squid-substrate-typegen.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/squid-substrate-typegen",
+  "permalink": "/docs/reference/squid-substrate-typegen",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Squid Substrate metadata explorer",
+    "permalink": "/docs/reference/squid-substrate-metadata-explorer"
+  },
+  "next": {
+    "title": "Storage calls",
+    "permalink": "/docs/reference/storage-calls"
+  }
+}

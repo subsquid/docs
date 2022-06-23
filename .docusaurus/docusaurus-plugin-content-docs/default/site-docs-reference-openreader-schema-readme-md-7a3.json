@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/openreader-schema/README",
+  "id": "reference/openreader-schema/README",
+  "title": "OpenReader Schema",
+  "description": "",
+  "source": "@site/docs/reference/openreader-schema/README.md",
+  "sourceDirName": "reference/openreader-schema",
+  "slug": "/reference/openreader-schema/",
+  "permalink": "/docs/reference/openreader-schema/",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "String/Regex queries",
+    "permalink": "/docs/reference/openreader-queries/string-regex-queries"
+  },
+  "next": {
+    "title": "Annotations (Directives)",
+    "permalink": "/docs/reference/openreader-schema/annotations-directives"
+  }
+}

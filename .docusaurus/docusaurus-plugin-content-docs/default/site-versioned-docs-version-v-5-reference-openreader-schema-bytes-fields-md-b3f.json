@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/openreader-schema/bytes-fields",
+  "id": "version-v5/reference/openreader-schema/bytes-fields",
+  "title": "Bytes fields",
+  "description": "GraphQL objects types have names and fields, but at the end of the day, these fields will either have to be other object types, or resolve to some concrete data. This concrete data is represented by Scalar types. GraphQL comes with its own default set of Scalar types, but different implementations can define their own.",
+  "source": "@site/versioned_docs/version-v5/reference/openreader-schema/bytes-fields.md",
+  "sourceDirName": "reference/openreader-schema",
+  "slug": "/reference/openreader-schema/bytes-fields",
+  "permalink": "/docs/v5/reference/openreader-schema/bytes-fields",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "BigInt fields",
+    "permalink": "/docs/v5/reference/openreader-schema/bigint-fields"
+  },
+  "next": {
+    "title": "DateTime fields",
+    "permalink": "/docs/v5/reference/openreader-schema/datetime-fields"
+  }
+}

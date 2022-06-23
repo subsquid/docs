@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/squid-cli/codegen",
+  "id": "version-v5/reference/squid-cli/codegen",
+  "title": "codegen",
+  "description": "The codegen is used to generate TypeScript classes that model the entities defined in schema.graphql file.",
+  "source": "@site/versioned_docs/version-v5/reference/squid-cli/codegen.md",
+  "sourceDirName": "reference/squid-cli",
+  "slug": "/reference/squid-cli/codegen",
+  "permalink": "/docs/v5/reference/squid-cli/codegen",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "auth",
+    "permalink": "/docs/v5/reference/squid-cli/auth"
+  },
+  "next": {
+    "title": "db",
+    "permalink": "/docs/v5/reference/squid-cli/db"
+  }
+}

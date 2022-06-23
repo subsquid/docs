@@ -1,0 +1,25 @@
+{
+  "unversionedId": "recipes/running-a-squid/generate-typescript-definitions",
+  "id": "recipes/running-a-squid/generate-typescript-definitions",
+  "title": "Generate type-safe interfaces",
+  "description": "Learn how to leverage Subsquid SDK automated tools to create TypeScript classes for Substrate Events, calls and Storage items.",
+  "source": "@site/docs/recipes/running-a-squid/generate-typescript-definitions.md",
+  "sourceDirName": "recipes/running-a-squid",
+  "slug": "/recipes/running-a-squid/generate-typescript-definitions",
+  "permalink": "/docs/recipes/running-a-squid/generate-typescript-definitions",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "description": "Learn how to leverage Subsquid SDK automated tools to create TypeScript classes for Substrate Events, calls and Storage items."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Define a Squid Schema",
+    "permalink": "/docs/recipes/running-a-squid/define-a-squid-schema"
+  },
+  "next": {
+    "title": "Local runs",
+    "permalink": "/docs/recipes/running-a-squid/local-runs"
+  }
+}

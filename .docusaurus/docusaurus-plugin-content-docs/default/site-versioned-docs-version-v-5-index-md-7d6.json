@@ -1,0 +1,18 @@
+{
+  "unversionedId": "overview",
+  "id": "version-v5/overview",
+  "title": "Overview",
+  "description": "This documentation provides information for all degrees of expertise, varying from complete beginner, to those who only need a refresher on specific commands.",
+  "source": "@site/versioned_docs/version-v5/index.md",
+  "sourceDirName": ".",
+  "slug": "/",
+  "permalink": "/docs/v5/",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {
+    "id": "overview",
+    "title": "Overview"
+  },
+  "sidebar": "tutorialSidebar"
+}

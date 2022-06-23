@@ -1,0 +1,23 @@
+{
+  "unversionedId": "faq/how-do-i-decode-the-event-data-and-how-to-deal-with-runtime-upgrades",
+  "id": "faq/how-do-i-decode-the-event-data-and-how-to-deal-with-runtime-upgrades",
+  "title": "How do I decode the event data? And how to deal with runtime upgrades?",
+  "description": "See the dedicated tutorial on generating TypeScript definitions for blockchain events.",
+  "source": "@site/docs/faq/how-do-i-decode-the-event-data-and-how-to-deal-with-runtime-upgrades.md",
+  "sourceDirName": "faq",
+  "slug": "/faq/how-do-i-decode-the-event-data-and-how-to-deal-with-runtime-upgrades",
+  "permalink": "/docs/faq/how-do-i-decode-the-event-data-and-how-to-deal-with-runtime-upgrades",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Bug reporting guidelines",
+    "permalink": "/docs/faq/bug-reporting-guidelines"
+  },
+  "next": {
+    "title": "How do I deploy my API to the Subsquid Hosted service?",
+    "permalink": "/docs/faq/how-do-i-deploy-my-api-to-the-subsquid-hosted-service"
+  }
+}

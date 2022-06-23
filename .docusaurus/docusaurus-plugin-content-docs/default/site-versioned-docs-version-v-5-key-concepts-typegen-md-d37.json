@@ -1,0 +1,25 @@
+{
+  "unversionedId": "key-concepts/typegen",
+  "id": "version-v5/key-concepts/typegen",
+  "title": "Typegen",
+  "description": "Squid Typegen is a code generation tool for creating Typescript types for substrate Events, Extrinsics, Storage Items (for Substrate) and EVM logs.",
+  "source": "@site/versioned_docs/version-v5/key-concepts/typegen.md",
+  "sourceDirName": "key-concepts",
+  "slug": "/key-concepts/typegen",
+  "permalink": "/docs/v5/key-concepts/typegen",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {
+    "description": "Squid Typegen is a code generation tool for creating Typescript types for substrate Events, Extrinsics, Storage Items (for Substrate) and EVM logs."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Substrate",
+    "permalink": "/docs/v5/key-concepts/substrate"
+  },
+  "next": {
+    "title": "SubstrateEvent",
+    "permalink": "/docs/v5/mappings/substrateevent"
+  }
+}

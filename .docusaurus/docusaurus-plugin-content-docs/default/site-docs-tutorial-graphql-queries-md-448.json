@@ -1,0 +1,23 @@
+{
+  "unversionedId": "tutorial/graphql/queries",
+  "id": "tutorial/graphql/queries",
+  "title": "Queries",
+  "description": "Introduction",
+  "source": "@site/docs/tutorial/graphql/queries.md",
+  "sourceDirName": "tutorial/graphql",
+  "slug": "/tutorial/graphql/queries",
+  "permalink": "/docs/tutorial/graphql/queries",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Paginate query results",
+    "permalink": "/docs/tutorial/graphql/paginate-query-results"
+  },
+  "next": {
+    "title": "Sorting",
+    "permalink": "/docs/tutorial/graphql/sorting"
+  }
+}

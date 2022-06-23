@@ -1,0 +1,27 @@
+{
+  "unversionedId": "tutorial/create-a-simple-squid",
+  "id": "version-v5/tutorial/create-a-simple-squid",
+  "title": "Create a simple squid",
+  "description": "This page is about taking the Squid template and customizing it to create a simple project",
+  "source": "@site/versioned_docs/version-v5/tutorial/create-a-simple-squid.md",
+  "sourceDirName": "tutorial",
+  "slug": "/tutorial/create-a-simple-squid",
+  "permalink": "/docs/v5/tutorial/create-a-simple-squid",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {
+    "id": "create-a-simple-squid",
+    "title": "Create a simple squid",
+    "description": "This page is about taking the Squid template and customizing it to create a simple project"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Tutorial",
+    "permalink": "/docs/v5/tutorial/"
+  },
+  "next": {
+    "title": "Create an EVM-processing Squid",
+    "permalink": "/docs/v5/tutorial/create-an-evm-processing-squid"
+  }
+}

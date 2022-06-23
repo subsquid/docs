@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/squid-cli/db",
+  "id": "version-v5/reference/squid-cli/db",
+  "title": "db",
+  "description": "The db topic of the sqd command line interface is used to manage the database of your Squid project. This is often necessary after having modified the schema.graphql with new or different entities and having generated model classes via the codegen command.",
+  "source": "@site/versioned_docs/version-v5/reference/squid-cli/db.md",
+  "sourceDirName": "reference/squid-cli",
+  "slug": "/reference/squid-cli/db",
+  "permalink": "/docs/v5/reference/squid-cli/db",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "codegen",
+    "permalink": "/docs/v5/reference/squid-cli/codegen"
+  },
+  "next": {
+    "title": "help",
+    "permalink": "/docs/v5/reference/squid-cli/help"
+  }
+}

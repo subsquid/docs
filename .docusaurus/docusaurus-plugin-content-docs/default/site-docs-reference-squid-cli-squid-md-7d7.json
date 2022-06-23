@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/squid-cli/squid",
+  "id": "reference/squid-cli/squid",
+  "title": "squid",
+  "description": "[//]: # (# squid)",
+  "source": "@site/docs/reference/squid-cli/squid.md",
+  "sourceDirName": "reference/squid-cli",
+  "slug": "/reference/squid-cli/squid",
+  "permalink": "/docs/reference/squid-cli/squid",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Installation",
+    "permalink": "/docs/reference/squid-cli/installation"
+  },
+  "next": {
+    "title": "Squid EVM typegen",
+    "permalink": "/docs/reference/squid-evm-typegen"
+  }
+}

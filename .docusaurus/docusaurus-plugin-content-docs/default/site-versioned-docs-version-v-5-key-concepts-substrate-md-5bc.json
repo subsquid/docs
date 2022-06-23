@@ -1,0 +1,25 @@
+{
+  "unversionedId": "key-concepts/substrate",
+  "id": "version-v5/key-concepts/substrate",
+  "title": "Substrate",
+  "description": "A brief description of the blockchain framework upon which Subsquid is based and its main concepts.",
+  "source": "@site/versioned_docs/version-v5/key-concepts/substrate.md",
+  "sourceDirName": "key-concepts",
+  "slug": "/key-concepts/substrate",
+  "permalink": "/docs/v5/key-concepts/substrate",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {
+    "description": "A brief description of the blockchain framework upon which Subsquid is based and its main concepts."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Processor",
+    "permalink": "/docs/v5/key-concepts/processor"
+  },
+  "next": {
+    "title": "Typegen",
+    "permalink": "/docs/v5/key-concepts/typegen"
+  }
+}

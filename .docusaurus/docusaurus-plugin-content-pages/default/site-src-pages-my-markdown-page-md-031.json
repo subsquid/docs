@@ -1,0 +1,13 @@
+{
+  "type": "mdx",
+  "permalink": "/my-markdown-page",
+  "source": "@site/src/pages/my-markdown-page.md",
+  "title": "My document title",
+  "description": "My document description",
+  "frontMatter": {
+    "id": "my-doc-id",
+    "title": "My document title",
+    "description": "My document description",
+    "slug": "/my-custom-url"
+  }
+}

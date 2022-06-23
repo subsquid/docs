@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/openreader-schema/bigint-fields",
+  "id": "reference/openreader-schema/bigint-fields",
+  "title": "BigInt fields",
+  "description": "GraphQL objects types have names and fields, but at the end of the day, these fields will either have to be other object types, or resolve to some concrete data. This concrete data is represented by Scalar types. GraphQL comes with its own default set of Scalar types, but different implementations can define their own.",
+  "source": "@site/docs/reference/openreader-schema/bigint-fields.md",
+  "sourceDirName": "reference/openreader-schema",
+  "slug": "/reference/openreader-schema/bigint-fields",
+  "permalink": "/docs/reference/openreader-schema/bigint-fields",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Annotations (Directives)",
+    "permalink": "/docs/reference/openreader-schema/annotations-directives"
+  },
+  "next": {
+    "title": "Bytes fields",
+    "permalink": "/docs/reference/openreader-schema/bytes-fields"
+  }
+}

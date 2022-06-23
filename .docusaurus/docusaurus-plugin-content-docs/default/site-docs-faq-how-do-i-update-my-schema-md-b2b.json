@@ -1,0 +1,23 @@
+{
+  "unversionedId": "faq/how-do-i-update-my-schema",
+  "id": "faq/how-do-i-update-my-schema",
+  "title": "How do I update my schema?",
+  "description": "Destructive option",
+  "source": "@site/docs/faq/how-do-i-update-my-schema.md",
+  "sourceDirName": "faq",
+  "slug": "/faq/how-do-i-update-my-schema",
+  "permalink": "/docs/faq/how-do-i-update-my-schema",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "How do I start the processor?",
+    "permalink": "/docs/faq/how-do-i-start-the-processor"
+  },
+  "next": {
+    "title": "How do I write the schema?",
+    "permalink": "/docs/faq/how-do-i-write-the-schema"
+  }
+}

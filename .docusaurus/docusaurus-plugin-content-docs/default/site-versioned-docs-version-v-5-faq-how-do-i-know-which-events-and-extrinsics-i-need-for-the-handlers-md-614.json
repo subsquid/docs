@@ -1,0 +1,23 @@
+{
+  "unversionedId": "faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers",
+  "id": "version-v5/faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers",
+  "title": "How do I know which events and extrinsics I need for the handlers?",
+  "description": "This part depends on the runtime business logic of the chain. The primary and the most reliable source of information is thus the Rust sources for the pallets used by the chain.",
+  "source": "@site/versioned_docs/version-v5/faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers.md",
+  "sourceDirName": "faq",
+  "slug": "/faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers",
+  "permalink": "/docs/v5/faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "How do I deploy my API to the Subsquid Hosted service?",
+    "permalink": "/docs/v5/faq/how-do-i-deploy-my-api-to-the-subsquid-hosted-service"
+  },
+  "next": {
+    "title": "How do I run and test the GraphQL API?",
+    "permalink": "/docs/v5/faq/how-do-i-run-and-test-the-graphql-api"
+  }
+}

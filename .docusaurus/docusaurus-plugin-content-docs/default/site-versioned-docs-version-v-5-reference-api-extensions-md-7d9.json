@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/api-extensions",
+  "id": "version-v5/reference/api-extensions",
+  "title": "API Extensions",
+  "description": "Squid alows to extend the GraphQL auto-generated schema with custom queries.",
+  "source": "@site/versioned_docs/version-v5/reference/api-extensions.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/api-extensions",
+  "permalink": "/docs/v5/reference/api-extensions",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Reference",
+    "permalink": "/docs/v5/reference/"
+  },
+  "next": {
+    "title": "EVM Processor",
+    "permalink": "/docs/v5/reference/evm-processor"
+  }
+}

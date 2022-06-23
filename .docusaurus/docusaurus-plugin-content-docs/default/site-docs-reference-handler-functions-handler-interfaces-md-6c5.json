@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/handler-functions/handler-interfaces",
+  "id": "reference/handler-functions/handler-interfaces",
+  "title": "Handler Interfaces",
+  "description": "We already discussed that there are three different types of Handlers. Subsquid SDK defines interface for these functions, so that the methods to attach them to a Processor can be type-safe. Here are their definitions.",
+  "source": "@site/docs/reference/handler-functions/handler-interfaces.md",
+  "sourceDirName": "reference/handler-functions",
+  "slug": "/reference/handler-functions/handler-interfaces",
+  "permalink": "/docs/reference/handler-functions/handler-interfaces",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Context Interfaces",
+    "permalink": "/docs/reference/handler-functions/context-interfaces"
+  },
+  "next": {
+    "title": "Handler Options Interfaces",
+    "permalink": "/docs/reference/handler-functions/handler-options-interfaces"
+  }
+}

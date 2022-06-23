@@ -1,0 +1,25 @@
+{
+  "unversionedId": "reference/openreader-schema/entity-relations",
+  "id": "version-v5/reference/openreader-schema/entity-relations",
+  "title": "Entity Relations",
+  "description": "One-to-One/One-to-Many/Many-to-One/Many-to-Many entity relations",
+  "source": "@site/versioned_docs/version-v5/reference/openreader-schema/entity-relations.md",
+  "sourceDirName": "reference/openreader-schema",
+  "slug": "/reference/openreader-schema/entity-relations",
+  "permalink": "/docs/v5/reference/openreader-schema/entity-relations",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {
+    "description": "One-to-One/One-to-Many/Many-to-One/Many-to-Many entity relations"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "DateTime fields",
+    "permalink": "/docs/v5/reference/openreader-schema/datetime-fields"
+  },
+  "next": {
+    "title": "Full text search",
+    "permalink": "/docs/v5/reference/openreader-schema/full-text-search"
+  }
+}

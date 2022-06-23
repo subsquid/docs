@@ -1,0 +1,23 @@
+{
+  "unversionedId": "faq/how-do-i-run-and-test-the-graphql-api",
+  "id": "version-v5/faq/how-do-i-run-and-test-the-graphql-api",
+  "title": "How do I run and test the GraphQL API?",
+  "description": "Once the migrations are applied, simply run",
+  "source": "@site/versioned_docs/version-v5/faq/how-do-i-run-and-test-the-graphql-api.md",
+  "sourceDirName": "faq",
+  "slug": "/faq/how-do-i-run-and-test-the-graphql-api",
+  "permalink": "/docs/v5/faq/how-do-i-run-and-test-the-graphql-api",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "How do I know which events and extrinsics I need for the handlers?",
+    "permalink": "/docs/v5/faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers"
+  },
+  "next": {
+    "title": "How do I start the processor?",
+    "permalink": "/docs/v5/faq/how-do-i-start-the-processor"
+  }
+}

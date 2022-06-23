@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/handler-functions/README",
+  "id": "version-v5/reference/handler-functions/README",
+  "title": "Handler functions",
+  "description": "Handlers are a foundational ingredient of the Processor component of a Squid API. Sometimes referred to as Hooks, Handlers are, in simpler terms, functions whose execution is triggered by the Processor before (pre-Block hook) or after (post-Block hook) processing a block, or, alternatively, when the Processor encounters a previously configured Substrate Event or Substrate Extrinsic.",
+  "source": "@site/versioned_docs/version-v5/reference/handler-functions/README.md",
+  "sourceDirName": "reference/handler-functions",
+  "slug": "/reference/handler-functions/",
+  "permalink": "/docs/v5/reference/handler-functions/",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "EVM Processor",
+    "permalink": "/docs/v5/reference/evm-processor"
+  },
+  "next": {
+    "title": "Context Interfaces",
+    "permalink": "/docs/v5/reference/handler-functions/context-interfaces"
+  }
+}

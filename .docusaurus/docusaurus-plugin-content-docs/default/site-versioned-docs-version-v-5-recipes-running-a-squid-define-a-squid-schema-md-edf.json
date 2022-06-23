@@ -1,0 +1,25 @@
+{
+  "unversionedId": "recipes/running-a-squid/define-a-squid-schema",
+  "id": "version-v5/recipes/running-a-squid/define-a-squid-schema",
+  "title": "Define a Squid Schema",
+  "description": "The schema will help create database entities, as well as TypeScript classes wrapping them, and will be exposed to API clients by the GraphQL server.",
+  "source": "@site/versioned_docs/version-v5/recipes/running-a-squid/define-a-squid-schema.md",
+  "sourceDirName": "recipes/running-a-squid",
+  "slug": "/recipes/running-a-squid/define-a-squid-schema",
+  "permalink": "/docs/v5/recipes/running-a-squid/define-a-squid-schema",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {
+    "description": "The schema will help create database entities, as well as TypeScript classes wrapping them, and will be exposed to API clients by the GraphQL server."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Building with Docker",
+    "permalink": "/docs/v5/recipes/running-a-squid/building-with-docker"
+  },
+  "next": {
+    "title": "Generate type-safe interfaces",
+    "permalink": "/docs/v5/recipes/running-a-squid/generate-typescript-definitions"
+  }
+}

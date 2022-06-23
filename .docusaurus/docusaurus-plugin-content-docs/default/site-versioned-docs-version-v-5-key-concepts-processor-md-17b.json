@@ -1,0 +1,25 @@
+{
+  "unversionedId": "key-concepts/processor",
+  "id": "version-v5/key-concepts/processor",
+  "title": "Processor",
+  "description": "The SubstrateProcessor is the main actor in transforming and loading on-chain data, according to pre-defined database model",
+  "source": "@site/versioned_docs/version-v5/key-concepts/processor.md",
+  "sourceDirName": "key-concepts",
+  "slug": "/key-concepts/processor",
+  "permalink": "/docs/v5/key-concepts/processor",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {
+    "description": "The SubstrateProcessor is the main actor in transforming and loading on-chain data, according to pre-defined database model"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Architecture",
+    "permalink": "/docs/v5/key-concepts/architecture"
+  },
+  "next": {
+    "title": "Substrate",
+    "permalink": "/docs/v5/key-concepts/substrate"
+  }
+}

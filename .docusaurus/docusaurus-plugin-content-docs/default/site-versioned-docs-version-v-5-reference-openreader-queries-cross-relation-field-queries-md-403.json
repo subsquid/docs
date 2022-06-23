@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/openreader-queries/cross-relation-field-queries",
+  "id": "version-v5/reference/openreader-queries/cross-relation-field-queries",
+  "title": "Cross-relation field queries",
+  "description": "Introduction",
+  "source": "@site/versioned_docs/version-v5/reference/openreader-queries/cross-relation-field-queries.md",
+  "sourceDirName": "reference/openreader-queries",
+  "slug": "/reference/openreader-queries/cross-relation-field-queries",
+  "permalink": "/docs/v5/reference/openreader-queries/cross-relation-field-queries",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "AND/OR filters",
+    "permalink": "/docs/v5/reference/openreader-queries/and-or-filters"
+  },
+  "next": {
+    "title": "JSON queries",
+    "permalink": "/docs/v5/reference/openreader-queries/json-queries"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "unversionedId": "faq/how-to-run-a-processor-against-a-different-chain",
+  "id": "faq/how-to-run-a-processor-against-a-different-chain",
+  "title": "How to run a processor against a different chain?",
+  "description": "You will need to have WebSocket endpoint to connect to the chain node and a Squid Archive. For a registry of Squid Archives, check this community-owned Archive Registry",
+  "source": "@site/docs/faq/how-to-run-a-processor-against-a-different-chain.md",
+  "sourceDirName": "faq",
+  "slug": "/faq/how-to-run-a-processor-against-a-different-chain",
+  "permalink": "/docs/faq/how-to-run-a-processor-against-a-different-chain",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "How do I write the schema?",
+    "permalink": "/docs/faq/how-do-i-write-the-schema"
+  },
+  "next": {
+    "title": "Where do I get a type bundle for my chain?",
+    "permalink": "/docs/faq/where-do-i-get-a-type-bundle-for-my-chain"
+  }
+}

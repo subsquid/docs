@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/handler-functions/handler-options-interfaces",
+  "id": "reference/handler-functions/handler-options-interfaces",
+  "title": "Handler Options Interfaces",
+  "description": "The previous pages discussed the different types of Handlers, their Interfaces, how they can be added to the Processor. When attaching a handler to the Processor, the Subsquid SDK also allows to provide options and it defines interface for them. Here are their definitions and how they can influence the Handler execution.",
+  "source": "@site/docs/reference/handler-functions/handler-options-interfaces.md",
+  "sourceDirName": "reference/handler-functions",
+  "slug": "/reference/handler-functions/handler-options-interfaces",
+  "permalink": "/docs/reference/handler-functions/handler-options-interfaces",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Handler Interfaces",
+    "permalink": "/docs/reference/handler-functions/handler-interfaces"
+  },
+  "next": {
+    "title": "Runtime upgrades",
+    "permalink": "/docs/reference/handler-functions/runtime-upgrades"
+  }
+}

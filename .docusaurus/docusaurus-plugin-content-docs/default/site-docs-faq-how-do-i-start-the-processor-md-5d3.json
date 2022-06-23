@@ -1,0 +1,23 @@
+{
+  "unversionedId": "faq/how-do-i-start-the-processor",
+  "id": "faq/how-do-i-start-the-processor",
+  "title": "How do I start the processor?",
+  "description": "First, make sure you have compiled your project with",
+  "source": "@site/docs/faq/how-do-i-start-the-processor.md",
+  "sourceDirName": "faq",
+  "slug": "/faq/how-do-i-start-the-processor",
+  "permalink": "/docs/faq/how-do-i-start-the-processor",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "How do I run and test the GraphQL API?",
+    "permalink": "/docs/faq/how-do-i-run-and-test-the-graphql-api"
+  },
+  "next": {
+    "title": "How do I update my schema?",
+    "permalink": "/docs/faq/how-do-i-update-my-schema"
+  }
+}

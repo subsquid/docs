@@ -1,0 +1,23 @@
+{
+  "unversionedId": "tutorial/create-an-evm-processing-squid",
+  "id": "tutorial/create-an-evm-processing-squid",
+  "title": "Create an EVM-processing Squid",
+  "description": "Objective",
+  "source": "@site/docs/tutorial/create-an-evm-processing-squid.md",
+  "sourceDirName": "tutorial",
+  "slug": "/tutorial/create-an-evm-processing-squid",
+  "permalink": "/docs/tutorial/create-an-evm-processing-squid",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Create a simple squid",
+    "permalink": "/docs/tutorial/create-a-simple-squid"
+  },
+  "next": {
+    "title": "Deploy your first Squid",
+    "permalink": "/docs/tutorial/deploy-your-squid"
+  }
+}

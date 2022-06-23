@@ -1,0 +1,23 @@
+{
+  "unversionedId": "recipes/deploying-a-squid/obtaining-a-deployment-key",
+  "id": "recipes/deploying-a-squid/obtaining-a-deployment-key",
+  "title": "Obtaining a deployment key",
+  "description": "This short guide shows how to obtain a deployment key for a Squid in our Software as a Service webpage.",
+  "source": "@site/docs/recipes/deploying-a-squid/obtaining-a-deployment-key.md",
+  "sourceDirName": "recipes/deploying-a-squid",
+  "slug": "/recipes/deploying-a-squid/obtaining-a-deployment-key",
+  "permalink": "/docs/recipes/deploying-a-squid/obtaining-a-deployment-key",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Monitoring and sync status",
+    "permalink": "/docs/recipes/deploying-a-squid/monitoring-and-sync-status"
+  },
+  "next": {
+    "title": "Releasing a Squid version",
+    "permalink": "/docs/recipes/deploying-a-squid/releasing-a-squid-version"
+  }
+}

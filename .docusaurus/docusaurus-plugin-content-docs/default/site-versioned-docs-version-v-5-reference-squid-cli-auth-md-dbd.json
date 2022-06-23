@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/squid-cli/auth",
+  "id": "version-v5/reference/squid-cli/auth",
+  "title": "auth",
+  "description": "The auth command of the sqd command line interface is used to authorize the current terminal session to interact with the Squid SaaS hosted solution.",
+  "source": "@site/versioned_docs/version-v5/reference/squid-cli/auth.md",
+  "sourceDirName": "reference/squid-cli",
+  "slug": "/reference/squid-cli/auth",
+  "permalink": "/docs/v5/reference/squid-cli/auth",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Squid CLI Reference",
+    "permalink": "/docs/v5/reference/squid-cli/"
+  },
+  "next": {
+    "title": "codegen",
+    "permalink": "/docs/v5/reference/squid-cli/codegen"
+  }
+}

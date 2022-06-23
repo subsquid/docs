@@ -1,0 +1,23 @@
+{
+  "unversionedId": "recipes/running-a-squid/local-runs",
+  "id": "recipes/running-a-squid/local-runs",
+  "title": "Local runs",
+  "description": "This guide considers that a Squid project has been created or that the Squid template repository has been cloned and maybe customized.",
+  "source": "@site/docs/recipes/running-a-squid/local-runs.md",
+  "sourceDirName": "recipes/running-a-squid",
+  "slug": "/recipes/running-a-squid/local-runs",
+  "permalink": "/docs/recipes/running-a-squid/local-runs",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Generate type-safe interfaces",
+    "permalink": "/docs/recipes/running-a-squid/generate-typescript-definitions"
+  },
+  "next": {
+    "title": "Multi-chain processors",
+    "permalink": "/docs/recipes/running-a-squid/multi-chain-processors"
+  }
+}

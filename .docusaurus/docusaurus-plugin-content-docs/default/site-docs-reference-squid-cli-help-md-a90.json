@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/squid-cli/help",
+  "id": "reference/squid-cli/help",
+  "title": "help",
+  "description": "The help command will list all available commands and topics of the sqd command line interface and their usage.",
+  "source": "@site/docs/reference/squid-cli/help.md",
+  "sourceDirName": "reference/squid-cli",
+  "slug": "/reference/squid-cli/help",
+  "permalink": "/docs/reference/squid-cli/help",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "db",
+    "permalink": "/docs/reference/squid-cli/db"
+  },
+  "next": {
+    "title": "Installation",
+    "permalink": "/docs/reference/squid-cli/installation"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "unversionedId": "reference/squid-cli/installation",
+  "id": "version-v5/reference/squid-cli/installation",
+  "title": "Installation",
+  "description": "Installation",
+  "source": "@site/versioned_docs/version-v5/reference/squid-cli/installation.md",
+  "sourceDirName": "reference/squid-cli",
+  "slug": "/reference/squid-cli/installation",
+  "permalink": "/docs/v5/reference/squid-cli/installation",
+  "draft": false,
+  "tags": [],
+  "version": "v5",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "help",
+    "permalink": "/docs/v5/reference/squid-cli/help"
+  },
+  "next": {
+    "title": "squid",
+    "permalink": "/docs/v5/reference/squid-cli/squid"
+  }
+}

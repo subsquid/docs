@@ -1,0 +1,25 @@
+{
+  "unversionedId": "reference/openreader-queries/resolve-union-types-interfaces",
+  "id": "reference/openreader-queries/resolve-union-types-interfaces",
+  "title": "Resolve Union types/interfaces",
+  "description": "Use the __typename meta field to resolve types when querying unions or interfaces",
+  "source": "@site/docs/reference/openreader-queries/resolve-union-types-interfaces.md",
+  "sourceDirName": "reference/openreader-queries",
+  "slug": "/reference/openreader-queries/resolve-union-types-interfaces",
+  "permalink": "/docs/reference/openreader-queries/resolve-union-types-interfaces",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "description": "Use the __typename meta field to resolve types when querying unions or interfaces"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Nested field queries",
+    "permalink": "/docs/reference/openreader-queries/nested-field-queries"
+  },
+  "next": {
+    "title": "String/Regex queries",
+    "permalink": "/docs/reference/openreader-queries/string-regex-queries"
+  }
+}

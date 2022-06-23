@@ -1,0 +1,23 @@
+{
+  "unversionedId": "recipes/running-a-squid/README",
+  "id": "recipes/running-a-squid/README",
+  "title": "Running a Squid",
+  "description": "",
+  "source": "@site/docs/recipes/running-a-squid/README.md",
+  "sourceDirName": "recipes/running-a-squid",
+  "slug": "/recipes/running-a-squid/",
+  "permalink": "/docs/recipes/running-a-squid/",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Migrate to v5",
+    "permalink": "/docs/recipes/migrate-to-v5"
+  },
+  "next": {
+    "title": "Building with Docker",
+    "permalink": "/docs/recipes/running-a-squid/building-with-docker"
+  }
+}
