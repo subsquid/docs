@@ -34,7 +34,31 @@ module.exports = {
             'border-color-base--contrast': 'var(--border-color-base--contrast)',
             'border-color-base--accentPurple': 'var(--border-color-base--accentPurple)',
             'border-color-role--blue': 'var(--border-color-role--blue)',
-        }
+        },
+        container: {
+            center: true,
+            screens: {
+                sm: '414px',
+                md: '604px',
+                lg: '1036px',
+                xl: '1122px',
+            }
+        },
+        screens: {
+            sm: '414px',
+            md: '834px',
+            lg: '1280px',
+            xl: '1440px',
+        },
     },
-    plugins: [],
+    safelist: [
+        'bg-bg-role--building',
+        'bg-bg-role--success',
+        'bg-bg-role--error',
+        'bg-bg-role--syncing',
+        'bg-bg-role--info',
+        'bg-bg-role--notice',
+        'bg-bg-role--warning',
+    ],
+    plugins: []
 };

@@ -1,4 +1,5 @@
 ---
+    slug: /
     description: Introducing Subsquid, an on-chain data indexing framework and a platform for serverless Web3 APIs.
 ---
 
@@ -16,13 +17,13 @@ To take a more a more conceptual approach, learn more about the project fundamen
 
 ## Start developing
 
-If you are already familiar with the project and want to see an example of how to customize it for your own needs, follow the [Tutorial](tutorial/create-a-simple-squid.md) on how to do this.
+If you are already familiar with the project and want to see an example of how to customize it for your own needs, follow the [Tutorial](../tutorial/create-a-simple-squid.md) on how to do this.
 
 ## Deploy your API
 
 Subsquid offers serverless deployments of Squid APIs free of charge.
 
-In this [Tutorial](tutorial/deploy-your-squid.md) you can find out how that works.
+In this [Tutorial](../tutorial/deploy-your-squid.md) you can find out how that works.
 
 ## Squid Aquarium
 

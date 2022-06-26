@@ -1,7 +1,7 @@
 # Table of contents
 
 * [Overview](README.md)
-* [Quickstart](quickstart.md)
+* [Quickstart](quickstart.mdx)
 * [Tutorial](tutorial/README.md)
   * [Development Environment set up](tutorial/development-environment-set-up.md)
   * [Create a simple Squid](tutorial/create-a-simple-squid.md)

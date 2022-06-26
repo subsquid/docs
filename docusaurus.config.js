@@ -52,7 +52,7 @@ const config = {
                 },
                 theme: {
                     customCss: require.resolve('./src/css/custom.css'),
-                },
+                }
             }),
         ],
     ],
@@ -62,10 +62,14 @@ const config = {
         ({
             navbar: {
                 logo: {
-                    alt: 'My Site Logo',
+                    alt: 'Subsquid',
                     src: 'img/logo.svg',
                 },
                 items: [],
+            },
+            colorMode: {
+                defaultMode: 'dark',
+                disableSwitch: true,
             },
             footer: {},
             prism: {
@@ -81,7 +85,7 @@ const config = {
         }),
 
     plugins: [
-        async function myPlugin(context, options) {
+        async function tailWindCssPlugin(context, options) {
             return {
                 name: "docusaurus-tailwindcss",
                 configurePostCss(postcssOptions) {

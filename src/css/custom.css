@@ -5,8 +5,48 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'Archia';
+    src: local('Archia'),
+    url('/static/fonts/Archia/archia-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+}
+
 @layer components {
+    .heading--2 {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 70px;
+        line-height: 80px;
+        letter-spacing: -0.03em;
+    }
+
+    .heading--3 {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 48px;
+        line-height: 54px;
+        letter-spacing: -0.01em;
+    }
+
+    .heading--4 {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 32px;
+        line-height: 40px;
+    }
+
+    .body--l {
+        font-family: var(--ifm-font-family-base);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 32px;
+        letter-spacing: -0.02em;
+    }
+
     .body--s {
+        font-family: var(--ifm-font-family-base);
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
@@ -15,6 +55,7 @@
     }
 
     .caption {
+        font-family: var(--ifm-font-family-base);
         font-style: normal;
         font-weight: 400;
         font-size: 12px;
@@ -77,12 +118,17 @@
     --ifm-background-color: var(--bg-base--default);
     --ifm-color-primary: var(--fg-role--accent-01);
     --ifm-font-family-base: 'Inter', sans-serif;
+    --ifm-heading-font-family: 'Archia', sans-serif;
 
     --ifm-menu-color: var(--fg-base--default);
 
     --ifm-menu-link-padding-vertical: 0;
     --ifm-toc-border-color: transparent !important;
     --doc-sidebar-width: 167px !important;
+
+    --ifm-navbar-padding-vertical: 24px;
+    --ifm-navbar-height: auto;
+    --ifm-navbar-background-color: var(--bg-base--indistinguishable);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -262,4 +308,20 @@ pre {
 
 html {
     font-family: var(--ifm-font-family-base) !important;
+}
+
+#__docusaurus .main-wrapper {
+    @apply pt-16 pb-28 !important;
+}
+
+.navbar {
+    background-image: url('/static/img/header-bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-x: 600px;
+    background-position-y: -250px;
+}
+
+.navbar__inner {
+    @apply max-w-[1128px] mx-auto !important;
 }
