@@ -22,9 +22,9 @@ RUN npm run build
 
 ## Deploy ######################################################################
 # Use a stable nginx image
-FROM nginx:stable-alpine as deploy
+FROM nginx
 WORKDIR /home/node/app
 # Copy what we've installed/built from production
 
-COPY ci/docker/nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /home/node/app/build /usr/share/nginx/html/
+COPY --from=build /home/node/app/build/ /usr/share/nginx/html/
+EXPOSE 80
