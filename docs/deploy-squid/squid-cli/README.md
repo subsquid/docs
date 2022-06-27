@@ -14,4 +14,4 @@ description: Reference page of the Squid CLI tools
 | `db`      | Database management commands                        |
 | `squid`   | Squid management commands (SaaS)                    |
 
-Examples of usage of this CLI can be seen in the [Tutorial on how to use our SaaS to deploy a hosted Squid](subsquid-docs/tutorial/deploy-your-squid.md) or in the tutorial on how to customize the [Squid template](subsquid-docs/tutorial/create-a-simple-squid.md).
+Examples of usage of this CLI can be seen in the [Tutorial on how to use our SaaS to deploy a hosted Squid](/docs/tutorial/deploy-your-squid) or in the tutorial on how to customize the [Squid template](/docs/tutorial/create-a-simple-squid).

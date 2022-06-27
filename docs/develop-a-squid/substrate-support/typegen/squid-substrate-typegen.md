@@ -165,7 +165,7 @@ export class BalancesTransferEvent {
 
 This manages different runtime versions, including the starting hash for each and instructions for how to process (decode) the event itself.
 
-All of this is better explained in the section dedicated to the [Processor and Event mapping](../../squid-processor.md), but, given the class definition for a `BalanceTransferEvent`, such a class can be used to handle events such as this:
+All of this is better explained in the section dedicated to the [Processor and Event mapping](/docs/develop-a-squid/squid-processor), but, given the class definition for a `BalanceTransferEvent`, such a class can be used to handle events such as this:
 
 ```typescript
 processor.addEventHandler('balances.Transfer', async ctx => {

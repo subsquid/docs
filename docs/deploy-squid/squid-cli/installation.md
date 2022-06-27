@@ -6,7 +6,7 @@ The Squid CLI is a tool that helps develop and manage your Squid project. It pro
 
 <<<<<<< HEAD:docs-archive/deploy-squid/squid-cli/installation.md
 :::info
-Note: in the context of this guide, we assume the [Development Environment has been already set up](subsquid-docs/tutorial/development-environment-set-up.md) and that `npm` is used, although other options are available.
+Note: in the context of this guide, we assume the [Development Environment has been already set up](/docs/tutorial/development-environment-set-up.md) and that `npm` is used, although other options are available.
 :::
 =======
 :::info

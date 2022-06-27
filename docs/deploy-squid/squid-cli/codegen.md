@@ -4,7 +4,7 @@ The `codegen` is used to generate TypeScript classes that model the entities def
 
 It has no options and no output, but it will generate code in the `src/model/generated` folder.
 
-To see examples of its usage, head over to the [Tutorial about creating a simple Squid](subsquid-docs/tutorial/create-a-simple-squid.md#define-entity-schema).
+To see examples of its usage, head over to the [Tutorial about creating a simple Squid](/docs/tutorial/create-a-simple-squid#define-entity-schema).
 
 ### Example
 

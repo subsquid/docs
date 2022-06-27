@@ -58,7 +58,7 @@ Packages can be installed one by one, but this command will make sure they are a
 
 ## Database and Store changes
 
-Historically, Subsquid SDK used a [Store interface](../develop-a-squid/store-interface.md) as an abstraction layer over the database. As explained in the dedicated reference page, this is relies on the `typeorm` library.
+Historically, Subsquid SDK used a [Store interface](/docs/develop-a-squid/store-interface) as an abstraction layer over the database. As explained in the dedicated reference page, this is relies on the `typeorm` library.
 
 In Fire Squid release, two new Database classes have been developed, that support two types of usage:
 

@@ -4,7 +4,7 @@ At times, it may be useful to deploy multiple versions of the same Squid. For ex
 
 ## Authentication
 
-In order to accomplish the tasks below, the terminal window in which the commands are being launched, needs to be authenticated. To do so, refer to the Recipe on [how to obtain a deployment key](subsquid-docs/docs-archive/deploy-squid/obtaining-a-deployment-key.md), and launch the authentication command:
+In order to accomplish the tasks below, the terminal window in which the commands are being launched, needs to be authenticated. To do so, refer to the Recipe on [how to obtain a deployment key](/docs/deploy-squid/obtaining-a-deployment-key), and launch the authentication command:
 
 ```bash
 sqd auth --key sqd_<auht_code>

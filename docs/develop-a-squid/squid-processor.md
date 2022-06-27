@@ -8,17 +8,17 @@ description: >-
 
 ## Overview
 
-In the [Architecture](architecture.md) explanation, the relationship between the Squid Archive and Squid query node was clarified. It has also been mentioned that raw chain data is decoded to be readily available for consumption.
+In the [Architecture](/docs/overview/architecture.md) explanation, the relationship between the Squid Archive and Squid query node was clarified. It has also been mentioned that raw chain data is decoded to be readily available for consumption.
 
-The [Substrate](substrate.md) section explained what decoded data is, what it consists of, and what information it brings.
+The [Substrate](/docs/develop-a-squid/substrate-support) section explained what decoded data is, what it consists of, and what information it brings.
 
-Next, the [Typegen](typegen.md) section explained how automated tools provide a way to conveniently wrap these entities with TypeScript objects.
+Next, the [Typegen](/docs/develop-a-squid/substrate-support/typegen) section explained how automated tools provide a way to conveniently wrap these entities with TypeScript objects.
 
 The real Squid developer experience starts with defining one's own data schema, modeling Entities that you want to keep tabs on, and tracking how on-chain information affects them.
 
 ## Entities and Schema definition
 
-The definition of a schema, and specifically knowing what Entities to identify in it, requires a level of domain knowledge that is beyond the scope of this page. Refer to the related [Recipe ](define-a-squid-schema.md)for operational guidance, but in this context, we will take the [Squid template](https://github.com/subsquid/squid-template) as an example.
+The definition of a schema, and specifically knowing what Entities to identify in it, requires a level of domain knowledge that is beyond the scope of this page. Refer to the related [Recipe ](/docs/develop-a-squid/define-a-squid-schema)for operational guidance, but in this context, we will take the [Squid template](https://github.com/subsquid/squid-template) as an example.
 
 In the template, the `Account` and `HistoricalBalance` have been defined in the `schema.graphql,` and two TypeScript models have been automatically generated for them. These can be found in two files in `src/model/generated/`.
 
@@ -125,4 +125,4 @@ The business logic itself is not relevant for the scope of this page, what's wor
     await ctx.store.save(fromAcc)
 ```
 
-The logic in the `getTransferEvent` and how it is tied to the `BalancesTransferEvent` wrapper for an event has been described in [the previous section](typegen.md) but has been reported here because the added context might further clarify it.
+The logic in the `getTransferEvent` and how it is tied to the `BalancesTransferEvent` wrapper for an event has been described in [the previous section](/docs/develop-a-squid/substrate-support/typegen) but has been reported here because the added context might further clarify it.

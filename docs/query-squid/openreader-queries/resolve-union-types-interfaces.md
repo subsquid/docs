@@ -6,11 +6,11 @@ description: >-
 
 # Resolve Union types/interfaces
 
-The use cases for [Union types](subsquid-docs/docs-archive/query-squid/openreader-schema/union-types.md) and [Interfaces](subsquid-docs/docs-archive/query-squid/openreader-schema/interfaces.md) has been discussed in the related schema reference pages.
+The use cases for [Union types](/docs/query-squid/openreader-schema/union-types) and [Interfaces](/docs/query-squid/openreader-schema/interfaces) has been discussed in the related schema reference pages.
 
 In that context, examples also showed how to query them. What's important to know is that these might create situations where it's not possible to know what type the GraphQL service is returning. To overcome this scenario, it is important to find some way to determine how to handle that data on the client.
 
-This is where the `__typename` meta filed comes in. To witness it in action, let's take the schema from the [Union types](subsquid-docs/docs-archive/query-squid/openreader-schema/union-types.md) page:
+This is where the `__typename` meta filed comes in. To witness it in action, let's take the schema from the [Union types](/docs/query-squid/openreader-schema/union-types) page:
 
 ```graphql title="schema.graphql"
 type Account @entity {

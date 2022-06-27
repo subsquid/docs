@@ -12,7 +12,7 @@ Alternatively, to be part of our active community, join the official [Telegram c
 
 ### Reporting bugs
 
-If you come across a bug, a missing feature or run into a problem, please make sure to report it, by opening an Issue [in our repository](https://github.com/subsquid/squid). The guidelines for how to contribute and [described here in the documentation](subsquid-docs/docs-archive/faq/bug-reporting-guidelines.md).
+If you come across a bug, a missing feature or run into a problem, please make sure to report it, by opening an Issue [in our repository](https://github.com/subsquid/squid). The guidelines for how to contribute and [described here in the documentation](/docs/faq/bug-reporting-guidelines).
 
 If you find inconsistencies or mistakes in this documentation, please do report them in the [docs repository](https://github.com/subsquid/docs).
 

@@ -1,6 +1,6 @@
 # Substrate Processor
 
-The main explanation and overview for the Processor component of a Squid has been treated in the [Key Concepts](../squid-processor.md) section. This page will go over the most important customizations a developer would want to make, when building their API.
+The main explanation and overview for the Processor component of a Squid has been treated in the [Key Concepts](/docs/develop-a-squid/squid-processor) section. This page will go over the most important customizations a developer would want to make, when building their API.
 
 ## Importing and instantiating
 

@@ -1,6 +1,6 @@
 # Union types
 
-[Union](https://graphql.org/learn/schema/#union-types) types may look similar to [Interfaces](subsquid-docs/docs-archive/query-squid/openreader-schema/interfaces.md) and in some ways they are, but there is a very important difference between them and it is that Unions cannot specify common fields between types that are part of them.
+[Union](https://graphql.org/learn/schema/#union-types) types may look similar to [Interfaces](/docs/query-squid/openreader-schema/interfaces) and in some ways they are, but there is a very important difference between them and it is that Unions cannot specify common fields between types that are part of them.
 
 {% :::caution="warning" %}
 It is key to highlight that Union types are only implemented for JSON fields.

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2366c977-4d5e-40e8-a5cc-8ea4cb1d2bc9" name="subsquid docs">
+        <fileTransfer rootFolder="/root" accessType="SFTP" host="65.109.4.206" port="22" sshConfigId="a15b3634-618a-4e0d-910e-9a5922c19901" sshConfig="root@65.109.4.206:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -1,6 +1,6 @@
 # Schema updates
 
-Over the course of development of an API it is often the case that new things are discovered, requests for changes happen, and so it may happen that a change to the [previously defined schema](define-a-squid-schema.md) is necessary.
+Over the course of development of an API it is often the case that new things are discovered, requests for changes happen, and so it may happen that a change to the [previously defined schema](/docs/develop-a-squid/define-a-squid-schema) is necessary.
 
 The best practice in this case, and strongly advised course of action, would be to follow this checklist:
 

@@ -20,7 +20,7 @@ export interface EventHandlerContext {
 }
 ```
 
-This way, when the `EventHandler` is executing, it is able to extract Event and even Extrinsic and Block information from the Context and use the [Store interface](../store-interface.md) to potentially persist processed data.
+This way, when the `EventHandler` is executing, it is able to extract Event and even Extrinsic and Block information from the Context and use the [Store interface](/docs/develop-a-squid/store-interface) to potentially persist processed data.
 
 Developers can use this object in their `EventHandler` functions like this:
 
@@ -135,9 +135,9 @@ export interface EvmLogHandlerContext {
 }
 ```
 
-This way, when the `EvmLogHandler` is executing, it is able to extract EVM specific data, as well as Event and even Extrinsic and Block information from the Context and use the [Store interface](../store-interface.md) to potentially persist processed data.
+This way, when the `EvmLogHandler` is executing, it is able to extract EVM specific data, as well as Event and even Extrinsic and Block information from the Context and use the [Store interface](/docs/develop-a-squid/store-interface) to potentially persist processed data.
 
-Developers can use this object in their `EvmvLogHandler` functions like this (for more information about line #2, please take a look at the [EVM Processor page](../evm-support/evm-squid-processor.md#abi-interface-and-decoding)):
+Developers can use this object in their `EvmvLogHandler` functions like this (for more information about line #2, please take a look at the [EVM Processor page](/docs/develop-a-squid/evm-support/evm-squid-processor#abi-interface-and-decoding)):
 
 ```typescript
 async fuction evmTransfer (ctx: EvmLogHandlerContext ): Promise<void> {

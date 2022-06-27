@@ -9,21 +9,21 @@ This documentation provides information for all degrees of expertise, varying fr
 
 ## Quickstart
 
-To jump straight into the action, get a local environment up and running, follow the [Quickstart](subsquid-docs/quickstart.md) guide and start familiarizing with the SDK.
+To jump straight into the action, get a local environment up and running, follow the [Quickstart](/docs/quickstart) guide and start familiarizing with the SDK.
 
 ## Key Concepts
 
-To take a more a more conceptual approach, learn more about the project fundamentals, dive deeper into the modula architecture of Subsquid, head over to the [Key Concepts](develop-a-squid/architecture.md) section.
+To take a more a more conceptual approach, learn more about the project fundamentals, dive deeper into the modula architecture of Subsquid, head over to the [Key Concepts](/docs/develop-a-squid/architecture) section.
 
 ## Start developing
 
-If you are already familiar with the project and want to see an example of how to customize it for your own needs, follow the [Tutorial](../tutorial/create-a-simple-squid.md) on how to do this.
+If you are already familiar with the project and want to see an example of how to customize it for your own needs, follow the [Tutorial](/docs/tutorial/create-a-simple-squid) on how to do this.
 
 ## Deploy your API
 
 Subsquid offers serverless deployments of Squid APIs free of charge.
 
-In this [Tutorial](../tutorial/deploy-your-squid.md) you can find out how that works.
+In this [Tutorial](/docs/tutorial/deploy-your-squid) you can find out how that works.
 
 ## Squid Aquarium
 
@@ -33,7 +33,7 @@ Visit and browse through interesting projects, and publish your own for for cool
 
 ## Migration from earlier versions
 
-If you have an existing project and need to migrate to the latest Squid version, follow this [Guide](broken-reference).
+If you have an existing project and need to migrate to the latest Squid version, follow this [Guide](/docs/recipes/migrate-to-fire-squid).
 
 ## Bug bounties and community support
 

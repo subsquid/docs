@@ -4,6 +4,7 @@ import Layout from '@theme/Layout';
 import { ContentFeature } from '@site/src/components/content-feature';
 import { GuideCard } from '@site/src/components/guide-card';
 import { TutorialCard } from '@site/src/components/tutorial-card';
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 
 const DevelopSquidImage = require('@site/static/img/develop-squid.svg').default;
 const RunSquidImage = require('@site/static/img/run-squid.svg').default;
@@ -13,7 +14,10 @@ const DeploySquidImage = require('@site/static/img/deploy-squid.svg').default;
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
 
-  document.documentElement.setAttribute('data-theme', 'dark');
+
+  if (ExecutionEnvironment.canUseDOM) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
 
   return (
     <Layout
@@ -25,7 +29,9 @@ export default function Home(): JSX.Element {
           <div className="flex flex-col gap-6">
             <p className="body--s">This documentation provides information for all degrees of expertise, varying from
               complete beginner, to those who only need a refresher on specific commands.</p>
-            <a className="rounded-lg body--s text-fg-base--contrast py-2 px-6 bg-bg-base--contrast w-fit" href="/docs/quickstart">Quickstart</a>
+            <a
+              className="rounded-lg body--s text-fg-base--contrast py-2 px-6 bg-bg-base--contrast w-fit"
+              href="/docs/quickstart">Quickstart</a>
           </div>
         </div>
 

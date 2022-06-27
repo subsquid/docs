@@ -11,7 +11,7 @@ Our spec-compliant GraphQL server implementation called OpenReader allows the de
 
 ## `@entity`
 
-`@entity` this is attached to a `type` and it signifies it should be persisted in the database with a corresponding table. The `type`(s) defined without this directive will be considered objects, for more on this see the [JSON field reference](subsquid-docs/docs-archive/query-squid/openreader-schema/json-fields.md).
+`@entity` this is attached to a `type` and it signifies it should be persisted in the database with a corresponding table. The `type`(s) defined without this directive will be considered objects, for more on this see the [JSON field reference](/docs/query-squid/openreader-schema/json-fields).
 
 A sample schema using this would be the following:
 

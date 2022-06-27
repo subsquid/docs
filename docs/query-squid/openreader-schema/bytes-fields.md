@@ -4,7 +4,7 @@ GraphQL objects types have names and fields, but at the end of the day, these fi
 
 The last custom Scalar type implemented in OpenReader is the `Bytes` field, which is represents binary data encoded as a hex string always prefixed with "0x".
 
-A good example of the usage of this field would be the schema used in [this Tutorial](subsquid-docs/docs-archive/tutorial/create-a-simple-squid.md).
+A good example of the usage of this field would be the schema used in [this Tutorial](/docs/tutorial/create-a-simple-squid).
 
 ```graphql title="schema.graphql"
 type Account @entity {

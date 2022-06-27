@@ -12,7 +12,7 @@ This page will go over the most important customizations a developer would want 
 
 It is important, before even starting, to verify that the Archive our Processor will be connecting to is EVM-compatible.
 
-To know exactly what this means, please check the related section in the [Archive guide](../../archives/how-to-launch-a-squid-archive.md#launch-archives-for-evm-compatible-blockchain).
+To know exactly what this means, please check the related section in the [Archive guide](/docs/archives/how-to-launch-a-squid-archive#launch-archives-for-evm-compatible-blockchain).
 
 ## Importing and instantiating
 
@@ -52,7 +52,7 @@ To know more about Handler functions, Handler Interfaces and Context Interface l
 
 ## Topics decoding
 
-The Subsquid SDK provides a command line tool (called [EVM Typegen](squid-evm-typegen.md), follow the link for more details) to generate TypeScript boiler plate code to decode EVM logs, providing the contract's ABI in JSON format.
+The Subsquid SDK provides a command line tool (called [EVM Typegen](/docs/develop-a-squid/evm-support/squid-evm-typegen), follow the link for more details) to generate TypeScript boiler plate code to decode EVM logs, providing the contract's ABI in JSON format.
 
 This tool will create a TypeScript file containing interfaces for the events present in the contract, and an `events` function that maps   topic names to the right function that is able to decode it.
 

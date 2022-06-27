@@ -32,7 +32,7 @@ type User @entity {
 
 In this simple example, the `Account` and `User` entities are linked and one `User` can only have one `Account` and one `Account` can only be linked to one `User`. This might not be a real-world scenario, but it is what the schema is defining.
 
-It's worth noticing that the `user` field of `Account` refers back to `User`, but since it has the `@derivedFrom` directive, it will not be persisted in the database (see the [appropriate Reference page](subsquid-docs/docs-archive/query-squid/openreader-schema/annotations-directives.md#derivedfrom) for more information).
+It's worth noticing that the `user` field of `Account` refers back to `User`, but since it has the `@derivedFrom` directive, it will not be persisted in the database (see the [appropriate Reference page](/docs/query-squid/openreader-schema/annotations-directives#derivedfrom) for more information).
 
 ## One-to-Many
 

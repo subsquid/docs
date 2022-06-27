@@ -2,7 +2,7 @@
 
 The squid template repository comes with a `Dockerfile` included.
 
-The PostgreSQL database is already a docker-compose dependency by default, so this means that the [processor](../../key-concepts/squid-processor.md) and the GraphQL server can be run as microservices in a container orchestration system, such as Kubernetes.
+The PostgreSQL database is already a docker-compose dependency by default, so this means that the [processor](/docs/develop-a-squid/squid-processor) and the GraphQL server can be run as microservices in a container orchestration system, such as Kubernetes.
 
 ### Build the project's docker image
 

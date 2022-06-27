@@ -28,7 +28,7 @@ For reference on the complete work, you can find the entire project [here](https
 
 ### Run the project
 
-Next, just follow the [Quickstart](../quickstart.mdx) to get the project up and running, here's a list of commands to run in quick succession:
+Next, just follow the [Quickstart](/docs/quickstart) to get the project up and running, here's a list of commands to run in quick succession:
 
 ```bash
 npm ci
