@@ -2,7 +2,6 @@ import React from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import { ContentFeature } from '@site/src/components/content-feature';
-import { GuideCard } from '@site/src/components/guide-card';
 import { TutorialCard } from '@site/src/components/tutorial-card';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 
@@ -35,26 +34,34 @@ export default function Home(): JSX.Element {
           </div>
         </div>
 
-        <section className="grid grid-cols-3 grid-rows-2 gap-2 mb-28">
+        <section className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2 mb-28">
 
           <ContentFeature
             image={DevelopSquidImage}
             links={[
               {
-                url: '',
-                label: 'Architecture'
+                url: '/docs/develop-a-squid/define-a-squid-schema',
+                label: 'Define a Squid Schema'
               },
               {
-                url: '',
+                url: '/docs/develop-a-squid/schema-updates',
+                label: 'Schema updates'
+              },
+              {
+                url: '/docs/develop-a-squid/squid-processor',
                 label: 'Processor'
               },
               {
-                url: '',
-                label: 'Substrate'
+                url: '/docs/develop-a-squid/batch-processing',
+                label: 'Batch processing'
               },
               {
-                url: '',
-                label: 'Typegen'
+                url: '/docs/develop-a-squid/storage-calls',
+                label: 'Storage calls'
+              },
+              {
+                url: '/docs/develop-a-squid',
+                label: 'View more'
               }
             ]}>Develop Squid</ContentFeature>
 
@@ -62,114 +69,98 @@ export default function Home(): JSX.Element {
             image={RunSquidImage}
             links={[
               {
-                url: '',
-                label: 'Development Environment set up'
+                url: '/docs/run-squid/building-with-docker',
+                label: 'Building with Docker'
               },
               {
-                url: '',
-                label: 'Create a simple Squid'
+                url: '/docs/run-squid/local-runs',
+                label: 'Local runs'
               },
               {
-                url: '',
-                label: 'Create an EVM-processing Squid'
+                url: '/docs/run-squid/multi-chain-processors',
+                label: 'Multi-chain processors'
               },
               {
-                url: '',
-                label: 'GraphQL'
+                url: '/docs/run-squid/prometheus-metrics',
+                label: 'Prometheus metrics'
+              },
+            ]}>Run a Squid</ContentFeature>
+
+
+          <ContentFeature
+            image={DeploySquidImage}
+            links={[
+              {
+                url: '/docs/deploy-squid/obtaining-a-deployment-key',
+                label: 'Obtaining a deployment key'
               },
               {
-                url: '',
-                label: 'Deploy your first Squid'
+                url: '/docs/deploy-squid/releasing-a-squid-version',
+                label: 'Releasing a Squid version'
+              },
+              {
+                url: '/docs/deploy-squid/updating-a-squid',
+                label: 'Maintaining multiple versions'
+              },
+              {
+                url: 'docs/deploy-squid/squid-cli',
+                label: 'Squid CLI Reference'
+              },
+              {
+                url: '/docs/deploy-squid/monitoring-and-sync-status',
+                label: 'Monitoring and sync status'
               }
-            ]}>Run Squid</ContentFeature>
+            ]}>Deploy Squid</ContentFeature>
 
           <ContentFeature
             image={QuerySquidImage}
             links={[
               {
-                url: '',
-                label: 'Giant Squid API'
-              },
-              {
-                url: '',
-                label: 'Migrate to v5'
-              },
-              {
-                url: '',
-                label: 'How to launch an Archive'
-              },
-              {
-                url: '',
-                label: 'Running a Squid'
-              },
-              {
-                url: '',
-                label: 'Deploying a Squid'
-              }
-            ]}>Query Squid</ContentFeature>
-          <ContentFeature
-            image={DeploySquidImage}
-            links={[
-              {
-                url: '',
-                label: 'Squid CLI Reference'
-              },
-              {
-                url: '',
-                label: 'OpenReader Schema'
-              },
-              {
-                url: '',
-                label: 'OpenReader Queries'
-              },
-              {
-                url: '',
+                url: '/docs/query-squid/api-extensions',
                 label: 'API Extensions'
               },
               {
-                url: '',
-                label: 'Substrate Processor'
+                url: '/docs/query-squid/openreader-queries/and-or-filters',
+                label: 'OpenReader Queries'
+              },
+              {
+                url: '/docs/query-squid/openreader-schema/annotations-directives',
+                label: 'OpenReader Schema'
+              },
+              {
+                url: '/docs/query-squid/paginate-query-results',
+                label: 'Paginate query results'
+              },
+              {
+                url: '/docs/query-squid/queries',
+                label: 'Queries'
+              },
+              {
+                url: '/docs/query-squid/',
+                label: 'View more'
               }
-            ]}>Deploy Squid</ContentFeature>
+            ]}>Query a Squid</ContentFeature>
         </section>
-
-        <div className="flex flex-col gap-12 items-center mb-28">
-          <h3 className="heading--3 text--center">Guide</h3>
-
-          <div className="grid grid-cols-3 grid-rows-2 gap-2">
-            <GuideCard
-              description="Text here"
-              color="bg-role--notice">Balance Transfers</GuideCard>
-            <GuideCard
-              description="Text here"
-              color="bg-role--building">Balance Transfers Batched</GuideCard>
-            <GuideCard
-              description="Text here"
-              color="bg-role--success">RMRK collections and statistics</GuideCard>
-            <GuideCard
-              description="Text here"
-              color="bg-role--warning">Moonsama NFT tracker</GuideCard>
-            <GuideCard
-              description="Text here"
-              color="bg-role--syncing">Staking rewards tracker</GuideCard>
-            <GuideCard
-              description="Text here"
-              color="bg-role--info">XCM tracker</GuideCard>
-          </div>
-        </div>
 
         <div className="flex flex-col gap-12 items-center">
           <h3 className="heading--3 text--center">Tutorials</h3>
 
-          <div className="grid grid-cols-3 grid-rows-2 gap-2">
+          <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
             <TutorialCard
-              description="Text here">Migrate from v5</TutorialCard>
+              path="/docs/tutorials/create-a-simple-squid"
+              description="This tutorial will take the Squid template and go through all the necessary steps to customize the project, in order to interact with a different Squid Archive, synchronized with a different blockchain, and process data from Events different from the ones in the template.">Create
+              a simple Squid</TutorialCard>
             <TutorialCard
-              description="Text here">Migrate from SubQuery</TutorialCard>
+              path="/docs/tutorials/create-an-evm-processing-squid"
+              description="This tutorial will take the Squid EVM template and go through all the necessary steps to customize the project, in order to interact with a different Squid Archive, synchronized with a different blockchain, and process data from Events different from the ones in the template.">Create
+              an EVM-processing Squid</TutorialCard>
             <TutorialCard
-              description="Text here">Migrate from TheGraph (TBD)</TutorialCard>
+              path="/docs/tutorials/deploy-your-squid"
+              description="Subsquid offers a Software as a Service (SaaS) hosting, to further accelerate the development and reduce obstacles. This way, builders can focus on coding their business logic into the APIs, without having to worry about deployment and hosting.">Deploy
+              your first Squid</TutorialCard>
             <TutorialCard
-              description="Text here">Performance optimization</TutorialCard>
+              path="/docs/tutorials/development-environment-set-up"
+              description="Set up node and docker">Development Environment set up</TutorialCard>
           </div>
         </div>
       </main>

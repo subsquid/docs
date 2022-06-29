@@ -1,3 +1,8 @@
+---
+sidebar_position: 3
+---
+
+
 # Maintaining multiple versions
 
 At times, it may be useful to deploy multiple versions of the same Squid. For example, to test an advanced feature or to maintain retro-compatibility, following legacy-breaking changes.

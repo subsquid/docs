@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # Obtaining a deployment key
 
 This short guide shows how to obtain a deployment key for a Squid in our Software as a Service webpage.

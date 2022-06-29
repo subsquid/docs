@@ -17,9 +17,21 @@ export function ContentFeature(props: ContentFeatureProps) {
         <h4 className="body--l text-fg-base--default">{props.children}</h4>
         <ul className="flex flex-col gap-2">
           {
-            props.links.map((link) => (<li className="caption">
-              <a href={link.url} className="text-fg-base--muted">{link.label}</a>
-            </li>))
+            props.links.map((link) => {
+              if (link.label === 'View more') {
+                return (<li className="caption">
+                  <a
+                    href={link.url}
+                    className="text-fg-role--active">{link.label}</a>
+                </li>)
+              }
+
+              return (<li className="caption">
+                <a
+                  href={link.url}
+                  className="text-fg-base--muted">{link.label}</a>
+              </li>);
+            })
           }
         </ul>
       </div>
