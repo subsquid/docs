@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - new-docs
+      - develop
+      - master
     paths:
       - .github/workflows/build.yaml
       - mkdocs.yml
