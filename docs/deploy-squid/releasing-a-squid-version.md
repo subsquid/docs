@@ -6,7 +6,7 @@ Once the [preliminary steps](/docs/deploy-squid/obtaining-a-deployment-key) are 
 
 It is possible to create multiple deployments of a Squid project, called `versions`. The instructions on the Squid page report the last&#x20;
 
-![Create the first version for this project by following the indicated steps](</img/.gitbook/assets/SquidSaas-full_release.png>)
+![Create the first version for this project by following the indicated steps](</img/.gitbook/assets/app-deploy-squid-highlighted.jpeg>)
 
 The highlighted command will allow you to release a new version, provided the correct values are given for the placeholder variables:
 
@@ -18,12 +18,14 @@ The highlighted command will allow you to release a new version, provided the co
 
 As a result of the new release, a line will appear at the top of the page, with multiple fields:
 
-* **version**: the name entered in the command for the deployment
-* **endpoint**: the URL of the GraphiQL console for this query node
-* **status**: for monitoring purposes.
+As a result of the new release, version card with following fields will appear at Squid page:
 
-![Squid management panel](/img/.gitbook/assets/SquidSaas.png)
+* **Source Code**: the name entered in the command for the deployment
+* **Query URL**: the URL of the GraphiQL console for this query node
+* **Status**: for monitoring purposes. Has "deploying" value at screenshot bellow
 
-A version can be edited or destroyed by accessing the actions next to the status.
+![Squid management panel](/img/.gitbook/assets/app-squid-created-deployed.png)
 
-Similarly, the Squid itself can be edited or deleted by accessing the actions next to the Squid name.
+A version can be edited or destroyed by accessing the actions at top right corner of the card.
+
+Similarly, the Squid itself can be edited or deleted by accessing the actions next at right top corner of Squid information block.

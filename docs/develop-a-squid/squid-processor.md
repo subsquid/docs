@@ -1,4 +1,5 @@
 ---
+sidebar_position: 3
 description: >-
   The SubstrateProcessor is the main actor in transforming and loading on-chain
   data, according to pre-defined database model
@@ -8,7 +9,7 @@ description: >-
 
 ## Overview
 
-In the [Architecture](/docs/overview/architecture.md) explanation, the relationship between the Squid Archive and Squid query node was clarified. It has also been mentioned that raw chain data is decoded to be readily available for consumption.
+In the [Architecture](/docs/overview/architecture) explanation, the relationship between the Squid Archive and Squid query node was clarified. It has also been mentioned that raw chain data is decoded to be readily available for consumption.
 
 The [Substrate](/docs/develop-a-squid/substrate-support) section explained what decoded data is, what it consists of, and what information it brings.
 

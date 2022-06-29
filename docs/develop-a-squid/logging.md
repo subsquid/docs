@@ -1,3 +1,8 @@
+---
+sidebar_position: 7
+
+---
+
 # Logging
 
 A `Logger` interface is injected into the new Handler Contexts. This is the new recommended way of logging as these will be tracked by our hosting service and even when used locally, they are color coded and have increased readability.

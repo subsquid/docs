@@ -1,3 +1,8 @@
+---
+sidebar_position: 5
+
+---
+
 # Handler functions
 
 Handlers are a foundational ingredient of the Processor component of a Squid API. Sometimes referred to as _Hooks_, Handlers are, in simpler terms, functions whose execution is triggered by the Processor before (pre-Block hook) or after (post-Block hook) processing a block, or, alternatively, when the Processor encounters a previously configured Substrate Event or Substrate Extrinsic.

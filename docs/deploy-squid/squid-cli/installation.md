@@ -4,15 +4,9 @@
 
 The Squid CLI is a tool that helps develop and manage your Squid project. It provides multiple utilities, from database management to SaaS control, to code generation.
 
-<<<<<<< HEAD:docs-archive/deploy-squid/squid-cli/installation.md
 :::info
-Note: in the context of this guide, we assume the [Development Environment has been already set up](/docs/tutorial/development-environment-set-up.md) and that `npm` is used, although other options are available.
+Note: in the context of this guide, we assume the [Development Environment has been already set up](../../tutorials/development-environment-set-up.md) and that `npm` is used, although other options are available.
 :::
-=======
-:::info
-Note: in the context of this guide, we assume the [Development Environment has been already set up](../../tutorial/development-environment-set-up.md) and that `npm` is used, although other options are available.
-:::
->>>>>>> 224818f (Add draft version):docs/reference/squid-cli/installation.md
 
 To install Squid CLI, simply run this in a console.
 

@@ -18,9 +18,9 @@ To know exactly what this means, please check the related section in the [Archiv
 
 The `Substrate EVM Processor` is defined in an `npm` package that needs to be installed before being able to use it:
 
-{% hint style="info" %}
+:::info
 Note: the [subsquid-template](https://github.com/subsquid/squid-template) does not have this package in its dependencies.
-{% endhint %}
+:::
 
 ```bash
 npm install @subsquid/substrate-evm-processor
@@ -38,9 +38,9 @@ Then, it's finally possible to declare an instance of it:
 const processor = new SubstrateEvmProcessor('moonbeam')
 ```
 
-{% hint style="info" %}
+:::info
 Note: all of the code snippets in this page can be found in the [`processor.ts`](https://github.com/subsquid/squid/blob/master/test/moonsama-erc721/src/processor.ts) file in the test subfolder of our main project's repository.
-{% endhint %}
+:::
 
 ### Handlers and interfaces
 
@@ -58,8 +58,7 @@ This tool will create a TypeScript file containing interfaces for the events pre
 
 This function can then be used in the body of an `EvmLogHandler` function, like this:
 
-{% code title="processor.ts" %}
-```typescript
+```typescript title="processor.ts"
 async fuction evmTransfer (ctx: EvmLogHandlerContext ): Promise<void> {
     let transfer = erc721.events['Transfer(address,address,uint256)'].decode(ctx)
 
@@ -67,6 +66,6 @@ async fuction evmTransfer (ctx: EvmLogHandlerContext ): Promise<void> {
     
 }
 ```
-{% endcode %}
+
 
 Where `transfer` will be an object with `from`, `to`, `tokenId` fields, as defined above.

@@ -2,7 +2,7 @@
 
 Our OpenReader implementation allows the definition of complex objects as fields. The result is that queries can retrieve these fields as JSON objects. That's why we decided to call them _JSON fields_.
 
-Let's take a real world example of a schema (look at [this Tutorial](/docs/tutorial/create-a-simple-squid) to know where it's used):
+Let's take a real world example of a schema (look at [this Tutorial](/docs/tutorials/create-a-simple-squid) to know where it's used):
 
 ```graphql title="schema.graphql"
 type Account @entity {

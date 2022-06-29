@@ -1,3 +1,9 @@
+---
+
+sidebar_position: 4
+
+---
+
 # Batch processing
 
 The latest Subsquid SDK release, code named Fire Squid brings in a new type of processor, specifically designed for batch ingestion, aptly named: `SubstrateBatchProcessor`.

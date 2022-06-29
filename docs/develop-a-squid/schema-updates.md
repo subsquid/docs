@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # Schema updates
 
 Over the course of development of an API it is often the case that new things are discovered, requests for changes happen, and so it may happen that a change to the [previously defined schema](/docs/develop-a-squid/define-a-squid-schema) is necessary.

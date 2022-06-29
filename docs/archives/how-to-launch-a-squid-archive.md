@@ -10,7 +10,7 @@ This quick Recipe covers how to launch an Archive for a blockchain that is alrea
 
 ### Requirements
 
-In order to run an Archive, it is required to have Docker installed. For a quick installation guide, head over to [the dedicated page](../tutorial/development-environment-set-up.md#docker).
+In order to run an Archive, it is required to have Docker installed. For a quick installation guide, head over to [the dedicated page](../tutorials/development-environment-set-up.md#docker).
 
 ## Squid Archive repository
 
@@ -101,7 +101,7 @@ If a specific blockchain is not listed in the repository, it is possible to add 
    * Edit the `WS_PROVIDER_ENDPOINT_URI` environment variable to the correct endpoint for the given chain
    * Make sure to create a types bundle file named as the one mentioned in the `BUNDLE_TYPES` environment variable (see next point)
 4. The Archive needs to know which types the blockchain Runtime is using, and to instruct it, a types bundle JSON file needs to be passed in.
-   * To know how to create such a file for a given chain, head over to [our dedicated page](../faq/where-do-i-get-a-type-bundle-for-my-chain.md)
+   * To know how to create such a file for a given chain, head over to [our dedicated page](../support/where-do-i-get-a-type-bundle-for-my-chain.md)
 5. Create a pull-request towards the main repository
 
 ### Launch Archives for EVM-compatible blockchain

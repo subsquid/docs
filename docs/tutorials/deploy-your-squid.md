@@ -12,47 +12,47 @@ The process is quite simple, but here's a step-by-step guide.
 
 Head over to [app.subsquid.io](https://app.subsquid.io) and login with your [GitHub](https://github.com) account, by clicking on **Sign In**
 
-![Subsquid Saas homepage](/img/.gitbook/assets/subsquid saas.png)
+![Subsquid Saas homepage](/img/.gitbook/assets/app-home-page.png)
 
 ## Create your Squid
 
 Once logged in, a list of projects is presented. The first time it will be empty, so click on **Create squid** to start
 
-![Squid projects list](/img/.gitbook/assets/subsquid saas1.png)
+![Squid projects list](/img/.gitbook/assets/app-empty-projects.png)
 
 Fill in the form to provide details for the project and click **Next**
 
-![Squid creation form](/img/.gitbook/assets/subsquid saas2.png)
+![Squid creation form](/img/.gitbook/assets/app-create-squid-form.png)
 
 ## Deploy your code
 
 It is possible to create multiple deployments of a Squid project, called `versions`. To begin, create your first version, by following the provided steps
 
-![Create the first version for this project by following the indicated steps](/img/.gitbook/assets/SquidSaas full.png)
+![Create the first version for this project by following the indicated steps](/img/.gitbook/assets/app-deploy-squid.png)
 
 With a couple of notes and clarifications:
 
 * It is actually better to fork or create a separate repository, rather than cloning the template. This will come in handy when developing and making changes
 * The URL to the GitHub repository, as well as the branch needs to be provided for the last command, by substituting `<github url>` and `<github branch>` and the same goes with `<squid_version>`, which is the version name for this deployment. For example:\
-  `sqd squid:release Test@one --source https://github.com/RaekwonIII/squid-template#main`
+  `sqd squid:release Test@latest --source https://github.com/RaekwonIII/squid-template#main`
 
 ## Check the deployed Squid
 
-As a result of the new release, a line will appear at the top of the page, with multiple fields:
+As a result of the new release, version card with following fields will appear at Squid page:
 
-* **version**: the name entered in the command for the deployment
-* **endpoint**: the URL of the GraphiQL console for this query node
-* **status**: for monitoring purposes.
+* **Source Code**: the name entered in the command for the deployment
+* **Query URL**: the URL of the GraphiQL console for this query node
+* **Status**: for monitoring purposes. Has "deploying" value at screenshot bellow
 
-![Squid management panel](/img/.gitbook/assets/SquidSaas.png)
+![Squid management panel](/img/.gitbook/assets/app-squid-created-deployed.png)
 
-A version can be edited or destroyed by accessing the actions next to the status.
+A version can be edited or destroyed by accessing the actions at top right corner of the card.
 
-Similarly, the Squid itself can be edited or deleted by accessing the actions next to the Squid name.
+Similarly, the Squid itself can be edited or deleted by accessing the actions next at right top corner of Squid information block.
 
 ## Browse the Aquarium
 
-When someone choses to have their Squid to be **publicly** hosted by us, it will become visible in the [Aquarium](https://app.subsquid.io/aquarium).
+When someone chooses to have their Squid to be **publicly** hosted by us, it will become visible in the [Aquarium](https://app.subsquid.io/aquarium).
 
 Visit and browse through interesting projects, created by our community!
 

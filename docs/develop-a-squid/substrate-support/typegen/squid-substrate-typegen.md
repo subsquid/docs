@@ -4,9 +4,9 @@
 
 The Squid substrate typegen tool is part of Subsquid SDK and is used for generating TypeScript interface classes for Substrate Events and calls.
 
-{% hint style="info" %}
-Note: in the context of this guide, we assume the [Development Environment has been already set up](../../../tutorial/development-environment-set-up.md) and that `npm` is used, although other options are available.
-{% endhint %}
+:::info
+Note: in the context of this guide, we assume the [Development Environment has been already set up](../../../tutorials/development-environment-set-up.md) and that `npm` is used, although other options are available.
+:::
 
 Our template repository already lists this package as a dependency, but to manually install substrate typegen tool, simply run this in a console.&#x20;
 
@@ -58,9 +58,9 @@ It can either be a built-in typesBundle or a path to a typesBundle JSON file. |
 | `events`       | list of Events to generate                                                                                                                                                                                                                                                                                                                                                                                           |
 | `calls`        | list of calls (or Extrinsics) to generate                                                                                                                                                                                                                                                                                                                                                                            |
 
-{% hint style="warning" %}
+:::warning
 It is important to notice that in previous releases of Subsquid's SDK, the  `specVersion` was called`chainVersion` so be careful if you are migrating a project from an older version.&#x20;
-{% endhint %}
+:::
 
 For a more in-depth explanation of the subject, head over to the [dedicated page](./) and for a practical guide, take a look at the [dedicated Recipe](broken-reference).
 
@@ -93,9 +93,9 @@ Where `typegen.json` config file has the following structure:
 
 A type-safe definition for each and every version of the event will be generated. Most of the time, one should be able to infer a normalized interface together with some glue code to make it fit the runtime-specific versions.
 
-{% hint style="info" %}
+:::info
 **Note**: the Storage prefix is equal to the pallet name in most cases, but it this should not be followed as a rule. You always need to verify the Storage prefix.
-{% endhint %}
+:::
 
 The `"specVersion"` field can be:
 
@@ -104,7 +104,7 @@ The `"specVersion"` field can be:
 The `typesBundle` key in the `typegen.json` configuration file can either be:
 
 * a chain name, all lower-case (e.g. `kusama`, `polkadot`, `statemint`, a full list can be found [here](https://github.com/subsquid/squid/tree/master/substrate-metadata/src/old/definitions))
-* a path to a JSON file with the structure specified [here](../../../faq/where-do-i-get-a-type-bundle-for-my-chain.md)
+* a path to a JSON file with the structure specified [here](../../../support/where-do-i-get-a-type-bundle-for-my-chain.md)
 
 ## TypeScript class wrappers
 

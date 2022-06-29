@@ -53,7 +53,7 @@ A Squid is a pipeline for transforming and presenting Substrate blockchain data.
 * **Database**: a PostgreSQL database where processed data is stored
 * **GraphQL Server**: every query node comes with a gateway to present processed data
 
-A Squid replaces direct gRPC node access with more performant API calls to Archive gateways, allowing bandwidth reduction and quick synchronization of the API with the historical on-chain data. It can be run locally, on a server, or deployed to the Cloud using [our SaaS solution](/docs/tutorial/deploy-your-squid).
+A Squid replaces direct gRPC node access with more performant API calls to Archive gateways, allowing bandwidth reduction and quick synchronization of the API with the historical on-chain data. It can be run locally, on a server, or deployed to the Cloud using [our SaaS solution](/docs/tutorials/deploy-your-squid).
 
 Thanks to the Subsquid framework, it is possible to:
 

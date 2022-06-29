@@ -10,9 +10,9 @@ The Squid substrate metadata explorer tool is part of Subsquid SDK and is used f
 
 This is useful for monitoring Runtime updates for a chain and how Events and Extrinsics definitions might have changed, consequently. The result of blockchain exploration is saved in a JSON file.
 
-{% hint style="info" %}
-Note: in the context of this guide, we assume the [Development Environment has been already set up](../../../tutorial/development-environment-set-up.md) and that `npm` is used, although other options are available.
-{% endhint %}
+:::info
+Note: in the context of this guide, we assume the [Development Environment has been already set up](../../../tutorials/development-environment-set-up.md) and that `npm` is used, although other options are available.
+:::
 
 To install substrate metadata explorer tool, simply run this in a console.&#x20;
 

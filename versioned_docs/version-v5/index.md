@@ -17,13 +17,13 @@ To take a more a more conceptual approach, learn more about the project fundamen
 
 ## Start developing
 
-If you are already familiar with the project and want to see an example of how to customize it for your own needs, follow the [Tutorial](/docs/tutorial/create-a-simple-squid) on how to do this.
+If you are already familiar with the project and want to see an example of how to customize it for your own needs, follow the [Tutorial](/docs/tutorials/create-a-simple-squid) on how to do this.
 
 ## Deploy your API
 
 Subsquid offers serverless deployments of Squid APIs free of charge.
 
-In this [Tutorial](/docs/tutorial/deploy-your-squid) you can find out how that works.
+In this [Tutorial](/docs/tutorials/deploy-your-squid) you can find out how that works.
 
 ## Squid Aquarium
 

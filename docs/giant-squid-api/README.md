@@ -1,4 +1,6 @@
 ---
+sidebar_position: 10
+title: Giant Squid API
 description: >-
   Introducing the Giant Squid API, a single endpoint containing data from
   multiple chains and parachains

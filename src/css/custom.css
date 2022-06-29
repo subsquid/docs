@@ -124,7 +124,7 @@
 
     --ifm-menu-link-padding-vertical: 0;
     --ifm-toc-border-color: transparent !important;
-    --doc-sidebar-width: 167px !important;
+    --doc-sidebar-width: 240px !important;
 
     --ifm-navbar-padding-vertical: 24px;
     --ifm-navbar-height: auto;
@@ -248,7 +248,7 @@
 }
 
 .main-wrapper {
-    @apply max-w-[1128px] mx-auto pt-14 w-full pb-[232px] !important;
+    @apply max-w-[1128px] xl:max-w-[1280px] xl:max-w-[1360px] wide:max-w-[1480px] mx-auto pt-14 w-full pb-[232px] !important;
 }
 
 .thin-scrollbar::-webkit-scrollbar {
@@ -323,5 +323,5 @@ html {
 }
 
 .navbar__inner {
-    @apply max-w-[1128px] mx-auto !important;
+    @apply max-w-[1128px] xl:max-w-[1280px] xl:max-w-[1360px] wide:max-w-[1480px] mx-auto !important;
 }

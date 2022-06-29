@@ -49,6 +49,8 @@ module.exports = {
             md: '834px',
             lg: '1280px',
             xl: '1440px',
+            xxl: '1920px',
+            wide: '2560px',
         },
     },
     safelist: [

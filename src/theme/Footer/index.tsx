@@ -11,10 +11,10 @@ function Footer() {
       <div className="border-b border-border-color-base--default h-px w-full"/>
 
       <div
-        className="flex flex-col pt-8 max-w-[1016px]">
+        className="flex flex-col pt-8 max-w-[1128px] xl:max-w-[1280px] xl:max-w-[1360px] wide:max-w-[1480px] w-full">
 
         <div className="flex justify-between gap-52 pb-14">
-          <div className="flex flex-col gap-20 justify-center">
+          <div className="flex flex-col gap-12">
             <img
               className="w-[183px]"
               src="/img/logo.svg"

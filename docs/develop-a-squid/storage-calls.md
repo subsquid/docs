@@ -1,3 +1,8 @@
+---
+sidebar_position: 6
+
+---
+
 # Storage calls
 
 It is sometimes impossible to extract the required data with only event and extrinsic data. `StorageContext` exposes direct queries of [runtime storage](https://docs.substrate.io/v3/runtime/storage/) items via RPC.
@@ -32,9 +37,9 @@ Here's an example of the typegen config:
 
 To generate all available storage calls, simply set `"storage": true`.
 
-{% hint style="info" %}
+:::info
 Note: One can also consult subscan by navigating to the [Runtime section](https://kusama.subscan.io/runtime) and inspecting `Storage Functions` of the pallet of interest.
-{% endhint %}
+:::
 
 Typegen will generate the file `types/storage.ts` with something similar to
 

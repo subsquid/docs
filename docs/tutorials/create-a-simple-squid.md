@@ -61,7 +61,7 @@ If you are not interested, you could at least get the Postgres container running
 
 ## Install new dependencies
 
-For this specific project, we will need to install a new dependency since the [type definitions](../faq/where-do-i-get-a-type-bundle-for-my-chain.md) for the Crust blockchain are implemented in the `@crustio/types-definition` package.
+For this specific project, we will need to install a new dependency since the [type definitions](../support/where-do-i-get-a-type-bundle-for-my-chain.md) for the Crust blockchain are implemented in the `@crustio/types-definition` package.
 
 Navigate to the repository's root window in a command line console and install it.
 
@@ -126,7 +126,7 @@ type StorageOrder @entity {
 
 It's worth noticing that the `Account` entity is almost completely derived and it is there to tie the other three entities together, since Groups are joined by an Account, Storage Orders are placed by an Account and Work Reports, show files added and changed by, you guessed it, an Account!
 
-This all requires some implicit knowledge of the blockchain itself ([here's a tip](../faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers.md) on how to obtain this information).
+This all requires some implicit knowledge of the blockchain itself ([here's a tip](../support/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers.md) on how to obtain this information).
 
 To finalize this step, it is necessary to run the `codegen` tool:
 
@@ -159,7 +159,7 @@ It remains to be seen if this had any impacts on the definitions of the Events w
 
 One peculiar thing about the Crust chain and this example is that, at the moment of writing of this guide, its types have not been integrated into Squid's library.
 
-This gives us a good opportunity to follow [this mini-guide](../faq/where-do-i-get-a-type-bundle-for-my-chain.md) and create an example, extracting a types bundle from crust's own library, to Subsquid required format.
+This gives us a good opportunity to follow [this mini-guide](../support/where-do-i-get-a-type-bundle-for-my-chain.md) and create an example, extracting a types bundle from crust's own library, to Subsquid required format.
 
 :::info
 **Update**: the "crust" types bundle has been added to the list of built-ins, but for learning purposes, it's still useful to see how to create and use a types bundle JSON file.
@@ -755,7 +755,7 @@ npx sqd db migrate
 These will, in order:
 
 1. drop the current database
-   * If you did not [Run the project](/docs/tutorial/create-a-simple-squid), this is not necessary
+   * If you did not [Run the project](/docs/tutorials/create-a-simple-squid), this is not necessary
 2. create a new database
 3. create the initial migration, by looking up the schema we defined in the previous chapter
 4. apply the migration

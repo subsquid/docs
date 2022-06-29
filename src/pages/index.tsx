@@ -23,7 +23,7 @@ export default function Home(): JSX.Element {
     <Layout
       title={`${siteConfig.title}`}
       description="This documentation provides information for all degrees of expertise, varying from complete beginner, to those who only need a refresher on specific commands.">
-      <main className="w-full max-w-[1122px]">
+      <main className="w-full max-w-[1128px] xl:max-w-[1280px] xl:max-w-[1360px] wide:max-w-[1480px] mx-auto">
         <div className="flex flex-col gap-4 max-w-[476px] items-start self-start mb-24">
           <h3 className="heading--3">Subsquid Docs</h3>
           <div className="flex flex-col gap-6">

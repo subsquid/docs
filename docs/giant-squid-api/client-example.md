@@ -80,7 +80,7 @@ The above code accomplishes these tasks:
 * Then proceeds in creating a map, named `chainCodecs` that links a chain's name to its related encoding function, using the appropriate codec version.
 * Finally, using `chainCodecs`, it fills the `Account` instance's map with encoded addresses
 
-{% :::caution="warning" %}
+:::caution
 The only exception to everything explained above are Moonbeam and Moonriver networks, which have Ethereum-formatted Accound addresses, and as such, cannot be directly converted from the "Any network" format.
 :::
 

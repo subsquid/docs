@@ -8,17 +8,17 @@ This short guide shows how to obtain a deployment key for a Squid in our Softwar
 
 In order to obtain a deployment key, it is necessary to visit our [website](https://app.subsquid.io) and login with your [GitHub](https://github.com) account, by clicking on **Sign In**
 
-![Subsquid Saas homepage](</img/.gitbook/assets/subsquid-saas.png>)
+![Subsquid Saas homepage](</img/.gitbook/assets/app-home-page.png>)
 
 ### Create your Squid
 
 Once logged in, a list of projects is presented. The first time it will be empty, so click on **Create squid** to start
 
-![Squid projects list](</img/.gitbook/assets/subsquid-saas-1.png>)
+![Squid projects list](</img/.gitbook/assets/app-empty-projects.png>)
 
 Fill in the form to provide details for the project and click **Next**
 
-![Squid creation form](</img/.gitbook/assets/subsquid-saas-2.png>)
+![Squid creation form](</img/.gitbook/assets/app-create-squid-form.png>)
 
 ## On the Squid management page
 
@@ -26,7 +26,7 @@ Fill in the form to provide details for the project and click **Next**
 
 When either creating a new Squid, or visiting its page afterwards, a set of instructions are listed on the page. The deployment key will be provided there.
 
-![Create the first version for this project by following the indicated steps](</img/.gitbook/assets/SquidSaas-full.png>)
+![Create the first version for this project by following the indicated steps](</img/.gitbook/assets/app-deploy-squid.png>)
 
 The command highlighted with a purple border is going to be used to authenticate the console window session with the **deployment key**.
 

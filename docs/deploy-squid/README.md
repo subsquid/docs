@@ -1,3 +1,9 @@
+---
+sidebar_position: 7
+title: Deploy a Squid
+---
+
+
 # Deploying a Squid
 
 This section goes over some of the most common tasks to accomplish when it comes to deploying a Squid to our SaaS.

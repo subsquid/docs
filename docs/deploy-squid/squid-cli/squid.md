@@ -64,4 +64,4 @@ sqd squid tail squid-test@1
 sqd squid release squid-test@1 -r -s git@github.com:subsquid/squid-template.git
 ```
 
-Some examples of how to use this command can be seen in the [Tutorial to deploy a Squid](/docs/tutorial/deploy-your-squid).
+Some examples of how to use this command can be seen in the [Tutorial to deploy a Squid](/docs/tutorials/deploy-your-squid).

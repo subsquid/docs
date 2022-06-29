@@ -57,4 +57,4 @@ This command will create an empty migration file, to be manually filled to apply
 sqd db new-migration Initial
 ```
 
-Some examples of how to use this command can be seen in the [Tutorial to create a simple Squid](/docs/tutorial/create-a-simple-squid#apply-changes-to-the-database).
+Some examples of how to use this command can be seen in the [Tutorial to create a simple Squid](/docs/tutorials/create-a-simple-squid#apply-changes-to-the-database).
