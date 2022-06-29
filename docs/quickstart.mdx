@@ -1,0 +1,78 @@
+---
+sidebar_position: 2
+title: Quickstart
+
+---
+
+import {CodeStep} from '../src/components/code-step';
+
+
+# Quickstart
+
+## Getting started
+
+#### Pre-requisites
+
+- node ~~16~~.x
+- docker
+
+For more information on how to set up the Development Environment, take a look at the [Tutorial on this topic](/docs/tutorials/development-environment-set-up)
+
+## Run the template project
+
+<CodeStep number={1}>
+    Install dependencies
+</CodeStep>
+
+```bash
+npm ci
+```
+
+
+<CodeStep number={2}>
+    Compile TypeScript files
+</CodeStep>
+
+```bash
+npm run build
+```
+
+<CodeStep number={3}>
+    Launch Postgres database container for your Squid
+</CodeStep>
+
+```bash
+docker compose up -d
+```
+
+<CodeStep number={4}> Create the database the Squid is configured to work with </CodeStep>
+
+```bash
+npx sqd db create
+```
+
+<CodeStep number={5}> Apply database migrations to the database </CodeStep>
+
+```bash
+npx sqd db migrate
+```
+
+<CodeStep number={6} description="This command will block the terminal, fetching chain data transforming and storing it in the target database">
+    Launch the Processor
+</CodeStep>
+
+```bash
+node -r dotenv/config lib/processor.js
+```
+
+<CodeStep number={7} description="In a new terminal window"> Start the GraphQL server </CodeStep>
+
+```bash
+npx squid-graphql-server
+```
+
+To learn how to deploy your project to our Cloud-hosted solution, head over to the dedicated [tutorial](/docs/tutorials/deploy-your-squid).
+
+#### The GraphQL playground
+
+Once the GraphQL server has started, you can visit the `http://localhost:4350/graphql` URL in a browser window, to start testing to query data, thanks to the GraphQL playground available.
