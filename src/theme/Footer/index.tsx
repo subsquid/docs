@@ -13,18 +13,44 @@ function Footer() {
       <div
         className="flex flex-col pt-8 max-w-[1128px] xl:max-w-[1280px] xl:max-w-[1360px] wide:max-w-[1480px] w-full">
 
-        <div className="flex justify-between gap-52 pb-14">
+        <div className="flex flex-col justify-between gap-14 pb-14 px-6">
           <div className="flex flex-col gap-12">
             <img
               className="w-[183px]"
               src="/img/logo.svg"
               alt="Subsquid logo"/>
             <div className="flex gap-14">
-              {/* @TODO: Add links */}
-              <a href="">Docs</a>
-              <a href="">Blog</a>
-              <a href="">Community</a>
-              <a href="">Ambassadors</a>
+
+              <div className="body--s fg-base--default">
+                <a
+                  href="https://docs.subsquid.io/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="link"
+                >
+                  Docs
+                </a>
+              </div>
+              <div className="body--s fg-base--default">
+                <a
+                  href="https://subsquid.medium.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="link"
+                >
+                  Blog
+                </a>
+              </div>
+              <div className="body--s fg-base--default">
+                <a
+                  href="https://subsquid.io/ambassador"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="link">
+                  Ambassadors
+                </a>
+              </div>
+
             </div>
           </div>
           <div className="flex flex-col max-w-[392px]">
@@ -48,7 +74,7 @@ function Footer() {
         <div className="border-b border-border-color-base--default h-px w-full"/>
 
         <div
-          className="flex justify-between py-4"
+          className="flex justify-between py-4 px-6"
         >
           <div className="body--s text-fg-base--muted w-full">Subsquid Labs GmbH</div>
           <div className="body--s text-fg-base--muted w-full max-w-[392px]">© Copyright, 2022</div>

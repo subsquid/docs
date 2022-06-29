@@ -1,3 +1,8 @@
+---
+sidebar_position: 2
+---
+
+
 # Releasing a Squid version
 
 ## Deploy your code

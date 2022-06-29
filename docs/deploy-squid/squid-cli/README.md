@@ -1,4 +1,5 @@
 ---
+sidebar_position: 4
 description: Reference page of the Squid CLI tools
 ---
 

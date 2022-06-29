@@ -1,3 +1,8 @@
+---
+sidebar_position: 5
+---
+
+
 # Monitoring and sync status
 
 The Subsquid SDK offers a useful command line tool to monitor the Cloud-deployed Squid. the `tail` subcommand will output the logs of a Squid, when providing its name and version.
