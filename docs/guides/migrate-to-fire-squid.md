@@ -81,24 +81,25 @@ const processor = new SubstrateProcessor(database);
 
 ### Data source
 
-Also, the Fire Squid release of the SDK comes with a new release of the Archives. The Subsquid team is in the process of migrating them all, but for the time being, the URL of the Archive should be manually specified and there is a limited list of Archives that have a Fire Squid version:
-
-* [
-  https://kusama.archive.subsquid.io/graphql](https://kusama.archive.subsquid.io/graphqlhttps://karura.archive.subsquid.io/graphqlhttps://moonriver.archive.subsquid.io/graphqlhttps://astar.archive.subsquid.io/graphql)
-* [https://karura.archive.subsquid.io/graphql
-  ](https://kusama.archive.subsquid.io/graphqlhttps://karura.archive.subsquid.io/graphqlhttps://moonriver.archive.subsquid.io/graphqlhttps://astar.archive.subsquid.io/graphql)
-* [https://moonriver.archive.subsquid.io/graphql
-  ](https://kusama.archive.subsquid.io/graphqlhttps://karura.archive.subsquid.io/graphqlhttps://moonriver.archive.subsquid.io/graphqlhttps://astar.archive.subsquid.io/graphql)
-* [https://astar.archive.subsquid.io/graphql](https://kusama.archive.subsquid.io/graphqlhttps://karura.archive.subsquid.io/graphqlhttps://moonriver.archive.subsquid.io/graphqlhttps://astar.archive.subsquid.io/graphql)
-
-So when setting the processor's data source, be sure to specify the new Archive URL:
+Subsquid runs FireSquid archives for major parachains. The endpoints are available via `@subsquid/archive-registry` package, which should be updated to the latest `1.x` version. The `lookupArchive` function must be uprgraded, as it now expecteds a mandatory `release` option, which at the time of writing is either `"FireSquid"` or `"v5"` (for old archives). Starting from `1.x`, `lookupArchives` returns the archive endpoint url that can be used with a processor straight away:
 
 ```typescript
 const processor.setDataSource({
-       archive: 'https://kusama.archive.subsquid.io/graphql',
-       chain: 'wss://kusama-rpc.polkadot.io'
+  archive: lookupArchive("kusama", { release: "FireSquid" }),
 });
 ```
+
+It also possible to additionally assert the genesis block hash in case the network name is ambigous:
+
+```typescript
+const processor.setDataSource({
+  archive: lookupArchive("kusama", { 
+    release: "FireSquid", 
+    genesis: "0xb0a8d493285c2df73290dfb7e61f870f17b41801197a149ca93654499ea3dafe" 
+  }),
+});
+```
+
 
 ### Pallet names
 
