@@ -129,6 +129,7 @@
     --ifm-navbar-padding-vertical: 24px;
     --ifm-navbar-height: auto;
     --ifm-navbar-background-color: var(--bg-base--indistinguishable);
+    --ifm-link-hover-color: var(--fg-base--muted);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -180,6 +181,8 @@
     --ifm-font-family-base: 'Inter', sans-serif;
 
     --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+    --ifm-link-hover-color: var(--fg-base--muted);
 }
 
 .markdown h1 {
@@ -332,4 +335,17 @@ html {
 
 .menu__link {
     line-height: 1.5;
+}
+
+.x-button {
+    @apply rounded-lg body--s py-2 px-6 w-fit border;
+}
+
+.x-button.bg-bg-base--contrast:hover {
+    @apply bg-bg-base--subtle text-fg-base--default border border-border-color-base--contrast no-underline;
+}
+
+a:hover {
+    color: var(--ifm-link-hover-color) !important;
+    @apply no-underline;
 }
