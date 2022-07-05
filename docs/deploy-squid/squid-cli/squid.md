@@ -1,19 +1,27 @@
 # squid
 
-The `squid` topic of the `sqd` command line interface is used to manage the deployment of your projects to the Squid SaaS hosted solution. Thanks to it, it's possible to:
+The `squid` topic of the `sqd` command line interface is used to manage the deployment of your projects to [Aquarium](https://app.subsquid.io), a cloud service for running squids. 
 
-* create a new project
-* list deployed APIs an versions
-* create new versions of a project
-* update existing versions
-* shut down a deployed API
-* monitor the logs of a deployed API
+Inspect the avaialble options with
+
+```
+npx sqd squid --help
+```
+
+It allows to
+
+* create a new squid
+* list deployed squids and versions
+* deploy new versions for a squid
+* update existing squids or squid versions
+* kill a deployed squid
+* monitor the logs of a squid
 
 ## Subcommands for `squid` command
 
 | Subcommand | Description                     | Arguments                                                                                                                                                                                                                                                                                                         |
 | ---------- | ------------------------------- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `create`   | Create a squid                  | <p><code>[NAME]</code> squid name (optional)<br/><br/><code>-d</code>, <code>--description=</code> description<br/><br/><code>-l</code>, <code>--logo=</code> logo url <br/><br/><code>-w</code>, <code>--website=</code> website url</p>                                                                         |
+| `create`   | Create a squid                  | <p><code>[NAME]</code> squid name (optional)<br/><br/><code>-d</code>, <code>--description</code> description<br/><br/><code>-l</code>, <code>--logo</code> logo url <br/><br/><code>-w</code>, <code>--website</code> website url</p>                                                                         |
 | `kill`     | Kill a squid or a squid version | `[NAMEANDVERSION]` squid `name` or `name@version`                                                                                                                                                                                                                                                                 |
 | `ls`       | Squid or versions list          | <p><code>-n</code>, <code>--name=</code> squid name<br/><br/><code>-t</code>, <code>--truncate</code> truncate data in columns (false by default)</p>                                                                                                                                                             |
 | `release`  | Create a version                | <p><code>[NAMEANDVERSION]</code> squid <code>name</code> and version <code>name@version</code><br/><code></code><br/><code>-d</code>, <code>--description=</code> description<br/> <br/><code>-s</code>, <code>--source=</code> git URL of the source code</p>|
@@ -29,13 +37,13 @@ The `squid` topic of the `sqd` command line interface is used to manage the depl
 sqd squid create squid-test
 ```
 
-#### Kill a squid :sob: (will remove it from the account)
+#### Kill a squid :sob: (and all its versions)
 
 ```
 sqd squid kill squid-test
 ```
 
-#### List squids in an account
+#### List squids 
 
 ```
 sqd squid ls
@@ -65,4 +73,4 @@ sqd squid logs squid-test@1 -f
 sqd squid release squid-test@1 -r -s git@github.com:subsquid/squid-template.git
 ```
 
-Some examples of how to use this command can be seen in the [Tutorial to deploy a Squid](/docs/tutorials/deploy-your-squid).
+Some examples of how to use this command can be seen in the [Deploy a Squid Tutorial](/docs/tutorials/deploy-your-squid).
