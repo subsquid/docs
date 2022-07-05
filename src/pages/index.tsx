@@ -29,7 +29,7 @@ export default function Home(): JSX.Element {
             <p className="body--s">This documentation provides information for all degrees of expertise, varying from
               complete beginner, to those who only need a refresher on specific commands.</p>
             <a
-              className="rounded-lg body--s text-fg-base--contrast py-2 px-6 bg-bg-base--contrast w-fit"
+              className="x-button bg-bg-base--contrast text-fg-base--contrast"
               href="/docs/quickstart">Quickstart</a>
           </div>
         </div>
