@@ -46,18 +46,9 @@ npx sqd db create
 npx sqd db migrate
 node -r dotenv/config lib/processor.js
 # open a separate terminal for this next command
-npx squid-graphql-server
+make serve
 ```
 
-Bear in mind this is not strictly **necessary**, but it is always useful to check that everything is in order.
-
-:::info
-These commands are supposed to be run the first time, right after cloning the template.
-
-Some, like `npx sqd db create`, may throw an error, because the database had already been previously created. In this case just run `npx sqd db drop` and run `npx sqd db create` again.
-:::
-
-If you are not interested, you could at least get the Postgres container running with `docker compose up -d`.
 
 ## Install new dependencies
 

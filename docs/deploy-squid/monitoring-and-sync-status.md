@@ -12,7 +12,7 @@ The optional arguments `-f` and `-l <n>` will, respectively, make sure that the 
 Let's take the example of our `SquidSaas` squid and fetch logs for its version labeled `1`:
 
 ```
-⇒   sqd squid tail SquidSaas@1 -f -l 10
+⇒   sqd squid logs SquidSaas@1 -f
 Getting logs...
 Last block: 6935348, mapping: 26 blocks/sec, ingest: 660 blocks/sec, eta: 4h 36m, progress: 60%
 Last block: 6941366, mapping: 30 blocks/sec, ingest: 546 blocks/sec, eta: 4h 35m, progress: 60%
