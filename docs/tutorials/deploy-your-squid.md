@@ -36,6 +36,12 @@ With a couple of notes and clarifications:
 * The URL to the GitHub repository, as well as the branch needs to be provided for the last command, by substituting `<github url>` and `<github branch>` and the same goes with `<squid_version>`, which is the version name for this deployment. For example:\
   `sqd squid:release Test@latest --source https://github.com/RaekwonIII/squid-template#main`
 
+Check the progress of you code by inspecting logs:
+
+```
+npx sqd squid logs <squid-name>@<squid-version> -f
+```
+
 ## Check the deployed Squid
 
 As a result of the new release, version card with following fields will appear at Squid page:
