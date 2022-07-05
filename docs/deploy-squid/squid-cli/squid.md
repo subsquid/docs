@@ -17,12 +17,7 @@ The `squid` topic of the `sqd` command line interface is used to manage the depl
 | `kill`     | Kill a squid or a squid version | `[NAMEANDVERSION]` squid `name` or `name@version`                                                                                                                                                                                                                                                                 |
 | `ls`       | Squid or versions list          | <p><code>-n</code>, <code>--name=</code> squid name<br/><br/><code>-t</code>, <code>--truncate</code> truncate data in columns (false by default)</p>                                                                                                                                                             |
 | `release`  | Create a version                | <p><code>[NAMEANDVERSION]</code> squid <code>name</code> and version <code>name@version</code><br/><code></code><br/><code>-d</code>, <code>--description=</code> description<br/> <br/><code>-s</code>, <code>--source=</code> git URL of the source code</p>|
-| `logs`     | Getting logs about version      | <p><code>[NAMEANDVERSION]</code> squid name and version <code>name@version</code>
-<br/><br/><code>-c</code>, <code>--container</code> output logs only from a specific squid component (processor\|query-node\|db-migrate)
-<br/><br/><code>-f</code>, <code>--follow</code> continue streaming new logs
-<br/><br/><code>-l</code>, <code>--level</code> set logs level (error\|debug\|info\|warning)
-<br/><br/><code>-p</code>, <code>--pageSize</code> set logs page size (default: 50)
-<br/><br/><code>--since</code>logs start date (default: 1d)</p> |
+| `logs`     | Getting logs about version      | <p><code>[NAMEANDVERSION]</code> squid name and version <code>name@version</code><br/><br/><code>-c</code>, <code>--container</code> output logs only from a specific squid component (processor\|query-node\|db-migrate)<br/><br/><code>-f</code>, <code>--follow</code> continue streaming new logs<br/><br/><code>-l</code>, <code>--level</code> set logs level (error\|debug\|info\|warning)<br/><br/><code>-p</code>, <code>--pageSize</code> set logs page size (default: 50)<br/><br/><code>--since</code> logs start date (default: 1d)</p> |
 
 | `update`   | Update a version image          | <p><code>[NAMEANDVERSION]</code> squid name and version<code>name@version</code><br/><br/><code>-r</code>, <code>--hardReset</code> perform a hard reset (db wipeout) <br/><br/><code>-s</code>, <code>--source=</code> git URL of the source code</p>                                                            |
 
