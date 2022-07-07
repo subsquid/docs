@@ -28,7 +28,7 @@ Fill in the form to provide details for the project and click **Next**
 
 ### Deployment key
 
-When either creating a new Squid, or visiting its page afterwards, a set of instructions are listed on the page. The deployment key will be provided there.
+When either creating a new squid, or visiting its page afterwards, a set of instructions are listed on the page. The deployment key will be provided there.
 
 ![Create the first version for this project by following the indicated steps](</img/.gitbook/assets/app-deploy-squid.png>)
 
@@ -40,4 +40,4 @@ sqd auth --key sqd_<deployment_key>
 
 It will always be visible on this page, but be careful, because it will also remain visible in your terminal history.
 
-To find out other important CLI commands for interacting with our SaaS solution are listed under the [dedicated subsection of complete CLI Reference](/docs/deploy-squid/squid-cli#subcommands-for-squid-command).
+To find out other important CLI commands for interacting with Aquarium are listed under the [dedicated subsection of complete CLI Reference](/docs/deploy-squid/squid-cli#subcommands-for-squid-command).
