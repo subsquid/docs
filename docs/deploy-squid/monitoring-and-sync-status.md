@@ -5,14 +5,14 @@ sidebar_position: 5
 
 # Monitoring and sync status
 
-The Subsquid SDK offers a useful command line tool to monitor the Cloud-deployed Squid. the `tail` subcommand will output the logs of a Squid, when providing its name and version.
+The Subsquid SDK offers a useful command line tool to monitor the Cloud-deployed Squid. the `npx squid logs` subcommand will output the logs of a Squid, when providing its name and version.
 
 The optional arguments `-f` and `-l <n>` will, respectively, make sure that the stream of logs is continuously updated and that the last `n` lines are shown, before outputting any new ones.
 
 Let's take the example of our `SquidSaas` squid and fetch logs for its version labeled `1`:
 
 ```
-⇒   sqd squid logs SquidSaas@1 -f
+⇒   sqd squid logs SquidSaas@1 -f -l 10
 Getting logs...
 Last block: 6935348, mapping: 26 blocks/sec, ingest: 660 blocks/sec, eta: 4h 36m, progress: 60%
 Last block: 6941366, mapping: 30 blocks/sec, ingest: 546 blocks/sec, eta: 4h 35m, progress: 60%
