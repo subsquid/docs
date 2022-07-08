@@ -10,7 +10,7 @@ and optionally by [substrate-explorer](https://github.com/subsquid/squid/tree/ma
 
 - `-e`, `--endpoint` A wss RPC endpoint. One can provide as many endpoints as necessary, increasing the ingestion throughput.
 - `-c`, `--capacity` (optional, `default: 5`. should follow the endpoint) capacity. The max number of pending requests for the endpoint/
-- `--types-bundle`, A path to a local JSON file with substrate type definitions (applicable only to old pre-v14 metadata substrate chains). Note that the types bundle format is [slight different](https://github.com/subsquid/squid/tree/master/substrate-metadata/src/old/definitions) than that of `polkadot.js`
+- `--types-bundle`, A path to a local JSON file with substrate type definitions (applicable only to old pre-v14 metadata substrate chains). Types for most chains are already built in, so this option is rarely used. Note that the types bundle format is [slight different](https://github.com/subsquid/squid/tree/master/substrate-metadata/src/old/definitions) than that of `polkadot.js`
 - `--output` A path to a local file or a Postgres-compatible connection string
 - `--start-block` (optional) The block height to start
 - `--write-batch-size` (optional) The number of blocks to write in a single transaction (applies only to Postgres)
