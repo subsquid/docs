@@ -91,24 +91,12 @@ export default function Home(): JSX.Element {
             image={DeploySquidImage}
             links={[
               {
-                url: '/docs/deploy-squid/obtaining-a-deployment-key',
-                label: 'Obtaining a deployment key'
-              },
-              {
-                url: '/docs/deploy-squid/releasing-a-squid-version',
-                label: 'Releasing a Squid version'
-              },
-              {
-                url: '/docs/deploy-squid/updating-a-squid',
-                label: 'Maintaining multiple versions'
+                url: '/docs/deploy-squid/',
+                label: 'Step by step guide'
               },
               {
                 url: 'docs/deploy-squid/squid-cli',
                 label: 'Squid CLI Reference'
-              },
-              {
-                url: '/docs/deploy-squid/monitoring-and-sync-status',
-                label: 'Monitoring and sync status'
               }
             ]}>Deploy Squid</ContentFeature>
 
