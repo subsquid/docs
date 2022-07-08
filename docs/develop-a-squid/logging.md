@@ -5,16 +5,18 @@ sidebar_position: 7
 
 # Logging
 
-A `Logger` interface is injected into the handler context with `ctx.log`. This is the recommended way to debug and log in mappings. 
+A `Logger` interface is injected into the handler context with `ctx.log` and it is bound to the namespace `sqd:processor:mapping`. This is the recommended way of logging for squid processors. 
 
-The `Logger` exposes different levels of severity:
+The `Logger` exposes different the following levels of severity, in the increasing order:
 
-* `trace`
-* `debug`
-* `info`
-* `warn`
-* `error`
-* `fatal`
+* `TRACE`
+* `DEBUG`
+* `INFO`
+* `WARN`
+* `ERROR`
+* `FATAL`
+
+By default, the logging level is set to `INFO`. 
 
 And here is an example:
 
@@ -33,10 +35,29 @@ async function processTransfers(
 }
 ```
 
-The mapping logs can be inspected once the squid is deployed to Aquarium:
+## Overriding the log level
+
+The log level can be overriden by setting a matching namespace selector to one of the `SQD_TRACE`, ..., `SQD_FATAL` env varibales. In particular, to set the handler logs level to `DEBUG` set the environment variable `SQD_DEBUG` to `sqd:processor:mapping`:
+
+```bash
+SQD_DEBUG=sqd:processor:mapping
+```
+
+The namespace selector supports wildcards, so one can also enable internal debug logs of `@subsquid/substrate-processor` with
+```
+SQD_DEBUG=sqd:processor:*
+```
+as all the lib loggers inherit the lib-level namespace `sqd:processor`.
+
+For more info, check the [Logger lib](https://github.com/subsquid/squid/tree/master/util/logger)
+
+
+## Accessing logs of a deployed Squid
+
+The processor logs can be inspected once the squid is deployed to Aquarium:
 
 ```
 npx sqd squid logs <name>@<version> -f --level <level>
 ```
 
-See [CLI Reference](../deploy-squid/squid-cli/squid.md) for a full list of supported options.
+See [CLI Reference](../deploy-squid/squid-cli/squid.md) for a full list of log supported options.
