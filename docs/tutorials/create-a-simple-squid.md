@@ -535,13 +535,13 @@ For this project, we need to do something similar, but not exactly the same: in 
 We still need the AccountIds, though, so we are building some special interfaces to keep track of the rapport between an AccountId and the data related to it. Let's start with deleting the `TransferEvent` interface and defining this, instead:
 
 ```typescript
+type Tuple<T,K> = [T,K];
 interface EventInfo {
-  joinGroups: Map<string, JoinGroup>;
-  marketFiles: Map<string, StorageOrder>;
-  workReports: Map<string, WorkReport>;
+  joinGroups: Tuple<JoinGroup, string>[];
+  marketFiles: Tuple<StorageOrder, string>[];
+  workReports: Tuple<WorkReport, string>[];
   accountIds: Set<string>;
 }
-
 ```
 
 Now, let's take the `getTransfers` function. Remove it and replace it with this snippet. As described earlier, this will:
@@ -550,12 +550,15 @@ Now, let's take the `getTransfers` function. Remove it and replace it with this 
 * store Event information in a database Model and map it to the `accountId`
 * store the `accountId` in the set of Id we are collecting
 
+:::info
+Pay attention to the fact that we did not use a `Map<string, >` object, because for a single `accountId` there could be multiple entries. What we care about storing, in this case, is the relationship between the event data, stored in a model, and the accountId which is related to it. This is so that, when the `Account` model for an `accountId` is created, we can add that information to the Event model.
+
 ```typescript
 function getEvents(ctx: Ctx): EventInfo {
   let events: EventInfo = {
-    joinGroups: new Map<string, JoinGroup>(),
-    marketFiles: new Map<string, StorageOrder>(),
-    workReports: new Map<string, WorkReport>(),
+    joinGroups: [],
+    marketFiles: [],
+    workReports: [],
     accountIds: new Set<string>(),
   };
   for (let block of ctx.blocks) {
@@ -563,14 +566,14 @@ function getEvents(ctx: Ctx): EventInfo {
       if (item.name === "Swork.JoinGroupSuccess") {
         const e = new SworkJoinGroupSuccessEvent(ctx, item.event);
         const memberId = ss58.codec("crust").encode(e.asV1[0]);
-        events.joinGroups.set(memberId, new JoinGroup({
+        events.joinGroups.push([new JoinGroup({
           id: item.event.id,
           owner: ss58.codec("crust").encode(e.asV1[1]),
           blockHash: block.header.hash,
           blockNum: block.header.height,
           createdAt: new Date(block.header.timestamp),
           extrinisicId: item.event.extrinsic?.id, 
-        }));
+        }), memberId]);
         
         // add encountered account ID to the Set of unique accountIDs
         events.accountIds.add(memberId);
@@ -578,14 +581,14 @@ function getEvents(ctx: Ctx): EventInfo {
       if (item.name === "Market.FileSuccess") {
         const e = new MarketFileSuccessEvent(ctx, item.event);
         const accountId = ss58.codec("crust").encode(e.asV1[0]);
-        events.marketFiles.set(accountId, new StorageOrder({
+        events.marketFiles.push([new StorageOrder({
           id: item.event.id,
           fileCid: toHex(e.asV1[1]),
           blockHash: block.header.hash,
           blockNum: block.header.height,
           createdAt: new Date(block.header.timestamp),
           extrinisicId: item.event.extrinsic?.id,
-        }));
+        }), accountId]);
 
         // add encountered account ID to the Set of unique accountIDs
         events.accountIds.add(accountId)
@@ -601,7 +604,7 @@ function getEvents(ctx: Ctx): EventInfo {
         const deletedFiles = stringifyArray(deletedExtr);
 
         if (addedFiles.length > 0 || deletedFiles.length > 0) {
-          events.workReports.set(accountId, new WorkReport({
+          events.workReports.push([new WorkReport({
             id: item.event.id,
             addedFiles: addedFiles,
             deletedFiles: deletedFiles,
@@ -609,7 +612,7 @@ function getEvents(ctx: Ctx): EventInfo {
             blockNum: block.header.height,
             createdAt: new Date(block.header.timestamp),
             extrinisicId: item.event.extrinsic?.id,
-          }));
+          }), accountId]);
 
           // add encountered account ID to the Set of unique accountIDs
           events.accountIds.add(accountId);
@@ -619,7 +622,6 @@ function getEvents(ctx: Ctx): EventInfo {
   }
   return events;
 }
-
 ```
 
 When all of this is done, we want to treat the set of `accountId`s, create a database Model for each of them, then go back and add the `Account` information in all of the Event Models (for this we are going to re-use the existing `getAccount` function). Finally, save all the created and modified database models. Let's take the code inside `processor.run()` and change it so it looks like this:
@@ -634,31 +636,31 @@ processor.run(new TypeormDatabase(), async (ctx) => {
       return new Map(accounts.map((a) => [a.id, a]));
     });
 
-  events.joinGroups.forEach((joinGroup, memberId) => {
-    const member = getAccount(accounts, memberId);
+  for (const jg of events.joinGroups) {
+    const member = getAccount(accounts, jg[1]);
     // necessary to add this field to the previously created model
     // because now we have the Account created.
-    joinGroup.member = member;
-  })
+    jg[0].member = member;
+  }
 
-  events.marketFiles.forEach((marketFile, accountId) => {
-    const account = getAccount(accounts, accountId);
+  for (const mf of events.marketFiles) {
+    const account = getAccount(accounts, mf[1]);
     // necessary to add this field to the previously created model
     // because now we have the Account created.
-    marketFile.account = account;
-  })
+    mf[0].account = account;
+  }
 
-  events.workReports.forEach((workReport, accountId) => {
-    const account = getAccount(accounts, accountId);
+  for (const wr of events.workReports) {
+    const account = getAccount(accounts, wr[1]);
     // necessary to add this field to the previously created model
     // because now we have the Account created.
-    workReport.account = account;
-  })
+    wr[0].account = account;
+  }
 
   await ctx.store.save(Array.from(accounts.values()));
-  await ctx.store.insert(Array.from(events.joinGroups.values()));
-  await ctx.store.insert(Array.from(events.marketFiles.values()));
-  await ctx.store.insert(Array.from(events.workReports.values()));
+  await ctx.store.insert(events.joinGroups.map(el => el[0]));
+  await ctx.store.insert(events.marketFiles.map(el => el[0]));
+  await ctx.store.insert(events.workReports.map(el => el[0]));
 });
 ```
 
@@ -715,31 +717,31 @@ processor.run(new TypeormDatabase(), async (ctx) => {
       return new Map(accounts.map((a) => [a.id, a]));
     });
 
-  events.joinGroups.forEach((joinGroup, memberId) => {
-    const member = getAccount(accounts, memberId);
+  for (const jg of events.joinGroups) {
+    const member = getAccount(accounts, jg[1]);
     // necessary to add this field to the previously created model
     // because now we have the Account created.
-    joinGroup.member = member;
-  })
+    jg[0].member = member;
+  }
 
-  events.marketFiles.forEach((marketFile, accountId) => {
-    const account = getAccount(accounts, accountId);
+  for (const mf of events.marketFiles) {
+    const account = getAccount(accounts, mf[1]);
     // necessary to add this field to the previously created model
     // because now we have the Account created.
-    marketFile.account = account;
-  })
+    mf[0].account = account;
+  }
 
-  events.workReports.forEach((workReport, accountId) => {
-    const account = getAccount(accounts, accountId);
+  for (const wr of events.workReports) {
+    const account = getAccount(accounts, wr[1]);
     // necessary to add this field to the previously created model
     // because now we have the Account created.
-    workReport.account = account;
-  })
+    wr[0].account = account;
+  }
 
   await ctx.store.save(Array.from(accounts.values()));
-  await ctx.store.insert(Array.from(events.joinGroups.values()));
-  await ctx.store.insert(Array.from(events.marketFiles.values()));
-  await ctx.store.insert(Array.from(events.workReports.values()));
+  await ctx.store.insert(events.joinGroups.map(el => el[0]));
+  await ctx.store.insert(events.marketFiles.map(el => el[0]));
+  await ctx.store.insert(events.workReports.map(el => el[0]));
 });
 
 function stringifyArray(list: any[]): any[] {
@@ -753,18 +755,19 @@ function stringifyArray(list: any[]): any[] {
   return listStr;
 }
 
+type Tuple<T,K> = [T,K];
 interface EventInfo {
-  joinGroups: Map<string, JoinGroup>;
-  marketFiles: Map<string, StorageOrder>;
-  workReports: Map<string, WorkReport>;
+  joinGroups: Tuple<JoinGroup, string>[];
+  marketFiles: Tuple<StorageOrder, string>[];
+  workReports: Tuple<WorkReport, string>[];
   accountIds: Set<string>;
 }
 
 function getEvents(ctx: Ctx): EventInfo {
   let events: EventInfo = {
-    joinGroups: new Map<string, JoinGroup>(),
-    marketFiles: new Map<string, StorageOrder>(),
-    workReports: new Map<string, WorkReport>(),
+    joinGroups: [],
+    marketFiles: [],
+    workReports: [],
     accountIds: new Set<string>(),
   };
   for (let block of ctx.blocks) {
@@ -772,14 +775,14 @@ function getEvents(ctx: Ctx): EventInfo {
       if (item.name === "Swork.JoinGroupSuccess") {
         const e = new SworkJoinGroupSuccessEvent(ctx, item.event);
         const memberId = ss58.codec("crust").encode(e.asV1[0]);
-        events.joinGroups.set(memberId, new JoinGroup({
+        events.joinGroups.push([new JoinGroup({
           id: item.event.id,
           owner: ss58.codec("crust").encode(e.asV1[1]),
           blockHash: block.header.hash,
           blockNum: block.header.height,
           createdAt: new Date(block.header.timestamp),
           extrinisicId: item.event.extrinsic?.id, 
-        }));
+        }), memberId]);
         
         // add encountered account ID to the Set of unique accountIDs
         events.accountIds.add(memberId);
@@ -787,14 +790,14 @@ function getEvents(ctx: Ctx): EventInfo {
       if (item.name === "Market.FileSuccess") {
         const e = new MarketFileSuccessEvent(ctx, item.event);
         const accountId = ss58.codec("crust").encode(e.asV1[0]);
-        events.marketFiles.set(accountId, new StorageOrder({
+        events.marketFiles.push([new StorageOrder({
           id: item.event.id,
           fileCid: toHex(e.asV1[1]),
           blockHash: block.header.hash,
           blockNum: block.header.height,
           createdAt: new Date(block.header.timestamp),
           extrinisicId: item.event.extrinsic?.id,
-        }));
+        }), accountId]);
 
         // add encountered account ID to the Set of unique accountIDs
         events.accountIds.add(accountId)
@@ -810,7 +813,7 @@ function getEvents(ctx: Ctx): EventInfo {
         const deletedFiles = stringifyArray(deletedExtr);
 
         if (addedFiles.length > 0 || deletedFiles.length > 0) {
-          events.workReports.set(accountId, new WorkReport({
+          events.workReports.push([new WorkReport({
             id: item.event.id,
             addedFiles: addedFiles,
             deletedFiles: deletedFiles,
@@ -818,7 +821,7 @@ function getEvents(ctx: Ctx): EventInfo {
             blockNum: block.header.height,
             createdAt: new Date(block.header.timestamp),
             extrinisicId: item.event.extrinsic?.id,
-          }));
+          }), accountId]);
 
           // add encountered account ID to the Set of unique accountIDs
           events.accountIds.add(accountId);
@@ -838,6 +841,7 @@ function getAccount(m: Map<string, Account>, id: string): Account {
   }
   return acc;
 }
+
 
 ```
 
