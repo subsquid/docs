@@ -34,6 +34,7 @@ module.exports = {
             'border-color-base--contrast': 'var(--border-color-base--contrast)',
             'border-color-base--accentPurple': 'var(--border-color-base--accentPurple)',
             'border-color-role--blue': 'var(--border-color-role--blue)',
+            'transparent': 'transparent'
         },
         container: {
             center: true,
