@@ -346,6 +346,6 @@ html {
 }
 
 a:hover {
-    color: var(--ifm-link-hover-color) !important;
+    color: var(--ifm-link-hover-color);
     @apply no-underline;
 }
