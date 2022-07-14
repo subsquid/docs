@@ -127,6 +127,7 @@ This command will automatically generate a TypeScript file named `erc721.ts`, un
 
 :::info
 The ERC-721 ABI defines the signatures of all events in the contract. The `Transfer` event has three arguments, named: `from`, `to`, and `tokenId`. Their types are, respectively, `address`, `address`, and `uint256`. As such, the actual definition of the `Transfer` event looks like this: `Transfer(address, address, uint256)`.
+:::
 
 ## Define and Bind Event Handler(s)
 
@@ -281,6 +282,7 @@ Furthermore, we need to adapt the logic to save the `Token` to avoid clashing.
 :::info
 It is also important to note that, since the template was built for the `moonriver` network, it is necessary to change the `archive` parameter of the `setDataSource` function to fetch the Archive URL for Astar.
 The `lookupArchive` function is used to consult the [archive registry](https://github.com/subsquid/archive-registry) and yield the archive address, given a network name. Network names should be in lowercase.
+:::
 
 Look at this code snippet for the end result:
 
@@ -450,6 +452,7 @@ async function saveTransfers(ctx: Context, transfersData: TransferData[]) {
 
 :::info
 Pay close attention to the line with `id` in the `Token` model, because this is how we avoid the two token collection to clash. Both are using cardinal numbers to identify their own tokens, but we are now adding them to the same table, so we need a way to identify them univoquely and in this case, we chose the contract symbol to do so.
+:::
 
 ## Launch and Set Up the Database
 
