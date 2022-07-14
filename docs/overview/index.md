@@ -1,6 +1,5 @@
 ---
 sidebar_position: 1
-slug: /
 description: Introducing Subsquid, an on-chain data indexing framework and a platform for serverless Web3 APIs.
 ---
 
