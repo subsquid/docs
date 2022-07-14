@@ -512,6 +512,7 @@ const processor = new SubstrateBatchProcessor()
 
 :::info
 Pay attention to the `addEvent` functions here. In the first two cases, with respect to the template, we have added the `extrinsic` and `call` fields to the object, signaling to the processor that we request that additional information. In the third function call, for the `Swork.WorksReportSuccess` event, we omitted the `DataSelection` object, which means we don't want to filter incoming information at all.
+:::
 
 Next, because the added and deleted files are matrices, we are going to declare a function to handle that, for our own convenience. Simply add this code to the `src/processor.ts` file, anywhere.
 
@@ -549,9 +550,6 @@ Now, let's take the `getTransfers` function. Remove it and replace it with this 
 * extract Event information, differently for each Event (using the `item.name` to distinguish between them)
 * store Event information in a database Model and map it to the `accountId`
 * store the `accountId` in the set of Id we are collecting
-
-:::info
-Pay attention to the fact that we did not use a `Map<string, >` object, because for a single `accountId` there could be multiple entries. What we care about storing, in this case, is the relationship between the event data, stored in a model, and the accountId which is related to it. This is so that, when the `Account` model for an `accountId` is created, we can add that information to the Event model.
 
 ```typescript
 function getEvents(ctx: Ctx): EventInfo {
@@ -623,6 +621,10 @@ function getEvents(ctx: Ctx): EventInfo {
   return events;
 }
 ```
+
+:::info
+Pay attention to the fact that we did not use a `Map<string, >` object, because for a single `accountId` there could be multiple entries. What we care about storing, in this case, is the relationship between the event data, stored in a model, and the accountId which is related to it. This is so that, when the `Account` model for an `accountId` is created, we can add that information to the Event model.
+:::
 
 When all of this is done, we want to treat the set of `accountId`s, create a database Model for each of them, then go back and add the `Account` information in all of the Event Models (for this we are going to re-use the existing `getAccount` function). Finally, save all the created and modified database models. Let's take the code inside `processor.run()` and change it so it looks like this:
 
