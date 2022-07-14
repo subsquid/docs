@@ -43,15 +43,15 @@ A complete new feature, support for `Contracts.ContractEmitted` event, which mea
 The newest comes with the latest version of libraries and it may add a couple more packages as additional requirements. To make sure all the necessary dependencies are installed and at the latest version, launch this command:
 
 ```bash
-npm i @subsquid/cli@latest \
-@subsquid/graphql-server@latest \
-@subsquid/ss58@latest  \
-@subsquid/substrate-processor@latest \
-@subsquid/typeorm-store@latest \
-@subsquid/util-internal-hex@latest \
-@subsquid/cli@latest\
- @subsquid/substrate-typegen@latest \
- @subsquid/substrate-metadata-explorer@latest
+npm i @subsquid/cli@next \
+@subsquid/graphql-server@next \
+@subsquid/ss58@next  \
+@subsquid/substrate-processor@next \
+@subsquid/typeorm-store@next \
+@subsquid/util-internal-hex@next \
+@subsquid/cli@next \
+@subsquid/substrate-typegen@next \
+@subsquid/substrate-metadata-explorer@next
 ```
 
 Packages can be installed one by one, but this command will make sure they are all being updated in one go.
