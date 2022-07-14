@@ -28,7 +28,7 @@ The first thing to do, although it might sound trivial to GitHub experts, is to 
 
 Next, clone the created repository (be careful of changing `<account>` with your own account)
 
-```
+```bash
 git clone git@github.com:<account>/squid-template.git
 ```
 
@@ -41,26 +41,22 @@ Next, just follow the [Quickstart](/docs/quickstart) to get the project up and r
 ```bash
 npm ci
 npm run build
-docker compose up -d
-npx sqd db create
-npx sqd db migrate
-node -r dotenv/config lib/processor.js
+make up
+make migrate
+make process
 # open a separate terminal for this next command
 make serve
 ```
 
+Bear in mind this is not strictly **necessary**, but it is always useful to check that everything is in order.
 
-## Install new dependencies
+:::info
+These commands are supposed to be run the first time, right after cloning the template.
 
-For this specific project, we will need to install a new dependency since the [type definitions](../support/where-do-i-get-a-type-bundle-for-my-chain.md) for the Crust blockchain are implemented in the `@crustio/types-definition` package.
+Some, like `make up` or `make migrate`, may throw a warning or an error, because the container is already running and migration had already been applied.
+:::
 
-Navigate to the repository's root window in a command line console and install it.
-
-```
-npm i @crustio/type-definitions
-```
-
-![Install Crust type definition](https://i.gyazo.com/e135e7aa19b6217d1b701df8f51a91d2.gif)
+If you are not interested, you could at least get the Postgres container running with `make up`.
 
 ## Define Entity Schema
 
@@ -114,15 +110,14 @@ type StorageOrder @entity {
 }
 ```
 
-
 It's worth noticing that the `Account` entity is almost completely derived and it is there to tie the other three entities together, since Groups are joined by an Account, Storage Orders are placed by an Account and Work Reports, show files added and changed by, you guessed it, an Account!
 
-This all requires some implicit knowledge of the blockchain itself ([here's a tip](../support/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers.md) on how to obtain this information).
+This all requires some implicit knowledge of the blockchain itself ([here's a tip](../faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers.md) on how to obtain this information).
 
 To finalize this step, it is necessary to run the `codegen` tool:
 
 ```bash
-npx sqd codegen
+make codegen
 ```
 
 This will automatically generate TypeScript Entity classes for our schema definition, which can be found under the `src/model/generated` folder in the project.
@@ -133,13 +128,17 @@ The process to generate wrappers around TypeScript wrappers around Events and Ex
 
 ### Chain exploration
 
+:::info
+It is advised to skip the **manual** chain exploration step, and just head over directly to the [Typegen](#events-wrappers-generation) section below, following the instructions.
+:::
+
 What matters in the context of this tutorial, is to pay attention to the `chain`, `archive` and `out` parameters, which refer to the related WebSocket address of the Crust blockchain, the Squid Archive synchronized with it (this is optional, but helps speed up the process) and the output file simply contains the chain name as a good naming convention (this is useful in case of multiple chains handled in the same project or folder).
 
 ```bash
 npx squid-substrate-metadata-explorer \
-		--chain wss://rpc-crust-mainnet.decoo.io \
-		--archive https://crust.indexer.gc.subsquid.io/v4/graphql \
-		--out crustVersions.json
+    --chain wss://rpc-crust-mainnet.decoo.io \
+    --archive https://crust.archive.subsquid.io/graphql \
+    --out crustVersions.json
 ```
 
 The output is visible in the `crustVersions.json` file, and although the `metadata` field is intelligible, it's worth noting that (at the time of creating of this tutorial) there are 13 different `versions`, meaning the Runtime has changed 13 times.
@@ -150,7 +149,7 @@ It remains to be seen if this had any impacts on the definitions of the Events w
 
 One peculiar thing about the Crust chain and this example is that, at the moment of writing of this guide, its types have not been integrated into Squid's library.
 
-This gives us a good opportunity to follow [this mini-guide](../support/where-do-i-get-a-type-bundle-for-my-chain.md) and create an example, extracting a types bundle from crust's own library, to Subsquid required format.
+This gives us a good opportunity to follow [this mini-guide](../faq/where-do-i-get-a-type-bundle-for-my-chain.md) and create an example, extracting a types bundle from crust's own library, to Subsquid required format.
 
 :::info
 **Update**: the "crust" types bundle has been added to the list of built-ins, but for learning purposes, it's still useful to see how to create and use a types bundle JSON file.
@@ -158,7 +157,7 @@ This gives us a good opportunity to follow [this mini-guide](../support/where-do
 
 <details>
 
-<summary>Here is the end result, copy it and paste it into a file named <code>crustTypesBundle.json</code></summary>
+<summary>Here is the end result, copy it and paste it into a file named `crustTypesBundle.json`</summary>
 
 ```json title="crustTypesBundle.json"
 {
@@ -319,38 +318,53 @@ This gives us a good opportunity to follow [this mini-guide](../support/where-do
   }
 ```
 
-
 </details>
 
 ### Events wrappers generation
 
-Next, we need to make a few changes in the `typegen.json` configuration file, to adapt it to our purposes. We want to specify the same JSON file used as output in the previous command (in this case, `crustVersions.json`), then we need to specify the events that we are interested in, for this project.
+The **"Fire Squid"** release allows to collapse the metadata exploration and the type-safe wrappers generation steps into one, by specifying the URL of the Squid Archive dedicated to the blockchain subject of the project in the `specVersion` field in the `typegen.json` config file. In doing so, it is possible to skip launching the `metadata-explore` command from the previous section and generate type-safe interfaces with only one command, as explained below.
+
+This is the best course of actions and the advised procedure going forward. This is because the newest version of Squid Archives store the chain's metadata information and the `typegen` command is able to leverage that.
+
+That being said, we need to make a few changes in the `typegen.json` configuration file, to adapt it to our purposes and we do that by specifying the events that we are interested in, for this project.
 
 Similar to what's been said in the previous chapter, this requires knowledge of the blockchain itself and some research might be required, but in the case of this example, the events are:
 
 * `WorksReportSuccess` from the `swork` pallet
 * `JoinGroupSuccess` from the same pallet
-* `FileSuccess` from the market pallet
+* `FileSuccess` from the `market` pallet
 
 ```json title="typegen.json"
 {
   "outDir": "src/types",
-  "chainVersions": "crustVersions.json",
-  "typesBundle": "crustTypesBundle.json",
+  "specVersions": "crustVersions.json",
+  "specVersions": "https://crust.archive.subsquid.io/graphql",
   "events": [
-    "swork.WorksReportSuccess",
-    "swork.JoinGroupSuccess",
-    "market.FileSuccess"
+    "Swork.WorksReportSuccess",
+    "Swork.JoinGroupSuccess",
+    "Market.FileSuccess"
   ],
   "calls": []
 }
 ```
 
+:::info
+In case someone wants to still perform the `metadata exploration` step manually and produce the resulting JSON file (for example for manual inspection, debugging or simple consultation) they can do so by following the instructions in previous section, and then use the generated file by changing the `specVersions` field in `typegen.json, and finally launching the command in a console.
+
+```json title="typegen.json"
+{
+  ...
+  "specVersions": "crustVersions.json",
+  ...
+}
+```
+
+:::
 
 And finally, run the command to generate type-safe TypeScript wrappers around the metadata
 
 ```bash
-npx squid-substrate-typegen typegen.json
+make typegen
 ```
 
 <details>
@@ -359,11 +373,20 @@ npx squid-substrate-typegen typegen.json
 
 ```typescript title="events.ts"
 import assert from 'assert'
-import {EventContext, Result} from './support'
+import {Chain, ChainContext, EventContext, Event, Result} from './support'
+import * as v1 from './v1'
 
 export class MarketFileSuccessEvent {
-  constructor(private ctx: EventContext) {
-    assert(this.ctx.event.name === 'market.FileSuccess')
+  private readonly _chain: Chain
+  private readonly event: Event
+
+  constructor(ctx: EventContext)
+  constructor(ctx: ChainContext, event: Event)
+  constructor(ctx: EventContext, event?: Event) {
+    event = event || ctx.event
+    assert(event.name === 'Market.FileSuccess')
+    this._chain = ctx._chain
+    this.event = event
   }
 
   /**
@@ -371,8 +394,8 @@ export class MarketFileSuccessEvent {
    *  The first item is the account who places the storage order.
    *  The second item is the cid of the file.
    */
-  get isLatest(): boolean {
-    return this.ctx._chain.getEventHash('market.FileSuccess') === '1a9528ba42fbec479c5a2ecdb509dab8c0ec5ddad8673e9644881405cc5b2548'
+  get isV1(): boolean {
+    return this._chain.getEventHash('Market.FileSuccess') === '15a3ff7f9477a0e9afa431990d912c8024d507c02d31c44934807bcebbbd3adf'
   }
 
   /**
@@ -380,15 +403,23 @@ export class MarketFileSuccessEvent {
    *  The first item is the account who places the storage order.
    *  The second item is the cid of the file.
    */
-  get asLatest(): [Uint8Array, Uint8Array] {
-    assert(this.isLatest)
-    return this.ctx._chain.decodeEvent(this.ctx.event)
+  get asV1(): [v1.AccountId, v1.MerkleRoot] {
+    assert(this.isV1)
+    return this._chain.decodeEvent(this.event)
   }
 }
 
 export class SworkJoinGroupSuccessEvent {
-  constructor(private ctx: EventContext) {
-    assert(this.ctx.event.name === 'swork.JoinGroupSuccess')
+  private readonly _chain: Chain
+  private readonly event: Event
+
+  constructor(ctx: EventContext)
+  constructor(ctx: ChainContext, event: Event)
+  constructor(ctx: EventContext, event?: Event) {
+    event = event || ctx.event
+    assert(event.name === 'Swork.JoinGroupSuccess')
+    this._chain = ctx._chain
+    this.event = event
   }
 
   /**
@@ -396,8 +427,8 @@ export class SworkJoinGroupSuccessEvent {
    *  The first item is the member's account.
    *  The second item is the group owner's account.
    */
-  get isLatest(): boolean {
-    return this.ctx._chain.getEventHash('swork.JoinGroupSuccess') === '84a7eea101cadd963f8546bf8d9902de6418d1692a799fcbd8dc2b2ae2e5f947'
+  get isV1(): boolean {
+    return this._chain.getEventHash('Swork.JoinGroupSuccess') === 'e54ae910805a8a9413af1a7f5885a5d0ba5f4e105175cd6b0ce2a8702ddf1861'
   }
 
   /**
@@ -405,15 +436,23 @@ export class SworkJoinGroupSuccessEvent {
    *  The first item is the member's account.
    *  The second item is the group owner's account.
    */
-  get asLatest(): [Uint8Array, Uint8Array] {
-    assert(this.isLatest)
-    return this.ctx._chain.decodeEvent(this.ctx.event)
+  get asV1(): [v1.AccountId, v1.AccountId] {
+    assert(this.isV1)
+    return this._chain.decodeEvent(this.event)
   }
 }
 
 export class SworkWorksReportSuccessEvent {
-  constructor(private ctx: EventContext) {
-    assert(this.ctx.event.name === 'swork.WorksReportSuccess')
+  private readonly _chain: Chain
+  private readonly event: Event
+
+  constructor(ctx: EventContext)
+  constructor(ctx: ChainContext, event: Event)
+  constructor(ctx: EventContext, event?: Event) {
+    event = event || ctx.event
+    assert(event.name === 'Swork.WorksReportSuccess')
+    this._chain = ctx._chain
+    this.event = event
   }
 
   /**
@@ -421,8 +460,8 @@ export class SworkWorksReportSuccessEvent {
    *  The first item is the account who send the work report
    *  The second item is the pub key of the sWorker.
    */
-  get isLatest(): boolean {
-    return this.ctx._chain.getEventHash('swork.WorksReportSuccess') === '15de934ea25c85a846abb0c440c91b6dd207f2f512a0529b611dcd2e796b2319'
+  get isV1(): boolean {
+    return this._chain.getEventHash('Swork.WorksReportSuccess') === '15a3ff7f9477a0e9afa431990d912c8024d507c02d31c44934807bcebbbd3adf'
   }
 
   /**
@@ -430,13 +469,13 @@ export class SworkWorksReportSuccessEvent {
    *  The first item is the account who send the work report
    *  The second item is the pub key of the sWorker.
    */
-  get asLatest(): [Uint8Array, Uint8Array] {
-    assert(this.isLatest)
-    return this.ctx._chain.decodeEvent(this.ctx.event)
+  get asV1(): [v1.AccountId, v1.SworkerPubKey] {
+    assert(this.isV1)
+    return this._chain.decodeEvent(this.event)
   }
 }
-```
 
+```
 
 </details>
 
@@ -453,124 +492,176 @@ import  {Account, WorkReport, JoinGroup, StorageOrder} from './model/generated'
 import { MarketFileSuccessEvent, SworkJoinGroupSuccessEvent, SworkWorksReportSuccessEvent } from './types/events'
 ```
 
-And add the Crust types definition as well:
+Then, we need to customize the processor, by setting the right Squid Archive as a Data Source and specifying the right Events we want to index. This is done by applying the necessary changes to the first few line of code after the imports. In the end, it should look like this:
 
 ```typescript
-import * as crustTypes from "@crustio/type-definitions";
+const processor = new SubstrateBatchProcessor()
+  .setBatchSize(500)
+  .setDataSource({
+    archive: lookupArchive("crust", { release: "FireSquid" }),
+  })
+  .setBlockRange({ from: 583000 })
+  .addEvent("Market.FileSuccess", {
+    data: { event: { args: true , extrinsic: true, call: true} },
+  } as const)
+  .addEvent("Swork.JoinGroupSuccess", {
+    data: { event: { args: true , extrinsic: true, call: true} },
+  } as const)
+  .addEvent("Swork.WorksReportSuccess");
 ```
 
-Then, we need to customize the processor, by giving it the right name, connecting it to the right Squid Archive and setting the correct types. This is done by substituting with the following code the top part of the file, that looks similar to it.
-
-```typescript
-const processor = new SubstrateProcessor('crust_example')
-processor.setDataSource({
-    archive: 'https://crust.indexer.gc.subsquid.io/v4/graphql',
-    chain: 'wss://rpc-crust-mainnet.decoo.io'
-});
-processor.setBlockRange({from: 583000}); // this is the starting block for exploring the chain, please don't mind it.
-processor.setTypesBundle(crustTypes);
-```
+:::info
+Pay attention to the `addEvent` functions here. In the first two cases, with respect to the template, we have added the `extrinsic` and `call` fields to the object, signaling to the processor that we request that additional information. In the third function call, for the `Swork.WorksReportSuccess` event, we omitted the `DataSelection` object, which means we don't want to filter incoming information at all.
 
 Next, because the added and deleted files are matrices, we are going to declare a function to handle that, for our own convenience. Simply add this code to the `src/processor.ts` file, anywhere.
 
 ```typescript
 function stringifyArray(list: any[]): any[] {
-  let listStr : any[] = [];
-  list = list[0]
-  for (let vec of list){
-    for (let i = 0; i < vec.length; i++){
+  let listStr: any[] = [];
+  for (let vec of list) {
+    for (let i = 0; i < vec.length; i++) {
       vec[i] = String(vec[i]);
     }
     listStr.push(vec);
   }
-  return listStr
+  return listStr;
 }
 ```
 
-Now, we are going to take a different approach from the template and define event handlers as functions, and then add bind them to the processor via the `processor.addEventHandler()` function call.
+The declared `Item` and `Ctx` types are still useful, so we are going to keep them. Let's skip for a section the `process.run()` call, we are going to come back to it in a second, and let's go ahead and scroll down to the `getTransfers` function. In the template repository, this function loops through the items contained in the context, extracts the Event's data, which is stored in an Interface and builds a list of these interfaces.
 
-Here are the declarations for the Event handler functions, same as above, add this code somewhere in the file.
+For this project, we need to do something similar, but not exactly the same: in order to process the three events we want to index, we need to extract Event data from the passed context, depending on the Event's name and store that information. But this time, we are saving the data directly to the database models, and we also need to handle the the Account information separately and we'll look at how it is dealt with in a moment.
+
+We still need the AccountIds, though, so we are building some special interfaces to keep track of the rapport between an AccountId and the data related to it. Let's start with deleting the `TransferEvent` interface and defining this, instead:
 
 ```typescript
-async function joinGroupSuccess(ctx: EventHandlerContext): Promise<void> {
-  let event = new SworkJoinGroupSuccessEvent(ctx);
-  const memberId = ss58.codec("crust").encode(event.asV1[0]);
-  const account = await getOrCreate(ctx.store, Account, memberId);
-  const joinGroup = new JoinGroup();
-
-  joinGroup.id = ctx.event.id;
-  joinGroup.member = account;
-  joinGroup.owner = ss58.codec("crust").encode(event.asV1[1]);
-  joinGroup.blockHash = ctx.block.hash;
-  joinGroup.blockNum = ctx.block.height;
-  joinGroup.createdAt = new Date(ctx.block.timestamp);
-  joinGroup.extrinsicId = ctx.extrinsic?.id;
-
-  await ctx.store.save(account);
-  await ctx.store.save(joinGroup);
+type Tuple<T,K> = [T,K];
+interface EventInfo {
+  joinGroups: Tuple<JoinGroup, string>[];
+  marketFiles: Tuple<StorageOrder, string>[];
+  workReports: Tuple<WorkReport, string>[];
+  accountIds: Set<string>;
 }
+```
 
-async function fileSuccess(ctx: EventHandlerContext): Promise<void> {
-  let event = new MarketFileSuccessEvent(ctx);
-  const accountId = ss58.codec("crust").encode(event.asV1[0]);
-  const account = await getOrCreate(ctx.store, Account, accountId);
-  const storageOrder = new StorageOrder();
+Now, let's take the `getTransfers` function. Remove it and replace it with this snippet. As described earlier, this will:
 
-  storageOrder.id = ctx.event.id;
-  storageOrder.account = account;
-  storageOrder.fileCid = toHex(event.asV1[1]);
-  console.log("event fileCID", storageOrder.fileCid);
-  console.log("raw fileCID", String(ctx.event.params[1].value));
-  storageOrder.blockHash = ctx.block.hash;
-  storageOrder.blockNum = ctx.block.height;
-  storageOrder.createdAt = new Date(ctx.block.timestamp);
-  storageOrder.extrinsicId = ctx.extrinsic?.id;
+* extract Event information, differently for each Event (using the `item.name` to distinguish between them)
+* store Event information in a database Model and map it to the `accountId`
+* store the `accountId` in the set of Id we are collecting
 
-  await ctx.store.save(account);
-  await ctx.store.save(storageOrder);
-}
+:::info
+Pay attention to the fact that we did not use a `Map<string, >` object, because for a single `accountId` there could be multiple entries. What we care about storing, in this case, is the relationship between the event data, stored in a model, and the accountId which is related to it. This is so that, when the `Account` model for an `accountId` is created, we can add that information to the Event model.
 
-async function workReportSuccess(ctx: EventHandlerContext): Promise<void> {
-  let event = new SworkWorksReportSuccessEvent(ctx);
-  const accountId = ss58.codec("crust").encode(event.asV1[0]);
-  const accountPr = getOrCreate(ctx.store, Account, accountId);
-  const addedFilesObjPr = ctx.extrinsic?.args.find(
-    (arg) => arg.name === "addedFiles"
-  );
-  const deletedFilesObjPr = ctx.extrinsic?.args.find(
-    (arg) => arg.name === "deletedFiles"
-  );
-  const [account, addFObj, delFObj] = await Promise.all([
-    accountPr,
-    addedFilesObjPr,
-    deletedFilesObjPr,
-  ]);
+```typescript
+function getEvents(ctx: Ctx): EventInfo {
+  let events: EventInfo = {
+    joinGroups: [],
+    marketFiles: [],
+    workReports: [],
+    accountIds: new Set<string>(),
+  };
+  for (let block of ctx.blocks) {
+    for (let item of block.items) {
+      if (item.name === "Swork.JoinGroupSuccess") {
+        const e = new SworkJoinGroupSuccessEvent(ctx, item.event);
+        const memberId = ss58.codec("crust").encode(e.asV1[0]);
+        events.joinGroups.push([new JoinGroup({
+          id: item.event.id,
+          owner: ss58.codec("crust").encode(e.asV1[1]),
+          blockHash: block.header.hash,
+          blockNum: block.header.height,
+          createdAt: new Date(block.header.timestamp),
+          extrinisicId: item.event.extrinsic?.id, 
+        }), memberId]);
+        
+        // add encountered account ID to the Set of unique accountIDs
+        events.accountIds.add(memberId);
+      }
+      if (item.name === "Market.FileSuccess") {
+        const e = new MarketFileSuccessEvent(ctx, item.event);
+        const accountId = ss58.codec("crust").encode(e.asV1[0]);
+        events.marketFiles.push([new StorageOrder({
+          id: item.event.id,
+          fileCid: toHex(e.asV1[1]),
+          blockHash: block.header.hash,
+          blockNum: block.header.height,
+          createdAt: new Date(block.header.timestamp),
+          extrinisicId: item.event.extrinsic?.id,
+        }), accountId]);
 
-  const workReport = new WorkReport();
+        // add encountered account ID to the Set of unique accountIDs
+        events.accountIds.add(accountId)
+      }
+      if (item.name === "Swork.WorksReportSuccess") {
+        const e = new SworkWorksReportSuccessEvent(ctx, item.event);
+        const accountId = ss58.codec("crust").encode(e.asV1[0]);
 
-  workReport.addedFiles = stringifyArray(Array(addFObj?.value));
-  workReport.deletedFiles = stringifyArray(Array(delFObj?.value));
-  if (workReport.addedFiles.length > 0 || workReport.deletedFiles.length > 0) {
-    workReport.account = account;
+        const addedExtr = item.event.call?.args.addedFiles;
+        const deletedExtr = item.event.call?.args.deletedFiles;
 
-    workReport.id = ctx.event.id;
-    workReport.blockHash = ctx.block.hash;
-    workReport.blockNum = ctx.block.height;
-    workReport.createdAt = new Date(ctx.block.timestamp);
-    workReport.extrinsicId = ctx.extrinsic?.id;
+        const addedFiles = stringifyArray(addedExtr);
+        const deletedFiles = stringifyArray(deletedExtr);
 
-    await ctx.store.save(account);
-    await ctx.store.save(workReport);
+        if (addedFiles.length > 0 || deletedFiles.length > 0) {
+          events.workReports.push([new WorkReport({
+            id: item.event.id,
+            addedFiles: addedFiles,
+            deletedFiles: deletedFiles,
+            blockHash: block.header.hash,
+            blockNum: block.header.height,
+            createdAt: new Date(block.header.timestamp),
+            extrinisicId: item.event.extrinsic?.id,
+          }), accountId]);
+
+          // add encountered account ID to the Set of unique accountIDs
+          events.accountIds.add(accountId);
+        }
+      }
+    }
   }
+  return events;
 }
 ```
 
-Lastly, as mentioned earlier, we are going to get rid of the previous event handler, by replacing the code responsible for tying an arrow function to the processor, with our own, newly defined functions:
+When all of this is done, we want to treat the set of `accountId`s, create a database Model for each of them, then go back and add the `Account` information in all of the Event Models (for this we are going to re-use the existing `getAccount` function). Finally, save all the created and modified database models. Let's take the code inside `processor.run()` and change it so it looks like this:
 
 ```typescript
-processor.addEventHandler('market.FileSuccess', fileSuccess);
-processor.addEventHandler('swork.JoinGroupSuccess', joinGroupSuccess);
-processor.addEventHandler('swork.WorksReportSuccess', workReportSuccess);
+processor.run(new TypeormDatabase(), async (ctx) => {
+  const events = getEvents(ctx);
+
+  let accounts = await ctx.store
+    .findBy(Account, { id: In([...events.accountIds]) })
+    .then((accounts) => {
+      return new Map(accounts.map((a) => [a.id, a]));
+    });
+
+  for (const jg of events.joinGroups) {
+    const member = getAccount(accounts, jg[1]);
+    // necessary to add this field to the previously created model
+    // because now we have the Account created.
+    jg[0].member = member;
+  }
+
+  for (const mf of events.marketFiles) {
+    const account = getAccount(accounts, mf[1]);
+    // necessary to add this field to the previously created model
+    // because now we have the Account created.
+    mf[0].account = account;
+  }
+
+  for (const wr of events.workReports) {
+    const account = getAccount(accounts, wr[1]);
+    // necessary to add this field to the previously created model
+    // because now we have the Account created.
+    wr[0].account = account;
+  }
+
+  await ctx.store.save(Array.from(accounts.values()));
+  await ctx.store.insert(events.joinGroups.map(el => el[0]));
+  await ctx.store.insert(events.marketFiles.map(el => el[0]));
+  await ctx.store.insert(events.workReports.map(el => el[0]));
+});
 ```
 
 <details>
@@ -578,42 +669,83 @@ processor.addEventHandler('swork.WorksReportSuccess', workReportSuccess);
 <summary>Here is the end result, in case you missed something</summary>
 
 ```typescript title="processor.ts"
+import { lookupArchive } from "@subsquid/archive-registry";
 import * as ss58 from "@subsquid/ss58";
 import {
-  SubstrateProcessor,
-  EventHandlerContext,
-  Store,
+  BatchContext,
+  BatchProcessorItem,
+  SubstrateBatchProcessor,
   toHex,
 } from "@subsquid/substrate-processor";
+import { Store, TypeormDatabase } from "@subsquid/typeorm-store";
+import { In } from "typeorm";
 import {
   Account,
   WorkReport,
   JoinGroup,
   StorageOrder,
 } from "./model/generated";
-import * as crustTypes from "@crustio/type-definitions";
 import {
   MarketFileSuccessEvent,
   SworkJoinGroupSuccessEvent,
   SworkWorksReportSuccessEvent,
 } from "./types/events";
 
-const processor = new SubstrateProcessor("crust_example");
-processor.setDataSource({
-  archive: "https://crust.indexer.gc.subsquid.io/v4/graphql",
-  chain: "wss://rpc-crust-mainnet.decoo.io",
-});
-processor.setBlockRange({ from: 583000 });
-processor.setTypesBundle(crustTypes);
-processor.addEventHandler("market.FileSuccess", fileSuccess);
-processor.addEventHandler("swork.JoinGroupSuccess", joinGroupSuccess);
-processor.addEventHandler("swork.WorksReportSuccess", workReportSuccess);
+const processor = new SubstrateBatchProcessor()
+  .setBatchSize(500)
+  .setDataSource({
+    archive: lookupArchive("crust", { release: "FireSquid" }),
+  })
+  .setBlockRange({ from: 583000 })
+  .addEvent("Market.FileSuccess", {
+    data: { event: { args: true , extrinsic: true, call: true} },
+  } as const)
+  .addEvent("Swork.JoinGroupSuccess", {
+    data: { event: { args: true , extrinsic: true, call: true} },
+  } as const)
+  .addEvent("Swork.WorksReportSuccess");
 
-processor.run();
+type Item = BatchProcessorItem<typeof processor>;
+type Ctx = BatchContext<Store, Item>;
+
+processor.run(new TypeormDatabase(), async (ctx) => {
+  const events = getEvents(ctx);
+
+  let accounts = await ctx.store
+    .findBy(Account, { id: In([...events.accountIds]) })
+    .then((accounts) => {
+      return new Map(accounts.map((a) => [a.id, a]));
+    });
+
+  for (const jg of events.joinGroups) {
+    const member = getAccount(accounts, jg[1]);
+    // necessary to add this field to the previously created model
+    // because now we have the Account created.
+    jg[0].member = member;
+  }
+
+  for (const mf of events.marketFiles) {
+    const account = getAccount(accounts, mf[1]);
+    // necessary to add this field to the previously created model
+    // because now we have the Account created.
+    mf[0].account = account;
+  }
+
+  for (const wr of events.workReports) {
+    const account = getAccount(accounts, wr[1]);
+    // necessary to add this field to the previously created model
+    // because now we have the Account created.
+    wr[0].account = account;
+  }
+
+  await ctx.store.save(Array.from(accounts.values()));
+  await ctx.store.insert(events.joinGroups.map(el => el[0]));
+  await ctx.store.insert(events.marketFiles.map(el => el[0]));
+  await ctx.store.insert(events.workReports.map(el => el[0]));
+});
 
 function stringifyArray(list: any[]): any[] {
   let listStr: any[] = [];
-  list = list[0];
   for (let vec of list) {
     for (let i = 0; i < vec.length; i++) {
       vec[i] = String(vec[i]);
@@ -623,100 +755,95 @@ function stringifyArray(list: any[]): any[] {
   return listStr;
 }
 
-async function joinGroupSuccess(ctx: EventHandlerContext): Promise<void> {
-  let event = new SworkJoinGroupSuccessEvent(ctx);
-  const memberId = ss58.codec("crust").encode(event.asV1[0]);
-  const account = await getOrCreate(ctx.store, Account, memberId);
-  const joinGroup = new JoinGroup();
-
-  joinGroup.id = ctx.event.id;
-  joinGroup.member = account;
-  joinGroup.owner = ss58.codec("crust").encode(event.asV1[1]);
-  joinGroup.blockHash = ctx.block.hash;
-  joinGroup.blockNum = ctx.block.height;
-  joinGroup.createdAt = new Date(ctx.block.timestamp);
-  joinGroup.extrinsicId = ctx.extrinsic?.id;
-
-  await ctx.store.save(account);
-  await ctx.store.save(joinGroup);
+type Tuple<T,K> = [T,K];
+interface EventInfo {
+  joinGroups: Tuple<JoinGroup, string>[];
+  marketFiles: Tuple<StorageOrder, string>[];
+  workReports: Tuple<WorkReport, string>[];
+  accountIds: Set<string>;
 }
 
-async function fileSuccess(ctx: EventHandlerContext): Promise<void> {
-  let event = new MarketFileSuccessEvent(ctx);
-  const accountId = ss58.codec("crust").encode(event.asV1[0]);
-  const account = await getOrCreate(ctx.store, Account, accountId);
-  const storageOrder = new StorageOrder();
+function getEvents(ctx: Ctx): EventInfo {
+  let events: EventInfo = {
+    joinGroups: [],
+    marketFiles: [],
+    workReports: [],
+    accountIds: new Set<string>(),
+  };
+  for (let block of ctx.blocks) {
+    for (let item of block.items) {
+      if (item.name === "Swork.JoinGroupSuccess") {
+        const e = new SworkJoinGroupSuccessEvent(ctx, item.event);
+        const memberId = ss58.codec("crust").encode(e.asV1[0]);
+        events.joinGroups.push([new JoinGroup({
+          id: item.event.id,
+          owner: ss58.codec("crust").encode(e.asV1[1]),
+          blockHash: block.header.hash,
+          blockNum: block.header.height,
+          createdAt: new Date(block.header.timestamp),
+          extrinisicId: item.event.extrinsic?.id, 
+        }), memberId]);
+        
+        // add encountered account ID to the Set of unique accountIDs
+        events.accountIds.add(memberId);
+      }
+      if (item.name === "Market.FileSuccess") {
+        const e = new MarketFileSuccessEvent(ctx, item.event);
+        const accountId = ss58.codec("crust").encode(e.asV1[0]);
+        events.marketFiles.push([new StorageOrder({
+          id: item.event.id,
+          fileCid: toHex(e.asV1[1]),
+          blockHash: block.header.hash,
+          blockNum: block.header.height,
+          createdAt: new Date(block.header.timestamp),
+          extrinisicId: item.event.extrinsic?.id,
+        }), accountId]);
 
-  storageOrder.id = ctx.event.id;
-  storageOrder.account = account;
-  storageOrder.fileCid = toHex(event.asV1[1]);
-  console.log("event fileCID", storageOrder.fileCid);
-  console.log("raw fileCID", String(ctx.event.params[1].value));
-  storageOrder.blockHash = ctx.block.hash;
-  storageOrder.blockNum = ctx.block.height;
-  storageOrder.createdAt = new Date(ctx.block.timestamp);
-  storageOrder.extrinsicId = ctx.extrinsic?.id;
+        // add encountered account ID to the Set of unique accountIDs
+        events.accountIds.add(accountId)
+      }
+      if (item.name === "Swork.WorksReportSuccess") {
+        const e = new SworkWorksReportSuccessEvent(ctx, item.event);
+        const accountId = ss58.codec("crust").encode(e.asV1[0]);
 
-  await ctx.store.save(account);
-  await ctx.store.save(storageOrder);
-}
+        const addedExtr = item.event.call?.args.addedFiles;
+        const deletedExtr = item.event.call?.args.deletedFiles;
 
-async function workReportSuccess(ctx: EventHandlerContext): Promise<void> {
-  let event = new SworkWorksReportSuccessEvent(ctx);
-  const accountId = ss58.codec("crust").encode(event.asV1[0]);
-  const accountPr = getOrCreate(ctx.store, Account, accountId);
-  const addedFilesObjPr = ctx.extrinsic?.args.find(
-    (arg) => arg.name === "addedFiles"
-  );
-  const deletedFilesObjPr = ctx.extrinsic?.args.find(
-    (arg) => arg.name === "deletedFiles"
-  );
-  const [account, addFObj, delFObj] = await Promise.all([
-    accountPr,
-    addedFilesObjPr,
-    deletedFilesObjPr,
-  ]);
+        const addedFiles = stringifyArray(addedExtr);
+        const deletedFiles = stringifyArray(deletedExtr);
 
-  const workReport = new WorkReport();
+        if (addedFiles.length > 0 || deletedFiles.length > 0) {
+          events.workReports.push([new WorkReport({
+            id: item.event.id,
+            addedFiles: addedFiles,
+            deletedFiles: deletedFiles,
+            blockHash: block.header.hash,
+            blockNum: block.header.height,
+            createdAt: new Date(block.header.timestamp),
+            extrinisicId: item.event.extrinsic?.id,
+          }), accountId]);
 
-  workReport.addedFiles = stringifyArray(Array(addFObj?.value));
-  workReport.deletedFiles = stringifyArray(Array(delFObj?.value));
-  if (workReport.addedFiles.length > 0 || workReport.deletedFiles.length > 0) {
-    workReport.account = account;
-
-    workReport.id = ctx.event.id;
-    workReport.blockHash = ctx.block.hash;
-    workReport.blockNum = ctx.block.height;
-    workReport.createdAt = new Date(ctx.block.timestamp);
-    workReport.extrinsicId = ctx.extrinsic?.id;
-
-    await ctx.store.save(account);
-    await ctx.store.save(workReport);
+          // add encountered account ID to the Set of unique accountIDs
+          events.accountIds.add(accountId);
+        }
+      }
+    }
   }
+  return events;
 }
 
-async function getOrCreate<T extends { id: string }>(
-  store: Store,
-  entityConstructor: EntityConstructor<T>,
-  id: string
-): Promise<T> {
-  let e = await store.get<T>(entityConstructor, {
-    where: { id },
-  });
-
-  if (e == null) {
-    e = new entityConstructor();
-    e.id = id;
+function getAccount(m: Map<string, Account>, id: string): Account {
+  let acc = m.get(id);
+  if (acc == null) {
+    acc = new Account();
+    acc.id = id;
+    m.set(id, acc);
   }
-
-  return e;
+  return acc;
 }
 
-type EntityConstructor<T> = {
-  new (...args: any[]): T;
-};
+
 ```
-
 
 </details>
 
@@ -737,27 +864,20 @@ rm -rf db/migrations/*.js
 Then, make sure the Postgres docker container is running, in order to have a database to connect to, and run the following commands:
 
 ```bash
-npx sqd db drop
-npx sqd db create
-npx sqd db create-migration Init
-npx sqd db migrate
+npx squid-typeorm-migration generate
+npx squid-typeorm-migration apply
 ```
 
 These will, in order:
 
-1. drop the current database
-   * If you did not [Run the project](/docs/tutorials/create-a-simple-squid), this is not necessary
-2. create a new database
-3. create the initial migration, by looking up the schema we defined in the previous chapter
-4. apply the migration
-
-![Drop the database, re-create it, generate a migration and apply it](https://i.gyazo.com/8a9ed2b334f6cece50dee6f6c87e18d1.gif)
+1. create the initial migration, by looking up the schema we defined in the previous chapter
+2. apply the migration
 
 ## Launch the project
 
 It's finally time to run the project. First of all, let's build the code
 
-```
+```bash
 npm run build
 ```
 
@@ -769,7 +889,7 @@ node -r dotenv/config lib/processor.js
 
 Launch the GraphQL server (in a separate command line console window)
 
-```
+```bash
 npx squid-graphql-server
 ```
 

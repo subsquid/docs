@@ -2,9 +2,9 @@
 
 ## Objective
 
-This tutorial will take the Squid EVM template and go through all the necessary steps to customize the project, in order to interact with a different Squid Archive, synchronized with a different blockchain, and process data from Events different from the ones in the template.
+This tutorial will take the Squid EVM template and go through all the necessary steps to customize the project, in order to interact with a different Squid Archive, synchronized with a different blockchain, and process data from two different contracts (AstarDegens and AstarCats), instead of the one used in the template.
 
-The business logic to process such Events is very basic, and that is on purpose since the purpose of the Tutorial is to show a simple case, highlighting the changes a developer would typically apply to the template, removing unnecessary complexity.
+The business logic to process these contract is basic, and that is on purpose since the Tutorial aims show a simple case, highlighting the changes a developer would typically apply to the template, removing unnecessary complexity.
 
 The blockchain used in this example will be the [Astar network](https://astar.network/) and the final objective will be to observe which files have been added and deleted from the chain, as well as groups joined and storage orders placed by a determined account.
 
@@ -20,7 +20,7 @@ The first thing to do, although it might sound trivial to GitHub experts, is to 
 
 Next, clone the created repository (be careful of changing `<account>` with your own account)
 
-```
+```bash
 git clone git@github.com:<account>/squid-evm-template.git
 ```
 
@@ -34,8 +34,7 @@ Next, just follow the [Quickstart](/docs/quickstart) to get the project up and r
 npm ci
 npm run build
 docker compose up -d
-npx sqd db create
-npx sqd db migrate
+npx squid-typeorm-migration apply
 node -r dotenv/config lib/processor.js
 # open a separate terminal for this next command
 npx squid-graphql-server
@@ -102,7 +101,7 @@ The template already has automatically generated TypeScript classes for this sch
 Whenever changes are made to the schema, new TypeScript entity classes have to be generated, and to do that you'll have to run the `codegen` tool:
 
 ```bash
-npx sqd codegen
+npx squid-typeorm-codegen
 ```
 
 ## ABI Definition and Wrapper
@@ -115,7 +114,7 @@ Once again, the template repository already includes interfaces for ERC-721 cont
 
 First of all, it is necessary to obtain the definition of its Application Binary Interface (ABI). This can be obtained in the form of a JSON file, which will be imported into the project.
 
-1. It is advisable to copy the JSON file in the `src/abis` subfolder.
+1. It is advisable to copy the JSON file in the `src/abi` subfolder.
 2. To automatically generate TypeScript interfaces from an ABI definition, and decode event data, simply run this command from the project's root folder
 
 ```bash
@@ -126,11 +125,12 @@ The `abi` parameter points at the JSON file previously created, and the `output`
 
 This command will automatically generate a TypeScript file named `erc721.ts`, under the `src/abi` subfolder, that defines data interfaces to represent output of the EVM events defined in the ABI, as well as a mapping of the functions necessary to decode these events (see the `events` dictionary in the aforementione file).
 
-!!! note The ERC-721 ABI defines the signatures of all events in the contract. The `Transfer` event has three arguments, named: `from`, `to`, and `tokenId`. Their types are, respectively, `address`, `address`, and `uint256`. As such, the actual definition of the `Transfer` event looks like this: `Transfer(address, address, uint256)`.
+:::info
+The ERC-721 ABI defines the signatures of all events in the contract. The `Transfer` event has three arguments, named: `from`, `to`, and `tokenId`. Their types are, respectively, `address`, `address`, and `uint256`. As such, the actual definition of the `Transfer` event looks like this: `Transfer(address, address, uint256)`.
 
 ## Define and Bind Event Handler(s)
 
-The Subsquid SDK provides users with a [processor](https://docs.subsquid.io/key-concepts/processor) class, named `SubstrateProcessor` or, in this specific case [`SubstrateEvmProcessor`](https://docs.subsquid.io/reference/evm-processor). The processor connects to the [Subsquid archive](https://docs.subsquid.io/key-concepts/architecture#archive) to get chain data. It will index from the configured starting block, until the configured end block, or until new data is added to the chain.
+The Subsquid SDK provides users with a [processor](../develop-a-squid/squid-processor.md) class, named `SubstrateProcessor` or, in this specific case [`SubstrateBatchProcessor`](../develop-a-squid/batch-processing.md). The processor connects to the [Subsquid archive](../overview/architecture.md) to get chain data. It will index from the configured starting block, until the configured end block, or until new data is added to the chain.
 
 The processor exposes methods to "attach" functions that will "handle" specific data such as Substrate events, extrinsics, storage items, or EVM logs. These methods can be configured by specifying the event or extrinsic name, or the EVM log contract address, for example. As the processor loops over the data, when it encounters one of the configured event names, it will execute the logic in the "handler" function.
 
@@ -139,155 +139,317 @@ The processor exposes methods to "attach" functions that will "handle" specific 
 It is worth pointing out, at this point, that some important auxiliary code like constants and helper functions to manage the EVM contract is defined in the `src/contracts.ts` file. Here's a summary of what is in it:
 
 * Define the chain node endpoint (optional but useful)
-* Create a contract interface to store information such as the address and ABI
-* Define functions to fetch a contract entity from the database or create one
-* Define the `processTransfer` EVM log handler, implementing logic to track token transfers
+* Create a contract interface(s) to store information such as the address and ABI
+* Define functions to fetch or create contract entities from the database and the contract URI from the `ethers` instance
+* Define a couple of functions to avoid that the connection generated by the `ethers` instance will stall
 
 In order to adapt the template to the scope of this guide, we need to apply a couple of changes:
 
 1. edit the `CHAIN_NODE` constant to the endpoint URL of Astar network (e.g. `wss://astar.api.onfinality.io/public-ws`)
-2. edit the hexadecimal address used to create the `contract` constant (we are going to use [this token](https://blockscout.com/astar/token/0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a/token-transfers) for the purpose of this guide)
-3. change the `name`, `symbol` and `totalSupply` values used in the `createContractEntity` function to their correct values (see link in the previous point)
+2. define a map that relates the contract address with the contract model and the Contract instance defined by the `ethers` library
+3. edit the hexadecimal address used to create the `contract` constant (we are going to use [this token](https://blockscout.com/astar/token/0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a/token-transfers) for the purpose of this guide)
+4. change the `name`, `symbol` and `totalSupply` values used in the `createContractEntity` function to their correct values (see link in the previous point)
+5. create a second `ethers` Contract for the second ERC721 token contract we want to index and a second entry in the map
 
 In case someone wants to index an EVM event different from `Transfer`, they would also have to implement a different handler function from `processTransfer`, especially the line where the event `"Transfer(address,address,uint256)"` is decoded.
 
 ```typescript
 // src/contract.ts
-import { assertNotNull, EvmLogHandlerContext, Store } from "@subsquid/substrate-evm-processor";
+import { Store } from "@subsquid/typeorm-store";
 import { ethers } from "ethers";
-import { Contract, Owner, Token, Transfer } from "./model";
-import { events, abi } from "./abi/erc721"
+import * as erc721 from "./abi/erc721";
+import { Contract } from "./model";
 
-export const CHAIN_NODE = "wss://astar.api.onfinality.io/public-ws";
+export const CHAIN_NODE = "wss://astar.public.blastapi.io";
 
-export const contract = new ethers.Contract(
-  "0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a",
-  abi,
+interface ContractInfo {
+  ethersContract: ethers.Contract;
+  contractModel: Contract;
+}
+
+export const contractMapping: Map<string, ContractInfo> = new Map<
+  string,
+  ContractInfo
+>();
+
+export const astarDegenscontract = new ethers.Contract(
+  "0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a".toLowerCase(),
+  erc721.abi,
   new ethers.providers.WebSocketProvider(CHAIN_NODE)
 );
 
-export function createContractEntity(): Contract {
-  return new Contract({
-    id: contract.address,
+contractMapping.set(astarDegenscontract.address, {
+  ethersContract: astarDegenscontract,
+  contractModel: {
+    id: astarDegenscontract.address,
     name: "AstarDegens",
     symbol: "DEGEN",
     totalSupply: 10000n,
+    mintedTokens: [],
+  },
+});
+
+export const astarCatsContract = new ethers.Contract(
+  "0x8b5d62f396Ca3C6cF19803234685e693733f9779".toLowerCase(),
+  erc721.abi,
+  new ethers.providers.WebSocketProvider(CHAIN_NODE)
+);
+
+contractMapping.set(astarCatsContract.address, {
+  ethersContract: astarCatsContract,
+  contractModel: {
+    id: astarCatsContract.address,
+    name: "AstarCats",
+    symbol: "CAT",
+    totalSupply: 7777n,
+    mintedTokens: [],
+  },
+});
+
+export function createContractEntity(address: string): Contract {
+  return new Contract(contractMapping.get(address)?.contractModel);
+}
+
+const contractAddresstoModel: Map<string, Contract> = new Map<
+string,
+Contract
+>();
+
+export async function getContractEntity(
+  store: Store,
+  address: string
+): Promise<Contract | undefined> {
+  if (contractAddresstoModel.get(address) == null) {
+    let contractEntity = await store.get(Contract, address);
+    if (contractEntity == null) {
+      contractEntity = createContractEntity(address);
+      await store.insert(contractEntity);
+      contractAddresstoModel.set(address, contractEntity)
+    }
+  }
+  
+  return contractAddresstoModel.get(address);
+}
+
+export async function getTokenURI(
+  tokenId: string,
+  address: string
+): Promise<string> {
+  return retry(async () =>
+    timeout(contractMapping.get(address)?.ethersContract?.tokenURI(tokenId))
+  );
+}
+
+async function timeout<T>(res: Promise<T>, seconds = 30): Promise<T> {
+  return new Promise((resolve, reject) => {
+    let timer: any = setTimeout(() => {
+      timer = undefined;
+      reject(new Error(`Request timed out in ${seconds} seconds`));
+    }, seconds * 1000);
+
+    res
+      .finally(() => {
+        if (timer != null) {
+          clearTimeout(timer);
+        }
+      })
+      .then(resolve, reject);
   });
 }
 
-let contractEntity: Contract | undefined;
-
-export async function getContractEntity({
-  store,
-}: {
-  store: Store;
-}): Promise<Contract> {
-  if (contractEntity == null) {
-    contractEntity = await store.get(Contract, contract.address);
+async function retry<T>(promiseFn: () => Promise<T>, attempts = 3): Promise<T> {
+  for (let i = 0; i < attempts; i += 1) {
+    try {
+      return await promiseFn();
+    } catch (err) {
+      console.log(err);
+    }
   }
-  return assertNotNull(contractEntity);
+  throw new Error(`Error after ${attempts} attempts`);
 }
 
-
-export async function processTransfer(ctx: EvmLogHandlerContext): Promise<void> {
-  const transfer =
-    events["Transfer(address,address,uint256)"].decode(ctx);
-
-  let from = await ctx.store.get(Owner, transfer.from);
-  if (from == null) {
-    from = new Owner({ id: transfer.from, balance: 0n });
-    await ctx.store.save(from);
-  }
-
-  let to = await ctx.store.get(Owner, transfer.to);
-  if (to == null) {
-    to = new Owner({ id: transfer.to, balance: 0n });
-    await ctx.store.save(to);
-  }
-
-  let token = await ctx.store.get(Token, transfer.tokenId.toString());
-  if (token == null) {
-    token = new Token({
-      id: transfer.tokenId.toString(),
-      uri: await contract.tokenURI(transfer.tokenId),
-      contract: await getContractEntity(ctx),
-      owner: to,
-    });
-    await ctx.store.save(token);
-  } else {
-    token.owner = to;
-    await ctx.store.save(token);
-  }
-
-  await ctx.store.save(
-    new Transfer({
-      id: ctx.txHash,
-      token,
-      from,
-      to,
-      timestamp: BigInt(ctx.substrate.block.timestamp),
-      block: ctx.substrate.block.height,
-      transactionHash: ctx.txHash,
-    })
-  );
-}
 ```
-
-The "handler" function takes in a `Context` of the correct type (`EvmLogHandlerContext`, in this case). The context contains the triggering event and the interface to store data, and is used to extract and process data and save it to the database.
-
-!!! note For the event handler, it is also possible to bind an "arrow function" to the processor.
 
 ## Configure Processor and Attach Handler
 
-The `src/processor.ts` file is where the template project instantiates the `SubstrateEvmProcessor` class, configures it for execution, and attaches the handler functions(s).
+The `src/processor.ts` file is where the template project instantiates the `SubstrateBatchProcessor` class, configures it for execution, and attaches the handler functions.
 
-Luckily for us, most of the job is already done. It is important to note that, since the template was built for the `moonriver` network, there are a couple of things to change:
+Luckily for us, most of the job is already done, but we still need to adapt the code to handle two contracts, instead of only one. We need to change the `addEvmLog` function call, with the appropriate contract address for AstarDegens, and add a second one for AstarCats.
 
-1. change the `name` argument passed to `SubstrateEvmProcessor` constructor (not necessary, but good practice)
-2. Change the `archive` parameter of the `setDataSource` function to fetch the Archive URL for Astar.
-3. Change the argument passed to the `setTypesBundle` function to `"astar"`.
+Furthermore, we need to adapt the logic to save the `Token` to avoid clashing.
+
+:::info
+It is also important to note that, since the template was built for the `moonriver` network, it is necessary to change the `archive` parameter of the `setDataSource` function to fetch the Archive URL for Astar.
+The `lookupArchive` function is used to consult the [archive registry](https://github.com/subsquid/archive-registry) and yield the archive address, given a network name. Network names should be in lowercase.
 
 Look at this code snippet for the end result:
 
 ```typescript
 // src/processor.ts
-import { SubstrateEvmProcessor } from "@subsquid/substrate-evm-processor";
 import { lookupArchive } from "@subsquid/archive-registry";
+import { Store, TypeormDatabase } from "@subsquid/typeorm-store";
+import {
+  BatchContext,
+  BatchProcessorItem,
+  EvmLogEvent,
+  SubstrateBatchProcessor,
+  SubstrateBlock,
+} from "@subsquid/substrate-processor";
+import { In } from "typeorm";
 import {
   CHAIN_NODE,
-  contract,
-  createContractEntity,
-  processTransfer,
+  astarDegenscontract,
+  getContractEntity,
+  getTokenURI,
+  astarCatsContract,
+  contractMapping,
 } from "./contract";
-import { events } from "./abi/erc721";
+import { Owner, Token, Transfer } from "./model";
+import * as erc721 from "./abi/erc721";
 
-const processor = new SubstrateEvmProcessor("astar-substrate");
+const database = new TypeormDatabase();
+const processor = new SubstrateBatchProcessor()
+  .setBatchSize(500)
+  .setBlockRange({ from: 442693 })
+  .setDataSource({
+    chain: CHAIN_NODE,
+    archive: lookupArchive("astar", { release: "FireSquid" }),
+  })
+  .setTypesBundle("astar")
+  .addEvmLog(astarDegenscontract.address, {
+    range: { from: 442693 },
+    filter: [erc721.events["Transfer(address,address,uint256)"].topic],
+  })
+  .addEvmLog(astarCatsContract.address, {
+    range: { from: 800854 },
+    filter: [erc721.events["Transfer(address,address,uint256)"].topic],
+  });
 
-processor.setBatchSize(500);
+type Item = BatchProcessorItem<typeof processor>;
+type Context = BatchContext<Store, Item>;
 
-processor.setDataSource({
-  chain: CHAIN_NODE,
-  archive: lookupArchive("astar")[0].url,
+processor.run(database, async (ctx) => {
+  const transfersData: TransferData[] = [];
+
+  for (const block of ctx.blocks) {
+    for (const item of block.items) {
+      if (item.name === "EVM.Log") {
+        const transfer = handleTransfer(block.header, item.event);
+        transfersData.push(transfer);
+      }
+    }
+  }
+
+  await saveTransfers(ctx, transfersData);
 });
 
-processor.setTypesBundle("astar");
+type TransferData = {
+  id: string;
+  from: string;
+  to: string;
+  token: string;
+  timestamp: bigint;
+  block: number;
+  transactionHash: string;
+  contractAddress: string;
+};
 
-processor.addPreHook({ range: { from: 0, to: 0 } }, async (ctx) => {
-  await ctx.store.save(createContractEntity());
-});
+function handleTransfer(
+  block: SubstrateBlock,
+  event: EvmLogEvent
+): TransferData {
+  const { from, to, tokenId } = erc721.events[
+    "Transfer(address,address,uint256)"
+  ].decode(event.args);
 
-processor.addEvmLogHandler(
-  contract.address,
-  {
-    filter: [events["Transfer(address,address,uint256)"].topic],
-  },
-  processTransfer
-);
+  const transfer: TransferData = {
+    id: event.id,
+    token: tokenId.toString(),
+    from,
+    to,
+    timestamp: BigInt(block.timestamp),
+    block: block.height,
+    transactionHash: event.evmTxHash,
+    contractAddress: event.args.address,
+  };
 
-processor.run();
+  return transfer;
+}
+
+async function saveTransfers(ctx: Context, transfersData: TransferData[]) {
+  const tokensIds: Set<string> = new Set();
+  const ownersIds: Set<string> = new Set();
+
+  for (const transferData of transfersData) {
+    tokensIds.add(transferData.token);
+    ownersIds.add(transferData.from);
+    ownersIds.add(transferData.to);
+  }
+
+  const transfers: Set<Transfer> = new Set();
+
+  const tokens: Map<string, Token> = new Map(
+    (await ctx.store.findBy(Token, { id: In([...tokensIds]) })).map((token) => [
+      token.id,
+      token,
+    ])
+  );
+
+  const owners: Map<string, Owner> = new Map(
+    (await ctx.store.findBy(Owner, { id: In([...ownersIds]) })).map((owner) => [
+      owner.id,
+      owner,
+    ])
+  );
+
+  for (const transferData of transfersData) {
+    let from = owners.get(transferData.from);
+    if (from == null) {
+      from = new Owner({ id: transferData.from, balance: 0n });
+      owners.set(from.id, from);
+    }
+
+    let to = owners.get(transferData.to);
+    if (to == null) {
+      to = new Owner({ id: transferData.to, balance: 0n });
+      owners.set(to.id, to);
+    }
+
+    let token = tokens.get(`${contractMapping.get(transferData.contractAddress)?.contractModel.symbol || ""}-${transferData.token}`);
+    if (token == null) {
+      token = new Token({
+        id: `${contractMapping.get(transferData.contractAddress)?.contractModel.symbol || ""}-${transferData.token}`,
+        uri: await getTokenURI(transferData.token, transferData.contractAddress),
+        contract: await getContractEntity(ctx.store, transferData.contractAddress),
+      });
+      tokens.set(token.id, token);
+    }
+    token.owner = to;
+
+    const { id, block, transactionHash, timestamp } = transferData;
+
+    const transfer = new Transfer({
+      id,
+      block,
+      timestamp,
+      transactionHash,
+      from,
+      to,
+      token,
+    });
+
+    transfers.add(transfer);
+  }
+
+  await ctx.store.save([...owners.values()]);
+  await ctx.store.save([...tokens.values()]);
+  await ctx.store.save([...transfers]);
+}
+
 ```
 
-!!! note The `lookupArchive` function is used to consult the [archive registry](https://github.com/subsquid/archive-registry){target=\_blank} and yield the archive address, given a network name. Network names should be in lowercase.
+:::info
+Pay close attention to the line with `id` in the `Token` model, because this is how we avoid the two token collection to clash. Both are using cardinal numbers to identify their own tokens, but we are now adding them to the same table, so we need a way to identify them univoquely and in this case, we chose the contract symbol to do so.
 
 ## Launch and Set Up the Database
 
@@ -305,28 +467,28 @@ Squid projects automatically manage the database connection and schema, via an [
 
 To set up the database, you can take the following steps:
 
-1.  Build the code
+1. Build the code
 
     ```bash
     npm run build
     ```
-2.  Remove the template's default migration:
+
+2. Remove the template's default migration:
 
     ```bash
     rm -rf db/migrations/*.js
     ```
-3.  Make sure the Postgres Docker container, `squid-evm-template_db_1`, is running
+
+3. Make sure the Postgres Docker container, `squid-evm-template_db_1`, is running
 
     ```bash
     docker ps -a
     ```
-4.  Drop the current database (if you have never run the project before, this is not necessary), create a new database, create the initial migration, and apply the migration
+
+4. Apply the migration so tables are created on the database
 
     ```bash
-    npx sqd db drop
-    npx sqd db create
-    npx sqd db create-migration Init
-    npx sqd db migrate
+    npx squid-typeorm-migration apply
     ```
 
 ## Launch the Project

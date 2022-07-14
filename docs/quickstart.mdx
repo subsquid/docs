@@ -45,19 +45,13 @@ npm run build
 docker compose up -d
 ```
 
-<CodeStep number={4}> Create the database the Squid is configured to work with </CodeStep>
+<CodeStep number={4}> Apply database migrations to the database </CodeStep>
 
 ```bash
-npx sqd db create
+npx squid-typeorm-migration apply
 ```
 
-<CodeStep number={5}> Apply database migrations to the database </CodeStep>
-
-```bash
-npx sqd db migrate
-```
-
-<CodeStep number={6} description="This command will block the terminal, fetching chain data transforming and storing it in the target database">
+<CodeStep number={5} description="This command will block the terminal, fetching chain data transforming and storing it in the target database">
     Launch the Processor
 </CodeStep>
 
@@ -65,7 +59,7 @@ npx sqd db migrate
 node -r dotenv/config lib/processor.js
 ```
 
-<CodeStep number={7} description="In a new terminal window"> Start the GraphQL server </CodeStep>
+<CodeStep number={6} description="In a new terminal window"> Start the GraphQL server </CodeStep>
 
 ```bash
 npx squid-graphql-server
