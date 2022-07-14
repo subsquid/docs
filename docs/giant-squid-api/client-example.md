@@ -437,7 +437,7 @@ This client example is purely for demonstrative purposes, most likely a frontend
 
 <summary>You can look at the complete code example here:</summary>
 
-```typescript title="index.tsx"
+```typescript title="index.md"
 import * as ss58 from "@subsquid/ss58";
 import { request, gql, GraphQLClient } from "graphql-request";
 import * as fs from "fs";

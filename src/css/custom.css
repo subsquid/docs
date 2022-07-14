@@ -215,7 +215,7 @@
     @apply absolute left-0 w-full -bottom-8 bg-bg-base--default h-3;
 }
 
-.markdown a {
+.markdown a:not(.x-button) {
     @apply body--s;
 
     color: var(--fg-role--active);
