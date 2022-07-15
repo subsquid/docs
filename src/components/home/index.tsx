@@ -2,6 +2,8 @@ import React from 'react';
 import { ContentFeature } from '@site/src/components/content-feature';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import { GuideCard } from '@site/src/components/guide-card';
+import { ExpandContent } from '@site/src/components/Expand/ExpandContent';
+import { TutorialCard } from '@site/src/components/tutorial-card';
 
 export default function Home(): JSX.Element {
 
@@ -29,62 +31,43 @@ export default function Home(): JSX.Element {
           <ContentFeature
             image="/img/scroll-emoji.png"
             title="About Subsquid">
-            Get to know our project and discover what's possible
-            <a
-              href=""
-              className="link"> with Subsquid</a>
+            Get to know our project and discover what's possible with Subsquid
           </ContentFeature>
 
           <ContentFeature
-            image="/img/scroll-emoji.png"
-            title="Build a Squid API">
-            Use your own custom logic and build with Web3's best
-            <a
-              href=""
-              className="link"> API framework</a>
+            image="/img/squid-emoji.png"
+            title="Build a Squid">
+            Slice and dice on-chain data and present it with an expressive GraphQL API
           </ContentFeature>
 
           <ContentFeature
-            image="/img/scroll-emoji.png"
-            title="Run a Squid API">
-            Build with Docker to run your API locally with enhanced
-            <a
-              href=""
-              className="link"> metrics</a>
+            image="/img/gear-emoji.png"
+            title="Run a Squid">
+            Build with Docker to run your API locally
           </ContentFeature>
 
           <ContentFeature
-            image="/img/scroll-emoji.png"
-            title="Hosted Service">
-            Release your Squid (at zero cost) into
-            the waters of
-            <a
-              href=""
-              className="link"> the Aquarium</a>
+            image="/img/desktop-computer-emoji.png"
+            title="Deploy a Squid">
+            Release your Squid (at zero cost) into a cloud service for hosting squids
           </ContentFeature>
 
           <ContentFeature
-            image="/img/scroll-emoji.png"
-            title="Query Squids">
-            Discover GraphQL and learn to execute custom queries
-            <a
-              href=""
-              className="link"> automagically</a>
+            image="/img/magic-wand-emoji.png"
+            title="Query a Squid">
+            A reference of GraphQL queries and filters exposed by a squid
           </ContentFeature>
 
           <ContentFeature
-            image="/img/scroll-emoji.png"
+            image="/img/mage-emoji.png"
             title="Dev Support">
-            Get your questions answered and connect with other
-            <a
-              href=""
-              className="link"> SquidDevs</a>
+            Get your questions answered and connect with other SquidDevs
           </ContentFeature>
 
         </div>
       </section>
 
-      <div className="flex flex-col gap-12">
+      <div className="flex flex-col gap-12 mb-24">
         <span className="heading--3 text-fg-base--muted">Tutorials</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
@@ -118,12 +101,61 @@ export default function Home(): JSX.Element {
         </div>
       </div>
 
+      {/*<div className="flex flex-col gap-12">*/}
+      {/*  <span className="heading--3 text-fg-base--muted">Migration</span>*/}
+
+      {/*  <TutorialCard path="/guides/migrate-to-fire-squid" description="Text here">Migrate to FireSquid</TutorialCard>*/}
+      {/*</div>*/}
+
       <div className="flex flex-col gap-12">
         <span className="heading--3 text-fg-base--muted">FAQ</span>
 
         <div className="flex flex-col gap--6">
+          <ExpandContent title="What is Subsquid?">
+            <p className="text-fg-base--muted">Subsquid is an on-chain indexing and querying solution that enables
+              Web3 builders to gain access to on-chain data on their own terms. Featuring modular architecture and
+              decentralised governance, this is the most developer-friendly and resource-efficient way to build, test,
+              and
+              deploy customised APIs for blockchain-facing applications.</p>
+          </ExpandContent>
 
+          <ExpandContent title="What is Subsquid?">
+            <p className="text-fg-base--muted">Subsquid is an on-chain indexing and querying solution that enables
+              Web3 builders to gain access to on-chain data on their own terms. Featuring modular architecture and
+              decentralised governance, this is the most developer-friendly and resource-efficient way to build, test,
+              and
+              deploy customised APIs for blockchain-facing applications.</p>
+          </ExpandContent>
+
+          <ExpandContent title="What is Subsquid?">
+            <p className="text-fg-base--muted">Subsquid is an on-chain indexing and querying solution that enables
+              Web3 builders to gain access to on-chain data on their own terms. Featuring modular architecture and
+              decentralised governance, this is the most developer-friendly and resource-efficient way to build, test,
+              and
+              deploy customised APIs for blockchain-facing applications.</p>
+          </ExpandContent>
+
+          <ExpandContent title="What is Subsquid?">
+            <p className="text-fg-base--muted">Subsquid is an on-chain indexing and querying solution that enables
+              Web3 builders to gain access to on-chain data on their own terms. Featuring modular architecture and
+              decentralised governance, this is the most developer-friendly and resource-efficient way to build, test,
+              and
+              deploy customised APIs for blockchain-facing applications.</p>
+          </ExpandContent>
+
+          <ExpandContent title="What is Subsquid?">
+            <p className="text-fg-base--muted">Subsquid is an on-chain indexing and querying solution that enables
+              Web3 builders to gain access to on-chain data on their own terms. Featuring modular architecture and
+              decentralised governance, this is the most developer-friendly and resource-efficient way to build, test,
+              and
+              deploy customised APIs for blockchain-facing applications.</p>
+          </ExpandContent>
         </div>
+
+        <span className="body--s text-fg-base--muted">
+          More questions? Check our extensive <a
+          href="/faq">FAQ</a>
+        </span>
       </div>
     </div>
   );

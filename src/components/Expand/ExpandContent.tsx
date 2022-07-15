@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import useCollapse from 'react-collapsed';
-import clsx from 'clsx';
+import React, { PropsWithChildren, useState } from 'react';
 import { Expand } from '@site/src/components/Expand/Expand';
+import clsx from 'clsx';
 
-export default function MDXDetails(props) {
+type ExpandContentProps = PropsWithChildren & {
+  title: string;
+}
+
+export function ExpandContent(props: ExpandContentProps) {
   const [isExpanded, setExpanded] = useState(false);
 
-  const items = React.Children.toArray(props.children);
-  const summary = items.find(
-    (item) => React.isValidElement(item) && item.props?.mdxType === 'summary',
-  );
-  const children = <>{items.filter((item) => item !== summary)}</>;
   return (
     <div
       className={clsx('relative mb-8 border transition rounded-lg ease-linear', {
@@ -19,9 +17,9 @@ export default function MDXDetails(props) {
       })}>
       <Expand
         onClick={() => setExpanded(!isExpanded)}
-        title={<p className="body--m">{summary.props.children}</p>}
+        title={<h4 className="body--l text-fg-base--default">{props.title}</h4>}
         expanded={isExpanded}
-        children={children}
+        children={props.children}
         element={(child) => <div className="mb-2">{child}</div>}/>
     </div>
   );

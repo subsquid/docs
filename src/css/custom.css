@@ -48,6 +48,15 @@
         letter-spacing: -0.02em;
     }
 
+    .body--m {
+        font-family: var(--ifm-font-family-base);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 24px;
+        letter-spacing: -0.02em;
+    }
+
     .body--s {
         font-family: var(--ifm-font-family-base);
         font-style: normal;
@@ -353,7 +362,11 @@ html {
     @apply bg-bg-base--subtle text-fg-base--default border border-border-color-base--contrast no-underline;
 }
 
-a:hover {
+.markdown a:hover, a:hover {
     color: var(--ifm-link-hover-color);
     @apply no-underline;
+}
+
+.docPage_node_modules-\@docusaurus-theme-classic-lib-theme-DocPage-Layout-styles-module {
+    @apply gap-14;
 }

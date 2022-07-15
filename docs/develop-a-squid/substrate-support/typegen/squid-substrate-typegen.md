@@ -104,7 +104,7 @@ The `"specVersion"` field can be:
 The `typesBundle` key in the `typegen.json` configuration file can either be:
 
 * a chain name, all lower-case (e.g. `kusama`, `polkadot`, `statemint`, a full list can be found [here](https://github.com/subsquid/squid/tree/master/substrate-metadata/src/old/definitions))
-* a path to a JSON file with the structure specified [here](../../../support/where-do-i-get-a-type-bundle-for-my-chain.md)
+* a path to a JSON file with the structure specified [here](../../../faq/where-do-i-get-a-type-bundle-for-my-chain.md)
 
 ## TypeScript class wrappers
 

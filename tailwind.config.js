@@ -37,13 +37,7 @@ module.exports = {
             'transparent': 'transparent'
         },
         container: {
-            center: true,
-            screens: {
-                sm: '414px',
-                md: '604px',
-                lg: '1036px',
-                xl: '1122px',
-            }
+            center: true
         },
         screens: {
             sm: '414px',

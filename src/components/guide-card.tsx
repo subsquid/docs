@@ -20,7 +20,7 @@ export type GuideCardProps = React.PropsWithChildren<{
 export function GuideCard(props: GuideCardProps) {
   return (
     <>
-      <a className="flex flex-col rounded-lg border border-border-color-base--muted gap-2" href={!props.isDisabled && props.path}>
+      <a className="flex flex-col rounded-lg border border-border-color-base--muted gap-2" href={props.path ?? null}>
         <div className={clsx("rounded-t-lg h-3", `bg-${props.color}`)}/>
 
         <div className="flex flex-col px-6 pb-6 gap-2">
