@@ -36,7 +36,7 @@ For reference on the complete work, you can find the entire project [here](https
 
 ### Run the project
 
-Next, just follow the [Quickstart](/docs/quickstart) to get the project up and running, here's a list of commands to run in quick succession:
+Next, just follow the [Quickstart](/quickstart) to get the project up and running, here's a list of commands to run in quick succession:
 
 ```bash
 npm ci
@@ -481,7 +481,7 @@ export class SworkWorksReportSuccessEvent {
 
 ## Define and bind Event Handlers
 
-After having obtained wrappers for Events and the metadata changes across different Runtime versions, it's finally time to define Handlers for these Events and attach them to our [Processor](/docs/develop-a-squid/squid-processor), and this is done in the `src/processor.ts` file in the project folder.
+After having obtained wrappers for Events and the metadata changes across different Runtime versions, it's finally time to define Handlers for these Events and attach them to our [Processor](/develop-a-squid/squid-processor), and this is done in the `src/processor.ts` file in the project folder.
 
 We will end up replacing the code in this file almost entirely, leaving only a few useful pieces, but we are going to take a step-by-step approach, showing where essential changes have to be made, but the final result will be visible at the end of this section.
 
