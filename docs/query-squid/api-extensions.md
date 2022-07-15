@@ -1,11 +1,11 @@
 # API Extensions
 
 Squid alows to extend the GraphQL auto-generated schema with custom queries.
-To do that, one can define GraphQL [query resolvers](https://www.apollographql.com/docs/tutorial/resolvers/) in the designated module `src/server-extension/resolvers`. Note that all resolver classes must be exported.
+To do that, one can define GraphQL [query resolvers](https://www.apollographql.com/tutorial/resolvers/) in the designated module `src/server-extension/resolvers`. Note that all resolver classes must be exported.
 
-It is convenient to import [TypeGraphQL](https://typegraphql.com/docs/resolvers.html#) and use the annotations provided by the library to define the query arguments and return types.
+It is convenient to import [TypeGraphQL](https://typegraphql.com/resolvers.html#) and use the annotations provided by the library to define the query arguments and return types.
 
-Custom resolvers are typically used in combination with [TypeORM EntityManager](https://orkhan.gitbook.io/typeorm/docs/entity-manager-api). It is automatically enabled by dependency injection when defined as a constructor argument. 
+Custom resolvers are typically used in combination with [TypeORM EntityManager](https://orkhan.gitbook.io/typeorm/entity-manager-api). It is automatically enabled by dependency injection when defined as a constructor argument. 
 
 A custom resolver may then look as follows:
 

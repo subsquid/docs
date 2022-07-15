@@ -58,7 +58,7 @@ Packages can be installed one by one, but this command will make sure they are a
 
 ## Database and Store changes
 
-Historically, Subsquid SDK used a [Store interface](/docs/develop-a-squid/store-interface) as an abstraction layer over the database. As explained in the dedicated reference page, this is relies on the `typeorm` library.
+Historically, Subsquid SDK used a [Store interface](/develop-a-squid/store-interface) as an abstraction layer over the database. As explained in the dedicated reference page, this is relies on the `typeorm` library.
 
 In Fire Squid release, two new Database classes have been developed, that support two types of usage:
 
@@ -123,11 +123,11 @@ And similarly, `ExtrinsicHandlerContext` has been renamed to `CallHandlerContext
 
 ### Internal handler vs External handler
 
-When adding a Handler to the processor, one could either use an [arrow function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow\_functions) or a function defined elsewhere.
+When adding a Handler to the processor, one could either use an [arrow function](https://developer.mozilla.org/en-US/Web/JavaScript/Reference/Functions/Arrow\_functions) or a function defined elsewhere.
 
 The former is what is referred to, in this context as an "Internal Handler", while the latter will be referred to as an "External Handler".
 
-The signature of a Handler function has not fundamentally changed with the Fire Squid release, as they should still accept a Context argument. The big difference introduced with this release is that the Context definition uses [TypeScript Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) to specify the database interface (and potentially the data selection options) it should be using.
+The signature of a Handler function has not fundamentally changed with the Fire Squid release, as they should still accept a Context argument. The big difference introduced with this release is that the Context definition uses [TypeScript Generics](https://www.typescriptlang.org/handbook/2/generics.html) to specify the database interface (and potentially the data selection options) it should be using.
 
 And the distinction between Internal Handler and External Handler is that Internal handlers will  automatically obtain the right context definition from the processor:
 

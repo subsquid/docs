@@ -5,7 +5,7 @@ description: Powerful queries leveraging JSON objects as fields in a schema
 # JSON queries
 
 The possibility of defining JSON objects as fields of a type in a GraphQL schema has been explained in
-the [dedicated Reference page](/docs/query-squid/openreader-schema/json-fields).
+the [dedicated Reference page](/query-squid/openreader-schema/json-fields).
 
 This guide is focusing on how to query such objects and how to fully leverage their potential. Let's take the example of
 this (non-crypto related, for once😁) schema:

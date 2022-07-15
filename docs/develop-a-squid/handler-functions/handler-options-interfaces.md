@@ -10,7 +10,7 @@ export interface EventHandlerOptions {
 }
 ```
 
-The `Range` object in this context is an object containing two fields: `to` and `from`. Similarly to how it is possible to restrain the execution of the Processor by [setting a block range](/docs/develop-a-squid/squid-processor#start-block-global-execution-range), the same can be done with an `EventHandler`.
+The `Range` object in this context is an object containing two fields: `to` and `from`. Similarly to how it is possible to restrain the execution of the Processor by [setting a block range](/develop-a-squid/squid-processor#start-block-global-execution-range), the same can be done with an `EventHandler`.
 
 The ingestion loop, responsible to divide the blockchain exploration into batches, will sieve through all the subscribed Handlers, read their options and filter out those that specified a range that does not include the current batch of blocks.
 
@@ -23,7 +23,7 @@ export interface ExtrinsicHandlerOptions {
 }
 ```
 
-The `Range` object in this context is an object containing two fields: `to` and `from`. Similarly to how it is possible to restrain the execution of the Processor by [setting a block range](/docs/develop-a-squid/squid-processor#start-block-global-execution-range), the same can be done with an `EventHandler`.
+The `Range` object in this context is an object containing two fields: `to` and `from`. Similarly to how it is possible to restrain the execution of the Processor by [setting a block range](/develop-a-squid/squid-processor#start-block-global-execution-range), the same can be done with an `EventHandler`.
 
 The ingestion loop, responsible to divide the blockchain exploration into batches, will sieve through all the subscribed Handlers, read their options and filter out those that specified a range that does not include the current batch of blocks.
 
@@ -36,7 +36,7 @@ export interface BlockHookOptions {
 
 ```
 
-The `Range` object in this context is an object containing two fields: `to` and `from`. Similarly to how it is possible to restrain the execution of the Processor by [setting a block range](/docs/develop-a-squid/squid-processor#start-block-global-execution-range), the same can be done with an `EventHandler`.
+The `Range` object in this context is an object containing two fields: `to` and `from`. Similarly to how it is possible to restrain the execution of the Processor by [setting a block range](/develop-a-squid/squid-processor#start-block-global-execution-range), the same can be done with an `EventHandler`.
 
 The ingestion loop, responsible to divide the blockchain exploration into batches, will sieve through all the subscribed Handlers, read their options and filter out those that specified a range that does not include the current batch of blocks.
 
@@ -53,7 +53,7 @@ export interface EvmLogHandlerOptions {
 
 ```
 
-The `Range` object in this context is an object containing two fields: `to` and `from`. Similarly to how it is possible to restrain the execution of the Processor by [setting a block range](/docs/develop-a-squid/squid-processor#start-block-global-execution-range), the same can be done with an `EvmLogHandler`.
+The `Range` object in this context is an object containing two fields: `to` and `from`. Similarly to how it is possible to restrain the execution of the Processor by [setting a block range](/develop-a-squid/squid-processor#start-block-global-execution-range), the same can be done with an `EvmLogHandler`.
 
 The ingestion loop, responsible to divide the blockchain exploration into batches, will sieve through all the subscribed Handlers, read their options and filter out those that specified a range that does not include the current batch of blocks.
 

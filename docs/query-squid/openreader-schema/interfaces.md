@@ -8,7 +8,7 @@ Reach out and let the Subsquid team know if and how you would need them.
 
 Interfaces are a common pattern across type definition systems and object oriented programming languages. An [_Interface_](https://graphql.org/learn/schema/#interfaces) is commonly defined as an abstract type that includes a certain set of fields that a type must include to implement the interface.
 
-To look at an example of Interface, the schema used in [this Tutorial](/docs/tutorials/create-a-simple-squid) can be used:
+To look at an example of Interface, the schema used in [this Tutorial](/tutorials/create-a-simple-squid) can be used:
 
 ```graphql title="schema.graphql"
 type Account @entity {

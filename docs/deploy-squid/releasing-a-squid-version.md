@@ -7,7 +7,7 @@ sidebar_position: 2
 
 ## Deploy your code
 
-Once the [preliminary steps](/docs/deploy-squid/obtaining-a-deployment-key) are covered and we have obtained a deployment key and authenticated the terminal session, it is possible to effectively launch our API by deploying our code as a Squid.
+Once the [preliminary steps](/deploy-squid/obtaining-a-deployment-key) are covered and we have obtained a deployment key and authenticated the terminal session, it is possible to effectively launch our API by deploying our code as a Squid.
 
 It is possible to create multiple deployments of a Squid project, called `versions`. The instructions on the Squid page report the last&#x20;
 

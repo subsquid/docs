@@ -37,7 +37,7 @@ type Account @entity {
 ```
 
 
-There are other annotations, treated in the [related page](/docs/query-squid/openreader-schema/annotations-directives), what we are interested here is the `comment` field of `Transfer` type, which will automatically generate a new query, with the named specified in the `query` parameter.
+There are other annotations, treated in the [related page](/query-squid/openreader-schema/annotations-directives), what we are interested here is the `comment` field of `Transfer` type, which will automatically generate a new query, with the named specified in the `query` parameter.
 
 To see it in action, here is an example:
 

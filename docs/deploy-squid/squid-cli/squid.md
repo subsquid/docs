@@ -73,4 +73,4 @@ sqd squid logs squid-test@1 -f
 sqd squid release squid-test@1 -r -s git@github.com:subsquid/squid-template.git
 ```
 
-Some examples of how to use this command can be seen in the [Deploy a Squid Tutorial](/docs/tutorials/deploy-your-squid).
+Some examples of how to use this command can be seen in the [Deploy a Squid Tutorial](/tutorials/deploy-your-squid).

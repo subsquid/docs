@@ -210,7 +210,7 @@ type Bond implements Item & HasTotal & CanFail @entity  {
 
 <summary>Crowdloans schema</summary>
 
-See [Polkadot documentation on Crowdloans](https://wiki.polkadot.network/docs/learn-crowdloans) for more information.
+See [Polkadot documentation on Crowdloans](https://wiki.polkadot.network/learn-crowdloans) for more information.
 
 ```graphql
 # information about known parachains and their crowdloans

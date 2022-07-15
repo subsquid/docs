@@ -19,4 +19,4 @@ Then, it is sufficient to visit the `localhost:PROCESSOR_PROMETHEUS_PORT/metrics
 
 ![Prometheus metrics](/img/.gitbook/assets/metrics.png)
 
-These can then be regularly polled to monitor the status and, for example, used in [Grafana dashboards](https://prometheus.io/docs/visualization/grafana/).
+These can then be regularly polled to monitor the status and, for example, used in [Grafana dashboards](https://prometheus.io/visualization/grafana/).
