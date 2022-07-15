@@ -13,19 +13,24 @@ type BgColor =
 export type GuideCardProps = React.PropsWithChildren<{
   description: string;
   color: BgColor;
+  path?: string;
+  isDisabled?: boolean;
 }>
 
 export function GuideCard(props: GuideCardProps) {
   return (
     <>
-      <div className="flex flex-col rounded-lg border border-border-color-base--muted gap-2">
+      <a className="flex flex-col rounded-lg border border-border-color-base--muted gap-2" href={!props.isDisabled && props.path}>
         <div className={clsx("rounded-t-lg h-3", `bg-${props.color}`)}/>
 
         <div className="flex flex-col px-6 pb-6 gap-2">
-          <h5 className="body--l">{props.children}</h5>
+          <h5 className={clsx("body--l", {
+            'text-fg-base--default': !props.isDisabled,
+            'text-fg-base--muted': props.isDisabled
+          })}>{props.children}</h5>
           <p className="body--s text-fg-base--muted">{props.description}</p>
         </div>
-      </div>
+      </a>
     </>
   );
 }
