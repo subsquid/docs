@@ -15,6 +15,7 @@
 @layer components {
     .heading--2 {
         font-style: normal;
+        font-family: var(--ifm-heading-font-family);
         font-weight: 400;
         font-size: 70px;
         line-height: 80px;
@@ -23,6 +24,7 @@
 
     .heading--3 {
         font-style: normal;
+        font-family: var(--ifm-heading-font-family);
         font-weight: 400;
         font-size: 48px;
         line-height: 54px;
@@ -30,6 +32,7 @@
     }
 
     .heading--4 {
+        font-family: var(--ifm-heading-font-family);
         font-style: normal;
         font-weight: 400;
         font-size: 32px;
@@ -216,7 +219,12 @@
 }
 
 .markdown a:not(.x-button) {
-    @apply body--s;
+    font-family: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
 
     color: var(--fg-role--active);
 }
