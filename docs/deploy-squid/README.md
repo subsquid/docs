@@ -75,3 +75,6 @@ See [`squid` reference](./squid-cli.md) for a full list of supported options for
 
 See also: [Update and kill squid version](./update-and-kill.md)
 
+## 6. Publish your squid
+
+Go to the [Aquarium page](https://app.subsuid.io), fill in the squid description, upload a logo, and make your squid public by pressing the "Publish Squid" button.

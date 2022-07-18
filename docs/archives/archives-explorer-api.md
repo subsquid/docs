@@ -47,7 +47,7 @@ type Extrinsic @entity {
 
 Calls are more granular than extrinsics. Calls are used to unwrap `util.batch`, `sudo` and `proxy` extrinsics.
 
-```gql
+```graphql
 type Call @entity {
     id: ID!
     parent: Call
@@ -64,7 +64,7 @@ type Call @entity {
 
 ## Event
 
-```gql
+```graphql
 type Event @entity {
     id: ID!
     block: Block!
@@ -81,7 +81,7 @@ type Event @entity {
 
 ## Metadata
 
-```gql
+```graphql
 type Metadata @entity {
     id: ID!
     specName: String!

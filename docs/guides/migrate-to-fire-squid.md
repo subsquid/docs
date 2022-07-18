@@ -10,15 +10,42 @@ description: >-
 
 This guide goes through the necessary steps to migrate v5 projects to it and provides a summary of the new features and changes:
 
-### Handling of call wrappers
+## Package version updates for FireSquid
+
+FireSquid release requires version bumps for most of the subsquid packages. Consult [squid-template](https://github.com/subsquid/squid-template/blob/main/package.json) for a reference setup. 
+ 
+
+The following versions should be updated to latest:
+
+```bash
+npm i @subsquid/cli@latest \
+@subsquid/substrate-processor@latest \
+@subsquid/typeorm-store@latest \
+@subsquid/substrate-typegen@latest \
+@subsquid/substrate-metadata-explorer@latest
+```
+
+The following new packages should installed:
+- `@subsquid/typeorm-migration:0.1.x`. Separate package to replace `sqd db` commands with `squid-typeorm-migration`
+- `@subsquid/typeorm-codegen:0.0.x`. Separate package to replace `sqd codegen`  with `squid-typeorm-codegen`
+- `@subsquid/typeorm-store:0.1.x`. Separate package for the TypeORM implementation of the processor store
+
+**CLI commands updates**
+
+- Use `npx squid-typeorm-migration` instead of `npx sqd db`
+- Use `npx squid-typeorm-codegen` instead of `npx sqd codegen`
+- Use `npx sqd squid tail` is deprecated. Use `npx sqd squid logs`
+
+
+## Handling of call wrappers
 
 The most common call wrappers (batch, proxy, sudo, etc...) are now being correctly handled and wrapped extrinsics can now be extracted and processed.
 
-### Batch processing
+## Batch processing
 
 A new `Processor` class has been developed, to ingest and process on-chain data in batches, significantly improving performance, when this is needed.
 
-### Data Selection on Handler Context
+## Data Selection on Handler Context
 
 This is a completely optional functionality, but this setting can be applied while attaching a Handler to the processor and will make sure the handler function will received only the specified fields.
 
