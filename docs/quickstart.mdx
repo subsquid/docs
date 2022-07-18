@@ -41,17 +41,6 @@ npm ci
 make build
 ```
 
-<<<<<<< HEAD
-<CodeStep number={4}> Apply database migrations to the database </CodeStep>
-
-```bash
-npx squid-typeorm-migration apply
-```
-
-<CodeStep number={5} description="This command will block the terminal, fetching chain data transforming and storing it in the target database">
-    Launch the Processor
-</CodeStep>
-=======
 ##  Launch Postgres and detach
 
 ```bash
@@ -64,21 +53,16 @@ make up
  The squid processor ingests pre-indexed on-chain data from Kusama archive and transforms it as 
  defined by the data handler in `processor.ts`.
  This command is blocking.
->>>>>>> e570cee (update architecture overview + fixes)
 
 ```bash
 make process
 ```
 
-<<<<<<< HEAD
-<CodeStep number={6} description="In a new terminal window"> Start the GraphQL server </CodeStep>
-=======
 
 
 ##  Start the GraphQL server 
 
 Run in a separate terminal window
->>>>>>> e570cee (update architecture overview + fixes)
 
 ```bash
 make serve
