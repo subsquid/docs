@@ -4,6 +4,11 @@ For Substrate-based chains, an Archive consists of a Postgres compatible databas
 the ingest service is [substrate-ingest](https://github.com/subsquid/squid/tree/master/substrate-ingest), and the data is exposed by [substrate-gateway](https://github.com/subsquid/archive-gateway)
 and optionally by [substrate-explorer](https://github.com/subsquid/squid/tree/master/substrate-explorer) for human-friendly exploration queries. 
 
+See sample [docker-compose configs](https://github.com/subsquid/squid-archive-setup) for a reference setup. The startup options for each service are listed below.
+
+The primary use of an archive is a data source for a squid processor. See [squid-template](https://github.com/subsquid/squid-template) for more details.
+
+
 ## Substrate Ingest
 
 `substrate-ingest` fetches blocks from a substrate chain and dumps them into a Postgres-compatible database or as JSON lines. It has the following arguments 
