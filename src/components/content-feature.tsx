@@ -3,6 +3,7 @@ import clsx from 'clsx';
 
 export type ContentFeatureProps = PropsWithChildren<{
   title: string;
+  path: string;
   image: string;
   className?: string;
 }>
@@ -10,7 +11,8 @@ export type ContentFeatureProps = PropsWithChildren<{
 export function ContentFeature(props: ContentFeatureProps) {
 
   return (<>
-    <div
+    <a
+      href={props.path}
       className={clsx(
         'flex items-center gap-4 px-8 py-6 rounded-lg border border-border-color-base--default bg-bg-base--indistinguishable',
         props.className
@@ -26,6 +28,8 @@ export function ContentFeature(props: ContentFeatureProps) {
         className="w-16 h-16"
         src={props.image}
         alt={props.title}/>
-    </div>
+    </a>
   </>);
 }
+
+export default ContentFeature;

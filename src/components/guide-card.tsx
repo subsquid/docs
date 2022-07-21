@@ -34,3 +34,5 @@ export function GuideCard(props: GuideCardProps) {
     </>
   );
 }
+
+export default GuideCard;

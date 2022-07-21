@@ -13,8 +13,9 @@ export default function Home(): JSX.Element {
 
   return (
     <div>
-      <div className="flex flex-col gap-4 max-w-[476px] items-start self-start mb-24">
-        <span className="heading--3">Subsquid Docs</span>
+      <div className="flex flex-col gap-4 max-w-[476px] items-start self-start mb-24 pt-12">
+        <span className="heading--3">Subsquid Docs
+</span>
         <div className="flex flex-col gap-6">
           <p className="body--s">This documentation provides information for all degrees of expertise, varying from
             complete beginner, to those who only need a refresher on specific commands.</p>
@@ -29,36 +30,42 @@ export default function Home(): JSX.Element {
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
           <ContentFeature
+            path=""
             image="/img/scroll-emoji.png"
             title="About Subsquid">
             Get to know our project and discover what's possible with Subsquid
           </ContentFeature>
 
           <ContentFeature
+            path=""
             image="/img/squid-emoji.png"
             title="Build a Squid">
             Slice and dice on-chain data and present it with an expressive GraphQL API
           </ContentFeature>
 
           <ContentFeature
+            path=""
             image="/img/gear-emoji.png"
             title="Run a Squid">
             Build with Docker to run your API locally
           </ContentFeature>
 
           <ContentFeature
+            path=""
             image="/img/desktop-computer-emoji.png"
             title="Deploy a Squid">
             Release your Squid (at zero cost) into a cloud service for hosting squids
           </ContentFeature>
 
           <ContentFeature
+            path=""
             image="/img/magic-wand-emoji.png"
             title="Query a Squid">
             A reference of GraphQL queries and filters exposed by a squid
           </ContentFeature>
 
           <ContentFeature
+            path=""
             image="/img/mage-emoji.png"
             title="Dev Support">
             Get your questions answered and connect with other SquidDevs
@@ -101,11 +108,18 @@ export default function Home(): JSX.Element {
         </div>
       </div>
 
-      {/*<div className="flex flex-col gap-12">*/}
-      {/*  <span className="heading--3 text-fg-base--muted">Migration</span>*/}
+      <div className="flex flex-col gap-12 mb-24">
+        <span className="heading--3 text-fg-base--muted">Migration</span>
 
-      {/*  <TutorialCard path="/guides/migrate-to-fire-squid" description="Text here">Migrate to FireSquid</TutorialCard>*/}
-      {/*</div>*/}
+        <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
+          <TutorialCard
+            path="/guides/migrate-to-fire-squid"
+            description="Text here">Migrate to FireSquid</TutorialCard>
+          <TutorialCard
+            path="/guides/migrate-to-fire-squid"
+            description="Coming soon">Migrate From Subquery</TutorialCard>
+        </div>
+      </div>
 
       <div className="flex flex-col gap-12">
         <span className="heading--3 text-fg-base--muted">FAQ</span>

@@ -13,7 +13,7 @@ The Subsquid services stack separates data ingestion (archives) from data transf
 
 Archives allow squids to ingest data in batches spanning multiple blocks, significantly improving the indexing time while keeping squids lightweight.
 
-See [Archives Section](/docs/archives/) for more details, how to use public archives and how to run an archive locally. 
+See [Archives Section](/archives/) for more details, how to use public archives and how to run an archive locally. 
 
 
 ## Squid
