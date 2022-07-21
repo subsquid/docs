@@ -9,7 +9,7 @@ The `squid` topic of the `sqd` command line interface is used to manage the depl
 
 Inspect the avaialble options with
 
-```
+```bash
 npx sqd squid --help
 ```
 
@@ -37,43 +37,43 @@ It allows to
 
 #### Create a new squid
 
-```
+```bash
 sqd squid create squid-test
 ```
 
 #### Kill a squid :sob: (and all its versions)
 
-```
+```bash
 sqd squid kill squid-test
 ```
 
 #### List squids 
 
-```
+```bash
 npx sqd squid ls
 ```
 
 #### List versions of a squid
 
-```
+```bash
 npx sqd squid ls -n squid-test
 ```
 
 #### Release the kraken!
 
-```
+```bash
 npx sqd squid release squid-test@1 --source=git@github.com:subsquid/squid-template.git
 ```
 
 #### Show logs of a squid
 
-```
+```bash
 npx sqd squid logs squid-test@1 -f
 ```
 
 #### Update a version with new code
 
-```
+```bash
 npx sqd squid release squid-test@1 -r -s git@github.com:subsquid/squid-template.git
 ```
 

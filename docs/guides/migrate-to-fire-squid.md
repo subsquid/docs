@@ -165,13 +165,15 @@ With an archive:
 }
 ```
 
-With `squid-substrate-metadata-explorer`:
+With `squid-substrate-metadata-explorer`, first generate the metadata versions file:
 
 ```bash
 npx squid-substrate-metadata-explorer \
   --chain wss://kusama-rpc.polkadot.io \
   --out kusamaVersions.jsonl
 ```
+
+and then provide in the typegen config
 
 ```json title="typegen.json"
 {
@@ -187,4 +189,7 @@ npx squid-substrate-metadata-explorer \
 }
 ```
 
-
+Once the config is ready, (re)generate the typings for the requested events, calls and storage items:
+```bash
+make typegen
+```
