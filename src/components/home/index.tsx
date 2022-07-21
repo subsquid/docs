@@ -13,7 +13,7 @@ export default function Home(): JSX.Element {
 
   return (
     <div>
-      <div className="flex flex-col gap-4 max-w-[476px] items-start self-start mb-24 pt-12">
+      <div className="flex flex-col gap-4 max-w-[476px] items-start self-start mb-24 pt-8">
         <span className="heading--3">Subsquid Docs
 </span>
         <div className="flex flex-col gap-6">
@@ -116,8 +116,9 @@ export default function Home(): JSX.Element {
             path="/guides/migrate-to-fire-squid"
             description="Text here">Migrate to FireSquid</TutorialCard>
           <TutorialCard
-            path="/guides/migrate-to-fire-squid"
-            description="Coming soon">Migrate From Subquery</TutorialCard>
+            path=""
+            description="Coming soon"
+            disabled={true}>Migrate From Subquery</TutorialCard>
         </div>
       </div>
 
@@ -126,43 +127,68 @@ export default function Home(): JSX.Element {
 
         <div className="flex flex-col gap--6">
           <ExpandContent title="What is Subsquid?">
-            <p className="text-fg-base--muted">Subsquid is an on-chain indexing and querying solution that enables
-              Web3 builders to gain access to on-chain data on their own terms. Featuring modular architecture and
-              decentralised governance, this is the most developer-friendly and resource-efficient way to build, test,
-              and
-              deploy customised APIs for blockchain-facing applications.</p>
+            <p className="text-fg-base--muted">Subsquid is an on-chain indexing and querying solution that enables Web3
+              builders to access on-chain data on their own terms. Featuring modular architecture and decentralized
+              governance, this is the most developer-friendly and resource-efficient way to build, test, and deploy
+              customized APIs for blockchain-facing applications.
+            </p>
           </ExpandContent>
 
-          <ExpandContent title="What is Subsquid?">
-            <p className="text-fg-base--muted">Subsquid is an on-chain indexing and querying solution that enables
-              Web3 builders to gain access to on-chain data on their own terms. Featuring modular architecture and
-              decentralised governance, this is the most developer-friendly and resource-efficient way to build, test,
-              and
-              deploy customised APIs for blockchain-facing applications.</p>
+          <ExpandContent title="What is a Squid API?">
+            <p className="text-fg-base--muted">
+              Squid APIs are the data transformation component of the Subsquid data pipeline. They are composed of
+              processors, which are responsible for retrieving and transforming data from Archives, and databases, which
+              store that data until an application needs it. The data is sent through GraphQL gateways, which are
+              separate servers that come built-in, and that provide interfaces for entities in the data store.
+            </p>
           </ExpandContent>
 
-          <ExpandContent title="What is Subsquid?">
-            <p className="text-fg-base--muted">Subsquid is an on-chain indexing and querying solution that enables
-              Web3 builders to gain access to on-chain data on their own terms. Featuring modular architecture and
-              decentralised governance, this is the most developer-friendly and resource-efficient way to build, test,
-              and
-              deploy customised APIs for blockchain-facing applications.</p>
+          <ExpandContent title="Why should I use Subsquid?">
+            <p className="text-fg-base--muted">Subsquid offers the tools you need to build the best possible backend for
+              your blockchain-facing application. Reduce the time it takes for you to iterate as you develop new
+              features with fast-syncing middleware, and do more with the industry's most flexible API framework.
+              Explore Squid projects in <a
+                href="https://app.subsquid.io/aquarium/"
+                target="_blank"
+                className="text-fg-role--active">the Aquarium</a> to see just a few of the bespoke features that are
+              possible with
+              Subsquids.
+            </p>
           </ExpandContent>
 
-          <ExpandContent title="What is Subsquid?">
-            <p className="text-fg-base--muted">Subsquid is an on-chain indexing and querying solution that enables
-              Web3 builders to gain access to on-chain data on their own terms. Featuring modular architecture and
-              decentralised governance, this is the most developer-friendly and resource-efficient way to build, test,
-              and
-              deploy customised APIs for blockchain-facing applications.</p>
+          <ExpandContent title="How can I get started with Subsquid?">
+            <p className="text-fg-base--muted">
+              The best place to get started is our quickstart tutorial, which will bring you from cloning the Squid
+              template and adding some simple logic to deploying it locally for basic queries. If you require help, feel
+              free to join our friendly SquidDevs community.
+            </p>
           </ExpandContent>
 
-          <ExpandContent title="What is Subsquid?">
-            <p className="text-fg-base--muted">Subsquid is an on-chain indexing and querying solution that enables
-              Web3 builders to gain access to on-chain data on their own terms. Featuring modular architecture and
-              decentralised governance, this is the most developer-friendly and resource-efficient way to build, test,
-              and
-              deploy customised APIs for blockchain-facing applications.</p>
+          <ExpandContent
+            title="How much does Subsquid cost?">
+            <p className="text-fg-base--muted">The Subsquid SDK, indexing solution, and hosted service are all
+              free-to-use at the current time. Following our TGE and mainnet launch, pricing will be determined by the
+              decentralized marketplace of infrastructure providers. We expect, given Subsquid's architecture, that
+              service costs will be at least 10 times lower than industry standards.
+            </p>
+          </ExpandContent>
+
+          <ExpandContent
+            title="What is an Archive?">
+            <p className="text-fg-base--muted">In the Subsquid data pipeline, Archives are the data source. In other
+              words, Archives are the software that gathers historical blockchain data, converting it into a format that
+              Squid APIs can easily process. These data sources can be shared by any number of Squids.</p>
+          </ExpandContent>
+
+          <ExpandContent
+            title="What is the Aquarium?">
+            <p className="text-fg-base--muted">The <a
+              href="https://app.subsquid.io/aquarium/"
+              target="_blank"
+              className="text-fg-role--active">Aquarium</a> is a public gallery of Squids that gives free access to the
+              data collected by some of Web3's top projects. In addition to serving as a data explorer, the Aquarium is
+              also Subsquid's free hosted service.
+            </p>
           </ExpandContent>
         </div>
 
