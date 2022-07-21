@@ -24,3 +24,5 @@ export function ExpandContent(props: ExpandContentProps) {
     </div>
   );
 }
+
+export default ExpandContent;

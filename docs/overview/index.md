@@ -13,19 +13,19 @@ with support for EVM-based chains and other L1s coming next.
 
 ## Quickstart
 
-A [Quickstart](/docs/quickstart) guide to run a "Hello World" squid indexing Kusama transfers in 15 minutes.
+A [Quickstart](/quickstart) guide to run a "Hello World" squid indexing Kusama transfers in 15 minutes.
 
 ## Build a squid
 
-A comprehensive reference covering API modeling, interfaces for handling Substrate and EVM data, and tooling needed to [build a custom squid](/docs/develop-a-squid/).
+A comprehensive reference covering API modeling, interfaces for handling Substrate and EVM data, and tooling needed to [build a custom squid](/develop-a-squid/).
 
 ## Deploy your squid 
 
-[Deploy and publish](/docs/deploy-squid) to Aquairum using Squid CLI.
+[Deploy and publish](/deploy-squid) to Aquairum using Squid CLI.
 
 ## Migration from earlier versions
 
-If you have an existing project and need to migrate to the latest Squid version, follow this [Guide](/docs/guides/migrate-to-fire-squid).
+If you have an existing project and need to migrate to the latest Squid version, follow this [Guide](/guides/migrate-to-fire-squid).
 
 ## Bug bounties and community support
 

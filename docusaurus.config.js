@@ -38,7 +38,7 @@ const config = {
                     lastVersion: 'current',
                     versions: {
                         current: {
-                            label: 'v5',
+                            label: 'Firesquid',
                             path: '/'
                         }
                     },
