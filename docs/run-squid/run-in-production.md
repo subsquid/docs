@@ -5,7 +5,7 @@ title: Run in production
 
 # Run in production
 
-We recommend [deploying to Aquiarium](/docs/deploy-squid/) for a managed cloud solution. 
+We recommend [deploying to Aquiarium](/deploy-squid/) for a managed cloud solution. 
 
 For self-hosted squids, we recommend using Kubernetes and the following specs:
 

@@ -5,4 +5,4 @@ title: Guides
 
 # Guides
 
-- [Migrate from older versions to FireSquid](/docs/guides/migrate-to-fire-squid.md)
+- [Migrate from older versions to FireSquid](/guides/migrate-to-fire-squid)
