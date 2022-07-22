@@ -18,7 +18,7 @@ The blockchain used in this example will be the [Crust storage network](https://
 
 ## Pre-requisites
 
-The minimum requirements to follow this tutorial are the basic knowledge of software development, such as handling a Git repository, a correctly set up [Development Environment](development-environment-set-up.md), basic command line knowledge and the concepts explained in this documentation.
+The minimum requirements to follow this tutorial are the basic knowledge of software development, such as handling a Git repository, a correctly set up [Development Environment](/tutorials/development-environment-set-up), basic command line knowledge and the concepts explained in this documentation.
 
 ## Fork the template
 
@@ -112,7 +112,7 @@ type StorageOrder @entity {
 
 It's worth noticing that the `Account` entity is almost completely derived and it is there to tie the other three entities together, since Groups are joined by an Account, Storage Orders are placed by an Account and Work Reports, show files added and changed by, you guessed it, an Account!
 
-This all requires some implicit knowledge of the blockchain itself ([here's a tip](/faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers.md) on how to obtain this information).
+This all requires some implicit knowledge of the blockchain itself ([here's a tip](/faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers) on how to obtain this information).
 
 To finalize this step, it is necessary to run the `codegen` tool:
 
@@ -124,7 +124,7 @@ This will automatically generate TypeScript Entity classes for our schema defini
 
 ## Generate TypeScript interfaces
 
-The process to generate wrappers around TypeScript wrappers around Events and Extrinsics has a [dedicated page](../develop-a-squid/substrate-support/typegen/README.md) to explain it and guide you through it, so it is advised to consult them for more information.
+The process to generate wrappers around TypeScript wrappers around Events and Extrinsics has a [dedicated page](/develop-a-squid/substrate-support/typegen) to explain it and guide you through it, so it is advised to consult them for more information.
 
 ### Chain exploration
 
@@ -149,7 +149,7 @@ It remains to be seen if this had any impacts on the definitions of the Events w
 
 One peculiar thing about the Crust chain and this example is that, at the moment of writing of this guide, its types have not been integrated into Squid's library.
 
-This gives us a good opportunity to follow [this mini-guide](/faq/where-do-i-get-a-type-bundle-for-my-chain.md) and create an example, extracting a types bundle from crust's own library, to Subsquid required format.
+This gives us a good opportunity to follow [this mini-guide](/faq/where-do-i-get-a-type-bundle-for-my-chain) and create an example, extracting a types bundle from crust's own library, to Subsquid required format.
 
 :::info
 **Update**: the "crust" types bundle has been added to the list of built-ins, but for learning purposes, it's still useful to see how to create and use a types bundle JSON file.

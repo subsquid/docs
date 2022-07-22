@@ -463,7 +463,7 @@ Defining an ABI (or more) is crucial for being able to process EVM logs, but the
 The Squid evm typegen tool is part of Subsquid SDK and is used for generating TypeScript interface classes for EVM Application Binary Interfaces.
 
 :::info
-Note: in the context of this guide, we assume the [Development Environment has been already set up](../../tutorials/development-environment-set-up.md) and that `npm` is used, although other options are available.
+Note: in the context of this guide, we assume the [Development Environment has been already set up](/tutorials/development-environment-set-up) and that `npm` is used, although other options are available.
 :::
 
 To install EVM typegen tool, simply run this in a console.&#x20;

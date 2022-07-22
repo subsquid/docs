@@ -10,7 +10,7 @@ The blockchain used in this example will be the [Astar network](https://astar.ne
 
 ## Pre-requisites
 
-The minimum requirements to follow this tutorial are the basic knowledge of software development, such as handling a Git repository, a correctly set up [Development Environment](development-environment-set-up.md), basic command line knowledge and the concepts explained in this documentation.
+The minimum requirements to follow this tutorial are the basic knowledge of software development, such as handling a Git repository, a correctly set up [Development Environment](/tutorials/development-environment-set-up), basic command line knowledge and the concepts explained in this documentation.
 
 ## Fork the template
 
@@ -131,7 +131,7 @@ The ERC-721 ABI defines the signatures of all events in the contract. The `Trans
 
 ## Define and Bind Event Handler(s)
 
-The Subsquid SDK provides users with a [processor](../develop-a-squid/squid-processor.md) class, named `SubstrateProcessor` or, in this specific case [`SubstrateBatchProcessor`](../develop-a-squid/batch-processing.md). The processor connects to the [Subsquid archive](../overview/architecture.md) to get chain data. It will index from the configured starting block, until the configured end block, or until new data is added to the chain.
+The Subsquid SDK provides users with a [processor](/develop-a-squid/squid-processor) class, named `SubstrateProcessor` or, in this specific case [`SubstrateBatchProcessor`](../develop-a-squid/batch-processing.md). The processor connects to the [Subsquid archive](../overview/architecture.md) to get chain data. It will index from the configured starting block, until the configured end block, or until new data is added to the chain.
 
 The processor exposes methods to "attach" functions that will "handle" specific data such as Substrate events, extrinsics, storage items, or EVM logs. These methods can be configured by specifying the event or extrinsic name, or the EVM log contract address, for example. As the processor loops over the data, when it encounters one of the configured event names, it will execute the logic in the "handler" function.
 

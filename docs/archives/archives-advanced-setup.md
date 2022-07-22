@@ -55,7 +55,7 @@ The GraphQL endpoint exposes the following queries:
 
 ## Substrate Explorer
 
-`substrate-explorer` provided a human friendly GraphQL API on top of the database populated by `substrate-ingester`. See [Explorer API](./archives-explorer-api.md) for more details on the schema.
+`substrate-explorer` provided a human friendly GraphQL API on top of the database populated by `substrate-ingester`. See [Explorer API](/archives/archives-explorer-api) for more details on the schema.
 
 **Environment variables:**
 
