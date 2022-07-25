@@ -112,7 +112,7 @@ export default function Home(): JSX.Element {
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
           <TutorialCard
             path="/migrate/migrate-to-fire-squid"
-            description="Migrate to batch processor and improve sync times 10x">Migrate to FireSquid</TutorialCard>
+            description="Migrate to FireSquid and improve sync times up to 10x">Migrate to FireSquid</TutorialCard>
         {/* <TutorialCard
             path=""
             description="Coming soon" 
