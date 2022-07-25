@@ -14,11 +14,10 @@ export default function Home(): JSX.Element {
   return (
     <div>
       <div className="flex flex-col gap-4 max-w-[476px] items-start self-start mb-24 pt-8">
-        <span className="heading--3">Subsquid Docs
+        <span className="heading--3">Get started
 </span>
         <div className="flex flex-col gap-6">
-          <p className="body--s">This documentation provides information for all degrees of expertise, varying from
-            complete beginner, to those who only need a refresher on specific commands.</p>
+          <p className="body--s">Try Subsquid with a simple squid indexing all historical transfers on Kusama in under 15 minutes</p>
           <a
             className="x-button bg-bg-base--contrast text-fg-base--contrast"
             href="/quickstart">Quickstart</a>
@@ -26,46 +25,46 @@ export default function Home(): JSX.Element {
       </div>
 
       <section className="flex flex-col gap-12 mb-28">
-        <span className="heading--3 text-fg-base--muted">Get started</span>
+        <span className="heading--3 text-fg-base--muted">Subsquid Docs</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
           <ContentFeature
-            path=""
+            path="/overview"
             image="/img/scroll-emoji.png"
-            title="About Subsquid">
-            Get to know our project and discover what's possible with Subsquid
+            title="Overview">
+            A bird eye view of the Subsquid architecture 
           </ContentFeature>
 
           <ContentFeature
-            path=""
+            path="/develop-a-squid"
             image="/img/squid-emoji.png"
             title="Build a Squid">
-            Slice and dice on-chain data and present it with an expressive GraphQL API
+            Extract, transform and serve on-chain data with GraphQL
           </ContentFeature>
 
           <ContentFeature
-            path=""
+            path="/run-squid"
             image="/img/gear-emoji.png"
             title="Run a Squid">
-            Build with Docker to run your API locally
+            Test your squid locally or run with Docker
           </ContentFeature>
 
           <ContentFeature
-            path=""
+            path="/deploy-squid"
             image="/img/desktop-computer-emoji.png"
             title="Deploy a Squid">
-            Release your Squid (at zero cost) into a cloud service for hosting squids
+            Deploy your squid to Aquarium free of charge
           </ContentFeature>
 
           <ContentFeature
-            path=""
+            path="/query-squid"
             image="/img/magic-wand-emoji.png"
             title="Query a Squid">
             A reference of GraphQL queries and filters exposed by a squid
           </ContentFeature>
 
           <ContentFeature
-            path=""
+            path="https://t.me/HydraDevs"
             image="/img/mage-emoji.png"
             title="Dev Support">
             Get your questions answered and connect with other SquidDevs
@@ -78,6 +77,10 @@ export default function Home(): JSX.Element {
         <span className="heading--3 text-fg-base--muted">Tutorials</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
+        <GuideCard
+            path="/tutorials/development-environment-set-up"
+            color={'bg-role--warning'}
+            description="Follow these steps in order to begin building with Subsquid.">Dev environment setup</GuideCard>
           <GuideCard
             color={'bg-role--notice'}
             path="/tutorials/create-a-simple-squid"
@@ -85,22 +88,17 @@ export default function Home(): JSX.Element {
             Squid</GuideCard>
           <GuideCard
             path="/tutorials/create-an-evm-processing-squid"
-            color={'bg-role--notice'}
-            description="Get started with the Aquarium, Subsquid’s free hosted service for Squid APIs. ">Deploy your
-            first Squid</GuideCard>
-          <GuideCard
-            path="/tutorials/development-environment-set-up"
-            color={'bg-role--warning'}
-            description="Follow these steps in order to begin building with Subsquid.">Dev environment setup</GuideCard>
-          <GuideCard
-            path="/tutorials/deploy-your-squid"
             color={'bg-role--success'}
-            description="Retrieve data from EVM chains like Moonbeam, Astar, and Acala.">EVM smart contract
+            description="Index data from EVM chains like Moonbeam and Astar">EVM smart contract
             data</GuideCard>
           <GuideCard
             isDisabled={true}
             color={'bg-role--syncing'}
-            description="Coming soon">WASM smart contract data</GuideCard>
+            description="Coming soon">WASM smart contracts</GuideCard>
+          <GuideCard
+            isDisabled={true}
+            color={'bg-role--syncing'}
+            description="Coming soon">EVM+ smart contracts</GuideCard>
           <GuideCard
             isDisabled={true}
             color={'bg-role--syncing'}
@@ -113,12 +111,12 @@ export default function Home(): JSX.Element {
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
           <TutorialCard
-            path="/guides/migrate-to-fire-squid"
-            description="Text here">Migrate to FireSquid</TutorialCard>
-          <TutorialCard
+            path="/migrate/migrate-to-fire-squid"
+            description="Migrate to batch processor and improve sync times 10x">Migrate to FireSquid</TutorialCard>
+        {/* <TutorialCard
             path=""
-            description="Coming soon"
-            disabled={true}>Migrate From Subquery</TutorialCard>
+            description="Coming soon" 
+  disabled={true}>Migrate From Subquery</TutorialCard> */} 
         </div>
       </div>
 
