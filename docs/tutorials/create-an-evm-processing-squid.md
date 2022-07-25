@@ -1,3 +1,11 @@
+---
+id: create-an-evm-processin-squid
+title: Create an EVM-processing Squid
+description: >-
+  Create a sample squid indexing EVM data on Astar
+sidebar_position: 3
+---
+
 # Create an EVM-processing Squid
 
 ## Objective
