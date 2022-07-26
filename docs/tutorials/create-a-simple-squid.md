@@ -111,7 +111,7 @@ type StorageOrder @entity {
 }
 ```
 
-It's worth noticing that the `Account` entity is almost completely derived and it is there to tie the other three entities together, since Groups are joined by an Account, Storage Orders are placed by an Account and Work Reports, show files added and changed by, you guessed it, an Account!
+It's worth noticing that the `Account` entity is almost completely derived, and it is there to tie the other three entities together, since Groups are joined by an Account, Storage Orders are placed by an Account and Work Reports, show files added and changed by, you guessed it, an Account!
 
 This all requires some implicit knowledge of the blockchain itself ([here's a tip](/faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers) on how to obtain this information).
 
@@ -327,7 +327,7 @@ The **"Fire Squid"** release allows to collapse the metadata exploration and the
 
 This is the best course of actions and the advised procedure going forward. This is because the newest version of Squid Archives store the chain's metadata information and the `typegen` command is able to leverage that.
 
-That being said, we need to make a few changes in the `typegen.json` configuration file, to adapt it to our purposes and we do that by specifying the events that we are interested in, for this project.
+That being said, we need to make a few changes in the `typegen.json` configuration file, to adapt it to our purposes, and we do that by specifying the events that we are interested in, for this project.
 
 Similar to what's been said in the previous chapter, this requires knowledge of the blockchain itself and some research might be required, but in the case of this example, the events are:
 
@@ -486,14 +486,14 @@ After having obtained wrappers for Events and the metadata changes across differ
 
 We will end up replacing the code in this file almost entirely, leaving only a few useful pieces, but we are going to take a step-by-step approach, showing where essential changes have to be made, but the final result will be visible at the end of this section.
 
-First of all, we need to import the generated Entity model classes, in order to be able to use them in our code. And then, we need the type definitions of Crust events, so that they can be used to wrap them. Let's replace previous models and types import at the top of our file with these two lines:
+First, we need to import the generated Entity model classes, in order to be able to use them in our code. And then, we need the type definitions of Crust events, so that they can be used to wrap them. Let's replace previous models and types import at the top of our file with these two lines:
 
 ```typescript
 import  {Account, WorkReport, JoinGroup, StorageOrder} from './model/generated'
 import { MarketFileSuccessEvent, SworkJoinGroupSuccessEvent, SworkWorksReportSuccessEvent } from './types/events'
 ```
 
-Then, we need to customize the processor, by setting the right Squid Archive as a Data Source and specifying the right Events we want to index. This is done by applying the necessary changes to the first few line of code after the imports. In the end, it should look like this:
+Then, we need to customize the processor, by setting the right Squid Archive as a Data Source and specifying the right Events we want to index. This is done by applying the necessary changes to the first few lines of code after the imports. In the end, it should look like this:
 
 ```typescript
 const processor = new SubstrateBatchProcessor()
@@ -532,7 +532,7 @@ function stringifyArray(list: any[]): any[] {
 
 The declared `Item` and `Ctx` types are still useful, so we are going to keep them. Let's skip for a section the `process.run()` call, we are going to come back to it in a second, and let's go ahead and scroll down to the `getTransfers` function. In the template repository, this function loops through the items contained in the context, extracts the Event's data, which is stored in an Interface and builds a list of these interfaces.
 
-For this project, we need to do something similar, but not exactly the same: in order to process the three events we want to index, we need to extract Event data from the passed context, depending on the Event's name and store that information. But this time, we are saving the data directly to the database models, and we also need to handle the the Account information separately and we'll look at how it is dealt with in a moment.
+For this project, we need to do something similar, but not exactly the same: in order to process the three events we want to index, we need to extract Event data from the passed context, depending on the Event's name and store that information. But this time, we are saving the data directly to the database models, and we also need to handle the Account information separately, and we'll look at how it is dealt with in a moment.
 
 We still need the AccountIds, though, so we are building some special interfaces to keep track of the rapport between an AccountId and the data related to it. Let's start with deleting the `TransferEvent` interface and defining this, instead:
 
@@ -550,7 +550,7 @@ Now, let's take the `getTransfers` function. Remove it and replace it with this 
 
 * extract Event information, differently for each Event (using the `item.name` to distinguish between them)
 * store Event information in a database Model and map it to the `accountId`
-* store the `accountId` in the set of Id we are collecting
+* store the `accountId` in the set of IDs we are collecting
 
 ```typescript
 function getEvents(ctx: Ctx): EventInfo {
@@ -624,10 +624,10 @@ function getEvents(ctx: Ctx): EventInfo {
 ```
 
 :::info
-Pay attention to the fact that we did not use a `Map<string, >` object, because for a single `accountId` there could be multiple entries. What we care about storing, in this case, is the relationship between the event data, stored in a model, and the accountId which is related to it. This is so that, when the `Account` model for an `accountId` is created, we can add that information to the Event model.
+Pay attention to the fact that we did not use a `Map<string, >` object, because for a single `accountId` there could be multiple entries. What we care about storing, in this case, is the relationship between the event data, stored in a model, and the accountId which is related to it. This is so that, when the `Account` model for a `accountId` is created, we can add that information to the Event model.
 :::
 
-When all of this is done, we want to treat the set of `accountId`s, create a database Model for each of them, then go back and add the `Account` information in all of the Event Models (for this we are going to re-use the existing `getAccount` function). Finally, save all the created and modified database models. Let's take the code inside `processor.run()` and change it so it looks like this:
+When all of this is done, we want to treat the set of `accountId`s, create a database Model for each of them, then go back and add the `Account` information in all the Event Models (for this we are going to re-use the existing `getAccount` function). Finally, save all the created and modified database models. Let's take the code inside `processor.run()` and change it, so it looks like this:
 
 ```typescript
 processor.run(new TypeormDatabase(), async (ctx) => {
@@ -878,7 +878,7 @@ These will, in order:
 
 ## Launch the project
 
-It's finally time to run the project. First of all, let's build the code
+It's finally time to run the project. First, let's build the code
 
 ```bash
 npm run build
@@ -896,7 +896,7 @@ Launch the GraphQL server (in a separate command line console window)
 npx squid-graphql-server
 ```
 
-And see the results for ourselves the result of our hard work, by visiting the `localhost:4350/graphql` URL in a browser and accessing the [GraphiQl](https://github.com/graphql/graphiql) console.
+And see the results for ourselves the result of our hard work, by visiting the `localhost:4350/graphql` URL in a browser and accessing the [GraphiQL](https://github.com/graphql/graphiql) console.
 
 From this window, we can perform queries such as this one, to find which files have been added or deleted by an account:
 

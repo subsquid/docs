@@ -58,7 +58,7 @@ The `SubstrateProcessor` class accomplishes a few tasks:
 * start a loop that processes all incoming blocks from the data source in batches
   * upon processing a batch, for each block, all relevant hooks, event handlers, and extrinsic handlers are triggered
 
-What's more, the class exposes various methods to attach custom functions as pre and post-block hooks (these can be compared to how middleware process requests in a webserver), event handlers, and extrinsic handlers, which, as mentioned, are going to be triggered, when necessary. Here's an example:
+What's more, the class exposes various methods to attach custom functions as pre- and post- block hooks (these can be compared to how middleware process requests in a webserver), event handlers, and extrinsic handlers, which, as mentioned, are going to be triggered, when necessary. Here's an example:
 
 ```typescript
 processor.addEventHandler('balances.Transfer', async ctx => {
