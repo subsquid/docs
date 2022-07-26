@@ -13,7 +13,7 @@ To jump straight into the action, get a local environment up and running, follow
 
 ## Key Concepts
 
-To take a more a more conceptual approach, learn more about the project fundamentals, dive deeper into the modula architecture of Subsquid, head over to the [Overview](/overview) section.
+To take a more conceptual approach, learn more about the project fundamentals, dive deeper into the modular architecture of Subsquid, head over to the [Overview](/overview) section.
 
 ## Start developing
 
@@ -23,13 +23,13 @@ If you are already familiar with the project and want to see an example of how t
 
 Subsquid offers serverless deployments of Squid APIs free of charge.
 
-In the [Deploy section](/deploy-squid) you can find out how that works.
+In the ["Deploy a squid section"](/deploy-squid) you can find out how that works.
 
 ## Squid Aquarium
 
 [Aquarium](https://app.subsquid.io/aquarium) is a public gallery of Squid APIs developed by community.
 
-Visit and browse through interesting projects, and publish your own for for cool perks from Subsquid!
+Visit and browse through interesting projects, and publish your own for cool perks from Subsquid!
 
 ## Migration from earlier versions
 
@@ -37,4 +37,4 @@ To migrate to the latest FireSquid release, follow the [Migration Guide](/migrat
 
 ## Bug bounties and community support
 
-As for help or report any issues to our cozy community [Dev Chat](https://t.me/HydraDevs) on Telegram. Also keep an eye on [Github Issues](https://github.com/subsquid/squid/issues) labeled `$` -- these bounties are up for grabs!
+As for help or report any issues to our cozy community [Dev Chat](https://t.me/HydraDevs) on Telegram. Also keep an eye on [GitHub Issues](https://github.com/subsquid/squid/issues) labeled `$` -- these bounties are up for grabs!

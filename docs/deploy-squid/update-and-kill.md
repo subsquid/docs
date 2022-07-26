@@ -5,8 +5,7 @@ title: Update or kill squid
 
 # Update or kill a squid
 
-The number of squid version is limited by three so 
-we recommend updating an existing version instead of 
+The number of squid version is limited by three so, we recommend updating an existing version instead of 
 launching a new one.
 
 ## Update a squid version
@@ -22,7 +21,7 @@ or
 npx sqd squid update my-new-squid@v0 -v --source <repo.git>#<commit>
 ```
 
-to update the version. By default, `sqd squid update` only updates the squid images and does not drop the database (but applies the new migrations from the `db/migrations` folder). Thus, the squid sync will continue from its last state. To force the database wipeout and start the squid sync from scratch, add `--hardReset` flag:
+to update the version. By default, `sqd squid update` only updates the squid images and does not drop the database (but applies the new migrations from the `db/migrations` folder). Thus, the squid sync will continue from its last state. To force a database reset and a squid resync from scratch, add `--hardReset` flag:
 
 ```bash
 npx sqd squid update my-new-squid@v0 -v --source <repo.git>#<commit> --hardReset
