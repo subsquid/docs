@@ -26,10 +26,10 @@ A typical Squid implements both data mapping and a GraphQL API server presenting
 
 - [`substrate-processor`](https://github.com/subsquid/squid/tree/master/substrate-processor) fetches on-chain data from an archive and executes
 user-defined mapping code against it. It offers batching and fine-grained data selection interfaces to minimize database roundtrips and optimize archive data fetching. 
-- [`substrate-typegen`](https://github.com/subsquid/squid/tree/master/substrate-typegen) and [`substrate-evm-typegen`](https://github.com/subsquid/squid/tree/master/evm-typegen) generate TypeScript facade classes for substrate and evm log data. It allows to catch most of the data mapping bugs at compile time.
+- [`substrate-typegen`](https://github.com/subsquid/squid/tree/master/substrate-typegen) and [`substrate-evm-typegen`](https://github.com/subsquid/squid/tree/master/evm-typegen) generate TypeScript facade classes for substrate and EVM log data. It allows catching most of the data mapping bugs at compile time.
 - [`typeorm-codegen`](https://github.com/subsquid/squid/tree/master/typeorm-codegen) generates entity classes from a declarative [schema file](./../develop-a-squid/define-a-squid-schema.md)
 - [`graphql-server`](https://github.com/subsquid/squid/tree/master/graphql-server) serves the data with a rich GraphQL API generated from the schema file. It loosely follows the [OpenCRUD](https://www.opencrud.org/) standard and supports all common filtering and selectors out-of-the box, together with an option to extend it with custom resolvers.
-- [misc substrate tools](https://github.com/subsquid/squid#other-tools) including a perfomant SCALE codec and ss58 decoder
+- [Misc substrate tools](https://github.com/subsquid/squid#other-tools) including a performant SCALE codec and ss58 decoder
 
 ## Aquarium
 

@@ -56,7 +56,7 @@ title: Table of contents
     * [Union types](/query-squid/openreader-schema/union-types)
   * [OpenReader Queries](/query-squid/openreader-queries)
     * [AND/OR filters](/query-squid/openreader-queries/and-or-filters)
-    * [Nested field quteries](/query-squid/openreader-queries/nested-field-queries)
+    * [Nested field queries](/query-squid/openreader-queries/nested-field-queries)
     * [Cross-relation field queries](/query-squid/openreader-queries/cross-relation-field-queries)
     * [JSON queries](/query-squid/openreader-queries/json-queries)
     * [String/Regex queries](/query-squid/openreader-queries/string-regex-queries)
