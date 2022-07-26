@@ -9,7 +9,7 @@ description: >-
 
 ## Overview
 
-In the [Architecture](/overview/architecture) explanation, the relationship between the Squid Archive and Squid query node was clarified. It has also been mentioned that raw chain data is decoded to be readily available for consumption.
+It has also been mentioned in the [Overview](/overview) that raw chain data is decoded to be readily available for consumption.
 
 The [Substrate](/develop-a-squid/substrate-support) section explained what decoded data is, what it consists of, and what information it brings.
 

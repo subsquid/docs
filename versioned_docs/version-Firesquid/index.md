@@ -13,7 +13,7 @@ To jump straight into the action, get a local environment up and running, follow
 
 ## Key Concepts
 
-To take a more a more conceptual approach, learn more about the project fundamentals, dive deeper into the modula architecture of Subsquid, head over to the [Key Concepts](/develop-a-squid/architecture) section.
+To take a more a more conceptual approach, learn more about the project fundamentals, dive deeper into the modula architecture of Subsquid, head over to the [Overview](/overview) section.
 
 ## Start developing
 
@@ -23,7 +23,7 @@ If you are already familiar with the project and want to see an example of how t
 
 Subsquid offers serverless deployments of Squid APIs free of charge.
 
-In this [Tutorial](/tutorials/deploy-your-squid) you can find out how that works.
+In the [Deploy section](/deploy-squid) you can find out how that works.
 
 ## Squid Aquarium
 
@@ -33,7 +33,7 @@ Visit and browse through interesting projects, and publish your own for for cool
 
 ## Migration from earlier versions
 
-If you have an existing project and need to migrate to the latest Squid version, follow this [Guide](/recipes/migrate-to-fire-squid).
+To migrate to the latest FireSquid release, follow the [Migration Guide](/migrate/migrate-to-fire-squid).
 
 ## Bug bounties and community support
 

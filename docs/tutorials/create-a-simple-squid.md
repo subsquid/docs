@@ -4,6 +4,7 @@ title: Create a simple squid
 description: >-
   This page is about taking the Squid template and customizing it to create a
   simple project
+sidebar_position: 2
 ---
 
 # Create a simple Squid
