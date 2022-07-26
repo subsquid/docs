@@ -1,5 +1,5 @@
 ---
-id: create-an-evm-processin-squid
+id: create-an-evm-processing-squid
 title: Create an EVM-processing Squid
 description: >-
   Create a sample squid indexing EVM data on Astar
