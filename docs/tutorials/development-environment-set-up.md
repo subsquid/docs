@@ -1,4 +1,5 @@
 ---
+sidebar_position: 1
 description: >-
   Prepare your Development Environment to run, customize and build a Squid
   Template

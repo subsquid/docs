@@ -14,11 +14,10 @@ export default function Home(): JSX.Element {
   return (
     <div>
       <div className="flex flex-col gap-4 max-w-[476px] items-start self-start mb-24 pt-8">
-        <span className="heading--3">Subsquid Docs
+        <span className="heading--3">Get started
 </span>
         <div className="flex flex-col gap-6">
-          <p className="body--s">This documentation provides information for all degrees of expertise, varying from
-            complete beginner, to those who only need a refresher on specific commands.</p>
+          <p className="body--s">Try Subsquid with a simple squid indexing all historical transfers on Kusama in under 15 minutes</p>
           <a
             className="x-button bg-bg-base--contrast text-fg-base--contrast"
             href="/quickstart">Quickstart</a>
@@ -26,46 +25,46 @@ export default function Home(): JSX.Element {
       </div>
 
       <section className="flex flex-col gap-12 mb-28">
-        <span className="heading--3 text-fg-base--muted">Get started</span>
+        <span className="heading--3 text-fg-base--muted">Subsquid Docs</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
           <ContentFeature
-            path=""
+            path="/overview"
             image="/img/scroll-emoji.png"
-            title="About Subsquid">
-            Get to know our project and discover what's possible with Subsquid
+            title="Overview">
+            A bird eye view of the Subsquid architecture 
           </ContentFeature>
 
           <ContentFeature
-            path=""
+            path="/develop-a-squid"
             image="/img/squid-emoji.png"
             title="Build a Squid">
-            Slice and dice on-chain data and present it with an expressive GraphQL API
+            Extract, transform and serve on-chain data with GraphQL
           </ContentFeature>
 
           <ContentFeature
-            path=""
+            path="/run-squid"
             image="/img/gear-emoji.png"
             title="Run a Squid">
-            Build with Docker to run your API locally
+            Test your squid locally or run with Docker
           </ContentFeature>
 
           <ContentFeature
-            path=""
+            path="/deploy-squid"
             image="/img/desktop-computer-emoji.png"
             title="Deploy a Squid">
-            Release your Squid (at zero cost) into a cloud service for hosting squids
+            Deploy your squid to Aquarium free of charge
           </ContentFeature>
 
           <ContentFeature
-            path=""
+            path="/query-squid"
             image="/img/magic-wand-emoji.png"
             title="Query a Squid">
             A reference of GraphQL queries and filters exposed by a squid
           </ContentFeature>
 
           <ContentFeature
-            path=""
+            path="https://t.me/HydraDevs"
             image="/img/mage-emoji.png"
             title="Dev Support">
             Get your questions answered and connect with other SquidDevs
@@ -78,6 +77,10 @@ export default function Home(): JSX.Element {
         <span className="heading--3 text-fg-base--muted">Tutorials</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
+        <GuideCard
+            path="/tutorials/development-environment-set-up"
+            color={'bg-role--warning'}
+            description="Follow these steps in order to begin building with Subsquid.">Dev environment setup</GuideCard>
           <GuideCard
             color={'bg-role--notice'}
             path="/tutorials/create-a-simple-squid"
@@ -85,22 +88,17 @@ export default function Home(): JSX.Element {
             Squid</GuideCard>
           <GuideCard
             path="/tutorials/create-an-evm-processing-squid"
-            color={'bg-role--notice'}
-            description="Get started with the Aquarium, Subsquid’s free hosted service for Squid APIs. ">Deploy your
-            first Squid</GuideCard>
-          <GuideCard
-            path="/tutorials/development-environment-set-up"
-            color={'bg-role--warning'}
-            description="Follow these steps in order to begin building with Subsquid.">Dev environment setup</GuideCard>
-          <GuideCard
-            path="/tutorials/deploy-your-squid"
             color={'bg-role--success'}
-            description="Retrieve data from EVM chains like Moonbeam, Astar, and Acala.">EVM smart contract
+            description="Index data from EVM chains like Moonbeam and Astar">EVM smart contract
             data</GuideCard>
           <GuideCard
             isDisabled={true}
             color={'bg-role--syncing'}
-            description="Coming soon">WASM smart contract data</GuideCard>
+            description="Coming soon">WASM smart contracts</GuideCard>
+          <GuideCard
+            isDisabled={true}
+            color={'bg-role--syncing'}
+            description="Coming soon">EVM+ smart contracts</GuideCard>
           <GuideCard
             isDisabled={true}
             color={'bg-role--syncing'}
@@ -113,12 +111,12 @@ export default function Home(): JSX.Element {
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
           <TutorialCard
-            path="/guides/migrate-to-fire-squid"
-            description="Text here">Migrate to FireSquid</TutorialCard>
-          <TutorialCard
+            path="/migrate/migrate-to-fire-squid"
+            description="Migrate to FireSquid and improve sync times up to 10x">Migrate to FireSquid</TutorialCard>
+        {/* <TutorialCard
             path=""
-            description="Coming soon"
-            disabled={true}>Migrate From Subquery</TutorialCard>
+            description="Coming soon" 
+  disabled={true}>Migrate From Subquery</TutorialCard> */} 
         </div>
       </div>
 
@@ -126,68 +124,44 @@ export default function Home(): JSX.Element {
         <span className="heading--3 text-fg-base--muted">FAQ</span>
 
         <div className="flex flex-col gap--6">
-          <ExpandContent title="What is Subsquid?">
-            <p className="text-fg-base--muted">Subsquid is an on-chain indexing and querying solution that enables Web3
-              builders to access on-chain data on their own terms. Featuring modular architecture and decentralized
-              governance, this is the most developer-friendly and resource-efficient way to build, test, and deploy
-              customized APIs for blockchain-facing applications.
-            </p>
-          </ExpandContent>
 
-          <ExpandContent title="What is a Squid API?">
+          <ExpandContent title="What is a squid?">
             <p className="text-fg-base--muted">
-              Squid APIs are the data transformation component of the Subsquid data pipeline. They are composed of
-              processors, which are responsible for retrieving and transforming data from Archives, and databases, which
-              store that data until an application needs it. The data is sent through GraphQL gateways, which are
-              separate servers that come built-in, and that provide interfaces for entities in the data store.
+              Squid is a project to extract and transform on-chain data and then present it with a GraphQL API or otherwise. 
+              Squids are developed with the Squid SDK that provides extensive tooling to define the data schema, data transfomation rules and the 
+              shape of the resulting API.
             </p>
           </ExpandContent>
 
           <ExpandContent title="Why should I use Subsquid?">
-            <p className="text-fg-base--muted">Subsquid offers the tools you need to build the best possible backend for
-              your blockchain-facing application. Reduce the time it takes for you to iterate as you develop new
-              features with fast-syncing middleware, and do more with the industry's most flexible API framework.
-              Explore Squid projects in <a
-                href="https://app.subsquid.io/aquarium/"
-                target="_blank"
-                className="text-fg-role--active">the Aquarium</a> to see just a few of the bespoke features that are
-              possible with
-              Subsquids.
-            </p>
-          </ExpandContent>
-
-          <ExpandContent title="How can I get started with Subsquid?">
-            <p className="text-fg-base--muted">
-              The best place to get started is our quickstart tutorial, which will bring you from cloning the Squid
-              template and adding some simple logic to deploying it locally for basic queries. If you require help, feel
-              free to join our friendly SquidDevs community.
+            <p className="text-fg-base--muted">The latency of serving the app data with a squid is much smaller compared to direct node access via gRPC which anables significantly better UX. The flexibility of 
+            Squid SDK gives developers the full power to access and manipulate historical on-chain data and build complex and responsive dApps with familiar tools. 
+            Finally, with the Aquairum cloud service the developers don't have to care about the maintainance of the indexing infrastructure.
             </p>
           </ExpandContent>
 
           <ExpandContent
             title="How much does Subsquid cost?">
-            <p className="text-fg-base--muted">The Subsquid SDK, indexing solution, and hosted service are all
-              free-to-use at the current time. Following our TGE and mainnet launch, pricing will be determined by the
-              decentralized marketplace of infrastructure providers. We expect, given Subsquid's architecture, that
-              service costs will be at least 10 times lower than industry standards.
+            <p className="text-fg-base--muted">The Squid SDK is open source. Access to public Archives maintained by Subsquid Labs is free of charge. Following our TGE and mainnet launch, the price of archive queries will be determined by an open market.
+            The basic plan for deploying squids to Aquarium is free and always will be, with some premium features to be introduced in the future.
             </p>
           </ExpandContent>
 
           <ExpandContent
             title="What is an Archive?">
-            <p className="text-fg-base--muted">In the Subsquid data pipeline, Archives are the data source. In other
-              words, Archives are the software that gathers historical blockchain data, converting it into a format that
-              Squid APIs can easily process. These data sources can be shared by any number of Squids.</p>
+            <p className="text-fg-base--muted">Archives ingest and store the full log of historical on-chain data in a normalized way. 
+            Archives serve on-chain data with an API that supports batching over multiple blocks. 
+            Archives are designed to be data sources for squids.</p>
           </ExpandContent>
 
           <ExpandContent
-            title="What is the Aquarium?">
-            <p className="text-fg-base--muted">The <a
+            title="What is Aquarium?">
+            <p className="text-fg-base--muted"><a
               href="https://app.subsquid.io/aquarium/"
               target="_blank"
-              className="text-fg-role--active">Aquarium</a> is a public gallery of Squids that gives free access to the
-              data collected by some of Web3's top projects. In addition to serving as a data explorer, the Aquarium is
-              also Subsquid's free hosted service.
+              className="text-fg-role--active">Aquarium</a> is a cloud service for hosting squids managed by Subsquid Labs.
+              &nbsp;
+              <a href="/deploy-squid/squid-cli" className="text-fg-role--active">Squid CLI</a> provides a convenient way to deploy and manage squids on Aquarium.
             </p>
           </ExpandContent>
         </div>
