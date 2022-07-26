@@ -53,7 +53,7 @@ This is a brief description of the various fields:
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `outDir`       | output directory for generated code                                                                                                                                                                                                                                                                                                                                                                                  |
 | `specVersions` | the output file of chain exploration OR the URL of the chain's Archive. In this case, the typegen command will automatically perform the exploration.                                                                                                                                                                                                                                                                |
-| `typesBundle`  | external [type definitions]("https://polkadot.js.org/docs/api/start/types.extend"), required for chains having blocks with metadata versions below 14 (see [FAQ]("../../../faq/where-do-i-get-a-type-bundle-for-my-chain.md")), similar to polkadot.js typesbundle, but with slightly different structure.
+| `typesBundle`  | external [type definitions](https://polkadot.js.org/docs/api/start/types.extend), required for chains having blocks with metadata versions below 14 (see [FAQ](/docs/support/where-do-i-get-a-type-bundle-for-my-chain.md)), similar to polkadot.js typesbundle, but with slightly different structure.
 It can either be a built-in typesBundle or a path to a typesBundle JSON file. |
 | `events`       | list of Events to generate                                                                                                                                                                                                                                                                                                                                                                                           |
 | `calls`        | list of calls (or Extrinsics) to generate                                                                                                                                                                                                                                                                                                                                                                            |
@@ -62,7 +62,7 @@ It can either be a built-in typesBundle or a path to a typesBundle JSON file. |
 It is important to notice that in previous releases of Subsquid's SDK, the  `specVersion` was called`chainVersion` so be careful if you are migrating a project from an older version.&#x20;
 :::
 
-For a more in-depth explanation of the subject, head over to the [dedicated page](./) and for a practical guide, take a look at the [dedicated Recipe](broken-reference).
+For a more in-depth explanation of the subject, head over to the [dedicated page](./).
 
 ## Types generation example
 

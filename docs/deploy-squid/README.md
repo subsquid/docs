@@ -44,7 +44,7 @@ Every instance of a squid API is identified by the squid project name and the ve
 
 **Option 1. Releasing from a local repo**
 
-Before releasing, make sure that local changes are committed and pushed to a remote git repo. Let's release `my-new-squod@v0` version:
+Before releasing, make sure that local changes are committed and pushed to a remote git repo. Let's release `my-new-sqiod@v0` version:
 
 ```bash
 npx sqd squid release my-new-squid@v0 -v
@@ -54,15 +54,17 @@ If there are multiple remotes for your local repo, it will prompt which git remo
 
 **Option 2. Releasing from a remote repo**
 
-It is also possible to release a squid using from a remote repo using a full git link with `--source` option. Note that a fully qualified git url is either of the form `https://my-git-repo.git#my-branch` or `https://my-git-repo.git#some-commit-hash`. We recommend using fully qualified git urls with a commit hash, like below:
+It is also possible to release a squid from a remote repo using a full git link with the `--source` option. Note that a fully qualified git url is either of the form `https://my-git-repo.git#my-branch` or `https://my-git-repo.git#<commit-hash>`. We recommend using fully qualified git urls with a commit hash, like below:
 
 ```bash
 npx sqd squid release my-new-squid@v0 --source https://github.com/dzhelezov/squid-template.git#b71e545c1a5e683013023ef572f86fdeddf5f7b7 -v
 ```
 
-Both options will provide deployment logs
+Both options will provide deployment logs. 
 
 ## 5. Monitor Squid logs
+
+Once the squid is deployed, the GraphQL endpoint is available straight away. Normally one should wait until the squid has processed all historical blocks and is fully in sync.
 
 To inspect the squid logs run 
 
@@ -70,29 +72,9 @@ To inspect the squid logs run
 npx sqd squid logs my-new-squid@v0 -f 
 ```
 
-See [CLI Reference](./squid-cli/squid.md) for a full list of supported options for `squid logs`.
+or navigate to the squid page in Aquarium.
 
-## 6. Update a squid version
+See [`squid` reference](./squid-cli.md) for a full list of supported options for `squid logs`.
 
-An existing squid version can be updated with a `sqd squid update` which is similar to `squid release`. Use 
-```
-npx sqd squid update my-new-squid@v0 -v
-```
-or
 
-```
-npx sqd squid update my-new-squid@v0 -v --source <repo.git>#<commit>
-```
-
-to update the version. By default, `sqd squid update` only updates the squid images and does not drop the database (but applies the new migrations from the `db/migrations` folder). Thus, the squid sync will continue from its last state. To force the database wipeout and start the squid sync from scratch, add `--hardReset` flag:
-
-```
-npx sqd squid update my-new-squid@v0 -v --source <repo.git>#<commit> --hardReset
-```
-
-Note that the total number of deployed squid versions is limited to three, so we strongly recommend updating existing squid versions rather than creating new ones. 
-
-## 7. Kill an unused version
-
-Unused versions can be killed with 
-`npx sqd squid kill <name>@<version>`.
+See also: [Update and kill squid version](./update-and-kill.md)

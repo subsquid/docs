@@ -10,7 +10,7 @@ description: >-
 
 ### Substrate entities
 
-[Event](/docs/develop-a-squid/substrate#events), [call](/docs/develop-a-squid/substrate#extrinsics), and [Storage](/docs/develop-a-squid/substrate#storage) data are ingested as raw untyped JSON by the Processor. Not only is it unclear what the exact structure of a particular event or call is but, rather frequently, it can change over time.
+[Events](https://docs.substrate.io/reference/glossary/#events), [extrinsics](https://docs.substrate.io/reference/glossary/#extrinsic), and [state calls](https://docs.substrate.io/reference/glossary/#state) are processed as raw untyped JSON by the Processor. Not only is it unclear what the exact structure of a particular event or call is but, rather frequently, it can change over time.
 
 One of the most useful functionalities offered by the Subsquid SDK is the ability to automatically manage changes in the Runtime, due to upgrades for example.
 

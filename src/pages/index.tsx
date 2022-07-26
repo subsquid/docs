@@ -69,21 +69,13 @@ export default function Home(): JSX.Element {
             image={RunSquidImage}
             links={[
               {
-                url: '/docs/run-squid/building-with-docker',
-                label: 'Building with Docker'
+                url: '/docs/run-squid',
+                label: 'Run a squid locally'
               },
               {
-                url: '/docs/run-squid/local-runs',
-                label: 'Local runs'
-              },
-              {
-                url: '/docs/run-squid/multi-chain-processors',
-                label: 'Multi-chain processors'
-              },
-              {
-                url: '/docs/run-squid/prometheus-metrics',
-                label: 'Prometheus metrics'
-              },
+                url: '/docs/run-squid/run-in-docker',
+                label: 'Run in Docker'
+              }
             ]}>Run a Squid</ContentFeature>
 
 

@@ -9,64 +9,78 @@ import {CodeStep} from '../src/components/code-step';
 
 # Quickstart
 
-## Getting started
 
-#### Pre-requisites
+## Pre-requisites
 
-- node ~~16~~.x
+- node 16.x
 - docker
+- npm (the template is not compatible with `yarn`)
+- [make](https://www.gnu.org/software/make/)
+
+On Windows we recommend using [WSL](https://docs.microsoft.com/en-us/windows/wsl/).
 
 For more information on how to set up the Development Environment, take a look at the [Tutorial on this topic](/docs/tutorials/development-environment-set-up)
 
-## Run the template project
 
-<CodeStep number={1}>
-    Install dependencies
-</CodeStep>
+## Clone <span><a href="https://github.com/subsquid/squid-template">squid-template</a></span>
+
+```bash
+git clone https://github.com/subsquid/squid-template.git 
+cd squid-template
+```
+
+##  Install dependencies
 
 ```bash
 npm ci
 ```
 
-
-<CodeStep number={2}>
-    Compile TypeScript files
-</CodeStep>
+## Build the squid
 
 ```bash
-npm run build
+make build
 ```
 
-<CodeStep number={3}>
-    Launch Postgres database container for your Squid
-</CodeStep>
+##  Launch Postgres and detach
 
 ```bash
-docker compose up -d
+make up
 ```
 
-<CodeStep number={4}> Apply database migrations to the database </CodeStep>
+
+## Create the database schema and run the processor
+
+ The squid processor ingests pre-indexed on-chain data from Kusama archive and transforms it as 
+ defined by the data handler in `processor.ts`.
+ This command is blocking.
 
 ```bash
-npx squid-typeorm-migration apply
+make process
 ```
 
-<CodeStep number={5} description="This command will block the terminal, fetching chain data transforming and storing it in the target database">
-    Launch the Processor
-</CodeStep>
+
+
+##  Start the GraphQL server 
+
+Run in a separate terminal window
 
 ```bash
-node -r dotenv/config lib/processor.js
+make serve
 ```
 
-<CodeStep number={6} description="In a new terminal window"> Start the GraphQL server </CodeStep>
+The GraphQL playground is available on `http://localhost:4350/graphql`. Open it in a browser and run
+sample queries by choosing the filters and data selection on the left-hand pane. 
 
-```bash
-npx squid-graphql-server
+```graphql
+query MyQuery {
+  accountsConnection(orderBy: id_ASC) {
+    totalCount
+  }
+}
 ```
 
-To learn how to deploy your project to our Cloud-hosted solution, head over to the dedicated [tutorial](/docs/tutorials/deploy-your-squid).
+### What's next?
 
-#### The GraphQL playground
-
-Once the GraphQL server has started, you can visit the `http://localhost:4350/graphql` URL in a browser window, to start testing to query data, thanks to the GraphQL playground available.
+- [Define your own data schema](/docs/develop-a-squid/define-a-squid-schema)
+- [Define your own data handlers](/docs/develop-a-squid/squid-processor)
+- [Deploy the squid](/docs/deploy-squid)

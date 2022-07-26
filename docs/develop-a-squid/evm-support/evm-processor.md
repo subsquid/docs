@@ -12,7 +12,7 @@ This page will go over the most important customizations a developer would want 
 
 It is important, before even starting, to verify that the Archive our Processor will be connecting to is EVM-compatible.
 
-To know exactly what this means, please check the related section in the [Archive guide](/docs/archives/how-to-launch-a-squid-archive#launch-archives-for-evm-compatible-blockchain).
+To know exactly what this means, please check the related section in the [Archive guide](/docs/archives/archives-advanced-setup).
 
 ## Importing and instantiating
 
