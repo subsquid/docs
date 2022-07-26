@@ -1,7 +1,7 @@
 ---
 id: create-a-simple-squid
 description: >-
-  This page is about taking the Squid template and customizing it to create a
+  This tutorial shows how to fork and customize the squid template in order to create a
   simple project
 sidebar_position: 2
 ---
@@ -10,33 +10,38 @@ sidebar_position: 2
 
 ## Objective
 
-This tutorial will take the Squid template and go through all the necessary steps to customize the project, in order to interact with a different Squid Archive, synchronized with a different blockchain, and process data from Events different from the ones in the template.
+The goal of this tutorial is to guide you through creating and customizing a simple squid (API) using the Subsquid framework. The blockchain queried in this example will be the [Crust storage network](https://crust.network) and our final objective will be to observe which files have been added and deleted from the network. Additionally, our squid will be able to tell us the groups joined and the storage orders placed by a given account.
 
-The business logic to process such Events is very basic, and that is on purpose since the purpose of the Tutorial is to show a simple case, highlighting the changes a developer would typically apply to the template, removing unnecessary complexity.
+We will start by forking the Subsquid squid template, then go on to run the project, define a schema, and generate TypeScript interfaces. From there, we will be able to interact directly with the Archive, and extract a types bundle from Crust's own library. 
 
-The blockchain used in this example will be the [Crust storage network](https://crust.network) and the final objective will be to observe which files have been added and deleted from the chain, as well as groups joined and storage orders placed by a determined account.
+We expect that experienced software developers should be able to complete this tutorial in around **10-15 minutes**. For reference, you can review the final result of this tutorial [here](https://github.com/subsquid/squid-crust-example).
+
 
 ## Pre-requisites
 
-The minimum requirements to follow this tutorial are the basic knowledge of software development, such as handling a Git repository, a correctly set up [Development Environment](/tutorials/development-environment-set-up), basic command line knowledge and the concepts explained in this documentation.
+The minimum requirements for this tutorial are as follows:
+
+- Familiarity with Git 
+- A properly set up [development environment](/tutorials/development-environment-set-up)
+- Basic command line knowledge 
 
 ## Fork the template
 
-The first thing to do, although it might sound trivial to GitHub experts, is to fork the repository into your own GitHub account, by visiting the [repository page](https://github.com/subsquid/squid-template) and clicking the Fork button:
+First things first! To fork the squid template and save it to your own GitHub account visit this [repository](https://github.com/subsquid/squid-template) and click the 'Fork' button:
 
 ![How to fork a repository on GitHub](</img/.gitbook/assets/Screenshot-2022-02-02-111440.png>)
 
-Next, clone the created repository (be careful of changing `<account>` with your own account)
+Next, clone the fork. 
 
 ```bash
 git clone git@github.com:<account>/squid-template.git
 ```
 
-For reference on the complete work, you can find the entire project [here](https://github.com/subsquid/squid-crust-example).
+**Don't forget to replace `<account>` in the repository with your own account information**
 
 ### Run the project
 
-Next, just follow the [Quickstart](/quickstart) to get the project up and running, here's a list of commands to run in quick succession:
+Now you can follow the [quickstart](/quickstart) guide to get the project up and running. In case you're in a hurry, here's a list of commands to run in quick succession:
 
 ```bash
 npm ci
@@ -48,27 +53,23 @@ make process
 make serve
 ```
 
-Bear in mind this is not strictly **necessary**, but it is always useful to check that everything is in order.
-
 :::info
-These commands are supposed to be run the first time, right after cloning the template.
-
-Some, like `make up` or `make migrate`, may throw a warning or an error, because the container is already running and migration had already been applied.
+These commands are supposed to be run the first time, right after cloning the template. Some, like `make up` or `make migrate`, may throw a warning or an error, because the container is already running and migration had already been applied.
 :::
 
-If you are not interested, you could at least get the Postgres container running with `make up`.
+Bear in mind that, for the purpose of this tutorial, running the project is not strictly **necessary**. If you would like to skip ahead, we recommend at least running the Postgres container using the `make up` command.
 
-## Define Entity Schema
+## Define the schema
 
-The next thing to do, in order to customize the project for our own purpose, is to make changes to the schema and define the Entities we want to keep track of.
+In order to customize the project, we will need to make changes to the schema and define the Entities that we would like to track.
 
-Because we said we want to track
+As stated above, we intend to track: 
 
 * files added and deleted from the chain
 * groups joined by a certain account
 * storage orders placed by a certain account
 
-We are going to make these changes to our `schema.graphql`:
+To do this, we will make the following changes to `schema.graphql`:
 
 ```graphql title="schema.graphql"
 type Account @entity {
@@ -110,21 +111,23 @@ type StorageOrder @entity {
 }
 ```
 
-It's worth noticing that the `Account` entity is almost completely derived, and it is there to tie the other three entities together, since Groups are joined by an Account, Storage Orders are placed by an Account and Work Reports, show files added and changed by, you guessed it, an Account!
+Notice that the `Account` entity is almost completely derived. It is there to tie the other three entities together.
 
-This all requires some implicit knowledge of the blockchain itself ([here's a tip](/faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers) on how to obtain this information).
+:::info
+Refer [here](/faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers) if you are unsure which events and extrinsics to use for the handlers in your project.
+:::
 
-To finalize this step, it is necessary to run the `codegen` tool:
+To finalize this step, run the `codegen` tool:
 
 ```bash
 make codegen
 ```
 
-This will automatically generate TypeScript Entity classes for our schema definition, which can be found under the `src/model/generated` folder in the project.
+This will automatically generate TypeScript Entity classes for our schema. They can be found in the `src/model/generated` folder of the project.
 
 ## Generate TypeScript interfaces
 
-The process to generate wrappers around TypeScript wrappers around Events and Extrinsics has a [dedicated page](/develop-a-squid/substrate-support/typegen) to explain it and guide you through it, so it is advised to consult them for more information.
+The process for generating wrappers around TypeScript wrappers around Events and Extrinsics has a dedicated page [here](/develop-a-squid/substrate-support/typegen).
 
 ### Chain exploration
 

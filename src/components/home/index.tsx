@@ -85,7 +85,11 @@ export default function Home(): JSX.Element {
             color={'bg-role--notice'}
             path="/tutorials/create-a-simple-squid"
             description="Learn how to build a simple Squid that provides data to you application.">Create your first
+<<<<<<< HEAD
             squid</GuideCard>
+=======
+            Squid</GuideCard>
+>>>>>>> 8b6f173 (fixed typos)
           <GuideCard
             path="/tutorials/create-an-evm-processing-squid"
             color={'bg-role--success'}
@@ -158,11 +162,15 @@ export default function Home(): JSX.Element {
           </ExpandContent>
 
           <ExpandContent
-            title="What is Aquarium?">
+            title="What is the Aquarium?">
             <p className="text-fg-base--muted"><a
               href="https://app.subsquid.io/aquarium/"
               target="_blank"
+<<<<<<< HEAD
               className="text-fg-role--active">Aquarium</a> is a cloud service for hosting squids. This service is managed by Subsquid Labs.
+=======
+              className="text-fg-role--active">The Aquarium</a> is a cloud service for hosting squids. This service is managed by Subsquid Labs.
+>>>>>>> 8b6f173 (fixed typos)
               &nbsp;
               <a href="/deploy-squid/squid-cli" className="text-fg-role--active">Subsquid's CLI</a> provides a convenient way to deploy squids to the Aquarium and manage them once they are hosted.
             </p>
