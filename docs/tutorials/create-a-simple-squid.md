@@ -1,6 +1,5 @@
 ---
 id: create-a-simple-squid
-title: Create a simple squid
 description: >-
   This page is about taking the Squid template and customizing it to create a
   simple project
@@ -338,7 +337,6 @@ Similar to what's been said in the previous chapter, this requires knowledge of 
 ```json title="typegen.json"
 {
   "outDir": "src/types",
-  "specVersions": "crustVersions.json",
   "specVersions": "https://crust.archive.subsquid.io/graphql",
   "events": [
     "Swork.WorksReportSuccess",
@@ -571,7 +569,7 @@ function getEvents(ctx: Ctx): EventInfo {
           blockHash: block.header.hash,
           blockNum: block.header.height,
           createdAt: new Date(block.header.timestamp),
-          extrinisicId: item.event.extrinsic?.id, 
+          extrinsicId: item.event.extrinsic?.id, 
         }), memberId]);
         
         // add encountered account ID to the Set of unique accountIDs
@@ -586,7 +584,7 @@ function getEvents(ctx: Ctx): EventInfo {
           blockHash: block.header.hash,
           blockNum: block.header.height,
           createdAt: new Date(block.header.timestamp),
-          extrinisicId: item.event.extrinsic?.id,
+          extrinsicId: item.event.extrinsic?.id,
         }), accountId]);
 
         // add encountered account ID to the Set of unique accountIDs
@@ -610,7 +608,7 @@ function getEvents(ctx: Ctx): EventInfo {
             blockHash: block.header.hash,
             blockNum: block.header.height,
             createdAt: new Date(block.header.timestamp),
-            extrinisicId: item.event.extrinsic?.id,
+            extrinsicId: item.event.extrinsic?.id,
           }), accountId]);
 
           // add encountered account ID to the Set of unique accountIDs
@@ -784,7 +782,7 @@ function getEvents(ctx: Ctx): EventInfo {
           blockHash: block.header.hash,
           blockNum: block.header.height,
           createdAt: new Date(block.header.timestamp),
-          extrinisicId: item.event.extrinsic?.id, 
+          extrinsicId: item.event.extrinsic?.id, 
         }), memberId]);
         
         // add encountered account ID to the Set of unique accountIDs
@@ -799,7 +797,7 @@ function getEvents(ctx: Ctx): EventInfo {
           blockHash: block.header.hash,
           blockNum: block.header.height,
           createdAt: new Date(block.header.timestamp),
-          extrinisicId: item.event.extrinsic?.id,
+          extrinsicId: item.event.extrinsic?.id,
         }), accountId]);
 
         // add encountered account ID to the Set of unique accountIDs
@@ -823,7 +821,7 @@ function getEvents(ctx: Ctx): EventInfo {
             blockHash: block.header.hash,
             blockNum: block.header.height,
             createdAt: new Date(block.header.timestamp),
-            extrinisicId: item.event.extrinsic?.id,
+            extrinsicId: item.event.extrinsic?.id,
           }), accountId]);
 
           // add encountered account ID to the Set of unique accountIDs
