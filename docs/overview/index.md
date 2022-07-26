@@ -7,10 +7,10 @@ description: Introducing Subsquid, an on-chain data indexing framework and a pla
 
 ## Design
 
-The Subsquid services stack separates data ingestion (archives) from data transformation and presentation (squids). 
+The Subsquid services stack separates data ingestion (Archives) from data transformation and presentation (Squids). 
 **Archives** ingest and store raw blockchain data in a normalized way. 
 
-**Squids** are [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load) projects that ingest historical on-chain data from archives, transform it according to the user-defined data mappers and present it with a GraphQL API.  
+**Squids** are [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load) projects that ingest historical on-chain data from Archives, transforming it according to user-defined data mappers and presenting it as a GraphQL API.  
 
 ## Archives
 
@@ -22,7 +22,7 @@ See [Archives Section](/archives/) for more details, how to use public archives 
 
 Squids have a certain structure and are supposed to be developed as regular node.js packages. See [squid-template](https://github.com/subsquid/squid-template) for a reference.
 
-A typical squid implements both data mapping and a GraphQL API server presenting the data. The Subsquid framework provides an extensive set of tools for developing squids:
+A typical Squid implements both data mapping and a GraphQL API server presenting the data. The Subsquid framework provides an extensive set of tools for developing squids:
 
 - [`substrate-processor`](https://github.com/subsquid/squid/tree/master/substrate-processor) fetches on-chain data from an archive and executes
 user-defined mapping code against it. It offers batching and fine-grained data selection interfaces to minimize database roundtrips and optimize archive data fetching. 
