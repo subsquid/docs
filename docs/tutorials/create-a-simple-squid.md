@@ -111,7 +111,7 @@ type StorageOrder @entity {
 
 It's worth noticing that the `Account` entity is almost completely derived and it is there to tie the other three entities together, since Groups are joined by an Account, Storage Orders are placed by an Account and Work Reports, show files added and changed by, you guessed it, an Account!
 
-This all requires some implicit knowledge of the blockchain itself ([here's a tip](../faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers.md) on how to obtain this information).
+This all requires some implicit knowledge of the blockchain itself ([here's a tip](../support/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers.md) on how to obtain this information).
 
 To finalize this step, it is necessary to run the `codegen` tool:
 
