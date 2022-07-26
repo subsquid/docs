@@ -1,13 +1,13 @@
 ---
 sidebar_position: 1
-description: Introducing Subsquid, an on-chain data indexing framework and a platform for serverless Web3 APIs.
+description: Introducing Subsquid, an on-chain data indexing framework and platform for serverless Web3 APIs.
 ---
 
 # Overview
 
 ## Design
 
-The Subsquid services stack separates data ingestion (Archives) from data transformation and presentation (Squids). 
+The Subsquid services stack separates data ingestion (Archives) from data transformation and presentation (squids). 
 **Archives** ingest and store raw blockchain data in a normalized way. 
 
 **Squids** are [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load) projects that ingest historical on-chain data from Archives, transforming it according to user-defined data mappers and presenting it as a GraphQL API.  
