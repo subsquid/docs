@@ -37,7 +37,7 @@ async function processTransfers(
 
 ## Overriding the log level
 
-The log level can be overriden by setting a matching namespace selector to one of the `SQD_TRACE`, ..., `SQD_FATAL` env varibales. In particular, to set the handler logs level to `DEBUG` set the environment variable `SQD_DEBUG` to `sqd:processor:mapping`:
+The log level can be overridden by setting a matching namespace selector to one of the `SQD_TRACE`, ..., `SQD_FATAL` env variables. In particular, to set the handler logs level to `DEBUG` set the environment variable `SQD_DEBUG` to `sqd:processor:mapping`:
 
 ```bash
 SQD_DEBUG=sqd:processor:mapping
