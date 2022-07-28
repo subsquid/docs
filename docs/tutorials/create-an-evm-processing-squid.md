@@ -14,7 +14,7 @@ This tutorial will take the Squid EVM template and go through all the necessary 
 
 The business logic to process these contract is basic, and that is on purpose since the Tutorial aims show a simple case, highlighting the changes a developer would typically apply to the template, removing unnecessary complexity.
 
-The blockchain used in this example will be the [Astar network](https://astar.network/) and the final objective will be to observe which files have been added and deleted from the chain, as well as groups joined and storage orders placed by a determined account.
+The blockchain used in this example will be the [Astar network](https://astar.network/) and the final objective will be to show the tokens that are part of these smart contracts, who owns them and every time they have been transfered.
 
 ## Pre-requisites
 
@@ -32,7 +32,7 @@ Next, clone the created repository (be careful of changing `<account>` with your
 git clone git@github.com:<account>/squid-evm-template.git
 ```
 
-For reference on the complete work, you can find the entire project [here](https://github.com/RaekwonIII/squid-template/tree/crust-integration-demo).
+For reference on the complete work, you can find the entire project [here](https://github.com/subsquid/squid-astar-example).
 
 ### Run the project
 
@@ -484,19 +484,14 @@ To set up the database, you can take the following steps:
     npm run build
     ```
 
-2. Remove the template's default migration:
-
-    ```bash
-    rm -rf db/migrations/*.js
-    ```
-
-3. Make sure the Postgres Docker container, `squid-evm-template_db_1`, is running
+2. Make sure the Postgres Docker container, `squid-evm-template_db_1`, is running
 
     ```bash
     docker ps -a
     ```
 
-4. Apply the migration, so tables are created on the database
+3. Apply the migration, so tables are created on the database
+
 
     ```bash
     npx squid-typeorm-migration apply
