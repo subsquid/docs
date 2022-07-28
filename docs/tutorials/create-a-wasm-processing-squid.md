@@ -60,7 +60,7 @@ This part is not specific to WASM and is standard for all squids. To index ERC-2
 The Owner-Transfer relationship is one-to-many.
 We want our squid API to support filtering by the holder balance and the transfer amounts, so we throw in a bunch of indexes. 
 
-The `schema.graphql` modelling the data above is straightforward:
+The `schema.graphql` file modelling the data above is straightforward:
 
 ```graphql
 type Owner @entity {
@@ -84,7 +84,7 @@ Next, we generate `TypeORM` entity classes from the schema with the `squid-typeo
 ```bash
 make codegen
 ```
-They generated entity classes can be found under `src/model/generated`.
+The generated entity classes can be found under `src/model/generated`.
 
 To generate the database migrations matching the schema, we first drop the existing database and the existing migrations:
 
