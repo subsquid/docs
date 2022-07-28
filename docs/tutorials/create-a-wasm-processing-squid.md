@@ -88,7 +88,7 @@ The generated entity classes can be found under `src/model/generated`.
 
 To generate the database migrations matching the schema, we first drop the existing database and the existing migrations:
 
-``bash
+```bash
 make down
 rm -rf db/migrations/*.js
 ```
