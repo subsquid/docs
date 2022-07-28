@@ -87,13 +87,15 @@ make codegen
 They generated entity classes can be found under `src/model/generated`.
 
 To generate the database migrations matching the schema, we first drop the existing database and the existing migrations:
-```bash
+
+``bash
 make down
 rm -rf db/migrations/*.js
 ```
 
-Next, we start the a clean db, build the code and generate the new migrations matching the entities generated with `squid-typeorm-codegen`:
-```
+Next, we start a clean db, build the code and generate the new migrations matching the entities generated with `squid-typeorm-codegen`:
+
+```bash
 make up
 make build
 npx squid-typeorm-migration generate
@@ -118,7 +120,7 @@ This command will automatically generate a TypeScript file named `erc20.ts`, und
 
 ## Define and Bind Event Handler(s)
 
-The Subsquid SDK provides users with a [processor](../develop-a-squid/squid-processor.md) class, named `SubstrateProcessor` or, in this specific case [`SubstrateBatchProcessor`](../develop-a-squid/batch-processing.md). The processor connects to the Shibuya [Archive](../overview/architecture.md) to get chain data. 
+The Subsquid SDK provides users with a [processor](/develop-a-squid/squid-processor) class, named `SubstrateProcessor` or, in this specific case [`SubstrateBatchProcessor`](/develop-a-squid/batch-processing). The processor connects to the Shibuya [Archive](/archives) to get chain data. 
 
 The `SubstrateBatchProcessor` class exposes functions to configure it to request the Archive for specific on-chain data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. The processor allows one to subscribe for such events emitted by a specific contract using one or multiple WASM handlers. 
 
@@ -258,9 +260,6 @@ All of this data is then saved on the database at the very end of the function, 
 :::info
 As you can see in the `extractTransferRecords` function, we loop over the blocks we have been given in the `BatchContext` and loop over the items contained in them. The `if` checks are redundant when there's a single handler but will be needed when the processor has multiple handlers and so `block.items` will contain a mix of different event and extrinsic data.
 :::
-
-## Launch and Set Up the Database
-
 
 ## Launch the Project
 
