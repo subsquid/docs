@@ -2,110 +2,111 @@
 
 ## Objective
 
-This tutorial will take the Squid template and go through all the necessary steps to customize the project, in order to interact with a different Squid Archive, synchronized with a different blockchain, and process data from a sample WASM smart contract (an ERC20 contract, written in Rust, with [Parity's own Ink! framework](https://www.parity.io/blog/ink-3-0-paritys-rust-based-language-gets-a-major-update)).
+This tutorial will start off the [squid template](https://github.com/subsquid/squid-template) and go through all the necessary changes to index the events of a WASM contract developed with [Ink!](https://www.parity.io/blog/ink-3-0-paritys-rust-based-language-gets-a-major-update).
 
-The business logic to process these contract is basic, and that is on purpose since the Tutorial aims show a simple case, highlighting the changes a developer would typically apply to the template, removing unnecessary complexity.
+Subsquid SDK natively supports only WASM contracts executed by the [Contracts pallet](https://crates.parity.io/pallet_contracts/index.html). In particular, it's enabled by the following network runtimes:
 
-The blockchain used in this example will be the Sibuya network, which is the testnet for [Astar network](https://astar.network/) and the final objective will be to show who owns the token issued with the smart contract and every time they have been transfered.
+- `Shibuya` (`Astar` testnet)
+- `Shiden` (`Kusama`-cousin of `Astar`)
+- `Astar` (a `Polkadot` parachain)
+
+For this tutorial we will use a simple test ERC20-type token contract deployed to [Shibuya](https://shibuya.subscan.io/) at the addresss `0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72`. Our squid will track all the token holders and account balances, together with the historical token transfers. 
+
+
+The final result of this tutorial is available in [this repo](https://github.com/subsquid/squid-wasm-template). It can be used as a template for WASM-indexing squids.
 
 ## Pre-requisites
 
-The minimum requirements to follow this tutorial are the basic knowledge of software development, such as handling a Git repository, a correctly set up [Development Environment](development-environment-set-up.md), basic command line knowledge and the concepts explained in this documentation.
+Same as for the [Quickstart](/quickstart)
 
-## Fork the template
+## Run the template
 
-The first thing to do, although it might sound trivial to GitHub experts, is to fork the repository into your own GitHub account, by visiting the [repository page](https://github.com/subsquid/squid-template) and clicking the _Use this template_ button:
-
-![How to fork a repository on GitHub](</img/.gitbook/assets/Screenshot-2022-02-02-111440.png>)
-
-Next, clone the created repository (be careful of changing `<account>` with your own account)
-
+Clone  
 ```bash
-git clone git@github.com:<account>/squid-template.git
+https://github.com/subsquid/squid-template.git
 ```
 
-The final result of this tutorial is actually available as a [repository](https://github.com/subsquid/squid-wasm-template) and it's the new template for WASM projects.
-
-### Run the project
-
-Next, just follow the [Quickstart](/docs/quickstart) to get the project up and running, here's a list of commands to run in quick succession:
+and run the template:
 
 ```bash
 npm ci
-npm run build
-docker compose up -d
-npx squid-typeorm-migration apply
-node -r dotenv/config lib/processor.js
+make build
+make up
+make process
 # open a separate terminal for this next command
-npx squid-graphql-server
+make serve
 ```
 
-Bear in mind this is not strictly **necessary**, but it is always useful to check that everything is in order. If you are not interested, you could at least get the Postgres container running with `docker compose up -d.`
+## WASM tools
 
-## Install new dependencies
+Subsquid SDK offers additional tooling for dealing with Ink contracts:
 
-On top of adding WASM compatibility to our Processor, Subsquid has developed two new libraries that are helpful when it comes to dealing with a WASM smart contract and it's metadata. We need to install them by running this command:
+- `@subsquid/ink-abi` -- A performant library to decode the binary contract data using the contract ABI
+- `@subsquid/ink-typegen` -- A tool to generate type-safe TypeScript classes and interfaces for the contract event and call data from the contract metadata
 
 ```bash
 npm i @subsquid/ink-abi && npm i @subsquid/ink-typegen --save-dev
 ```
 
-This has been split into two commands, because it is preferrable to install the second library, `@subsquid/ink-typegen`, as a development dependency.
+Since `@subsquid/ink-typegen` is only used to generate source files, we install it as a dev dependency.
 
-## Define Entity Schema
+## Define the data schema
 
-The next thing to do, in order to customize the project for our own purpose, is to make changes to the schema and define the Entities we want to keep track of.
+This part is not specific to WASM and is standard for all squids. To index ERC-20 token transfers, we will need to track:
 
-The logic in this tutorial is very simple, so the schema will be simple as well: we only want to save ownership and transfer of ERC-20 tokens of a dummy contract.
+* Ownership of tokens (a wallet and the current balance)
+* Token transfers (with `from`, `to` and `amount` fields)
 
-To index ERC-20 token transfers, we will need to track:
+The Owner-Transfer relationship is one-to-many.
+We want our squid API to support filtering by the holder balance and the transfer amounts, so we throw in a bunch of indexes. 
 
-* Ownership of tokens
-* Token transfers
-
-And the `schema.graphql` file defines them like shis:
+The `schema.graphql` modelling the data above is straightforward:
 
 ```graphql
 type Owner @entity {
   id: ID!
-  balance: BigInt!
+  balance: BigInt! @index
 }
  
 type Transfer @entity {
   id: ID!
   from: Owner
   to: Owner
-  amount: BigInt!
-  timestamp: DateTime!
+  amount: BigInt! @index
+  timestamp: DateTime! @index
   block: Int!
 }
  
 ```
 
-It's worth noting a couple of things in this [schema definition](https://docs.subsquid.io/reference/openreader-schema):
-
-* **`@entity`** - signals that this type will be translated into an ORM model that is going to be persisted in the database
-* **type references** (i.e. `from: Owner`) - establishes a relation between two entities
-
-Whenever changes are made to the schema, new TypeScript entity classes have to be generated, and to do that you'll have to run the `codegen` tool:
+Next, we generate `TypeORM` entity classes from the schema with the `squid-typeorm-codegen` tool:
 
 ```bash
-npx squid-typeorm-codegen
+make codegen
+```
+They generated entity classes can be found under `src/model/generated`.
+
+To generate the database migrations matching the schema, we first drop the existing database and the existing migrations:
+```bash
+make down
+rm -rf db/migrations/*.js
 ```
 
-And TypeScript classes for the schema definition will be automatically generated. They can be found under `src/model/generated`.
+Next, we start the a clean db, build the code and generate the new migrations matching the entities generated with `squid-typeorm-codegen`:
+```
+make up
+make build
+npx squid-typeorm-migration generate
+```
 
 ## ABI Definition and Wrapper
 
-Subsquid offers support for automatically building TypeScript type-safe interfaces for Substrate data sources (events, extrinsics, storage items). Changes are automatically detected in the runtime.
+The `Contracts` pallet stores the contract execution logs (calls and events) in a binary format. The decoding of this data is
+contract-specific and is done with the help of an ABI file typically published by the contract developer. For our contract the data can be found [here](https://raw.githubusercontent.com/subsquid/squid/42d07b0d01b02ada4b28f057ada3b05aa762a170/test/shibuya-erc20/metadata.json)
 
-This functionality has been extended to EVM indexing, and with the with the release of the `ink-typegen` tool, it is now possible to generate TypeScript interfaces and decoding functions for WASM contract logs as well.
+The `ink-typegen` tool provided by Subsquid SDK generates the necessary boilerplate to decode the contract data. The generated classes will be later be used by the squid processor event handlers.
 
-First of all, it is necessary to obtain the definition of the smart contract's Application Binary Interface (ABI), or its metadata. This can be obtained in the form of a JSON file, which will be imported into the project.
-
-1. The metadata for the contract used in this tutorial can be found [here](https://raw.githubusercontent.com/subsquid/squid/42d07b0d01b02ada4b28f057ada3b05aa762a170/test/shibuya-erc20/metadata.json)
-2. It is advisable to copy the JSON file in the `src/abi` subfolder.
-3. To automatically generate TypeScript interfaces from an ABI definition, and decode event data, simply run this command from the project's root folder
+To follow the convention, we recommend keeping the ABI JSON file in the `src/abi` subfolder. To automatically generate TypeScript interfaces from an ABI definition, and decode event data, simply run this command from the project's root folder
 
 ```bash
 npx squid-ink-typegen --abi src/abi/erc20.json --output src/abi/erc20.ts
@@ -117,11 +118,9 @@ This command will automatically generate a TypeScript file named `erc20.ts`, und
 
 ## Define and Bind Event Handler(s)
 
-The Subsquid SDK provides users with a [processor](../develop-a-squid/squid-processor.md) class, named `SubstrateProcessor` or, in this specific case [`SubstrateBatchProcessor`](../develop-a-squid/batch-processing.md). The processor connects to the [Subsquid archive](../overview/architecture.md) to get chain data. It will index from the configured starting block, until the configured end block, or until new data is added to the chain.
+The Subsquid SDK provides users with a [processor](../develop-a-squid/squid-processor.md) class, named `SubstrateProcessor` or, in this specific case [`SubstrateBatchProcessor`](../develop-a-squid/batch-processing.md). The processor connects to the Shibuya [Archive](../overview/architecture.md) to get chain data. 
 
-The `SubstrateBatchProcessor` class exploses functions to configure it to request the Archive for specific data such as Substrate events, extrinsics, storage items, EVM logs or in the case of this tutorial `ContractEmitted` events, signaling that a function on the WASM contract has been triggere. These methods can be used to specify the event or extrinsic name, the EVM log or WASM contract address, for example.
-
-The processor will then query the Archive for this data and it then the developer must develop an asynchronous function and pass it as an argument to the `processor.run()` function call, in order to process the result of these requests.
+The `SubstrateBatchProcessor` class exposes functions to configure it to request the Archive for specific on-chain data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. The processor allows one to subscribe for such events emitted by a specific contract using one or multiple WASM handlers. 
 
 ## Configure Processor and Attach Handler
 
@@ -129,9 +128,9 @@ The `src/processor.ts` file is where the template project instantiates the `Subs
 
 * we need to change the archive used to `shibuya`
 * we need to remove the `addEvent` function call, and add `addContractsContractEmitted` instead, specifying the address of the contract we are interested in
-* all of the logic defined in the `processor.run()` and below it, including the interfaces has to be replaced, as we no longer deal with Kusama balances transfers
+* the logic defined in the `processor.run()` and below it, including the interfaces has to be replaced, as we no longer deal with Kusama balances transfers
 
-For the purpose of this tutorial, we are considering a contract with the address `0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72` that our team has deployed on the `Shibuya` network (Astar network's testnet).
+Recall that we use with the contract deployed at `0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72` on `Shibuya`.
 
 Look at this code snippet for the end result:
 
@@ -252,66 +251,23 @@ function extractTransferRecords(ctx: Ctx): TransferRecord[] {
 
 ```
 
-The `extractTransferRecords` function generates a list of `TransferRecord` interfaces, containing the data we need to fill the models we have defined with our schema. This data is extracted from the events found in the `BatchContext` and it is then used in the main body of the _arrow function_  used as an argument of the `.run()` function call to fetch or create the `Owner`s on the database and create a `Transfer` instance for every event found in the context.
+The `extractTransferRecords` function generates a list of `TransferRecord` interfaces, containing the data we need to fill the models we have defined with our schema. This data is extracted from the events found in the `BatchContext`. It is then used in the main body of the _arrow function_  used as an argument of the `.run()` function call to fetch or create the `Owner`s on the database and create a `Transfer` instance for every event found in the context.
 
 All of this data is then saved on the database at the very end of the function, all in one go. This is to increase the performance, by reducing the I/O towards the databse.
 
 :::info
-As you can see in the `extractTransferRecords` function, we loop over the blocks we have been given in the `BatchContext` and loop over the items contained in them. The `if` checks that follow might look redundant, but they are used to showcase what should be done, in case of multiple types of events, multiple contracts, or how to filter for a specific function call (`Transfer` in this case).
+As you can see in the `extractTransferRecords` function, we loop over the blocks we have been given in the `BatchContext` and loop over the items contained in them. The `if` checks are redundant when there's a single handler but will be needed when the processor has multiple handlers and so `block.items` will contain a mix of different event and extrinsic data.
 :::
 
 ## Launch and Set Up the Database
 
-When running the project locally, as it is the case for this guide, it is possible to use the `docker-compose.yml` file that comes with the template to launch a PostgreSQL container. To do so, run the following command in your terminal:
-
-```bash
-docker-compose up -d
-```
-
-![Launch database container](https://i.gyazo.com/907ef55371e1cdb1839d2fe7ff108ee7.gif)
-
-!!! note The `-d` parameter is optional, it launches the container in `daemon` mode so the terminal will not be blocked and no further output will be visible.
-
-Squid projects automatically manage the database connection and schema, via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping).
-
-To set up the database, you can take the following steps:
-
-1. Build the code
-
-    ```bash
-    npm run build
-    ```
-
-2. Remove the template's default migration:
-
-    ```bash
-    rm -rf db/migrations/*.js
-    ```
-
-3. Make sure the Postgres Docker container, `squid-template_db_1`, is running
-
-    ```bash
-    docker ps -a
-    ```
-
-4. Generate a new migration from our modified schema
-
-   ```bash
-   npx squid-typeorm-migration generate
-   ```
-
-5. Apply the migration so tables are created on the database
-
-    ```bash
-    npx squid-typeorm-migration apply
-    ```
 
 ## Launch the Project
 
 To launch the processor (this will block the current terminal), you can run the following command:
 
 ```bash
-node -r dotenv/config lib/processor.js
+make process
 ```
 
 ![Launch processor](https://i.gyazo.com/66ab9c1fef9203d3e24b6e274bba47e3.gif)
@@ -319,7 +275,7 @@ node -r dotenv/config lib/processor.js
 Finally, in a separate terminal window, launch the GraphQL server:
 
 ```bash
-npx squid-graphql-server
+make serve
 ```
 
 Visit [`localhost:4350/graphql`](http://localhost:4350/graphql) to access the [GraphiQl](https://github.com/graphql/graphiql) console. From this window, you can perform queries such as this one, to find out the account owners with the biggest balances:
