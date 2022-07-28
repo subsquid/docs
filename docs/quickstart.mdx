@@ -19,13 +19,13 @@ import {CodeStep} from '../src/components/code-step';
 
 On Windows we recommend using [WSL](https://docs.microsoft.com/en-us/windows/wsl/).
 
-For more information on how to set up the Development Environment, take a look at the [Tutorial on this topic](/docs/tutorials/development-environment-set-up)
+For more information on how to set up the Development Environment, take a look at the [Tutorial on this topic](/tutorials/development-environment-set-up)
 
 
 ## Clone <span><a href="https://github.com/subsquid/squid-template">squid-template</a></span>
 
 ```bash
-git clone https://github.com/subsquid/squid-template.git 
+git clone https://github.com/subsquid/squid-template.git
 cd squid-template
 ```
 
@@ -50,7 +50,7 @@ make up
 
 ## Create the database schema and run the processor
 
- The squid processor ingests pre-indexed on-chain data from Kusama archive and transforms it as 
+ The squid processor ingests pre-indexed on-chain data from Kusama archive and transforms it as
  defined by the data handler in `processor.ts`.
  This command is blocking.
 
@@ -60,7 +60,7 @@ make process
 
 
 
-##  Start the GraphQL server 
+##  Start the GraphQL server
 
 Run in a separate terminal window
 
@@ -69,7 +69,7 @@ make serve
 ```
 
 The GraphQL playground is available on `http://localhost:4350/graphql`. Open it in a browser and run
-sample queries by choosing the filters and data selection on the left-hand pane. 
+sample queries by choosing the filters and data selection on the left-hand pane.
 
 ```graphql
 query MyQuery {
@@ -81,6 +81,6 @@ query MyQuery {
 
 ### What's next?
 
-- [Define your own data schema](/docs/develop-a-squid/define-a-squid-schema)
-- [Define your own data handlers](/docs/develop-a-squid/squid-processor)
-- [Deploy the squid](/docs/deploy-squid)
+- [Define your own data schema](/develop-a-squid/define-a-squid-schema)
+- [Define your own data handlers](/develop-a-squid/squid-processor)
+- [Deploy the squid](/deploy-squid)

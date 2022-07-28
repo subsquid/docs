@@ -15,6 +15,7 @@
 @layer components {
     .heading--2 {
         font-style: normal;
+        font-family: var(--ifm-heading-font-family);
         font-weight: 400;
         font-size: 70px;
         line-height: 80px;
@@ -23,6 +24,7 @@
 
     .heading--3 {
         font-style: normal;
+        font-family: var(--ifm-heading-font-family);
         font-weight: 400;
         font-size: 48px;
         line-height: 54px;
@@ -30,6 +32,7 @@
     }
 
     .heading--4 {
+        font-family: var(--ifm-heading-font-family);
         font-style: normal;
         font-weight: 400;
         font-size: 32px;
@@ -42,6 +45,15 @@
         font-weight: 400;
         font-size: 24px;
         line-height: 32px;
+        letter-spacing: -0.02em;
+    }
+
+    .body--m {
+        font-family: var(--ifm-font-family-base);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 24px;
         letter-spacing: -0.02em;
     }
 
@@ -129,6 +141,7 @@
     --ifm-navbar-padding-vertical: 24px;
     --ifm-navbar-height: auto;
     --ifm-navbar-background-color: var(--bg-base--indistinguishable);
+    --ifm-link-hover-color: var(--fg-base--muted);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -180,6 +193,8 @@
     --ifm-font-family-base: 'Inter', sans-serif;
 
     --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+    --ifm-link-hover-color: var(--fg-base--muted);
 }
 
 .markdown h1 {
@@ -212,8 +227,13 @@
     @apply absolute left-0 w-full -bottom-8 bg-bg-base--default h-3;
 }
 
-.markdown a {
-    @apply body--s;
+.markdown a:not(.x-button) {
+    font-family: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
 
     color: var(--fg-role--active);
 }
@@ -318,8 +338,8 @@ html {
     background-image: url('/static/img/header-bg.png');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position-x: 600px;
-    background-position-y: -250px;
+    background-position-x: 40vw;
+    background-position-y: 40%;
 }
 
 .navbar__inner {
@@ -332,4 +352,25 @@ html {
 
 .menu__link {
     line-height: 1.5;
+}
+
+.x-button {
+    @apply rounded-lg body--s py-2 px-6 w-fit border;
+}
+
+.x-button.bg-bg-base--contrast:hover {
+    @apply bg-bg-base--subtle text-fg-base--default border border-border-color-base--contrast no-underline;
+}
+
+.markdown a:hover, a:hover {
+    color: var(--ifm-link-hover-color);
+    @apply no-underline;
+}
+
+.docPage_node_modules-\@docusaurus-theme-classic-lib-theme-DocPage-Layout-styles-module {
+    @apply gap-14;
+}
+
+.theme-doc-version-badge {
+    @apply mb-4;
 }

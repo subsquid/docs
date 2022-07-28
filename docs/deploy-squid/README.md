@@ -74,7 +74,7 @@ npx sqd squid logs my-new-squid@v0 -f
 
 or navigate to the squid page in Aquarium.
 
-See [`squid` reference](./squid-cli.md) for a full list of supported options for `squid logs`.
+See [`squid` reference](/deploy-squid/squid-cli) for a full list of supported options for `squid logs`.
 
 
-See also: [Update and kill squid version](./update-and-kill.md)
+See also: [Update and kill squid version](/deploy-squid/update-and-kill)

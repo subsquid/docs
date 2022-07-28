@@ -5,7 +5,7 @@ title: Run in Docker
 
 # Run with Docker
 
-Squid template comes with a Dockerfile containing build targets for the processor and the api server.
+Squid template comes with a Dockerfile containing build targets for the processor and the API server.
 
 **Build the processor:**
 ```bash
@@ -18,7 +18,7 @@ docker build . --target query-node -t graphql-server
 ```
 
 Assuming the database is already running at localhost,
-run the freshly build `squid-processor` and `graphq-server` images:
+run the freshly built `squid-processor` and `graphq-server` images:
 
 ```bash
 docker run --rm -e DB_HOST=host.docker.internal --env-file=.env squid-processor

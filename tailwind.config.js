@@ -34,15 +34,10 @@ module.exports = {
             'border-color-base--contrast': 'var(--border-color-base--contrast)',
             'border-color-base--accentPurple': 'var(--border-color-base--accentPurple)',
             'border-color-role--blue': 'var(--border-color-role--blue)',
+            'transparent': 'transparent'
         },
         container: {
-            center: true,
-            screens: {
-                sm: '414px',
-                md: '604px',
-                lg: '1036px',
-                xl: '1122px',
-            }
+            center: true
         },
         screens: {
             sm: '414px',
