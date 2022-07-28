@@ -1,6 +1,6 @@
 ---
-sidebar_position: 5
-title: Develop a Squid
+sidebar_position: 1
+title: Development flow
 ---
 
 
