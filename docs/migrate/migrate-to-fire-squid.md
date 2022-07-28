@@ -155,7 +155,6 @@ With an archive:
 {
   "outDir": "src/types",
   "specVersions": "https://kusama.archive.subsquid.io/graphql",
-  "typesBundle": "kusama",
   "events": [
     "Balances.Transfer",
     "Balances.Deposit"
@@ -179,7 +178,6 @@ and then provide in the typegen config
 {
   "outDir": "src/types",
   "specVersions": "kusamaVersions.jsonl",
-  "typesBundle": "kusama",
   "events": [
     "Balances.Transfer",
     "Balances.Deposit"
