@@ -85,16 +85,16 @@ export default function Home(): JSX.Element {
             color={'bg-role--notice'}
             path="/tutorials/create-a-simple-squid"
             description="Learn how to build a simple Squid that provides data to you application.">Create your first
-            Squid</GuideCard>
+            squid</GuideCard>
           <GuideCard
             path="/tutorials/create-an-evm-processing-squid"
             color={'bg-role--success'}
             description="Index data from EVM chains like Moonbeam and Astar.">EVM smart contract
             data</GuideCard>
           <GuideCard
-            isDisabled={true}
+            path="/tutorials/create-a-wasm-processing-squid"
             color={'bg-role--syncing'}
-            description="Coming soon">WASM smart contracts</GuideCard>
+            description="Index WASM contracts developed with Ink!">WASM smart contracts</GuideCard>
           <GuideCard
             isDisabled={true}
             color={'bg-role--syncing'}

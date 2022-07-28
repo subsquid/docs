@@ -1,4 +1,4 @@
-# Create a WASM-processing Squid
+# Create a WASM-indexing Squid
 
 ## Objective
 
