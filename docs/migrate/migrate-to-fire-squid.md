@@ -161,7 +161,7 @@ With an archive:
     "Balances.Deposit"
   ],
   "calls": [],
-  "storage: []
+  "storage": []
 }
 ```
 
@@ -185,7 +185,7 @@ and then provide in the typegen config
     "Balances.Deposit"
   ],
   "calls": [],
-  "storage: []
+  "storage": []
 }
 ```
 
