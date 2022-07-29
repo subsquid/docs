@@ -87,7 +87,7 @@ To add an index to a column, the corresponding entity field must be decorated wi
 
 Multi-column indices can be defined on the entity level, with the additional `unique` option. 
 
-```grapqhl
+```graphql
 type Foo @entity @index(fields: ["baz", "bar"], unique: true) {
     id: ID!
     bar: Int!
