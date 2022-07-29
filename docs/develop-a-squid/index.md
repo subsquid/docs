@@ -15,7 +15,7 @@ the shape of the GraphQL API of the squid. Schema definition consists of regular
 - entity properties, property types and constraints 
 - indexes to be created in the database
 
-Full description of `schema.graphql` dialect is available [here](/docs/develop-a-squid/schema-spec).
+Full description of `schema.graphql` dialect is available [here](/develop-a-squid/schema-spec).
 
 ## 2. Generate TypeORM classes
 
