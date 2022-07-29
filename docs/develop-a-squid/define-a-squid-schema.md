@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 description: >-
   The schema will help create database entities, as well as TypeScript classes
   wrapping them, and will be exposed to API clients by the GraphQL server.

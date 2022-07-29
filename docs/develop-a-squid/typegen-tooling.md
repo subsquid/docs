@@ -5,12 +5,11 @@ description: >-
   Typegen tools generate type-safe definitions and the decoding boilerplate for Substrate, EVM and WASM data types
 ---
 
-# Typegen Tooling
+# Typegen tooling
 
 ## Substrate data 
 
 ## EVM data 
-
 
 ## WASM data
 
