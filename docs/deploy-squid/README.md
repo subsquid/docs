@@ -11,13 +11,15 @@ This section goes through deploying a squid to [Aquarium](https://app.subsquid.i
 ## 0. Prerequisites
 
 Make sure you have the `subsquid` packages updated, as in the [squid-template repo](https://github.com/subsquid/squid-template).
-All the scripts below are assumed to be run from the root folder of your squid.
+Further, ensure that the squid structure follows [the conventions](/develop-a-squid/project-structure). All the scripts below are assumed to be run from the root folder of your squid. 
+
+Note, that the local `.env` file is ignored by Aquarium. The environment variables `DB_NAME`, `DB_PASS`, `DB_PORT` are automatically set by Aquarium. The support for user-defined environment variables and secrets is currently in private beta and will be available soon.
 
 ## 1. Obtain an Aquarium deployment key
 
 Sign in to [Aquarium](https://app.subsquid.io/aquarium), and obtain (or refresh) the deployment key on the account page:
 
-![Subsquid Saas homepage](/img/.gitbook/assets/deployment-key.png)
+![Aquarium homepage](/img/.gitbook/assets/deployment-key.png)
 
 
 ## 2. Authenticate Squid CLI
@@ -54,7 +56,7 @@ If there are multiple remotes for your local repo, it will prompt which git remo
 
 **Option 2. Releasing from a remote repo**
 
-It is also possible to release a squid from a remote repo using a full git link with the `--source` option. Note that a fully qualified git url is either of the form `https://my-git-repo.git#my-branch` or `https://my-git-repo.git#<commit-hash>`. We recommend using fully qualified git urls with a commit hash, like below:
+It is also possible to release a squid from a remote repo using a full git link with the `--source` option. Note that a fully qualified git URL is either of the form `https://my-git-repo.git#my-branch` or `https://my-git-repo.git#<commit-hash>`. We recommend using fully qualified git URLs with a commit hash, like below:
 
 ```bash
 npx sqd squid release my-new-squid@v0 --source https://github.com/dzhelezov/squid-template.git#b71e545c1a5e683013023ef572f86fdeddf5f7b7 -v
