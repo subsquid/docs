@@ -17,7 +17,7 @@ title: Table of contents
 * [Migration](/migrate)
   * [Migrate to Fire Squid](/migrate/migrate-to-fire-squid)
 * [Develop a Squid](/develop-a-squid)
-  * [Schema file](/develop-a-squid/define-a-squid-schema)
+  * [Schema file](/develop-a-squid/schema-spec)
   * [Schema updates](/develop-a-squid/schema-updates)
   * [Squid Processor](/develop-a-squid/squid-processor)
   * [Storage calls](/develop-a-squid/storage-calls)

@@ -11,3 +11,5 @@ ingester
 postgres-compatible
 parachains
 resync
+init
+camelCased
