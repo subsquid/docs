@@ -11,7 +11,7 @@ This section goes through deploying a squid to [Aquarium](https://app.subsquid.i
 ## 0. Prerequisites
 
 Make sure you have the `subsquid` packages updated, as in the [squid-template repo](https://github.com/subsquid/squid-template).
-Further, ensure that the squid structure follows [the conventions](/develop-a-squid/project-structure). All the scripts below are assumed to be run from the root folder of your squid. 
+Further, ensure that the squid structure follows [the conventions](/develop-a-squid/squid-structure). All the scripts below are assumed to be run from the root folder of your squid. 
 
 Note, that the local `.env` file is ignored by Aquarium. The environment variables `DB_NAME`, `DB_PASS`, `DB_PORT` are automatically set by Aquarium. The support for user-defined environment variables and secrets is currently in private beta and will be available soon.
 
