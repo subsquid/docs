@@ -5,7 +5,7 @@ sidebar_position: 7
 
 # Logging
 
-A `Logger` interface is injected into the handler context with `ctx.log` and it is bound to the namespace `sqd:processor:mapping`. This is the recommended way of logging for squid processors. 
+A [`Logger`](https://github.com/subsquid/squid/tree/master/util/logger) interface is injected into the handler context with `ctx.log`. It is bound to the namespace `sqd:processor:mapping`. The context logger is a recommended way of logging for squid processors. 
 
 The `Logger` exposes different the following levels of severity, in the increasing order:
 
@@ -47,9 +47,7 @@ The namespace selector supports wildcards, so one can also enable internal debug
 ```
 SQD_DEBUG=sqd:processor:*
 ```
-as all the lib loggers inherit the lib-level namespace `sqd:processor`.
-
-For more info, check the [Logger lib](https://github.com/subsquid/squid/tree/master/util/logger)
+since all processor context loggers inherit the processor-level namespace `sqd:processor`.
 
 
 ## Accessing logs of a deployed Squid

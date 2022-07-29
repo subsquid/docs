@@ -110,6 +110,9 @@ export default function Home(): JSX.Element {
         <span className="heading--3 text-fg-base--muted">Migration</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
+        <TutorialCard
+            path="/new-in-fire-squid"
+            description="Learn about the new features introduced by the FireSquid release">What's new in FireSquid</TutorialCard>
           <TutorialCard
             path="/migrate/migrate-to-fire-squid"
             description="Migrate to FireSquid and improve sync times up to 10x.">Migrate to FireSquid</TutorialCard>
@@ -155,11 +158,11 @@ export default function Home(): JSX.Element {
           </ExpandContent>
 
           <ExpandContent
-            title="What is the Aquarium?">
+            title="What is Aquarium?">
             <p className="text-fg-base--muted"><a
               href="https://app.subsquid.io/aquarium/"
               target="_blank"
-              className="text-fg-role--active">The Aquarium</a> is a cloud service for hosting squids. This service is managed by Subsquid Labs.
+              className="text-fg-role--active">Aquarium</a> is a cloud service for hosting squids. This service is managed by Subsquid Labs.
               &nbsp;
               <a href="/deploy-squid/squid-cli" className="text-fg-role--active">Subsquid's CLI</a> provides a convenient way to deploy squids to the Aquarium and manage them once they are hosted.
             </p>

@@ -1,10 +1,11 @@
 ---
+sidebar_position: 2
 description: >-
   Subsquid SDK's latest release, code-named: 🔥🦑 brings a lot of new features
   and powerful improvements.
 ---
 
-# Migrate to Fire Squid
+# Migrate to FireSquid
 
 ## Overview
 
