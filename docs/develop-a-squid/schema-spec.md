@@ -79,14 +79,96 @@ type Foo {
 }
 ```
 
-## Entity relations
+## Entity relations and inverse lookups
+
+A relation between two entities is always assumed to be unidirectional. The owning entity is mapped to a database table holding a foreign key reference to the related entity. The non-owning entity may define a property decorated `@derivedFrom` for an inverse lookup on the owning field (but it will have no effect on the table DDL). All the foreign key reference columns are automatically indexed. 
+
+The following examples illustrate this concept.
+
+**One-to-one relation**
+
+```graphql
+type Account @entity {
+  "Account address"
+  id: ID!
+  balance: BigInt!
+  user: User @derivedFrom(field: "account")
+}
+
+type User @entity {
+  id: ID!
+  account: Account!
+  username: String!
+  creation: DateTime!
+}
+```
+
+The `User` entity references a single `Account` and owns the relation (that is, the database schema will define the column `user.account_id` referencing to the `account` table).  
+
+**Many-to-one/One-to-many relations**
+
+```graphl
+type Account @entity {
+  "Account address"
+  id: ID!
+  transfersTo: [Transfer!] @derivedFrom(field: "to")
+  transfersFrom: [Transfer!] @derivedFrom(field: "from")
+}
+
+type Transfer @entity {
+  id: ID!
+  to: Account!
+  from: Account!
+  amount: BigInt! 
+}
+
+```
+
+Here `Tranfer` defines two foreign key references and `Account` defines the corresponding inverse lookup properties.
+
+**Many-to-many relations**
+
+Many-to-many entity relations should be modelled as two one-to-many relations with an explicitly defined join table. 
+Here is an example:
+
+```graphql
+# an explicit join table 
+type TradeToken @entity {
+  id: ID! # This is required, even if useless
+  trade: Trade!
+  token: Token! 
+}
+
+type Token @entity {
+  id: ID!
+  symbol: String!
+  trades: [TradeToken!]! @derivedFrom(field: "token")    
+}
+
+type Trade @entity {
+  id: ID!
+  tokens: [TradeToken!]! @derivedFrom(field: "trade")
+}
+```
 
 ## Indexes
 
 To add an index to a column, the corresponding entity field must be decorated with `@index`. It is crucial to index the entity fields for which one expects filtering and ordering at the API level.
 
+**Example**
+```graphql
+type Transfer @entity {
+  id: ID!
+  
+  to: Account!
+  amount: BigInt! @index
+  fee: BigInt! 
+}
+```
+
 Multi-column indices can be defined on the entity level, with the additional `unique` option. 
 
+**Example**
 ```graphql
 type Foo @entity @index(fields: ["baz", "bar"], unique: true) {
     id: ID!
@@ -97,4 +179,7 @@ type Foo @entity @index(fields: ["baz", "bar"], unique: true) {
  
 ## Typed JSON
 
+
+
 ## Union types
+
