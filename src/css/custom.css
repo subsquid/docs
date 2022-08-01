@@ -336,10 +336,10 @@ html {
 
 .navbar {
     background-image: url('/static/img/header-bg.png');
-    background-size: cover;
-    background-repeat: no-repeat;
     background-position-x: 40vw;
-    background-position-y: 40%;
+    background-position-y: 60%;
+    background-repeat: no-repeat;
+    background-size: 75%;
 }
 
 .navbar__inner {
@@ -367,10 +367,14 @@ html {
     @apply no-underline;
 }
 
-.docPage_node_modules-\@docusaurus-theme-classic-lib-theme-DocPage-Layout-styles-module {
+.main-wrapper > div {
     @apply gap-14;
 }
 
 .theme-doc-version-badge {
     @apply mb-4;
+}
+
+.theme-doc-sidebar-container > div > a {
+    display: none !important;
 }

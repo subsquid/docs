@@ -57,13 +57,14 @@ const config = {
             navbar: {
                 logo: {
                     alt: 'Subsquid',
-                    src: 'img/logo.svg',
+                    src: 'img/logo-light.svg',
+                    srcDark: 'img/logo-dark.svg',
                 },
                 items: [],
+                hideOnScroll: true
             },
             colorMode: {
-                defaultMode: 'dark',
-                disableSwitch: true,
+                defaultMode: 'dark'
             },
             footer: {},
             prism: {

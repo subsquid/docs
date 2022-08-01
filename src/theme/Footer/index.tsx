@@ -1,5 +1,7 @@
 import React from 'react';
 import { useThemeConfig } from '@docusaurus/theme-common';
+import SubsquidLogo from '/static/img/logo.svg';
+import SubsquidBuildersProgram from '/static/img/slogan.svg';
 
 function Footer() {
   const { footer } = useThemeConfig();
@@ -15,10 +17,9 @@ function Footer() {
 
         <div className="flex flex-col justify-between gap-14 pb-14 px-6">
           <div className="flex flex-col gap-12">
-            <img
+            <SubsquidLogo
               className="w-[183px]"
-              src="/img/logo.svg"
-              alt="Subsquid logo"/>
+              height={60}/>
             <div className="flex gap-14">
 
               <div className="body--s fg-base--default">
@@ -56,9 +57,7 @@ function Footer() {
           <div className="flex flex-col max-w-[392px]">
 
             <div className="mb-10">
-              <img
-                src="/img/slogan.svg"
-                alt="Substrate_builders program"/>
+              <SubsquidBuildersProgram/>
             </div>
             <div className="body--s fg-base--default mb-6">
               Substrate Builders Program
