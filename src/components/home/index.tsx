@@ -7,10 +7,6 @@ import { TutorialCard } from '@site/src/components/tutorial-card';
 
 export default function Home(): JSX.Element {
 
-  if (ExecutionEnvironment.canUseDOM) {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  }
-
   return (
     <div>
       <div className="flex flex-col gap-4 max-w-[476px] items-start self-start mb-24 pt-8">
