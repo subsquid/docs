@@ -85,7 +85,7 @@ export default function Home(): JSX.Element {
             color={'bg-role--notice'}
             path="/tutorials/create-a-simple-squid"
             description="Learn how to build a simple Squid that provides data to you application.">Create your first
-            Squid</GuideCard>
+            squid</GuideCard>
           <GuideCard
             path="/tutorials/create-an-evm-processing-squid"
             color={'bg-role--success'}
