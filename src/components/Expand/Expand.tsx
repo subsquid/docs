@@ -39,7 +39,7 @@ const Collapse = ({
 };
 
 
-export function Expand(props: { onClick: () => void, title: ReactNode, expanded: boolean, children: ReactNode | ReactNode[], element: (child) => ReactNode }) {
+export function Expand(props: { onClick: () => void, title: ReactNode, expanded: boolean, children: ReactNode | ReactNode[], element: (child, key: number) => ReactNode }) {
   const children: ReactNode[] = Array.isArray(props.children)
     ? props.children
     : [props.children];

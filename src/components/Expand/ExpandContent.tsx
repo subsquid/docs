@@ -20,7 +20,7 @@ export function ExpandContent(props: ExpandContentProps) {
         title={<h4 className="body--l text-fg-base--default">{props.title}</h4>}
         expanded={isExpanded}
         children={props.children}
-        element={(child) => <div className="mb-2">{child}</div>}/>
+        element={(child, key) => <div className="mb-2" key={key}>{child}</div>}/>
     </div>
   );
 }
