@@ -69,7 +69,7 @@ const config = {
                 hideOnScroll: true
             },
             colorMode: {
-                defaultMode: 'dark'
+                defaultMode: 'light'
             },
             footer: {},
             prism: {
@@ -87,7 +87,7 @@ const config = {
     plugins: [
         async function tailWindCssPlugin(context, options) {
             return {
-                name: "docusaurus-tailwindcss",
+                name: 'docusaurus-tailwindcss',
                 configurePostCss(postcssOptions) {
                     // Appends TailwindCSS and AutoPrefixer.
                     postcssOptions.plugins.push(require("tailwindcss"));

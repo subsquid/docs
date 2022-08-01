@@ -378,3 +378,7 @@ html {
 .theme-doc-sidebar-container > div > a {
     display: none !important;
 }
+
+.navbar__logo img {
+    display: block !important;
+}
