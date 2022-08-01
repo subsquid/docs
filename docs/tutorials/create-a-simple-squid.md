@@ -6,7 +6,7 @@ description: >-
 sidebar_position: 2
 ---
 
-# Create a simple Squid
+# Create a Simple Squid
 
 ## Objective
 
@@ -54,10 +54,10 @@ make serve
 ```
 
 :::info
-These commands are supposed to be run the first time, right after cloning the template. Some, like `make up` or `make migrate`, may throw a warning or an error, because the container is already running and migration had already been applied.
+These commands are intended for the first time you run the project. Please note that some of these commands, including `make up` and `make migrate`, could throw a warning or an error. This is because the container will already be running and migration will have been applied.
 :::
 
-Bear in mind that, for the purpose of this tutorial, running the project is not strictly **necessary**. If you would like to skip ahead, we recommend at least running the Postgres container using the `make up` command.
+For the purposes of this tutorial, running the project is not strictly **necessary**. If you would like to skip ahead, we recommend at least running the Postgres container using the `make up` command.
 
 ## Define the schema
 
@@ -65,9 +65,9 @@ In order to customize the project, we will need to make changes to the schema an
 
 As stated above, we intend to track: 
 
-* files added and deleted from the chain
-* groups joined by a certain account
-* storage orders placed by a certain account
+* Files added and deleted from the chain;
+* Groups joined by a certain account;
+* Storage orders placed by a certain account.
 
 To do this, we will make the following changes to `schema.graphql`:
 
@@ -114,7 +114,7 @@ type StorageOrder @entity {
 Notice that the `Account` entity is almost completely derived. It is there to tie the other three entities together.
 
 :::info
-Refer [here](/faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers) if you are unsure which events and extrinsics to use for the handlers in your project.
+Refer to [this article](/faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers) if you are unsure which events and extrinsics to use for the handlers in your project.
 :::
 
 To finalize this step, run the `codegen` tool:
@@ -127,15 +127,21 @@ This will automatically generate TypeScript Entity classes for our schema. They 
 
 ## Generate TypeScript interfaces
 
-The process for generating wrappers around TypeScript wrappers around Events and Extrinsics has a dedicated page [here](/develop-a-squid/substrate-support/typegen).
+Refer [here](/develop-a-squid/substrate-support/typegen) to learn how to generate TypeScript wrappers for Events and Extrinsics. 
 
 ### Chain exploration
 
 :::info
-It is advised to skip the **manual** chain exploration step, and just head over directly to the [Typegen](#events-wrappers-generation) section below, following the instructions.
+In most cases, it is recommended to skip this section, which demonstrates how to **manually** carry out chain exploration. You may choose to scroll directly to the [Typegen](#events-wrappers-generation) section below.
 :::
 
-What matters in the context of this tutorial, is to pay attention to the `chain`, `archive` and `out` parameters, which refer to the related WebSocket address of the Crust blockchain, the Squid Archive synchronized with it (this is optional, but helps speed up the process) and the output file simply contains the chain name as a good naming convention (this is useful in case of multiple chains handled in the same project or folder).
+It is important is to pay attention to the `chain`, `archive` and `out` parameters for the purposes of this tutorial. In this Crust example, the following applies:
+
+- `chain` refers to the WebSocket address of the Crust blockchain.
+- `archive` refers to the Archive that is synchronized with the Crust blockchain.
+- `out` refers to the output file.
+
+It is convention to include the name of the blockchain in the name of the output file. This is useful when multiple chains are handled in a single project or folder.
 
 ```bash
 npx squid-substrate-metadata-explorer \
@@ -144,23 +150,21 @@ npx squid-substrate-metadata-explorer \
     --out crustVersions.json
 ```
 
-The output is visible in the `crustVersions.json` file, and although the `metadata` field is intelligible, it's worth noting that (at the time of creating of this tutorial) there are 13 different `versions`, meaning the Runtime has changed 13 times.
+In this example, the output can be viewed in the `crustVersions.json` file. Although the `metadata` field is intelligible, it is worth noting that, at the time of this tutorial's creation, there exist 13 different `versions`. This means that the Runtime has changed 13 times.
 
-It remains to be seen if this had any impacts on the definitions of the Events we are interested in.
+It remains to be seen if this has had any impact on the definitions of the Events we are interested in.
 
 ### Types bundle
 
-One peculiar thing about the Crust chain and this example is that, at the moment of writing of this guide, its types have not been integrated into Squid's library.
-
-This gives us a good opportunity to follow [this mini-guide](/faq/where-do-i-get-a-type-bundle-for-my-chain) and create an example, extracting a types bundle from crust's own library, to Subsquid required format.
+The types of Crust's blockchain have not yet been integrated into Squid's library. For the new SquidDev, this offers a great opportunity to follow [this mini-guide](/faq/where-do-i-get-a-type-bundle-for-my-chain). In that tutorial, you will learn how to create extract the types bundle from Crust's own library and create an example project in Subsquid's required format.
 
 :::info
-**Update**: the "crust" types bundle has been added to the list of built-ins, but for learning purposes, it's still useful to see how to create and use a types bundle JSON file.
+**Update**: the "Crust" types bundle has now been added to Subsquid's list of built-ins. However, it may still be worthwhile to learn how to create create and utilize a types bundle JSON file when building with Subsquid.
 :::
 
 <details>
 
-<summary>Here is the end result, copy it and paste it into a file named `crustTypesBundle.json`</summary>
+<summary>Here is the end result. Copy it and paste it into a file named `crustTypesBundle.json`</summary>
 
 ```json title="crustTypesBundle.json"
 {
@@ -325,13 +329,15 @@ This gives us a good opportunity to follow [this mini-guide](/faq/where-do-i-get
 
 ### Events wrappers generation
 
-The **"Fire Squid"** release allows to collapse the metadata exploration and the type-safe wrappers generation steps into one, by specifying the URL of the Squid Archive dedicated to the blockchain subject of the project in the `specVersion` field in the `typegen.json` config file. In doing so, it is possible to skip launching the `metadata-explore` command from the previous section and generate type-safe interfaces with only one command, as explained below.
+Good news! Subsquid's recent **"FireSquid"** release enables us to collapse metadata exploration and the above type-safe wrappers generation section into a single step. We can do this by specifying the URL of the relevant Archive in the `specVersion` field of the `typegen.json` config file. 
 
-This is the best course of actions and the advised procedure going forward. This is because the newest version of Squid Archives store the chain's metadata information and the `typegen` command is able to leverage that.
+By doing this, we no longer have to launch the `metadata-explore` command from the previous section. We will be able to generate type-safe interfaces with only one command, as explained below.
 
-That being said, we need to make a few changes in the `typegen.json` configuration file, to adapt it to our purposes, and we do that by specifying the events that we are interested in, for this project.
+This is the best course of action, and the advised procedure going forward. This is because the newest version of Archives stores the chain's metadata information. The `typegen` command is able to leverage this stored metadata.
 
-Similar to what's been said in the previous chapter, this requires knowledge of the blockchain itself and some research might be required, but in the case of this example, the events are:
+That being said, to adapt it to our purposes, we still need to make a few changes to the `typegen.json` configuration file. We do that by specifying the events that we are interested in.
+
+Please note: Doing this requires knowledge of the blockchain itself and some research may be required. In the case of this example, the events are:
 
 * `WorksReportSuccess` from the `swork` pallet
 * `JoinGroupSuccess` from the same pallet
@@ -351,7 +357,8 @@ Similar to what's been said in the previous chapter, this requires knowledge of 
 ```
 
 :::info
-In case someone wants to still perform the `metadata exploration` step manually and produce the resulting JSON file (for example for manual inspection, debugging or simple consultation) they can do so by following the instructions in previous section, and then use the generated file by changing the `specVersions` field in `typegen.json, and finally launching the command in a console.
+If you would like to perform the `metadata exploration` step manually and produce the resulting JSON file you can do so by following the instructions in the previous section. You can then make use of the generated file by changing the `specVersions` field in `typegen.json, launching the command in a console.
+
 
 ```json title="typegen.json"
 {
@@ -360,10 +367,10 @@ In case someone wants to still perform the `metadata exploration` step manually 
   ...
 }
 ```
-
+Doing this may be useful for manual inspection, debugging, or for simple consultation.
 :::
 
-And finally, run the command to generate type-safe TypeScript wrappers around the metadata
+Finally, you may run the following command to generate type-safe TypeScript wrappers around the metadata
 
 ```bash
 make typegen
@@ -371,7 +378,7 @@ make typegen
 
 <details>
 
-<summary>The end result is in the <code>src/types/events.ts</code> file (because we only defined Events in our <code>typegen.json</code>) and should look something like this.</summary>
+<summary>The end result is in the <code>src/types/events.ts</code> file (we only defined Events in our <code>typegen.json</code>) and should look something like this:</summary>
 
 ```typescript title="events.ts"
 import assert from 'assert'
@@ -483,18 +490,18 @@ export class SworkWorksReportSuccessEvent {
 
 ## Define and bind Event Handlers
 
-After having obtained wrappers for Events and the metadata changes across different Runtime versions, it's finally time to define Handlers for these Events and attach them to our [Processor](/develop-a-squid/squid-processor), and this is done in the `src/processor.ts` file in the project folder.
+After having obtained wrappers for Events and the metadata changes across different Runtime versions, it's finally time to define Handlers for these Events and attach them to our [Processor](/develop-a-squid/squid-processor). This is done in the `src/processor.ts` file of the project folder.
 
-We will end up replacing the code in this file almost entirely, leaving only a few useful pieces, but we are going to take a step-by-step approach, showing where essential changes have to be made, but the final result will be visible at the end of this section.
+We will ultimately end up replacing the code in this file almost entirely, leaving only a few useful pieces. However, we are going to take a step-by-step approach, showing where essential changes have to be made. The final result will be visible at the end of this section.
 
-First, we need to import the generated Entity model classes, in order to be able to use them in our code. And then, we need the type definitions of Crust events, so that they can be used to wrap them. Let's replace previous models and types import at the top of our file with these two lines:
+First, in order to be able to use them in our code, we need to import the generated Entity model classes. Then, we will need the type definitions of Crust events, so that they can be used to wrap them. Let's replace previous models and the types imported at the top of our file with these two lines:
 
 ```typescript
 import  {Account, WorkReport, JoinGroup, StorageOrder} from './model/generated'
 import { MarketFileSuccessEvent, SworkJoinGroupSuccessEvent, SworkWorksReportSuccessEvent } from './types/events'
 ```
 
-Then, we need to customize the processor, by setting the right Squid Archive as a Data Source and specifying the right Events we want to index. This is done by applying the necessary changes to the first few lines of code after the imports. In the end, it should look like this:
+Next, we need to customize the processor by setting the correct Squid Archive as a Data Source and specifying the Events we would like to index. This is done by applying the necessary changes to the first few lines of code after the imports. Ultimately, it should look like this:
 
 ```typescript
 const processor = new SubstrateBatchProcessor()
@@ -513,10 +520,10 @@ const processor = new SubstrateBatchProcessor()
 ```
 
 :::info
-Pay attention to the `addEvent` functions here. In the first two cases, with respect to the template, we have added the `extrinsic` and `call` fields to the object, signaling to the processor that we request that additional information. In the third function call, for the `Swork.WorksReportSuccess` event, we omitted the `DataSelection` object, which means we don't want to filter incoming information at all.
+Take note of the `addEvent` functions here. In the first two cases, we have added the `extrinsic` and `call` fields to the object. This signals to the processor that we request this additional information. In the third function call, for the `Swork.WorksReportSuccess` event, we omitted the `DataSelection` object. This means we don't want to filter incoming information at all.
 :::
 
-Next, because the added and deleted files are matrices, we are going to declare a function to handle that, for our own convenience. Simply add this code to the `src/processor.ts` file, anywhere.
+Since the added and deleted files are matrices, we are now, for our own convenience, going to need to declare a function. Simply add this code to the `src/processor.ts` file:
 
 ```typescript
 function stringifyArray(list: any[]): any[] {
@@ -531,7 +538,7 @@ function stringifyArray(list: any[]): any[] {
 }
 ```
 
-The declared `Item` and `Ctx` types are still useful, so we are going to keep them. Let's skip for a section the `process.run()` call, we are going to come back to it in a second, and let's go ahead and scroll down to the `getTransfers` function. In the template repository, this function loops through the items contained in the context, extracts the Event's data, which is stored in an Interface and builds a list of these interfaces.
+The declared `Item` and `Ctx` types are still useful, so we are going to keep them. Let's skip for now the `process.run()` call - we are going to come back to it in a second - and scroll down to the `getTransfers` function. In the template repository, this function loops through the items contained in the context, extracts the Event's data - which is stored in an Interface - and builds a list of these interfaces.
 
 For this project, we need to do something similar, but not exactly the same: in order to process the three events we want to index, we need to extract Event data from the passed context, depending on the Event's name and store that information. But this time, we are saving the data directly to the database models, and we also need to handle the Account information separately, and we'll look at how it is dealt with in a moment.
 
