@@ -494,14 +494,18 @@ After having obtained wrappers for Events and the metadata changes across differ
 
 We will ultimately end up replacing the code in this file almost entirely, leaving only a few useful pieces. However, we are going to take a step-by-step approach, showing where essential changes have to be made. The final result will be visible at the end of this section.
 
-First, in order to be able to use them in our code, we need to import the generated Entity model classes. Then, we will need the type definitions of Crust events, so that they can be used to wrap them. Let's replace previous models and the types imported at the top of our file with these two lines:
+First, in order to be able to use them in our code, we need to import the generated Entity model classes. Then, we will need the type definitions of Crust events, so that they can be used as wrappers. 
+
+Let's replace the previous models and the types imported at the top of our file with these two lines:
 
 ```typescript
 import  {Account, WorkReport, JoinGroup, StorageOrder} from './model/generated'
 import { MarketFileSuccessEvent, SworkJoinGroupSuccessEvent, SworkWorksReportSuccessEvent } from './types/events'
 ```
 
-Next, we need to customize the processor by setting the correct Squid Archive as a Data Source and specifying the Events we would like to index. This is done by applying the necessary changes to the first few lines of code after the imports. Ultimately, it should look like this:
+Next, we need to customize the processor by setting the correct Archive as a Data Source and by specifying the Events we would like to index. This is done by applying the necessary changes to the first few lines of code after the imports. 
+
+Ultimately, it should look like this:
 
 ```typescript
 const processor = new SubstrateBatchProcessor()
@@ -520,7 +524,7 @@ const processor = new SubstrateBatchProcessor()
 ```
 
 :::info
-Take note of the `addEvent` functions here. In the first two cases, we have added the `extrinsic` and `call` fields to the object. This signals to the processor that we request this additional information. In the third function call, for the `Swork.WorksReportSuccess` event, we omitted the `DataSelection` object. This means we don't want to filter incoming information at all.
+Take note of the `addEvent` functions here. In the first two cases, we have added the `extrinsic` and `call` fields to the object. This signals to the processor that we are requesting this additional information. In the third function call, for the `Swork.WorksReportSuccess` event, we omitted the `DataSelection` object. This means we don't want to filter incoming information at all.
 :::
 
 Since the added and deleted files are matrices, we are now, for our own convenience, going to need to declare a function. Simply add this code to the `src/processor.ts` file:
@@ -554,9 +558,9 @@ interface EventInfo {
 }
 ```
 
-Now, let's take the `getTransfers` function. Remove it and replace it with this snippet. As described earlier, this will:
+Now, let's take the `getTransfers` function. Remove it and replace it with the below snippet. As described earlier, this will:
 
-* extract Event information, differently for each Event (using the `item.name` to distinguish between them)
+* extract Event information in a different manner for each Event (using the `item.name` to distinguish between them)
 * store Event information in a database Model and map it to the `accountId`
 * store the `accountId` in the set of IDs we are collecting
 
@@ -632,10 +636,12 @@ function getEvents(ctx: Ctx): EventInfo {
 ```
 
 :::info
-Pay attention to the fact that we did not use a `Map<string, >` object, because for a single `accountId` there could be multiple entries. What we care about storing, in this case, is the relationship between the event data, stored in a model, and the accountId which is related to it. This is so that, when the `Account` model for a `accountId` is created, we can add that information to the Event model.
+Notice that we did not use a `Map<string, >` object. This is because there could be multiple entries for a single `accountId`. What we care about storing, in this case, is the relationship between the event data - stored in a model - and the accountId which is related to it. This way, when the `Account` model for a `accountId` is created, we can add that information to the Event model.
 :::
 
-When all of this is done, we want to treat the set of `accountId`s, create a database Model for each of them, then go back and add the `Account` information in all the Event Models (for this we are going to re-use the existing `getAccount` function). Finally, save all the created and modified database models. Let's take the code inside `processor.run()` and change it, so it looks like this:
+When all of this is done, we want to treat the set of `accountId`s, create a database Model for each of them, then go back and add the `Account` information in all the Event Models. For this we purpose we are going to re-use the existing `getAccount` function. Finally, save all the created and modified database models. 
+
+Take the code inside `processor.run()` and change it so that it looks like this:
 
 ```typescript
 processor.run(new TypeormDatabase(), async (ctx) => {
@@ -862,7 +868,7 @@ A repository with the entire project is also available on [GitHub](https://githu
 
 ## Apply changes to the Database
 
-Squid project automatically manages the database connection and schema, via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping). As such, we need to use the provided automated tools to manage the database schema and migrations.
+Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping). As such, we need to use the provided automated tools to manage the database schema and migrations.
 
 ### Remove default migration
 
@@ -872,21 +878,21 @@ First, we need to get rid of the template's default migration:
 rm -rf db/migrations/*.js
 ```
 
-Then, make sure the Postgres docker container is running, in order to have a database to connect to, and run the following commands:
+Then, in order to have a database to which we can connect, we must make sure that the Postgres docker container is running, then run the following commands:
 
 ```bash
 npx squid-typeorm-migration generate
 npx squid-typeorm-migration apply
 ```
 
-These will, in order:
+These will:
 
-1. create the initial migration, by looking up the schema we defined in the previous chapter
-2. apply the migration
+1. create the initial migration by looking up the schema we defined in the previous chapter;
+2. apply the migration.
 
 ## Launch the project
 
-It's finally time to run the project. First, let's build the code
+It's finally time to run the project! First, let's build the code
 
 ```bash
 npm run build
@@ -904,9 +910,9 @@ Launch the GraphQL server (in a separate command line console window)
 npx squid-graphql-server
 ```
 
-And see the results for ourselves the result of our hard work, by visiting the `localhost:4350/graphql` URL in a browser and accessing the [GraphiQL](https://github.com/graphql/graphiql) console.
+Now you can see the resuls of our hard work by visiting the `localhost:4350/graphql` URL in a browser and accessing the [GraphiQL](https://github.com/graphql/graphiql) console.
 
-From this window, we can perform queries such as this one, to find which files have been added or deleted by an account:
+From this window, we can perform queries. This one displays which files have been added or deleted by an account:
 
 ```graphql
 query AccountFiles{
@@ -923,4 +929,4 @@ It is advisable to search for an Account first and grab its ID.
 
 ## Credits
 
-This sample project is actually a real integration, developed by our very own [Mikhail Shulgin](https://github.com/ma-shulgin). Credits for building it and helping with the guide go to him.
+This sample project is actually a real integration, developed by our very own [Mikhail Shulgin](https://github.com/ma-shulgin). Credit for building it and helping with the guide goes to him.
