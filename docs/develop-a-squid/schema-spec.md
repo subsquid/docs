@@ -29,26 +29,26 @@ The following [scalar types](https://graphql.org/learn/schema/#scalar-types) are
 **Example** 
 ```graphql
 type Scalar @entity {
-    id: ID!
-    boolean: Boolean
-    string: String
-    enum: Enum
-    bigint: BigInt
-    dateTime: DateTime
-    bytes: Bytes
-    json: JSON,
-    deep: DeepScalar
+  id: ID!
+  boolean: Boolean
+  string: String
+  enum: Enum
+  bigint: BigInt
+  dateTime: DateTime
+  bytes: Bytes
+  json: JSON,
+  deep: DeepScalar
 }
         
 type DeepScalar {
-    bigint: BigInt
-    dateTime: DateTime
-    bytes: Bytes
-    boolean: Boolean
+  bigint: BigInt
+  dateTime: DateTime
+  bytes: Bytes
+  boolean: Boolean
 }
         
 enum Enum {
-    A B C
+  A B C
 }
 ```
 
@@ -60,28 +60,30 @@ Entity fields can be an array of any scalar type and are mapped to the correspon
 
 ```graphql
 type Lists @entity {
-    intArray: [Int!]!
-    enumArray: [Enum!]
-    bigintArray: [BigInt!]
-    datetimeArray: [DateTime!]
-    bytesArray: [Bytes!]
-    listOfListOfInt: [[Int]]
-    listOfJsonObjects: [Foo!]
+  intArray: [Int!]!
+  enumArray: [Enum!]
+  bigintArray: [BigInt!]
+  datetimeArray: [DateTime!]
+  bytesArray: [Bytes!]
+  listOfListOfInt: [[Int]]
+  listOfJsonObjects: [Foo!]
 }
         
 enum Enum {
-    A B C D E F
+  A B C D E F
 }
         
 type Foo {
-    foo: Int
-    bar: Int
+  foo: Int
+  bar: Int
 }
 ```
 
 ## Entity relations and inverse lookups
 
-A relation between two entities is always assumed to be unidirectional. The owning entity is mapped to a database table holding a foreign key reference to the related entity. The non-owning entity may define a property decorated `@derivedFrom` for an inverse lookup on the owning field (but it will have no effect on the table DDL). All the foreign key reference columns are automatically indexed. 
+A relation between two entities is always assumed to be unidirectional. The owning entity is mapped to a database table holding a foreign key reference to the related entity. The non-owning entity may define a property decorated `@derivedFrom` for an inverse lookup on the owning field. In particular, the "many" side of the one-to-many relations is always the owning side.
+
+Note that `@derivedFrom` has no effect on the corresponding table DDL but rather adds a property decorated with TypeORM `@OneToOne` or `@OneToMany` to the generated entity classes (and the GraphQL API generated from `schema.graphql`). All the foreign key reference columns are automatically indexed. 
 
 The following examples illustrate this concept.
 
@@ -107,7 +109,7 @@ The `User` entity references a single `Account` and owns the relation (that is, 
 
 **Many-to-one/One-to-many relations**
 
-```graphl
+```graphql
 type Account @entity {
   "Account address"
   id: ID!
@@ -151,7 +153,7 @@ type Trade @entity {
 }
 ```
 
-## Indexes
+## Indexes and unique constraints
 
 To add an index to a column, the corresponding entity field must be decorated with `@index`. It is crucial to index the entity fields for which one expects filtering and ordering at the API level.
 
@@ -166,20 +168,75 @@ type Transfer @entity {
 }
 ```
 
-Multi-column indices can be defined on the entity level, with the additional `unique` option. 
+Multi-column indices can be defined on the entity level, with the additional `unique` constraint. 
 
 **Example**
 ```graphql
 type Foo @entity @index(fields: ["baz", "bar"], unique: true) {
-    id: ID!
-    bar: Int!
-    baz: [Enum!]
-  }
+  id: ID!
+  bar: Int!
+  baz: [Enum!]
 ```
  
+Similar to `@index` a field marked with `@unique` will have an additional unique constraint. 
+
+**Example**
+```graphql
+type Extrinsic @entity {
+  id: ID!
+  hash: String! @unique
+}
+```
+
+
 ## Typed JSON
 
+It is possible to define explicit types for JSON fields. The generated entity classes and the GraphQL API will respect the type definition of the field, enforcing the data integrity.
 
+**Example**
+```graphql
+type Entity @entity {
+  a: A
+}
+
+type A {
+  a: String
+  b: B
+  c: JSON
+}
+
+type B {
+  a: A
+  b: String
+  e: Entity
+}
+```
 
 ## Union types
 
+One can leverage union types supported both by [Typescript](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types) and [GraphQL](https://graphql.org/learn/schema/#union-types).  The union operator for `schema.graphql` supports only non-entity types, including typed JSON types described above. JSON types, however, are allowed to reference an entity type.
+
+**Example**
+```graphql
+type User @entity {
+  id: ID!
+  login: String!
+}
+        
+type Farmer {
+  user: User!
+  crop: Int
+}
+
+type Degen {
+  user: User!
+  bag: String
+}
+        
+union Owner = Farmer | Degen
+        
+type NFT @entity {
+  name: String!
+  owner: Owner!
+}
+```
