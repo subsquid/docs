@@ -8,9 +8,9 @@ import { TutorialCard } from '@site/src/components/tutorial-card';
 export default function Home(): JSX.Element {
 
   return (
-    <div>
+    <div className="onboarding-homepage">
       <div className="flex flex-col gap-4 max-w-[476px] items-start self-start mb-24 pt-8">
-        <span className="heading--3">Get started
+        <span className="h3">Get started
 </span>
         <div className="flex flex-col gap-6">
           <p className="body--s">Try Subsquid by building a simple squid, capable of indexing all the historical transfers on Kusama in less than 15 minutes!</p>
@@ -21,7 +21,7 @@ export default function Home(): JSX.Element {
       </div>
 
       <section className="flex flex-col gap-12 mb-28">
-        <span className="heading--3 text-fg-base--muted">Subsquid Docs</span>
+        <span className="h3 text-fg-base--muted">Subsquid Docs</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
           <ContentFeature
@@ -70,7 +70,7 @@ export default function Home(): JSX.Element {
       </section>
 
       <div className="flex flex-col gap-12 mb-24">
-        <span className="heading--3 text-fg-base--muted">Tutorials</span>
+        <span className="h3 text-fg-base--muted">Tutorials</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
         <GuideCard
@@ -103,7 +103,7 @@ export default function Home(): JSX.Element {
       </div>
 
       <div className="flex flex-col gap-12 mb-24">
-        <span className="heading--3 text-fg-base--muted">Migration</span>
+        <span className="h3 text-fg-base--muted">Migration</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
         <TutorialCard
@@ -120,7 +120,7 @@ export default function Home(): JSX.Element {
       </div>
 
       <div className="flex flex-col gap-12">
-        <span className="heading--3 text-fg-base--muted">FAQ</span>
+        <span className="h3 text-fg-base--muted">FAQ</span>
 
         <div className="flex flex-col gap--6">
 
