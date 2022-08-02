@@ -1,5 +1,6 @@
 name: build
 on:
+  workflow_dispatch: {}
   push:
     branches:
       - new-docs
@@ -10,6 +11,10 @@ on:
       - mkdocs.yml
       - Dockerfile
       - docs/**
+      - src/**
+      - docusaurus.config.js
+  workflow_dispatch: {}
+
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT }}
