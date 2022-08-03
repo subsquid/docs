@@ -4,101 +4,87 @@ sidebar_position: 2
 
 # Schema updates
 
-Over the course of development of an API it is often the case that new things are discovered, requests for changes happen, and so it may happen that a change to the [previously defined schema](/develop-a-squid/schema-spec) is necessary.
+This section describes how to update the squid schema in development and in production. All database changes are applied through migration files located at `db/migrations`. The `squid-typeorm-migration(1)` tool provides several commands to drive the process.
 
-The best practice in this case, and strongly advised course of action, would be to follow this checklist:
-
-1. Apply the necessary changes to the schema (add/remove fields, entities, etc.)
-2. Regenerate models and build project
-3. Create new database migration
-4. Apply the database migration
-
-Let's see each one of these steps in detail
-
-## Schema changes
-
-All changes to the schema have to be applied to the `schema.graphql` file in the project's main folder.
-
-Let's say for example we want to take the schema from the squid template and add a `timestamp` field to the `HistoricalBalance` entity. It would be a double of `date` but it would make things easier in the frontend:
-
-```graphql
-type Account @entity {
-  "Account address"
-  id: ID!
-  balance: BigInt!
-  historicalBalances: [HistoricalBalance!] @derivedFrom(field: "account")
-}
-
-type HistoricalBalance @entity {
-  id: ID!
-  account: Account!
-  balance: BigInt!
-  date: DateTime!
-  timestamp: BigInt!
-}
-
-```
-
-## Regenerate models
-
-Now that the schema has been changed, the TypeScript classes representing these entities have to be regenerated. To do so, simply launch this command from the project's main folder:
-
-```
-sqd codegen
-```
-
-And in the case of the squid template example from previous paragraph, the result should look something like this:
-
-```typescript
-import {Entity as Entity_, Column as Column_, PrimaryColumn as PrimaryColumn_, ManyToOne as ManyToOne_, Index as Index_} from "typeorm"
-import * as marshal from "./marshal"
-import {Account} from "./account.model"
-
-@Entity_()
-export class HistoricalBalance {
-  constructor(props?: Partial<HistoricalBalance>) {
-    Object.assign(this, props)
-  }
-
-  @PrimaryColumn_()
-  id!: string
-
-  @Index_()
-  @ManyToOne_(() => Account, {nullable: false})
-  account!: Account
-
-  @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-  balance!: bigint
-
-  @Column_("timestamp with time zone", {nullable: false})
-  date!: Date
-  
-  @Column_("timestamp", {nullable: false})
-  timestamp!: bigint
-}
-
-```
-
-Now, it is important to build these new files, to make sure they can be used by the processor when we run it. Simply launch this command to do so:
+It is all [TypeORM](https://typeorm.io/#/migrations) under the hood.
 
 ```bash
-npm run build
+# Connect to database, analyze its state and generate migration to match the target schema.
+# The target schema is derived from entity classes generated earlier.
+# Don't forget to compile your entity classes beforehand!
+npx squid-typeorm-migration generate
+
+# Create template file for custom database changes
+npx squid-typeorm-migration create
+
+# Apply database migrations from `db/migrations`
+npx squid-typeorm-migration apply
+
+# Revert the last performed migration
+npx squid-typeorm-migration revert         
 ```
 
-## Create Database migration
 
-Once previous steps are complete, this one is easy enough, simply launch this command in a terminal window from the project's main folder:
+## Drop-create
+
+In most cases the simplest way to update the schema is to drop the database and regenerate the migrations from scratch.
+
+**1. Update `schema.graphql`**
+
+**2. Regenerate the model classes and build the squid with**
+```bash
+make codegen
+make build
+```
+
+**3. Recreate the database and remove the old migrations**
+```bash
+make down
+rm -rf db/migrations/*.js
+make up
+```
+
+**4. Create the new database migration**
+```bash
+npx squid-typeorm-migration generate
+```
+
+**5. Apply the database migration**
+```bash
+make migrate
+```
+
+## Updating a deployed squid schema
+
+In some rare cases it is possible to update the schema without dropping the database and restarting the squid from a blank state. The most important case is adding an index to an entity field. More complex changes are usually not feasible.
+
+** 1. Update `schema.graphql` ** 
+
+For example, [add an index](/develop-a-squid/schema-spec#indexes-and-unique-constraints)
+
+**2. Regenerate the model classes **
 
 ```bash
-sqd db create-migration [migration-name]
+make codegen
+make build
 ```
 
-And a new file will be added to the `db/migrations` folder.
+**3. Create new database migration**
 
-## Apply the migration
-
-Just as previous step, applying the migration is just a matter of running this command in a terminal window from the project's main folder:
+Make sure the local database is running.
 
 ```bash
-sqd db migrate
+npx squid-typeorm-migration generate
 ```
+
+**4. Apply the database migration**
+
+Inspect the new migration in `db/migrations` and apply it:
+
+```bash
+make migrate
+```
+
+**5. Update the squid in Aquairum**
+
+If the squid is deployed to Aquarium, [update the deployed version](/deploy-squid/update-and-kill).
