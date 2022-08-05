@@ -36,11 +36,20 @@ npx sqd auth -k <DEPLOYMENT_KEY>
 npx sqd squid create my-new-squid
 ```
 
-Once the squid project is created, it will appear in `My Squids` Aquarium section. 
+Once the squid project is created, it will appear in `My Squids` Aquarium section and can also be inspected with
+
+```bash
+npx sqd squid ls
+```
 
 The command has optional attributes `--description`, `--logo`, `--website` to populate the corresponding fields. One can edit them later in Aquarium.
 
 ## 4. Release ~~the kraken~~ a squid version
+
+:::info
+If there are other deployed squid versions, consider [updating the existing versions](/deploy-squid/update-and-kill) instead of releasing a new one. 
+:::
+
 
 Every instance of a squid API is identified by the squid project name and the version name, with a shortcut `<squid name>@<version name>`. A version name can be any alphanumeric string. One can also add a description to a squid version either with the `--description` flag or in Aquarium.
 
@@ -76,7 +85,8 @@ npx sqd squid logs my-new-squid@v0 -f
 
 or navigate to the squid page in Aquarium.
 
-See [`squid` reference](/deploy-squid/squid-cli) for a full list of supported options for `squid logs`.
 
+### What's next?
 
-See also: [Update and kill squid version](/deploy-squid/update-and-kill)
+- See [`squid` reference](/deploy-squid/squid-cli) for a full list of supported options for `squid logs`.
+- See how to [update and kill the deployed squid versions](/deploy-squid/update-and-kill)
