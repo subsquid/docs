@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 7
 description: >-
   An idiomatic usage of the batch processor and the context
 ---

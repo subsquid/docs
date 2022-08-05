@@ -75,7 +75,7 @@ A concrete `ctx.store` instance is derived at runtime from the run argument via
 processor.run<Store>(db: Database<Store>, batchHandler: (ctx: BatchContext<Store>) => Promise<void>)
 ``` 
 
-The `Database` interface is minimal interface for providing a persistent storage for data handlers
+The `Database` interface is a minimal interface for providing a persistent storage for data handlers
 and keeping the processor progress and the status. It is a convenient extension point for custom target data sinks.  
 
 The package `@subsquid/typeorm-store` provides two readily available implementations of the `Database`. We recommend using `TypeormDatabase` that provides `ctx.store`, which
