@@ -10,6 +10,7 @@ description: >-
 ## Overview
 
 This guide goes through the necessary steps to migrate v5 squids to FireSquid and provide a summary of the new features.
+For the sake of simplicity, this guide is built upon `SubstrateProcessor` as it has the same execution model as the previous versions. Once the guide is complete, we recommend refactoring the squid to a much more performant [`SubstrateBatchProcessor`](/develop-a-squid/squid-processor) as the next step.
 
 ## 1 Package version updates for FireSquid
 
@@ -199,3 +200,7 @@ Once the config is ready, (re)generate the typings for the requested events, cal
 ```bash
 make typegen
 ```
+
+### What's next?
+
+Get familiar with [`SubstrateBatchProcessor`](/develop-a-squid/squid-processor) and refactor the squid to get up to a 100x speed up of the squid synchronization time. 

@@ -1,6 +1,6 @@
 # API Extensions
 
-Squid alows to extend the GraphQL auto-generated schema with custom queries.
+Squid allows one to extend the GraphQL auto-generated schema with custom queries.
 To do that, one can define GraphQL [query resolvers](https://www.apollographql.com/tutorial/resolvers/) in the designated module `src/server-extension/resolvers`. Note that all resolver classes must be exported.
 
 It is convenient to import [TypeGraphQL](https://typegraphql.com/resolvers.html#) and use the annotations provided by the library to define the query arguments and return types.

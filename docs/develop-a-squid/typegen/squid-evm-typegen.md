@@ -6,7 +6,7 @@ description: Reference page of the squid-evm-typegen command line tool
 
 ## EVM logs
 
-The Ethereum Virtual Machine smart contract is bytecode deployed on an EVM-capable blockchain. There could be several functions in a contract. An _Application Binary Interface_ is the interface between two program modules, one of which is often at the level of machine code. The interface is the de facto method for encoding/decoding data into/out of the machine code.
+The Ethereum Virtual Machine smart contract is a bytecode deployed on an EVM-capable blockchain. There could be several functions in a contract. An _Application Binary Interface_ is the interface between two program modules, one of which is often at the level of machine code. The interface is the de facto method for encoding/decoding data into/out of the machine code.
 
 An ABI is necessary so that you can specify which function in the contract to invoke, as well as get a guarantee that the function will return data in the format you are expecting.
 
@@ -493,8 +493,6 @@ Which will print out a help.
 ```bash
 npx squid-evm-typegen --abi=src/abi/ERC721.json --output=src/abi/erc721.ts
 ```
-
-For a more in-depth explanation of the subject, head over to the [dedicated page](../substrate-support/typegen/).
 
 Subsquid provides a tool called `squid-evm-typegen` that accepts a JSON file, with an ABI definition as an input, and will generate a TypeScript file, containing Interfaces and decoding mappings as an output.
 

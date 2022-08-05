@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+title: The schema file
 description: >-
   The schema file defines the target data model with a GraphQL dialect.
 ---

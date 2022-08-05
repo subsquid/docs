@@ -14,3 +14,7 @@ resync
 init
 camelCased
 overfetching
+Astar
+uppercased
+desereliazation
+typegen

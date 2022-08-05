@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # Schema updates
@@ -60,7 +60,7 @@ In some rare cases it is possible to update the schema without dropping the data
 
 ** 1. Update `schema.graphql` ** 
 
-For example, [add an index](/develop-a-squid/schema-spec#indexes-and-unique-constraints)
+For example, [add an index](/develop-a-squid/schema-file#indexes-and-unique-constraints)
 
 **2. Regenerate the model classes **
 

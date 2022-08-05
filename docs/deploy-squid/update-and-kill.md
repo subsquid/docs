@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-title: Update or kill squid
+title: Update or Kill a Squid
 ---
 
 # Update or kill a squid
