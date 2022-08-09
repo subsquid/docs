@@ -19,10 +19,10 @@ A squid is expected to follow the folder structure of [`squid-template`](https:/
 - `/assets` -- a designated folder for custom user-provided files (e.g. static data files for the seed data to the squid processor)
 - `schema.graphql` -- the schema definition file 
 - `Dockerfile` -- a Docker build file used both for local Docker builds and for Aquarium deployments. See [Run in Docker](/run-squid/run-in-docker)
-- `docker-compose.yml` -- a Docker compose file for local runs. Has a Postgres service definition by default.
-- `.env` -- defines environment variables for `docker-compose.yml`, and local processor and API server runs. Note that it's ignored by Aquarium
-- `typegen.json` -- (optional) config file for `squid-substrate-typegen` 
-- `Makefile` -- (optional) script definitions for `Make`
+- `docker-compose.yml` -- a Docker compose file for local runs. Has a Postgres service definition by default. Ignored by Aquarium.
+- `.env` -- defines environment variables for `docker-compose.yml`, and local processor and API server runs. Ignored by Aquarium
+- `typegen.json` -- (optional) config file for `squid-substrate-typegen`. Ignored by Aquarium.
+- `Makefile` -- (optional) script definitions for `Make`. Ignored by Aquarium.
 - `tsconfig.json`, `package-lock.json`, `package.json` -- standard configs for a typescript-based node.js project
 - `archive` -- an (optional) folder for running a local Archive. Ignored by Aquarium.
 
