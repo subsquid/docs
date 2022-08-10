@@ -6,4 +6,4 @@ description: >-
 
 # WASM support
 
-This page is under construction. Follow the [WASM squid tutorial](/tutorials/create-an-wasm-processing-squid) for more details.
+This page is under construction. Follow the [WASM squid tutorial](/tutorials/create-a-wasm-processing-squid) for more details.

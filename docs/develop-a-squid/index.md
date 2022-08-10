@@ -47,12 +47,20 @@ Subsquid SDK currently offers support only for Substrate-based chains with two b
 The structure for working with a processor instance is the following:
 
 - Initialize the processor by defining the archive data source for the network to be indexed. 
-- Specify which data should be fetched by the processor. The data selectors may depend on the type of the source chain. For Substrate chains one can subscribe for block data, call data, or runtime events. Additional options are available for substrate chains supporting EVM and WASM contracts to index only transactions or event logs emitted by a specific contract.  
+- Specify which data should be fetched by the processor. The data selectors may depend on the type of the source chain. For Substrate chains one can subscribe for block data, call data, or runtime events. Additional options are available for substrate chains supporting EVM and WASM contracts to index only transactions or event logs emitted by a specific contract. See the [processor configuration section](/develop-a-squid/squid-processor/configuration).
 - Generate typescript definitions for the Substrate, EVM and WASM data types together with the data desereliazation boilerplate.
 See [Typegen](/develop-a-squid/typegen) for more details.
-- Define the processor handler(s) that transform the data and save it into the target database schema. 
+- Define the processor handler(s) that transform the data and save it into the target database schema. See the [data handlers section](/develop-a-squid/squid-processor/data-handlers).
 - Run the processor with `make process`.
+
+A detailed walk-through is in the dedicated [Squid Processor section](/develop-a-squid/squid-processor)
 
 ## 5. Run locally and test the GraphQL endpoint
 
 Follow [Run a Squid](/run-squid) page for details. Reiterate the steps 1, 2, 3 if there's a need to change the data model. 
+
+
+### What's next?
+
+- Learn from the [Squids examples](/develop-a-squid/examples)
+- Get familiar with the [typegen tools](/develop-a-squid/typegen)

@@ -75,15 +75,7 @@ A concrete `ctx.store` instance is derived at runtime from the run argument via
 processor.run<Store>(db: Database<Store>, batchHandler: (ctx: BatchContext<Store>) => Promise<void>)
 ``` 
 
-The `Database` interface is a minimal interface for providing a persistent storage for data handlers
-and keeping the processor progress and the status. It is a convenient extension point for custom target data sinks.  
-
-The package `@subsquid/typeorm-store` provides two readily available implementations of the `Database`. We recommend using `TypeormDatabase` that provides `ctx.store`, which
-
-- Is an optimized and slightly trimmed version of the [TypeORM `EntityManager`](https://orkhan.gitbook.io/typeorm/docs/entity-manager-api) (no `.query()`, no cascading saves)
-- Lazy (no transaction is opened if no data is read or written to the store). This is useful e.g. when one want to subscribe for some frequent events but only interested in the cases when the events were emitted under specific conditions (e.g. by a specific contract)
-- Fast data updates 
-- The schema name and the transaction isolation level can be passed as an optional constructor argument
+See [Store Inteface](/develop-a-squid/squid-processor/store-interface) for details.
 
 **`Logger`**
 
