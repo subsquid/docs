@@ -6,7 +6,7 @@ description: >-
 
 # EVM support
 
-This section describes additional options available for Substrate chains with the Frontier EVM pallet like Moonbeam or Astar. Follow the [EVM squid tutorial](/tutorials/create-an-evm-processing-squid) for a step-by-step tutorial on building an EVM-processing squid.
+This section describes additional options available for Substrate chains with the Frontier EVM pallet like Moonbeam or Astar. Follow the [EVM squid tutorial](/tutorials/create-an-evm-processing-squid) for a step-by-step tutorial on building an EVM-processing. We recommend using [squid-evm-template](https://github.com/subsquid/squid-evm-template) as a reference.
 
 ## Handler options
 
@@ -53,7 +53,7 @@ npx squid-evm-typegen --abi=src/abi/ERC721.json --output=src/abi/erc721.ts
 
 The generated decodes the set of EVM logs topic and defines utility methods for decoding:
 
-```typescript title="src/abi/erc721.ts
+```typescript title="src/abi/erc721.ts"
 export const events = {
   // for each topic defined in the ABI
   "Transfer(address,address,uint256)":  {
@@ -86,6 +86,7 @@ for (const block of ctx.blocks) {
   }
 ```
 
+## Access the contract state
 
 The EVM contract state is accessed using the generated `Contract` class that takes the handler context and the contract address as constructor arguments. The state is always accessed at the context block height unless explicitly defined in the constructor.
 ```typescript title="src/abi/erc721.ts"
@@ -100,6 +101,7 @@ export class Contract  {
     const result = await this.call("balanceOf", [owner])
     return result[0]
   }
+}
 ```
 
 It then can be used in a handler in a straightforward way, see [squid-evm-template](https://github.com/subsquid/squid-evm-template).

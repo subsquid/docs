@@ -124,44 +124,11 @@ const processor = new SubstrateBatchProcessor()
 
 **`addEvmLog(contract, options)`**
 
-Subscribe to EVM log data emitted by a specific EVM contract. Only applicable to Substrate chains with the Frontier EVM pallet like Moonbeam or Astar.
-
-The `option` argument supports the same selectors as for `addEvent` and additionally a set of topic fileters:
-
-```typescript
-{
-   range?: DataRange,
-   filter?: EvmTopicSet[],
-   data?: {} // same as the data selector for `addEvent` 
-}
-```
-
-Note, that the topic filter follows the [Ether.js filter specification](https://docs.ethers.io/v5/concepts/events/#events--filters). For example, for a filter that accepts the ERC721 topic `Transfer(address,address,uint256)` AND `ApprovalForAll(address,address,bool)` use a double array: 
-```ts
-processor.addEvmLog('0xb654611f84a8dc429ba3cb4fda9fad236c505a1a', {
-  filter: [[
-    erc721.events["Transfer(address,address,uint256)"].topic, 
-    erc721.events["ApprovalForAll(address,address,bool)"].topic
-  ]]
-})
-```
+Subscribe to EVM log data emitted by a specific EVM contract. See [EVM Support](./evm-support).
 
 **`addContractsContractEmitted(contract, options)`**
 
-Subscribe to events emitted by a WASM contract deployed at the specified address. Only applicable to chains supporting the Contracts pallet, e.g. Shiden or Astar. The `options` argument and the data selectors are similar to that of `addEvent`. 
-
-**Example**
-```ts
-const processor = new SubstrateBatchProcessor()
-  .setDataSource({
-     archive: lookupArchive("shibuya", { release: "FireSquid" })
-  })
-  .addContractsContractEmitted('0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72', {
-     data: {
-        event: {args: true}
-     }
-  } as const)
-```
+Subscribe to events emitted by a WASM contract deployed at the specified address. See [WASM Support](./wasm-support).
 
 ## Block data
 

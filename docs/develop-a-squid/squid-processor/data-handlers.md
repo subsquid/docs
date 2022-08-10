@@ -14,7 +14,7 @@ A data handler is a stateless function which transforms the fetched on-chain dat
 
 `SubstrateBatchProcessor` defines a single data handler which is a pure function accepting a single argument of type `BatchContext`. `BatchContext` has the following structure
 
-```ts
+```ts title="src/types/support.ts"
 export interface BatchContext<Store, Item> {
     /**
      * An internal handle
