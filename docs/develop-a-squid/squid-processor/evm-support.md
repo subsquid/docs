@@ -107,3 +107,46 @@ export class Contract  {
 It then can be used in a handler in a straightforward way, see [squid-evm-template](https://github.com/subsquid/squid-evm-template).
 
 For more information on EVM Typegen, see this [dedicated page](/develop-a-squid/typegen/squid-evm-typegen).
+
+## Factory contracts
+
+It some cases the set of contracts to be indexed by the squid is not known in advance. For example, a DEX contract typically
+creates a new contract for each trading pair added, and each such trading contract is of interest. 
+
+While the set of handler subscriptions is static and defined at the processor creation, one can leverage the wildcard subscriptions and filter the contract of interest in runtime. 
+
+Let's consider how it works in a DEX example, with a contract emitting `'PairCreated(address,address,address,uint256)'` log when a new pair trading contract is created by the main contract. The full code (used by BeamSwap) is available in this [repo](https://github.com/subsquid/beamswap-squid/blob/master/src/processor.ts).
+
+```typescript
+// subscribe to events when a new contract is created by the parent 
+// factory contract
+const processor = new SubstrateBatchProcessor()
+    .addEvmLog(FACTORY_ADDRESS, {
+        filter: [PAIR_CREATED_TOPIC],
+    })
+// Subscribe to all contracts emitting the events of interest, and 
+// later filter by the addresses deployed by the factory
+processor.addEvmLog('*', {
+    filter: [
+        [
+            pair.events['Transfer(address,address,uint256)'].topic,
+            pair.events['Sync(uint112,uint112)'].topic,
+            pair.events['Swap(address,uint256,uint256,uint256,uint256,address)'].topic,
+            pair.events['Mint(address,uint256,uint256)'].topic,
+            pair.events['Burn(address,uint256,uint256,address)'].topic,
+        ],
+    ],
+})
+
+async function handleEvmLog(ctx: BatchContext<Store, unknown>, block: SubstrateBlock, event: EvmLogEvent) {
+    const contractAddress = event.args.address
+    if (contractAddress === FACTORY_ADDRESS && event.args.topics[0] === PAIR_CREATED_TOPIC) {
+        // updated the list of contracts to whatch
+    } else if (await isPairContract(ctx.store, contractAddress)) {
+        // the contract has been created by the factory,
+        // index the events
+    }
+}
+```
+
+Since the handlers are lazy (meaning that the database transaction is not opened if `ctx.store` is not hit), the performance overhead is minimal.
