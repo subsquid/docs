@@ -6,7 +6,7 @@ description: >-
 
 # Store interface
 
-`Store` is a generic interface exposed by `BatchContext.store` to the handlers. The concrete type is inferred from the `Database` argument of the `BatchProcessor.run` method:
+`Store` is a generic interface exposed by `XXXContext.store` to the handlers. The concrete type is inferred from the `Database` argument of the `BatchProcessor.run` method:
 
 ```typescript
 run<Store>(db: Database<Store>, handler: (ctx: BatchContext<Store, Item>) => Promise<void>): void
@@ -31,11 +31,10 @@ The Subsquid SDK offers two implementations of `Database` offering a `TypeORM`-c
 
 **TypeormDatabase (recommended)**
 
-`TypeormDatabase` provides `ctx.store`, which is
+`TypeormDatabase` provides a `ctx.store`, which is
 
 - Lazy (no transaction is opened if no data is read or written to the store). This is useful e.g. when one want to subscribe for some frequent events but only interested in the cases when the events were emitted under specific conditions (e.g. by a specific contract)
-- Looks like a stripped down version of `EntityManager` (no `.query()`, no cascading saves)
-- Much faster for data updates
+- Looks like a stripped down version of TypeORM [`EntityManager`](https://orkhan.gitbook.io/typeorm/docs/entity-manager-api) (no `.query()`, no cascading saves)
 - The schema name and the transaction isolation level can be passed as an optional constructor argument
 - Optimized performance for persisting large arrays of entities via `store.save` and `store.insert`
 
@@ -56,7 +55,7 @@ In the snippet above, `ctx.store` passed to the handlers will be of type `Store`
 
 **FullTypeormDatabase**
 
-`FullTypeormDatabase` provides a plain [EntityManager](https://orkhan.gitbook.io/typeorm/docs/entity-manager-api) as a store, albeit without `.get()` method
+`FullTypeormDatabase` provides a `ctx.store` compatible with [EntityManager](https://orkhan.gitbook.io/typeorm/docs/entity-manager-api), albeit without `.get()` method
  
 *Usage:*
 ```ts
@@ -73,6 +72,6 @@ In the snippet above, `ctx.store` passed to the handlers will be of type `Entity
  
 ## Custom `Database`
 
-A custom implementation of the `Database` interface is a recommended solution for squids with multiple data sinks and/or for non-transactional or non-relational databases. In such a case, the inferred `Store` facade exposed to the handlers may provide multiple targets for persisting the data. `Database.transact` should handle potential edge-case when writes to either of the data sinks fail. 
+A custom implementation of the `Database` interface is a recommended solution for squids with multiple data sinks and/or for non-transactional or non-relational databases. In such a case, the inferred `Store` facade exposed to the handlers may provide multiple targets for persisting the data. `Database.transact` should handle potential edge-cases when writes to either of the data sinks fail. 
 
 Reference implementations will be provided in due course.
