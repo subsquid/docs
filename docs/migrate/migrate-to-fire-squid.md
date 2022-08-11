@@ -122,7 +122,6 @@ One __SHOULD__ specify a data projection for the handler context. Only the selec
   
 One can see all the supported projection options [here](/develop-a-squid/squid-processor/configuration#log-items-subscription) and rely on auto-complete assist from an IDE.
 
-
 Further, one __MUST__ explicitly specify a `Store` interface for handlers defined as explicit external functions. Arrow-function handlers will infer it automatically.
 
 *Example: an arrow-function handler*

@@ -157,8 +157,3 @@ processor.run(new TypeormDatabase(), async ctx => {
     await ctx.store.insert(transfers)
 })
 ```
-
-### What's next?
-
-- Have a look at the [Squids examples](/develop-a-squid/examples)
-- Get familiar with the [typegen tools](/develop-a-squid/typegen)

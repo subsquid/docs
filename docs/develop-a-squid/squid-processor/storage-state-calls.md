@@ -88,8 +88,3 @@ processor.run(new TypeormDatabase(), async ctx => {
     ctx.log.info(`Free balance: ${aliceFreeBalance}`)
 })
 ```
-
-## EVM contract state 
-
-Similar to querying the substrate storage, [EVM Typegen](/develop-a-squid/typegen/squid-evm-typegen) is used to generated
-type-safe interfaces to query the contract state using the gRPC client exposed by `ctx._chain`.
