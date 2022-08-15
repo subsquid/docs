@@ -18,6 +18,7 @@ title: Table of contents
 * [Develop a Squid](/develop-a-squid)
   * [Squid structure](/develop-a-squid/squid-structure)
   * [Schema file](/develop-a-squid/schema-file)
+    * [Indexes and constrains](/develop-a-squid/schema-file/indexes-and-constraints) 
     * [Schema updates](/develop-a-squid/schema-file/schema-updates)
   * [Squid Processor](/develop-a-squid/squid-processor)
     * [Configuration](/develop-a-squid/squid-processor/configuration)

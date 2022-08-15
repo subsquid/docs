@@ -89,5 +89,5 @@ or navigate to the squid page in Aquarium.
 ### What's next?
 
 - See how to [update and kill the deployed squid versions](/deploy-squid/update-and-kill)
-- See [Secrets and Env variables](/deploy-squid/secrets-and-variable) to add secrets and environment variables to a squid deployment.
+- See [Secrets and Env variables](/deploy-squid/env-variables) to add secrets and environment variables to a squid deployment.
 - See [`squid` reference](/deploy-squid/squid-cli) for a full list of supported options for `squid logs`.
