@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 50
 description: >-
   Additional support for indexing EVM smart contract data
 ---
