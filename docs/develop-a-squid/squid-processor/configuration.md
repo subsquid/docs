@@ -79,7 +79,7 @@ const processor = new SubstrateBatchProcessor()
 
 **`addCall(name, options)`**
 
-Subscribe to a specific runtime call (even it is wrapped into a `system.sudo` or `util.batch` extrinsic). Use `*` for the name to subscribe to each and every event. The name must follow the convention `${Pallet}.${call_name}`. The pallet name is normally uppercased and the call name is in lower cased an in the snake_case format. 
+Subscribe to a specific runtime call (even if wrapped into a `system.sudo` or `util.batch` extrinsic). Use `*` for the name to subscribe to each and every call. The name must follow the convention `${Pallet}.${call_name}`. The pallet name is normally uppercased and the call name is in lower cased an in the snake_case format. 
 
 The `options` argument has the following structure.
 ```ts
@@ -132,7 +132,7 @@ Subscribe to events emitted by a WASM contract deployed at the specified address
 
 ## Block data
 
-By default, the processor fetches the block data only for all blocks which contain log items it was subscribed to. It is possible to force the processor to fetch the header data for all the blocks within a given range with the `includeAllBlocks(range?: Range)` option.
+By default, the processor fetches the block data only for all blocks that contain log items it was subscribed to. It is possible to force the processor to fetch the header data for all the blocks within a given range with the `includeAllBlocks(range?: Range)` option.
 
 **Example**
 ```ts
