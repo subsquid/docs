@@ -1,9 +1,13 @@
 ---
 <<<<<<< HEAD
+<<<<<<< HEAD
 sidebar_position: 11
 =======
 sidebar_position: 30
 >>>>>>> 5dd0c2b (add secrets and env variables page)
+=======
+sidebar_position: 11
+>>>>>>> 7915bc8 (add docs for secrets and envs)
 title: Environment variables
 ---
 
