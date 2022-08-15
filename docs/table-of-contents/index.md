@@ -37,6 +37,8 @@ title: Table of contents
   * [Run in Docker](/run-squid/run-in-docker)
   * [Run in production](/run-squid/run-in-production)
 * [Deploy a Squid](/deploy-squid)
+  * [Update or Kill a Squid](/deploy-squid/update-and-kill)
+  * [Environment variables](/deploy-squid/env-variables)
   * [Squid CLI Reference](/deploy-squid/squid-cli)
 * [Query a Squid](/query-squid)
   * [OpenReader Schema](/query-squid/openreader-schema)

@@ -1,4 +1,5 @@
 ---
+sidebar_position: 2
 description: Reference page of the squid-evm-typegen command line tool
 ---
 

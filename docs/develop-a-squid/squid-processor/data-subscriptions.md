@@ -9,6 +9,8 @@ description: >-
 
 The following methods are used to subscribe `SubstrateBatchProcessor` to specific log items. The second (optional) argument specified the block range for which the subscription is effective and the data to be fetched for the log item. `SubstrateProcessor` defines subscriptions similarly using the methods `addEventHandler`, `addCallHandler`, `addEvmLogHandler` and `addContractsContractEmittedHandler` respectively.
 
+For `SubstrateBatchProcessor`, the `addXXX` methods described below define which log items are repeatedly fetched, arranged into blocks as defined by the canonical on-chain ordering, and passed to the data handler via `BatchContext.blocks`. The details on the `BatchContext` and `BatchBlock` interfaces are available in the [Data Handlers](./data-handlers) section.
+
 ## `addEvent(name, options)`
 
 Subscribe to the Substrate runtime events with the given name. Use `*` for the name to subscribe to each and every event. The name must follow the convention `${Pallet}.${NameWithinPallet}` and is usually uppercased, e.g. `Balances.Transfer`.
