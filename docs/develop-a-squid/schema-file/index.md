@@ -154,42 +154,6 @@ type Trade @entity {
 }
 ```
 
-## Indexes and unique constraints
-
-To add an index to a column, the corresponding entity field must be decorated with `@index`. It is crucial to index the entity fields for which one expects filtering and ordering at the API level.
-
-**Example**
-```graphql
-type Transfer @entity {
-  id: ID!
-  
-  to: Account!
-  amount: BigInt! @index
-  fee: BigInt! 
-}
-```
-
-Multi-column indices can be defined on the entity level, with the additional `unique` constraint. 
-
-**Example**
-```graphql
-type Foo @entity @index(fields: ["baz", "bar"], unique: true) {
-  id: ID!
-  bar: Int!
-  baz: [Enum!]
-```
- 
-Similar to `@index` a field marked with `@unique` will have an additional unique constraint. 
-
-**Example**
-```graphql
-type Extrinsic @entity {
-  id: ID!
-  hash: String! @unique
-}
-```
-
-
 ## Typed JSON
 
 It is possible to define explicit types for JSON fields. The generated entity classes and the GraphQL API will respect the type definition of the field, enforcing the data integrity.
