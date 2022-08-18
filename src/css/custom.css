@@ -12,71 +12,6 @@
     font-weight: normal;
 }
 
-@layer components {
-    .heading--2 {
-        font-style: normal;
-        font-family: var(--ifm-heading-font-family);
-        font-weight: 400;
-        font-size: 70px;
-        line-height: 80px;
-        letter-spacing: -0.03em;
-    }
-
-    .heading--3 {
-        font-style: normal;
-        font-family: var(--ifm-heading-font-family);
-        font-weight: 400;
-        font-size: 48px;
-        line-height: 54px;
-        letter-spacing: -0.01em;
-    }
-
-    .heading--4 {
-        font-family: var(--ifm-heading-font-family);
-        font-style: normal;
-        font-weight: 400;
-        font-size: 32px;
-        line-height: 40px;
-    }
-
-    .body--l {
-        font-family: var(--ifm-font-family-base);
-        font-style: normal;
-        font-weight: 400;
-        font-size: 24px;
-        line-height: 32px;
-        letter-spacing: -0.02em;
-    }
-
-    .body--m {
-        font-family: var(--ifm-font-family-base);
-        font-style: normal;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 24px;
-        letter-spacing: -0.02em;
-    }
-
-    .body--s {
-        font-family: var(--ifm-font-family-base);
-        font-style: normal;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 24px;
-        letter-spacing: -0.02em;
-    }
-
-    .caption {
-        font-family: var(--ifm-font-family-base);
-        font-style: normal;
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 16px;
-        letter-spacing: -0.02em;
-    }
-}
-
-
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
@@ -130,7 +65,7 @@
     --ifm-background-color: var(--bg-base--default);
     --ifm-color-primary: var(--fg-role--accent-01);
     --ifm-font-family-base: 'Inter', sans-serif;
-    --ifm-heading-font-family: 'Archia', sans-serif;
+    --ifm-heading-font-family: 'Inter', sans-serif;
 
     --ifm-menu-color: var(--fg-base--default);
 
@@ -197,35 +132,145 @@
     --ifm-link-hover-color: var(--fg-base--muted);
 }
 
-.markdown h1 {
+.markdown h1:not(:where(.onboarding-homepage *)) {
+    font-family: var(--ifm-heading-font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 64px;
+    letter-spacing: -0.01em;
+}
+
+.markdown h2:not(:where(.onboarding-homepage *)) {
+    font-family: var(--ifm-heading-font-family);
     font-style: normal;
     font-weight: 400;
     font-size: 32px;
-    line-height: 40px;
+    line-height: 48px;
+    letter-spacing: -0.01em;
 }
 
-.markdown h3 {
+.markdown h3:not(:where(.onboarding-homepage *)) {
+    font-family: var(--ifm-font-family-base);
     font-style: normal;
     font-weight: 400;
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 24px;
+    line-height: 36px;
 }
 
-.markdown h2 {
-    --ifm-heading-color: var(--fg-base--muted);
-
-    @apply body--s mb-8 relative;
+.markdown h4:not(:where(.onboarding-homepage *)) {
+    font-family: var(--ifm-font-family-base);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -0.02em;
 }
 
-.markdown h2:before {
-    content: '';
-    @apply absolute left-0 w-full -bottom-8 border-x border-t border-border-color-base--default rounded-lg h-6;
+.markdown h5:not(:where(.onboarding-homepage *)) {
+    font-family: var(--ifm-font-family-base);
+    font-style: normal;
+    font-weight: 600;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
 }
 
-.markdown h2:after {
-    content: '';
-    @apply absolute left-0 w-full -bottom-8 bg-bg-base--default h-3;
+.markdown h6:not(:where(.onboarding-homepage *)) {
+    font-family: var(--ifm-font-family-base);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.02em;
 }
+
+.markdown p:not(:where(.onboarding-homepage *)) {
+    font-family: var(--ifm-font-family-base);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.02em;
+}
+
+@layer components {
+    .h1 {
+        font-family: var(--ifm-heading-font-family);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 48px;
+        line-height: 64px;
+        letter-spacing: -0.03em;
+    }
+
+    .h2 {
+        font-family: var(--ifm-heading-font-family);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 40px;
+        line-height: 56px;
+        letter-spacing: -0.03em;
+    }
+
+    .h3 {
+        font-family: var(--ifm-font-family-base);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 32px;
+        line-height: 48px;
+        letter-spacing: -0.01em;
+    }
+
+    .h4 {
+        font-family: var(--ifm-font-family-base);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 36px;
+    }
+
+    /* H5 */
+    .body--l {
+        font-family: var(--ifm-font-family-base);
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 28px;
+        letter-spacing: -0.02em;
+    }
+
+    /* H6 */
+    .body--m {
+        font-family: var(--ifm-font-family-base);
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    /* p, main text */
+    .body--s {
+        font-family: var(--ifm-font-family-base);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: -0.02em;
+    }
+
+    .caption {
+        font-family: var(--ifm-font-family-base);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: -0.02em;
+        --line-height: 16px;
+    }
+
+}
+
 
 .markdown a:not(.x-button) {
     font-family: inherit;
@@ -239,7 +284,6 @@
 }
 
 .markdown ul {
-    list-style: initial;
     @apply pl-4 ml-12;
 }
 
@@ -381,4 +425,14 @@ html {
 
 .navbar__logo img {
     display: block !important;
+}
+
+ul, ol {
+    list-style: initial;
+    margin: 0 0 var(--ifm-list-margin);
+    padding-left: var(--ifm-list-left-padding);
+}
+
+.admonition-icon {
+    vertical-align: baseline;
 }
