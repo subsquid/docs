@@ -1,16 +1,17 @@
 ---
+sidebar_position: 70
 description: >-
   Use the __typename meta field to resolve types when querying unions or
   interfaces
 ---
 
-# Resolve Union types/interfaces
+# Union type resolution
 
-The use cases for [Union types](/query-squid/openreader-schema/union-types) and [Interfaces](/query-squid/openreader-schema/interfaces) has been discussed in the related schema reference pages.
+The use cases for [Union types](/develop-a-squid/schema-file/unions-and-typed-json) has been discussed in the [schema reference pages](/develop-a-squid/schema-file/).
 
 In that context, examples also showed how to query them. What's important to know is that these might create situations where it's not possible to know what type the GraphQL service is returning. To overcome this scenario, it is important to find some way to determine how to handle that data on the client.
 
-This is where the `__typename` meta filed comes in. To witness it in action, let's take the schema from the [Union types](/query-squid/openreader-schema/union-types) page:
+This is where the `__typename` meta filed comes in. To witness it in action, let's take the schema from the [Union types](/develop-a-squid/schema-file/unions-and-typed-json) page:
 
 ```graphql title="schema.graphql"
 type Account @entity {

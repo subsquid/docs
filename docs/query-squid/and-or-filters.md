@@ -1,3 +1,8 @@
+---
+sidebar_position: 20
+title: AND/OR filters
+---
+
 # AND/OR filters
 
 ## Overview

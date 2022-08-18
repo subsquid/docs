@@ -1,14 +1,15 @@
-# Queries
+---
+sidebar_position: 10
+title: Entity queries
+---
+
+# Entity Queries
 
 ## Introduction
 
-Squid CLI tooling auto-generates queries as part of the GraphQL schema from the input schema. It generates a range of possible queries and operators that also work with relationships defined in your input schema.
-
-All entities of the input schema tracked by the cli (re-generation is required when any change happens to the input schema) can be queried over the GraphQL endpoint.
+OpenReader auto-generates queries from the input `schema.graphql` file. All entities defined in the schema can be queried over the GraphQL endpoint.
 
 ## Exploring queries
-
-You can explore the entire schema and the available queries using the GraphiQL interface by running the `graphql-server` that comes with a Squid, or looking at the `graphql-server/generated/schema.graphql` file.
 
 Let’s take a look at the different queries you can run using the GraphQL server. We’ll use examples based on a typical channel/video schema for reference.
 
