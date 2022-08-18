@@ -1,3 +1,8 @@
+---
+sidebar_position: 40
+title: Cross-relation queries
+---
+
 # Cross-relation field queries
 
 ## Introduction

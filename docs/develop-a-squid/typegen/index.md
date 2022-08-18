@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 40
 description: >-
   The squid typegen tools generate type-safe typescript classes for accessing and decoding the on-chain data
 ---

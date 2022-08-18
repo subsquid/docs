@@ -15,7 +15,7 @@ Secrets are designed to store sensitive data that all the squids can access as a
 
 To add or update a secret:
 ```bash
-npx sqd secret set MOONRIVER_GRPC_ENDPOINT wss://moonriver.my-endpoint.com/ws
+npx sqd secrets set MOONRIVER_GRPC_ENDPOINT wss://moonriver.my-endpoint.com/ws
 ```
 
 Once set, it can be used in a squid:

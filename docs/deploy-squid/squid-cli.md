@@ -41,7 +41,7 @@ It allows to
 |-----------------------------|------------------------------|-----------------------------|
 |`secrets:ls`                 | List all secrets             |                             |
 |`secrets:rm [NAME]`          | Delete a secret              | secret name                 |
-|`secrets:set [NAME] [VALUE]` | Create or updated a secret   |  secret name, secret value  |
+|`secrets:set [NAME] [VALUE]` | Create or update a secret    | secret name, secret value   |
 
 
 ## Examples

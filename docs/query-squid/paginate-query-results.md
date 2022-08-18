@@ -1,4 +1,6 @@
 ---
+sidebar_position: 50
+title: Pagination
 description: >-
   When query results are too big, one can chose to limit them or divide them in
   "chunks"
@@ -8,45 +10,11 @@ description: >-
 
 There are multiple ways to obtain this behavior, let's take a look at a couple of them.
 
-## Arguments `limit` and `offset`
-
-The operators limit and offset are used for pagination.
-
-`limit` specifies the number of entities to retain from the result set and `offset` determines which slice to retain from the results.
-
-**Note:** Default value for `limit` is `50` and `offset` is `0`.
-
-### **Limit results**
-
-Example: Fetch the first 5 channels:
-
-```graphql
-query {
-  channels(limit: 5) {
-    id
-    handle
-  }
-}
-```
-
-### **Limit results from an offset**
-
-Example: Fetch 5 channels from the list of all channels, starting with the 6th one:
-
-```graphql
-query {
-  channels(limit: 5, offset: 5) {
-    id
-    handle
-  }
-}
-```
-
 ## Cursor based pagination
 
-Cursors are used to traverse across entities of an entity set. They work by returning a pointer to a specific entity which can then be used to fetch the next batch of entities.
+Cursors are used to traverse across entities of an entity set. They work by returning a pointer to a specific entity which can then be used to fetch the next batch of entities. For cursor-based pagination, OpenReader follows the [Relay Cursor Connections spec](https://relay.dev/graphql/connections.htm).
 
-In the case of cursor based pagination, for every entity in the input schema, a query is generated with the `<entityName>Connection` pattern.
+In the case of cursor based pagination, for every entity in the input schema, the query name follows the naming convention `{entityName}sConnection` pattern.
 
 Example: this query fetches a list of videos where `isExplicit` is true and get their count. Thanks to the `videosConnection`, we can limit the number of videos to return.
 
@@ -202,4 +170,39 @@ query QueryName {
 }
 ```
 
-Otherwise the returned result wouldn't be ordered correctly.
+Otherwise, the returned result wouldn't be ordered correctly.
+
+## Arguments `limit` and `offset`
+
+The operators limit and offset are used for pagination.
+
+`limit` specifies the number of entities to retain from the result set and `offset` determines which slice to retain from the results.
+
+**Note:** Default value for `limit` is `50` and `offset` is `0`.
+
+### **Limit results**
+
+Example: Fetch the first 5 channels:
+
+```graphql
+query {
+  channels(limit: 5) {
+    id
+    handle
+  }
+}
+```
+
+### **Limit results from an offset**
+
+Example: Fetch 5 channels from the list of all channels, starting with the 6th one:
+
+```graphql
+query {
+  channels(limit: 5, offset: 5) {
+    id
+    handle
+  }
+}
+```
+

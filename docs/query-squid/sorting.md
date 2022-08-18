@@ -1,4 +1,6 @@
 ---
+sidebar_position: 60
+title: Sorting
 description: >-
   The orderBy argument has been introduced in the previous section, but let's
   take a look at it in more detail.

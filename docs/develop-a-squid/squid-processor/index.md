@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 30
 description: >-
   The squid processor ingests raw on-chain data from an Archive, transforms it and saves into the target data store.
 ---

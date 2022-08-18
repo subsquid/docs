@@ -1,3 +1,8 @@
+---
+sidebar_position: 30
+title: Nested field queries
+---
+
 # Nested field queries
 
 ## Overview
