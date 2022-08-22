@@ -50,12 +50,11 @@ The command has optional attributes `--description`, `--logo`, `--website` to po
 If there are other deployed squid versions, consider [updating the existing versions](/deploy-squid/update-and-kill) instead of releasing a new one. 
 :::
 
-
 Every instance of a squid API is identified by the squid project name and the version name, with a shortcut `<squid name>@<version name>`. A version name can be any alphanumeric string. One can also add a description to a squid version either with the `--description` flag or in Aquarium.
 
-**Option 1. Releasing from a local repo**
+#### Option 1. Releasing from a local repo
 
-Before releasing, make sure that local changes are committed and pushed to a remote git repo. Let's release `my-new-sqiod@v0` version:
+Before releasing, make sure that local changes are committed and pushed to a remote git repo. Let's release `my-new-squid@v0` version:
 
 ```bash
 npx sqd squid release my-new-squid@v0 -v
@@ -63,7 +62,7 @@ npx sqd squid release my-new-squid@v0 -v
 
 If there are multiple remotes for your local repo, it will prompt which git remote to choose.
 
-**Option 2. Releasing from a remote repo**
+#### Option 2. Releasing from a remote repo
 
 It is also possible to release a squid from a remote repo using a full git link with the `--source` option. Note that a fully qualified git URL is either of the form `https://my-git-repo.git#my-branch` or `https://my-git-repo.git#<commit-hash>`. We recommend using fully qualified git URLs with a commit hash, like below:
 
@@ -71,20 +70,19 @@ It is also possible to release a squid from a remote repo using a full git link 
 npx sqd squid release my-new-squid@v0 --source https://github.com/dzhelezov/squid-template.git#b71e545c1a5e683013023ef572f86fdeddf5f7b7 -v
 ```
 
-Both options will provide deployment logs. 
+Both options will provide deployment logs.
 
 ## 5. Monitor Squid logs
 
 Once the squid is deployed, the GraphQL endpoint is available straight away. Normally one should wait until the squid has processed all historical blocks and is fully in sync.
 
-To inspect the squid logs run 
+To inspect the squid logs run
 
-```
+```bash
 npx sqd squid logs my-new-squid@v0 -f 
 ```
 
 or navigate to the squid page in Aquarium.
-
 
 ### What's next?
 
