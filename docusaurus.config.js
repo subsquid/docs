@@ -43,6 +43,7 @@ const config = {
                         }
                     },
                     sidebarPath: require.resolve('./sidebars.js'),
+                    editUrl: 'https://github.com/subsquid/docs/edit/master/'
                 },
                 theme: {
                     customCss: require.resolve('./src/css/custom.css'),
