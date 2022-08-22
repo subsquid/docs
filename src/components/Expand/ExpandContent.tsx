@@ -17,7 +17,7 @@ export function ExpandContent(props: ExpandContentProps) {
       })}>
       <Expand
         onClick={() => setExpanded(!isExpanded)}
-        title={<h4 className="body--l text-fg-base--default">{props.title}</h4>}
+        title={<h4 className="body--m lg:body--l text-fg-base--default">{props.title}</h4>}
         expanded={isExpanded}
         children={props.children}
         element={(child, key) => <div className="mb-2" key={key}>{child}</div>}/>
