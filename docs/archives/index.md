@@ -18,5 +18,5 @@ Subsquid maintains Archives for major parachains in the Polkadot ecosystem. Go t
 ## Running a self-hosted archive
 
 To run an Archive, follow the instructions in the [Archive Setup Repo](https://github.com/subsquid/squid-archive-setup).
-
+For a full list of Archive set up options, see [Advanced Setup](/archives/archives-advanced-setup).
 
