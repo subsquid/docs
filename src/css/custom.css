@@ -436,14 +436,14 @@ ul, ol {
 .admonition-icon {
     vertical-align: baseline;
 }
-.main-wrapper {
-    @apply px-6 !important;
-}
 
 .theme-doc-footer-edit-meta-row, .pagination-nav__label {
     @apply text-fg-role--accent-01;
 }
 
 @media screen and (min-width: 1280px) {
+    .main-wrapper {
+        @apply px-6 !important;
+    }
 }
 
