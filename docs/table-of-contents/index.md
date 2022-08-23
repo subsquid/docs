@@ -46,7 +46,6 @@ title: Table of contents
   * [Nested field queries](/query-squid/nested-field-queries)
   * [Cross-relation field queries](/query-squid/cross-relation-field-queries)
   * [JSON queries](/query-squid/json-queries)
-  * [String/Regex queries](/query-squid/string-regex-queries)
   * [Resolve Union types/interfaces](/query-squid/resolve-union-types-interfaces)
   * [Queries](/query-squid/queries)
   * [Paginate query results](/query-squid/paginate-query-results)
