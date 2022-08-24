@@ -91,15 +91,15 @@ for (const block of ctx.blocks) {
 The EVM contract state is accessed using the generated `Contract` class that takes the handler context and the contract address as constructor arguments. The state is always accessed at the context block height unless explicitly defined in the constructor.
 ```typescript title="src/abi/erc721.ts"
 export class Contract  {
-  constructor(ctx: BlockContext, address: string) { 
+  constructor(ctx: BlockContext, address: string)
+  constructor(ctx: ChainContext, block: Block, address: string) { 
     //...
   }
   private async call(name: string, args: any[]) : Promise<ReadonlyArray<any>>  {
     //...
   }
-  async balanceOf(account: string, id: ethers.BigNumber): Promise<ethers.BigNumber> {
-    const result = await this.call("balanceOf", [owner])
-    return result[0]
+  async balanceOf(owner: string): Promise<ethers.BigNumber> {
+    return this.call("balanceOf", [owner])
   }
 }
 ```
