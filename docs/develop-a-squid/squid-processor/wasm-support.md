@@ -2,12 +2,12 @@
 sidebar_position: 60
 description: >-
   Additional support for indexing WASM smart contract data
+title: Ink! contracts
 ---
 
-# WASM support
+# Ink! contracts support
 
-
-This section describes additional options available for Substrate chains with the Contracts pallet, like Shiden or Astar.  Follow the [WASM squid tutorial](/tutorials/create-a-wasm-processing-squid) for a step-by-step tutorial on building an WASM-processing squid. We recommend using [squid-wasm-template](https://github.com/subsquid/squid-wasm-template) as a reference project.
+This section describes additional options available for indexing Ink!-based WASM contracts, supported by chains with a `Contracts` pallet. At the moment of writing, Shibuya (a testnet), Shiden (Kusama parachain) and Astar (Polkadot parachain) are the most popular chains for deploying Ink! contracts. Follow the [WASM squid tutorial](/tutorials/create-a-wasm-processing-squid) for a step-by-step tutorial on building an WASM-processing squid. We recommend using [squid-wasm-template](https://github.com/subsquid/squid-wasm-template) as a reference project.
 
 ## Handler options
 
@@ -27,9 +27,9 @@ const processor = new SubstrateBatchProcessor()
   } as const)
 ```
 
-## Typegen
+## Ink! Typegen
 
-Use `squid-ink-typegen` to generate the boilerplate to decode the WASM data from the provided ABI metadata.
+Use `squid-ink-typegen` to generate the boilerplate for decoding the WASM data from the provided ABI metadata.
 
 *Usage*
 ```bash

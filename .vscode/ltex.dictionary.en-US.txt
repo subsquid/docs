@@ -18,3 +18,9 @@ Astar
 uppercased
 desereliazation
 typegen
+parachain
+testnet
+Polkadot
+Testnet
+Mainnet
+mainnet
