@@ -139,5 +139,3 @@ async function handleEvmLog(ctx: BatchContext<Store, unknown>, block: SubstrateB
     }
 }
 ```
-
-Since the handlers are lazy (meaning that the database transaction is not opened if `ctx.store` is not hit), the performance overhead is minimal.
