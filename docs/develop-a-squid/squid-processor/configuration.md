@@ -16,7 +16,8 @@ The following setters configure the global settings. The setters return the modi
    + `archive`: an archive endpoint. We recommend using it together with [`@subsquid/archive-registry`](/archives/archive-registry)
    + `chain`: (Optional) a node gRPC endpoint (e.g. if the processor intents do make storage queries)
 
-**Example**
+### Example
+
 ```ts
 const processor = new SubstrateBatchProcessor()
     .setBatchSize(500)
@@ -36,7 +37,7 @@ Types bundle can be specified in `3` different ways:
 - as a types bundle object
 
 
-**Example**
+### Example
 
 ```ts
 // known chain

@@ -8,9 +8,11 @@ description: >-
 
 This section describes additional options available for Substrate chains with the Frontier EVM pallet like Moonbeam or Astar. Follow the [EVM squid tutorial](/tutorials/create-an-evm-processing-squid) for a step-by-step tutorial on building an EVM-processing. We recommend using [squid-evm-template](https://github.com/subsquid/squid-evm-template) as a reference.
 
+The page describes the additional options available for `SubstrateBatchProcessor`. The handler-based `SubstrateProcessor` exposes similar interfaces with the `addXXXHandler` methods. Please refer to the inline docs for details.
+
 ## Subscribe to EVM events
 
-Use `addEvmLog(contract, options)` to subscribe to the EVM log data (event) emitted by a specific EVM contract: 
+Use `addEvmLog(contract: string | string[], options)` to subscribe to the EVM log data (event) emitted by a specific EVM contract: 
 
 ```typescript
 const processor = new SubstrateBatchProcessor()
@@ -40,6 +42,49 @@ processor.addEvmLog('0xb654611f84a8dc429ba3cb4fda9fad236c505a1a', {
     erc721.events["Transfer(address,address,uint256)"].topic, 
     erc721.events["ApprovalForAll(address,address,bool)"].topic
   ]]
+})
+```
+
+Since `@subsquid/substrate-processor@1.7.0` it is possible to pass multiple contracts to `addEvmLog()`:
+
+```ts
+processor.addEvmLog([
+    '0xb654611f84a8dc429ba3cb4fda9fad236c505a1a',
+    '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98'
+  ], {
+     topics: ['0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef']
+})
+```
+
+## Subscribe to EVM transactions
+
+**Since `@subsquid/substrate-processor@1.7.0`**
+
+It is possible to subscribe to `Ethereum.transact()` calls with the option to filter by the contract address (or addresses) and `sighash`, used as a [function selector](https://docs.ethers.io/v5/api/utils/abi/interface/#Interface--selectors) by the EVM spec.
+The data selection options are similar to [`addCall()`](/develop-a-squid/squid-processor/data-subscriptions#addcallname-options).
+
+Note that by default both successful and failed transactions are fetched. Further, there's a difference between the success of a Substrate call and the internal EVM transaction, the transaction may fail even if the enclosing Substrate call has succeeded. 
+
+
+### Examples
+
+Request all EVM calls to the contract `0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98`:
+```ts
+processor.addEthereumTransaction('0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98')
+```
+
+Request all EVM calls with the signature `transfer(address,uint256)`:
+```ts
+processor.addEthereumTransaction('*', {sighash: '0xa9059cbb'})
+```
+
+Request the same data from multiple contracts at once:
+```ts
+processor.addEthereumTransaction([
+  '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283'
+], {
+  sighash: '0xa9059cbb'
 })
 ```
 

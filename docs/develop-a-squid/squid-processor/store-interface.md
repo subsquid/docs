@@ -29,7 +29,7 @@ export interface Database<S> {
 
 The Subsquid SDK offers two implementations of `Database` offering a `TypeORM`-compatible `Store` in the `@subsquid/typeorm-store` package: `FullTypeormDatabase` and `TypeOrmDatabase`. 
 
-**TypeormDatabase (recommended)**
+### `TypeormDatabase` (recommended)
 
 `TypeormDatabase` provides a `ctx.store`, which is
 
@@ -53,7 +53,7 @@ processor.run(new TypeormDatabase(), async ctx => {
 
 In the snippet above, `ctx.store` passed to the handlers will be of type `Store`.
 
-**FullTypeormDatabase**
+### `FullTypeormDatabase`
 
 `FullTypeormDatabase` provides a `ctx.store` compatible with [EntityManager](https://orkhan.gitbook.io/typeorm/docs/entity-manager-api), albeit without `.get()` method
  

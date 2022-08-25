@@ -42,7 +42,8 @@ The `options` argument has the following structure:
 }
 ```
 
-**Example**
+### Example
+
 ```ts
 const processor = new SubstrateBatchProcessor()
   .addEvent('Balances.Transfer', {
@@ -60,7 +61,7 @@ const processor = new SubstrateBatchProcessor()
 
 ## `addCall(name, options)`
 
-Subscribe to a specific runtime call (even if wrapped into a `system.sudo` or `util.batch` extrinsic). Use `*` for the name to subscribe to each and every call. The name must follow the convention `${Pallet}.${call_name}`. The pallet name is normally uppercased and the call name is in lower cased an in the snake_case format. 
+Subscribe to a specific runtime call (even if wrapped into a `system.sudo` or `util.batch` extrinsic). Use `*` for the name to subscribe to each and every call. The name must follow the convention `${Pallet}.${call_name}`. The pallet name is normally uppercased and the call name is in lower cased an in the snake_case format. By default, both successful and failed calls are fetched and passed to the handler context. Use the `call.successfull` data selector and later check `CallData.success` in the [handler](./data-handlers), if so needed.
 
 The `options` argument has the following structure.
 ```ts
@@ -85,7 +86,9 @@ The `options` argument has the following structure.
   } 
 }
 ```
-**Example**
+
+### Example
+
 ```ts
 const processor = new SubstrateBatchProcessor()
   .addCall('Balances.transfer_keep_alive', {
@@ -115,7 +118,8 @@ Subscribe to events emitted by a WASM contract deployed at the specified address
 
 By default, the processor fetches the block data only for all blocks that contain log items it was subscribed to. It is possible to force the processor to fetch the header data for all the blocks within a given range with the `includeAllBlocks(range?: Range)` option.
 
-**Example**
+### Example
+
 ```ts
 const processor = new SubstrateBatchProcessor()
   .addEvent('Balances.Transfer', { data: { event: true, extrinsic: true }})
