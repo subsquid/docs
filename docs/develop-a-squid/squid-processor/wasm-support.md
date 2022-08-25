@@ -9,6 +9,8 @@ title: Ink! contracts
 
 This section describes additional options available for indexing Ink!-based WASM contracts, supported by chains with a `Contracts` pallet. At the moment of writing, Shibuya (a testnet), Shiden (Kusama parachain) and Astar (Polkadot parachain) are the most popular chains for deploying Ink! contracts. Follow the [WASM squid tutorial](/tutorials/create-a-wasm-processing-squid) for a step-by-step tutorial on building an WASM-processing squid. We recommend using [squid-wasm-template](https://github.com/subsquid/squid-wasm-template) as a reference project.
 
+The page describes the additional options available for `SubstrateBatchProcessor`. The handler-based `SubstrateProcessor` exposes similar interfaces with the `addXXXHandler` methods. Please refer to the inline docs for details.
+
 ## Handler options
 
 
