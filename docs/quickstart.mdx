@@ -12,6 +12,7 @@ import {CodeStep} from '../src/components/code-step';
 This quickstart guide presents a simplified method for development environment setup and for running a squid that queries Kusama. 
 
 The steps outlined in this guide should only take around five minutes.
+
 ## Pre-requisites
 
 Before getting to work on your very first squid, verify that you have installed the following software: 
@@ -26,33 +27,33 @@ Please note:
 
 Additional information about development environment setup is available [here](/tutorials/development-environment-set-up).
 
-## Step 1: Clone <span><a href="https://github.com/subsquid/squid-template">squid-template</a></span>
+### Step 1: Clone <span><a href="https://github.com/subsquid/squid-template">squid-template</a></span>
 
 ```bash
 git clone https://github.com/subsquid/squid-template.git
 cd squid-template
 ```
 
-##  Step 2: Install dependencies
+###  Step 2: Install dependencies
 
 ```bash
 npm ci
 ```
 
-## Step 3: Build the squid
+### Step 3: Build the squid
 
 ```bash
 make build
 ```
 
-## Step 4: Launch Postgres and detach
+### Step 4: Launch Postgres and detach
 
 ```bash
 make up
 ```
 
 
-## Step 5: Create the database schema and run the processor
+### Step 5: Create the database schema and run the processor
 
  The squid we have just built ingests pre-indexed data from a Kusama Archive. This data is then transformed, as defined by the data handler in `processor.ts`.
  
@@ -64,7 +65,7 @@ make process
 
 
 
-## Step 6: Start the GraphQL server
+### Step 6: Start the GraphQL server
 
 This should be run in a separate terminal window:
 
@@ -83,7 +84,7 @@ query MyQuery {
 }
 ```
 
-### What's next?
+## What's next?
 
 - [Define a data schema](/develop-a-squid/schema-file)
 - [Define data handlers](/develop-a-squid/squid-processor)
