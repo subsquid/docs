@@ -2,6 +2,7 @@
 sidebar_position: 41
 description: >-
    Query the storage and access the historical state with gRPC requests to the node
+title: State queries
 ---
 
 # Storage calls and state queries

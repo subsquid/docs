@@ -2,7 +2,7 @@
 sidebar_position: 60
 description: >-
   Additional support for indexing WASM smart contract data
-title: Ink! contracts
+title: Ink! contracts support
 ---
 
 # Ink! contracts support
@@ -56,7 +56,7 @@ export function decodeConstructor(hex: string): Constructor {
 }
 ```
 
-The usage in a handler is straighforward:
+The usage in a handler is straightforward:
 ```ts
 processor.run(new TypeormDatabase(), async ctx => {
     for (let block of ctx.blocks) {
