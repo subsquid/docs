@@ -24,3 +24,9 @@ Polkadot
 Testnet
 Mainnet
 mainnet
+Typegen
+Typegen
+TypeORM
+TypeORM
+gRPC
+Typegen
