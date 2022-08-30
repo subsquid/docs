@@ -84,6 +84,26 @@ const config = {
                     }
                 },
             },
+            algolia: {
+                // The application ID provided by Algolia
+                appId: '39MDW9KQHD',
+
+                // Public API key: it is safe to commit it
+                apiKey: 'ab3ada75abec35a245193df3de026285',
+
+                indexName: 'subsquid',
+
+                // Optional: see doc section below
+                contextualSearch: true,
+
+                // Optional: Algolia search parameters
+                searchParameters: {},
+
+                // Optional: path for search page that enabled by default (`false` to disable it)
+                searchPagePath: false,
+
+                //... other Algolia params
+            },
         }),
 
     plugins: [
