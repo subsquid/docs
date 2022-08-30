@@ -77,6 +77,11 @@
     --ifm-navbar-height: auto;
     --ifm-navbar-background-color: var(--bg-base--indistinguishable);
     --ifm-link-hover-color: var(--fg-base--muted);
+
+    --docsearch-primary-color: var(--fg-base--default) !important;
+    --docsearch-modal-background: var(--bg-base--indistinguishable) !important;
+    --docsearch-footer-background: var(--bg-base--mutedBlue) !important;
+    --docsearch-key-gradient: var(--bg-base--mutedBlue) !important;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -130,6 +135,11 @@
     --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 
     --ifm-link-hover-color: var(--fg-base--muted);
+
+    --docsearch-primary-color: var(--fg-base--muted) !important;
+    --docsearch-modal-background: var(--bg-base--indistinguishable) !important;
+    --docsearch-footer-background: var(--bg-base--mutedBlue) !important;
+    --docsearch-key-gradient: var(--bg-base--mutedBlue) !important;
 }
 
 .markdown h1:not(:where(.onboarding-homepage *)) {
