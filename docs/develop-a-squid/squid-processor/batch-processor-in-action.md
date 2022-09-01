@@ -12,7 +12,7 @@ Here we highlight the key steps and put together the configuration and the data 
 
 ## 1. Configuration
 
-See [Configuration section](./configuration) for more details.
+See [Configuration section](/develop-a-squid/squid-processor/configuration) for more details.
 
 ```ts
 const processor = new SubstrateBatchProcessor()

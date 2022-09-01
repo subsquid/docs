@@ -114,4 +114,4 @@ processor.run(new TypeormDatabase(), async ctx => {
 })
 ```
 
-For a more elaborate example, check [Batch processor in action](./batch-processor-in-action) and the [Examples](/develop-a-squid/examples) page.
+For a more elaborate example, check [Batch processor in action](/develop-a-squid/squid-processor/batch-processor-in-action) and the [Examples](/develop-a-squid/examples) page.

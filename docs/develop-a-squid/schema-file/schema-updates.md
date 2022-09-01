@@ -60,7 +60,7 @@ In some rare cases it is possible to update the schema without dropping the data
 
 ** 1. Update `schema.graphql` ** 
 
-For example, [add an index](./indexes-and-constraints)
+For example, [add an index](/develop-a-squid/schema-file/indexes-and-constraints)
 
 **2. Regenerate the model classes **
 
