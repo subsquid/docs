@@ -5,6 +5,8 @@ title: DoS protection
 
 # DoS protection
 
+**Available since `@subsquid/graphql-server@2.1.0`**
+
 The squid [GraphQL API server](https://github.com/subsquid/squid/tree/master/graphql-server) accepts the following optional start arguments to fend off heavy queries.
 
 **`--max-request-size <kb>`**
@@ -35,6 +37,10 @@ The response item weight is calculated recursively:
 3) each non-leaf node in the query AST tree adds a weight of `1`
 
 In a nutshell, assuming that the schema file is properly decorated with `@cardinality` and `@byteWeight`, the estimated response size should roughly be at the same scale as the byte size of the query result. 
+
+**`--subscription-max-response-size <nodes>`**
+
+Same as `--max-response-size` but for live query [subscriptions](/develop-a-squid/graphql-api/subscriptions).
 
 ### Example 
 
