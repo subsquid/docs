@@ -7,7 +7,27 @@ title: DoS protection
 
 **Available since `@subsquid/graphql-server@2.1.0`**
 
-The squid [GraphQL API server](https://github.com/subsquid/squid/tree/master/graphql-server) accepts the following optional start arguments to fend off heavy queries.
+The squid [GraphQL API server](https://github.com/subsquid/squid/tree/master/graphql-server) accepts the following optional start arguments to fend off heavy queries. The arguments should be added to the `query-node:start` script in `package.json` of the squid (for Aquarium deployments) and to `Makefile` (for local runs):
+
+```json title=package.json
+{
+  ... 
+ "scripts": {
+    "build": "rm -rf lib && tsc",
+    "db:migrate": "npx squid-typeorm-migration apply",
+    "processor:start": "node lib/processor.js",
+    "query-node:start": "squid-graphql-server --max-root-fields 10 --max-response-size 1000"
+  },
+  ...
+}
+```
+
+```bash title=Makefile
+...
+serve:
+	@npx squid-graphql-server --max-root-fields 10 --max-response-size 1000
+...
+```
 
 **`--max-request-size <kb>`**
 
@@ -26,15 +46,17 @@ The estimate is the product of the cardinality of the entity list and the respon
 
 The cardinality is estimated as the minimum of
 
-1) the query limit argument (`Infinity` if not provided)
-2) `@cardinality` value defined `schema.graphql` (if the requested entity type is decorated in the schema file, `Infinity` otherwise)
-3) `_eq` and `id_in` filters in the `where` clause (if applicable)
+- the query limit argument (`Infinity` if not provided)
+- `@cardinality` value defined `schema.graphql` (if the requested entity type is decorated in the schema file, `Infinity` otherwise)
+- `_eq` and `id_in` filters in the `where` clause (if applicable)
+
+In particular, if there are no `@cardinality` decorators in `schema.graphql`, the client queries must explicitly provide limits or where filters to pass through.
 
 The response item weight is calculated recursively:
 
-1) `byteWeight` for each scalar field or `1` if it's not decorated
-2) for non-scalar fields, the estimated weight times the estimated cardinality (if it's a list)
-3) each non-leaf node in the query AST tree adds a weight of `1`
+- `byteWeight` for each scalar field or `1` if it's not decorated
+- for non-scalar fields, the estimated weight times the estimated cardinality (if it's a list)
+- each non-leaf node in the query AST tree adds a weight of `1`
 
 In a nutshell, assuming that the schema file is properly decorated with `@cardinality` and `@byteWeight`, the estimated response size should roughly be at the same scale as the byte size of the query result. 
 
