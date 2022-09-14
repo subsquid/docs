@@ -13,18 +13,18 @@ launching a new one.
 An existing squid version can be updated with a `sqd squid update` which is similar to `squid release`. Use 
 
 ```bash
-npx sqd squid update my-new-squid@v0 -v
+sqd squid update my-new-squid@v0 -v
 ```
 or
 
 ```bash
-npx sqd squid update my-new-squid@v0 -v --source <repo.git>#<commit>
+sqd squid update my-new-squid@v0 -v --source <repo.git>#<commit>
 ```
 
 to update the version. By default, `sqd squid update` only updates the squid images and does not drop the database (but applies the new migrations from the `db/migrations` folder). Thus, the squid sync will continue from its last state. To force a database reset and a squid resync from scratch, add `--hardReset` flag:
 
 ```bash
-npx sqd squid update my-new-squid@v0 -v --source <repo.git>#<commit> --hardReset
+sqd squid update my-new-squid@v0 -v --source <repo.git>#<commit> --hardReset
 ```
 
 Note that the total number of deployed squid versions is limited to three, so we strongly recommend updating existing squid versions rather than creating new ones. 
