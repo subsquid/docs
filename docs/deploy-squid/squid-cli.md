@@ -13,7 +13,7 @@ The `squid` topic of the `sqd` command line interface is used to manage the depl
 Inspect the available options with
 
 ```bash
-npx sqd squid --help
+sqd squid --help
 ```
 
 It allows to
@@ -32,8 +32,8 @@ It allows to
 | `ls`       | List all squids or show details for a specific squid         | <p><code>-n</code>, <code>--name=</code> squid name (optional)<br/><br/><code>-t</code>, <code>--truncate</code> truncate data in columns (false by default)</p>                                                                                                                                                             |
 | `release`  | Deploy a squid version                | <p><code>[NAMEANDVERSION]</code> squid <code>name</code> and version, formatted as <code>name@version</code><br/><code></code><br/><code>-d</code>, <code>--description=</code> description<br/> <br/><code>-s</code>, <code>--source=</code> git URL of the source code<br/> <br/><code>-e</code> (allows multiple) a set of environment variable to be set for the squid processor<br/><br/><code>--envFile</code> local file with environment variables</p>|
 | `logs`     | Get squid logs      | <p><code>[NAMEANDVERSION]</code> squid name and version formatted as <code>name@version</code><br/><br/><code>-c</code>, <code>--container</code> output logs only from a specific squid component (processor\|query-node\|db-migrate)<br/><br/><code>-f</code>, <code>--follow</code> continue streaming new logs<br/><br/><code>-l</code>, <code>--level</code> set logs level (error\|debug\|info\|warning)<br/><br/><code>-p</code>, <code>--pageSize</code> set logs page size (default: 50)<br/><br/><code>--since</code> logs start date (default: 1d)</p> |
-| `update`   | Redeploy a squid version          | <p><code>[NAMEANDVERSION]</code> squid name and version formatted as <code>name@version</code><br/><br/><code>-r</code>, <code>--hardReset</code> perform a hard reset (db wipe out) <br/><br/><code>-s</code>, <code>--source=</code> git URL of the source code<br/><br/><code>-e</code> (allows multiple) a set of environment variables to be set for the squid processor<br/><br/><code>--envFile</code> local file with environment variables</p>                                                            |
-
+| `update`   | Redeploy a squid version          | <p><code>[NAMEANDVERSION]</code> squid name and version formatted as <code>name@version</code><br/><br/><code>-r</code>, <code>--hardReset</code> perform a hard reset (db wipe out) <br/><br/><code>-s</code>, <code>--source=</code> git URL of the source code<br/><br/><code>-e</code> (allows multiple) a set of environment variables to be set for the squid processor<br/><br/><code>--envFile</code> local file with environment variables</p> |                                                           |
+| `prod`   | Promote a squid version to the production endpoint      | <p><code>[NAMEANDVERSION]</code> squid name and version formatted as <code>name@version</code></p>   
 
 ## Secrets
 
@@ -46,43 +46,49 @@ It allows to
 
 ## Examples
 
-#### Create a new squid
+### Create a new squid
 
 ```bash
 sqd squid create squid-test
 ```
 
-#### Kill a squid :sob: (and all its versions)
+### Kill a squid :sob: (and all its versions)
 
 ```bash
 sqd squid kill squid-test
 ```
 
-#### List squids 
+### List squids 
 
 ```bash
-npx sqd squid ls
+ sqd squid ls
 ```
 
-#### List versions of a squid
+### List versions of a squid
 
 ```bash
 npx sqd squid ls -n squid-test
 ```
 
-#### Release the kraken!
+### Release the kraken!
 
 ```bash
-npx sqd squid release squid-test@1 --source=git@github.com:subsquid/squid-template.git
+sqd squid:release squid-test@1 --source=git@github.com:subsquid/squid-template.git
 ```
 
-#### Show logs of a squid
+### Show logs of a squid
 
 ```bash
-npx sqd squid logs squid-test@1 -f
+sqd squid logs squid-test@1 -f
 ```
 
-#### Update a version with new code
+### Promote a version to production
+
+```bash
+sqd squid:prod squid-test@1
+```
+
+### Update a version with new code
 
 ```bash
 npx sqd squid release squid-test@1 -r -s git@github.com:subsquid/squid-template.git
