@@ -92,13 +92,13 @@ export default function Home(): JSX.Element {
             color={'bg-role--syncing'}
             description="Index WASM contracts developed with Ink!">WASM smart contracts</GuideCard>
           <GuideCard
-            isDisabled={true}
+            path="/develop-a-squid/graphql-api/subscriptions"
             color={'bg-role--syncing'}
-            description="Coming soon">EVM+ smart contracts</GuideCard>
+            description="Coming soon">GraphQL subscriptions</GuideCard>
           <GuideCard
             isDisabled={true}
             color={'bg-role--syncing'}
-            description="Coming soon">GraphQL subscriptions</GuideCard>
+            description="Coming soon">EVM+ smart contracts</GuideCard>
         </div>
       </div>
 
