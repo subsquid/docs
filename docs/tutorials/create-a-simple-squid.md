@@ -114,7 +114,7 @@ type StorageOrder @entity {
 Notice that the `Account` entity is almost completely derived. It is there to tie the other three entities together.
 
 :::info
-Refer to [this article](/faq/how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers) if you are unsure which events and extrinsics to use for the handlers in your project.
+Refer to [this article](/troubleshooting#how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers) if you are unsure which events and extrinsics to use for the handlers in your project.
 :::
 
 To finalize this step, run the `codegen` tool:
@@ -156,7 +156,7 @@ It remains to be seen if this has had any impact on the definitions of the Event
 
 ### Types bundle
 
-The types of Crust's blockchain have not yet been integrated into Squid's library. For the new SquidDev, this offers a great opportunity to follow [this mini-guide](/faq/where-do-i-get-a-type-bundle-for-my-chain). In that tutorial, you will learn how to create extract the types bundle from Crust's own library and create an example project in Subsquid's required format.
+The types of Crust's blockchain have not yet been integrated into Squid's library. For the new SquidDev, this offers a great opportunity to follow [this mini-guide](/troubleshooting#where-do-i-get-a-type-bundle-for-my-chain). In that tutorial, you will learn how to create extract the types bundle from Crust's own library and create an example project in Subsquid's required format.
 
 :::info
 **Update**: the "Crust" types bundle has now been added to Subsquid's list of built-ins. However, it may still be worthwhile to learn how to create create and utilize a types bundle JSON file when building with Subsquid.

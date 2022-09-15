@@ -16,6 +16,10 @@ A cloud service to deploy and run squids in a serverless fashion maintained by S
 
 A set of external transactions and execution logs that defines an atomic state transition of the chain. The chain blocks have a well-defined structure and are partially ordered by the hash references. See more details in the [Substrate docs](https://docs.substrate.io/fundamentals/transaction-types/)
 
+### Call
+
+A call is a sub-routine changing the runtime state. An extrinsic consists of a root call which in turn may have sub-calls, thus calls executed by an extrinsic have parent-child relationship. For example, `util.batch` extrinsic has a single root call and multiple child calls. Subsquid processor is call-based rather than extrinsic based, as normally one is interested in specific calls changing the substrate state, no matter if it was part of a batch extrinsic, or it was wrapped in a sudo or proxy call. 
+
 ### Contracts pallet
 
 A pallet developed by Parity to execute WASM-based smart contracts. 
