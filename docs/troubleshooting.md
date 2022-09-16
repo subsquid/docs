@@ -48,7 +48,7 @@ PostgreSQL doesn't support storing `NULL (\0x00)` characters in text fields. Usu
 
 ### `response might exceed the size limit`
 
-Make sure the input query has limits set. We recommend using `XXXConnection` queries for pagination. For configuring limits and max response sizes, see [DoS protection](/develop-a-squid/graphql-api/dos-protection/).
+Make sure the input query has limits set or the entities are decorated with `@cardinality`. We recommend using `XXXConnection` queries for pagination. For configuring limits and max response sizes, see [DoS protection](/develop-a-squid/graphql-api/dos-protection/).
 
 ### My squid run out of disk space
 
