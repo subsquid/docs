@@ -2,7 +2,7 @@
 
 `substrate-explorer` provides a GraphQL API for historical blocks, events, calls and extrinsics. Subsquid maintains explorers for most parachains. To get an explorer endpoint, go to [Aquarium Archives](https://app.subsquid.io/aquarium/archives), click on the network of choice and locate the `Explorer URL` link.
 
-The API is derived from the [OpenReader](https://github.com/subsquid/squid/tree/master/openreader) schema below and allows filtering, pagination and nested queries for most fields. Not that not fields are indexed and thus some queries may appear to be slow.
+The API is derived from the [OpenReader](https://github.com/subsquid/squid/tree/master/openreader) schema below and allows filtering, pagination and nested queries for most fields. Note that not all fields are indexed and thus some queries may appear to be slow.
 
 ## Block
 
