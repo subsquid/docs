@@ -34,7 +34,7 @@ The `typegen.json` config file has the following structure.  The `specVersions` 
   "specVersions": "kusamaVersions.jsonl",
   // see types bundle section below
   "events": [
-    // list of events to generate
+    // list of events to generate 
     "Balances.Transfer"
   ],
   "calls": [
@@ -43,10 +43,25 @@ The `typegen.json` config file has the following structure.  The `specVersions` 
   ],
   "storage": [
     "System.Account"
-    // <-- Qualified storage item name: "${Prefix}.${item}"
+    // Qualified storage item name: "${Prefix}.${item}"
+  ],
+  "constants": [
+    // Qualified name for the constants to be generated: "${Prefix}.${item}"
   ]
 }
 ```
+
+To generate all items defined by the runtime, set any of `events`, `calls`, `storage` or `constants` to `true`, e.g.
+
+```json
+{
+  "outDir": "src/types",
+  "specVersions": "kusamaVersions.jsonl",
+  // generate facade classes for all runtime constants
+  "constants": true
+}
+```
+
 
 
 ## TypeScript class wrappers
