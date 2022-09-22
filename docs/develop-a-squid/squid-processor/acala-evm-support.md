@@ -6,7 +6,7 @@ description: >-
 
 # Acala EVM+ support
 
-**Available since @subsquid/substrate-processor@1.9.0**
+**Available since `@subsquid/substrate-processor@1.9.0`**
 
 Acala and Karura networks offer [EVM+ palette](https://wiki.acala.network/learn/acala-evm/acala-evm-composable-defi-stack), a custom implementation of EVM natively integrated into the Polkadot/Kusama parachain ecosystem. The palette is significantly different from the Frontier EVM palette. Since `@subsquid/substrate-processor@1.9.0` Subsquid processor SDK natively supports handlers for indexing EVM smart contracts deployed to Acala/Karura. 
 
