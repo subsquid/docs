@@ -30,3 +30,5 @@ TypeORM
 TypeORM
 gRPC
 Typegen
+Acala
+Karura
