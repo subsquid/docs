@@ -16,7 +16,14 @@ The following steps are performed by the Aquarium deployment service under the h
 
 ## 0. Install Squid CLI
 
-First, install the latest version of Subsquid CLI:
+First, install the latest version of Subsquid CLI.
+The recommended way for macOS and Linux is to use Homebrew:
+```bash
+brew tap subsquid/cli
+brew install sqd
+```
+
+Otherwise, install as a global npm package:
 ```bash
 npm i -g @subsquid/cli@latest
 ```
