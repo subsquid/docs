@@ -29,8 +29,6 @@ We recommend using private endpoints for better performance and stability of you
 
 The Substrate typegen generates access classes in `src/types/storage.ts` which take into account the historical runtime upgrades by exposing versioned getters (like `getAsVXXX()`). The generated access methods support both single key and batch queries. 
 
-The generated storage access are normally constructed by passing a context for 
-
 Note that the generated getters **always query the historical block height of the "current" block derived the context**. This is the recommended way to access the storage.
 
 To generate the storage classes with typegen:
