@@ -20,7 +20,7 @@ To enable caching, modify the `query-node:start` script in `package.json` of the
     "build": "rm -rf lib && tsc",
     "db:migrate": "npx squid-typeorm-migration apply",
     "processor:start": "node lib/processor.js",
-    "query-node:start": "squid-graphql-server --dumb-cache in-memory --dumb-cache-ttl 5000 --dumb-cache-max-size 100 --dumb-cache-max-age 5000"
+    "query-node:start": "squid-graphql-server --dumb-cache in-memory --dumb-cache-ttl 5000 --dumb-cache-size 100 --dumb-cache-max-age 5000"
   },
   ...
 }
