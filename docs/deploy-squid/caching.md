@@ -32,7 +32,7 @@ The following flags can be inspected with `npx squid-graphql-server --help` and 
 
 Enables cache, either `in-memory` or `redis`. For `redis`, a Redis connection string must be set by a variable `REDIS_URL`. Aquarium deployments currently support only `in-memory` cache.
 
-### `--dumb-cache-max-size <mb>`
+### `--dumb-cache-size <mb>`
 
 Cache max size. Applies only to in-memory cache.
 
