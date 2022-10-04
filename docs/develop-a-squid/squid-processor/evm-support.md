@@ -171,7 +171,7 @@ Extract the EVM log data from `EVM.Log` event.
 
 `getTransaction(ctx: ChainContext, call: Call): LegacyTransaction | EIP2930Transaction | EIP1559Transaction`
 
-Extract the transaction data with additional fields depending on the EVM transaction type.
+Extract the transaction data from `Ethereum.transact` call with additional fields depending on the EVM transaction type.
 
 ### Example
 
