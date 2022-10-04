@@ -22,7 +22,7 @@ const processor = new SubstrateBatchProcessor()
 ```
 
 :::tip
-We recommend using private endpoints for better performance and stability of your squids. A standard way is to use environement variables and set them via [secrets](/deploy-a-squid/env-variables#secrets) when deploying to Aquarium.
+We recommend using private endpoints for better performance and stability of your squids. A standard way is to use environement variables and set them via [secrets](/deploy-squid/env-variables#secrets) when deploying to Aquarium.
 :::
 
 ## Type-safe storage access with typegen

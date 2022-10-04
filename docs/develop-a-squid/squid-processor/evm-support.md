@@ -4,7 +4,7 @@ description: >-
   Additional support for indexing EVM smart contract data
 ---
 
-# EVM support
+# Frontier EVM support
 
 This section describes additional options available for Substrate chains with the Frontier EVM pallet like Moonbeam or Astar. Follow the [EVM squid tutorial](/tutorials/create-an-evm-processing-squid) for a step-by-step tutorial on building an EVM-processing. We recommend using [squid-evm-template](https://github.com/subsquid/squid-evm-template) as a reference.
 
@@ -140,9 +140,75 @@ export class Contract  {
 }
 ```
 
-It then can be used in a handler in a straightforward way, see [squid-evm-template](https://github.com/subsquid/squid-evm-template).
+It then can constructed using the context variable and queried in a straightforward way (see [squid-evm-template](https://github.com/subsquid/squid-evm-template) for a full example):
+
+```ts
+// ...
+const CONTRACT_ADDRESS= "0xb654611f84a8dc429ba3cb4fda9fad236c505a1a"
+
+processor.run(new TypeormDatabase(), async ctx => {
+    for (const block of ctx.blocks) { 
+      for (const item of block.items) {
+        if (item.name === "EVM.Log") {
+          const contract = new erc721.Contract(ctx, block, CONTRACT_ADDRESS);
+          // query the contract state
+          const uri = await contract.tokenURI(1137)
+        }
+      }
+    }
+})
+```
 
 For more information on EVM Typegen, see this [dedicated page](/develop-a-squid/typegen/squid-evm-typegen).
+
+## Event and transaction data
+
+The way the Frontier EVM pallet exposes EVM logs and transaction may change due to runtime upgrades. The util library [`@subsquid/substrate-frontier-evm`](https://github.com/subsquid/squid/tree/master/util/substrate-frontier-evm) provides helper classes that are aware of the upgrades:
+
+`getEvmLog(ctx: ChainContext, event: Event): EvmLog`
+
+Extract the EVM log data from `EVM.Log` event.
+
+`getTransaction(ctx: ChainContext, call: Call): LegacyTransaction | EIP2930Transaction | EIP1559Transaction`
+
+Extract the transaction data with additional fields depending on the EVM transaction type.
+
+### Example
+
+```typescript 
+
+const processor = new SubstrateBatchProcessor()
+    .setBatchSize(200)
+    .setDataSource({
+        archive: lookupArchive('moonbeam', { release: 'FireSquid' })
+    })
+    .addEthereumTransaction('*', {
+        data: {
+            call: true,
+        }
+     })
+    .addEvmLog('*', {
+        data: {
+            event: true
+        }
+    })
+
+
+processor.run(new TypeormDatabase(), async ctx => {
+    for (const block of ctx.blocks) { 
+      for (const item of block.items) {
+        if (item.kind === 'event' && item.name === 'EVM.Log') {
+          const { address, data, topics } = getEvmLog(ctx, item.event)
+          // process evm log data
+        }
+        if (item.kind === 'call' && item.name === 'Ethereum.transact') {
+          const tx = getTransaction(ctx, item.call)
+        }
+        
+      }
+    }
+})
+```
 
 ## Factory contracts
 
@@ -154,6 +220,8 @@ While the set of handler subscriptions is static and defined at the processor cr
 Let's consider how it works in a DEX example, with a contract emitting `'PairCreated(address,address,address,uint256)'` log when a new pair trading contract is created by the main contract. The full code (used by BeamSwap) is available in this [repo](https://github.com/subsquid/beamswap-squid/blob/master/src/processor.ts).
 
 ```typescript
+const FACTORY_ADDRESS = '0x985bca32293a7a496300a48081947321177a86fd'
+const PAIR_CREATE_TOPIC = abi.events['PairCreated(address,address,address,uint256)'].decode(evmLog)
 // subscribe to events when a new contract is created by the parent 
 // factory contract
 const processor = new SubstrateBatchProcessor()
@@ -174,9 +242,24 @@ processor.addEvmLog('*', {
     ],
 })
 
+processor.run(database, async (ctx) => {
+    const mappers: BaseMapper<any>[] = []
+
+    for (const block of ctx.blocks) {
+        for (const item of block.items) {
+            if (item.kind === 'event') {
+                if (item.name === 'EVM.Log') {
+                    await handleEvmLog(ctx, block.header, item.event)
+                }
+            }
+        }
+    }
+})
+
 async function handleEvmLog(ctx: BatchContext<Store, unknown>, block: SubstrateBlock, event: EvmLogEvent) {
-    const contractAddress = event.args.address
-    if (contractAddress === FACTORY_ADDRESS && event.args.topics[0] === PAIR_CREATED_TOPIC) {
+    const evmLog = getEvmLog(ctx, event)
+    const contractAddress = evmLog.address
+    if (contractAddress === FACTORY_ADDRESS && evmLog.topics[0] === PAIR_CREATED_TOPIC) {
         // updated the list of contracts to whatch
     } else if (await isPairContract(ctx.store, contractAddress)) {
         // the contract has been created by the factory,
