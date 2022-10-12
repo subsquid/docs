@@ -9,7 +9,7 @@ We recommend [deploying to Aquiarium](/deploy-squid/) for a managed cloud soluti
 
 For self-hosted squids, we recommend using Kubernetes and the following specs:
 
-- Processor: 1xCPU, 512GB RAM
+- Processor: 1xCPU, 512MB RAM
 - API Server: 2 or 3 replicas behind a load balancer. Recommended replica spec: 1xCPU 1GB RAM
 
 The optimal processor specs highly depend on how the squid is implemented, increase the RAM if necessary.
