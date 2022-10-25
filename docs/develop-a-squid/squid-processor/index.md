@@ -4,7 +4,7 @@ description: >-
   The squid processor ingests raw on-chain data from an Archive, transforms it and saves into the target data store.
 ---
 
-# Squid Processor
+# Squid Substrate Processor
 
 ## Overview and the data model
 
