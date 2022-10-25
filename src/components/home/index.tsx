@@ -109,9 +109,12 @@ export default function Home(): JSX.Element {
         <TutorialCard
             path="/new-in-fire-squid"
             description="Learn about the new features introduced by the FireSquid release">What's new in FireSquid</TutorialCard>
-          <TutorialCard
+         <TutorialCard
+            path="/migrate/migrate-subgraph"
+            description="Migrate your subgraph and improve sync times up to 10x.">Migrate from TheGraph</TutorialCard>
+         <TutorialCard
             path="/migrate/migrate-to-fire-squid"
-            description="Migrate to FireSquid and improve sync times up to 10x.">Migrate to FireSquid</TutorialCard>
+            description="Migrate to FireSquid from an older versions of squid SDK">Migrate to FireSquid</TutorialCard>
         {/* <TutorialCard
             path=""
             description="Coming soon" 

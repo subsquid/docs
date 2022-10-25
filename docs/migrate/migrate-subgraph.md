@@ -5,10 +5,10 @@ title: Migrate from TheGraph
 
 # Migrate from TheGraph
 
-This guide walks through the steps to migrate a subgraph to Subsquid. In what follows we will convert the [Gravatar](https://github.com/graphprotocol/example-subgraph) subgraph into a squid and run it locally. Impatient readers may clone the migrated squid from the `gravatar-squid` branch of the [squid-evm-template repo](https://github.com/subsquid/squid-evm-template):
+This guide walks through the steps to migrate a subgraph to Subsquid. In what follows we will convert the [Gravatar](https://github.com/graphprotocol/example-subgraph) subgraph into a squid and run it locally. Impatient readers may clone the migrated squid from the `gravatar-squid` branch of the [squid-evm-template repo](https://github.com/subsquid/squid-ethereum-template):
 
 ```bash
-git clone -b gravatar-squid https://github.com/subsquid/squid-evm-template.git
+git clone -b gravatar-squid https://github.com/subsquid/squid-ethereum-template.git
 ```
 and run it by following the instructions in README.
 
@@ -18,11 +18,11 @@ Subsquid offers batched processing and a slightly different log handling program
 
 ### 1. Clone template
 
-To begin with, clone the `ethereum-minimal` template from the [squid-evm-template repo](https://github.com/subsquid/squid-evm-template):
+To begin with, clone the Ethereum squid template from the [squid-ethereum-template repo](https://github.com/subsquid/squid-ethereum-template):
 
 ```bash
-git clone -b ethereum-minimal https://github.com/subsquid/squid-evm-template.git
-cd squid-evm-template
+git clone https://github.com/subsquid/squid-ethereum-template.git
+cd squid-ethereum-template
 ```
 
 ### 2. Copy the schema file and generate entities
