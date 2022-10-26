@@ -16,6 +16,9 @@ git clone -b gravatar-squid https://github.com/subsquid/squid-ethereum-template.
 
 At the same time, the concepts of the [schema file](/develop-a-squid/schema-file), [code generation from the schema file](https://github.com/subsquid/squid/tree/master/typeorm-codegen) and [an auto-generated GraphQL API](/develop-a-squid/graphql-api) should be familiar for subgraph developers. In most cases the schema file of a subgraph can be imported into a squid as is. 
 
+There are some known limitations:
+- Many-to-Many entity relations (should be [modelled explicitly](/develop-a-squid/schema-file/entity-relations/#many-to-many-relations) as two many-to-one relations)
+
 On top of the features provided by subgraphs, the Squid SDK and the Aquarium cloud service offers extra flexibility in developing tailored APIs and ETLs for on-chain data:
 
 - Full control over the target database (Postgres), including custom migrations and ad-hoc queries in the handler
