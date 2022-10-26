@@ -1,16 +1,16 @@
 ---
-id: create-an-evm-processing-squid
-title: Create an EVM-processing Squid
+id: create-an-ethereum-processing-squid
+title: Create an Ethereun-processing Squid
 description: >-
-  Create a sample squid indexing EVM data on Astar
+  Create a simple squid indexing smart contract data on Ethereum Mainnet
 sidebar_position: 3
 ---
 
-# Create an EVM-processing Squid
+# Create an EThereum-processing Squid
 
 ## Objective
 
-This tutorial will take the Squid template and go through all the necessary steps to customize the project, in order to interact with a different Squid Archive, synchronized with the Ethereum blockchain, and process data from a specific contract ([the Exosama NFT collection](https://exosama.com/)), with substantial configuration changes to what is defined in the template.
+This tutorial will take the Squid Ethereum template and go through all the necessary steps to customize the project, in order to interact with a different Squid Archive, synchronized with the Ethereum blockchain, and process data from a specific contract ([the Exosama NFT collection](https://exosama.com/)), with substantial configuration changes to what is defined in the template.
 
 The business logic to process these contract is basic, and that is on purpose since the Tutorial aims show a simple case, highlighting the changes a developer would typically apply to the template, removing unnecessary complexity.
 
@@ -22,32 +22,17 @@ The minimum requirements to follow this tutorial are the basic knowledge of soft
 
 ## Fork the template
 
-The first thing to do, although it might sound trivial to GitHub experts, is to fork the repository into your own GitHub account, by visiting the [repository page](https://github.com/subsquid/squid-template) and clicking the "Use this template" button:
+The first thing to do, although it might sound trivial to GitHub experts, is to fork the repository into your own GitHub account, by visiting the [repository page](https://github.com/subsquid/squid-ethereum-template) and clicking the "Use this template" button:
 
 ![How to fork a repository on GitHub](</img/.gitbook/assets/Screenshot-2022-02-02-111440.png>)
 
 Next, clone the created repository (be careful of changing `<account>` with your own account)
 
 ```bash
-git clone git@github.com:<account>/squid-template.git
+git clone git@github.com:<account>/squid-ethereum-template.git
 ```
 
-For reference on the complete work, you can find the entire project [here](https://github.com/subsquid/squid-eth-example).
-
-### Run the project
-
-Next, just follow the [Quickstart](/quickstart) to get the project up and running, here's a list of commands to run in quick succession:
-
-```bash
-npm ci
-npm run build
-make up
-make process
-# open a separate terminal for this next command
-make serve
-```
-
-Bear in mind this is not strictly **necessary**, but it is always useful to check that everything is in order. If you are not interested, you could at least get the Postgres container running with `make up`.
+For reference on the complete work, you can find the entire project [here](https://github.com/subsquid/squid-ethereum-example).
 
 ## Define Entity Schema
 
@@ -136,7 +121,7 @@ This command will automatically generate a TypeScript file named `exo.ts`, under
 
 ## Define and Bind Event Handler(s)
 
-The Subsquid SDK provides users with multiple [processor](/develop-a-squid/squid-processor) classes. The template uses one named `SubstrateBatchProcessor` but in the case of this tutorial, we'll be using [`EvmBatchProcessor`](/develop-a-squid/squid-processor/evm-support). The processor connects to the [Subsquid archive](/overview) to get chain data. It will index from the configured starting block, until the configured end block, or until new data is added to the chain.
+The Subsquid SDK provides users with the `EvmBatchProcessor`, that connects to the [Subsquid archive](/overview) to get chain data and apply custom transformation. It will index from the starting block, until the end block (if these are set in the configuration), or until new data is added to the chain.
 
 The processor exposes methods to "subscribe" to EVM logs or smart contract function calls. These methods can be configured by specifying the EVM log contract address, and the signature of the EVM event, for example. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for *batches* of the data specified in the configuration, and will trigger a *handler function* every time a batch is returned by the Archive itself.
 
@@ -153,14 +138,12 @@ For the purpose of this tutorial, we are going to hardcode the information of th
 * A singleton instance of the `Contract` model, abstracting the database
 * A function that will create and save an instance of `Contract` on the database, if one does not exist already. This is where the hardcoded values will go, for now.
 
-Here is the entire content of the file, make sure to switch the value for `CHAIN_NODE` to a real Ethereum node endpoint.:
+Here is the entire content of the file:
 
 ```typescript
 // src/contract.ts
 import { Store } from "@subsquid/typeorm-store";
 import { Contract } from "./model";
-
-export const CHAIN_NODE = 'wss://<USE_YOUR_ENDPOINT_HERE>';
 
 export const contractAddress = "0xac5c7493036de60e63eb81c5e9a440b42f47ebf5";
 
@@ -186,11 +169,11 @@ export async function getOrCreateContractEntity(store: Store): Promise<Contract>
 
 ## Configure Processor and Attach Handler
 
-The `src/processor.ts` file is where the template project instantiates the `SubstrateBatchProcessor` class, configures it for execution, and attaches the handler functions.
+The `src/processor.ts` file is where the template project instantiates the `EvmBatchProcessor` class, configures it for execution, and attaches the handler functions.
 
-We have to make substantial changes here, and modify pretty much the entire file. Here is a list of tasks that the code in this file should accomplish:
+We have to make substantial changes here, and add the bulk of our logic. Here is a list of tasks that the code in this file should accomplish:
 
-* Instantiate `TypeormDatabase` and `EvmBatchProcessor` classes
+* Instantiate `TypeormDatabase` and `EvmBatchProcessor` classes (already present)
 * Configure the processor by setting the block range, the Archive and RPC node endpoints, and subscribe to logs of the Exosama contract with the `setBlockRange`, `setDataSource` and `addLog` functions, respectively
 * Declare a function to handle the EVM logs, using the decoding functions defined in `exo.ts` by the `evm-typegen` tool
 * Declare a second function to save all the data extracted from the batch in one go. Saving vectors of models, instead of a single instance at a time will guarantee a much better performance and it is the preferred way to go
@@ -217,7 +200,7 @@ const database = new TypeormDatabase();
 const processor = new EvmBatchProcessor()
   .setBlockRange({ from: 15584000 })
   .setDataSource({
-    chain: CHAIN_NODE,
+    chain: process.env.ETHEREUM_MAINNET_WSS,
     archive: 'https://eth-test.archive.subsquid.io',
   })
   .addLog(contractAddress, {
@@ -391,6 +374,10 @@ We mentioned in a previous paragraph, that the `Contract` model information is h
 For those who are curious, or want to improve upon this simple project, a great exercise would be to `Contract.name`, `Contract.symbol` and similar functions and edit the hardcoded part.
 :::
 
+:::warning
+Make sure to edit the `.env` file and change the value for `ETHEREUM_MAINNET_WSS` to a real Ethereum node endpoint.
+:::
+
 ## Launch and Set Up the Database
 
 When running the project locally, as it is the case for this guide, it is possible to use the `docker-compose.yml` file that comes with the template to launch a PostgreSQL container. To do so, run the following command in your terminal:
@@ -412,7 +399,7 @@ To set up the database, you can take the following steps:
 1. Build the code
 
     ```bash
-    npm run build
+    make build
     ```
 
 2. Make sure the Postgres Docker container, `squid-template_db_1`, is running
