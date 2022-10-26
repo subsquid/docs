@@ -17,8 +17,8 @@ A squid processor is a separate node.js process that fetches historical on-chain
 
 The batch consists of canonically ordered execution log items of the following kinds:
 
-- EVM log item. The processor subscribes to EVM logs with the `EvmBatchProcessor.addLog()` method. It supports filters and data selection options.
-- EVM transaction item. The processor subscribes to EVM transaction with `EvmBatchProcessor.addTransaction()`.
+- `evmLog` kind item. The processor subscribes to EVM logs with the `EvmBatchProcessor.addLog()` method. It supports filters and data selection options.
+- `transaction` kind item. The processor subscribes to EVM transaction with `EvmBatchProcessor.addTransaction()`.
 
 Further, the processor can extract additional data by querying the [historical runtime state](/develop-a-squid/evm-processor/storage-state-calls) and indeed any [external API](https://github.com/subsquid/squid-external-api-example).
 
