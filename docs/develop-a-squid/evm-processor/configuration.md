@@ -1,3 +1,9 @@
+---
+sidebar_position: 20
+description: >-
+  Configure the squid processor by setting the data source and the block range
+---
+
 # Configuration
 
 ## Initialization

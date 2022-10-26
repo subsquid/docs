@@ -4,7 +4,16 @@ description: >-
   The squid processor ingests raw on-chain data from an Archive, transforms it and saves into the target data store.
 ---
 
-# Squid Substrate Processor
+# Substrate Processor
+
+This section applies to squid processors indexing [Substrate](https://dcos.substrate.io)-based chains, including:
+
+- Polkadot
+- Kusama
+- Moonbeam
+- Moonriver
+- Astar
+- Acala
 
 ## Overview and the data model
 

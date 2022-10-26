@@ -4,7 +4,12 @@ description: >-
   The squid processor ingests raw on-chain data from an Archive, transforms it and saves into the target data store.
 ---
 
-# Squid EVM Processor
+# EVM Processor
+
+This section applies to squids indexing EVM chains:
+
+- Ethereum Mainnet
+- Polygon (Coming soon)
 
 ## Overview and the data model
 
