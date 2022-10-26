@@ -5,14 +5,26 @@ title: Migrate from TheGraph
 
 # Migrate from TheGraph
 
-This guide walks through the steps to migrate a subgraph to Subsquid. In what follows we will convert the [Gravatar](https://github.com/graphprotocol/example-subgraph) subgraph into a squid and run it locally. Impatient readers may clone the migrated squid from the `gravatar-squid` branch of the [squid-evm-template repo](https://github.com/subsquid/squid-ethereum-template):
+This guide walks through the steps to migrate a subgraph to Subsquid. In what follows we will convert the [Gravatar](https://github.com/graphprotocol/example-subgraph) subgraph into a squid and run it locally. Impatient readers may clone the migrated squid from the `gravatar-squid` branch of the [squid-evm-template repo](https://github.com/subsquid/squid-ethereum-template) and run it by following the instructions in README:
 
 ```bash
 git clone -b gravatar-squid https://github.com/subsquid/squid-ethereum-template.git
 ```
-and run it by following the instructions in README.
 
-Subsquid offers batched processing and a slightly different log handling programming model, which pays off with up to a 100x increase in the indexing speed. At the same time, the concepts of the [schema file](/develop-a-squid/schema-file), code generation and automatic GraphQL API should be familiar for subgraph developers. In most cases the schema file can used by a squid as is. 
+
+`EvmBatchProcessor` provided by the Squid SDK defines a single handler that indexes EVM logs and transaction data in batches of heterogeneous items.  It differs from the programming model of subgraph mappings, that define a separate data handler for each EVM log topic to be indexed. Due to significantly less frequent database hits (once per batch compared to once per log) the batch-based handling model shows up to a 10x increase in the indexing speed. 
+
+At the same time, the concepts of the [schema file](/develop-a-squid/schema-file), [code generation from the schema file](https://github.com/subsquid/squid/tree/master/typeorm-codegen) and [an auto-generated GraphQL API](/develop-a-squid/graphql-api) should be familiar for subgraph developers. In most cases the schema file of a subgraph can be imported into a squid as is. 
+
+On top of the features provided by subgraphs, the Squid SDK and the Aquarium cloud service offers extra flexibility in developing tailored APIs and ETLs for on-chain data:
+
+- Full control over the target database (Postgres), including custom migrations and ad-hoc queries in the handler
+- Custom target databases and data formats (e.g. CSV)
+- Arbitrary code execution in the data handler
+- [Extension of the GraphQL API](/develop-a-squid/graphql-api/custom-resolvers) with arbitrary SQL
+- [Secret environment variables](/deploy-squid/env-variables), allowing to seamlessly use private third-party JSON-RPC endpoints and integrate with external APIs
+- [API versioning and aliasing](/deploy-squid/promote-to-production)
+- [API Caching](/deploy-squid/caching)  
 
 ## Squid setup 
 
@@ -38,18 +50,18 @@ type Gravatar @entity {
 }
 ```
 
-Next, we generate the entities from the schema and check the squid builds:
+Next, we generate the entities from the schema and build the squid:
 ```bash
 make codegen
 make build
 ```
 
-After that start the local database and generate the migrations from the generated entities:
+After that, start the local database and generate the migrations from the generated entities:
 ```bash
 make up
 make migration
 ```
-The migration file will appear in `db/migrations`
+A database migration file for creating a table for `Gravatar` will appear in `db/migrations`. It will be automatically applied once we start the squid processor.
 
 ### Generate typings from ABI
 
@@ -58,27 +70,30 @@ Copy the contract ABI (`Gravity.json`) to `src/abi` and run [EVM typegen](/devel
 npx squid-evm-typegen --abi=src/abi/Gravity.json --output=src/abi/Gravity.ts
 ```
 
-The generated access class will be generated in `src/abi/Gravity.ts`. In particular, it will contain the boilerplate to decode the logs and the topic definitions used at the next step. 
+A boilerplate code for decoding EVM logs and the contract access classes will be generated in `src/abi/Gravity.ts`. In particular, the file contains the topic definitions used at the next step. 
 
 ### Subscribe to EVM logs
 
-The core of the indexing logic is implemented in `src/processor.ts`. This is where we define which EVM logs (events) our squid will process and the batch handler for them. Squids are configured directly in the code, unlike subgraphs which require the handlers and event to be defined in the manifest file.
+The core of the indexing logic is implemented in `src/processor.ts`. This is where we define which EVM logs (events) our squid will process and define the batch handler for them. The squid processor is configured directly by the code, unlike subgraphs which require the handlers and events to be defined in the manifest file.
 
 ```ts file=src/processor.ts
 import { events } from "./abi/Gravity";
 
 const processor = new EvmBatchProcessor()
   .setDataSource({
-    chain: process.env.ETHEREUM_MAINNET_WSS,
+    // archive for Ethereum-mainnet
     archive: 'https://eth-test.archive.subsquid.io',
   })
   .setBlockRange({ from: 6175243 })
+  // fetch only logs emitted by the specified contract,
+  // and that match the specified topic filter
   .addLog('0x2E645469f354BB4F5c8a05B3b30A929361cf77eC', {
     filter: [[
       events['NewGravatar(uint256,address,string,string)'].topic,
       events['UpdatedGravatar(uint256,address,string,string)'].topic,
    ]],
     data: {
+        // define the log fields to be fetched from the archive
         evmLog: {
             topics: true,
             data: true,
@@ -93,9 +108,9 @@ In the snippet above we tell the squid processor to fetch logs emitted by the co
 
 The processor currently doesn't do much and simply outputs the data it fetches from the archive.
 
-Now we migrate the subgraph handlers which transform the event data into `Gravatar` objects. Instead of saving or updating gravatars one by one, `EvmBatchProcessor` receives an ordered batch of event items it is subscribed to (which can be inspected by the output). 
+Now we migrate the subgraph handlers that transform the event data into `Gravatar` objects. Instead of saving or updating gravatars one by one, `EvmBatchProcessor` receives an ordered batch of event items it is subscribed to (which can be inspected by the output). The batch typically consists of a mix of event and transaction data. In our case we have only two logs -- emitted when a gravatar is created and updated.
 
-We start with an auxiliary function that extracts the event data from the logs using the helper classes generated by `evm-codegen` from the ABI
+We start with an auxiliary function that extracts and normalizes the event data from the logs using the helper classes generated by `evm-codegen` from the ABI.
 
 ```ts
 function extractData(evmLog: any): { id: ethers.BigNumber, owner: string, displayName: string, imageUrl: string} {
@@ -109,13 +124,14 @@ function extractData(evmLog: any): { id: ethers.BigNumber, owner: string, displa
 }
 ```
 
-Next, we processed with a batch handler collecting the updates from a single batch of EVM logs. The update is an ordered array of items which may span multiple blocks. Each item is either an `UpdateGravatar` event or a `NewGravatar` event, as was configured in the previous step
+Next, we proceed with a batch handler collecting the updates from a single batch of EVM logs. Each item in `ctx.blocks` is either a `UpdateGravatar` event or a `NewGravatar` event, as was configured in the previous step. We extract the data in a unified way using `extractData` defined above. To convert a `0x...` string into a byte array we use `decodeHex` provided by the [Squid SDK](https://github.com/subsquid/squid/tree/master/util).
 
 ```ts
 processor.run(new TypeormDatabase(), async (ctx) => {
     const gravatars: Map<string, Gravatar> = new Map();
     for (const c of ctx.blocks) {
       for (const e of c.items) {
+        // e.kind may be 'evmLog' or 'transaction'
         if(e.kind !== "evmLog") {
           continue
         }
@@ -132,17 +148,22 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 });
 ```
 
-The implementation is straightforward -- the newly created and/or updated gravatars are tracked by an in-memory map. The values are persistent in a single batch upsert via `cts.store.save(...)`.
+The implementation is straightforward -- the newly created and/or updated gravatars are tracked by an in-memory map. The values are persisted in a single batch upsert via `cts.store.save(...)` once all items are processed.
 
-### Run the API
+### Run the processor and GraphQL API
 
-Run 
+To start the indexing, run
+```bash
+make build
+make process
+```
+The processor will output the sync progress and the ETA to reach the chain head. After it reaches the head it will continue indexing new blocks until stopped.
 
+To start an API server (at port `4350` by default), run in a new terminal window
 ```bash
 make serve
 ```
-
-and inspect the auto-generated GraphQL API using the interactive playground at `http://localhost:4350/graphql` 
+and inspect the auto-generated GraphQL API using an interactive playground at `http://localhost:4350/graphql` 
 
 
 ## What's Next?
