@@ -38,6 +38,59 @@ The `option` argument supports filtering by topic and data selectors to specify 
 
 Note, that the topic filter follows the [Ether.js filter specification](https://docs.ethers.io/v5/concepts/events/#events--filters). For example, for a filter that accepts the ERC721 topic `Transfer(address,address,uint256)` AND `ApprovalForAll(address,address,bool)` use a double array as in the example below.
 
+## Data Selectors
+
+The data selectors can define any subset of the fields below:
+
+```ts
+export interface EvmTransaction {
+    id: string
+    from: string
+    gas: bigint
+    gasPrice: bigint
+    hash: string
+    input: string
+    nonce: bigint
+    to?: string
+    index: number
+    value: bigint
+    type: number
+    chainId: number
+    v: bigint
+    r: string
+    s: string
+}
+
+export interface EvmLog {
+    id: string
+    address: string
+    data: string
+    index: number
+    removed: boolean
+    topics: string[]
+    transactionIndex: number
+}
+```
+
+For example, the following configuration will tell the processor to enrich the transaction data of the evm log items with the `r`, `s`, `v` fields:
+
+```ts
+//...
+    data: {
+        evmLog: {
+            id: true,
+            topics: true,
+            data: true,
+        },
+        transaction: { 
+            r: true,
+            s: true,
+            v: true
+        }
+    }
+//...
+```
+
 ### Example
 
 Below is an example of `EvmBatchProcessor` subscribing 

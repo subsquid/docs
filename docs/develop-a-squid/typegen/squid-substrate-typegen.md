@@ -103,7 +103,7 @@ processor.run(new TypeormDatabase(), async ctx => {
 
 ### Storage
 
-See [Storage queries](/develop-a-squid/squid-processor/storage-state-calls)
+See [Storage queries](/develop-a-squid/substrate-processor/storage-state-calls)
 
 ### Constants
 

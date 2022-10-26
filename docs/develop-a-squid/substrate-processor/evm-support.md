@@ -61,7 +61,7 @@ processor.addEvmLog([
 **Since `@subsquid/substrate-processor@1.7.0`**
 
 It is possible to subscribe to `Ethereum.transact()` calls with the option to filter by the contract address (or addresses) and `sighash`, used as a [function selector](https://docs.ethers.io/v5/api/utils/abi/interface/#Interface--selectors) by the EVM spec.
-The data selection options are similar to [`addCall()`](/develop-a-squid/squid-processor/data-subscriptions#addcallname-options).
+The data selection options are similar to [`addCall()`](/develop-a-squid/substrate-processor/data-subscriptions#addcallname-options).
 
 Note that by default both successful and failed transactions are fetched. Further, there's a difference between the success of a Substrate call and the internal EVM transaction, the transaction may fail even if the enclosing Substrate call has succeeded. 
 

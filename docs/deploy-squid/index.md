@@ -9,7 +9,7 @@ title: Deploy a Squid
 This section goes through deploying a squid to [Aquarium](https://app.subsquid.io) -- a cloud API service provided by Subsquid.
 The following steps are performed by the Aquarium deployment service under the hood:
 - Checkout the squid from a remote URL
-- Build Docker images for the squid-processor and the API server -- same as when [built locally](/run-squid/run-in-docker)
+- Build Docker images for the substrate-processor and the API server -- same as when [built locally](/run-squid/run-in-docker)
 - Set up a Postgres database 
 - Set the `DB_XXX` variables and start containers for the squid processor and the squid API server
 - Wait until the squid processor Prometheus metrics are available and the squid API server is online

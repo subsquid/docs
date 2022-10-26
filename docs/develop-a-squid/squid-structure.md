@@ -10,7 +10,7 @@ A squid is expected to follow the folder structure of [`squid-template`](https:/
 - `/db` -- a designated folder with the database migrations
 - `/lib` -- the output folder for the compiled sources 
 - `/src` -- a source folder for the squid processor
-   + `/src/processor.ts` -- the entry point to run the [squid processor](/develop-a-squid/squid-processor)
+   + `/src/processor.ts` -- the entry point to run the [squid processor](/develop-a-squid/substrate-processor)
    + `/src/model` -- a typescript module for the entity classes 
    + `/src/model/generated` -- a folder for the TypeORM entities generated from `schema.graphql`
    + `/src/server-extension/resolvers` -- an (optional) folder for [user-defined GraphQL resolvers](/develop-a-squid/graphql-api/custom-resolvers)

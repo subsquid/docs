@@ -96,7 +96,7 @@ export default function Home(): JSX.Element {
             color={'bg-role--notice'}
             description="Live query updates with GraphQL subscriptions">GraphQL subscriptions</GuideCard>
           <GuideCard
-            path="/develop-a-squid/squid-processor/acala-evm-support"
+            path="/develop-a-squid/substrate-processor/acala-evm-support"
             color={'bg-role--warning'}
             description="Native support for indexing Acala EVM+ smart contracts">EVM+ smart contracts</GuideCard>
         </div>

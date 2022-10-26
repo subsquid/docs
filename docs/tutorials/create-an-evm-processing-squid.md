@@ -139,7 +139,7 @@ The ERC-721 ABI defines the signatures of all events in the contract. The `Trans
 
 ## Define and Bind Event Handler(s)
 
-The Subsquid SDK provides users with a [processor](/develop-a-squid/squid-processor) class, named `SubstrateProcessor` or, in this specific case [`SubstrateBatchProcessor`](/develop-a-squid/squid-processor/batch-processor-in-action). The processor connects to the [Subsquid archive](/overview) to get chain data. It will index from the configured starting block, until the configured end block, or until new data is added to the chain.
+The Subsquid SDK provides users with a [processor](/develop-a-squid/substrate-processor) class, named `SubstrateProcessor` or, in this specific case [`SubstrateBatchProcessor`](/develop-a-squid/substrate-processor/batch-processor-in-action). The processor connects to the [Subsquid archive](/overview) to get chain data. It will index from the configured starting block, until the configured end block, or until new data is added to the chain.
 
 The processor exposes methods to "attach" functions that will "handle" specific data such as Substrate events, extrinsics, storage items, or EVM logs. These methods can be configured by specifying the event or extrinsic name, or the EVM log contract address, for example. As the processor loops over the data, when it encounters one of the configured event names, it will execute the logic in the "handler" function.
 

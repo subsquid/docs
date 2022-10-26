@@ -8,7 +8,7 @@ description: >-
 
 This section applies to squids indexing EVM chains:
 
-- Ethereum Mainnet
+- Ethereum Mainnet. Archive endpoint: `https://ethereum-mainnet-beta.archive.subsquid.io`
 - Polygon (Coming soon)
 
 ## Overview and the data model
@@ -18,7 +18,7 @@ A squid processor is a separate node.js process that fetches historical on-chain
 The batch consists of canonically ordered execution log items of the following kinds:
 
 - `evmLog` kind item. The processor subscribes to EVM logs with the `EvmBatchProcessor.addLog()` method. It supports filters and data selection options.
-- `transaction` kind item. The processor subscribes to EVM transaction with `EvmBatchProcessor.addTransaction()`.
+- `transaction` kind item. The processor subscribes to EVM transaction with `EvmBatchProcessor.addTransaction()`. 
 
-Further, the processor can extract additional data by querying the [historical runtime state](/develop-a-squid/evm-processor/storage-state-calls) and indeed any [external API](https://github.com/subsquid/squid-external-api-example).
+Further, the processor can extract additional data by querying the [historical chain state](/develop-a-squid/evm-processor/query-state) and indeed any [external API](https://github.com/subsquid/squid-external-api-example).
 
