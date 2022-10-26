@@ -33,3 +33,4 @@ Typegen
 Acala
 Karura
 subgraph
+Websocket
