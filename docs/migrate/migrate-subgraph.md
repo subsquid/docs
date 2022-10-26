@@ -30,7 +30,7 @@ On top of the features provided by subgraphs, the Squid SDK and the Aquarium clo
 
 ### 1. Clone template
 
-To begin with, clone the Ethereum squid template from the [squid-ethereum-template repo](https://github.com/subsquid/squid-ethereum-template):
+To begin with, clone the "minimal" Ethereum squid template from the [squid-ethereum-template repo](https://github.com/subsquid/squid-ethereum-template):
 
 ```bash
 git clone https://github.com/subsquid/squid-ethereum-template.git
@@ -61,7 +61,7 @@ After that, start the local database and generate the migrations from the genera
 make up
 make migration
 ```
-A database migration file for creating a table for `Gravatar` will appear in `db/migrations`. It will be automatically applied once we start the squid processor.
+A database migration file for creating a table for `Gravatar` will appear in `db/migrations`. The migration will be automatically applied once we start the squid processor.
 
 ### Generate typings from ABI
 
