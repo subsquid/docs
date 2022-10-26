@@ -85,7 +85,7 @@ export default function Home(): JSX.Element {
          <GuideCard
             path="/tutorials/create-an-evm-processing-squid"
             color={'bg-role--success'}
-            description="Index data from EVM chains like Moonbeam and Astar.">EVM smart contract
+            description="Index data from Substrate EVM chains like Moonbeam and Astar.">Frontier EVM
             data</GuideCard>
           <GuideCard
             path="/tutorials/create-a-wasm-processing-squid"
