@@ -82,7 +82,7 @@ A concrete `ctx.store` instance is derived at runtime from the run argument via
 processor.run<Store>(db: Database<Store>, batchHandler: (ctx: BatchContext<Store>) => Promise<void>)
 ``` 
 
-See [Store Interface](/develop-a-squid/squid-processor/store-interface) for details.
+See [Store Interface](/develop-a-squid/substrate-processor/store-interface) for details.
 
 ### `Logger`
 
@@ -114,4 +114,4 @@ processor.run(new TypeormDatabase(), async ctx => {
 })
 ```
 
-For a more elaborate example, check [Batch processor in action](/develop-a-squid/squid-processor/batch-processor-in-action) and the [Examples](/develop-a-squid/examples) page.
+For a more elaborate example, check [Batch processor in action](/develop-a-squid/substrate-processor/batch-processor-in-action) and the [Examples](/develop-a-squid/examples) page.

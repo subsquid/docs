@@ -96,7 +96,7 @@ export default function Home(): JSX.Element {
             color={'bg-role--notice'}
             description="Live query updates with GraphQL subscriptions">GraphQL subscriptions</GuideCard>
           <GuideCard
-            path="/develop-a-squid/squid-processor/acala-evm-support"
+            path="/develop-a-squid/substrate-processor/acala-evm-support"
             color={'bg-role--warning'}
             description="Native support for indexing Acala EVM+ smart contracts">EVM+ smart contracts</GuideCard>
         </div>
@@ -109,9 +109,12 @@ export default function Home(): JSX.Element {
         <TutorialCard
             path="/new-in-fire-squid"
             description="Learn about the new features introduced by the FireSquid release">What's new in FireSquid</TutorialCard>
-          <TutorialCard
+         <TutorialCard
+            path="/migrate/migrate-subgraph"
+            description="Migrate your subgraph and improve sync times up to 10x.">Migrate from TheGraph</TutorialCard>
+         <TutorialCard
             path="/migrate/migrate-to-fire-squid"
-            description="Migrate to FireSquid and improve sync times up to 10x.">Migrate to FireSquid</TutorialCard>
+            description="Migrate to FireSquid from an older versions of squid SDK">Migrate to FireSquid</TutorialCard>
         {/* <TutorialCard
             path=""
             description="Coming soon" 

@@ -11,7 +11,7 @@ Note that `@derivedFrom` has no effect on the corresponding table DDL but rather
 
 The following examples illustrate this concept.
 
-**One-to-one relation**
+## One-to-one relations
 
 ```graphql
 type Account @entity {
@@ -31,7 +31,7 @@ type User @entity {
 
 The `User` entity references a single `Account` and owns the relation (that is, the database schema will define the column `user.account_id` referencing to the `account` table).  
 
-**Many-to-one/One-to-many relations**
+## Many-to-one/One-to-many relations
 
 ```graphql
 type Account @entity {
@@ -52,7 +52,7 @@ type Transfer @entity {
 
 Here `Tranfer` defines two foreign key references and `Account` defines the corresponding inverse lookup properties.
 
-**Many-to-many relations**
+## Many-to-many relations
 
 Many-to-many entity relations should be modelled as two one-to-many relations with an explicitly defined join table. 
 Here is an example:
