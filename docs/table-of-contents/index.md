@@ -20,7 +20,7 @@ sidebar_position: 13
   * [Schema file](/develop-a-squid/schema-file)
     * [Indexes and constrains](/develop-a-squid/schema-file/indexes-and-constraints) 
     * [Schema updates](/develop-a-squid/schema-file/schema-updates)
-  * [EVM Processor](/develop-a-squid/substrate-processor)
+  * [EVM Processor](/develop-a-squid/evm-processor)
     * [Configuration](/develop-a-squid/evm-processor/configuration)
     * [Data mapping](/develop-a-squid/evm-processor/data-mapping)
     * [Query statre](/develop-a-squid/evm-processor/query-state)
