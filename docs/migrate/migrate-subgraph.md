@@ -53,16 +53,16 @@ type Gravatar @entity {
 }
 ```
 
-Next, we generate the entities from the schema and build the squid:
+Next, we generate the entities from the schema and build the squid using the [`squid-typeorm-codegen(1)`](https://github.com/subsquid/squid/tree/master/typeorm-codegen) tool of the Squid SDK:
 ```bash
-make codegen
+npx squid-typeorm-codegen
 make build
 ```
 
-After that, start the local database and generate the migrations from the generated entities:
+After that, start the local database and generate the migrations from the generated entities using the [`squid-typeorm-migration(1)`](https://github.com/subsquid/squid/tree/master/typeorm-migration) tool provided by the Squid SDK:
 ```bash
 make up
-make migration
+npx squid-typeorm-migration generate
 ```
 A database migration file for creating a table for `Gravatar` will appear in `db/migrations`. The migration will be automatically applied once we start the squid processor.
 
@@ -162,9 +162,9 @@ make process
 ```
 The processor will output the sync progress and the ETA to reach the chain head. After it reaches the head it will continue indexing new blocks until stopped.
 
-To start an API server (at port `4350` by default), run in a new terminal window
+To start an API server (at port `4350` by default) with a GraphQL schema auto-generated from the schema file, run in a new terminal window
 ```bash
-make serve
+npx squid-graphql-server
 ```
 and inspect the auto-generated GraphQL API using an interactive playground at `http://localhost:4350/graphql` 
 
