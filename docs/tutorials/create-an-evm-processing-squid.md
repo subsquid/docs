@@ -32,22 +32,7 @@ Next, clone the created repository (be careful of changing `<account>` with your
 git clone git@github.com:<account>/squid-evm-template.git
 ```
 
-For reference on the complete work, you can find the entire project [here](https://github.com/subsquid/squid-astar-example).
-
-### Run the project
-
-Next, just follow the [Quickstart](/quickstart) to get the project up and running, here's a list of commands to run in quick succession:
-
-```bash
-npm ci
-npm run build
-make up
-make process
-# open a separate terminal for this next command
-make serve
-```
-
-Bear in mind this is not strictly **necessary**, but it is always useful to check that everything is in order. If you are not interested, you could at least get the Postgres container running with `docker compose up -d.`
+For reference on the complete work, you can find the entire project [here](https://github.com/subsquid/squid-astar-example/tree/astar-degens).
 
 ## Define Entity Schema
 
@@ -95,6 +80,7 @@ type Transfer @entity {
   block: Int!
   transactionHash: String!
 }
+
 ```
 
 It's worth noting a couple of things in this [schema definition](https://docs.subsquid.io/reference/openreader-schema):
@@ -108,7 +94,7 @@ The template already has automatically generated TypeScript classes for this sch
 Whenever changes are made to the schema, new TypeScript entity classes have to be generated, and to do that you'll have to run the `codegen` tool:
 
 ```bash
-npx squid-typeorm-codegen
+make codegen
 ```
 
 ## ABI Definition and Wrapper
@@ -164,58 +150,41 @@ In case someone wants to index an EVM event different from `Transfer`, they woul
 ```typescript
 // src/contract.ts
 import { Store } from "@subsquid/typeorm-store";
-import { ethers } from "ethers";
-import * as erc721 from "./abi/erc721";
 import { Contract } from "./model";
 
 export const CHAIN_NODE = "wss://astar.public.blastapi.io";
+export const astarDegensAddress = "0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a";
+export const astarCatsAddress = "0x8b5d62f396Ca3C6cF19803234685e693733f9779";
 
-interface ContractInfo {
-  ethersContract: ethers.Contract;
-  contractModel: Contract;
-}
-
-export const contractMapping: Map<string, ContractInfo> = new Map<
+export const contractMapping: Map<string, Contract> = new Map<
   string,
-  ContractInfo
+  Contract
 >();
 
-export const astarDegenscontract = new ethers.Contract(
-  "0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a".toLowerCase(),
-  erc721.abi,
-  new ethers.providers.WebSocketProvider(CHAIN_NODE)
-);
-
-contractMapping.set(astarDegenscontract.address, {
-  ethersContract: astarDegenscontract,
-  contractModel: {
-    id: astarDegenscontract.address,
+contractMapping.set(astarDegensAddress, {
+    id: astarDegensAddress,
     name: "AstarDegens",
     symbol: "DEGEN",
     totalSupply: 10000n,
     mintedTokens: [],
-  },
-});
-
-export const astarCatsContract = new ethers.Contract(
-  "0x8b5d62f396Ca3C6cF19803234685e693733f9779".toLowerCase(),
-  erc721.abi,
-  new ethers.providers.WebSocketProvider(CHAIN_NODE)
+  }
 );
 
-contractMapping.set(astarCatsContract.address, {
-  ethersContract: astarCatsContract,
-  contractModel: {
-    id: astarCatsContract.address,
+contractMapping.set(astarCatsAddress, {
+    id: astarCatsAddress,
     name: "AstarCats",
     symbol: "CAT",
     totalSupply: 7777n,
     mintedTokens: [],
-  },
-});
+  }
+);
 
 export function createContractEntity(address: string): Contract {
-  return new Contract(contractMapping.get(address)?.contractModel);
+  const contractObj = contractMapping.get(address);
+  if (contractObj)
+    return new Contract(contractObj);
+  
+  throw new Error("could not find a contract with that address");
 }
 
 const contractAddresstoModel: Map<string, Contract> = new Map<
@@ -239,52 +208,15 @@ export async function getContractEntity(
   return contractAddresstoModel.get(address);
 }
 
-export async function getTokenURI(
-  tokenId: string,
-  address: string
-): Promise<string> {
-  return retry(async () =>
-    timeout(contractMapping.get(address)?.ethersContract?.tokenURI(tokenId))
-  );
-}
-
-async function timeout<T>(res: Promise<T>, seconds = 30): Promise<T> {
-  return new Promise((resolve, reject) => {
-    let timer: any = setTimeout(() => {
-      timer = undefined;
-      reject(new Error(`Request timed out in ${seconds} seconds`));
-    }, seconds * 1000);
-
-    res
-      .finally(() => {
-        if (timer != null) {
-          clearTimeout(timer);
-        }
-      })
-      .then(resolve, reject);
-  });
-}
-
-async function retry<T>(promiseFn: () => Promise<T>, attempts = 3): Promise<T> {
-  for (let i = 0; i < attempts; i += 1) {
-    try {
-      return await promiseFn();
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  throw new Error(`Error after ${attempts} attempts`);
-}
-
 ```
 
 ## Configure Processor and Attach Handler
 
 The `src/processor.ts` file is where the template project instantiates the `SubstrateBatchProcessor` class, configures it for execution, and attaches the handler functions.
 
-Luckily for us, most of the job is already done, but we still need to adapt the code to handle two contracts, instead of only one. We need to change the `addEvmLog` function call, with the appropriate contract address for AstarDegens, and add a second one for AstarCats.
+Luckily for us, most of the job is already done, but we still need to adapt the code to handle two contracts, instead of only one. We also need to change the `addEvmLog` function call, with the appropriate contract address for AstarDegens, and add a second one for AstarCats.
 
-Furthermore, we need to adapt the logic to save the `Token` to avoid clashing.
+Furthermore, we need to adapt the logic to save `Token`s in a way that avoids ID clashing.
 
 :::info
 It is also important to note that, since the template was built for the `moonriver` network, it is necessary to change the `archive` parameter of the `setDataSource` function to fetch the Archive URL for Astar.
@@ -305,12 +237,12 @@ import {
   SubstrateBlock,
 } from "@subsquid/substrate-processor";
 import { In } from "typeorm";
+import { ethers } from "ethers";
 import {
   CHAIN_NODE,
-  astarDegenscontract,
+  astarDegensAddress,
   getContractEntity,
-  getTokenURI,
-  astarCatsContract,
+  astarCatsAddress,
   contractMapping,
 } from "./contract";
 import { Owner, Token, Transfer } from "./model";
@@ -325,11 +257,11 @@ const processor = new SubstrateBatchProcessor()
     archive: lookupArchive("astar", { release: "FireSquid" }),
   })
   .setTypesBundle("astar")
-  .addEvmLog(astarDegenscontract.address, {
+  .addEvmLog(astarDegensAddress, {
     range: { from: 442693 },
     filter: [erc721.events["Transfer(address,address,uint256)"].topic],
   })
-  .addEvmLog(astarCatsContract.address, {
+  .addEvmLog(astarCatsAddress, {
     range: { from: 800854 },
     filter: [erc721.events["Transfer(address,address,uint256)"].topic],
   });
@@ -356,7 +288,7 @@ type TransferData = {
   id: string;
   from: string;
   to: string;
-  token: string;
+  token: ethers.BigNumber;
   timestamp: bigint;
   block: number;
   transactionHash: string;
@@ -373,7 +305,7 @@ function handleTransfer(
 
   const transfer: TransferData = {
     id: event.id,
-    token: tokenId.toString(),
+    token: tokenId,
     from,
     to,
     timestamp: BigInt(block.timestamp),
@@ -390,7 +322,7 @@ async function saveTransfers(ctx: Context, transfersData: TransferData[]) {
   const ownersIds: Set<string> = new Set();
 
   for (const transferData of transfersData) {
-    tokensIds.add(transferData.token);
+    tokensIds.add(transferData.token.toString());
     ownersIds.add(transferData.from);
     ownersIds.add(transferData.to);
   }
@@ -412,6 +344,12 @@ async function saveTransfers(ctx: Context, transfersData: TransferData[]) {
   );
 
   for (const transferData of transfersData) {
+    const contract = new erc721.Contract(
+      ctx,
+      { height: transferData.block },
+      transferData.contractAddress
+    );
+
     let from = owners.get(transferData.from);
     if (from == null) {
       from = new Owner({ id: transferData.from, balance: 0n });
@@ -424,11 +362,12 @@ async function saveTransfers(ctx: Context, transfersData: TransferData[]) {
       owners.set(to.id, to);
     }
 
-    let token = tokens.get(`${contractMapping.get(transferData.contractAddress)?.contractModel.symbol || ""}-${transferData.token}`);
+    const tokenId = `${contractMapping.get(transferData.contractAddress)?.symbol || ""}-${transferData.token.toString()}`;
+    let token = tokens.get(tokenId);
     if (token == null) {
       token = new Token({
-        id: `${contractMapping.get(transferData.contractAddress)?.contractModel.symbol || ""}-${transferData.token}`,
-        uri: await getTokenURI(transferData.token, transferData.contractAddress),
+        id: tokenId,
+        uri: await contract.tokenURI(transferData.token),
         contract: await getContractEntity(ctx.store, transferData.contractAddress),
       });
       tokens.set(token.id, token);
@@ -461,12 +400,16 @@ async function saveTransfers(ctx: Context, transfersData: TransferData[]) {
 Pay close attention to the line with `id` in the `Token` model, because this is how we avoid the two token collection to clash. Both are using cardinal numbers to identify their own tokens, but we are now adding them to the same table, so we need a way to identify them uniquely and in this case, we chose the contract symbol to do so.
 :::
 
+:::info
+It is also interesting to notice that `contract.tokenURI` is accessing the **state** of the contract, directly from the chain endpoint we provided. This is slowing down the indexing a little bit, because of the repeated RPC calls, but this data is only available this way. You'll find more information in the [dedicated section of our docs](/develop-a-squid/squid-processor/evm-support.md#access-the-contract-state).
+:::
+
 ## Launch and Set Up the Database
 
 When running the project locally, as it is the case for this guide, it is possible to use the `docker-compose.yml` file that comes with the template to launch a PostgreSQL container. To do so, run the following command in your terminal:
 
 ```bash
-docker-compose up -d
+make up
 ```
 
 ![Launch database container](https://i.gyazo.com/907ef55371e1cdb1839d2fe7ff108ee7.gif)
@@ -480,20 +423,24 @@ To set up the database, you can take the following steps:
 1. Build the code
 
     ```bash
-    npm run build
+    make build
     ```
 
-2. Make sure the Postgres Docker container, `squid-evm-template_db_1`, is running
+2. Make sure the Postgres Docker container, `squid-evm-template_db_1`, is running (the exact name depends on the name you gave the repository, when cloning it)
 
     ```bash
     docker ps -a
     ```
 
-3. Apply the migration, so tables are created on the database
-
+3. Remove existing migrations, because our schema may have changed
 
     ```bash
-    npx squid-typeorm-migration apply
+    rm db/migrations/*js
+    ```
+4. Generate a new migration, so tables are created on the database
+
+    ```bash
+    make migration
     ```
 
 ## Launch the Project
@@ -501,7 +448,7 @@ To set up the database, you can take the following steps:
 To launch the processor (this will block the current terminal), you can run the following command:
 
 ```bash
-node -r dotenv/config lib/processor.js
+make process
 ```
 
 ![Launch processor](https://i.gyazo.com/66ab9c1fef9203d3e24b6e274bba47e3.gif)
@@ -509,7 +456,7 @@ node -r dotenv/config lib/processor.js
 Finally, in a separate terminal window, launch the GraphQL server:
 
 ```bash
-npx squid-graphql-server
+make serve
 ```
 
 Visit [`localhost:4350/graphql`](http://localhost:4350/graphql) to access the [GraphiQl](https://github.com/graphql/graphiql) console. From this window, you can perform queries such as this one, to find out the account owners with the biggest balances:
