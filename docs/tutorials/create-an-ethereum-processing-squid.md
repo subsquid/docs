@@ -57,7 +57,7 @@ type Token @entity {
  
 type Owner @entity {
   id: ID!
-  ownedTokens: [Token!] @derivedFrom(field: "owner")
+  ownedTokens: [Token!]! @derivedFrom(field: "owner")
   balance: BigInt! @index
 }
  
@@ -121,7 +121,7 @@ This command will automatically generate a TypeScript file named `exo.ts`, under
 
 The Subsquid SDK provides users with the `EvmBatchProcessor`, that connects to the [Subsquid archive](/overview) to get chain data and apply custom transformation. It will index from the starting block, until the end block (if these are set in the configuration), or until new data is added to the chain.
 
-The processor exposes methods to "subscribe" to EVM logs or smart contract function calls. These methods can be configured by specifying the EVM log contract address, and the signature of the EVM event, for example. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for *batches* of the data specified in the configuration, and will trigger a *handler function* every time a batch is returned by the Archive itself.
+The processor exposes methods to "subscribe" to EVM logs or smart contract function calls. These methods can be configured by specifying the EVM log contract address, and the signature of the EVM event, for example. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for *batches* of the data specified in the configuration, and will trigger the *callback function* (passed to `.run()` as second argument) every time a batch is returned by the Archive itself.
 
 :::info
 The ABI defines the signatures of all events in the contract. The `Transfer` event has three arguments, named: `from`, `to`, and `tokenId`. Their types are, respectively, `address`, `address`, and `uint256`. As such, the actual definition of the `Transfer` event looks like this: `Transfer(address, address, uint256)`.
