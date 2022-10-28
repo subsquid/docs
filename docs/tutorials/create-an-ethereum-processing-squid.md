@@ -117,16 +117,6 @@ The `abi` parameter points at the JSON file previously created, and the `output`
 
 This command will automatically generate a TypeScript file named `exo.ts`, under the `src/abi` subfolder, that defines data interfaces to represent output of the EVM events defined in the ABI, as well as a mapping of the functions necessary to decode these events (see the `events` dictionary in the aforementioned file).
 
-## Define and Bind Event Handler(s)
-
-The Subsquid SDK provides users with the `EvmBatchProcessor`, that connects to the [Subsquid archive](/overview) to get chain data and apply custom transformation. It will index from the starting block, until the end block (if these are set in the configuration), or until new data is added to the chain.
-
-The processor exposes methods to "subscribe" to EVM logs or smart contract function calls. These methods can be configured by specifying the EVM log contract address, and the signature of the EVM event, for example. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for *batches* of the data specified in the configuration, and will trigger the *callback function* (passed to `.run()` as second argument) every time a batch is returned by the Archive itself.
-
-:::info
-The ABI defines the signatures of all events in the contract. The `Transfer` event has three arguments, named: `from`, `to`, and `tokenId`. Their types are, respectively, `address`, `address`, and `uint256`. As such, the actual definition of the `Transfer` event looks like this: `Transfer(address, address, uint256)`.
-:::
-
 ### Managing the EVM contract
 
 For the purpose of this tutorial, we are going to hardcode the information of the contract itself, including totaly supply, name, and symbol. While this information can actually be sourced by accessing the state of the contract on-chain, this would have added complexity to the project. To isolate this part of our codebase, and potentially make it easier to improve it in the future, let's create a file named `src/contract.ts`, which will contain:
@@ -164,6 +154,18 @@ export async function getOrCreateContractEntity(store: Store): Promise<Contract>
 }
 
 ```
+
+## Define logic to handle and save Events & Function calls
+
+The Subsquid SDK provides users with the `EvmBatchProcessor`, that connects to the [Subsquid archive](/overview) to get chain data and apply custom transformation. It will index from the starting block, until the end block (if these are set in the configuration), or until new data is added to the chain.
+
+The processor exposes methods to "subscribe" to EVM logs or smart contract function calls. These methods can be configured by specifying the EVM log contract address, and the signature of the EVM event, for example. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for *batches* of the data specified in the configuration, and will trigger the *callback function* (passed to `.run()` as second argument) every time a batch is returned by the Archive itself.
+
+It is in this callback function that all the mapping logic is expressed. This is where Event and Function decoding should be implemented, and where the code to save processed data on the database should be defined.
+
+:::info
+The ABI defines the signatures of all events in the contract. The `Transfer` event has three arguments, named: `from`, `to`, and `tokenId`. Their types are, respectively, `address`, `address`, and `uint256`. As such, the actual definition of the `Transfer` event looks like this: `Transfer(address, address, uint256)`.
+:::
 
 ## Configure Processor and Attach Handler
 
