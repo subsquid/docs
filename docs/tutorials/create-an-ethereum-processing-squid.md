@@ -32,8 +32,6 @@ Next, clone the created repository (be careful of changing `<account>` with your
 git clone git@github.com:<account>/squid-ethereum-template.git
 ```
 
-For reference on the complete work, you can find the entire project [here](https://github.com/subsquid/squid-ethereum-example).
-
 ## Define Entity Schema
 
 The next thing to do, in order to customize the project for our own purpose, is to make changes to the schema and define the Entities we want to keep track of.
