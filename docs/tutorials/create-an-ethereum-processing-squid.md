@@ -97,7 +97,7 @@ The template already has automatically generated TypeScript classes for this sch
 Whenever changes are made to the schema, new TypeScript entity classes have to be generated, and to do that you'll have to run the `codegen` tool:
 
 ```bash
-make codegen
+npx squid-typeorm-codegen
 ```
 
 ## ABI Definition and Wrapper
@@ -159,7 +159,7 @@ export async function getOrCreateContractEntity(store: Store): Promise<Contract>
 
 The Subsquid SDK provides users with the `EvmBatchProcessor`, that connects to the [Subsquid archive](/overview) to get chain data and apply custom transformation. It will index from the starting block, until the end block (if these are set in the configuration), or until new data is added to the chain.
 
-The processor exposes methods to "subscribe" to EVM logs or smart contract function calls. These methods can be configured by specifying the EVM log contract address, and the signature of the EVM event, for example. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for *batches* of the data specified in the configuration, and will trigger the *callback function* (passed to `.run()` as second argument) every time a batch is returned by the Archive itself.
+The processor exposes methods to "subscribe" to EVM logs or smart contract function calls. These methods can be configured by specifying the EVM log contract address, and the signature of the EVM event, for example. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for *batches* of the data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive itself.
 
 It is in this callback function that all the mapping logic is expressed. This is where Event and Function decoding should be implemented, and where the code to save processed data on the database should be defined.
 
@@ -167,7 +167,7 @@ It is in this callback function that all the mapping logic is expressed. This is
 The ABI defines the signatures of all events in the contract. The `Transfer` event has three arguments, named: `from`, `to`, and `tokenId`. Their types are, respectively, `address`, `address`, and `uint256`. As such, the actual definition of the `Transfer` event looks like this: `Transfer(address, address, uint256)`.
 :::
 
-## Configure Processor and Attach Handler
+## Configure Processor and Batch Handler
 
 The `src/processor.ts` file is where the template project instantiates the `EvmBatchProcessor` class, configures it for execution, and attaches the handler functions.
 
@@ -383,7 +383,7 @@ Make sure to edit the `.env` file and change the value for `ETHEREUM_MAINNET_WSS
 When running the project locally, as it is the case for this guide, it is possible to use the `docker-compose.yml` file that comes with the template to launch a PostgreSQL container. To do so, run the following command in your terminal:
 
 ```bash
-make up
+docker compose up -d
 ```
 
 ![Launch database container](https://i.gyazo.com/907ef55371e1cdb1839d2fe7ff108ee7.gif)
@@ -399,10 +399,10 @@ To set up the database, you can take the following steps:
 1. Build the code
 
     ```bash
-    make build
+    npm run build
     ```
 
-2. Make sure the Postgres Docker container, `squid-template_db_1`, is running
+2. Make sure the Postgres Docker container, `squid-template_db_1`, is running (exact name of the container could be slightly different)
 
     ```bash
     docker ps -a
@@ -417,12 +417,12 @@ To set up the database, you can take the following steps:
 4. Generate the new migration
 
     ```bash
-    make migration
+    npx squid-typeorm-migration generate
     ```
 5. Apply the migration, so tables are created on the database
 
     ```bash
-    make migrate
+    npx squid-typeorm-migration apply
     ```
 
 ## Launch the Project
@@ -432,13 +432,16 @@ To launch the processor (this will block the current terminal), you can run the 
 ```bash
 make process
 ```
+:::info
+This is an example of some of the command shortcuts that can be found in `Makefile`. Feel free to use them, to increase your productivity.
+:::
 
 ![Launch processor](https://i.gyazo.com/66ab9c1fef9203d3e24b6e274bba47e3.gif)
 
 Finally, in a separate terminal window, launch the GraphQL server:
 
 ```bash
-make serve
+npx squid-graphql-server
 ```
 
 Visit [`localhost:4350/graphql`](http://localhost:4350/graphql) to access the [GraphiQl](https://github.com/graphql/graphiql) console. From this window, you can perform queries such as this one, to find out the account owners with the biggest balances:
