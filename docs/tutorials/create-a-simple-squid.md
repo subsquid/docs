@@ -6,7 +6,7 @@ description: >-
 sidebar_position: 2
 ---
 
-# Create a Simple Squid
+# Create a Simple Substrate Squid
 
 ## Objective
 
