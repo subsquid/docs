@@ -99,7 +99,7 @@ import { MyEntity } from "./model/generated/myEntity.model";
 
 const processor = new EvmBatchProcessor()
   .setDataSource({
-    archive: 'https://ethereum-mainnet-beta.archive.subsquid.io',
+    archive: 'https://eth.archive.subsquid.io',
   })
   .setBlockRange({ from: 6175243 })
   .addLog('0x2E645469f354BB4F5c8a05B3b30A929361cf77eC', {

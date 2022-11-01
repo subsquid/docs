@@ -13,7 +13,7 @@ The following setters configure the global settings. The setters return the modi
 - `setBlockRange(Range)`.  Limits the range of blocks to be processed
 
 - `setDataSource(DataSource)`. Set the data source to fetch the data from.
-   + `archive`: an archive endpoint. Currently, only Ethereum mainnet is supported, with the endpoint `https://ethereum-mainnet-beta.archive.subsquid.io`.
+   + `archive`: an archive endpoint. Currently, only Ethereum mainnet is supported, with the endpoint `https://eth.archive.subsquid.io`.
    + `chain`: (Optional) A JSON-RPC endpoint (e.g. if the processor intents do make storage queries). The JSON-RPC endpoint is required for making contract state queries. If the squid indexes only event and/or transaction data, it can be omitted. 
 
 ##  EVM logs
@@ -98,7 +98,7 @@ Below is an example of `EvmBatchProcessor` subscribing
 ```ts
 const processor = new EvmBatchProcessor()
   .setDataSource({
-    archive: 'https://ethereum-mainnet-beta.archive.subsquid.io',
+    archive: 'https://eth.archive.subsquid.io',
   })
   .setBlockRange({ from: 6175243 })
   // Gravatar contract

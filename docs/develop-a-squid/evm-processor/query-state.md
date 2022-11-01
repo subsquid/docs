@@ -12,7 +12,7 @@ In order to make on-chain calls, one must set up a websocket JSON-RPC endpoint u
 //... 
   .setDataSource({
     chain: process.env.ETHEREUM_MAINNET_WSS,
-    archive: 'https://ethereum-mainnet-beta.archive.subsquid.io',
+    archive: 'https://eth.archive.subsquid.io',
   })
 //...
 ```

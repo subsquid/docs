@@ -85,7 +85,7 @@ import { events } from "./abi/Gravity";
 const processor = new EvmBatchProcessor()
   .setDataSource({
     // archive for Ethereum-mainnet
-    archive: 'https://ethereum-mainnet-beta.archive.subsquid.io',
+    archive: 'https://eth.archive.subsquid.io',
   })
   .setBlockRange({ from: 6175243 })
   // fetch only logs emitted by the specified contract,

@@ -8,7 +8,7 @@ description: >-
 
 This section applies to squids indexing EVM chains:
 
-- Ethereum Mainnet. Archive endpoint: `https://ethereum-mainnet-beta.archive.subsquid.io`
+- Ethereum Mainnet. Archive endpoint: `https://eth.archive.subsquid.io`
 - Polygon (Coming soon)
 
 ## Overview and the data model
