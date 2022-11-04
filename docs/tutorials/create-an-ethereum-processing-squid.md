@@ -118,7 +118,7 @@ npx squid-evm-typegen --abi src/abi/exo.json --output src/abi/exo.ts
 ```
 
 :::info
-For verified contracts the ABI can be fetched with the Etherescan API. Here is a sample script for downloading it with CURL:
+For verified contracts the ABI can be fetched using the Etherscan API. Here is a sample script for downloading it with CURL:
 
 ```bash
 # replace the contract address below 
