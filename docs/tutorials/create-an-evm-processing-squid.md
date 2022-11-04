@@ -14,7 +14,7 @@ This tutorial will take the Squid EVM template and go through all the necessary 
 
 The business logic to process these contract is basic, and that is on purpose since the Tutorial aims show a simple case, highlighting the changes a developer would typically apply to the template, removing unnecessary complexity.
 
-The blockchain used in this example will be the [Astar network](https://astar.network/) and the final objective will be to show the tokens that are part of these smart contracts, who owns them and every time they have been transfered.
+The blockchain used in this example will be the [Astar network](https://astar.network/) and the final objective will be to show the tokens that are part of these smart contracts, who owns them and every time they have been transferred.
 
 ## Pre-requisites
 
@@ -46,7 +46,7 @@ To index ERC-721 token transfers, we will need to track:
 * Ownership of tokens
 * Contracts and their minted tokens
 
-And the `schema.graphql` file defines them like shis:
+And the `schema.graphql` file defines them like this:
 
 ```graphql
 type Token @entity {
@@ -459,7 +459,7 @@ Finally, in a separate terminal window, launch the GraphQL server:
 make serve
 ```
 
-Visit [`localhost:4350/graphql`](http://localhost:4350/graphql) to access the [GraphiQl](https://github.com/graphql/graphiql) console. From this window, you can perform queries such as this one, to find out the account owners with the biggest balances:
+Visit [`localhost:4350/graphql`](http://localhost:4350/graphql) to access the [GraphiQL](https://github.com/graphql/graphiql) console. From this window, you can perform queries such as this one, to find out the account owners with the biggest balances:
 
 ```graphql
 query MyQuery {

@@ -459,7 +459,7 @@ Finally, in a separate terminal window, launch the GraphQL server:
 npx squid-graphql-server
 ```
 
-Visit [`localhost:4350/graphql`](http://localhost:4350/graphql) to access the [GraphiQl](https://github.com/graphql/graphiql) console. From this window, you can perform queries such as this one, to find out the account owners with the biggest balances:
+Visit [`localhost:4350/graphql`](http://localhost:4350/graphql) to access the [GraphiQL](https://github.com/graphql/graphiql) console. From this window, you can perform queries such as this one, to find out the account owners with the biggest balances:
 
 ```graphql
 query MyQuery {

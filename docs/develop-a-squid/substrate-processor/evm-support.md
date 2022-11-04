@@ -140,7 +140,7 @@ export class Contract  {
 }
 ```
 
-It then can constructed using the context variable and queried in a straightforward way (see [squid-evm-template](https://github.com/subsquid/squid-evm-template) for a full example):
+It then can be constructed using the context variable and queried in a straightforward way (see [squid-evm-template](https://github.com/subsquid/squid-evm-template) for a full example):
 
 ```ts
 // ...

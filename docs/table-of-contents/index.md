@@ -24,7 +24,7 @@ sidebar_position: 13
   * [EVM Processor](/develop-a-squid/evm-processor)
     * [Configuration](/develop-a-squid/evm-processor/configuration)
     * [Data mapping](/develop-a-squid/evm-processor/data-mapping)
-    * [Query statre](/develop-a-squid/evm-processor/query-state)
+    * [Query state](/develop-a-squid/evm-processor/query-state)
     * [Store interface](/develop-a-squid/evm-processor/store-interface)
   * [Substrate Processor](/develop-a-squid/substrate-processor)
     * [Configuration](/develop-a-squid/substrate-processor/configuration)
