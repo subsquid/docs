@@ -6,7 +6,7 @@ description: >-
 sidebar_position: 3
 ---
 
-# Create an EThereum-processing Squid
+# Create an Ethereum-processing Squid
 
 ## Objective
 
