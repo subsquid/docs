@@ -92,7 +92,7 @@ It's worth noting a couple of things in this [schema definition](https://docs.su
 * **`@entity`** - signals that this type will be translated into an ORM model that is going to be persisted in the database
 * **`@derivedFrom`** - signals the field will not be persisted on the database, it will rather be derived
 * **type references** (i.e. `from: Owner`) - establishes a relation between two entities
-* **`@index`** - signals that his field should be indexed by the database. Very useful for increasing the performance on fields queried often.
+* **`@index`** - signals that the field should be indexed by the database. Very useful for increasing the performance on fields queried often.
 
 The template already has automatically generated TypeScript classes for this schema definition. They can be found under `src/model/generated`.
 
