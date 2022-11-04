@@ -1,6 +1,6 @@
 ---
 id: create-an-ethereum-processing-squid
-title: Create an Ethereun-processing Squid
+title: Create an Ethereum-processing Squid
 description: >-
   Create a simple squid indexing smart contract data on Ethereum Mainnet
 sidebar_position: 3
@@ -15,6 +15,8 @@ This tutorial will take the Squid Ethereum template and go through all the neces
 The business logic to process these contract is basic, and that is on purpose since the Tutorial aims show a simple case, highlighting the changes a developer would typically apply to the template, removing unnecessary complexity.
 
 In this example  we will be connecting to the [Ethereum mainnet](https://ethereum.org/en/developers/docs/networks/#ethereum-mainnet) and the final objective will be to show the tokens that are part of the contract, who owns them and every time they have been transfered.
+
+If you want to look at the end result, or inspect the code, the project of this tutorial is available at [this repository](https://github.com/subsquid/subsquid-ethereum-tutorial-example).
 
 ## Pre-requisites
 
