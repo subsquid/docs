@@ -1,12 +1,12 @@
 ---
 id: create-an-evm-processing-squid
-title: Create an EVM-processing Squid
+title: Create a Frontier EVM-indexing Squid
 description: >-
   Create a sample squid indexing EVM data on Astar
 sidebar_position: 3
 ---
 
-# Create an EVM-processing Squid
+# Create a Frontier EVM-indexing Squid
 
 ## Objective
 
@@ -401,7 +401,7 @@ Pay close attention to the line with `id` in the `Token` model, because this is 
 :::
 
 :::info
-It is also interesting to notice that `contract.tokenURI` is accessing the **state** of the contract, directly from the chain endpoint we provided. This is slowing down the indexing a little bit, because of the repeated RPC calls, but this data is only available this way. You'll find more information in the [dedicated section of our docs](/develop-a-squid/squid-processor/evm-support.md#access-the-contract-state).
+It is also interesting to notice that `contract.tokenURI` is accessing the **state** of the contract, directly from the chain endpoint we provided. This is slowing down the indexing a little bit, because of the repeated RPC calls, but this data is only available this way. You'll find more information in the [dedicated section of our docs](/develop-a-squid/substrate-processor/evm-support#access-the-contract-state).
 :::
 
 ## Launch and Set Up the Database

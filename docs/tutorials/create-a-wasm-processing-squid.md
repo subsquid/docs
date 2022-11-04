@@ -1,4 +1,4 @@
-# Create a WASM-indexing Squid
+# Create an Ink! contract-indexing Squid
 
 ## Objective
 

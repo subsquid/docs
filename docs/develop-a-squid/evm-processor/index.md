@@ -22,3 +22,8 @@ The batch consists of canonically ordered execution log items of the following k
 
 Further, the processor can extract additional data by querying the [historical chain state](/develop-a-squid/evm-processor/query-state) and indeed any [external API](https://github.com/subsquid/squid-external-api-example).
 
+## What's next?
+
+- Explore the [migration guide](/migrate/migrate-subgraph/) and create a squid from a subgraph within minutes
+- Follow the [tutorial](/tutorials/create-an-ethereum-processing-squid/) to how to build an Ethereum-indexing squid step by step
+- Check the [examples](/develop-a-squid/examples/)
