@@ -64,7 +64,7 @@ processor.addTransaction([], {sighash: '0xa9059cbb'})
 
 Request all `transfer(address,uint256)` to the specified addresses, from block `6_000_000` onwards:
 ```ts
-processor.addEthereumTransaction([
+processor.addTransaction([
   '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
   '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283'
 ], {
@@ -137,24 +137,36 @@ const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: 'https://eth.archive.subsquid.io',
   })
-  .setBlockRange({ from: 6175243 })
+  .setBlockRange({ from: 10_000_000 })
   // Gravatar contract
   .addLog('0x2E645469f354BB4F5c8a05B3b30A929361cf77eC', {
-    filter: [[
+     filter: [[
       // topic: 'NewGravatar(uint256,address,string,string)'
       '0x9ab3aefb2ba6dc12910ac1bce4692cf5c3c0d06cff16327c64a3ef78228b130b',
       // topic: 'UpdatedGravatar(uint256,address,string,string)'
       '0x76571b7a897a1509c641587568218a290018fbdc8b9a724f17b77ff0eec22c0c',
-   ]],
-    data: {
-        evmLog: {
-            topics: true,
-            data: true,
-        },
-    } as const,
-});
-
-
+     ]],
+     data: {
+       evmLog: {
+         topics: true, 
+         data: true,  
+       },
+     },
+  })
+  .addTransaction(['0xac5c7493036de60e63eb81c5e9a440b42f47ebf5'], {
+     range: {
+      from: 15_800_000
+     },
+     // setApprovalForAll(address,bool)
+     sighash: '0xa22cb465',
+     data: {
+       transaction: {
+         from: true,
+         input: true,
+         to: true
+       }
+     }
+  });
 
 processor.run(new TypeormDatabase(), async (ctx) => {
     // simply output all the items in the batch
