@@ -38,6 +38,43 @@ The `option` argument supports filtering by topic and data selectors to specify 
 
 Note, that the topic filter follows the [Ether.js filter specification](https://docs.ethers.io/v5/concepts/events/#events--filters). For example, for a filter that accepts the ERC721 topic `Transfer(address,address,uint256)` AND `ApprovalForAll(address,address,bool)` use a double array as in the example below.
 
+## EVM transactions 
+
+**Since `@subsquid/evm-processor@0.0.1`**
+
+To subscribe to transaction data, use `addTransaction(address: string | string[], options?)`. The first argument specifies a single address or an array of addresses to which the transaction to which the transaction has been submitted. An empty array means that all transactions will be selected (matching the optional `options` filter if provided). 
+
+The `options` argument specifies the additional filtering options and a data selector which tells which transaction data should be fetched from the archive. 
+
+Currently, `options` accepts the following filters:
+- `range: { from?: number, to?: number }`
+- `sighash: string` a [function selector](https://docs.ethers.io/v5/api/utils/abi/interface/#Interface--specifying-fragments)
+
+### Examples
+
+Request all EVM calls to the contract `0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98`:
+```ts
+processor.addTransaction('0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98')
+```
+
+Request all `transfer(address,uint256)` transactions (matching the corresponding sighash):
+```ts
+processor.addTransaction([], {sighash: '0xa9059cbb'})
+```
+
+Request all `transfer(address,uint256)` to the specified addresses, from block `6_000_000` onwards:
+```ts
+processor.addEthereumTransaction([
+  '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
+  '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283'
+], {
+  range: {
+    from: 6_000_000
+  },
+  sighash: '0xa9059cbb'
+})
+```
+
 ## Data Selectors
 
 The data selectors can define any subset of the fields below:
