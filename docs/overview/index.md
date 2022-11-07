@@ -18,17 +18,28 @@ Archives allow squids to ingest data in batches spanning multiple blocks. These 
 
 See the [Archives](/archives/) section for more information on how to use public Archives or to learn how to run an Archive locally. 
 
+At the moment, Subsquid maintains an Archive for the following networks:
+
+- Ethereum
+- Major Substrate chains, including Kusama, Polkadot, Moonriver, Moonbeam, Astar and Acala
+
+Archives for the following networks will be rolled out in the future:
+
+- Polygon
+- Binance Smart Chain
+- Arbitrum
+
 ## Squids
 
 Squids have a certain structure and are supposed to be developed as regular node.js packages. See [squid-template](https://github.com/subsquid/squid-template) for a reference.
 
 A typical squid implements both data mapping and a GraphQL API server, which presents the data. The Subsquid framework provides an extensive set of tools for developing squids:
 
-- [`substrate-processor`](https://github.com/subsquid/squid/tree/master/substrate-processor) is tasked with fetching on-chain data from an archive and executing user-defined mapping code against it. It offers batching and fine-grained data selection interfaces to minimize database roundtrips and optimize archive data fetching. 
-- [`substrate-typegen`](https://github.com/subsquid/squid/tree/master/substrate-typegen) and [`substrate-evm-typegen`](https://github.com/subsquid/squid/tree/master/evm-typegen) generate TypeScript facade classes for substrate and evm log data. It allows to catch most of the data mapping bugs at compile time.
-- [`typeorm-codegen`](https://github.com/subsquid/squid/tree/master/typeorm-codegen) generates entity classes from a declarative [schema file](/develop-a-squid/schema-file)
+- A squid processor is tasked with fetching on-chain data from an archive and executing user-defined mapping code against it. It offers batching and fine-grained data selection interfaces to minimize database roundtrips and optimize archive data fetching. The Squid SDK currently provides two different implementation of a squid processor: `@subsquid/evm-processor` for EVM chains and `@subsquid/substrate-processor` for Substrate-based chains.
+- [`substrate-typegen`](https://github.com/subsquid/squid/tree/master/substrate-typegen) and [`evm-typegen`](https://github.com/subsquid/squid/tree/master/evm-typegen) generate TypeScript facade classes for substrate and EVM log and tx data. 
+- [`typeorm-codegen`](https://github.com/subsquid/squid/tree/master/typeorm-codegen) generates entity classes from a declarative [schema file](/develop-a-squid/schema-file). The entity classes are used by the squid to persist the transformed on-chain data into the target database.
 - [`graphql-server`](https://github.com/subsquid/squid/tree/master/graphql-server) serves the data as a rich GraphQL API, generated from the schema file. These loosely follow the [OpenCRUD](https://www.opencrud.org/) standard and support all common filterings and selectors out-of-the box. They can also be extended with custom resolvers.
-- [misc substrate tools](https://github.com/subsquid/squid#other-tools) including a perfomant SCALE codec and ss58 decoder
+- [misc tools](https://github.com/subsquid/squid#other-tools) including a perfomant SCALE codec and ss58 decoder
 
 ## The Aquarium
 
