@@ -13,7 +13,7 @@ It exposes low-lever method for accessing the storage. However, the recommended 
 
 To enable the gRPC client, **one must provide a `chain` data source to the processor**:
 
-```typescipt
+```typescript
 const processor = new SubstrateBatchProcessor()
     .setDataSource({
         archive: lookupArchive("kusama", {release: "FireSquid"})
@@ -37,7 +37,7 @@ To generate the storage classes with typegen:
 * List the fully qualified names of the storage items to the `storage` section of the typegen config. The format is `${PalleteName}.${KeyName}`.
 * Rerun the typegen with
 
-```ts
+```bash
 make typegen
 ```
 
