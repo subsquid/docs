@@ -1,0 +1,68 @@
+---
+sidebar_position: 10
+title: Ethereum
+---
+
+# Quickstart: Ethereum
+
+This guide follow through the steps to set up the environment, clone, build and run a template squid for substrate networks. The squid outputs the transactions to the "black hole" address `0x0000000000000000000000000000000000000000`. It is intended to be a starter project for building a custom squid indexing the EVM log and transaction data on Ethereum and other EVM chains.
+
+## Pre-requisites
+
+Before getting to work on your very first squid, verify that you have installed the following software: 
+
+- Node v16.x
+- Docker 
+- [GNU Make](https://www.gnu.org/software/make/)
+
+Please note:
+- The squid template is **not** compatible with `yarn`. Use `npm` instead.
+- Windows users are recommended to install [WSL](https://docs.microsoft.com/en-us/windows/wsl/).
+
+Additional information about development environment setup is available [here](/tutorials/development-environment-set-up).
+
+### Step 1: Clone <span><a href="https://github.com/subsquid/squid-ethereum-template">squid-ethereum-template</a></span>
+
+```bash
+git clone https://github.com/subsquid/squid-ethereum-template.git
+cd squid-ethereum-template
+```
+
+###  Step 2: Install dependencies
+
+```bash
+npm ci
+```
+
+### Step 3: Build the squid
+
+```bash
+make build
+```
+
+### Step 4: Launch Postgres and detach
+
+```bash
+make up
+```
+
+
+### Step 5: Create the database schema and run the processor
+
+ The squid we have just built ingests pre-indexed data from a Kusama Archive. This data is then transformed, as defined by the data handler in `processor.ts`.
+ 
+ This command will keep the console busy until manually terminated:
+
+```bash
+make process
+```
+
+
+## What's next?
+
+- [Migrate the existing subgraphs to Subsquid](/migrate/migrate-subgraph)
+- [Explore more examples of squids for EVM](/develop-a-squid/examples#evm-processor)
+- [Explore how to efficiently index EVM log and transaction data in batches](/develop-a-squid/evm-processor)
+- [Define the data schema and serve the data with a GraphQL API](/develop-a-squid/schema-file)
+- [Explore how to enhance the GraphQL API with custom SQL, caching and limits](/develop-a-squid/graphql-api)
+- [Deploy a squid to the Aquarium hosted service](/deploy-squid)
