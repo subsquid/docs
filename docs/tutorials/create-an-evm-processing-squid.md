@@ -22,14 +22,14 @@ The minimum requirements to follow this tutorial are the basic knowledge of soft
 
 ## Fork the template
 
-The first thing to do, although it might sound trivial to GitHub experts, is to fork the repository into your own GitHub account, by visiting the [repository page](https://github.com/subsquid/squid-evm-template) and clicking the Fork button:
+The first thing to do, although it might sound trivial to GitHub experts, is to fork the repository into your own GitHub account, by visiting the [repository page](https://github.com/subsquid/squid-frontier-evm-template) and clicking the Fork button:
 
 ![How to fork a repository on GitHub](</img/.gitbook/assets/Screenshot-2022-02-02-111440.png>)
 
 Next, clone the created repository (be careful of changing `<account>` with your own account)
 
 ```bash
-git clone git@github.com:<account>/squid-evm-template.git
+git clone git@github.com:<account>/squid-frontier-evm-template.git
 ```
 
 For reference on the complete work, you can find the entire project [here](https://github.com/subsquid/squid-astar-example/tree/astar-degens).

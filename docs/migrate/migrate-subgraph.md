@@ -5,7 +5,7 @@ title: Migrate from TheGraph
 
 # Migrate from TheGraph
 
-This guide walks through the steps to migrate a subgraph to Subsquid. In what follows we will convert the [Gravatar](https://github.com/graphprotocol/example-subgraph) subgraph into a squid and run it locally. Impatient readers may clone the migrated squid from the `gravatar-squid` branch of the [squid-evm-template repo](https://github.com/subsquid/squid-ethereum-template) and run it by following the instructions in README:
+This guide walks through the steps to migrate a subgraph to Subsquid. In what follows we will convert the [Gravatar](https://github.com/graphprotocol/example-subgraph) subgraph into a squid and run it locally. Impatient readers may clone the migrated squid from the `gravatar-squid` branch of the [squid-frontier-evm-template repo](https://github.com/subsquid/squid-ethereum-template) and run it by following the instructions in README:
 
 ```bash
 git clone -b gravatar-squid https://github.com/subsquid/squid-ethereum-template.git

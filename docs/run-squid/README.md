@@ -19,7 +19,7 @@ title: Run a Squid
 
 Check [Aquarium Archives](https://app.subsquid.io/aquarium/archives) for a list of public archives maintained by Subsquid.
 
-Inspect `archive/docker-compose.yml` in [squid-template](https://github.com/subsquid/squid-template)
+Inspect `archive/docker-compose.yml` in [squid-substrate-template](https://github.com/subsquid/squid-substrate-template)
 and provide one or several WebSocket endpoints for the target network. Start the stack with
 
 ```bash
@@ -44,7 +44,7 @@ A squid normally consists of the following three services:
 
 The processor and the server are usual node.js processes and can be run from an IDE or a node debug environment. 
 
-[Squid template](https://github.com/subsquid/squid-template) comes with [make](https://www.gnu.org/software/make/) scripts to run each service locally.
+[Squid template](https://github.com/subsquid/squid-substrate-template) comes with [make](https://www.gnu.org/software/make/) scripts to run each service locally.
 
 
 **1. Start the database:**

@@ -20,5 +20,5 @@ There are additional flags to filter the logs:
 ### Example 
 
 ```bash
-sqd squid logs squid-template@v1 -f -c processor -l info
+sqd squid logs squid-substrate-template@v1 -f -c processor -l info
 ```

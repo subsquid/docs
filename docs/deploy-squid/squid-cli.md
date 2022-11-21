@@ -73,7 +73,7 @@ npx sqd squid ls -n squid-test
 ### Release the kraken!
 
 ```bash
-sqd squid:release squid-test@1 --source=git@github.com:subsquid/squid-template.git
+sqd squid:release squid-test@1 --source=git@github.com:subsquid/squid-substrate-template.git
 ```
 
 ### Show logs of a squid
@@ -91,5 +91,5 @@ sqd squid:prod squid-test@1
 ### Update a version with new code
 
 ```bash
-npx sqd squid release squid-test@1 -r -s git@github.com:subsquid/squid-template.git
+npx sqd squid release squid-test@1 -r -s git@github.com:subsquid/squid-substrate-template.git
 ```

@@ -27,14 +27,14 @@ The minimum requirements for this tutorial are as follows:
 
 ## Fork the template
 
-First things first! To fork the squid template and save it to your own GitHub account visit this [repository](https://github.com/subsquid/squid-template) and click the 'Fork' button:
+First things first! To fork the squid template and save it to your own GitHub account visit this [repository](https://github.com/subsquid/squid-substrate-template) and click the 'Fork' button:
 
 ![How to fork a repository on GitHub](</img/.gitbook/assets/Screenshot-2022-02-02-111440.png>)
 
 Next, clone the fork. 
 
 ```bash
-git clone git@github.com:<account>/squid-template.git
+git clone git@github.com:<account>/squid-substrate-template.git
 ```
 
 **Don't forget to replace `<account>` in the repository with your own account information**
