@@ -32,7 +32,12 @@ and check the version with
 sqd --version
 ```
 
-Navigate to the squid folder and make sure you have the `subsquid` packages updated, as in the [squid-substrate-template repo](https://github.com/subsquid/squid-substrate-template). Further, ensure that the squid structure follows [the conventions](/develop-a-squid/squid-structure). All the scripts below are assumed to be run from the root folder of your squid. 
+Navigate to the squid folder and make sure you have the `subsquid` packages updated. Use the templates as a reference:
+- [EVM template](https://github.com/subsquid/squid-ethereum-template) for EVM-based chains
+- [Substrate template](https://github.com/subsquid/squid-substrate-template) for Substrate-based chains
+- [EVM-Frontier template](https://github.com/subsquid/https://github.com/subsquid/squid-frontier-evm-template) for Substrate-based Frontier EVM chains.
+
+ Further, ensure that the squid structure follows [the conventions](/develop-a-squid/squid-structure). All the scripts below are assumed to be run from the root folder of your squid. 
 
 Note, that the local `.env` file is ignored by Aquarium. The environment variables `DB_NAME`, `DB_PASS`, `DB_PORT` are automatically set by Aquarium. The support for user-defined environment variables and secrets is currently in private beta and will be available soon.
 
