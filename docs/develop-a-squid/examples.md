@@ -10,10 +10,17 @@ To learn by example, inspect these squids:
 
 ## EVM Processor
 
+Browse a dedicated repository with [EVM squid examples](https://github.com/subsquid/squid-ethereum-examples) 
+
+Additionally, inspect the following benchmark squids:
+
 - [A Uniswap v3 squid](https://github.com/subsquid/uniswap-squid). A complex squid showcasing contract state calls, wildcard filters and optimizations for batch saving.
 - [A Gravatar squid](https://github.com/subsquid/squid-ethereum-template/tree/gravatar-squid) a simple squid migrated from a subgraph
 
+
 ## Substrate Processor
+
+Browse a dedicated repository with [Substrate squid examples](https://github.com/subsquid/squid-substrate-examples):
 
 - [A simple squid tracking Kusama transfers](https://github.com/subsquid/squid-substrate-template). Illustrates a basic usage of `SubstrateBatchProcessor`.
 - [A complex squid tracking balances across multiple parachains](https://github.com/subsquid/subsquid-balances). This complex squid illustrates the usage of `SubstrateBatchProcessor`, storage calls and custom resolvers.
