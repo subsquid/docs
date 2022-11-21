@@ -31,7 +31,11 @@ Archives for the following networks will be rolled out in the future:
 
 ## Squids
 
-Squids have a certain structure and are supposed to be developed as regular node.js packages. See [squid-substrate-template](https://github.com/subsquid/squid-substrate-template) for a reference.
+Squids have a certain structure and are supposed to be developed as regular node.js packages. 
+Use the following templates as a reference:
+- [EVM template](https://github.com/subsquid/squid-ethereum-template) for EVM-based chains
+- [Substrate template](https://github.com/subsquid/squid-substrate-template) for Substrate-based chains
+- [EVM-Frontier template](https://github.com/subsquid/https://github.com/subsquid/squid-frontier-evm-template) for Substrate-based Frontier EVM chains.
 
 A typical squid implements both data mapping and a GraphQL API server, which presents the data. The Subsquid framework provides an extensive set of tools for developing squids:
 
