@@ -9,10 +9,14 @@ Common gotchas developing in deploying squids.
 ### My squid is stuck in "Building", "Deploying" or "Starting" state
 - Run with `API_DEBUG=true` as explained in the [Squid deploy page](/deploy-squid/#option-2-explicitly-set-the-source-url)
 - Update the squid CLI to the latest version with
-```
+```bash
 npm update -g @subsquid/cli
 ```
-- Update the Subsquid SDK libraries to match the [squid template](https://github.com/subsquid/squid-substrate-template)
+- Update the Subsquid SDK libraries:
+```bash
+npx npm-check-updates --filter /subsquid/ --upgrade
+npm i
+```
 - Check that the squid adheres to the expected [structure](/develop-a-squid/squid-structure)
 - Make sure you can [build and run Docker images locally](/run-squid/run-in-docker)
 - Make sure the squid source URL follows the format `https://github.com/my-account/my-squid-repo.git#my-branch`
