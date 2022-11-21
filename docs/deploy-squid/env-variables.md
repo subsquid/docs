@@ -43,7 +43,7 @@ One can also pass a property file using `--envFile` flag.
 
 Set the log level to `TRACE` in the squid mappings and set `FOO_VARIABLE=bar`:
 ```bash
-npx sqd squid:update squid-template@v1 -e SQD_TRACE=sqd:processor:mapping -e FOO_VARIABLE=bar
+npx sqd squid:update my-squid@v1 -e SQD_TRACE=sqd:processor:mapping -e FOO_VARIABLE=bar
 ```
 
 The variables set with the `-e` flag are removed when the squid version is deleted or redeployed.

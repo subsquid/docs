@@ -2,7 +2,7 @@
 
 ## Objective
 
-This tutorial will start off the [squid template](https://github.com/subsquid/squid-template) and go through all the necessary changes to index the events of a WASM contract developed with [Ink!](https://www.parity.io/blog/ink-3-0-paritys-rust-based-language-gets-a-major-update).
+This tutorial will start off the [squid template](https://github.com/subsquid/squid-substrate-template) and go through all the necessary changes to index the events of a WASM contract developed with [Ink!](https://www.parity.io/blog/ink-3-0-paritys-rust-based-language-gets-a-major-update).
 
 The Subsquid SDK natively supports only WASM contracts executed by the [Contracts pallet](https://crates.parity.io/pallet_contracts/index.html). In particular, it's enabled by the following network runtimes:
 
@@ -23,7 +23,7 @@ Same as for the [Quickstart](/quickstart)
 
 Clone  
 ```bash
-https://github.com/subsquid/squid-template.git
+https://github.com/subsquid/squid-substrate-template.git
 ```
 
 and run the template:

@@ -6,7 +6,7 @@ description: >-
 
 # Batch processor in action
 
-An end-to-end idiomatic usage of `SubstrateBatchProcessor` can be inspected in the [squid-template](https://github.com/subsquid/squid-template) and also learned from more elaborate [examples](/develop-a-squid/examples).
+An end-to-end idiomatic usage of `SubstrateBatchProcessor` can be inspected in the [squid-substrate-template](https://github.com/subsquid/squid-substrate-template) and also learned from more elaborate [examples](/develop-a-squid/examples).
 
 Here we highlight the key steps and put together the configuration and the data handling definition to illustrate the concepts covered so far.
 

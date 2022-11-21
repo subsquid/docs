@@ -10,7 +10,7 @@ Below is a general outline of the squid development steps.
 ### 0. Prerequisites
 
 - Get familiar with Archives and squids reading with the [Overview](/overview)
-- Follow through the [Quickstart](/quickstart) and get yourself familiar with the [squid-template](https://github.com/subsquid/squid-template).
+- Follow through the [Quickstart](/quickstart) and get yourself familiar with the [squid-substrate-template](https://github.com/subsquid/squid-substrate-template).
 
 ### 1. Model the data with a schema file
 

@@ -5,7 +5,7 @@ title: Squid structure
 
 # Squid structure
 
-A squid is expected to follow the folder structure of [`squid-template`](https://github.com/subsquid/squid-template) with the following conventions:
+A squid is expected to follow the folder structure of [`squid-substrate-template`](https://github.com/subsquid/squid-substrate-template) with the following conventions:
 
 - `/db` -- a designated folder with the database migrations
 - `/lib` -- the output folder for the compiled sources 

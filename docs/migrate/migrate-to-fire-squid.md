@@ -14,7 +14,7 @@ For the sake of simplicity, this guide is built upon `SubstrateProcessor` as it 
 
 ## 1 Package version updates for FireSquid
 
-The FireSquid release requires version bumps for most of the Subsquid packages. Consult [squid-template](https://github.com/subsquid/squid-template/blob/main/package.json) for a reference setup. 
+The FireSquid release requires version bumps for most of the Subsquid packages. Consult [squid-substrate-template](https://github.com/subsquid/squid-substrate-template/blob/main/package.json) for a reference setup. 
  
 
 The following versions should be updated to latest:

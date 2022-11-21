@@ -6,7 +6,7 @@ description: >-
 
 # Frontier EVM support
 
-This section describes additional options available for Substrate chains with the Frontier EVM pallet like Moonbeam or Astar. Follow the [EVM squid tutorial](/tutorials/create-an-evm-processing-squid) for a step-by-step tutorial on building an EVM-processing. We recommend using [squid-evm-template](https://github.com/subsquid/squid-evm-template) as a reference.
+This section describes additional options available for Substrate chains with the Frontier EVM pallet like Moonbeam or Astar. Follow the [EVM squid tutorial](/tutorials/create-an-evm-processing-squid) for a step-by-step tutorial on building an EVM-processing. We recommend using [squid-frontier-evm-template](https://github.com/subsquid/squid-frontier-evm-template) as a reference.
 
 The page describes the additional options available for `SubstrateBatchProcessor`. The handler-based `SubstrateProcessor` exposes similar interfaces with the `addXXXHandler` methods. Please refer to the inline docs for details.
 
@@ -140,7 +140,7 @@ export class Contract  {
 }
 ```
 
-It then can be constructed using the context variable and queried in a straightforward way (see [squid-evm-template](https://github.com/subsquid/squid-evm-template) for a full example):
+It then can be constructed using the context variable and queried in a straightforward way (see [squid-frontier-evm-template](https://github.com/subsquid/squid-frontier-evm-template) for a full example):
 
 ```ts
 // ...

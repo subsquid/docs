@@ -21,7 +21,7 @@ For each entity types, the following queries are supported for subscriptions:
 
 **Example** 
 
-The squid-template has a sample [script](https://github.com/subsquid/squid-template/blob/main/scripts/sub-client.js) to demonstrate how to subscribe to the five most recent transfers on Kusama:
+The squid-substrate-template has a sample [script](https://github.com/subsquid/squid-substrate-template/blob/main/scripts/sub-client.js) to demonstrate how to subscribe to the five most recent transfers on Kusama:
 
 ```typescript
 const client = createClient({
