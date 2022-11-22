@@ -14,8 +14,9 @@ Browse a dedicated repository with [EVM squid examples](https://github.com/subsq
 
 Additionally, inspect the following benchmark squids:
 
-- [A Uniswap v3 squid](https://github.com/subsquid/uniswap-squid). A complex squid showcasing contract state calls, wildcard filters and optimizations for batch saving.
 - [A Gravatar squid](https://github.com/subsquid/squid-ethereum-template/tree/gravatar-squid) a simple squid migrated from a subgraph
+- [Exosama Marketplace squid](https://github.com/subsquid/exosama-marketplace-squid) A squid indexing Exosama NFT metadata to power the [Exosama](https://exosama.com) NFT marketplace.
+- [A Uniswap v3 squid](https://github.com/subsquid/uniswap-squid). A complex squid showcasing contract state calls, wildcard filters and optimizations for batch saving.
 
 
 ## Substrate Processor
