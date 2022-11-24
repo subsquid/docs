@@ -125,6 +125,8 @@ For verified contracts the ABI can be fetched using the Etherscan API. Here is a
 export CONTRACT_ADDRESS=0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413
 curl "https://api.etherscan.io/api?module=contract&action=getabi&address=${CONTRACT_ADDRESS}" --output src/abi/abi.json
 ```
+
+**Caveat:** in the wild, many contracts employ the [transparent proxy pattern](https://eips.ethereum.org/EIPS/eip-1967) and only expose the ABI for contract updates. To index the ongoing contract activity one must use the ABI of the implementation contract. To find this contract, visit the Etherscan page of the proxy contract, go to the "Contract" tab of contract details and look for the "Read as Proxy" button.
 :::
 
 
