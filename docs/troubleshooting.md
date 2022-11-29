@@ -14,8 +14,7 @@ npm update -g @subsquid/cli
 ```
 - Update the Subsquid SDK libraries:
 ```bash
-npx npm-check-updates --filter /subsquid/ --upgrade
-npm i
+npm run update
 ```
 - Check that the squid adheres to the expected [structure](/develop-a-squid/squid-structure)
 - Make sure you can [build and run Docker images locally](/run-squid/run-in-docker)

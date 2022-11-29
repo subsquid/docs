@@ -5,7 +5,7 @@ title: Squid structure
 
 # Squid structure
 
-A squid is expected to follow the folder structure of [`squid-substrate-template`](https://github.com/subsquid/squid-substrate-template) with the following conventions:
+A squid is expected to follow the folder structure with the following conventions:
 
 - `/db` -- a designated folder with the database migrations
 - `/lib` -- the output folder for the compiled sources 
@@ -27,7 +27,10 @@ A squid is expected to follow the folder structure of [`squid-substrate-template
 - `archive` -- an (optional) folder for running a local Archive. Ignored by Aquarium.
 
 Further, the following scripts must be defined in `package.json`:
-
 - `db:migrate` to run the database migrations. This script is run in a separate init container when the squid is deployed to the Aquarium.
 - `processor:start` to start the processor
 - `query-node:start` to start the [API server](/develop-a-squid/graphql-api)
+
+The templates also defines the following auxiliary scripts (optional):
+- `build` to build the squid
+- `update` to update the squid packages to the latest version
