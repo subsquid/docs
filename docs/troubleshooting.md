@@ -12,7 +12,7 @@ Common gotchas developing in deploying squids.
 ```bash
 npm update -g @subsquid/cli
 ```
-- Update the Subsquid SDK libraries:
+- Update the Squid SDK dependencies:
 ```bash
 npm run update
 ```
