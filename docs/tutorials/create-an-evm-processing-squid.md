@@ -139,7 +139,7 @@ It is worth pointing out, at this point, that some important auxiliary code like
 
 In order to adapt the template to the scope of this guide, we need to apply a couple of changes:
 
-1. edit the `CHAIN_NODE` constant to the endpoint URL of Astar network (e.g. `wss://astar.api.onfinality.io/public-ws`)
+1. edit the `CHAIN_NODE` constant to the endpoint URL of Astar network (e.g. `https://astar-mainnet.g.alchemy.com/v2/ALCHEMY_API_KEY`. Create your free [Alchemy](https://docs.alchemy.com/reference/astar-api-quickstart) Astar API key for this)
 2. define a map that relates the contract address with the contract model and the Contract instance defined by the `ethers` library
 3. edit the hexadecimal address used to create the `contract` constant (we are going to use [this token](https://blockscout.com/astar/token/0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a/token-transfers) for the purpose of this guide)
 4. change the `name`, `symbol` and `totalSupply` values used in the `createContractEntity` function to their correct values (see link in the previous point)
