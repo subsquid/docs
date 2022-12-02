@@ -33,7 +33,7 @@ sqd --version
 ```
 
 Navigate to the squid folder and make sure you have the `subsquid` packages updated. Use the following templates as a reference:
-- [EVM template](https://github.com/subsquid/squid-ethereum-template) for EVM-based chains
+- [EVM template](https://github.com/subsquid/squid-evm-template) for EVM-based chains
 - [Substrate template](https://github.com/subsquid/squid-substrate-template) for Substrate-based chains
 - [EVM-Frontier template](https://github.com/subsquid/https://github.com/subsquid/squid-frontier-evm-template) for Substrate-based Frontier EVM chains.
 

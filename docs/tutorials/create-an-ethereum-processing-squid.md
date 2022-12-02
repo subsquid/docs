@@ -24,14 +24,14 @@ The minimum requirements to follow this tutorial are the basic knowledge of soft
 
 ## Fork the template
 
-The first thing to do, although it might sound trivial to GitHub experts, is to fork the repository into your own GitHub account, by visiting the [repository page](https://github.com/subsquid/squid-ethereum-template) and clicking the "Use this template" button:
+The first thing to do, although it might sound trivial to GitHub experts, is to fork the repository into your own GitHub account, by visiting the [repository page](https://github.com/subsquid/squid-evm-template) and clicking the "Use this template" button:
 
 ![How to fork a repository on GitHub](</img/.gitbook/assets/Screenshot-2022-02-02-111440.png>)
 
 Next, clone the created repository (be careful of changing `<account>` with your own account)
 
 ```bash
-git clone git@github.com:<account>/squid-ethereum-template.git
+git clone git@github.com:<account>/squid-evm-template.git
 ```
 
 ## Define Entity Schema

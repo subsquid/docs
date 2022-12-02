@@ -128,4 +128,4 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 One can experiment with the [data selectors](/develop-a-squid/evm-processor/configuration#data-selectors) and see how the output changes depending on it.
 
-For a more elaborate example, check the [Gravatar squid](https://github.com/subsquid/squid-ethereum-template/tree/gravatar-squid) and the [EVM Examples](/develop-a-squid/examples).
+For a more elaborate example, check the [Gravatar squid](https://github.com/subsquid/squid-evm-template/tree/gravatar-squid) and the [EVM Examples](/develop-a-squid/examples).
