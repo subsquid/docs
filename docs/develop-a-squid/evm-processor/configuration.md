@@ -13,8 +13,20 @@ The following setters configure the global settings. The setters return the modi
 - `setBlockRange(Range)`.  Limits the range of blocks to be processed
 
 - `setDataSource(DataSource)`. Set the data source to fetch the data from.
-   + `archive`: an archive endpoint. Currently, only Ethereum mainnet is supported, with the endpoint `https://eth.archive.subsquid.io`.
+   + `archive`: an archive endpoint. See the supported networks below.
    + `chain`: (Optional) A JSON-RPC endpoint (e.g. if the processor intents do make storage queries). The JSON-RPC endpoint is required for making contract state queries. If the squid indexes only event and/or transaction data, it can be omitted. 
+
+The following EVM networks are supported
+
+| Network             |      Archive endpoint                  |  
+|:-------------------:|:--------------------------------------:|
+| Ethereum mainnet    | `https://eth.archive.subsquid.io`      |
+| Ethereum Goerli     | `https://goerli.archive.subsquid.io`   | 
+| Polygon             | `https://polygon.archive.subsquid.io`  |
+| Binance Smart Chain | Coming Soon                            |
+| Arbitrum            | Coming Soon                            |
+| Optimism            | Coming Soon                            |
+
 
 ##  EVM logs
 Use `addLog(contract: string | string[], options)` to subscribe to the EVM log data (event) emitted by a specific EVM contract.
