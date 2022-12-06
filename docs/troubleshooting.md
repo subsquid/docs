@@ -12,10 +12,9 @@ Common gotchas developing in deploying squids.
 ```bash
 npm update -g @subsquid/cli
 ```
-- Update the Subsquid SDK libraries:
+- Update the Squid SDK dependencies:
 ```bash
-npx npm-check-updates --filter /subsquid/ --upgrade
-npm i
+npm run update
 ```
 - Check that the squid adheres to the expected [structure](/develop-a-squid/squid-structure)
 - Make sure you can [build and run Docker images locally](/run-squid/run-in-docker)
@@ -67,6 +66,21 @@ Get in contact with the [Squid Squad](https://t.me/SquidDevs) to get a Premium t
 This part depends on the runtime business logic of the chain. The primary and the most reliable source of information is thus the Rust sources for the pallets used by the chain.
 
 For a quick lookup of the documentation and the data format, it is often useful to check `Runtime` section of Subscan (e.g. [Statemine](https://statemine.subscan.io/runtime)). One can see the deployed pallets and drill down to events and extrinsics from there. One can also choose the spec version on the drop down.
+
+### How to add a `preBlockHook` and `postBlockHook` executing before or after each block?
+
+A batch processor receives a list of items grouped into blocks. In order to add custom logic to be executed before/after a block, simply use the iterator over `ctx.blocks`:
+
+```ts
+processor.run(new TypeormDatabase(), async (ctx) => {
+  for (let c of ctx.blocks) {
+    // pre-block hook logic here
+    for (let i of c.items) {
+    }
+    // post-block logic here
+  }
+})
+```
 
 ### Where do I get a type bundle for my chain?
 
