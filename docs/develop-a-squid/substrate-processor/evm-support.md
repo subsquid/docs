@@ -163,7 +163,7 @@ For more information on EVM Typegen, see this [dedicated page](/develop-a-squid/
 
 ## Event and transaction data
 
-The way the Frontier EVM pallet exposes EVM logs and transaction may change due to runtime upgrades. The util library [`@subsquid/substrate-frontier-evm`](https://github.com/subsquid/squid/tree/master/util/substrate-frontier-evm) provides helper classes that are aware of the upgrades:
+The way the Frontier EVM pallet exposes EVM logs and transaction may change due to runtime upgrades. The util library [`@subsquid/frontier`](https://github.com/subsquid/squid-sdk/tree/master/substrate/frontier) provides helper methods that are aware of the upgrades:
 
 `getEvmLog(ctx: ChainContext, event: Event): EvmLog`
 
