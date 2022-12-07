@@ -115,7 +115,7 @@ const processor = new EvmBatchProcessor()
 
 In the snippet above we tell the squid processor to fetch logs emitted by the contract `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC` that match of the specified topics. Note that the topic filter is a double array as required by the [selector specification](https://docs.ethers.io/v5/api/utils/abi/interface/#Interface--selectors). The configuration also specifies that the indexing should start from block `6175243` onwards (when the contract was deployed).
 
-To index smart contract data on other EVM chains like Polygon or Binance Smart Chain, simply change the `archive` endpoint. For the list of the supported networks and the configuration details, see [here](/develop-a-squid/evm-processor/configuration).
+To index smart contract data deployed to other EVM chains like Polygon or Binance Smart Chain, simply change the `archive` endpoint. For the list of the supported networks and the configuration details, see [here](/develop-a-squid/evm-processor/configuration).
 
 ### Transform and save the data
 

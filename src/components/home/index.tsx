@@ -76,7 +76,7 @@ export default function Home(): JSX.Element {
           <GuideCard
             path="/tutorials/create-an-ethereum-processing-squid"
             color={'bg-role--success'}
-            description="Index smart contract data for EVM chains (like Ethereum, Polygon, BSC).">Index EVM data
+            description="Index EVM smart contracts on chains like Ethereum, Polygon, BSC.">Index EVM data
           </GuideCard>
           <GuideCard
             color={'bg-role--notice'}
