@@ -74,19 +74,19 @@ export default function Home(): JSX.Element {
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
           <GuideCard
+            path="/tutorials/create-an-ethereum-processing-squid"
+            color={'bg-role--success'}
+            description="Index smart contract data for EVM chains (like Ethereum, Polygon, BSC).">Index EVM data
+          </GuideCard>
+          <GuideCard
             color={'bg-role--notice'}
             path="/tutorials/create-a-simple-squid"
-            description="Learn how to build a simple Squid that provides data to you application.">Create your first
-            squid</GuideCard>
+            description="Learn how to build a simple squid for a Substrate-based chain.">Index
+            Substrate data</GuideCard>
           <GuideCard
             path="/deploy-a-squid/promote-to-production"
             color={'bg-role--warning'}
             description="Switch between squid versions with zero downtime">Promote to production</GuideCard>
-         <GuideCard
-            path="/tutorials/create-an-evm-processing-squid"
-            color={'bg-role--success'}
-            description="Index data from Substrate EVM chains like Moonbeam and Astar.">Frontier EVM
-            data</GuideCard>
           <GuideCard
             path="/tutorials/create-a-wasm-processing-squid"
             color={'bg-role--success'}
@@ -96,9 +96,9 @@ export default function Home(): JSX.Element {
             color={'bg-role--notice'}
             description="Live query updates with GraphQL subscriptions">GraphQL subscriptions</GuideCard>
           <GuideCard
-            path="/develop-a-squid/substrate-processor/acala-evm-support"
-            color={'bg-role--warning'}
-            description="Native support for indexing Acala EVM+ smart contracts">EVM+ smart contracts</GuideCard>
+            path="/tutorials/create-an-evm-processing-squid"
+            color={'bg-role--success'}
+            description="Index data from Substrate EVM chains like Moonbeam and Astar.">Frontier EVM data</GuideCard>
         </div>
       </div>
 
