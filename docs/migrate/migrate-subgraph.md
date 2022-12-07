@@ -5,12 +5,11 @@ title: Migrate from TheGraph
 
 # Migrate from TheGraph
 
-This guide walks through the steps to migrate a subgraph to Subsquid. In what follows we will convert the [Gravatar](https://github.com/graphprotocol/example-subgraph) subgraph into a squid and run it locally. Impatient readers may clone the migrated squid from the `gravatar-squid` branch of the [squid-evm-template repo](https://github.com/subsquid/squid-evm-template) and run it by following the instructions in README:
+This guide walks through the steps to migrate a subgraph to Subsquid. In what follows we will convert the [Gravatar](https://github.com/graphprotocol/example-subgraph) subgraph into a squid and run it locally. Impatient readers may clone the squid from the [repo](https://github.com/subsquid/gravatar-squid) and run it by following the instructions in README:
 
 ```bash
-git clone -b gravatar-squid https://github.com/subsquid/squid-evm-template.git
+git clone https://github.com/subsquid/gravatar-squid.git
 ```
-
 
 `EvmBatchProcessor` provided by the Squid SDK defines a single handler that indexes EVM logs and transaction data in batches of heterogeneous items.  It differs from the programming model of subgraph mappings, that define a separate data handler for each EVM log topic to be indexed. Due to significantly less frequent database hits (once per batch compared to once per log) the batch-based handling model shows up to a 10x increase in the indexing speed. 
 
@@ -68,23 +67,32 @@ A database migration file for creating a table for `Gravatar` will appear in `db
 
 ### Generate typings from ABI
 
-Copy the contract ABI (`Gravity.json`) to `src/abi` and run [EVM typegen](/develop-a-squid/typegen/squid-evm-typegen):
+The following command runs the `evm-typegen` tool fetches the contract ABI by the address and generates type-safe access classes in `src/abi`:
 ```bash
-npx squid-evm-typegen --abi=src/abi/Gravity.json --output=src/abi/Gravity.ts
+npx squid-evm-typegen src/abi 0x2E645469f354BB4F5c8a05B3b30A929361cf77eC#Gravity --clean
 ```
 
-A boilerplate code for decoding EVM logs and the contract access classes will be generated in `src/abi/Gravity.ts`. In particular, the file contains the topic definitions used at the next step. 
+A boilerplate code for decoding EVM logs and the contract access classes will be generated in `src/abi/Gravity.ts`. In particular, the file contains the topic definitions used at the next step.  For more details about the EVM typegen tool, read a [dedicated doc page](/develop-a-squid/typegen/squid-evm-typegen).
 
 ### Subscribe to EVM logs
 
 The core of the indexing logic is implemented in `src/processor.ts`. This is where we define which EVM logs (events) our squid will process and define the batch handler for them. The squid processor is configured directly by the code, unlike subgraphs which require the handlers and events to be defined in the manifest file.
 
 ```ts file=src/processor.ts
+// genereated by evm-typegen 
+// the event object contains typings for all events defined in the ABI
 import { events } from "./abi/Gravity";
 
 const processor = new EvmBatchProcessor()
   .setDataSource({
-    // archive for Ethereum-mainnet
+    // uncomment and set RPC_ENDPOINT to enable contract state queries. 
+    // Both https and wss endpoints are supported. 
+    // chain: process.env.RPC_ENDPOINT,
+
+    // Change the Archive endpoints for run the squid 
+    // against the other  EVM networks:
+    // Polygon: https://polygon.archive.subsquid.io
+    // Goerli: https://goerli.archive.subsquid.io
     archive: 'https://eth.archive.subsquid.io',
   })
   .setBlockRange({ from: 6175243 })
@@ -92,8 +100,8 @@ const processor = new EvmBatchProcessor()
   // and that match the specified topic filter
   .addLog('0x2E645469f354BB4F5c8a05B3b30A929361cf77eC', {
     filter: [[
-      events['NewGravatar(uint256,address,string,string)'].topic,
-      events['UpdatedGravatar(uint256,address,string,string)'].topic,
+      events.NewGravatar.topic,
+      events.UpdatedGravatar.topic,
    ]],
     data: {
         // define the log fields to be fetched from the archive
@@ -107,6 +115,8 @@ const processor = new EvmBatchProcessor()
 
 In the snippet above we tell the squid processor to fetch logs emitted by the contract `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC` that match of the specified topics. Note that the topic filter is a double array as required by the [selector specification](https://docs.ethers.io/v5/api/utils/abi/interface/#Interface--selectors). The configuration also specifies that the indexing should start from block `6175243` onwards (when the contract was deployed).
 
+To index smart contract data on other EVM chains like Polygon or Binance Smart Chain, simply change the `archive` endpoint. For the list of the supported networks and the configuration details, see [here](/develop-a-squid/evm-processor/configuration).
+
 ### Transform and save the data
 
 The processor currently doesn't do much and simply outputs the data it fetches from the archive.
@@ -117,11 +127,11 @@ We start with an auxiliary function that extracts and normalizes the event data 
 
 ```ts
 function extractData(evmLog: any): { id: ethers.BigNumber, owner: string, displayName: string, imageUrl: string} {
-  if (evmLog.topics[0] === events['NewGravatar(uint256,address,string,string)'].topic) {
-    return events['NewGravatar(uint256,address,string,string)'].decode(evmLog)
+  if (evmLog.topics[0] === events.NewGravatar.topic) {
+    return events.NewGravatar.decode(evmLog)
   }
-  if (evmLog.topics[0] === events['UpdatedGravatar(uint256,address,string,string)'].topic) {
-    return events['UpdatedGravatar(uint256,address,string,string)'].decode(evmLog)
+  if (evmLog.topics[0] === events.UpdatedGravatar.topic) {
+    return events.UpdatedGravatar.decode(evmLog)
   }
   throw new Error('Unsupported topic')
 }
@@ -157,7 +167,7 @@ The implementation is straightforward -- the newly created and/or updated gravat
 
 To start the indexing, run
 ```bash
-make build
+npm run build
 make process
 ```
 The processor will output the sync progress and the ETA to reach the chain head. After it reaches the head it will continue indexing new blocks until stopped.
