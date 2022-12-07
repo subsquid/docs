@@ -13,7 +13,7 @@ export default function Home(): JSX.Element {
         <span className="h3">Get started
 </span>
         <div className="flex flex-col gap-6">
-          <p className="body--s">Try Subsquid, Web3's most versatile and dev-friendly indexing framework, by building a simple squid!</p>
+          <p className="body--s">Try Web3's most versatile and dev-friendly indexing framework by building and running a simple squid.</p>
           <a
             className="x-button bg-bg-base--contrast text-fg-base--contrast"
             href="/quickstart">Quickstart</a>
