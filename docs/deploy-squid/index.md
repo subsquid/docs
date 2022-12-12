@@ -39,7 +39,7 @@ Navigate to the squid folder and make sure you have the `subsquid` packages upda
 
  Further, ensure that the squid structure follows [the conventions](/develop-a-squid/squid-structure). All the scripts below are assumed to be run from the root folder of your squid. 
 
-Note, that the local `.env` file is ignored by Aquarium. The environment variables `DB_NAME`, `DB_PASS`, `DB_PORT` are automatically set by Aquarium. The support for user-defined environment variables and secrets is currently in private beta and will be available soon.
+Note, that the local `.env` file is ignored by Aquarium. The environment variables `DB_NAME`, `DB_PASS`, `DB_PORT` are automatically set by Aquarium. Besides, Aquarium can inject custom secrets as environment variables, see the [Environment variables page](/deploy-squid/env-variables).
 
 ## 1. Obtain an Aquarium deployment key
 
