@@ -16,11 +16,11 @@ A squid is expected to follow the folder structure with the following convention
    + `/src/server-extension/resolvers` -- an (optional) folder for [user-defined GraphQL resolvers](/develop-a-squid/graphql-api/custom-resolvers)
    + `/src/types` -- an (optional) output folder for typescript definitions of the Substrate data generated with [`squid-substrate-typegen`](/develop-a-squid/typegen/squid-substrate-typegen)
    + `/src/abi` -- an (optional) output folder for the [EVM typegen](/develop-a-squid/typegen/squid-evm-typegen) or [WASM typegen](/develop-a-squid/typegen/squid-wasm-typegen) tools that generate type definitions and the decoding boilerplate
-- `/assets` -- a designated folder for custom user-provided files (e.g. static data files for the seed data to the squid processor)
+- `/assets` -- a designated folder for custom user-provided files (e.g. static data files to seed the squid processor)
 - `schema.graphql` -- [the schema definition file](/develop-a-squid/schema-file)
-- `Dockerfile` -- a Docker build file used both for local Docker builds and for Aquarium deployments. See [Run in Docker](/run-squid/run-in-docker)
+- `squid.yaml` -- A manifest file for deploying the squid to Aquarium. See [Deploy squid](/deploy-squid) for details.
 - `docker-compose.yml` -- a Docker compose file for local runs. Has a Postgres service definition by default. Ignored by Aquarium.
-- `.env` -- defines environment variables for `docker-compose.yml`, and local processor and API server runs. Ignored by Aquarium
+- `.env` -- defines environment variables used by `docker-compose.yml`, and when the squid is run locally. Ignored by Aquarium
 - `typegen.json` -- (optional) config file for `squid-substrate-typegen`. Ignored by Aquarium.
 - `Makefile` -- (optional) script definitions for `Make`. Ignored by Aquarium.
 - `tsconfig.json`, `package-lock.json`, `package.json` -- standard configs for a typescript-based node.js project
