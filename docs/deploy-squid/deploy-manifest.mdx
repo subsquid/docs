@@ -1,0 +1,177 @@
+---
+sidebar_position: 10
+title: Deployment manifest
+---
+
+# Deployment manifest
+
+The deployment manifest is named `squid.yaml` by convention and defines how the squid should be deployed to the Aquarium. 
+
+## Header
+
+The manifest header defines the squid metadata
+
+| Field                    |      Archive endpoint                         |  
+|:-----------------------:|:---------------------------------------------:|
+| `manifestVersion`        | Only `subsquid.io/v0.1` is currently supported     |
+| `name` | A globally unique squid name, used as a prefix for the GraphQL endpoint(s) | 
+| `version`                 | Squid version. A squid deployment is canonically identified as `${name}@${version}` |
+| `description`  | (Optional) A short description of the squid  |
+
+## `build:`
+
+Specifies the way the squid is built into a docker image. Only an empty `build:` section is supported, and the squid must adhere
+to the default [folder structure](/develop-a-squid/squid-structure).
+
+In particular, the following files and folders **must** be present in the root folder of the squid:
+
+- `/db`
+- `/lib`
+- `/src`
+- `/assets` 
+- `schema.graphql`
+- `tsconfig.json` 
+- `package-lock.json`
+- `package.json` 
+
+<details><summary>Under the hood, the Aquarium build engine uses the following Docker file.</summary>
+<p>
+
+```dockerfile title="Dockerfile"
+FROM node:16-alpine AS node
+FROM node AS node-with-gyp
+RUN apk add g++ make python3
+
+FROM node-with-gyp AS builder
+WORKDIR /squid
+ADD package.json .
+ADD package-lock.json .
+RUN npm ci
+ADD tsconfig.json .
+ADD src src
+RUN npm run build
+
+FROM node-with-gyp AS deps
+WORKDIR /squid
+ADD package.json .
+ADD package-lock.json .
+RUN npm ci --production
+
+FROM node AS squid
+WORKDIR /squid
+COPY --from=deps /squid/package.json .
+COPY --from=deps /squid/package-lock.json .
+COPY --from=deps /squid/node_modules node_modules
+COPY --from=builder /squid/lib lib
+RUN echo -e "loglevel=silent\\nupdate-notifier=false" > /squid/.npmrc
+ADD db db
+ADD assets assets
+ADD schema.graphql .
+```
+
+</p>
+</details>
+
+## `deploy:`
+
+The `deploy` section may define:
+
+
+- `addons` Additional services deployed for the squid. 
+  + `postgres` Deploys a Postgres 14 instance and injects `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_PORT` variables to the rest of the squid services.
+- `secrets` A list of secret names that must be provided by Aquarium. If some of those secrets were not defined in advance, the deployment will fail
+- `processor` The processor service of the squid. 
+  + `cmd` **Required** The command to be used by the container
+- `api` The API service of the squid.
+  + `cmd` **Required** The command to be used by the container
+
+The `processor` and `api` services may additionally define
+- `environment` (Optional) A list of environment variables to be set for the container. Useful for e.g. logging
+- `env` (Optional) An env file to be added to the list of variables
+
+## `scale:`
+
+The `scale` section specifies custom deployment options for enterprise squids. This option is only available for paid Aquarium plans.
+
+One can additionally specify:
+
+For the `postgres` addon:
+- The `storage` size
+
+For `processor`:
+- The machine specification (with extra vCPU and RAM)
+
+For `api`:
+- The machine specification (with extra vCPU and RAM)
+- The number of replicas. The traffic is automatically load balanced between the replicas.
+
+## Examples
+
+A minimal example of manifest is below:
+
+```yaml title="squid.yaml"
+manifestVersion: subsquid.io/v0.1
+name: sample-squid
+version: 1
+description: |-
+  My sample squid  
+
+build: 
+
+deploy:
+  addons:
+    postgres: 
+  processor:
+    cmd: [ "node", "lib/processor" ] 
+  api:
+    cmd: [ "npx", "squid-graphql-server"]
+```
+
+An extended version:
+
+```yaml title="squid.yaml"
+manifestVersion: subsquid.io/v0.1
+name: sample-squid
+version: 1
+description: |-
+  My advanced squid 
+
+build: 
+
+deploy:
+  addons:
+    postgres: 
+         # additional configs for addons
+         version: 14
+  # the set of secrets that must be set and provided by Aquarium
+  secrets:
+    - ACALA_RPC_ENDPOINT
+    - COINGECKO_API_KEY 
+  processor:
+    # additional env variables
+    environment:
+        SQD_DEBUG=sqd:mapping
+    env:
+    # env variables from a file
+       - .deploy.env  
+    cmd: [ "node", "lib/processor" ] 
+  api:
+    # custom run command for the GraphQL server
+    cmd: [ "npx", "squid-graphql-server", "--subscriptions", "--max-root-fields", "10", "--sql-statement-timeout", "1000" ] 
+
+scale:
+  addons:
+     postgres:
+         storage: 100G
+  processor:
+     profile: p1.medium
+  api:
+     profile: a1.large
+     # load-balance three replicas
+     replicas: 3
+```
+
+
+
+
+
