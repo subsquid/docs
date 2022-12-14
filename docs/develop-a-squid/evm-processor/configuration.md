@@ -18,15 +18,18 @@ The following setters configure the global settings. The setters return the modi
 
 The following EVM networks are supported
 
-| Network             |      Archive endpoint                    |  
-|:-------------------:|:----------------------------------------:|
-| Ethereum mainnet    | `https://eth.archive.subsquid.io`        |
-| Ethereum Goerli     | `https://goerli.archive.subsquid.io`     | 
-| Polygon             | `https://polygon.archive.subsquid.io`    |
-| Avalance C-Chain    | `https://avalanche-c.archive.subsquid.io`|
-| Binance Smart Chain | Coming Soon                              |
-| Arbitrum            | Coming Soon                              |
-| Optimism            | Coming Soon                              |
+| Network                 |      Archive endpoint                         |  
+|:-----------------------:|:---------------------------------------------:|
+| Ethereum Mainnet        | `https://eth.archive.subsquid.io`             |
+| Ethereum Goerli Testnet | `https://goerli.archive.subsquid.io`          | 
+| Polygon                 | `https://polygon.archive.subsquid.io`         |
+| Polygon Mumbai Testnet  | `https://polygon-mumbai.archive.subsquid.io`  |
+| Avalance C-Chain        | `https://avalanche-c.archive.subsquid.io`     |
+| Fantom                  | `https://fantom.archive.subsquid.io`          |
+| Exosama Network         | `https://exosama.archive.subsquid.io`         |
+| Binance Smart Chain     | Coming Soon                                   |
+| Arbitrum                | Coming Soon                                   |
+| Optimism                | Coming Soon                                   |
 
 
 ##  EVM logs
