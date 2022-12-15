@@ -1,7 +1,7 @@
 ---
 
 title: Table of contents
-sidebar_position: 13
+sidebar_position: 130
 ---
 
 
@@ -46,7 +46,7 @@ sidebar_position: 13
 * [Deploy a Squid](/deploy-squid)
   * [Update or Kill a Squid](/deploy-squid/update-and-kill)
   * [Environment variables](/deploy-squid/env-variables)
-  * [Squid CLI Reference](/deploy-squid/squid-cli)
+* [Squid CLI](/squid-cli)
 * [Query a Squid](/query-squid)
   * [AND/OR filters](/query-squid/and-or-filters)
   * [Nested field queries](/query-squid/nested-field-queries)
