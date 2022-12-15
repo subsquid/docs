@@ -1,5 +1,5 @@
 ---
-sidebar_position: 10
+sidebar_position: 100
 title: Giant Squid API
 description: >-
   Introducing the Giant Squid API, a single endpoint containing data from

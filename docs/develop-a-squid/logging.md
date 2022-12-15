@@ -58,4 +58,4 @@ The processor logs can be inspected once the squid is deployed to Aquarium:
 npx sqd squid logs <name>@<version> -f --level <level>
 ```
 
-See [CLI Reference](/deploy-squid/squid-cli) for a full list of log options supported by Aquarium.
+See [CLI Reference](/squid-cli/logs) for a full list of log options supported by Aquarium.
