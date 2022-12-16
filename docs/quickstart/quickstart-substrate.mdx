@@ -21,11 +21,12 @@ Please note:
 
 Additional information about development environment setup is available [here](/tutorials/development-environment-set-up).
 
-### Step 1: Clone <span><a href="https://github.com/subsquid/squid-substrate-template">squid-substrate-template</a></span>
+**Step 1:** Come up with a new memorable name for your squid and scaffold from <span><a href="https://github.com/subsquid/squid-substrate-template">squid-substrate-template</a></span>
+using [`sqd init`](/squid-cli/init):
 
 ```bash
-git clone https://github.com/subsquid/squid-substrate-template.git
-cd squid-substrate-template
+sqd init my-awesome-squid --template substrate
+cd my-awesome-squid
 ```
 
 ###  Step 2: Install dependencies
@@ -85,4 +86,4 @@ query MyQuery {
 - [Explore how to use typegen for type-safe on-chain data access](/develop-a-squid/typegen/squid-substrate-typegen)
 - [Explore how to efficiently transform the on-chain data in batches](/develop-a-squid/substrate-processor)
 - [Explore native support for Moonriver, Moombeam and Astar EVMs](/develop-a-squid/substrate-processor/evm-support)
-- [Deploy a squid](/deploy-squid)
+- [Deploy the squid to the Aquarium hosted service](/deploy-squid)
