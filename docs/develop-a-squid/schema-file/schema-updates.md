@@ -87,4 +87,4 @@ make migrate
 
 **5. Update the squid in Aquairum**
 
-If the squid is deployed to Aquarium, [update the deployed version](/deploy-squid/update-and-kill).
+If the squid is deployed to Aquarium, [update the deployed version](/squid-cli/deploy).
