@@ -6,6 +6,8 @@ title: Deployment manifest
 # Deployment manifest
 
 The deployment manifest is named `squid.yaml` by convention. The manifest defines how the squid should be built, customized and scaled during the deployment to Aquarium. It is used together with [`sqd deploy`](/squid-cli/deploy) to deploy or update an existing squid version.
+
+With the introduction of the deployment manifest the addons (`postgres`) and the API services (`api`) become optional. This allows flexible deployment configuration for analytic use-cases (e.g. transform and write to s3 or BigQuery).
  
 ## Header
 
@@ -14,7 +16,7 @@ The manifest header defines the squid metadata
 | Field                    |      Archive endpoint                         |  
 |:-----------------------:|:---------------------------------------------:|
 | `manifestVersion`        | Only `subsquid.io/v0.1` is currently supported     |
-| `name` | A globally unique squid name, used as a prefix for the GraphQL endpoint(s). Can only contain lowercase Latin letters (`a-z`) and a dash (`-`). | 
+| `name` | A globally unique squid name. Can only contain lowercase Latin letters (`a-z`) and a dash (`-`). | 
 | `version`                 | Squid version. A squid deployment is canonically identified as `${name}@${version}`.  |
 | `description`  | (Optional) A short description of the squid  |
 
@@ -97,6 +99,8 @@ The manifest supports the following scaling options:
 
 ### Addons 
 
+Each addon is optional. In particular, the `postgres` addon should be removed if the squid only writes data to external sinks.
+
 For `postgres`:
 - `storage`: the size of the allocated disk, in [memory resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory), e.g. `100G`.
 - `profile`: `small | medium | large`. Specifies the allocated resources for the pod running the Postgres instance. The default is `small`.
@@ -109,6 +113,8 @@ The profile specifications for `postgres` are as follows:
 
 ### Services
 
+The `api` service is optional (e.g. if the squid only writes data to external sinks)
+
 `processor`:
  - `profile`: `small | medium | large`. The machine specification (with extra vCPU and RAM). Default: `small`.
 
@@ -116,7 +122,9 @@ The profile specifications for `postgres` are as follows:
  - `profile`: `small | medium | large`. The machine specification (with extra vCPU and RAM). Default: `small`.
  - `replicas`: the number of the API gateway replicas. The traffic is automatically load balanced between the replicas.
 
-The profile specifications are as follows:
+Each squid has a canonical (prod) API endpoint exposed `https://squid.subsquid.io/${name}/graphql`, see [promote to production](/deploy-squid/promote-to-production). Each version is independently served at `https://squid.subsquid.io/${name}/v/${version}/graphql`.
+
+The profile specifications for the API server replicas are as follows:
 - `small`: `0.5 vCPU`, `256Mi` RAM
 - `medium`: `1 vCPU`, `512Gi` RAM
 - `large`: `2 vCPU`, `1Gi` RAM
