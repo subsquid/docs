@@ -13,7 +13,23 @@ This is an experimental feature. Reach out on [Squid Devs Chat](https://t.me/Hyd
 
 The OpenReader supports [GraphQL subscriptions](https://www.apollographql.com/docs/react/data/subscriptions/) via live queries. The query is repeatedly executed (every 5 seconds by default) and the clients are responsible for handling the result set updates. 
 
-To enable subscriptions, `squid-graphql-server` must be started with the `--subscriptions` flag. 
+To enable subscriptions, add the additional `--subscriptions` flag to the `squid-graphql-server` startup command. For Aquarium deployments, update the `api` command in the [deployment manifest](/deploy-squid/deploy-manifest/#deploy):
+
+```yaml title="squid.yaml"
+# ...
+deploy:
+  # other services ...
+  api:
+    cmd: [ "npx", "squid-graphql-server", "--subscriptions" ]
+```
+
+For local development, update accordingly the `Makefile` and the scripts in `package.json`:
+```bash title=Makefile
+...
+serve:
+	@npx squid-graphql-server --subscriptions
+...
+```
 
 For each entity types, the following queries are supported for subscriptions:
 - `${EntityName}ById` -- query a single entity

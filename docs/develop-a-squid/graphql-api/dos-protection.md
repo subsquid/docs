@@ -7,20 +7,19 @@ title: DoS protection
 
 **Available since `@subsquid/graphql-server@2.1.0`**
 
-The squid [GraphQL API server](https://github.com/subsquid/squid/tree/master/graphql-server) accepts the following optional start arguments to fend off heavy queries. The arguments should be added to the `query-node:start` script in `package.json` of the squid (for Aquarium deployments) and to `Makefile` (for local runs):
+The squid [GraphQL API server](https://github.com/subsquid/squid/tree/master/graphql-server) accepts the following optional start arguments to fend off heavy queries. 
 
-```json title=package.json
-{
-  ... 
- "scripts": {
-    "build": "rm -rf lib && tsc",
-    "db:migrate": "npx squid-typeorm-migration apply",
-    "processor:start": "node lib/processor.js",
-    "query-node:start": "squid-graphql-server --max-root-fields 10 --max-response-size 1000"
-  },
-  ...
-}
+To enable the protection for squids deployed to Aquarium, add the corresponding flags the GraphQL `api` service command in the [deployment manifest](/deploy-squid/deploy-manifest/#deploy). Here is an example:
+
+```yaml title="squid.yaml"
+# ...
+deploy:
+  # other services ...
+  api:
+    cmd: [ "npx", "squid-graphql-server", "--max-root-fields", "10", "--max-response-size", "1000" ]
 ```
+
+For local development, update the `Makefile` and `package.json` scripts accordingly:
 
 ```bash title=Makefile
 ...
