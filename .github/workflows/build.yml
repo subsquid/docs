@@ -29,6 +29,9 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: env
         id: env
         run: |
@@ -40,9 +43,6 @@ jobs:
             fi
         env:
             REF: ${{ github.ref }}
-
-      - name: Checkout
-        uses: actions/checkout@v2
 
       # Setup gcloud CLI
       - uses: google-github-actions/setup-gcloud@v0.2.0
@@ -60,16 +60,18 @@ jobs:
       - name: Build
         run: |-
           docker build \
-            --tag "gcr.io/${PROJECT_ID}/subsquid-docs-${RELEASE_VERSION}:$GITHUB_SHA" \
+            --tag "gcr.io/${PROJECT_ID}/subsquid-docs-${RELEASE_VERSION}:${TAG}" \
             --tag "gcr.io/${PROJECT_ID}/subsquid-docs-${RELEASE_VERSION}:latest" \
             .
         env:
             RELEASE_VERSION: ${{ steps.env.outputs.release_version }}
+            TAG: ${{ steps.env.outputs.tag }}
 
       # Push the Docker image to Google Container Registry
       - name: Publish
         run: |-
-          docker push "gcr.io/${PROJECT_ID}/subsquid-docs-${RELEASE_VERSION}:$GITHUB_SHA"
+          docker push "gcr.io/${PROJECT_ID}/subsquid-docs-${RELEASE_VERSION}:${TAG}"
           docker push "gcr.io/${PROJECT_ID}/subsquid-docs-${RELEASE_VERSION}:latest"
         env:
           RELEASE_VERSION: ${{ steps.env.outputs.release_version }}
+          TAG: ${{ steps.env.outputs.tag }}
