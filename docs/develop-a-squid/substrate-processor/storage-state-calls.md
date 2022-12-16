@@ -96,9 +96,9 @@ The generated access interface provide methods for:
 - accessing multiple storage items in a batch call with `getMany(keys[])`
 - accessing all values at a given key prefix with `getAll()`
 - accessing all storage keys with a given prefix with `getKeys(...keys)` (only if storage keys are decodable)
-- paged accessing all storage keys with a given prefix with `getKeysPaged(...keys)` (only if storage keys are decodable)
+- paged accessing all storage keys with a given prefix with `getKeysPaged(pageSize: number, ...keys)` (only if storage keys are decodable)
 - accessing all storage key-value pairs at a given key prefix with `getPairs(...keys)` (only if storage keys are decodable)
-- paged accessing all storage key-value pairs at a given key prefix with `getPairs(...keys)` (only if storage keys are decodable)
+- paged accessing all storage key-value pairs at a given key prefix with `getPairsPaged(pageSize: number, ...keys)` (only if storage keys are decodable)
 
 
 
