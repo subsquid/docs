@@ -78,12 +78,12 @@ The `deploy` section may define:
 
 
 - `addons` Additional services deployed for the squid. 
-  + `postgres` Deploys a Postgres 14 instance and injects `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_PORT` variables to the rest of the squid services.
-- `secrets` A list of secret names that must be provided by Aquarium. If some of those secrets were not defined in advance, the deployment will fail
+  + `postgres` Deploys a Postgres 14 instance and injects `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_PORT` env. variables to the squid services.
+- `secrets` A list of secret names that must be provided by Aquarium. If any of the secrets is not defined, the deployment will fail
 - `processor` The processor service of the squid. 
-  + `cmd` **Required** The command to be used by the container
+  + `cmd` **Required** The command to be used by the container.
 - `api` The API service of the squid.
-  + `cmd` **Required** The command to be used by the container
+  + `cmd` **Required** The command to be used by the container. In particular, for the GraphQL API service, provide here additional flags to define [subscriptions](/develop-a-squid/graphql-api/subscriptions) or [caching](/develop-a-squid/graphql-api/caching)
 
 The `processor` and `api` services may additionally define
 - `environment` (Optional) A list of environment variables to be set for the container. Useful for e.g. logging
@@ -98,7 +98,7 @@ The manifest supports the following scaling options:
 ### Addons 
 
 For `postgres`:
-- `storage`: the size of the allocated disk, in [memory resource unite](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory), e.g. `100G`.
+- `storage`: the size of the allocated disk, in [memory resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory), e.g. `100G`.
 - `profile`: `small | medium | large`. Specifies the allocated resources for the pod running the Postgres instance. The default is `small`.
 
 The profile specifications for `postgres` are as follows:
@@ -110,11 +110,11 @@ The profile specifications for `postgres` are as follows:
 ### Services
 
 `processor`:
-- `profile`: `small | medium | large`. The machine specification (with extra vCPU and RAM). Default: `small`.
+ - `profile`: `small | medium | large`. The machine specification (with extra vCPU and RAM). Default: `small`.
 
- `api`:
-- `profile`: `small | medium | large`. The machine specification (with extra vCPU and RAM). Default: `small`.
-- `replicas`: the number of the API gateway replicas. The traffic is automatically load balanced between the replicas.
+`api`:
+ - `profile`: `small | medium | large`. The machine specification (with extra vCPU and RAM). Default: `small`.
+ - `replicas`: the number of the API gateway replicas. The traffic is automatically load balanced between the replicas.
 
 The profile specifications are as follows:
 - `small`: `0.5 vCPU`, `256Mi` RAM
@@ -158,8 +158,6 @@ build:
 deploy:
   addons:
     postgres: 
-         # additional configs for addons
-         version: 14
   # the set of secrets that must be set and provided by Aquarium
   secrets:
     - ACALA_RPC_ENDPOINT

@@ -26,7 +26,7 @@ On top of the features provided by subgraphs, the Squid SDK and the Aquarium clo
 - [Extension of the GraphQL API](/develop-a-squid/graphql-api/custom-resolvers) with arbitrary SQL
 - [Secret environment variables](/deploy-squid/env-variables), allowing to seamlessly use private third-party JSON-RPC endpoints and integrate with external APIs
 - [API versioning and aliasing](/deploy-squid/promote-to-production)
-- [API Caching](/deploy-squid/caching)  
+- [API Caching](/develop-a-squid/graphql-api/caching)  
 
 ## Squid setup 
 
