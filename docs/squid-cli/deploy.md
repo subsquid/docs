@@ -1,13 +1,13 @@
 `sqd deploy`
 ============
 
-Deploy a new squid version
+Deploy a new or update the existing squid version.
 
 * [`sqd deploy SOURCE`](#sqd-deploy-source)
 
 ## `sqd deploy SOURCE`
 
-Deploy a new squid version
+Deploy a new or update the existing squid version.
 
 ```
 USAGE
@@ -22,8 +22,8 @@ ARGUMENTS
 OPTIONS
   -m, --manifest=manifest  [default: squid.yaml] A manifest file
 
-  -r, --hard-reset         Do a hard reset before deploying. Drops and re-creates all the squid resources including the
-                           database. Will cause a short API downtime
+  -r, --hard-reset         Do a hard reset before deploying. Drops and re-creates all the squid services including the
+                           addons. Will cause a short API downtime
 
   -u, --update             Do not require a confirmation if the version already exists
 
