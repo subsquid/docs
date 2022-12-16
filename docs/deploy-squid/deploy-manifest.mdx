@@ -5,8 +5,8 @@ title: Deployment manifest
 
 # Deployment manifest
 
-The deployment manifest is named `squid.yaml` by convention and defines how the squid should be deployed to the Aquarium. 
-
+The deployment manifest is named `squid.yaml` by convention. The manifest defines how the squid should be built, customized and scaled during the deployment to Aquarium. It is used together with [`sqd deploy`](/squid-cli/deploy) to deploy or update an existing squid version.
+ 
 ## Header
 
 The manifest header defines the squid metadata
@@ -14,8 +14,8 @@ The manifest header defines the squid metadata
 | Field                    |      Archive endpoint                         |  
 |:-----------------------:|:---------------------------------------------:|
 | `manifestVersion`        | Only `subsquid.io/v0.1` is currently supported     |
-| `name` | A globally unique squid name, used as a prefix for the GraphQL endpoint(s) | 
-| `version`                 | Squid version. A squid deployment is canonically identified as `${name}@${version}` |
+| `name` | A globally unique squid name, used as a prefix for the GraphQL endpoint(s). Can only contain lowercase Latin letters (`a-z`) and a dash (`-`). | 
+| `version`                 | Squid version. A squid deployment is canonically identified as `${name}@${version}`.  |
 | `description`  | (Optional) A short description of the squid  |
 
 ## `build:`
