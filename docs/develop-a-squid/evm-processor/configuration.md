@@ -27,7 +27,7 @@ The following EVM networks are supported
 | Avalance C-Chain        | `https://avalanche-c.archive.subsquid.io`     |
 | Fantom                  | `https://fantom.archive.subsquid.io`          |
 | Exosama Network         | `https://exosama.archive.subsquid.io`         |
-| Binance Smart Chain     | Coming Soon                                   |
+| Binance Smart Chain     | `https://binance.archive.subsquid.io`         |
 | Arbitrum                | Coming Soon                                   |
 | Optimism                | Coming Soon                                   |
 
