@@ -1,9 +1,9 @@
 ---
 sidebar_position: 10
-title: Ethereum
+title: EVM networks
 ---
 
-# Quickstart: Ethereum
+# Quickstart: EVM networks
 
 This guide follow through the steps to set up the environment, clone, build and run a template squid for EVM networks. The squid outputs the transactions to the "black hole" address `0x0000000000000000000000000000000000000000`. It is intended to be a starter project for building a custom squid indexing the EVM log and transaction data on Ethereum and other EVM chains.
 
@@ -39,13 +39,18 @@ Explore all available templates with `sqd init --help`
 npm ci
 ```
 
-### Step 3: Build the squid
+### Step 3: Set the network
+
+Inspect `src/processor.ts` and set the EVM network of interest. Consult the [processor configuration page](/develop-a-squid/evm-processor/configuration) 
+for the list of the supported networks and the configuration options. 
+
+### Step 4: Build the squid
 
 ```bash
 make build
 ```
 
-### Step 4: Launch Postgres and detach
+### Step 5: Launch Postgres and detach
 
 ```bash
 make up
@@ -66,8 +71,8 @@ make process
 ## What's next?
 
 - [Migrate the existing subgraphs to Subsquid](/migrate/migrate-subgraph)
-- [Explore more examples of squids for EVM](/develop-a-squid/examples#evm-processor)
-- [Explore how to efficiently index EVM log and transaction data in batches](/develop-a-squid/evm-processor)
+- [Explore examples of squids for EVM networks, from simple transfer indexing to DEX analytics](/develop-a-squid/examples#evm-processor)
 - [Define the data schema and serve the data with a GraphQL API](/develop-a-squid/schema-file)
+- [Deeper dive into `EvmBatchProcessor`](/develop-a-squid/evm-processor)
 - [Explore how to enhance the GraphQL API with custom SQL, caching and limits](/develop-a-squid/graphql-api)
 - [Deploy the squid to the Aquarium hosted service](/deploy-squid)
