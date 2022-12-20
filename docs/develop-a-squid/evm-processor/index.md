@@ -27,6 +27,7 @@ A typical processor looks as below:
 
 ## What's next?
 
+- Move forward to the [`EvmBatchProcessor` configuration page](/develop-a-squid/evm-processor/configuration)
 - Explore the [migration guide](/migrate/migrate-subgraph/) and create a squid from a subgraph within minutes
 - Follow the [tutorial](/tutorials/create-an-ethereum-processing-squid/) to how to build an Ethereum-indexing squid step by step
 - Check the [examples](/develop-a-squid/examples/)
