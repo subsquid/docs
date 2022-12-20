@@ -21,8 +21,15 @@ Please note:
 
 Additional information about development environment setup is available [here](/tutorials/development-environment-set-up).
 
-**Step 1:** Come up with a new memorable name for your squid and scaffold from <span><a href="https://github.com/subsquid/squid-substrate-template">squid-substrate-template</a></span>
-using [`sqd init`](/squid-cli/init):
+**Step 1:** Come up with a new memorable name for your squid. Choose the template matching your network and 
+scaffold using [`sqd init`](/squid-cli/init).
+
+- For indexing native events emitted by Substrate-based chains, use `substrate` 
+- For indexing Frontier EVM contracts on Moonbeam, Moonriver, Astar, Shiden use `frontier-evm`
+- For indexing Ink! smart contracts, use `ink`
+- For indexing EVM+ contracts on Karura or Acala, use `acala`
+
+For example:
 
 ```bash
 sqd init my-awesome-squid --template substrate
@@ -86,4 +93,7 @@ query MyQuery {
 - [Explore how to use typegen for type-safe on-chain data access](/develop-a-squid/typegen/squid-substrate-typegen)
 - [Explore how to efficiently transform the on-chain data in batches](/develop-a-squid/substrate-processor)
 - [Explore native support for Moonriver, Moombeam and Astar EVMs](/develop-a-squid/substrate-processor/evm-support)
+- [Explore native support for Ink! contracts](/develop-a-squid/substrate-processor/wasm-support)
+- [Explore native support for Gear contracts](/develop-a-squid/substrate-processor/gear-support)
+- [Explore native support for Acala EVM+ contracts](/develop-a-squid/substrate-processor/acala-evm-support)
 - [Deploy the squid to the Aquarium hosted service](/deploy-squid)
