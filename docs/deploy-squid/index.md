@@ -20,8 +20,8 @@ See the [Deploy Manifest page](/deploy-squid/deploy-manifest) for a full referen
 If Squid CLI is not installed, see the [Squid CLI doc](/squid-cli)
 
 :::info 
-The manifest-based deployment flow below was introduced in `@subsquid/cli` version `1.x`. 
-Follow the [migration guide](/deploy-squid/migration) to upgrade from `@subsquid/cli` version `0.x`.
+The manifest-based deployment flow below was introduced in `@subsquid/cli` version `2.x`. 
+Follow the [migration guide](/deploy-squid/migration) to upgrade from older versions of `@subsquid/cli`.
 :::
 
 
