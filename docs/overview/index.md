@@ -8,15 +8,15 @@ description: Introducing Subsquid, an on-chain data indexing framework and platf
 ## Design
 
 The Subsquid services stack separates data ingestion (Archives) from data transformation and presentation (squids). 
-**Archives** ingest and store raw blockchain data in a normalized way. 
+**Archives** ingest and store raw blockchain data in a normalized way. Archives can be thought of as specialized data lakes optimized for storing and filtering large volumes of raw on-chain-data. 
 
-**Squids** are [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load) projects that ingest historical on-chain data from Archives, transforming it according to user-defined data mappers. Squids are typically configured to present this data as a GraphQL API.  
+Squid Projects (or simply **Squids**) are [Extract-Tranfsorm-Load-Query (ETLQ)](https://en.wikipedia.org/wiki/Extract,_transform,_load) projects that ingest historical on-chain data from Archives, transforming it according to user-defined data mappers. Squids are typically configured to present this data as a GraphQL API. Squids are built using the open-source [Squid SDK](https://github.com/subsquid/squid-sdk).
+
+The separation of the data extraction layer (Archives) and the data transformation and presentation layers (squids) make squids lightweight, while achieving indexing speeds up to 50000 blocks per second. Indeed, since the on-chain data is consumed from Archives there is no need for setup high-throuput node infrastructure. Squids can be run locally, on-premises or deployed to the [Aquarium hosted service](/deploy-a-squid).
 
 ## Archives
 
-Archives allow squids to ingest data in batches spanning multiple blocks. These 'pre-indexers' significantly decrease indexing times while keeping squids lightweight.
-
-See the [Archives](/archives/) section for more information on how to use public Archives or to learn how to run an Archive locally. 
+See the [Archives](/archives/) section for more information on how to use public Archives or to learn how to run an Archive locally (Local archives are currently supported only for Substrate chains). 
 
 At the moment, Subsquid maintains Archives for the following networks:
 
@@ -43,3 +43,10 @@ The Open Source [Squid SDK](https://github.com/subsquid/squid-sdk) offers an ext
 ## The Aquarium
 
 Squids can be deployed to the Subsquid cloud service, called the [Aquarium](https://app.subsquid.io), free of charge. Go to the [Deploy Squid](/deploy-squid) section for more information.
+
+## What's next?
+
+- Follow the [Quickstart](/quickstart) to build the first squid
+- Explore [Examples](/develop-a-squid/examples)
+- Deep dive into [EVM Batch Processor](/develop-a-squid/evm-processor) and [Substrate Batch Processor](/develop-a-squid/substrate-processor)
+- Explore [GraphQL API Server options](/develop-a-squid/graphql-api) including custom extensions, caching and DoS protection in production
