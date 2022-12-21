@@ -34,3 +34,4 @@ Acala
 Karura
 subgraph
 Websocket
+high-throuput

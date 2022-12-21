@@ -2,9 +2,10 @@
 sidebar_position: 70
 description: >-
   An idiomatic usage of the batch processor and the context
+title: Processor in action
 ---
 
-# Batch processor in action
+# `SubstrateBatchProcessor` in action
 
 An end-to-end idiomatic usage of `SubstrateBatchProcessor` can be inspected in the [squid-substrate-template](https://github.com/subsquid/squid-substrate-template) and also learned from more elaborate [examples](/develop-a-squid/examples).
 
