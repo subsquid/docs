@@ -12,7 +12,7 @@ The Subsquid services stack separates data ingestion (Archives) from data transf
 
 Squid Projects (or simply **Squids**) are [Extract-Tranfsorm-Load-Query (ETLQ)](https://en.wikipedia.org/wiki/Extract,_transform,_load) projects that ingest historical on-chain data from Archives, transforming it according to user-defined data mappers. Squids are typically configured to present this data as a GraphQL API. Squids are built using the open-source [Squid SDK](https://github.com/subsquid/squid-sdk).
 
-The separation of the data extraction layer (Archives) and the data transformation and presentation layers (squids) make squids lightweight, while achieving indexing speeds up to 50000 blocks per second. Indeed, since the on-chain data is consumed from Archives there is no need for setup high-throuput node infrastructure. Squids can be run locally, on-premises or deployed to the [Aquarium hosted service](/deploy-a-squid).
+The separation of the data extraction layer (Archives) and the data transformation and presentation layers (squids) make squids lightweight, while achieving indexing speeds up to 50000 blocks per second. Indeed, since the on-chain data is consumed from Archives there is no need for setup high-throuput node infrastructure. Squids can be run locally, on-premises or deployed to the [Aquarium hosted service](/deploy-squid).
 
 ## Archives
 

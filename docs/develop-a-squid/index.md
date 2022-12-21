@@ -95,9 +95,9 @@ const processor = new EvmBatchProcessor()
 See [EvmBatchProcessor configuration](/develop-a-squid/evm-processor/configuration) and [SubstrateBatchProcessor configuration](/develop-a-squid/substrate-processor/configuration) for details.
 
 ### 6. Generate Typescript facade classes to decode the on-chain-data:
-- For EVM data, use [`evm-typegen`](/typegen/squid-evm-typegen) 
-- For Substrate data, use [`substrate-typegen`](/typegen/squid-evm-typegen)
-- For Ink! smart contract data, use [`ink-typegen`](/typegen/squid-wasm-typegen)
+- For EVM data, use [`evm-typegen`](/develop-a-squid/typegen/squid-evm-typegen) 
+- For Substrate data, use [`substrate-typegen`](/develop-a-squid/typegen/squid-evm-typegen)
+- For Ink! smart contract data, use [`ink-typegen`](/develop-a-squid/typegen/squid-wasm-typegen)
 
 ### 7. Define the processor batch handler defined by the `processor.run()` method. 
 - For `EvmBatchProcessor`, see the [Data Mapping page](/develop-a-squid/evm-processor/data-mapping) 

@@ -9,7 +9,7 @@ title: Squid Archives
 Squid Archive is a service that ingests raw on-chain data, stores it into persistent storage in a normalized way and exposes it via API for downstream data pipelines (such as Squid Processor) and ad-hoc exploration. Compared to data access using a conventional chain node RPC, an archive allows one to access data in a more granular fashion and from multiple blocks at once, thanks to its rich batching and filtering capabilities.
 
 
-There are currently two major Archive releases incompatible with each other: `v5` and `FireSquid`. The current docs cover `FireSquid` as the old `v5` archives are now considered deprecated and will be sunset. See [New in FireSquid](/new-in-fire-squid) for an overview of the FireSquid features.
+There are currently two major Archive releases incompatible with each other: `v5` and `FireSquid`. The current docs cover `FireSquid` as the old `v5` archives are now considered deprecated and will be sunset. 
 
 ## Public Archives
 

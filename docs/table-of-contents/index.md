@@ -9,7 +9,6 @@ sidebar_position: 130
 
 * [Overview](/)
 * [Quickstart](/quickstart)
-* [New in FireSquid](/new-in-fire-squid)
 * [Tutorials](/tutorials)
   * [Development Environment set up](/tutorials/development-environment-set-up)
   * [Create a simple Substrate Squid](/tutorials/create-a-simple-squid)
