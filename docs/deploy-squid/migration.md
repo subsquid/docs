@@ -5,7 +5,7 @@ title: Migration guide
 
 # Migrate from `@subsquid/cli@0.x`
 
-Since `@subsquid/cli@1.x` the commands `squid:deploy` and `squid:update` are deprecated in favor of the manifest-based deployments and `sqd deploy`.
+Since `@subsquid/cli@2.x` the commands `squid:deploy` and `squid:update` are deprecated in favor of the manifest-based deployments and `sqd deploy`.
 
 To migrate:
 
@@ -15,7 +15,7 @@ To migrate:
 npm run update
 ```
 
-Make sure `@subsquid/cli` is `^1.x`:
+Make sure `@subsquid/cli` is `^2.x`:
 ```bash
 sqd --version
 ```
