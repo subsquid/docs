@@ -9,11 +9,18 @@ The Subsquid SDK natively supports only WASM contracts executed by the [Contract
 - `Shibuya` (`Astar` testnet)
 - `Shiden` (`Kusama`-cousin of `Astar`)
 - `Astar` (a `Polkadot` parachain)
+- `AlephZero` (a standalone Substrate-based chain)
 
 For this tutorial we will use a simple test ERC20-type token contract deployed to [Shibuya](https://shibuya.subscan.io/) at the address `0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72`. Our squid will track all the token holders and account balances, together with the historical token transfers. 
 
 
-The final result of this tutorial is available in [this repo](https://github.com/subsquid/squid-wasm-template). It can be used as a template for WASM-indexing squids.
+The final result of this tutorial is available in [this repo](https://github.com/subsquid/squid-wasm-template). This repository is used as a template for Ink-indexing squids. Use it with [`sqd init`](/squid-cli/init):
+
+```bash
+sqd init <you squid name here> --template ink
+```
+
+For educational purposes, this tutorial starts of the plain `substrate` template and goes through the necessary changes to index a sample Ink! contract.
 
 ## Pre-requisites
 
@@ -21,9 +28,10 @@ Same as for the [Quickstart](/quickstart)
 
 ## Run the template
 
-Clone  
+Use the `substrate` template: 
 ```bash
-https://github.com/subsquid/squid-substrate-template.git
+sqd init ink-tutorial --template substrate
+cd ink-tutorial
 ```
 
 and run the template:
@@ -36,6 +44,8 @@ make process
 # open a separate terminal for this next command
 make serve
 ```
+
+The tutorial will guide through the necessary changes to 
 
 ## WASM tools
 

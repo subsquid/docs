@@ -18,18 +18,20 @@ The blockchain used in this example will be the [Astar network](https://astar.ne
 
 ## Pre-requisites
 
-The minimum requirements to follow this tutorial are the basic knowledge of software development, such as handling a Git repository, a correctly set up [Development Environment](/tutorials/development-environment-set-up), basic command line knowledge and the concepts explained in this documentation.
+The minimum requirements for this tutorial are as follows:
 
-## Fork the template
+- Familiarity with Git 
+- A properly set up [development environment](/tutorials/development-environment-set-up)
+- Basic command line knowledge 
+- Setup [Squid CLI](/squid-cli)
 
-The first thing to do, although it might sound trivial to GitHub experts, is to fork the repository into your own GitHub account, by visiting the [repository page](https://github.com/subsquid/squid-frontier-evm-template) and clicking the Fork button:
+## Scaffold using `sqd init`
 
-![How to fork a repository on GitHub](</img/.gitbook/assets/Screenshot-2022-02-02-111440.png>)
-
-Next, clone the created repository (be careful of changing `<account>` with your own account)
+We will start of the `frontier-evm` template of [`sqd init`](/squid-cli/init) which is based on this [repository](https://github.com/subsquid/squid-evm-template). It is used to index EVM smart contracts deployed Astar/Shiden and Moonbeam/Moonriver, with the possibility to additionally index the Substrate events.
 
 ```bash
-git clone git@github.com:<account>/squid-frontier-evm-template.git
+sqd init astar-evm-tutorial --template frontier-evm
+cd astar-tutorial
 ```
 
 For reference on the complete work, you can find the entire project [here](https://github.com/subsquid/squid-astar-example/tree/astar-degens).
