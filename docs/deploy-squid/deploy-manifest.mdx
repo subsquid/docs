@@ -17,7 +17,7 @@ The manifest header defines the squid metadata
 |:-----------------------:|:---------------------------------------------:|
 | `manifestVersion`        | Only `subsquid.io/v0.1` is currently supported     |
 | `name` | A globally unique squid name. Can only contain lowercase Latin letters (`a-z`) and a dash (`-`). | 
-| `version`                 | Squid version. A squid deployment is canonically identified as `${name}@${version}`.  |
+| `version`                 | Squid version. **Must be an integer**. A squid deployment is canonically identified as `${name}@${version}`.  |
 | `description`  | (Optional) A short description of the squid  |
 
 ## `build:`

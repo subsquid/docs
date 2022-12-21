@@ -22,12 +22,12 @@ sqd --version
 
 ## 1. Create a deployment manifest
 
-Create `squid.yaml` in the squid root folder, and set the squid name, version and the description (optional)
+Create `squid.yaml` in the squid root folder, and set the squid name, version and the description (optional). Note that the squid version must be an integer, so start with `1`.
 
 ```yml file="squid.yaml
 manifestVersion: subsquid.io/v0.1
 name: my-squid # set name
-version: 1 # my version
+version: 1 # version, must be an integer
 description: |-  # set description
   My squid  
 
@@ -74,7 +74,21 @@ scale:
 
 Apply for a Premium account by filling this [form](https://t.ly/Uh_S).
 
-## 5. Deploy
+## 5. Create or update the deployment
 
-Run `sqd deploy .` and inspect the deployment logs. 
+If there is no version `v1` deployed to Aquarium, simply deploy with
+```bash
+sqd deploy .
+```
+
+If there is already a deployed version `v1`, bump the version number to `2`.
+
+**Important!** When the squid syncs:
+
+- Assign the production URL to the new deployment using [`sqd prod`](/squid-cli/prod)
+- Kill the old unused versions with
+```
+sqd rm <name>@<version>
+```
+
 
