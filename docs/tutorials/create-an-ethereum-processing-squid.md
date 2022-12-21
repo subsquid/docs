@@ -21,18 +21,20 @@ If you want to look at the end result, or inspect the code, the project of this 
 
 ## Pre-requisites
 
-The minimum requirements to follow this tutorial are the basic knowledge of software development, such as handling a Git repository, a correctly set up [Development Environment](/tutorials/development-environment-set-up), basic command line knowledge and the concepts explained in this documentation.
+The minimum requirements for this tutorial are as follows:
 
-## Fork the template
+- Familiarity with Git 
+- A properly set up [development environment](/tutorials/development-environment-set-up)
+- Basic command line knowledge 
+- Setup [Squid CLI](/squid-cli)
 
-The first thing to do, although it might sound trivial to GitHub experts, is to fork the repository into your own GitHub account, by visiting the [repository page](https://github.com/subsquid/squid-evm-template) and clicking the "Use this template" button:
+## Scaffold using `sqd init`
 
-![How to fork a repository on GitHub](</img/.gitbook/assets/Screenshot-2022-02-02-111440.png>)
-
-Next, clone the created repository (be careful of changing `<account>` with your own account)
+We will start of the `evm` template of [`sqd init`](/squid-cli/init) which is based on this [repository](https://github.com/subsquid/squid-evm-template).
 
 ```bash
-git clone git@github.com:<account>/squid-evm-template.git
+sqd init evm-tutorial --template evm
+cd evm-tutorial
 ```
 
 ## Define Entity Schema

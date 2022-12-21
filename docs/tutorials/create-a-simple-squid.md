@@ -24,20 +24,16 @@ The minimum requirements for this tutorial are as follows:
 - Familiarity with Git 
 - A properly set up [development environment](/tutorials/development-environment-set-up)
 - Basic command line knowledge 
+- Setup [Squid CLI](/squid-cli)
 
-## Fork the template
+## Scaffold with `sqd init`
 
-First things first! To fork the squid template and save it to your own GitHub account visit this [repository](https://github.com/subsquid/squid-substrate-template) and click the 'Fork' button:
+Use [`sqd init`](/squid-cli/init) and come up with some unique name for you squid. This tutorial will index data on Crust, a Substrate-based network, so use the `substrate` template
 
-![How to fork a repository on GitHub](</img/.gitbook/assets/Screenshot-2022-02-02-111440.png>)
-
-Next, clone the fork. 
-
-```bash
-git clone git@github.com:<account>/squid-substrate-template.git
+```sh
+sqd init substrate-crust-tutorial --template substrate
+cd substrate-crust-tutorial
 ```
-
-**Don't forget to replace `<account>` in the repository with your own account information**
 
 ### Run the project
 
@@ -47,7 +43,6 @@ Now you can follow the [quickstart](/quickstart) guide to get the project up and
 npm ci
 npm run build
 make up
-make migrate
 make process
 # open a separate terminal for this next command
 make serve
