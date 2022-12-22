@@ -13,9 +13,7 @@ To migrate:
 
 ```bash
 npm run update
-```
-or
-```bash
+#or
 npx npm-check-updates --filter /subsquid/ --upgrade && npm i -f
 ```
 
