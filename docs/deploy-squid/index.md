@@ -14,6 +14,7 @@ The deployment is managed by the file `squid.yaml` in the root folder of the squ
 - how the squid should be scaled up if it grows bigger
 
 See the [Deploy Manifest page](/deploy-squid/deploy-manifest) for a full reference.
+The scaling option is available only to the Aquairum Premium users. To apply for a Premium account, fill [this form](https://luvp4va64ru.typeform.com/to/QrRF66q5).
 
 # 0. Setup and install Squid CLI
 
@@ -23,7 +24,6 @@ If Squid CLI is not installed, see the [Squid CLI doc](/squid-cli)
 The manifest-based deployment flow below was introduced in `@subsquid/cli` version `2.x`. 
 Follow the [migration guide](/deploy-squid/migration) to upgrade from older versions of `@subsquid/cli`.
 :::
-
 
 
 ## 1. Inspect and deploy using the manifest
@@ -44,7 +44,7 @@ Once the squid is deployed, the GraphQL endpoint is available straight away. Nor
 To inspect the squid logs run
 
 ```bash
-sqd squid logs my-new-squid@v0 -f 
+sqd logs my-new-squid@v0 -f 
 ```
 
 or navigate to the squid page in Aquarium.
