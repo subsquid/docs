@@ -14,6 +14,10 @@ To migrate:
 ```bash
 npm run update
 ```
+or
+```bash
+npx npm-check-updates --filter /subsquid/ --upgrade && npm i -f
+```
 
 Make sure `@subsquid/cli` is `^2.x`:
 ```bash
