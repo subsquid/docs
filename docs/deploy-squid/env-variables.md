@@ -7,7 +7,9 @@ title: Environment variables
 
 **Available since `@subsquid/cli@0.6.0`**
 
-Aquarium supports adding environment variables to the squid deployments. There are two different options: via `secrets` and adding `-e` to `squid update` or `squid release`. The crucial difference is that the `secrets` are *persistent* and *global*, while environments variables set with `-e` are only set for the specific squid version. 
+Aquarium supports adding environment variables to the squid deployments. There are two kinds: **secrets** and **environment variables**. The crucial difference is that the secrets are injected to all squids, while environments variables are set only to a specific version deployment. Environment variables are stored in plain text so **all the sensitive input (e.g. API keys) must be set as a secret**.
+
+Secrets are set using the special command [`sqd secrets`](/squid-cli/secrets), while environment variables are set in the [deployment manifest](/deploy-squid/deploy-manifest).
 
 ## Secrets 
 
@@ -15,10 +17,10 @@ Secrets are designed to store sensitive data that all the squids can access as a
 
 To add or update a secret:
 ```bash
-npx sqd secrets set MOONRIVER_GRPC_ENDPOINT wss://moonriver.my-endpoint.com/ws
+sqd secrets set MOONRIVER_GRPC_ENDPOINT wss://moonriver.my-endpoint.com/ws/my-secret-key
 ```
 
-Once set, it can be used in a squid:
+Once set, it can be accessed in a squid with `process.env`:
 ```typescript
 const processor = new SubstrateBatchProcessor()
     .setDataSource({
@@ -27,23 +29,46 @@ const processor = new SubstrateBatchProcessor()
     })
 ```
 
+The secrets required by the squid must be defined in the [deployment manifest](/deploy-squid/deploy-manifest) in the 
+`deploy.secrets:` section. If any of the requested secrets is not set, the deployment will fail.
+
+**Example**
+
+```yaml title="squid.yaml"
+#...
+deploy:
+  # the set of secrets that must be set and provided by Aquarium
+  secrets:
+    - MOONRIVER_GRPC_ENDPOINT
+    - COINGECKO_API_KEY 
+```
+
 :::warning
-Note, that any changes to the secret set take effect only when a squid is restarted or redeployed with `sqd squid:update`.
+Note, that any changes take effect only when the squid is restarted or redeployed with `sqd deploy .`.
 :::
 
-Inspect, remove and update the secrets with `npx sqd secrets ls`, `npx sqd secrets rm` and `npx sqd secrets update` respectively. 
+Inspect, remove and update the secrets using the [`sqd secrets`](/squid-cli/secrets) command.
 
 ## Environment variables
 
-Squid-specific environment variables can be passed with the `-e` flag available for `npx sqd squid:update` and `npx sqd squid:release`. A typical usage is to change the [log level](/develop-a-squid/logging) by setting the `SQD_DEBUG` or `SQD_TRACE` variable.
+Squid-specific environment variables should be defined in the [deployment manifest](/deploy-squid/deploy-manifest). For inline variables use `environment:` and for importing a file use `env:`.
 
-One can also pass a property file using `--envFile` flag.
+**Example**
 
-**Example:**
-
-Set the log level to `TRACE` in the squid mappings and set `FOO_VARIABLE=bar`:
-```bash
-npx sqd squid:update my-squid@v1 -e SQD_TRACE=sqd:processor:mapping -e FOO_VARIABLE=bar
+```yaml title="squid.yaml"
+# ...
+deploy:
+  # ...
+  processor:
+    # additional env variables
+    environment:
+        SQD_DEBUG=sqd:mapping
+    env:
+    # env variables from a file
+       - .deploy.env  
+    cmd: [ "node", "lib/processor" ] 
+# ....
 ```
 
-The variables set with the `-e` flag are removed when the squid version is deleted or redeployed.
+
+
