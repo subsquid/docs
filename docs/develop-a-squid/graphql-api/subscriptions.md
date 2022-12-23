@@ -31,6 +31,8 @@ serve:
 ...
 ```
 
+The subscriptions will be available at the standard squid endpoint but with the `wss://` protocol.
+
 For each entity types, the following queries are supported for subscriptions:
 - `${EntityName}ById` -- query a single entity
 - `${EntityName}s` -- query multiple entities with a `where` filter
