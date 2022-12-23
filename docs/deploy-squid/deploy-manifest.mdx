@@ -73,10 +73,11 @@ ADD schema.graphql .
 </p>
 </details>
 
+All the squid services (`api`, `processor`, `migrate`) use the same container image but with different commands.
+
 ## `deploy:`
 
 The `deploy` section may define:
-
 
 - `addons` Additional services deployed for the squid. 
   + `postgres` Deploys a Postgres 14 instance and injects `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_PORT` env. variables to the squid services.
@@ -85,6 +86,9 @@ The `deploy` section may define:
   + `cmd` **Required** The command to be used by the container.
 - `api` The API service of the squid.
   + `cmd` **Required** The command to be used by the container. In particular, for the GraphQL API service, provide here additional flags to define [subscriptions](/develop-a-squid/graphql-api/subscriptions) or [caching](/develop-a-squid/graphql-api/caching)
+- `migrate`: (Optional) The command to be run on squid init. **If not defined, `migrate` is executed with the default command.**
+  + `cmd` (Optional) The command to be executed by the init container. Default: `['npx', 'squid-typorem-migration', 'apply'].
+
 
 The `processor` and `api` services may additionally define
 - `environment` (Optional) A list of environment variables to be set for the container. Useful for e.g. logging
@@ -169,6 +173,8 @@ deploy:
   secrets:
     - ACALA_RPC_ENDPOINT
     - COINGECKO_API_KEY 
+  migrate:
+    cmd: ["echo", "skip migrations!"]
   processor:
     # additional env variables
     environment:

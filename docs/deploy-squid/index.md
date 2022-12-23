@@ -35,7 +35,7 @@ To deploy a new version or update the existing one (define in the manifest), run
 sqd deploy .
 ```
 
-For a full list of availbale deploy options, inspect `sqd deploy --help`.
+For a full list of available deploy options, inspect [`sqd deploy` help](/squid-cli/deploy).
 
 ## 2. Monitor Squid logs
 
@@ -47,7 +47,7 @@ To inspect the squid logs run
 sqd logs my-new-squid@v0 -f 
 ```
 
-or navigate to the squid page in Aquarium.
+or navigate to the squid page in Aquarium. See the [logging page](/deploy-squid/logging) for more details on how to inspect logs.
 
 ## What's next?
 
