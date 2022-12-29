@@ -55,7 +55,7 @@ processor.run(new TypeormDatabase(), async ctx => {
     for (const block of ctx.blocks) { 
       for (const item of block.items) {
         if (item.name === "evmLog") {
-          const contract = new erc721.Contract(ctx, block, CONTRACT_ADDRESS);
+          const contract = new erc721.Contract(ctx, block.header, CONTRACT_ADDRESS);
           // query the contract state at the current block
           const uri = await contract.tokenURI(1137)
         }
