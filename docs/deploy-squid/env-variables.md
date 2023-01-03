@@ -51,7 +51,7 @@ Inspect, remove and update the secrets using the [`sqd secrets`](/squid-cli/secr
 
 ## Environment variables
 
-Squid-specific environment variables should be defined in the [deployment manifest](/deploy-squid/deploy-manifest). For inline variables use `environment:` and for importing a file use `env:`.
+Squid-specific environment variables should be defined in the [deployment manifest](/deploy-squid/deploy-manifest).
 
 **Example**
 
@@ -60,13 +60,9 @@ Squid-specific environment variables should be defined in the [deployment manife
 deploy:
   # ...
   processor:
-    # additional env variables
-    environment:
-        SQD_DEBUG=sqd:mapping
     env:
-    # env variables from a file
-       - .deploy.env  
-    cmd: [ "node", "lib/processor" ] 
+      SQD_DEBUG: sqd:mapping
+    cmd: [ "node", "lib/processor" ]
 # ....
 ```
 
