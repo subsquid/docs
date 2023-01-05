@@ -61,7 +61,8 @@ deploy:
   # ...
   processor:
     env:
-      SQD_DEBUG: sqd:mapping
+      SQD_DEBUG: 
+        sqd:mapping
     cmd: [ "node", "lib/processor" ]
 # ....
 ```

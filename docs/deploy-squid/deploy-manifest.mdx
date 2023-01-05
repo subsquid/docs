@@ -90,9 +90,8 @@ The `deploy` section may define:
   + `cmd` (Optional) The command to be executed by the init container. Default: `['npx', 'squid-typorem-migration', 'apply'].
 
 
-The `processor` and `api` services may additionally define
-- `environment` (Optional) A list of environment variables to be set for the container. Useful for e.g. logging
-- `env` (Optional) An env file to be added to the list of variables
+The `migrate`, `processor` and `api` services may additionally define
+- `env` (Optional) An key-value list of environment vairables to be added to the container runtime
 
 ## `scale:`
 
@@ -174,16 +173,20 @@ deploy:
     - ACALA_RPC_ENDPOINT
     - COINGECKO_API_KEY 
   migrate:
+    env:
+      FOO: 
+        bar
     cmd: ["echo", "skip migrations!"]
   processor:
     # additional env variables
-    environment:
-        SQD_DEBUG=sqd:mapping
     env:
-    # env variables from a file
-       - .deploy.env  
+      SQD_DEBUG: 
+        sqd:mapping
     cmd: [ "node", "lib/processor" ] 
   api:
+    env:
+      SQD_DEBUG: 
+        '*'
     # custom run command for the GraphQL server
     cmd: [ "npx", "squid-graphql-server", "--subscriptions", "--max-root-fields", "10", "--sql-statement-timeout", "1000" ] 
 
