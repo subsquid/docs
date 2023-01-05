@@ -13,7 +13,7 @@ https://squid.subsquid.io/<squid name>/graphql
 
 To alias a squid version to the production endpoint, use [`sqd prod`](/squid-cli/prod):
 ```bash
-sqd prod <squid name>@<version>
+sqd squid prod <squid name>@<version>
 ```
 
 Note that after promoting to the production the version-specific endpoint URL of the form
@@ -27,7 +27,7 @@ remains to be available.
 
 Run
 ```bash
-sqd prod my-squid@v1
+npx sqd squid prod my-squid@v1
 ```
 
 The squid endpoint will be accessible at `https://squid.subsquid.io/my-squid/graphql`.
