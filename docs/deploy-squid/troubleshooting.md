@@ -1,7 +1,7 @@
 ---
 sidebar_position: 21
 title: Troubleshooting
-description: Commong gotchas deploying a squid
+description: Common gotchas deploying a squid
 ---
 
 # Troubleshooting
