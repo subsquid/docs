@@ -36,43 +36,8 @@ In particular, the following files and folders **must** be present in the root f
 - `package-lock.json`
 - `package.json` 
 
-<details><summary>Under the hood, the Aquarium build engine uses the following Docker file.</summary>
-<p>
-
-```dockerfile title="Dockerfile"
-FROM node:16-alpine AS node
-FROM node AS node-with-gyp
-RUN apk add g++ make python3
-
-FROM node-with-gyp AS builder
-WORKDIR /squid
-ADD package.json .
-ADD package-lock.json .
-RUN npm ci
-ADD tsconfig.json .
-ADD src src
-RUN npm run build
-
-FROM node-with-gyp AS deps
-WORKDIR /squid
-ADD package.json .
-ADD package-lock.json .
-RUN npm ci --production
-
-FROM node AS squid
-WORKDIR /squid
-COPY --from=deps /squid/package.json .
-COPY --from=deps /squid/package-lock.json .
-COPY --from=deps /squid/node_modules node_modules
-COPY --from=builder /squid/lib lib
-RUN echo -e "loglevel=silent\\nupdate-notifier=false" > /squid/.npmrc
-ADD db db
-ADD assets assets
-ADD schema.graphql .
-```
-
-</p>
-</details>
+Under the hood, Aquarium builds a Docker image and runs a docker container for each service (`api`, `processor`, `migrate`) using the same image. 
+See [Troubleshooting](/deploy-squid/troubleshooting/#local-build) for instructions on how to build and run the image locally.
 
 All the squid services (`api`, `processor`, `migrate`) use the same container image but with different commands.
 
