@@ -1,6 +1,7 @@
 ---
 sidebar_position: 11
 title: Inspect logs
+description: Inspect the deployment logs
 ---
 
 # Logging

@@ -1,6 +1,7 @@
 ---
 sidebar_position: 12
 title: Production alias
+description: Switch between versions without downtime
 ---
 
 # Alias to the production endpoint
