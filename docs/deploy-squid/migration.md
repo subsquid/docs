@@ -1,6 +1,7 @@
 ---
 sidebar_position: 30
 title: Migration guide
+description: Migrate to manifest-based deployments 
 ---
 
 # Migrate from `@subsquid/cli@0.x`

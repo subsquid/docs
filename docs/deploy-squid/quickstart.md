@@ -1,10 +1,9 @@
 ---
-sidebar_position: 70
-title: Deploy a Squid
+sidebar_position: 1
+description: Quickstart on how to deploy a squid
 ---
 
-
-# Deploy a squid
+# Quickstart
 
 This section goes through deploying a squid to [Aquarium](https://app.subsquid.io) -- a cloud API service provided by Subsquid.
 The deployment is managed by the file `squid.yaml` in the root folder of the squid and defines:
@@ -16,7 +15,7 @@ The deployment is managed by the file `squid.yaml` in the root folder of the squ
 See the [Deploy Manifest page](/deploy-squid/deploy-manifest) for a full reference.
 The scaling option is available only to the Aquairum Premium users. To apply for a Premium account, fill [this form](https://luvp4va64ru.typeform.com/to/QrRF66q5).
 
-# 0. Setup and install Squid CLI
+## 0. Setup and install Squid CLI
 
 If Squid CLI is not installed, see the [Squid CLI doc](/squid-cli)
 
