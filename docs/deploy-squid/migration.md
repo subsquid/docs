@@ -77,7 +77,14 @@ scale:
 
 Apply for a Premium account by filling this [form](https://t.ly/Uh_S).
 
-## 5. Create or update the deployment
+## 5. Ensure that the `assets` folder is available
+
+Some older templates did not include this folder but new build scripts require it. If your squid does not have it, run
+```bash
+mkdir assets
+```
+
+## 6. Create or update the deployment
 
 If there is no version `v1` deployed to Aquarium, simply deploy with
 ```bash
