@@ -93,10 +93,11 @@ It's worth noting a couple of things in this [schema definition](https://docs.su
 
 The template already has automatically generated TypeScript classes for this schema definition. They can be found under `src/model/generated`.
 
-Whenever changes are made to the schema, new TypeScript entity classes have to be generated, and to do that you'll have to run the `codegen` tool:
+Whenever changes are made to the schema, new TypeScript entity classes have to be generated and migrations have to be updated. To do that run
 
 ```bash
 make codegen
+make migration
 ```
 
 ## ABI Definition and Wrapper
