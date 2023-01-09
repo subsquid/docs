@@ -1,0 +1,12 @@
+{
+    "position": 21,
+    "label": "Subsquid Basics",
+    "collapsible": true,
+    "collapsed": false,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/basics",
+      "title": "Key concepts and conventions to start building with Subsquid"
+    }
+}

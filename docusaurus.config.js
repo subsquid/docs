@@ -3,6 +3,7 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const { urlList } = require('./redirectRules');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -118,7 +119,12 @@ const config = {
                     return postcssOptions;
                 },
             };
-        },
+        }, 
+        [
+            '@docusaurus/plugin-client-redirects', {
+                redirects: urlList
+            }
+        ],
     ]
 };
 
