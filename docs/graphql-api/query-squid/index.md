@@ -1,12 +1,11 @@
 ---
 sidebar_position: 80
-title: Query a Squid
 description: >-
   Section dedicated to a small collection of tutorials about the main concepts
   of GraphQL APIs.
 ---
 
-# Query a Squid
+# GraphQL API reference
 
 GraphQL is an API query language, and a server-side runtime for executing queries using a custom-defined type system. GraphQL isn't tied to any specific database or storage engine.
 

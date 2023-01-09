@@ -1,4 +1,4 @@
-# Create an Ink! contract-indexing Squid
+# Ink! contract-indexing Squid
 
 ## Objective
 

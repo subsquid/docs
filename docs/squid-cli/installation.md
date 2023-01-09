@@ -1,9 +1,9 @@
 ---
-sidebar_position: 71
-title: Squid CLI
+sidebar_position: 10
+description: Setup Squid CLI
 ---
 
-# Squid CLI
+# Installation
 
 Squid CLI is an overarching command line tool to 
 
@@ -11,8 +11,6 @@ Squid CLI is an overarching command line tool to
 - scaffold new squid from templates
 
 The CLI is distributed as a [`npm` package](https://www.npmjs.com/package/@subsquid/cli). 
-
-
 
 To install Squid CLI, follow the steps below.
 

@@ -1,8 +1,8 @@
 {
-    "position": 70,
-    "label": "Deploy a squid",
+    "position": 40,
+    "label": "Deploy to Aquarium",
     "collapsible": true,
-    "collapsed": false,
+    "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",

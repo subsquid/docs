@@ -1,12 +1,12 @@
 {
     "position": 21,
-    "label": "Subsquid Basics",
+    "label": "EVM Processor",
     "collapsible": true,
     "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
-      "slug": "/basics",
-      "title": "Key concepts and conventions to start building with Subsquid"
+      "slug": "/evm-processor",
+      "title": "Squid processor for indexing EVM chains"
     }
 }

@@ -1,11 +1,11 @@
 ---
-sidebar_position: 21
-title: GraphQL API
+sidebar_position: 10
+desription: Built-in GraphQL API server
 ---
 
-# GraphQL API Server
+# GraphQL API server
 
-The squid data can be presented with a GraphQL API. The [OpenReader](https://github.com/subsquid/squid/tree/master/openreader) server takes the schema file as an input argument and starts a GraphQL API serving [OpenCRUD](https://www.opencrud.org/) read queries for the entities defined in the schema. 
+The data indexed by a squid into a Postgres database can be automatically presented with a GraphQL API service. The [OpenReader](https://github.com/subsquid/squid/tree/master/openreader) server takes the schema file as an input argument and starts a GraphQL API serving [OpenCRUD](https://www.opencrud.org/) read queries for the entities defined in the schema. 
 
 To start the API server:
 ```bash
@@ -14,7 +14,7 @@ npx make serve
 
 The API server listens at port defined by `GQL_PORT` (default to `4350`). The database connection is configured with the env variables `DB_NAME`, `DB_USER`, `DB_PASS`, `DB_HOST`, `DB_PORT`.
 
-The API server is automatically started when the squid is [deployed to the Aquarium](/deploy-squid).
+The GraphQL API is defined as `api:` service in the `deploy` section of [squid.yaml](/deploy-squid/deployment-manifest) for Aquarium deployments.
 
 ## Supported Queries
 

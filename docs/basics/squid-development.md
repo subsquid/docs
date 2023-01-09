@@ -1,10 +1,10 @@
 ---
 sidebar_position: 20
-title: Squid development flow
-description: Development flow for building indexing projects with Squid SDK
+title: Development flow
+description: Development flow for building squid indexers
 ---
 
-# Develop a squid
+# Development flow
 
 Below is a general outline of the squid development steps. 
 
@@ -104,10 +104,6 @@ See [EvmBatchProcessor configuration](/develop-a-squid/evm-processor/configurati
 - For `EvmBatchProcessor`, see the [Data Mapping page](/develop-a-squid/evm-processor/data-mapping) 
 - For `SubstrateBatchProcessor`, see the [data handlers section](/develop-a-squid/substrate-processor/data-handlers)
 
-### 8. Run the processor with 
-```bash
-make process
-```
 
 For an end-to-end walkthrough, see
 
@@ -115,9 +111,18 @@ For an end-to-end walkthrough, see
 - [`SubstrateBatchProcessor` in action](/develop-a-squid/substrate-processor/batch-processor-in-action)
 
 
-### 9. Run locally and test the GraphQL endpoint
+### 8. Run the squid services
 
-Follow [Run a Squid](/run-squid) page for details. Reiterate the steps 1, 2, 3 if there's a need to change the data model. 
+Run the processor with
+```bash
+make process
+```
+
+Run the GraphQL server in a separate terminal window with
+```bash
+make serve
+```
+The GraphQL playground is available at `http://localhost:4350/graphql`.
 
 ## What's next?
 

@@ -1,12 +1,12 @@
 ---
 id: create-an-ethereum-processing-squid
-title: Create an EVM-indexing Squid
+title: EVM-indexing Squid
 description: >-
   Create a simple squid indexing smart contract data on an EVM chain
 sidebar_position: 3
 ---
 
-# Create an EVM-indexing Squid
+# EVM-indexing Squid
 
 ## Objective
 
