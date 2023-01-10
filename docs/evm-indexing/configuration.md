@@ -1,14 +1,14 @@
 ---
 sidebar_position: 20
 description: >-
-  Configure the squid processor by setting the data source and the block range
+  Configure EVMBatchProcessor
 ---
 
 # Configuration
 
 ## Initialization
 
-The following setters configure the global settings. The setters return the modified instance and can be chained. Consult inline docs and the IDE assist for more details. 
+The following setters configure the global settings of `EvmBatchProcessor`. The setters return the modified instance and can be chained. Consult inline docs and the IDE assist for more details. 
 
 - `setBlockRange(Range)`.  Limits the range of blocks to be processed
 
@@ -43,10 +43,10 @@ The `option` argument supports filtering by topic and data selectors to specify 
    filter?: EvmTopicSet[],
    data?: {
      evmLog: { 
-        // fields to be requested for this item 
+        // fields to be fetched for logs
      },
      transaction: {
-        // fields to be requested from the tx emitted the log
+        // fields to be fetched for the tx emitted the log
      }
    }  
 }
@@ -146,7 +146,7 @@ For example, the following configuration will tell the processor to enrich the t
 
 ### Example
 
-Below is an example of `EvmBatchProcessor` subscribing 
+Below is an example of `EvmBatchProcessor` setup.
 
 ```ts
 const processor = new EvmBatchProcessor()

@@ -1,7 +1,7 @@
 ---
-sidebar_position: 40
+sidebar_position: 31
 description: >-
-  Details on the store interface exposed by the handler context
+  Persist the indexed data
 ---
 
 # Store interface

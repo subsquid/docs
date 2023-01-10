@@ -1,7 +1,7 @@
 ---
-sidebar_position: 50
+sidebar_position: 40
 description: >-
-  Details on the store interface exposed by the handler context
+  Query the historical state
 ---
 
 # Query the contract state

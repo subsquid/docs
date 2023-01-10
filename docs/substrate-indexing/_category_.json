@@ -1,12 +1,12 @@
 {
     "position": 22,
-    "label": "Substrate Processor",
+    "label": "Substrate Indexing",
     "collapsible": true,
     "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
-      "slug": "/substrate-processor",
+      "slug": "/substrate-indexing",
       "title": "Squid processor for indexing Substrate chains"
     }
 }

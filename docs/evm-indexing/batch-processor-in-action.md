@@ -1,7 +1,7 @@
 ---
 sidebar_position: 70
 description: >-
-  An idiomatic usage of the batch processor and the context
+  EVMBatchProcessor in action
 title: Processor in action
 ---
 

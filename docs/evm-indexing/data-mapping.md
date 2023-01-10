@@ -1,7 +1,7 @@
 ---
 sidebar_position: 30
 description: >-
-  Define the data handler(s) to transform and persist the data
+  Transform the data in batches
 ---
 
 # Data mapping

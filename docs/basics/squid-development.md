@@ -10,8 +10,8 @@ Below is a general outline of the squid development steps.
 
 ### 0. Prerequisites
 
-- Get familiar with Archives and squids reading with the [Overview](/overview)
-- Follow through the [Quickstart](/quickstart) and scaffold a squid project using [sqd init](/squid-cli/init).
+- Install [Squid CLI](/squid-cli/installation)
+- Follow the [Quickstart](/quickstart) and scaffold a new squid project using [sqd init](/squid-cli/init) and a suitable template.
 
 ### 1. Model the data with a schema file
 
@@ -104,6 +104,33 @@ See [EvmBatchProcessor configuration](/develop-a-squid/evm-processor/configurati
 - For `EvmBatchProcessor`, see the [Data Mapping page](/develop-a-squid/evm-processor/data-mapping) 
 - For `SubstrateBatchProcessor`, see the [data handlers section](/develop-a-squid/substrate-processor/data-handlers)
 
+**Example:**
+```ts
+processor.run(new TypeormDatabase(), async (ctx) => {
+  const entities: Map<string, FooEntity> = new Map();
+  // process a batch of data 
+  for (const c of ctx.blocks) {
+    // the data is packed into blocks, 
+    // each block contains only the requested items
+    for (const irem of c.items) {
+    if(e.kind === 'evmLog') {
+        // decode, extract and transform the evm log data
+        const { baz, bar, id } = extractLogData(e.evmLog)
+        entities.set(id, new FooEntity({
+            id,
+            baz,
+        bar
+        })) 
+    } 
+    if (e.kind === 'transaction') {
+        // decode tx data if requested
+    }
+  }
+  // upsert data to the target db in single batch
+  await ctx.store.save([...entities.values()])
+});
+```
+
 
 For an end-to-end walkthrough, see
 
@@ -123,6 +150,10 @@ Run the GraphQL server in a separate terminal window with
 make serve
 ```
 The GraphQL playground is available at `http://localhost:4350/graphql`.
+
+### 9. Deploy the squid
+
+Follow the [Deploy Squid](/deploy-squid) section.
 
 ## What's next?
 
