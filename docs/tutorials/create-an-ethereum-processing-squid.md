@@ -99,7 +99,7 @@ It's worth noting a couple of things in this [schema definition](https://docs.su
 
 The template already has automatically generated TypeScript classes for this schema definition. They can be found under `src/model/generated`.
 
-Whenever changes are made to the schema, new TypeScript entity classes have to be generated and database schema has to be updated. Usually the easiest way is to re-create the database from scratch. To do that run:
+Whenever changes are made to the schema, new TypeScript entity classes have to be generated and database schema has to be updated. Usually the easiest way to do so is to re-create the database from scratch. To do that run:
 
 ```bash
 make codegen
