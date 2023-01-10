@@ -99,11 +99,19 @@ It's worth noting a couple of things in this [schema definition](https://docs.su
 
 The template already has automatically generated TypeScript classes for this schema definition. They can be found under `src/model/generated`.
 
-Whenever changes are made to the schema, new TypeScript entity classes have to be generated, and to do that you'll have to run the `codegen` tool:
+Whenever changes are made to the schema, new TypeScript entity classes have to be generated and database schema has to be updated. Usually the easiest way is to re-create the database from scratch. To do that run:
 
 ```bash
-npx squid-typeorm-codegen
+make codegen
+make build
+make down
+rm -rf db/migrations/*.js
+make up
+make migration
+make migrate
 ```
+
+See [this page](https://docs.subsquid.io/develop-a-squid/schema-file/schema-updates/) for more info.
 
 ## ABI Definition and Wrapper
 
