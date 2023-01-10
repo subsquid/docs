@@ -38,7 +38,7 @@ Each squid has a canonical (prod) API endpoint exposed `https://squid.subsquid.i
 
 The profile specifications for the API server replicas are as follows:
 - `small`: `0.5 vCPU`, `256Mi` RAM
-- `medium`: `1 vCPU`, `512Gi` RAM
+- `medium`: `1 vCPU`, `512Mi` RAM
 - `large`: `2 vCPU`, `1Gi` RAM
 
 ## Example
