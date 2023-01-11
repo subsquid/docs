@@ -1,0 +1,12 @@
+{
+    "position": 11,
+    "label": "Schema file",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/graphql-api/schema-file",
+      "title": "Define `schema.graphql` to model the API and the target schema"
+    }
+}

@@ -1,6 +1,7 @@
 ---
 sidebar_position: 20
 title: Subscriptions
+description: Subscribe to updates over a websocket
 ---
 
 # Query subscriptions

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 21
-title: Data subscriptions
+title: Event and Call data
 description: >-
   Subscribe the processor to handle events, calls, WASM and EVM logs
 ---

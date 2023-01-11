@@ -1,6 +1,7 @@
 ---
 sidebar_position: 30
 title: DoS protection
+description: Enforce limits in the queries
 ---
 
 # DoS protection

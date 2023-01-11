@@ -15,12 +15,13 @@ Below is a general outline of the squid development steps.
 
 ### 1. Model the data with a schema file
 
-Start the development by defining the schema of the target database in the `schema.graphql` in the squid root folder. The schema file also defines the shape of the GraphQL API of the squid. The schema definition consists of regular graphql type declarations annotated with custom directives to define:
-- relations between the entities
-- entity properties, property types and constraints 
-- indexes to be created in the database
+Start the development by defining the schema of the target database in the `schema.graphql` in the squid root folder. The schema definition consists of regular GraphQL type declarations annotated with custom directives to define:
+- relations between the target entities
+- entity properties, property types and entity relations 
+- indexes to be created in the target database
+- the schema of the auto-generated GraphQL API
 
-A full description of the `schema.graphql` dialect is available [here](/develop-a-squid/schema-file).
+A full reference of the `schema.graphql` dialect is available in the [GraphQL API section](/graphql-api/schema-file).
 
 ### 2. Generate TypeORM classes
 
@@ -54,14 +55,14 @@ npm run build
 npx squid-typeorm-migration generate
 ```
 
-Consult [schema updates](/develop-a-squid/schema-file/schema-updates) for more details.
+Consult [schema updates](/basics/schema-updates) for more details.
 
 ### 4. Define the squid processor and the data handlers
 
 A squid processor is a separate node.js process that fetches historical on-chain data, performs arbitrary transformations and saves the result into the target database schema defined above. By convention, the processor entry point is `src/processor.ts`.
 
-- [`EvmBatchProcessor`](/develop-a-squid/evm-processor) (imported from `@subsquid/evm-processor`) is used for EVM chains.
-- [`SubstrateBatchProcessor`](/develop-a-squid/substrate-processor) (imported from `@subsquid/substrate-processor`) is used for Substrate-based chains.
+- [`EvmBatchProcessor`](/evm-indexing) (imported from `@subsquid/evm-processor`) is used for EVM chains.
+- [`SubstrateBatchProcessor`](/substrate-indexing) (imported from `@subsquid/substrate-processor`) is used for Substrate-based chains.
 
 
 
@@ -93,16 +94,16 @@ const processor = new EvmBatchProcessor()
   });
 ```
 
-See [EvmBatchProcessor configuration](/develop-a-squid/evm-processor/configuration) and [SubstrateBatchProcessor configuration](/develop-a-squid/substrate-processor/configuration) for details.
+See [EvmBatchProcessor configuration](/evm-indexing/configuration) and [SubstrateBatchProcessor configuration](/substrate-indexing/configuration) for details.
 
 ### 6. Generate Typescript facade classes to decode the on-chain-data:
-- For EVM data, use [`evm-typegen`](/develop-a-squid/typegen/squid-evm-typegen) 
-- For Substrate data, use [`substrate-typegen`](/develop-a-squid/typegen/squid-evm-typegen)
-- For Ink! smart contract data, use [`ink-typegen`](/develop-a-squid/typegen/squid-wasm-typegen)
+- For EVM data, use [`evm-typegen`](/basics/typegen/squid-evm-typegen) 
+- For Substrate data, use [`substrate-typegen`](/basics/typegen/squid-evm-typegen)
+- For Ink! smart contract data, use [`ink-typegen`](/basics/typegen/squid-wasm-typegen)
 
 ### 7. Define the processor batch handler defined by the `processor.run()` method. 
-- For `EvmBatchProcessor`, see the [Data Mapping page](/develop-a-squid/evm-processor/data-mapping) 
-- For `SubstrateBatchProcessor`, see the [data handlers section](/develop-a-squid/substrate-processor/data-handlers)
+- For `EvmBatchProcessor`, see the [Data Mapping page](/evm-indexing/data-mapping) 
+- For `SubstrateBatchProcessor`, see the [data handlers section](/substrate-indexing/data-handlers)
 
 **Example:**
 ```ts
@@ -134,8 +135,8 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 For an end-to-end walkthrough, see
 
-- [`EvmBatchProcessor` in action](/develop-a-squid/evm-processor/batch-processor-in-action)
-- [`SubstrateBatchProcessor` in action](/develop-a-squid/substrate-processor/batch-processor-in-action)
+- [`EvmBatchProcessor` in action](/evm-indexing/batch-processor-in-action)
+- [`SubstrateBatchProcessor` in action](/substrate-indexing/batch-processor-in-action)
 
 
 ### 8. Run the squid services
@@ -157,5 +158,5 @@ Follow the [Deploy Squid](/deploy-squid) section.
 
 ## What's next?
 
-- Learn from the [Squids examples](/develop-a-squid/examples)
-- Get familiar with the [typegen tools](/develop-a-squid/typegen)
+- Learn from the [Squids examples](/examples)
+- Get familiar with the [typegen tools](/basics/typegen)

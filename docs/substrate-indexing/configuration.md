@@ -11,7 +11,6 @@ description: >-
 The following setters configure the global settings. The setters return the modified instance and can be chained. Consult inline docs and the IDE assist for more details. 
 
 - `setBlockRange(Range)`.  Limits the range of blocks to be processed
-- `setBatchSize(number)`. Set the maximal number of blocks fetched from the data source in a single request
 - `setDataSource(DataSource)`. Set the data source to fetch the data from.
    + `archive`: an archive endpoint. We recommend using it together with [`@subsquid/archive-registry`](/archives/archive-registry)
    + `chain`: (Optional) a node gRPC endpoint (e.g. if the processor intents do make storage queries)
@@ -20,9 +19,8 @@ The following setters configure the global settings. The setters return the modi
 
 ```ts
 const processor = new SubstrateBatchProcessor()
-    .setBatchSize(500)
     .setDataSource({
-        archive: lookupArchive("kusama", {release: "FireSquid"})
+        archive: lookupArchive("kusama")
     })
     .setBlockRange({ from: 9_999_999 })
 ```

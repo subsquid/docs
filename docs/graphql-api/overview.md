@@ -5,11 +5,11 @@ desription: Built-in GraphQL API server
 
 # GraphQL API server
 
-The data indexed by a squid into a Postgres database can be automatically presented with a GraphQL API service. The [OpenReader](https://github.com/subsquid/squid/tree/master/openreader) server takes the schema file as an input argument and starts a GraphQL API serving [OpenCRUD](https://www.opencrud.org/) read queries for the entities defined in the schema. 
+The data indexed by a squid into a Postgres database can be automatically presented with a GraphQL API service. The [OpenReader](https://github.com/subsquid/squid/tree/master/openreader) server takes [the schema file](/graphql-api/schema-file) as an input argument and starts a GraphQL API serving [OpenCRUD](https://www.opencrud.org/) read queries for the entities defined in the schema. 
 
-To start the API server:
+To start the API server based on the `schema.graphql` run:
 ```bash
-npx make serve
+make serve
 ```
 
 The API server listens at port defined by `GQL_PORT` (default to `4350`). The database connection is configured with the env variables `DB_NAME`, `DB_USER`, `DB_PASS`, `DB_HOST`, `DB_PORT`.

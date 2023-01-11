@@ -1,6 +1,7 @@
 ---
 sidebar_position: 12
 title: Caching
+description: Enable caching for faster queries
 ---
 
 # Caching 

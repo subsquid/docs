@@ -1,6 +1,7 @@
 ---
-sidebar_position: 11
+sidebar_position: 12
 title: Custom API extensions
+description: Extend the API with custom resolvers
 ---
 
 # Custom GraphQL resolvers
