@@ -1,7 +1,7 @@
 ---
-sidebar_position: 20
+sidebar_position: 10
 title: Development flow
-description: Development flow for building squid indexers
+description: Development flow for building squids
 ---
 
 # Development flow
@@ -15,7 +15,7 @@ Below is a general outline of the squid development steps.
 
 ### 1. Model the data with a schema file
 
-Start the development by defining the schema of the target database in the `schema.graphql` in the squid root folder. The schema definition consists of regular GraphQL type declarations annotated with custom directives to define:
+Start the development by defining [the schema](/basics/schema-file) of the target database in the `schema.graphql` in the squid root folder. The schema definition consists of regular GraphQL type declarations annotated with custom directives to define:
 - relations between the target entities
 - entity properties, property types and entity relations 
 - indexes to be created in the target database
@@ -55,7 +55,7 @@ npm run build
 npx squid-typeorm-migration generate
 ```
 
-Consult [schema updates](/basics/schema-updates) for more details.
+Consult [database migrations](/basics/db-migrations) for more details.
 
 ### 4. Define the squid processor and the data handlers
 

@@ -1,13 +1,14 @@
 ---
-sidebar_position: 10
+sidebar_position: 20
 title: Squid structure
+description: The folder layout of a squid
 ---
 
 # Squid structure
 
-A squid is expected to follow the folder structure with the following conventions.
+A squid is expected to follow the folder structure with the conventions below.
 
-- `/db` -- **(Required)** The designated folder with the database migrations
+- `/db` -- **(Required)** The designated folder with the [database migrations](/basics/db-migrations)
 - `/lib` -- The output folder for the compiled sources 
 - `/src` -- **(Required)** The source folder for the squid processor
    + `/src/processor.ts` -- The entry point to run the [squid processor](/develop-a-squid/substrate-processor)
@@ -25,11 +26,6 @@ A squid is expected to follow the folder structure with the following convention
 - `Makefile` -- (optional) Script definitions for `Make`. Ignored by Aquarium.
 - `tsconfig.json`, `package-lock.json`, `package.json` -- **(Required)** The `npm` and `tsc` configs.
 - `archive` -- An (optional) folder for running a local Archive. Ignored by Aquarium.
-
-Further, the following scripts must be defined in `package.json`:
-- `db:migrate` to run the database migrations. This script is run in a separate init container when the squid is deployed to the Aquarium.
-- `squid-etl:start` to start the processor
-- `squid-node:start` to start the [API server](/develop-a-squid/graphql-api)
 
 The templates also defines the following auxiliary scripts (optional):
 - `build` to build the squid

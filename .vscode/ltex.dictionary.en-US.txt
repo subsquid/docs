@@ -36,3 +36,4 @@ subgraph
 Websocket
 high-throuput
 TypeORM-compatible
+codegen

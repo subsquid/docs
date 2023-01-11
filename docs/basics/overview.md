@@ -1,14 +1,15 @@
 ---
 sidebar_position: 10
-description: Overview of the Archives, Squid SDK, and the Aquarium hosted service
+description: Squid SDK, squids, Archives and Aquarium
 ---
 
 # Subsquid Overview
 
 The Subsquid indexing stack separates on-chain data ingestion (Archives) from data transformation and presentation (squids). 
-**Archives** can be thought of as specialized data lakes optimized for storing and filtering large volumes of raw on-chain-data. Until fully decentralized, Subsquid Labs maintains public Archive endpoints and offers free of charge batch access to the historical on-chain data via the Squid SDK. A full list of Archive endpoints for the supported EVM and Substrate network is available in this [repo](https://github.com/subsquid/archive-registry) and is published as a package [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) for easy access.
 
-Squid SDK indexing projects (or simply **squids**) are [Extract-Tranfsorm-Load-Query (ETLQ)](https://en.wikipedia.org/wiki/Extract,_transform,_load) projects built using the open-source [Squid SDK](https://github.com/subsquid/squid-sdk). Squids ingest historical on-chain data from Archives, transforming it according to user-defined data mappers. Squid SDK offers a built-in server to present the transformed data with GraphQL API as well as customizable adapters to store the data in different databases (e.g. Postgres) and data lakes (e.g. s3). 
+Squid SDK indexing projects (or simply **squids**) are [Extract-Tranfsorm-Load-Query (ETLQ)](https://en.wikipedia.org/wiki/Extract,_transform,_load) projects built using the open-source [Squid SDK](https://github.com/subsquid/squid-sdk). Squids ingest historical on-chain data from Archives, transforming it according to user-defined data mappers. After reaching the blockchain head, squids continuously process fresh blocks serving near-real-time up-to-date data. The Squid SDK offers a built-in server to present the transformed data with GraphQL API as well as customizable adapters to store the data in different databases (e.g. Postgres) and data lakes (e.g. s3). 
+
+**Archives** are specialized data lakes optimized for storing and filtering large volumes of raw on-chain-data. Until fully decentralized, Subsquid Labs maintains public Archive endpoints and offers batch access via the Squid SDK free of charge. A full list of Archive endpoints for the supported EVM and Substrate networks is available in this [repo](https://github.com/subsquid/archive-registry) and is published as a package [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) for easy access.
 
 Squids can be run locally, on-premises or deployed to the [Aquarium hosted service](/deploy-squid). 
 
