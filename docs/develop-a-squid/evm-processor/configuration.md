@@ -27,10 +27,12 @@ The following EVM networks are supported
 | Avalance C-Chain        | `https://avalanche-c.archive.subsquid.io`     |
 | Fantom                  | `https://fantom.archive.subsquid.io`          |
 | Exosama Network         | `https://exosama.archive.subsquid.io`         |
-| Binance Smart Chain     | `https://binance.archive.subsquid.io`         |
-| Arbitrum                | Coming Soon                                   |
+| Binance Chain           | `https://binance.archive.subsquid.io`         |
+| Binance Chain Testnet   | `https://binance-testnet.archive.subsquid.io` |
+| Arbitrum                | `https://arbitrum.archive.subsquid.io` (*)    |
 | Optimism                | Coming Soon                                   |
 
+(*) Experimental support
 
 ##  EVM logs
 Use `addLog(contract: string | string[], options)` to subscribe to the EVM log data (event) emitted by a specific EVM contract.
