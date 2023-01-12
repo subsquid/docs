@@ -1,6 +1,6 @@
 ---
 sidebar_position: 50
-
+description: Native logger of Squid SDK
 ---
 
 # Logging
@@ -21,18 +21,14 @@ By default, the logging level is set to `INFO`.
 And here is an example:
 
 ```typescript
-processor.addEventHandler("Balances.Transfer", processTransfers);
-
-async function processTransfers(
-  ctx: EventHandlerContext<Store, { event: { args: true } }>
-) {
+processor.run(new TypeormDatabase(), async (ctx) => {
   ctx.log.trace("Trace Log example");
   ctx.log.debug("Debug Log example");
   ctx.log.info("Info Log example");
   ctx.log.warn("Warn Log example");
   ctx.log.error("Error Log example");
-  ctx.log.fatal("Fatal Log example");
-}
+  ctx.log.fatal("Fatal Log example")
+});
 ```
 
 ## Overriding the log level
