@@ -2,7 +2,7 @@
 sidebar_position: 21
 title: Schema file and codegen
 description: >-
-  The schema file defines the target data model.
+  The schema file defines the data model and API
 ---
 
 # Schema file and codegen

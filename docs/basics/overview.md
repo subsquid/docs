@@ -19,19 +19,18 @@ Squids can be run locally, on-premises or deployed to the [Aquarium hosted servi
 
 Squids have a certain structure and are supposed to be developed as regular node.js packages. Use [`sqd init`](/squid-cli/init) command to scaffold a new squid project from a suitable template.
 
-Normally a squid project consists of a long-running `processor` service fetching and transforming the data from an archive and a `api` service exposing the transformed data with an GraphQL API generated from `schema.graphql`. 
-
-The `processor` service is defined in `src/processor.ts` by default. The target data sink for the `processor` may include a Postgres compatible database, S3 buckets, BigQuery or a custom store. The `api` service is an independent node.js process and is optional. 
+A squid project consists of a long-running `processor` service fetching and transforming the data from an archive and an optional `api` service presenting the transformed data with an GraphQL API generated from `schema.graphql`. 
 
 ![Squid](</img/squid-diagram.png>)
 
 The [Squid SDK](https://github.com/subsquid/squid-sdk) offers an extensive set of tools for developing squids:
 
 - Core classes for the `processor` service: [`EvmBatchProcessor`](/develop-a-squid/evm-processor) for EVM chains and [`SubstrateBatchProcessor`](/develop-a-squid/substrate-processor) for Substrate-based chains.
+- The `sqd-typeorm-codegen` tool for generating TypeORM entities from `schema.graphql`. See [schema file and codegen](/basic/schema-file).
+- Tools for generating type-safe facade classes for decoding on-chain data. See [typegen](/basic/typegen).
 - [`graphql-server`](https://github.com/subsquid/squid/tree/master/graphql-server) is the backend for the GraphQL API served by the `api` service. The GraphQL schema is auto-generated from `schema.graphql`. The resulting API loosely follows the [OpenCRUD](https://www.opencrud.org/) standard and supports the most common query filters and selectors out-of-the box. See [the GraphQL API section](/develop-a-squid/graphql-api) for more details and the configuration options.
 
 
-![Subsquid ecosystem](</img/network-choice.png>)
 
 ## Aquarium Hosted Service
 

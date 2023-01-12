@@ -1,7 +1,8 @@
 ---
 sidebar_position: 40
+title: Processor store
 description: >-
-  Details on the store interface exposed by the handler context
+  Stores for persisting the transformed data
 ---
 
 # Store interface
