@@ -5,11 +5,23 @@ description: Squid SDK, squids, Archives and Aquarium
 
 # Subsquid Overview
 
-The Subsquid indexing stack separates on-chain data ingestion (Archives) from data transformation and presentation (squids). 
+## What is Subsquid 
 
-Squid SDK indexing projects (or simply **squids**) are [Extract-Tranfsorm-Load-Query (ETLQ)](https://en.wikipedia.org/wiki/Extract,_transform,_load) projects built using the open-source [Squid SDK](https://github.com/subsquid/squid-sdk). Squids ingest historical on-chain data from Archives, transforming it according to user-defined data mappers. After reaching the blockchain head, squids continuously process fresh blocks serving near-real-time up-to-date data. The Squid SDK offers a built-in server to present the transformed data with GraphQL API as well as customizable adapters to store the data in different databases (e.g. Postgres) and data lakes (e.g. s3). 
+Subsquid is a full-stack indexing solution which includes an open-source SDK, specialized on-chain data lakes (Archives) and a hosted service (Aquarium). Subsquid solves the data access problem for a wide range of online and analytical use-cases:
 
-**Archives** are specialized data lakes optimized for storing and filtering large volumes of raw on-chain-data. Until fully decentralized, Subsquid Labs maintains public Archive endpoints and offers batch access via the Squid SDK free of charge. A full list of Archive endpoints for the supported EVM and Substrate networks is available in this [repo](https://github.com/subsquid/archive-registry) and is published as a package [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) for easy access.
+- As a flexible and performant backend for decentralized applications. In most cases, Subsquid can completely replace client RPC read requests with a tailored GraphQL API, significantly reducing the infrastructure costs and shortening the frontend development cycles.
+- As a data pipeline for preparing, transforming and loading large volumes of on-chain data for data analysis and forensics.
+- As a highly customizable data source for dashboards and on-chain activity monitoring.
+
+Subsquid is designed ground-up around batch processing in contrast to other block-based and event-based indexers. The batch-based programming model embraced by the Squid SDK boosts the indexing performance to 50k+ blocks per second. 
+
+## Architecture
+
+The Subsquid indexing stack separates on-chain data ingestion (Archives) from the data transformation and presentation (squids). 
+
+Squid SDK indexing projects (or simply **squids**) are [Extract-Tranfsorm-Load-Query (ETLQ)](https://en.wikipedia.org/wiki/Extract,_transform,_load) projects built using the open-source [Squid SDK](https://github.com/subsquid/squid-sdk). Squids ingest historical on-chain data from Archive in batches and transform it with a user-defined data processor. After reaching the blockchain head, squids continuously ingest and process the new blocks in near real-time. The Squid SDK offers a built-in server to present the transformed data with GraphQL API as well as customizable adapters for transactional databases (e.g. Postgres) and data lakes (e.g. s3). 
+
+**Archives** are specialized data lakes optimized for extracting and filtering large volumes of raw on-chain-data in batches. Until fully decentralized, Subsquid Labs maintains public Archive endpoints and offers batch access via the Squid SDK free of charge. A full list of Archive endpoints for the supported EVM and Substrate networks is available in this [repo](https://github.com/subsquid/archive-registry) and is published as a package [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) for easy access.
 
 Squids can be run locally, on-premises or deployed to the [Aquarium hosted service](/deploy-squid). 
 

@@ -10,16 +10,20 @@ export default function Home(): JSX.Element {
   return (
     <div className="onboarding-homepage">
       <div className="flex flex-col gap-4 max-w-[476px] items-start self-start mb-24 pt-8">
-        <span className="h3">Get started
-</span>
+        <span className="h3">Get started</span>
         <div className="flex flex-col gap-6">
           <div className="body--s">
           <span>Subsquid is a full-stack indexing SDK and a hosted service.</span><p/>
           <span>The modular design offers unparalleled flexiblity and the indexing speed up to <strong>50000 blocks</strong> per second.</span>
-        </div>
-          <a
-            className="x-button bg-bg-base--contrast text-fg-base--contrast"
-            href="/quickstart">Quickstart</a>
+          </div>
+          <div className="flex gap-2">
+            <a
+              className="x-button bg-bg-base--contrast text-fg-base--contrast"
+              href="/quickstart">Quickstart</a>
+            <a
+              className="x-button bg-bg-base--contrast text-fg-base--contrast"
+              href="/basics/overview">Overview</a>
+          </div>
         </div>
       </div>
 
