@@ -11,7 +11,7 @@ creates a new contract for each trading pair added, and each such trading contra
 
 While the set of handler subscriptions is static and defined at the processor creation, one can leverage the wildcard subscriptions and filter the contract of interest in runtime. 
 
-Let's consider how it works in a DEX example, with a contract emitting `'PairCreated(address,address,address,uint256)'` log when a new pair trading contract is created by the main contract. The full code is available in the [examples repo](https://github.com/subsquid/squid-evm-examples/tree/master/3-factory).
+Let's consider how it works in a DEX example, with a contract emitting `'PairCreated(address,address,address,uint256)'` log when a new pair trading contract is created by the main contract. The full code is available in the [examples repo](https://github.com/belopash/factory-example).
 
 ```typescript
 const FACTORY_ADDRESS = '0x985bca32293a7a496300a48081947321177a86fd'
