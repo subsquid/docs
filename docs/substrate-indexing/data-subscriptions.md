@@ -87,6 +87,11 @@ The `options` argument has the following structure.
 }
 ```
 
+:::info
+Most IDEs support smart suggestions to show the possible data selectors for `EvmLog` and `EvmTransaction` options. For VS Code, press `Ctrl + Space`:
+![selector auto-complete](</img/autocomplete-selectors.png>)
+:::info
+
 ### Example
 
 ```ts

@@ -144,6 +144,10 @@ For example, the following configuration will tell the processor to enrich the t
 //...
 ```
 
+:::info
+Most IDEs support smart suggestions to show the possible data selectors for `EvmLog` and `EvmTransaction` options. For VS Code, press `Ctrl + Space`.
+:::
+
 ### Example
 
 Below is an example of `EvmBatchProcessor` setup.
