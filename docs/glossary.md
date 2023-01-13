@@ -58,7 +58,7 @@ An SDK (software development kit) and a smart-contract language for developing W
 
 ### OpenReader
 
-An open-source GraphQL server that automatically generates an expressive API from an input schema file. See the [repo](https://github.com/subsquid/squid/tree/master/openreader) and [details](/develop-a-squid/graphql-api).
+An open-source GraphQL server that automatically generates an expressive API from an input schema file. See the [repo](https://github.com/subsquid/squid/tree/master/openreader) and [details](/graphql-api).
 
 ### Palette
 
@@ -66,7 +66,7 @@ A portable module that can be added to the Substrate runtime. Typically, contain
 
 ### Schema file
 
-A file describing the target data schema for a squid, normally called `schema.gql`. The file uses a GraphQL dialect to define entities, properties and relations. See [details here](/develop-a-squid/schema-file).
+A file describing the target data schema for a squid, normally called `schema.gql`. The file uses a GraphQL dialect to define entities, properties and relations. See [details here](/graphql-api/schema-file).
 
 ### State
 
@@ -86,7 +86,7 @@ The ETL part of the squid. Extracts on-chain data from an Archive, transforms, o
 
 ### Squid API
 
-The data presentation part of the squid. Typically, it's a GraphQL API auto-generated from the schema file. See details [here](/develop-a-squid/graphql-api).
+The data presentation part of the squid. Typically, it's a GraphQL API auto-generated from the schema file. See details [here](/graphql-api).
 
 ### Substrate
 
@@ -103,9 +103,9 @@ A collection of open-source libraries to build squids.
 ### Typegen
 
 A tool generating strongly typed data access classes from a metadata in some format. Subsquid SDK includes typegen tools:
-- for accessing event, extrinsics and storage data based on the substrate metadata. See [Substrate typegen](/develop-a-squid/typegen/squid-substrate-typegen)
-- for accessing EVM smart contract data based on the contract ABI. See [EVM typegen](/develop-a-squid/typegen/squid-evm-typegen)
-- for accessing Ink! smart contract data based on the contract metadata. See [Ink! typegen](/develop-a-squid/typegen/squid-wasm-typegen)
+- for accessing event, extrinsics and storage data based on the substrate metadata. See [Substrate typegen](/basics/typegen/squid-substrate-typegen)
+- for accessing EVM smart contract data based on the contract ABI. See [EVM typegen](/basics/typegen/squid-evm-typegen)
+- for accessing Ink! smart contract data based on the contract metadata. See [Ink! typegen](/basics/typegen/squid-wasm-typegen)
 
 ### WASM
 

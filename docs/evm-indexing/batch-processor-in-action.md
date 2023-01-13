@@ -7,13 +7,13 @@ title: Processor in action
 
 # `EvmBatchProcessor` in action
 
-An end-to-end idiomatic usage of `EvmBatchProcessor` can be inspected in the [squid-gravatar-template](https://github.com/subsquid/gravatar-squid) and also learned from more elaborate [examples](/develop-a-squid/examples).
+An end-to-end idiomatic usage of `EvmBatchProcessor` can be inspected in the [squid-gravatar-template](https://github.com/subsquid/gravatar-squid) and also learned from more elaborate [examples](/examples).
 
 Here we highlight the key steps and put together the configuration and the data handling definition to illustrate the concepts covered so far.
 
 ## 1. Model the target schema
 
-Create or edit `schema.graphql` to define the target entities and relations. Consult [the schema reference](/develop-a-squid/schema-file).
+Create or edit `schema.graphql` to define the target entities and relations. Consult [the schema reference](/graphql-api/schema-file).
 
 Start a fresh database:
 ```bash
@@ -23,12 +23,12 @@ make up
 
 ## 2. Generate entities and facade classes with the ABI
 
-Use [`evm-typegen`](/develop-a-squid/typegen/squid-evm-typegen) to generate the facade classes:
+Use [`evm-typegen`](/basics/typegen/squid-evm-typegen) to generate the facade classes:
 ```bash
 npx squid-evm-typegen src/abi 0x2E645469f354BB4F5c8a05B3b30A929361cf77eC#Gravity --clean
 ```
 
-Use [`codegen`](/develop-a-squid/schema-file) to generate the entity classes from `schema.graphql`:
+Use [`codegen`](/graphql-api/schema-file) to generate the entity classes from `schema.graphql`:
 ```bash
 npx squid-typeorm-codegen
 ```
@@ -44,7 +44,7 @@ npx squid-typeorm-migration generate
 
 ## 3. Configuration
 
-See [Configuration section](/develop-a-squid/evm-processor/configuration) for more details.
+See [Configuration section](/evm-indexing/configuration) for more details.
 
 ```ts
 const processor = new EvmBatchProcessor()

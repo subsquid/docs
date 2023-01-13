@@ -39,7 +39,7 @@ export default function Home(): JSX.Element {
           </ContentFeature>
 
           <ContentFeature
-            path="/develop-a-squid"
+            path="/basics"
             image="/img/squid-emoji.png"
             title="Build a Squid">
             Extract, transform, and serve on-chain data with GraphQL
@@ -99,7 +99,7 @@ export default function Home(): JSX.Element {
             color={'bg-role--success'}
             description="Index WASM contracts developed with Ink!">WASM smart contracts</GuideCard>
           <GuideCard
-            path="/develop-a-squid/graphql-api/subscriptions"
+            path="/graphql-api/subscriptions"
             color={'bg-role--notice'}
             description="Live query updates with GraphQL subscriptions">GraphQL subscriptions</GuideCard>
           <GuideCard

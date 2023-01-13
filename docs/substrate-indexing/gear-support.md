@@ -21,7 +21,7 @@ and
 SubstrateBatchProcessor.addGearUserMessageSent(programId: string, options?: BlockRangeOption & MayBeDataSelection<EventDataRequest>)
 ```
 
-The methods above subscribe to the events [`Gear.MessageEnqueued`](https://wiki.gear-tech.io/docs/api/events/#messageenqueued) and [`Gear.UserMessageSent`](https://wiki.gear-tech.io/docs/api/events/#usermessagesent) emitted by the specified Gear program. The data selections options are the same as for the [`addEvent()`](/develop-a-squid/substrate-processor/data-subscriptions#addeventname-options) processor method.
+The methods above subscribe to the events [`Gear.MessageEnqueued`](https://wiki.gear-tech.io/docs/api/events/#messageenqueued) and [`Gear.UserMessageSent`](https://wiki.gear-tech.io/docs/api/events/#usermessagesent) emitted by the specified Gear program. The data selections options are the same as for the [`addEvent()`](/substrate-indexing/data-subscriptions#addeventname-options) processor method.
 
 The processor can as well subscribe to any other event with `addEvent()` and filter by the program ID in the handler, if so necessary. 
 

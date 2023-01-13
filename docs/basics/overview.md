@@ -37,10 +37,10 @@ A squid project consists of a long-running `processor` service fetching and tran
 
 The [Squid SDK](https://github.com/subsquid/squid-sdk) offers an extensive set of tools for developing squids:
 
-- Core classes for the `processor` service: [`EvmBatchProcessor`](/develop-a-squid/evm-processor) for EVM chains and [`SubstrateBatchProcessor`](/develop-a-squid/substrate-processor) for Substrate-based chains.
-- The `sqd-typeorm-codegen` tool for generating TypeORM entities from `schema.graphql`. See [schema file and codegen](/basic/schema-file).
-- Tools for generating type-safe facade classes for decoding on-chain data. See [typegen](/basic/typegen).
-- [`graphql-server`](https://github.com/subsquid/squid/tree/master/graphql-server) is the backend for the GraphQL API served by the `api` service. The GraphQL schema is auto-generated from `schema.graphql`. The resulting API loosely follows the [OpenCRUD](https://www.opencrud.org/) standard and supports the most common query filters and selectors out-of-the box. See [the GraphQL API section](/develop-a-squid/graphql-api) for more details and the configuration options.
+- Core classes for the `processor` service: [`EvmBatchProcessor`](/evm-indexing) for EVM chains and [`SubstrateBatchProcessor`](/substrate-indexing) for Substrate-based chains.
+- The `sqd-typeorm-codegen` tool for generating TypeORM entities from `schema.graphql`. See [schema file and codegen](/basics/schema-file).
+- Tools for generating type-safe facade classes for decoding on-chain data. See [typegen](/basics/typegen).
+- [`graphql-server`](https://github.com/subsquid/squid/tree/master/graphql-server) is the backend for the GraphQL API served by the `api` service. The GraphQL schema is auto-generated from `schema.graphql`. The resulting API loosely follows the [OpenCRUD](https://www.opencrud.org/) standard and supports the most common query filters and selectors out-of-the box. See [the GraphQL API section](/graphql-api) for more details and the configuration options.
 
 
 
@@ -51,6 +51,7 @@ Squids can be deployed to the Subsquid cloud service, called the [Aquarium](http
 ## What's next?
 
 - Follow the [Quickstart](/quickstart) to build the first squid
-- Explore [Examples](/develop-a-squid/examples)
-- Deep dive into [EVM Batch Processor](/develop-a-squid/evm-processor) and [Substrate Batch Processor](/develop-a-squid/substrate-processor)
-- Explore [GraphQL API Server options](/develop-a-squid/graphql-api) including custom extensions, caching and DoS protection in production
+- Explore [Examples](/examples)
+- Learn how to [migrate from TheGraph](/migrate/migrate-subgraph)
+- Deep dive into [EVM Indexing](/evm-indexing) and [Substrate Indexing](/substrate-indexing)
+- Explore the [GraphQL API options](/graphql-api) including custom extensions, caching and DoS protection in production

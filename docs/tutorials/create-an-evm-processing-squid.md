@@ -126,7 +126,7 @@ The ERC-721 ABI defines the signatures of all events in the contract. The `Trans
 
 ## Define and Bind Event Handler(s)
 
-The Subsquid SDK provides users with a [processor](/develop-a-squid/substrate-processor) class, named `SubstrateProcessor` or, in this specific case [`SubstrateBatchProcessor`](/develop-a-squid/substrate-processor/batch-processor-in-action). The processor connects to the [Subsquid archive](/overview) to get chain data. It will index from the configured starting block, until the configured end block, or until new data is added to the chain.
+The Subsquid SDK provides users with a [processor](/substrate-indexing) class, named `SubstrateProcessor` or, in this specific case [`SubstrateBatchProcessor`](/substrate-indexing/batch-processor-in-action). The processor connects to the [Subsquid archive](/overview) to get chain data. It will index from the configured starting block, until the configured end block, or until new data is added to the chain.
 
 The processor exposes methods to "attach" functions that will "handle" specific data such as Substrate events, extrinsics, storage items, or EVM logs. These methods can be configured by specifying the event or extrinsic name, or the EVM log contract address, for example. As the processor loops over the data, when it encounters one of the configured event names, it will execute the logic in the "handler" function.
 
@@ -403,7 +403,7 @@ Pay close attention to the line with `id` in the `Token` model, because this is 
 :::
 
 :::info
-It is also interesting to notice that `contract.tokenURI` is accessing the **state** of the contract, directly from the chain endpoint we provided. This is slowing down the indexing a little bit, because of the repeated RPC calls, but this data is only available this way. You'll find more information in the [dedicated section of our docs](/develop-a-squid/substrate-processor/evm-support#access-the-contract-state).
+It is also interesting to notice that `contract.tokenURI` is accessing the **state** of the contract, directly from the chain endpoint we provided. This is slowing down the indexing a little bit, because of the repeated RPC calls, but this data is only available this way. You'll find more information in the [dedicated section of our docs](/substrate-indexing/evm-support#access-the-contract-state).
 :::
 
 ## Launch and Set Up the Database

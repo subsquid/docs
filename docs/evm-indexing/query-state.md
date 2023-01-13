@@ -6,7 +6,7 @@ description: >-
 
 # Query the contract state
 
-In order to make on-chain calls, one must set up a websocket JSON-RPC endpoint using [setDataSource()](/develop-a-squid/evm-processor/configuration/#initialization). We recommend using a private endpoint from e.g. Infura or Node Real, and set it via an environment variable:
+In order to make on-chain calls, one must set up a websocket JSON-RPC endpoint using [setDataSource()](/evm-indexing/configuration/#initialization). We recommend using a private endpoint from e.g. Infura or Node Real, and set it via an environment variable:
 
 ```ts
 //... 
@@ -64,4 +64,4 @@ processor.run(new TypeormDatabase(), async ctx => {
 })
 ```
 
-For more information on EVM Typegen, see this [dedicated page](/develop-a-squid/typegen/squid-evm-typegen).
+For more information on EVM Typegen, see this [dedicated page](/basics/typegen/squid-evm-typegen).

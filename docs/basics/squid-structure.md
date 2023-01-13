@@ -11,14 +11,14 @@ A squid is expected to follow the folder structure with the conventions below.
 - `/db` -- **(Required)** The designated folder with the [database migrations](/basics/db-migrations)
 - `/lib` -- The output folder for the compiled sources 
 - `/src` -- **(Required)** The source folder for the squid processor
-   + `/src/processor.ts` -- The entry point to run the [squid processor](/develop-a-squid/substrate-processor)
+   + `/src/processor.ts` -- The entry point to run the [squid processor](/substrate-indexing)
    + `/src/model` -- The module exporting the entity classes 
    + `/src/model/generated` -- The folder for the TypeORM entities generated from `schema.graphql`
-   + `/src/server-extension/resolvers` -- An (optional) folder for [user-defined GraphQL resolvers](/develop-a-squid/graphql-api/custom-resolvers)
-   + `/src/types` -- An (optional) output folder for typescript definitions of the Substrate data generated with [`squid-substrate-typegen`](/develop-a-squid/typegen/squid-substrate-typegen)
-   + `/src/abi` -- An (optional) output folder for the [EVM typegen](/develop-a-squid/typegen/squid-evm-typegen) or [WASM typegen](/develop-a-squid/typegen/squid-wasm-typegen) tools that generate type definitions and the decoding boilerplate
+   + `/src/server-extension/resolvers` -- An (optional) folder for [user-defined GraphQL resolvers](/graphql-api/custom-resolvers)
+   + `/src/types` -- An (optional) output folder for typescript definitions of the Substrate data generated with [`squid-substrate-typegen`](/basics/typegen/squid-substrate-typegen)
+   + `/src/abi` -- An (optional) output folder for the [EVM typegen](/basics/typegen/squid-evm-typegen) or [WASM typegen](/basics/typegen/squid-wasm-typegen) tools that generate type definitions and the decoding boilerplate
 - `/assets` -- **(Required)** A designated folder for custom user-provided files (e.g. static data files to seed the squid processor)
-- `schema.graphql` -- **(Required)** [The schema definition file](/develop-a-squid/schema-file)
+- `schema.graphql` -- **(Required)** [The schema definition file](/graphql-api/schema-file)
 - `squid.yaml` -- **(Required)** A manifest file for deploying the squid to Aquarium. See [Deploy squid](/deploy-squid) for details.
 - `docker-compose.yml` -- A Docker compose file for local runs. Has a Postgres service definition by default. Ignored by Aquarium.
 - `.env` -- Defines environment variables used by `docker-compose.yml`, and when the squid is run locally. Ignored by Aquarium

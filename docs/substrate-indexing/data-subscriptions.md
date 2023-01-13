@@ -9,7 +9,7 @@ description: >-
 
 The following methods are used to subscribe `SubstrateBatchProcessor` to specific log items. The second (optional) argument specified the block range for which the subscription is effective and the data to be fetched for the log item. `SubstrateProcessor` defines subscriptions similarly using the methods `addEventHandler`, `addCallHandler`, `addEvmLogHandler` and `addContractsContractEmittedHandler` respectively.
 
-For `SubstrateBatchProcessor`, the `addXXX` methods described below define which log items are repeatedly fetched, arranged into blocks as defined by the canonical on-chain ordering, and passed to the data handler via `BatchContext.blocks`. The details on the `BatchContext` and `BatchBlock` interfaces are available in the [Data Handlers](/develop-a-squid/substrate-processor/data-handlers) section.
+For `SubstrateBatchProcessor`, the `addXXX` methods described below define which log items are repeatedly fetched, arranged into blocks as defined by the canonical on-chain ordering, and passed to the data handler via `BatchContext.blocks`. The details on the `BatchContext` and `BatchBlock` interfaces are available in the [Data Handlers](/substrate-indexing/data-handlers) section.
 
 ## `addEvent(name, options)`
 
@@ -61,7 +61,7 @@ const processor = new SubstrateBatchProcessor()
 
 ## `addCall(name, options)`
 
-Subscribe to a specific runtime call (even if wrapped into a `system.sudo` or `util.batch` extrinsic). Use `*` for the name to subscribe to each and every call. The name must follow the convention `${Pallet}.${call_name}`. The pallet name is normally uppercased and the call name is in lower cased an in the snake_case format. By default, both successful and failed calls are fetched and passed to the handler context. Use the `call.successfull` data selector and later check `CallData.success` in the [handler](/develop-a-squid/substrate-processor/data-handlers), if so needed.
+Subscribe to a specific runtime call (even if wrapped into a `system.sudo` or `util.batch` extrinsic). Use `*` for the name to subscribe to each and every call. The name must follow the convention `${Pallet}.${call_name}`. The pallet name is normally uppercased and the call name is in lower cased an in the snake_case format. By default, both successful and failed calls are fetched and passed to the handler context. Use the `call.successfull` data selector and later check `CallData.success` in the [handler](/substrate-indexing/data-handlers), if so needed.
 
 The `options` argument has the following structure.
 ```ts
@@ -108,11 +108,11 @@ const processor = new SubstrateBatchProcessor()
 
 ## `addEvmLog(contract, options)`
 
-Subscribe to EVM log data emitted by a specific EVM contract. See [EVM Support](/develop-a-squid/substrate-processor/evm-support).
+Subscribe to EVM log data emitted by a specific EVM contract. See [EVM Support](/substrate-indexing/evm-support).
 
 ## `addContractsContractEmitted(contract, options)`
 
-Subscribe to events emitted by a WASM contract deployed at the specified address. See [WASM Support](/develop-a-squid/substrate-processor/wasm-support).
+Subscribe to events emitted by a WASM contract deployed at the specified address. See [WASM Support](/substrate-indexing/wasm-support).
 
 ## Block data
 

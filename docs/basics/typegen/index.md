@@ -18,7 +18,7 @@ To be more precise, `BatchContext` (`CommonHandlerContext` for `SubstrateProcess
 
 The typegen CLI tools generate a boilerplate typescript classes on top of `ctx._chain` to
 
-- type-safe decode and track the runtime upgrades for the historical versions of the event, calls and storage items of interest [`squid-substrate-typegen`](/develop-a-squid/typegen/squid-substrate-typegen)
-- type-safe decode EVM logs and provide a type-safe interface for the contract state queries: [`squid-evm-typegen`](/develop-a-squid/typegen/squid-evm-typegen)
-- type-safe decode WASM logs: [`squid-wasm-typegen`](/develop-a-squid/typegen/squid-wasm-typegen)
+- type-safe decode and track the runtime upgrades for the historical versions of the event, calls and storage items of interest [`squid-substrate-typegen`](/basics/typegen/squid-substrate-typegen)
+- type-safe decode EVM logs and provide a type-safe interface for the contract state queries: [`squid-evm-typegen`](/basics/typegen/squid-evm-typegen)
+- type-safe decode WASM logs: [`squid-wasm-typegen`](/basics/typegen/squid-wasm-typegen)
 

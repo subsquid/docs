@@ -69,7 +69,7 @@ Each `Item` has the following structure:
 }
 ```
 
-The types of `evmLog` and `transaction` are inferred from the [data selectors](/develop-a-squid/evm-processor/configuration/#data-selectors) set by the corresponding `processor.addLog()` and `processor.addTransaction()` init methods of `EvmBatchProcessor` [(see the previous page)](/develop-a-squid/evm-processor/configuration).
+The types of `evmLog` and `transaction` are inferred from the [data selectors](/evm-indexing/configuration/#data-selectors) set by the corresponding `processor.addLog()` and `processor.addTransaction()` init methods of `EvmBatchProcessor` [(see the previous page)](/evm-indexing/configuration).
 
 
 ### `Store`
@@ -81,11 +81,11 @@ processor.run<Store>(db: Database<Store>, batchHandler: (ctx: BatchContext<Store
 ``` 
 The most commonly used `ctx.store` is a TypeORM-like interface extended with additional support for batch updates. The core Squid SDK currently maintains only Postgres-compatible stores, with third-party support for other databases.
 
-See [Store Interface](/develop-a-squid/substrate-processor/store-interface) for details.
+See [Store Interface](/basics/store-interface) for details.
 
 ### `Logger`
 
-The `log` field is a dedicated `Logger` instance to be used for debug and otherwise. See [Logging](/develop-a-squid/logging) for more details.
+The `log` field is a dedicated `Logger` instance to be used for debug and otherwise. See [Logging](/basics/logging) for more details.
 
 
 ## Example
@@ -126,6 +126,6 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 });
 ```
 
-One can experiment with the [data selectors](/develop-a-squid/evm-processor/configuration#data-selectors) and see how the output changes depending on it.
+One can experiment with the [data selectors](/evm-indexing/configuration#data-selectors) and see how the output changes depending on it.
 
-For a more elaborate example, check the [Gravatar squid](https://github.com/subsquid/squid-evm-template/tree/gravatar-squid) and the [EVM Examples](/develop-a-squid/examples).
+For a more elaborate example, check the [Gravatar squid](https://github.com/subsquid/squid-evm-template/tree/gravatar-squid) and the [EVM Examples](/examples).

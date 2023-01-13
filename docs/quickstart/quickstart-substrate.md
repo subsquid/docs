@@ -89,12 +89,12 @@ query MyQuery {
 
 ## What's next?
 
-- [Explore more examples of squids for substrate chains](/develop-a-squid/examples#substrate-processor)
-- [Define the data schema and customize the API](/develop-a-squid/schema-file)
-- [Explore how to use typegen for type-safe on-chain data access](/develop-a-squid/typegen/squid-substrate-typegen)
-- [Explore how to efficiently transform the on-chain data in batches](/develop-a-squid/substrate-processor)
-- [Explore native support for Moonriver, Moombeam and Astar EVMs](/develop-a-squid/substrate-processor/evm-support)
-- [Explore native support for Ink! contracts](/develop-a-squid/substrate-processor/wasm-support)
-- [Explore native support for Gear contracts](/develop-a-squid/substrate-processor/gear-support)
-- [Explore native support for Acala EVM+ contracts](/develop-a-squid/substrate-processor/acala-evm-support)
+- [Explore more examples of squids for substrate chains](/examples#substrate-processor)
+- [Define the data schema and customize the API](/graphql-api/schema-file)
+- [Explore how to use typegen for type-safe on-chain data access](/basics/typegen/squid-substrate-typegen)
+- [Explore how to efficiently transform the on-chain data in batches](/substrate-indexing)
+- [Explore native support for Moonriver, Moombeam and Astar EVMs](/substrate-indexing/evm-support)
+- [Explore native support for Ink! contracts](/substrate-indexing/wasm-support)
+- [Explore native support for Gear contracts](/substrate-indexing/gear-support)
+- [Explore native support for Acala EVM+ contracts](/substrate-indexing/acala-evm-support)
 - [Deploy the squid to the Aquarium hosted service](/deploy-squid)

@@ -15,7 +15,7 @@ The `squid-graphql-server` binary supports multiple optional flags to enable e.g
 
 The API server listens at port defined by `GQL_PORT` (default to `4350`). The database connection is configured with the env variables `DB_NAME`, `DB_USER`, `DB_PASS`, `DB_HOST`, `DB_PORT`.
 
-The GraphQL API is enabled by the `api:` service in the `deploy` section of [squid.yaml](/deploy-squid/deployment-manifest) for Aquarium deployments.
+The GraphQL API is enabled by the `api:` service in the `deploy` section of [squid.yaml](/deploy-squid/deploy-manifest) for Aquarium deployments.
 
 ## Supported Queries
 
@@ -23,7 +23,7 @@ The details of the supported OpenReader queries can be found in a separate secti
 
 - the squid last processed block is available with `squidStatus { height }` query 
 - a "get one by ID" query with the name `{entityName}ById`
-- a "get one" query for [`@unique` fields](/develop-a-squid/schema-file/indexes-and-constraints), with the name `{entityName}ByUniqueInput`
+- a "get one" query for [`@unique` fields](/graphql-api/schema-file/indexes-and-constraints), with the name `{entityName}ByUniqueInput`
 - [Relay-compatible cursor-based pagination](https://relay.dev/graphql/connections.htm) queries for each entity, named `{entityName}sConnection`. Relay connection queries support filtering on each entity field with a `where` parameter, predicate compositions with `AND` and `OR` and limiting with `limit` parameters.
 - (Deprecated in favor of Relay connections) Lookup queries with the name `{entityName}s`. 
 
@@ -31,7 +31,7 @@ Nested queries are supported out-of-the-box for entity relations:
 - for the `one` side of a relation, `where` supports filtering on any field of the related entity
 - for the `many` side of a relation, `where` supports filters `XXX_some`, `XXX_every` and `XXX_none` that match only if at least one (resp. each and none) of the related entities match the predicate.
 
-[Union and typed JSON types](/develop-a-squid/schema-file/unions-and-typed-json) are mapped into [GraphQL Union Types](https://graphql.org/learn/schema/#union-types) with a proper type resolution with `__typename`.
+[Union and typed JSON types](/graphql-api/schema-file/unions-and-typed-json) are mapped into [GraphQL Union Types](https://graphql.org/learn/schema/#union-types) with a proper type resolution with `__typename`.
 
 ## Built-in custom scalars
 

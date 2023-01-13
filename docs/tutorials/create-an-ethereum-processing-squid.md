@@ -15,7 +15,7 @@ This tutorial will take the Squid Ethereum template and go through all the neces
 The business logic to process these contract is basic, and that is on purpose since the Tutorial aims show a simple case, highlighting the changes a developer would typically apply to the template, removing unnecessary complexity.
 
 In this example we will be connecting to the [Ethereum mainnet](https://ethereum.org/en/developers/docs/networks/#ethereum-mainnet) and the final objective will be to show the tokens that are part of the contract, who owns them and every time they have been transferred.
-The tutorial applies to other EVM chains (Polygon, Binance Smart Chain, Arbitrum, etc). The only difference is the Archive endpoint set during the [processor configuration](/develop-a-squid/evm-processor/configuration).
+The tutorial applies to other EVM chains (Polygon, Binance Smart Chain, Arbitrum, etc). The only difference is the Archive endpoint set during the [processor configuration](/evm-indexing/configuration).
 
 If you want to look at the end result, or inspect the code, the project of this tutorial is available at [this repository](https://github.com/subsquid/subsquid-ethereum-tutorial-example).
 
@@ -107,7 +107,7 @@ npx squid-typeorm-codegen
 
 ## ABI Definition and Wrapper
 
-Squid SDK offers the `evm-typegen` tool for generating type-safe facade classes for decoding EVM smart contract transaction and log data. It uses the [`ethers.js`](https://docs.ethers.io/v5/) library under the hood and requires the contract [Application Binary Interface (ABI)](https://docs.ethers.io/v5/api/utils/abi/) as input. It accepts a local or remote path to the contract ABI, and also supports fetching public ABIs using an Etherscan-like API. See [the `evm-typegen` page](/develop-a-squid/typegen/squid-evm-typegen) for more details.
+Squid SDK offers the `evm-typegen` tool for generating type-safe facade classes for decoding EVM smart contract transaction and log data. It uses the [`ethers.js`](https://docs.ethers.io/v5/) library under the hood and requires the contract [Application Binary Interface (ABI)](https://docs.ethers.io/v5/api/utils/abi/) as input. It accepts a local or remote path to the contract ABI, and also supports fetching public ABIs using an Etherscan-like API. See [the `evm-typegen` page](/basics/typegen/squid-evm-typegen) for more details.
 
 In our case, we take the Exosama smart contract ABI from an external repo `subsquid/exosama-marketplace-squid`. The `exo` suffix after the `#` delimiter indicates the basename (`exo`) for the generated classes in the target (`src/abi`) folder.
 ```bash
@@ -388,7 +388,7 @@ transfersData.map(t => [EXOSAMA_NFT_CONTRACT, [BigNumber.from(t.tokenId)]] as [s
 tells that it should be called with a single argument `tokenId` for each entity in the `transfersData` array.
 The last argument `100` corresponds to the page size, meaning that `tryAggreagate` splits the incoming array of calls to be executed into chunks of size `100`. If the page size is too large, the RPC node may time out or bounce the request.
 
-For more details on see the Multicall section of the [`evm-typegen` page](/develop-a-squid/typegen/squid-evm-typegen)
+For more details on see the Multicall section of the [`evm-typegen` page](/basics/typegen/squid-evm-typegen)
 :::
 
 :::warning

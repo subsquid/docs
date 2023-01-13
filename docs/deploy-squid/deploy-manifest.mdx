@@ -24,7 +24,7 @@ The manifest header defines the squid metadata
 ## `build:`
 
 Specifies the way the squid is built into a docker image. Only an empty `build:` section is supported, and the squid must adhere
-to the default [folder structure](/develop-a-squid/squid-structure).
+to the default [folder structure](/basics/squid-structure).
 
 In particular, the following files and folders **must** be present in the root folder of the squid:
 
@@ -51,7 +51,7 @@ The `deploy` section may define:
 - `processor` The processor service of the squid. 
   + `cmd` **Required** The command to be used by the container.
 - `api` The API service of the squid.
-  + `cmd` **Required** The command to be used by the container. In particular, for the GraphQL API service, provide here additional flags to define [subscriptions](/develop-a-squid/graphql-api/subscriptions) or [caching](/develop-a-squid/graphql-api/caching)
+  + `cmd` **Required** The command to be used by the container. In particular, for the GraphQL API service, provide here additional flags to define [subscriptions](/graphql-api/subscriptions) or [caching](/graphql-api/caching)
 - `migrate`: (Optional) The command to be run on squid init. **If not defined, `migrate` is executed with the default command.**
   + `cmd` (Optional) The command to be executed by the init container. Default: `['npx', 'squid-typorem-migration', 'apply']`.
 

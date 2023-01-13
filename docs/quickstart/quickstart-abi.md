@@ -34,7 +34,7 @@ npm ci
 
 ##  Step 2: Generate and build the squid
 
-- Consult the [EVM configuration page](/evm-processor/configuration) and choose an archive endpoint from the list of the supported EVM networks. 
+- Consult the [EVM configuration page](/evm-indexing/configuration) and choose an archive endpoint from the list of the supported EVM networks. 
 - Prepare the contract ABI and save into the `assets` folder, e.g. as `assets/abi.json`
 
 :::info
@@ -115,9 +115,9 @@ Hack `schema.graphql` and `src/processor.ts` to customize your squid!
 ## What's next?
 
 - [Migrate the existing subgraphs to Subsquid](/migrate/migrate-subgraph)
-- [Define your own data schema and the GraphQL API](/develop-a-squid/schema-file)
-- [Explore examples of squids for EVM networks, from simple transfer indexing to DEX analytics](/develop-a-squid/examples#evm-processor)
-- [Define the data schema and serve the data with a GraphQL API](/develop-a-squid/schema-file)
-- [Deeper dive into `EvmBatchProcessor`](/develop-a-squid/evm-processor)
-- [Explore how to enhance the GraphQL API with custom SQL, caching and limits](/develop-a-squid/graphql-api)
+- [Define your own data schema and the GraphQL API](/graphql-api/schema-file)
+- [Explore examples of squids for EVM networks, from simple transfer indexing to DEX analytics](/examples/evm)
+- [Define the data schema and serve the data with a GraphQL API](/graphql-api/schema-file)
+- [Deeper dive into `EvmBatchProcessor`](/evm-indexing)
+- [Explore how to enhance the GraphQL API with custom SQL, caching and limits](/graphql-api)
 - [Deploy the squid to the Aquarium hosted service](/deploy-squid)

@@ -62,7 +62,7 @@ In a nutshell, assuming that the schema file is properly decorated with `@cardin
 
 **`--subscription-max-response-size <nodes>`**
 
-Same as `--max-response-size` but for live query [subscriptions](/develop-a-squid/graphql-api/subscriptions).
+Same as `--max-response-size` but for live query [subscriptions](/graphql-api/subscriptions).
 
 ### Example 
 

@@ -122,7 +122,7 @@ This will automatically generate TypeScript Entity classes for our schema. They 
 
 ## Generate TypeScript interfaces
 
-Refer [here](/develop-a-squid/typegen/squid-substrate-typegen) to learn how to generate TypeScript wrappers for Events and Extrinsics. 
+Refer [here](/basics/typegen/squid-substrate-typegen) to learn how to generate TypeScript wrappers for Events and Extrinsics. 
 
 ### Chain exploration
 
@@ -485,7 +485,7 @@ export class SworkWorksReportSuccessEvent {
 
 ## Define and bind Event Handlers
 
-After having obtained wrappers for Events and the metadata changes across different Runtime versions, it's finally time to define Handlers for these Events and attach them to our [Processor](/develop-a-squid/substrate-processor). This is done in the `src/processor.ts` file of the project folder.
+After having obtained wrappers for Events and the metadata changes across different Runtime versions, it's finally time to define Handlers for these Events and attach them to our [Processor](/substrate-indexing). This is done in the `src/processor.ts` file of the project folder.
 
 We will ultimately end up replacing the code in this file almost entirely, leaving only a few useful pieces. However, we are going to take a step-by-step approach, showing where essential changes have to be made. The final result will be visible at the end of this section.
 

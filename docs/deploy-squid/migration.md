@@ -60,7 +60,7 @@ deploy:
 
 ## 3. (Optional) Revise `cmd`
 
-You may want to add additional flags to `api.cmd`, e.g. to enable [caching](/develop-a-squid/graphql-api/caching) or [enforce query limits](/develop-a-squid/graphql-api/dos-protection).
+You may want to add additional flags to `api.cmd`, e.g. to enable [caching](/graphql-api/caching) or [enforce query limits](/graphql-api/dos-protection).
 
 ## 4. (Optional) Add `scale:` options
 

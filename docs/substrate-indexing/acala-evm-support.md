@@ -34,7 +34,7 @@ To capture logs from multiple contracts, simply pass an array:
   ]);
 ```
 
-For a fine-grained filtering, use `'*'` for the contract address, and specify the topic filtering with `logs` as shown in the snippet below. Note that it uses [EVM typegen](/develop-a-squid/typegen/squid-evm-typegen) for a human-readable topic filter definition.
+For a fine-grained filtering, use `'*'` for the contract address, and specify the topic filtering with `logs` as shown in the snippet below. Note that it uses [EVM typegen](/basics/typegen/squid-evm-typegen) for a human-readable topic filter definition.
 
 ```typescript
 // request all `EVM.Executed` events containing ERC721 transfers from contract `0x0000000000000000000100000000000000000080`
