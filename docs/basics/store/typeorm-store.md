@@ -7,7 +7,7 @@ description: >-
 
 # `TypeormDatabase` 
 
-`TypeormDatabase` context store provides a wrapper over the [TypeORM `EntityManager`](https://orkhan.gitbook.io/typeorm/docs/entity-manager-api) optimized for batch saving.
+`TypeormDatabase` context store provides a wrapper over the [TypeORM `EntityManager`](https://orkhan.gitbook.io/typeorm/docs/entity-manager-api) optimized for batch saving. It currently supports only Postgres-compatible databases and seamlessly integrates with entity classes generated from the [schema file](/basics/schema-file).
 
 ## Usage
  
