@@ -13,7 +13,7 @@ There are currently two major Archive releases incompatible with each other: `v5
 
 ## Public Archives
 
-Subsquid maintains Archives for major parachains in the Polkadot ecosystem. Go to [Aquarium](https://app.subsquid.io/aquarium/archives) to browse the list of available archives. The list of public archives is also published as an npm package `@subsquid/archive-registry`. See [Archive Registry doc](/archives/archive-registry) for more details. 
+Subsquid maintains Archives for major parachains in the Polkadot ecosystem. Go to [Aquarium](https://app.subsquid.io/aquarium/archives) to browse the list of available archives. The list of public archives is also published as an npm package `@subsquid/archive-registry`. See [Archive Registry doc](/archives/archive-registry) for more details. If you are a network developer and would like to see your chain supported by Subsquid, please fill a [form](https://forms.gle/ioVNFiPjZgvUNunY9).
 
 ## Running a self-hosted archive
 
