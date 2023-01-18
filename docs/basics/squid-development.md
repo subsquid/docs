@@ -21,7 +21,7 @@ Start the development by defining [the schema](/basics/schema-file) of the targe
 - indexes to be created in the target database
 - the schema of the auto-generated GraphQL API
 
-A full reference of the `schema.graphql` dialect is available in the [GraphQL API section](/graphql-api/schema-file).
+A full reference of the `schema.graphql` dialect is available in the [GraphQL API section](/basics/schema-file).
 
 ### 2. Generate TypeORM classes
 

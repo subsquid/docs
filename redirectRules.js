@@ -17,7 +17,7 @@ const urlList = [
     },
     {
         "from": "/develop-a-squid/schema-file",
-        "to": "/graphql-api/schema-file"
+        "to": "/basics/schema-file"
     },
     {
         "from": "/develop-a-squid/graphql-api",
@@ -42,10 +42,6 @@ const urlList = [
     {
         "from": "/develop-a-squid/evm-processor/configuration",
         "to": "/evm-indexing/configuration"
-    },
-    {
-        "from": "/query-squid",
-        "to": "/graphql-api/query-squid"
     }
 ]
 

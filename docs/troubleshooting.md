@@ -35,7 +35,7 @@ PostgreSQL doesn't support storing `NULL (\0x00)` characters in text fields. Usu
 
 ### API queries are too slow
 
-- Make sure all the necessary fields are [indexed](/graphql-api/schema-file/indexes-and-constraints/)
+- Make sure all the necessary fields are [indexed](/basics/schema-file/indexes-and-constraints/)
 - Annotate the schema and [set reasonable limits](/graphql-api/dos-protection/) for the incoming queries to protect against DoS attacks
 
 ### `response might exceed the size limit`

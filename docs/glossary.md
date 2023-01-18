@@ -66,7 +66,7 @@ A portable module that can be added to the Substrate runtime. Typically, contain
 
 ### Schema file
 
-A file describing the target data schema for a squid, normally called `schema.gql`. The file uses a GraphQL dialect to define entities, properties and relations. See [details here](/graphql-api/schema-file).
+A file describing the target data schema for a squid, normally called `schema.gql`. The file uses a GraphQL dialect to define entities, properties and relations. See [details here](/basics/schema-file).
 
 ### State
 

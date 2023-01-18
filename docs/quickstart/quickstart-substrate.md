@@ -90,7 +90,7 @@ query MyQuery {
 ## What's next?
 
 - [Explore more examples of squids for substrate chains](/examples#substrate-processor)
-- [Define the data schema and customize the API](/graphql-api/schema-file)
+- [Define the data schema and customize the API](/basics/schema-file)
 - [Explore how to use typegen for type-safe on-chain data access](/basics/typegen/squid-substrate-typegen)
 - [Explore how to efficiently transform the on-chain data in batches](/substrate-indexing)
 - [Explore native support for Moonriver, Moombeam and Astar EVMs](/substrate-indexing/evm-support)

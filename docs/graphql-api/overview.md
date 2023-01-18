@@ -23,7 +23,7 @@ The details of the supported OpenReader queries can be found in a separate secti
 
 - the squid last processed block is available with `squidStatus { height }` query 
 - a "get one by ID" query with the name `{entityName}ById`
-- a "get one" query for [`@unique` fields](/graphql-api/schema-file/indexes-and-constraints), with the name `{entityName}ByUniqueInput`
+- a "get one" query for [`@unique` fields](/basics/schema-file/indexes-and-constraints), with the name `{entityName}ByUniqueInput`
 - [Relay-compatible cursor-based pagination](https://relay.dev/graphql/connections.htm) queries for each entity, named `{entityName}sConnection`. Relay connection queries support filtering on each entity field with a `where` parameter, predicate compositions with `AND` and `OR` and limiting with `limit` parameters.
 - (Deprecated in favor of Relay connections) Lookup queries with the name `{entityName}s`. 
 

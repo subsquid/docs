@@ -7,11 +7,11 @@ description: >-
 
 # Union type resolution
 
-The use cases for [Union types](/graphql-api/schema-file/unions-and-typed-json) has been discussed in the [schema reference pages](/graphql-api/schema-file/).
+The use cases for [Union types](/basics/schema-file/unions-and-typed-json) has been discussed in the [schema reference pages](/basics/schema-file).
 
 In that context, examples also showed how to query them. What's important to know is that these might create situations where it's not possible to know what type the GraphQL service is returning. To overcome this scenario, it is important to find some way to determine how to handle that data on the client.
 
-This is where the `__typename` meta filed comes in. To witness it in action, let's take the schema from the [Union types](/graphql-api/schema-file/unions-and-typed-json) page:
+This is where the `__typename` meta filed comes in. To witness it in action, let's take the schema from the [Union types](/basics/schema-file/unions-and-typed-json) page:
 
 ```graphql title="schema.graphql"
 type Account @entity {

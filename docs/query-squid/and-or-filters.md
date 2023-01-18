@@ -7,7 +7,7 @@ title: AND/OR filters
 
 ## Overview
 
-When performing queries, our GraphQL implementation offers a vast selection of tools to filter and section results. One of these is the `where` clause, very common in most database query languages and [explained here](/graphql-api/query-squid/queries#the-where-argument) in great detail.
+When performing queries, our GraphQL implementation offers a vast selection of tools to filter and section results. One of these is the `where` clause, very common in most database query languages and [explained here](/query-squid/queries#the-where-argument) in great detail.
 
 In our GraphQL server implementation, we included logical operators to be used in the `where` clause, allowing to group multiple parameters in the same where argument using the `AND` or the `OR` operators to filter results based on more than one criteria.
 

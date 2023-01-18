@@ -6,7 +6,7 @@ description: Powerful queries leveraging JSON objects as fields in a schema
 # JSON queries
 
 The possibility of defining JSON objects as fields of a type in a GraphQL schema has been explained in
-the [schema reference page](/graphql-api/schema-file).
+the [schema reference page](/basics/schema-file).
 
 This guide is focusing on how to query such objects and how to fully leverage their potential. Let's take the example of
 this (non-crypto related, for once😁) schema:

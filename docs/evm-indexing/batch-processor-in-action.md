@@ -13,7 +13,7 @@ Here we highlight the key steps and put together the configuration and the data 
 
 ## 1. Model the target schema
 
-Create or edit `schema.graphql` to define the target entities and relations. Consult [the schema reference](/graphql-api/schema-file).
+Create or edit `schema.graphql` to define the target entities and relations. Consult [the schema reference](/basics/schema-file).
 
 Start a fresh database:
 ```bash
@@ -28,7 +28,7 @@ Use [`evm-typegen`](/basics/typegen/squid-evm-typegen) to generate the facade cl
 npx squid-evm-typegen src/abi 0x2E645469f354BB4F5c8a05B3b30A929361cf77eC#Gravity --clean
 ```
 
-Use [`codegen`](/graphql-api/schema-file) to generate the entity classes from `schema.graphql`:
+Use [`codegen`](/basics/schema-file) to generate the entity classes from `schema.graphql`:
 ```bash
 npx squid-typeorm-codegen
 ```
