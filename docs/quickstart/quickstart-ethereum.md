@@ -74,9 +74,9 @@ make process
 
 ## What's next?
 
-- [Migrate the existing subgraphs to Subsquid](/migrate/migrate-subgraph)
-- [Define your own data schema and the GraphQL API](/develop-a-squid/schema-file)
-- [Explore examples of squids for EVM networks, from simple transfer indexing to DEX analytics](/develop-a-squid/examples)
-- [Deeper dive into `EvmBatchProcessor`](/develop-a-squid/evm-processor)
-- [Explore how to enhance the GraphQL API with custom SQL, caching and limits](/develop-a-squid/graphql-api)
-- [Deploy the squid to the Aquarium hosted service](/deploy-squid)
+- [Migrate](/migrate/migrate-subgraph) the existing subgraphs to Subsquid
+- Define your own [data schema](/develop-a-squid/schema-file) and the [GraphQL API](/query-squid)
+- Explore examples of squids for EVM networks, from [simple transfer indexing to DEX analytics](/develop-a-squid/examples)
+- Dive deeper into [`EvmBatchProcessor`](/develop-a-squid/evm-processor)
+- Explore how to enhance the GraphQL API with [custom SQL, caching and limits](/develop-a-squid/graphql-api)
+- [Deploy](/deploy-squid) the squid to the Aquarium hosted service
