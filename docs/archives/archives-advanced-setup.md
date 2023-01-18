@@ -65,3 +65,7 @@ The GraphQL endpoint exposes the following queries:
 **Ports:**
 
 - `3000` (default): GraphQL server
+
+## Database choice
+
+We recommend using a [Cockroach DB](https://www.cockroachlabs.com/docs/cockroachcloud/quickstart.html?filters=local) cluster in production as several performance issues where reported for large networks. The ingest and the gateway services work with Postrges 12+ out-of-the box, for the explorer service, set `DB_TYPE: cockroach`. 
