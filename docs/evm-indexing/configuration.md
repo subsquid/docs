@@ -43,10 +43,11 @@ The `option` argument supports filtering by topic and data selectors to specify 
    filter?: EvmTopicSet[],
    data?: {
      evmLog: { 
-        // fields to be fetched for logs
+        // data selection, a subset of EvmLog fields
      },
      transaction: {
-        // fields to be fetched for the tx emitted the log
+        // data selection for the associated transaction, 
+        // a subset of EvmTransaction fields
      }
    }  
 }
@@ -65,6 +66,16 @@ The `options` argument specifies the additional filtering options and a data sel
 Currently, `options` accepts the following filters:
 - `range: { from?: number, to?: number }`
 - `sighash: string` a [function selector](https://docs.ethers.io/v5/api/utils/abi/interface/#Interface--specifying-fragments)
+- `data`: a data selector object of the form
+```
+{
+  transaction: {
+    // a subset of field of EvmTransactions 
+    // to be fetched by the processor
+  }
+}
+```
+The requested fields will be populated in the items list provided by the processor context.
 
 ### Examples
 

@@ -1,0 +1,12 @@
+{
+    "position": 42,
+    "label": "Processor Store",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/store",
+      "title": "Processor Store"
+    }
+}

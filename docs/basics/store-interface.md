@@ -1,13 +1,13 @@
 ---
-sidebar_position: 40
-title: Processor store
+sidebar_position: 42
+title: Processor Store
 description: >-
-  Stores for persisting the transformed data
+  Store API for persisting the transformed data
 ---
 
 # Store interface
 
-`Store` is a generic interface exposed by `XXXContext.store` to the handlers. The concrete type is inferred from the `Database` argument of the `BatchProcessor.run` method:
+`Store` is a generic interface exposed by `XXXContext.store` to the batch handler. The concrete type is inferred from the `Database` argument of the `BatchProcessor.run` method:
 
 ```typescript
 run<Store>(db: Database<Store>, handler: (ctx: BatchContext<Store, Item>) => Promise<void>): void
