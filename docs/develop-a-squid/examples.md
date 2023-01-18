@@ -6,6 +6,10 @@ description: >-
 
 # Examples
 
+:::info
+Any GitHub repo can be used as a template for [sqd init](/squid-cli/init). Simply pass the repo URL to the `--template` flag.
+:::
+
 To learn by example, inspect these squids:
 
 ## EVM Processor
