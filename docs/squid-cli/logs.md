@@ -17,7 +17,7 @@ ARGUMENTS
   NAME  name@version
 
 OPTIONS
-  -c, --container=processor|query-node|api|db-migrate|db
+  -c, --container=processor|api|db-migrate|db
   -f, --follow
   -l, --level=error|debug|info|warning
   -p, --pageSize=pageSize                                 [default: 100]
