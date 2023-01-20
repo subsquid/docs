@@ -6,7 +6,7 @@
     "className": "red",
     "link": {
       "type": "generated-index",
-      "slug": "/basics/store-interface",
+      "slug": "/basics/store",
       "title": "Processor Store"
     }
 }

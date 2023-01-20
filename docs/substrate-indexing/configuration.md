@@ -35,29 +35,133 @@ The `options` argument has the following structure:
   // the optional block range for which the subscription is effective
   range?: DataRange, 
   // the data selector specifying which data will be fetched and passed to the handler context
-  data?: {  
-    // set to true to fetch the default data selection for the event  
-    event?: boolean | {
-      // specify any subset of fields of the SubstrateEvent interface
-      // ...
-      // The runtime call emitted the event. 
-      // Set to true to fetch the default data
-      call?: boolean | CallRequest, 
-      // The extrsinsic emitted the event. 
-      // Set to true to fetch the default data 
-      extrinsic?: boolean | { 
-        // specify any subset of fields of the SubstrateExtrinsic interface 
-      }
-      // The hash of the EVM transaction emitted the event. 
-      // Only applicable for EVM.log events
-      evmTxHash?: boolean 
-    }
-  } 
+  data?: boolean | DataSelection 
 }
 ```
 
+:::info
+Most IDEs support smart suggestions to show the possible data selectors for `EvmLog` and `EvmTransaction` options. For VS Code, press `Ctrl + Space`:
+![selector auto-complete](</img/autocomplete-selectors.png>)
+:::info
+
+See the [Event Data Selector](/substrate-indexing/configuration#event-data-selector) for more details on the `data` field.
+
+
+## `addCall(name, options)`
+
+Subscribe to a specific runtime call (even if wrapped into a `system.sudo` or `util.batch` extrinsic). Use `*` for the name to subscribe to each and every call. The name must follow the convention `${Pallet}.${call_name}`. The pallet name is normally uppercased and the call name is in lower cased an in the snake_case format. By default, both successful and failed calls are fetched and passed to the handler context. Use the `call.successfull` data selector and later check `CallData.success` in the [handler](/substrate-indexing/context-interfaces), if so needed.
+
+The `options` argument has the following structure.
+```ts
+{   
+  // the optional block range for which the subscription is effective
+  range?: DataRange,
+  // the data selector specifying which data 
+  // will be fetched and passed to the handler context 
+  data?: boolean | DataSelection
+}
+```
+
+See the [Call Data Selector](/substrate-indexing/configuration#call-data-selector) for more details on the `data` field.
+
+## `addEvmLog()`
+
+Subscribe to Frontier EVM log data emitted by a specific EVM contract. See [EVM Support](/substrate-indexing/evm-support).
+
+## `addContractsContractEmitted()`
+
+Subscribe to events emitted by a WASM contract. See [WASM Support](/substrate-indexing/wasm-support).
+
+## `addGearMessageEnqueued()`
+
+Subscribe to messages emitted by a Gear program. See [Gear Support](/substrate-indexing/gear-support).
+
+## `addAcalaEvmExecuted()`
+
+Subscribe to EVM logs emitted by a Acala EVM+ contract. See [Acala Support](/substrate-indexing/acala-evm-support).
+
+
+## Block data
+
+By default, the processor fetches the block data only for all blocks that contain log items it was subscribed to. It is possible to force the processor to fetch the header data for all the blocks within a given range with the `includeAllBlocks(range?: Range)` option.
+
 ### Example
 
+```ts
+const processor = new SubstrateBatchProcessor()
+  .addEvent('Balances.Transfer', { data: { event: true, extrinsic: true }})
+  .includeAllBlocks({ from: 9_999_999, to: 10_000_000 })
+} as const)
+```
+ 
+## Event Data Selector
+
+The methods `addEvent()`, `addEvmLog()`, `addContractsContractEmitted()`, `addGearMessageEnqueued()`, `addAcalaEvmExecuted()` configuration options accepts a data selector of the shape 
+```ts
+data?: {  
+  // set to true to fetch the default data selection for the event  
+  event?: boolean | {
+    // the call emitted the event
+    call?: boolean | CallRequest, 
+    // the extrinsic emitted the event
+    extrinsic?: boolean | ExtrinsicRequest
+    // for addEvmLog(), tx hash of the corresponding EVM transaction
+    evmTxHash?: boolean 
+  }
+} 
+```
+
+`CallRequest` and `ExtrinsicRequest` have the following fields:
+```ts
+interface CallRequest {
+  args?: boolean
+  // data selector for the parent call
+  parent?: boolean | CallRequest
+  origin?: boolean
+  // if the call is successful
+  success: boolean
+  /**
+   * Call error.
+   *
+   * Absence of error doesn't imply that call was executed successfully,
+   * check {@link success} property for that.
+   */
+  error?: boolean
+}
+
+interface ExtrinsicRequest {
+  call?: CallRequest | boolean
+  /**
+   * Ordinal index in the extrinsics array of the current block
+   */
+  indexInBlock: boolean
+  version: boolean
+  signature?: boolean
+  fee?: boolean
+  tip?: boolean
+  success: boolean
+  error?: boolean
+  /**
+   * Blake2b 128-bit hash of the raw extrinsic
+   */
+  hash: boolean
+}
+```
+
+Setting a primitive field to `true` indicates that the corresponding property will be requested from the archive and present in the corresponding [context item](/substrate-indexing/context-interfaces).
+Setting any of the composite fields to `true` indicates that a default full set of fields is fetched, e.g. 
+``ts
+{
+  data: { 
+    event: true 
+  }
+}
+``
+fetches a full set of `event`, `call` and `extrinsic` fields.
+
+### Example
+
+Fetch `Balances.Transfer` event data, and enrich with the extrinsic hash and fee: 
 ```ts
 const processor = new SubstrateBatchProcessor()
   .addEvent('Balances.Transfer', {
@@ -73,78 +177,63 @@ const processor = new SubstrateBatchProcessor()
 } as const)
 ```
 
-## `addCall(name, options)`
+## Call Data Selector
 
-Subscribe to a specific runtime call (even if wrapped into a `system.sudo` or `util.batch` extrinsic). Use `*` for the name to subscribe to each and every call. The name must follow the convention `${Pallet}.${call_name}`. The pallet name is normally uppercased and the call name is in lower cased an in the snake_case format. By default, both successful and failed calls are fetched and passed to the handler context. Use the `call.successfull` data selector and later check `CallData.success` in the [handler](/substrate-indexing/data-handlers), if so needed.
+The `addCall()` similarly accepts a data selector options specifying the data to be requested from the archive. The data selector has the following shape:
 
-The `options` argument has the following structure.
 ```ts
-{   
-  // the optional block range for which the subscription is effective
-  range?: DataRange,
-  // the data selector specifying which data 
-  // will be fetched and passed to the handler context 
-  data?: {  
-    // set to true for the default data selection
-    call?: boolean | { 
-      // any selection of the SubstrateCall interface fields 
-      // ...
-      // custom data for the parent call or the default selection
-      parent?: boolean | PlainReq<SubstrateCall>  
-    }
-    // the extrisic initiated the call. 
-    // set to true for the default data
-    extrinsic?: boolean | { 
-      // any selection of the SubstrateExtrinsic interface fields
-    }
-  } 
+data: {
+  call?: boolean | CallRequest
+  extrinsic?: boolean | ExtrinsicRequest
+}
+```
+The `CallRequest` interface is defined above. `ExtrinsicRequest` has the following form.
+
+```ts
+interface ExtrinsicRequest {
+  /**
+   * Ordinal index in the extrinsics array of the current block
+   */
+  indexInBlock?: boolean
+  version?: boolean
+  signature?: boolean
+  call?: boolean | CallRequest
+  fee?: boolean
+  tip?: boolean
+  success?: boolean
+  error?: boolean
+  /**
+   * Blake2b 128-bit hash of the raw extrinsic
+   */
+  hash?: boolean
+
 }
 ```
 
-:::info
-Most IDEs support smart suggestions to show the possible data selectors for `EvmLog` and `EvmTransaction` options. For VS Code, press `Ctrl + Space`:
-![selector auto-complete](</img/autocomplete-selectors.png>)
-:::info
+Setting a primitive field to `true` indicates that the corresponding property will be requested from the archive and present in the corresponding [context item](/substrate-indexing/context-interfaces). Setting any of the composite fields to `true` indicates that a default full set of fields is fetched.
+
+
 
 ### Example
 
+Fetch `Balances.transfer_keep_alive` call data, and enrich it with the top-level extrinsic data (`signature` and the success flag):
 ```ts
 const processor = new SubstrateBatchProcessor()
   .addCall('Balances.transfer_keep_alive', {
     data: {
         call: {
           args: true,
-          successfull: true, // fetch the success status
+          success: true, // fetch the success status
           parent: true, // fetch the parent call data
         },
         extrinsic: {
           signature: true,
-          successfull: true,  // fetch the extrinsic success status
+          success: true,  // fetch the extrinsic success status
         }
     }
 } as const)
 ```
 
-## `addEvmLog(contract, options)`
-
-Subscribe to EVM log data emitted by a specific EVM contract. See [EVM Support](/substrate-indexing/evm-support).
-
-## `addContractsContractEmitted(contract, options)`
-
-Subscribe to events emitted by a WASM contract deployed at the specified address. See [WASM Support](/substrate-indexing/wasm-support).
-
-## Block data
-
-By default, the processor fetches the block data only for all blocks that contain log items it was subscribed to. It is possible to force the processor to fetch the header data for all the blocks within a given range with the `includeAllBlocks(range?: Range)` option.
-
-### Example
-
-```ts
-const processor = new SubstrateBatchProcessor()
-  .addEvent('Balances.Transfer', { data: { event: true, extrinsic: true }})
-  .includeAllBlocks({ from: 9_999_999, to: 10_000_000 })
-} as const)
-```
 
 
 ## Custom types bundle

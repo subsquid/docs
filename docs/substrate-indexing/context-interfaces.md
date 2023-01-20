@@ -1,10 +1,10 @@
 ---
 sidebar_position: 30
 description: >-
-  Define the data handler(s) to transform and persist the data
+  BatchContext interfaces for Substrate
 ---
 
-# Data handlers
+# BatchContext for Substrate
 
 A data handler is a stateless function which transforms the fetched on-chain data and optionally persists the output into the target data store.  
 
@@ -74,6 +74,90 @@ Each `Item` has the following structure:
 }
 ```
 
+### `event` items
+
+This is the full shape of the items with `item.kind == 'event'`. The actual set of fields corresponds to the [event data selector](/substrate-indexing/configuration#event-data-selector) specified by the `addEvent()`, `addEvmLog()` and similar event-based [processor config methods](/substrate-indexing/configuration): 
+
+```ts
+interface EventItem {
+  kind: 'event'
+  name: string
+  event: {
+    args: any
+    // call emitted the event
+    call?: Partial<SubstrateCall>
+    // top-level extrinsic emitted the event
+    extrinsic?: Partial<SubstrateExtrinsic>
+    // for addEvmLog() events, the hash of the evm tx
+    evmTxHash?: string 
+  }
+}
+
+interface SubstrateExtrinsic {
+    id: string
+    /**
+     * Ordinal index in the extrinsics array of the current block
+     */
+    indexInBlock: number
+    version: number
+    signature?: SubstrateExtrinsicSignature
+    call: SubstrateCall
+    fee?: bigint
+    tip?: bigint
+    success: boolean
+    error?: any
+    /**
+     * Blake2b 128-bit hash of the raw extrinsic
+     */
+    hash: string
+    /**
+     * Extrinsic position in a joint list of events, calls and extrinsics,
+     * which determines data handlers execution order.
+     */
+    pos: number
+}
+
+interface SubstrateCall {
+    id: string
+    name: QualifiedName
+    /**
+     * JSON encoded call arguments
+     */
+    args: any
+    parent?: SubstrateCall
+    origin?: any
+    success: boolean
+    /**
+     * Call error.
+     *
+     * Absence of error doesn't imply that call was executed successfully,
+     * check {@link success} property for that.
+     */
+    error?: any
+    /**
+     * Position of the call in a joint list of events, calls and extrinsics,
+     * which determines data handlers execution order.
+     */
+    pos: number
+}
+```
+
+### `call` items
+
+This is the full shape of the items with `item.kind == 'call'`. The actual set of fields corresponds to the [call data selector](/substrate-indexing/configuration#call-data-selector) specified by the [`addCall()`](/substrate-indexing/configuration) processor config method.
+
+```ts
+interface CallItem {
+  kind: 'call'
+  name: string
+  call?: Partial<SubstrateCall>
+  // top-level extrinsic executed the call
+  extrinsic?: Partial<SubstrateExtrinsic>
+}
+```
+
+
+
 ### `Store`
 
 A concrete `ctx.store` instance is derived at runtime from the run argument via 
@@ -82,7 +166,7 @@ A concrete `ctx.store` instance is derived at runtime from the run argument via
 processor.run<Store>(db: Database<Store>, batchHandler: (ctx: BatchContext<Store>) => Promise<void>)
 ``` 
 
-See [Store Interface](/basics/store-interface) for details.
+See [Store Interface](/basics/store) for details.
 
 ### `Logger`
 

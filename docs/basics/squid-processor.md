@@ -39,33 +39,7 @@ The actual data indexing is done by the `run()` method called on a processor ins
 run<Store>(db: Database<Store>, batchHander: (ctx: BatchContext<Store, Item>) => Promise<void>): void
 ```
 
-The `db` argument defines the target data source for the processor, and `batchHandler` is a pure function defining the data transformation and persistence logic. `BatchContext` is a generic interface looks as follows: 
-```ts
-export interface BatchContext<Store, Item> {
-    /**
-     * access to the chain and the metadata
-     * @internal
-     */
-    _chain: Chain
-    log: Logger
-    /**
-     * Handle for the data sink
-     */
-    store: Store
-    /**
-     * Next batch of items to be processed, grouped into blocks
-     */
-    blocks: BatchBlock<Item>[]
-    /**
-     * Signals, that the processor reached the head of a chain.
-     *
-     * The head block is always included in `.blocks`.
-     */
-    isHead: boolean
-}
-```
-
-Note that the `<Item>` type is inferred from the processor type and the configuration. The `<Store>` type is inferred from the `Database` instance passed into the `run()` method.
+The `db` argument defines the target data source for the processor, and `batchHandler` is a pure function defining the data transformation and persistence logic. 
 
 The `Context` and `Store` interfaces are explained in the next sections.
 

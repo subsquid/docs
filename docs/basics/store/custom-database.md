@@ -14,13 +14,14 @@ export interface Database<S> {
     // initialize the connection and run migrations 
     connect(): Promise<number>
     // run handlers for blocks in the range `[from, to]` in a single transaction
+    // cb is the callback passed to processor.run()
     transact(from: number, to: number, cb: (store: S) => Promise<void>): Promise<void>
     // update and persist the processor status to `height`
     advance(height: number): Promise<void>
 }
 ```
 
-The interface only defines how the processor advances with the indexing and connects to the data sink. The following is left for implementations:
+The interface only defines how the processor advances with the indexing and connects to the data sink. The following is left as an implementation detail:
 - persisting the indexing status
 - opening and rolling back the transaction (if applicable)
 

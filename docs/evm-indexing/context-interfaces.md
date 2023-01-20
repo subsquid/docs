@@ -1,18 +1,17 @@
 ---
 sidebar_position: 30
 description: >-
-  Transform the data in batches
+  BatchContext interfaces for EVM
 ---
 
-# Data mapping
+# BatchContext for EVM
 
-
-`EvmBatchProcessor` assumes single batch handler via the `processor.run()` method: 
+`EvmBatchProcessor` assumes a single user-defined batch handler via the `processor.run()` method: 
 ```ts
 processor.run<Store>(db: Database<Store>, batchHandler: (ctx: BatchContext<Store>) => Promise<void>)
 ```
 
-The batch handler ingests the incoming archive data stored in `ctx.block`, transforms it, and persists using the `ctx.store` interface. 
+This single batch handler repeatedly ingests the archive data in batches stored in `ctx.blocks`, transforms the batch and persists to the target database using the `ctx.store` interface. 
 
 ## `BatchContext` interface
 
@@ -69,7 +68,80 @@ Each `Item` has the following structure:
 }
 ```
 
-The types of `evmLog` and `transaction` are inferred from the [data selectors](/evm-indexing/configuration/#data-selectors) set by the corresponding `processor.addLog()` and `processor.addTransaction()` init methods of `EvmBatchProcessor` [(see the previous page)](/evm-indexing/configuration).
+### `evmLog` items
+
+Here is a full list of fields for items with `item.kind == evmLog`.
+
+```ts
+{
+  kind: 'evmLog'
+  address: string
+  evmLog: {
+    id: string
+    blockNumber: number
+    address?: string
+    data?: string
+    index?: number
+    removed?: boolean
+    topics?: string[]
+    transactionIndex?: number
+  },
+  // transaction emitted the log
+  transaction: {
+    id?: string
+    from?: string
+    gas?: biging
+    gasPrice?: bigint
+    hash?: string
+    input?: string
+    nonce?: bigint
+    to?: string
+    index?: number
+    value?: bigint
+    type?: number
+    chainId?: number
+    v?: bigint
+    r?: string
+    s?: string
+    maxPriorityFeePerGas?: bigint
+    maxFeePerGas?: bigint
+  }
+}
+```
+
+Note that to make the properties of `item.evmLog` and `item.transaction` available, one has to specify the corresponding [data selectors](/evm-indexing/configuration#data-selectores) in the [`addLog()`](/evm-indexing/configuration#evm-logs) configuration method.
+
+### `transaction` items
+
+Here is a full list of fields for items with `item.kind == transaction`.
+
+```ts
+{
+  kind: 'transaction'
+  address: string
+  transaction: {
+    id?: string
+    from?: string
+    gas?: biging
+    gasPrice?: bigint
+    hash?: string
+    input?: string
+    nonce?: bigint
+    to?: string
+    index?: number
+    value?: bigint
+    type?: number
+    chainId?: number
+    v?: bigint
+    r?: string
+    s?: string
+    maxPriorityFeePerGas?: bigint,
+    maxFeePerGas?: bigint,
+  }
+}
+```
+
+Note that to make the properties of `item.transaction` available, one has to specify the corresponding [data selectors](/evm-indexing/configuration#data-selectores) in the [`addTransaction()`](/evm-indexing/configuration#transactions) configuration method.
 
 
 ### `Store`
@@ -81,7 +153,7 @@ processor.run<Store>(db: Database<Store>, batchHandler: (ctx: BatchContext<Store
 ``` 
 The most commonly used `ctx.store` is a TypeORM-like interface extended with additional support for batch updates. The core Squid SDK currently maintains only Postgres-compatible stores, with third-party support for other databases.
 
-See [Store Interface](/basics/store-interface) for details.
+See [Store Interface](/basics/store) for details.
 
 ### `Logger`
 

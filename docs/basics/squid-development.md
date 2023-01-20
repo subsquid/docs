@@ -102,8 +102,12 @@ See [EvmBatchProcessor configuration](/evm-indexing/configuration) and [Substrat
 - For Ink! smart contract data, use [`ink-typegen`](/basics/typegen/squid-wasm-typegen)
 
 ### 7. Define the processor batch handler defined by the `processor.run()` method. 
-- For `EvmBatchProcessor`, see the [Data Mapping page](/evm-indexing/data-mapping) 
-- For `SubstrateBatchProcessor`, see the [data handlers section](/substrate-indexing/data-handlers)
+
+The Squid SDK embraces the [batch-based programming model](/basics/batch-processing). The `.run()` method takes two arguments: 
+the [database adaptor](/basics/store) for the target database and the [context](/basics/processor-context). The context data interfaces slightly differ for various processor flavors:
+
+- For `EvmBatchProcessor`, see [`BatchContext` for EVM](/evm-indexing/context-interfaces) 
+- For `SubstrateBatchProcessor`, see the [`BatchContext` for Substrate](/substrate-indexing/context-interfaces)
 
 **Example:**
 ```ts

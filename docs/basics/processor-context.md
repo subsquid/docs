@@ -40,7 +40,7 @@ Internal handle for direct access to the underlying chain state via RPC calls. R
 
 ## `ctx.store`
 
-Interface for the target data sink. See [Store Interface](/basics/store-interface).
+Interface for the target data sink. See [Store Interface](/basics/store).
 
 ## `ctx.log` 
 
