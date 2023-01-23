@@ -126,9 +126,10 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 ### Batching contract state calls using the Multicall contract
 
-The [MakerDAO Multicall contract](https://github.com/makerdao/multicall) was designed to reduce the number of roundtrips to a JSON RPC node. In the context of indexing, it normally significantly improves the indexing speed since JSON RPC calls is typically a bottleneck.
+Use the `--multicall` flag to generate the `Multicall` facade class for the [MakerDAO Multicall contract](https://github.com/makerdao/multicall). 
+See [Batching state queries](/evm-indexing/query-state) for more context.
 
-Multicall contracts are deployed in many EVM chains, see the [contract repo](https://github.com/makerdao/multicall) for the addresses. The `Multicall` facade exposes the method
+The `Multicall` facade exposes the method
 ```ts
 tryAggregate<Args extends any[], R>(
         func: Func<Args, {}, R>,

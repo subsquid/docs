@@ -7,7 +7,7 @@ description: >-
 
 # `TypeormDatabase` 
 
-`TypeormDatabase` context store provides a wrapper over the [TypeORM `EntityManager`](https://orkhan.gitbook.io/typeorm/docs/entity-manager-api) optimized for batch saving. It currently supports only Postgres-compatible databases and seamlessly integrates with entity classes generated from the [schema file](/basics/schema-file).
+`TypeormDatabase` context store provides a wrapper over the [TypeORM `EntityManager`](https://typeorm.io/entity-manager-api) optimized for batch saving. It currently supports only Postgres-compatible databases and seamlessly integrates with entity classes generated from the [schema file](/basics/schema-file).
 
 ## Usage
  
@@ -16,7 +16,7 @@ import { Store, TypeormDatabase } from '@subsquid/typeorm-store'
 
 processor.run(new TypeormDatabase(), async ctx => {
   // ...  
-  await ctx.store.save([new FooEntity({ id: 1}), new FooEntity({ id: 2})])
+  await ctx.store.save([new FooEntity({ id: '1'}), new FooEntity({ id: '2'})])
 })
 ``` 
 
@@ -27,7 +27,7 @@ In the snippet above, `ctx.store` passed to the handlers will be of type `Store`
 
 **`save(e: E | E[])`** 
 
-Upsert a single or multiple entities to the database. Does not cascade the upsert to relations.
+Upsert a single or multiple entities to the database. **Does not cascade the upsert to the relations.**
 
 ```ts
 await ctx.store.save([new User({id: 'Bob'}), new User({id: 'Alice'}))])
@@ -51,7 +51,7 @@ await ctx.store.remove(User, ['Alice', 'Bob'])
 
 ## TypeORM methods
 
-For details see [TypeORM EntityManager reference](https://orkhan.gitbook.io/typeorm/docs/entity-manager-api)
+For details see [TypeORM EntityManager reference](https://typeorm.io/entity-manager-api)
 
 
 **`get`**
@@ -147,7 +147,7 @@ const timber = await ctx.store.findOneByOrFail(User, { firstName: "Timber" })
 - `IsNull`
 - `Raw` (raw SQL fragments)
 
-See the details and examples in the [TypeORM FindOption docs](https://typeorm.io/find-options#advanced-options)
+See the details and examples in the [TypeORM `FindOption` docs](https://typeorm.io/find-options#advanced-options)
 
 ### Example 
 
