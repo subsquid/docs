@@ -87,6 +87,13 @@ query MyQuery {
 }
 ```
 
+## Step 7: Customize
+
+[Hack](/basics/squid-development) `schema.graphql` and `src/processor.ts` to customize your squid!
+
+
+
+
 ## What's next?
 
 - [Explore more examples of squids for substrate chains](/examples#substrate-processor)

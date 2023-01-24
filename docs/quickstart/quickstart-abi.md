@@ -110,7 +110,7 @@ query MyQuery {
 
 ## Step 6: Customize
 
-Hack `schema.graphql` and `src/processor.ts` to customize your squid!
+[Hack](/basics/squid-development) `schema.graphql` and `src/processor.ts` to customize your squid!
 
 ## What's next?
 

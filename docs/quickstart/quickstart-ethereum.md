@@ -71,6 +71,10 @@ make up
 make process
 ```
 
+## Step 6: Customize
+
+[Hack](/basics/squid-development) `src/processor.ts` to customize your squid!
+
 
 ## What's next?
 

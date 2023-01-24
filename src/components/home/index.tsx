@@ -32,10 +32,10 @@ export default function Home(): JSX.Element {
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
           <ContentFeature
-            path="/overview"
+            path="/basics"
             image="/img/scroll-emoji.png"
             title="Overview">
-            A bird's eye view of Subsquid architecture 
+            A bird's eye view of the Subsquid ecosystem 
           </ContentFeature>
 
           <ContentFeature
@@ -46,10 +46,10 @@ export default function Home(): JSX.Element {
           </ContentFeature>
 
           <ContentFeature
-            path="/run-squid"
+            path="/basics/squid-development"
             image="/img/gear-emoji.png"
             title="Run a Squid">
-            Test your squid locally or run it with Docker
+            Customize, run and query your squid locally
           </ContentFeature>
 
           <ContentFeature
