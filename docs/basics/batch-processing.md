@@ -1,5 +1,5 @@
 ---
-sidebar_position: 41
+sidebar_position: 43
 title: Batch processing
 description: Batch-based data transformation model 
 ---
@@ -13,7 +13,25 @@ Batch data processing model employed by Squid SDK relies on the following princi
 - Use the [MakerDAO `Multicall` contract](/evm-indexing/query-state) to batch EVM state queries
 - Use [`XXX.getMany()`](/substrate-indexing/storage-state-calls) to batch Substrate state queries.
 
-Let's see how the principles apply in action.
+In practice, batching is a more flexible (compared to handler parallelization) way to speed up inherently sequential indexing of on-chain transactions and logs. 
+
+To illustrate, assume the processor is configured to listen to two on-chain events: `Create` and `Update` emitted once an on-chain record is created or updated. The [data batch](/basics/processor-context/#ctxblocks) received by the processor is then an array of event items, i.e.
+```ts
+[
+    Create({id: 1, name: 'Alice'}), 
+    Update({id: 1, name: 'Bob'}),
+    Create({id: 2, name: 'Mikee'}), 
+    Update({id: 1, name: 'Carol'}), 
+    Update({id: 2, name: 'Mike'})
+]
+``` 
+Following the principles above, a processor would update the intermediary entity states in memory, persisting only the final state:
+```ts
+[{id: 1, name: 'Carol'}, {id: 2, name: 'Mike'}]
+```
+in a single transaction. 
+
+Let's see the batch processing principles in action.
 
 ## Patterns
 
@@ -70,3 +88,50 @@ For a full implementation of the above pattern, see [EVM squid example](https://
 
 ## Anti-patterns
 
+Avoid loading or persisting single entities unless strictly necessary. For example, here is a possible antipattern for in the [Gravatar exmaple](https://github.com/subsquid/gravatar-squid) :
+
+```ts 
+processor.run(new TypeormDatabase(), async (ctx) => {
+    for (const c of ctx.blocks) {
+      for (const e of c.items) {
+        // e.kind may be 'evmLog' or 'transaction'
+        if(e.kind !== "evmLog") {
+          continue
+        }
+        const { id, owner, displayName, imageUrl } = extractData(e.evmLog)
+        // ANTIPATTERN!!! 
+        // Doing an upsert per event drastically decreases the indexing speed
+        await ctx.store.save(Gravatar, new Gravatar({
+            id: id.toHexString(),
+            owner: decodeHex(owner),
+            displayName,
+            imageUrl
+            })
+        ) 
+      }
+    }
+});
+```
+
+Instead, use an in-memory cache, and batch upserts:
+```ts
+processor.run(new TypeormDatabase(), async (ctx) => {
+    const gravatars: Map<string, Gravatar> = new Map();
+    for (const c of ctx.blocks) {
+      for (const e of c.items) {
+        // e.kind may be 'evmLog' or 'transaction'
+        if(e.kind !== "evmLog") {
+          continue
+        }
+        const { id, owner, displayName, imageUrl } = extractData(e.evmLog)
+        gravatars.set(id.toHexString(), new Gravatar({
+          id: id.toHexString(),
+          owner: decodeHex(owner),
+          displayName,
+          imageUrl
+        })) 
+      }
+    }
+    await ctx.store.save([...gravatars.values()])
+});
+```
