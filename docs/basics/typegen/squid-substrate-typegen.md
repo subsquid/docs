@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-description: Reference page of the squid-substrate-typegen command line tool
+description: Type-safe Substrate event, call and storage data
 ---
 
 # Squid Substrate typegen

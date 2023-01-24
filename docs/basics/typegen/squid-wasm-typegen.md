@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-description: Reference page of the squid-wasm-typegen command line tool
+description: Type-safe decoding of Ink! contract data
 ---
 
 # Ink! typegen

@@ -1,6 +1,6 @@
 ---
-sidebar_position: 2
-description: Reference page of the squid-evm-typegen command line tool
+sidebar_position: 1
+description: Type-safe EVM tx, log and state data
 ---
 
 # Squid EVM typegen
