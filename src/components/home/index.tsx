@@ -91,7 +91,7 @@ export default function Home(): JSX.Element {
             description="Learn how to build a simple squid for a Substrate-based chain.">Index
             Substrate data</GuideCard>
           <GuideCard
-            path="/deploy-a-squid/promote-to-production"
+            path="/deploy-squid/promote-to-production"
             color={'bg-role--warning'}
             description="Switch between squid versions with zero downtime">Promote to production</GuideCard>
           <GuideCard
@@ -113,15 +113,12 @@ export default function Home(): JSX.Element {
         <span className="h3 text-fg-base--muted">Migration</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
-        <TutorialCard
-            path="/new-in-fire-squid"
-            description="Learn about the new features introduced by the FireSquid release">What's new in FireSquid</TutorialCard>
          <TutorialCard
             path="/migrate/migrate-subgraph"
             description="Migrate your subgraph and improve sync times up to 10x.">Migrate from TheGraph</TutorialCard>
          <TutorialCard
             path="/migrate/migrate-to-fire-squid"
-            description="Migrate to FireSquid from an older versions of squid SDK">Migrate to FireSquid</TutorialCard>
+            description="Migrate to FireSquid from older versions of squid SDK">Migrate to FireSquid</TutorialCard>
         {/* <TutorialCard
             path=""
             description="Coming soon" 
