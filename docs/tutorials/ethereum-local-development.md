@@ -208,7 +208,7 @@ version: "3"
 
 services:
   worker:
-    image: massimocodes/eth-archive-worker:latest
+    image: subsquid/eth-archive-worker:latest
     environment:
       RUST_LOG: "info"
     ports:
@@ -217,7 +217,6 @@ services:
             "/eth/eth-archive-worker",
             "--server-addr", "0.0.0.0:8080",
             "--db-path", "/data/db",
-            "--data-path", "/data/parquet/files",
             "--request-timeout-secs", "300",
             "--connect-timeout-ms", "1000",
             "--block-batch-size", "10",
@@ -230,11 +229,9 @@ services:
     ]
     volumes:
       - db:/data/db
-      - parquet:/data/parquet
 
 volumes:
   db:
-  parquet:
 ```
 
 Then start the service by opening the terminal and launching the command:
