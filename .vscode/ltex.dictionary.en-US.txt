@@ -38,3 +38,4 @@ high-throuput
 TypeORM-compatible
 codegen
 permissionless
+Ganache
