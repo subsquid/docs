@@ -6,7 +6,7 @@
     "className": "red",
     "link": {
       "type": "generated-index",
-      "slug": "/typegen",
+      "slug": "/basics/typegen",
       "title": "Tools to generate facade classes to access and decode on-chain data in a type-safe way."
     }
 }
