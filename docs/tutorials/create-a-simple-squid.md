@@ -28,7 +28,7 @@ The minimum requirements for this tutorial are as follows:
 
 ## Scaffold with `sqd init`
 
-Use [`sqd init`](/squid-cli/init) and come up with some unique name for you squid. This tutorial will index data on Crust, a Substrate-based network, so use the `substrate` template
+Use [`sqd init`](/squid-cli/init) and come up with some unique name for your squid. This tutorial will index data on Crust, a Substrate-based network, so use the `substrate` template
 
 ```sh
 sqd init substrate-crust-tutorial --template substrate
@@ -130,7 +130,7 @@ Refer [here](/develop-a-squid/typegen/squid-substrate-typegen) to learn how to g
 In most cases, it is recommended to skip this section, which demonstrates how to **manually** carry out chain exploration. You may choose to scroll directly to the [Typegen](#events-wrappers-generation) section below.
 :::
 
-It is important is to pay attention to the `chain`, `archive` and `out` parameters for the purposes of this tutorial. In this Crust example, the following applies:
+It is important to pay attention to the `chain`, `archive` and `out` parameters for the purposes of this tutorial. In this Crust example, the following applies:
 
 - `chain` refers to the WebSocket address of the Crust blockchain.
 - `archive` refers to the Archive that is synchronized with the Crust blockchain.
@@ -154,7 +154,7 @@ It remains to be seen if this has had any impact on the definitions of the Event
 The types of Crust's blockchain have not yet been integrated into Squid's library. For the new SquidDev, this offers a great opportunity to follow [this mini-guide](/troubleshooting#where-do-i-get-a-type-bundle-for-my-chain). In that tutorial, you will learn how to create extract the types bundle from Crust's own library and create an example project in Subsquid's required format.
 
 :::info
-**Update**: the "Crust" types bundle has now been added to Subsquid's list of built-ins. However, it may still be worthwhile to learn how to create create and utilize a types bundle JSON file when building with Subsquid.
+**Update**: the "Crust" types bundle has now been added to Subsquid's list of built-ins. However, it may still be worthwhile to learn how to create and utilize a types bundle JSON file when building with Subsquid.
 :::
 
 <details>
@@ -634,7 +634,7 @@ function getEvents(ctx: Ctx): EventInfo {
 Notice that we did not use a `Map<string, >` object. This is because there could be multiple entries for a single `accountId`. What we care about storing, in this case, is the relationship between the event data - stored in a model - and the accountId which is related to it. This way, when the `Account` model for a `accountId` is created, we can add that information to the Event model.
 :::
 
-When all of this is done, we want to treat the set of `accountId`s, create a database Model for each of them, then go back and add the `Account` information in all the Event Models. For this we purpose we are going to re-use the existing `getAccount` function. Finally, save all the created and modified database models. 
+When all of this is done, we want to treat the set of `accountId`s, create a database Model for each of them, then go back and add the `Account` information in all the Event Models. For this purpose we are going to re-use the existing `getAccount` function. Finally, save all the created and modified database models. 
 
 Take the code inside `processor.run()` and change it so that it looks like this:
 

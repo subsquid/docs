@@ -12,7 +12,7 @@ sidebar_position: 3
 
 This tutorial will take the Squid Ethereum template and go through all the necessary steps to customize the project, in order to interact with a different Squid Archive, synchronized with the Ethereum blockchain, and process data from a specific contract ([the Exosama NFT collection](https://exosama.com/)), with substantial configuration changes to what is defined in the template.
 
-The business logic to process these contract is basic, and that is on purpose since the Tutorial aims show a simple case, highlighting the changes a developer would typically apply to the template, removing unnecessary complexity.
+The business logic to process these contract is basic, and that is on purpose since the Tutorial aims to show a simple case, highlighting the changes a developer would typically apply to the template, removing unnecessary complexity.
 
 In this example we will be connecting to the [Ethereum mainnet](https://ethereum.org/en/developers/docs/networks/#ethereum-mainnet) and the final objective will be to show the tokens that are part of the contract, who owns them and every time they have been transferred.
 The tutorial applies to other EVM chains (Polygon, Binance Smart Chain, Arbitrum, etc). The only difference is the Archive endpoint set during the [processor configuration](/develop-a-squid/evm-processor/configuration).
@@ -30,7 +30,7 @@ The minimum requirements for this tutorial are as follows:
 
 ## Scaffold using `sqd init`
 
-We will start of the `evm` template of [`sqd init`](/squid-cli/init) which is based on this [repository](https://github.com/subsquid/squid-evm-template).
+We will start off the `evm` template of [`sqd init`](/squid-cli/init) which is based on this [repository](https://github.com/subsquid/squid-evm-template).
 
 ```bash
 sqd init evm-tutorial --template evm
@@ -396,7 +396,7 @@ transfersData.map(t => [EXOSAMA_NFT_CONTRACT, [BigNumber.from(t.tokenId)]] as [s
 tells that it should be called with a single argument `tokenId` for each entity in the `transfersData` array.
 The last argument `100` corresponds to the page size, meaning that `tryAggreagate` splits the incoming array of calls to be executed into chunks of size `100`. If the page size is too large, the RPC node may time out or bounce the request.
 
-For more details on see the Multicall section of the [`evm-typegen` page](/develop-a-squid/typegen/squid-evm-typegen)
+For more details on this, see the Multicall section of the [`evm-typegen` page](/develop-a-squid/typegen/squid-evm-typegen)
 :::
 
 :::warning
