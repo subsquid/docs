@@ -14,7 +14,7 @@ export default function Home(): JSX.Element {
         <div className="flex flex-col gap-6">
           <div className="body--s">
           <span>Subsquid is a full-stack indexing SDK and a hosted service.</span><p/>
-          <span>The modular design offers unparalleled flexiblity and the indexing speed up to <strong>50000 blocks</strong> per second.</span>
+          <span>Its modular design offers unparalleled flexiblity and indexing speeds of up to <strong>50000 blocks</strong> per second.</span>
           </div>
           <div className="flex gap-2">
             <a
@@ -32,24 +32,17 @@ export default function Home(): JSX.Element {
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
           <ContentFeature
-            path="/basics"
+            path="/basics/overview"
             image="/img/scroll-emoji.png"
             title="Overview">
-            A bird's eye view of the Subsquid ecosystem 
-          </ContentFeature>
-
-          <ContentFeature
-            path="/basics"
-            image="/img/squid-emoji.png"
-            title="Build a Squid">
-            Extract, transform, and serve on-chain data with GraphQL
+            A bird's eye view of the Subsquid ecosystem
           </ContentFeature>
 
           <ContentFeature
             path="/basics/squid-development"
-            image="/img/gear-emoji.png"
-            title="Run a Squid">
-            Customize, run and query your squid locally
+            image="/img/squid-emoji.png"
+            title="Build a Squid">
+            Extract, transform, and serve on-chain data with GraphQL
           </ContentFeature>
 
           <ContentFeature
@@ -83,12 +76,12 @@ export default function Home(): JSX.Element {
           <GuideCard
             path="/tutorials/create-an-ethereum-processing-squid"
             color={'bg-role--success'}
-            description="Index EVM smart contracts on chains like Ethereum, Polygon, BSC.">Index EVM data
+            description="Index EVM smart contracts on chains like Ethereum, Polygon, BSC">Index EVM data
           </GuideCard>
           <GuideCard
             color={'bg-role--notice'}
             path="/tutorials/create-a-simple-squid"
-            description="Learn how to build a simple squid for a Substrate-based chain.">Index
+            description="Learn how to build a simple squid for a Substrate-based chain">Index
             Substrate data</GuideCard>
           <GuideCard
             path="/deploy-squid/promote-to-production"
@@ -105,7 +98,7 @@ export default function Home(): JSX.Element {
           <GuideCard
             path="/tutorials/create-an-evm-processing-squid"
             color={'bg-role--success'}
-            description="Index data from Substrate EVM chains like Moonbeam and Astar.">Frontier EVM data</GuideCard>
+            description="Index data from Substrate EVM chains like Moonbeam and Astar">Frontier EVM data</GuideCard>
         </div>
       </div>
 
