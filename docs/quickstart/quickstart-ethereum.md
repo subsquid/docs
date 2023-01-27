@@ -1,26 +1,26 @@
 ---
-sidebar_position: 10
+sidebar_position: 20
 title: EVM chains (minimal)
 description: A minimal squid for EVM indexing
 ---
 
 # Quickstart: EVM chains
 
-This guide follow through the steps to set up the environment, clone, build and run a template squid for EVM networks. The squid outputs the transactions to the "black hole" address `0x0000000000000000000000000000000000000000`. It is intended to be a starter project for building a custom squid indexing the EVM log and transaction data on Ethereum and other EVM chains.
+This guide follow through the steps to set up the environment, clone, build and run a template squid for EVM networks. The squid indexes the transactions to the "black hole" address `0x0000000000000000000000000000000000000000` and persists into a Postgres. It is intended to be a starter project for building a custom squid indexing the EVM log and transaction data on Ethereum and other EVM chains.
 
 ## Pre-requisites
 
 Before getting to work on your very first squid, verify that you have installed the following software: 
 
 - Node v16.x
-- [Squid CLI](/squid-cli)
-- [GNU Make](https://www.gnu.org/software/make/)
+- [Squid CLI](/squid-cli) v^2.1.0
+
+:::info
+Earlier versions of the template were based on `Makefile`. The new version uses [`@subsquid/commands` scripts](https://github.com/subsquid/squid-sdk/tree/master/util/commands), defined in `commands.json`, that are automatically recognized as `sqd` sub-commands.
+:::
 
 Please note:
 - The squid template is **not** compatible with `yarn`. Use `npm` instead.
-- Windows users are recommended to install [WSL](https://docs.microsoft.com/en-us/windows/wsl/).
-
-Additional information about development environment setup is available [here](/tutorials/development-environment-set-up).
 
 ## Step 1: Scaffold from a template
 
@@ -51,26 +51,50 @@ for the list of the supported networks and the configuration options.
 ## Step 4: Build the squid
 
 ```bash
-make build
+sqd build
 ```
 
 ## Step 5: Launch Postgres and detach
 
 ```bash
-make up
+sqd up
 ```
 
+## Step 5: Inspect and run the processor
 
-## Step 5: Create the database schema and run the processor
+ The squid fetches, aggregates and persists burn transactions in the `processor.run()` method. The `Burn` entity is defined in `schema.graphql`, and the TypeORM model class was generated with `sqd codegen`.
 
- The squid we have just built ingests pre-indexed data from the Ethereum Archive. This data is then transformed, as defined by the data handler in `processor.ts`.
- 
- This command will keep the console busy until manually terminated:
+ Let's run the processor:
 
 ```bash
-make process
+sqd process
 ```
 
+It outputs simple aggregations of the burned ETH and batch-inserts the tx data into the Postgres database.
+
+## Step 6: Start the GraphQL server
+
+This should be run in a separate terminal window:
+
+```bash
+sqd serve
+# in another window
+sqd open http://localhost:4350/graphql
+```
+
+This starts a GraphQL API console auto-serving the `Burn` entity data we upload to Postgres. One can for example explore top-10 historical burns:
+
+```graphql
+query MyQuery { 
+  burns(orderBy: value_DESC) {
+    address
+    block
+    id
+    txHash
+    value
+  }
+}
+```
 
 ## What's next?
 
