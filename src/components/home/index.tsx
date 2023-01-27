@@ -9,12 +9,13 @@ export default function Home(): JSX.Element {
 
   return (
     <div className="onboarding-homepage">
-      <div className="flex flex-col gap-4 max-w-[476px] items-start self-start mb-24 pt-8">
+      <div className="flex flex-col gap-4 max-w-[600px] items-start self-start mb-14 pt-8">
         <span className="h3">Get started</span>
         <div className="flex flex-col gap-6">
           <div className="body--s">
-          <span>Subsquid is a full-stack indexing SDK and a hosted service.</span><p/>
-          <span>Its modular design offers unparalleled flexiblity and indexing speeds of up to <strong>50000 blocks</strong> per second.</span>
+          <span>Subsquid is a full-stack blockchain indexing SDK and a hosted service.</span><p/>
+          <span>Its modular design offers unparalleled flexiblity and indexing speeds of up to and beyond <strong>50000 blocks per second</strong> when indexing events and transactions.</span><p/>
+          <span>E.g. all 10k events in 4M blocks long history of the <a href="https://etherscan.io/address/0x1f98431c8ad98523631ae4a59f267346ea31f984">Uniswap V3 Factory contract</a> can be indexed in about 8 min.</span>
           </div>
           <div className="flex gap-2">
             <a
@@ -27,7 +28,7 @@ export default function Home(): JSX.Element {
         </div>
       </div>
 
-      <section className="flex flex-col gap-12 mb-28">
+      <section className="flex flex-col gap-12 mb-18">
         <span className="h3 text-fg-base--muted">Subsquid Docs</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
@@ -69,7 +70,7 @@ export default function Home(): JSX.Element {
         </div>
       </section>
 
-      <div className="flex flex-col gap-12 mb-24">
+      <div className="flex flex-col gap-12 mb-14">
         <span className="h3 text-fg-base--muted">Highlights</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
@@ -102,10 +103,10 @@ export default function Home(): JSX.Element {
         </div>
       </div>
 
-      <div className="flex flex-col gap-12 mb-24">
+      <div className="flex flex-col gap-12 mb-14">
         <span className="h3 text-fg-base--muted">Migration</span>
 
-        <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
          <TutorialCard
             path="/migrate/migrate-subgraph"
             description="Migrate your subgraph and improve sync times up to 10x.">Migrate from TheGraph</TutorialCard>
