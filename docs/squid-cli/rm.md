@@ -11,13 +11,19 @@ Remove a squid or a squid version
 
 ```
 USAGE
-  $ sqd rm NAMEANDVERSION
+  $ sqd rm [NAMEANDVERSION] [-f]
 
 ARGUMENTS
   NAMEANDVERSION  <name> or <name@version>
 
+FLAGS
+  -f, --force  Does not prompt before removing a squid or its version
+
+DESCRIPTION
+  Remove a squid or a squid version
+
 ALIASES
-  $ sqd squid:kill
+  $ sqd squid kill
   $ sqd kill
 ```
 

@@ -11,14 +11,17 @@ List squids and squid versions
 
 ```
 USAGE
-  $ sqd ls
+  $ sqd ls [-n <value>] [-t]
 
-OPTIONS
-  -n, --name=name  squid name
-  -t, --truncate   truncate data in columns: false by default
+FLAGS
+  -n, --name=<value>  squid name
+  -t, --truncate      truncate data in columns: false by default
+
+DESCRIPTION
+  List squids and squid versions
 
 ALIASES
-  $ sqd squid:ls
+  $ sqd squid ls
 ```
 
 _See code: [src/commands/ls.ts](https://github.com/subsquid/squid-cli/tree/master/src/commands/ls.ts)_
