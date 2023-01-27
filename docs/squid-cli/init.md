@@ -34,6 +34,7 @@ OPTIONS
       
       OR one of the pre-defined aliases:
       - evm  A minimal squid template for indexing EVM data.
+      - abi  A template to auto-generate a squid indexing events and txs from a contract ABI
       - gravatar  A sample EVM squid indexing the Gravatar smart contract 
         on Ethereum.
       - substrate  A template squid for indexing Substrate-based chains.

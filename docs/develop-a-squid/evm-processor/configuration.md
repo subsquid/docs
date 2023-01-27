@@ -13,26 +13,35 @@ The following setters configure the global settings. The setters return the modi
 - `setBlockRange(Range)`.  Limits the range of blocks to be processed
 
 - `setDataSource(DataSource)`. Set the data source to fetch the data from.
-   + `archive`: an archive endpoint. See the supported networks below.
+   + `archive`: an archive endpoint. See the supported networks below. 
    + `chain`: (Optional) A JSON-RPC endpoint (e.g. if the processor intents do make storage queries). The JSON-RPC endpoint is required for making contract state queries. If the squid indexes only event and/or transaction data, it can be omitted. 
 
 The following EVM networks are supported
-
-| Network                 |      Archive endpoint                         |  
-|:-----------------------:|:---------------------------------------------:|
-| Ethereum Mainnet        | `https://eth.archive.subsquid.io`             |
-| Ethereum Goerli Testnet | `https://goerli.archive.subsquid.io`          | 
-| Polygon                 | `https://polygon.archive.subsquid.io`         |
-| Polygon Mumbai Testnet  | `https://polygon-mumbai.archive.subsquid.io`  |
-| Avalance C-Chain        | `https://avalanche-c.archive.subsquid.io`     |
-| Fantom                  | `https://fantom.archive.subsquid.io`          |
-| Exosama Network         | `https://exosama.archive.subsquid.io`         |
-| Binance Chain           | `https://binance.archive.subsquid.io`         |
-| Binance Chain Testnet   | `https://binance-testnet.archive.subsquid.io` |
-| Arbitrum                | `https://arbitrum.archive.subsquid.io` (*)    |
-| Optimism                | Coming Soon                                   |
-
+ 
+| Network                 |  Alias                    |        Archive endpoint                         |  
+|:-----------------------:|:-------------------------:|:-----------------------------------------------:|
+| Ethereum Mainnet        | `eth-mainnet`             |  `https://eth.archive.subsquid.io`             |
+| Ethereum Goerli Testnet | `goerli`                  |   `https://goerli.archive.subsquid.io`          | 
+| Polygon                 | `polygon`                 |   `https://polygon.archive.subsquid.io`         |
+| Polygon Mumbai Testnet  | `polygon-mumbai`          | `https://polygon-mumbai.archive.subsquid.io`  |
+| Avalance C-Chain        | `avalanche`               |  `https://avalanche-c.archive.subsquid.io`     |
+| Fantom                  | `fantom`                  | `https://fantom.archive.subsquid.io`          |
+| Exosama Network         | `exosama`                 |`https://exosama.archive.subsquid.io`         |
+| Binance Chain           | `binance`                 | `https://binance.archive.subsquid.io`         |
+| Binance Chain Testnet   | `binance-testnet`         | `https://binance-testnet.archive.subsquid.io` |
+| Arbitrum One            |                           | `https://arbitrum.archive.subsquid.io` (*)    |
+| Optimism                | Coming Soon               |                                               |
+ 
 (*) Experimental support
+
+Aliases are supported by the `lookupArchive()` of the [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) package:
+```ts
+const processor = new EvmBatchProcessor()
+  .setDataSource({
+      archive: lookupArchive('eth-mainnet'),
+  })
+``` 
+
 
 ##  EVM logs
 Use `addLog(contract: string | string[], options)` to subscribe to the EVM log data (event) emitted by a specific EVM contract.
