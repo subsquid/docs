@@ -54,7 +54,7 @@ for the list of supported networks and configuration options.
 sqd build
 ```
 
-## Step 5: Launch Postgres and detach
+## Step 5: Launch Postgres in a detached Docker container
 
 ```bash
 sqd up
