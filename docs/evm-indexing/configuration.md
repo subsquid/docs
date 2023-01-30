@@ -17,19 +17,34 @@ The following setters configure the global settings of `EvmBatchProcessor`. The 
    + `chain`: (Optional) A JSON-RPC endpoint (e.g. if the processor intents do make storage queries). The JSON-RPC endpoint is required for making contract state queries. If the squid indexes only event and/or transaction data, it can be omitted. 
 
 The following EVM networks are supported
+ 
+| Network                 |  Alias                    |        Archive endpoint                            |  
+|:-----------------------:|:-------------------------:|:--------------------------------------------------:|
+| Ethereum Mainnet        | `eth-mainnet`             |  `https://eth.archive.subsquid.io`                 |
+| Ethereum Goerli Testnet | `goerli`                  |   `https://goerli.archive.subsquid.io`             | 
+| Polygon                 | `polygon`                 |   `https://polygon.archive.subsquid.io`            |
+| Polygon Mumbai Testnet  | `polygon-mumbai`          | `https://polygon-mumbai.archive.subsquid.io`       |
+| Avalance C-Chain        | `avalanche`               |  `https://avalanche-c.archive.subsquid.io`         |
+| Fantom                  | `fantom`                  | `https://fantom.archive.subsquid.io`               |
+| Exosama Network         | `exosama`                 |`https://exosama.archive.subsquid.io`               |
+| Binance Chain           | `binance`                 | `https://binance.archive.subsquid.io`              |
+| Binance Chain Testnet   | `binance-testnet`         | `https://binance-testnet.archive.subsquid.io`      |
+| SKALE Calypso NFT Hub   | `skale-calypso`           | `https://skale-calypso.archive.subsquid.io`        |
+| SKALE Calypso (stage)   | `skale-calypso-stage`     | `https://skale-calypso-stage.archive.subsquid.io`  |
+| BOBA Ethereum           | `boba-eth`                | `https://boba-eth.archive.subsquid.io`             |
+| BOBA Moonbeam           | `boba-moonbeam`           | `https://boba-moonbeam.archive.subsquid.io`        |
+| Arbitrum One            |                           | `https://arbitrum.archive.subsquid.io` (*)         |
+| Optimism                | Coming Soon               |                                                    |
+ 
+(*) Experimental support
 
-| Network                 |      Archive endpoint                         |  
-|:-----------------------:|:---------------------------------------------:|
-| Ethereum Mainnet        | `https://eth.archive.subsquid.io`             |
-| Ethereum Goerli Testnet | `https://goerli.archive.subsquid.io`          | 
-| Polygon                 | `https://polygon.archive.subsquid.io`         |
-| Polygon Mumbai Testnet  | `https://polygon-mumbai.archive.subsquid.io`  |
-| Avalance C-Chain        | `https://avalanche-c.archive.subsquid.io`     |
-| Fantom                  | `https://fantom.archive.subsquid.io`          |
-| Exosama Network         | `https://exosama.archive.subsquid.io`         |
-| Binance Smart Chain     | `https://binance.archive.subsquid.io`         |
-| Arbitrum                | Coming Soon                                   |
-| Optimism                | Coming Soon                                   |
+Aliases are supported by the `lookupArchive()` of the [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) package:
+```ts
+const processor = new EvmBatchProcessor()
+  .setDataSource({
+      archive: lookupArchive('eth-mainnet'),
+  })
+``` 
 
 
 ##  EVM logs
