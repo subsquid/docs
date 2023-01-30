@@ -84,11 +84,7 @@ query MyQuery {
 
 ## Step 7: Customize
 
-<<<<<<< HEAD
-[Hack](/develop-a-squid) `schema.graphql` and `src/processor.ts` to customize your squid!
-=======
 [Hack](/develop-a-squid/schema-file) the schema file `schema.graphql` and the [processor](/develop-a-squid/substrate-processor) `src/processor.ts` to index the data your way. Choose any supported network using the `lookupArchive()` method of [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) or [run one locally](/archives/).
->>>>>>> 6b76cb4 (update the customize step)
 
 ## What's next?
 
