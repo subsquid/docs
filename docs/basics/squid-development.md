@@ -10,15 +10,15 @@ Below is a general outline of the squid development steps.
 
 ### 0. Prerequisites
 
-- Install [Squid CLI](/squid-cli/installation)
-- Follow the [Quickstart](/quickstart) and scaffold a new squid project using [sqd init](/squid-cli/init) and a suitable template.
+- Get familiar with squids and Archives by reading the [Overview](/basics/overview)
+- Follow through the [Quickstart](/quickstart) and scaffold a new squid project using [sqd init](/squid-cli/init) and a suitable template.
 
 ### 1. Model the data with a schema file
 
-Start the development by defining the schema of the target database in the `schema.graphql` file in the squid root folder. The definition consists of regular GraphQL type declarations annotated with custom directives to define:
-- relations between the target entities
+Start the development by defining the data schema in `schema.graphql` in the squid root folder. The schema will be used both for the target database and for the GraphQL API. It consists of regular GraphQL type declarations annotated with custom directives to define:
+- relations between the entities
 - entity properties, property types and entity relations 
-- indexes to be created in the target database
+- indexes to be created in the database
 - the schema of the auto-generated GraphQL API
 
 A full reference of the `schema.graphql` dialect is available in the [schema file section](/basics/schema-file).
