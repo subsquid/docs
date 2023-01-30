@@ -9,7 +9,7 @@ export default function Home(): JSX.Element {
 
   return (
     <div className="onboarding-homepage">
-      <div className="flex flex-col gap-4 max-w-[476px] items-start self-start mb-24 pt-8">
+      <div className="flex flex-col gap-4 max-w-[600px] items-start self-start mb-14 pt-8">
         <span className="h3">Get started
 </span>
         <div className="flex flex-col gap-6">
@@ -22,7 +22,7 @@ export default function Home(): JSX.Element {
         </div>
       </div>
 
-      <section className="flex flex-col gap-12 mb-28">
+      <section className="flex flex-col gap-12 mb-18">
         <span className="h3 text-fg-base--muted">Subsquid Docs</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
@@ -71,7 +71,7 @@ export default function Home(): JSX.Element {
         </div>
       </section>
 
-      <div className="flex flex-col gap-12 mb-24">
+      <div className="flex flex-col gap-12 mb-14">
         <span className="h3 text-fg-base--muted">Highlights</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
@@ -104,10 +104,10 @@ export default function Home(): JSX.Element {
         </div>
       </div>
 
-      <div className="flex flex-col gap-12 mb-24">
+      <div className="flex flex-col gap-12 mb-14">
         <span className="h3 text-fg-base--muted">Migration</span>
 
-        <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
         <TutorialCard
             path="/new-in-fire-squid"
             description="Learn about the new features introduced by the FireSquid release">What's new in FireSquid</TutorialCard>
