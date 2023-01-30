@@ -35,4 +35,6 @@ Karura
 subgraph
 Websocket
 high-throuput
-Ganache
+TypeORM-compatible
+codegen
+Etherscan-like
