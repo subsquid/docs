@@ -6,11 +6,11 @@ description: A minimal squid for EVM indexing
 
 # Quickstart: EVM chains
 
-This guide follows through the steps required to clone, build and run a template squid for EVM networks. The squid indexes the transactions to the "black hole" address `0x0000000000000000000000000000000000000000`, persists its data into a Postgres database and serves it over a GraphQL API. It is intended to be a starter project for building a custom squid indexing logs and transactions data on Ethereum and other EVM chains.
+The `evm` squid template indexes the transactions to the "black hole" address `0x0000000000000000000000000000000000000000`, persists its data into a Postgres database and serves it over a GraphQL API. It is intended to be a starter project for building a custom squid indexing logs and transactions data on Ethereum and other EVM chains.
 
 ## Pre-requisites
 
-Before getting to work on your very first squid, verify that you have installed the following software: 
+Before getting to work on your very first squid, verify that you have installed the following: 
 
 - Node v16.x or newer
 - [Squid CLI](/squid-cli) v2.1.0 or newer
@@ -21,7 +21,7 @@ Earlier versions of the template were based on `Makefile`. The new version uses 
 :::
 
 Please note:
-- The squid template is **not** compatible with `yarn`. Use `npm` instead.
+- The squid template is **not** compatible with `yarn` and expects a `npm`-generated `package-lock.json` file in the root.
 
 ## Step 1: Scaffold from a template
 
