@@ -84,7 +84,7 @@ query MyQuery {
 
 ## Step 7: Customize
 
-[Hack](/basics/squid-development) `schema.graphql` and `src/processor.ts` to customize your squid!
+[Hack](/develop-a-squid) `schema.graphql` and `src/processor.ts` to customize your squid!
 
 ## What's next?
 
