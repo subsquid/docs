@@ -6,7 +6,7 @@ description: A simple squid for Substrate indexing transfers
 
 # Quickstart: Substrate chains
 
-This guide follows through the steps required to clone, build and run a template squid for substrate networks. The squid indexes transfers on the Kusama network. It is intended to be a stepping stone for building a custom squid for any Substrate-based chain.
+The `substrate` squid template indexes transfers on the Kusama network. It is intended to be a stepping stone for building a custom squid for any Substrate-based chain. 
 
 ## Pre-requisites
 
@@ -55,7 +55,7 @@ sqd up
 
 ## Step 5: Create the database schema and run the processor
 
-The squid we have just built ingests pre-indexed data from a Kusama Archive. This data is then transformed, as defined by the data handler in `processor.ts`.
+The squid we have just built ingests pre-indexed data from a Kusama Archive. This data is then transformed, as defined by the `processor.run()` call in `src/processor.ts`.
  
 This command will keep the console busy until manually terminated:
 
@@ -65,7 +65,7 @@ sqd process
 
 ## Step 6: Start the GraphQL server
 
-This should be run in a separate terminal window:
+Run in a separate terminal window:
 
 ```bash
 sqd serve
@@ -84,7 +84,11 @@ query MyQuery {
 
 ## Step 7: Customize
 
+<<<<<<< HEAD
 [Hack](/develop-a-squid) `schema.graphql` and `src/processor.ts` to customize your squid!
+=======
+[Hack](/develop-a-squid/schema-file) the schema file `schema.graphql` and the [processor](/develop-a-squid/substrate-processor) `src/processor.ts` to index the data your way. Choose any supported network using the `lookupArchive()` method of [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) or [run one locally](/archives/).
+>>>>>>> 6b76cb4 (update the customize step)
 
 ## What's next?
 

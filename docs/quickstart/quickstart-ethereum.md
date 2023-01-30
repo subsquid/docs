@@ -94,7 +94,9 @@ query MyQuery {
 }
 ```
 
-And you're done!
+## Step 8: Customize
+
+[Hack](/develop-a-squid/schema-file) the schema file `schema.graphql` and the [processor](/develop-a-squid/evm-processor) `src/processor.ts` to index the data your way!
 
 ## What's next?
 

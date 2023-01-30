@@ -119,7 +119,7 @@ query MyQuery {
 
 ## Step 7: Customize
 
-[Hack](/develop-a-squid/) the schema file `schema.graphql` and the processor `src/processor.ts` to index the data your way!
+[Hack](/develop-a-squid/schema-file) the schema file `schema.graphql` and the [processor](/develop-a-squid/evm-processor) `src/processor.ts` to index the data your way!
 
 ## What's next?
 
