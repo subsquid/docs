@@ -6,21 +6,17 @@ description: A simple squid for Substrate indexing transfers
 
 # Quickstart: Substrate chains
 
-This guide follow through the steps to set up the environment, clone, build and run a template squid for substrate networks. The squid indexes transfers on the Kusama network. It is intended to be a stepping stone for building a custom squid for any Substrate-based chain.
+This guide follows through the steps required to clone, build and run a template squid for substrate networks. The squid indexes transfers on the Kusama network. It is intended to be a stepping stone for building a custom squid for any Substrate-based chain.
 
 ## Pre-requisites
 
 Before getting to work on your very first squid, verify that you have installed the following software: 
 
-- Node v16.x
-- [Squid CLI](/squid-cli)
-- [GNU Make](https://www.gnu.org/software/make/)
+- Node v16.x or newer
+- [Squid CLI](/squid-cli) v2.1.0 or newer
 
 Please note:
 - The squid template is **not** compatible with `yarn`. Use `npm` instead.
-- Windows users are recommended to install [WSL](https://docs.microsoft.com/en-us/windows/wsl/).
-
-Additional information about development environment setup is available [here](/tutorials/development-environment-set-up).
 
 ## Step 1: Scaffold from a template
 
@@ -48,24 +44,23 @@ npm ci
 ## Step 3: Build the squid
 
 ```bash
-make build
+sqd build
 ```
 
-## Step 4: Launch Postgres and detach
+## Step 4: Launch Postgres in a detached Docker container
 
 ```bash
-make up
+sqd up
 ```
-
 
 ## Step 5: Create the database schema and run the processor
 
- The squid we have just built ingests pre-indexed data from a Kusama Archive. This data is then transformed, as defined by the data handler in `processor.ts`.
+The squid we have just built ingests pre-indexed data from a Kusama Archive. This data is then transformed, as defined by the data handler in `processor.ts`.
  
- This command will keep the console busy until manually terminated:
+This command will keep the console busy until manually terminated:
 
 ```bash
-make process
+sqd process
 ```
 
 ## Step 6: Start the GraphQL server
@@ -73,10 +68,10 @@ make process
 This should be run in a separate terminal window:
 
 ```bash
-make serve
+sqd serve
 ```
 
-The GraphQL playground is available at `http://localhost:4350/graphql`. Open it in a browser and run
+The GraphQL playground is available at [`http://localhost:4350/graphql`](http://localhost:4350/graphql). Open it in a browser and run
 sample queries by applying filters and data selections in the panel to the left.
 
 ```graphql
@@ -86,6 +81,10 @@ query MyQuery {
   }
 }
 ```
+
+## Step 7: Customize
+
+[Hack](/basics/squid-development) `schema.graphql` and `src/processor.ts` to customize your squid!
 
 ## What's next?
 
