@@ -7,9 +7,8 @@ description: >-
 
 # Schema file and codegen
 
-The schema file `schema.graphql` uses a GraphQL dialect to model the target entities and the entity relations. 
-The tooling around the schema file is then used to:
-- Generate TypeORM entities (`squid-typeorm-codegen(1)`, see below)
+The schema file `schema.graphql` uses a GraphQL dialect to model the target entities and entity relations. The tooling around the schema file is then used to:
+- Generate TypeORM entities (with `squid-typeorm-codegen(1)`, see below)
 - Generate the database schema from the TypeORM entities (see [db migrations](/basics/db-migrations))
 - Present the target data with a rich API served by a built-in [GraphQL Server](/graphql-api). A full API reference is covered in the [Query a Squid](/query-squid) section.
 
@@ -18,18 +17,18 @@ The schema file format is loosely compatible with the [subgraph schema](https://
 
 ## TypeORM codegen
 
-The [`squid-typeorm-codegen(1)`](https://github.com/subsquid/squid-sdk/tree/master/typeorm/typeorm-codegen) tool is used to generate [TypeORM entity](https://typeorm.io/) classes from the schema defined in `schema.graphql`. To generate the entity classes from the schema, run
+The [`squid-typeorm-codegen(1)`](https://github.com/subsquid/squid-sdk/tree/master/typeorm/typeorm-codegen) tool is used to generate [TypeORM entity](https://typeorm.io/) classes from the schema defined in `schema.graphql`. The most convenient way to run the tool is usually via the `sqd` wrapper:
 
 ```bash
-npx squid-typeorm-codegen
-npm run build
+sqd codegen
+sqd build
 ```
 
-The entity classes are generated in `src/model/generated` by default. 
+By default the entity classes are generated in `src/model/generated`.
 
 ### Example
 
-The entity defined in the schema file:
+A `Foo` entity defined in the schema file:
 ```graphql title="schema.graphql"
 type Foo @entity {
   id: ID!
@@ -37,7 +36,7 @@ type Foo @entity {
   baz: BigInt!
 }
 ```
-The generated entity with TypeORM decorators:
+The generated `Foo` entity with TypeORM decorators:
 ```ts title="src/model/generated/foo.ts"
 import {Entity as Entity_, Column as Column_, PrimaryColumn as PrimaryColumn_} from "typeorm"
 import * as marshal from "./marshal"
