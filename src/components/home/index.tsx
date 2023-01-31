@@ -13,8 +13,8 @@ export default function Home(): JSX.Element {
         <span className="h3">Get started
 </span>
         <div className="flex flex-col gap-2">
-          <span>Subsquid is a full-stack blockchain indexing SDK and a hosted service.</span><p/>
-          <span>Its modular design offers unparalleled flexiblity and indexing speeds of up to and beyond <strong>50000 blocks per second</strong> when indexing events and transactions.</span><p/>
+          <span>Subsquid is a full-stack blockchain indexing SDK and specilized data lakes (Archives) optimized for extraction of large volumes of historical on-chain data.</span><p/>
+          <span>The SDK offers a highly customizable Extract-Transform-Load-Query stack and indexing speeds of up to and beyond <strong>50000 blocks per second</strong> when indexing events and transactions.</span><p/>
           <span>To put it into perspective, all 10k events in 4M blocks of <a href="https://etherscan.io/address/0x1f98431c8ad98523631ae4a59f267346ea31f984">Uniswap V3 Factory contract</a> history can be indexed in about 8 minutes. For a busier <a href="https://etherscan.io/address/0xc36442b4a4522e871399cd717abdd847ab11fe88">Uniswap V3 Positions NFT contract</a> with 3.1M events and function calls the indexing takes about 40 minutes.</span>
         </div>
         <a
