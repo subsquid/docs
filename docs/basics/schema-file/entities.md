@@ -6,7 +6,7 @@ description: >-
 
 # Entities
 
-Entities are defined by root-level GraphQL types decorated with `@entity`. The entity names and the properties are expected to be camelCased and are converted into snake_cased database tables and columns. The primary key column is always mapped to the entity field of a special `ID` type. Non-nullable fields are marked with an exclamation mark (`!`) and are nullable otherwise. 
+Entities are defined by root-level GraphQL types decorated with `@entity`. Names and properties of entities are expected to be camelCased. They are converted into snake_case for use as database table and column names. The primary key column is always mapped to the entity field of a special `ID` type. Non-nullable fields are marked with an exclamation mark (`!`) and are nullable otherwise.
 
 The following [scalar types](https://graphql.org/learn/schema/#scalar-types) are supported by the `schema.graphql` dialect:
 
@@ -30,7 +30,7 @@ type Scalar @entity {
   bigint: BigInt
   dateTime: DateTime
   bytes: Bytes
-  json: JSON,
+  json: JSON
   deep: DeepScalar
 }
         
@@ -48,18 +48,19 @@ enum Enum {
 
 ## Arrays
 
-Entity fields can be an array of any scalar type and are mapped to the corresponding Postgres array types. The array elements may be defined as nullable or non-nullable.
+An entity field can be an array of any scalar type. It will be mapped to the corresponding Postgres array type. Array elements may be defined as nullable or non-nullable.
 
 **Example**
 
 ```graphql
 type Lists @entity {
+  id: ID!
   intArray: [Int!]!
   enumArray: [Enum!]
   bigintArray: [BigInt!]
   datetimeArray: [DateTime!]
   bytesArray: [Bytes!]
-  listOfListOfInt: [[Int]]
+  listOfListsOfInt: [[Int]]
   listOfJsonObjects: [Foo!]
 }
         
