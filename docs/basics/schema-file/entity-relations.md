@@ -8,7 +8,7 @@ description: Define entity relations
 
 A relation between two entities is always assumed to be unidirectional. The owning entity is mapped to a database table holding a foreign key reference to the related entity. The non-owning entity may define a property decorated `@derivedFrom` for an inverse lookup on the owning field. In particular, the "many" side of the one-to-many relations is always the owning side.
 
-Note that `@derivedFrom` has no effect on the corresponding table DDL but rather adds a property decorated with TypeORM `@OneToOne` or `@OneToMany` to the generated entity classes (and the GraphQL API generated from `schema.graphql`). All the foreign key reference columns are automatically indexed. 
+Note that defining an entity property with `@derivedFrom(field: <field_name>)` does not add a column to the entity table schema. Rather, it adds a property decorated with TypeORM `@OneToOne` or `@OneToMany` to the generated entity class. This causes the property `<field_name>` of the owning entity to be interpreted as a reference. Within the database it is implemented as an (automatically indexed) foreign key reference column `<field_name>_id`. Subsquid's built-in GraphQL server recognizes such relations in `schema.graphql`, reflects them in the API schema and uses the foreign key reference columns to process the resulting queries correctly.
 
 The following examples illustrate this concept.
 
@@ -30,7 +30,10 @@ type User @entity {
 }
 ```
 
-The `User` entity references a single `Account` and owns the relation (that is, the database schema will define the column `user.account_id` referencing to the `account` table).  
+The `User` entity references a single `Account` and owns the relation. This is implemented as follows:
+- On the database side: the `account` property of the `User` entity maps to the `account_id` foreign key column of the `user` table referencing the `account` table.
+- On the TypeORM side: the `account` property of the `User` entity gets decorated with `@OneToOne`.
+- On the GraphQL side: sub-selection of the `account` property is made available in `user`-related queries. Sub-selectionf of the `user` property is made available in `account`-related queries.
 
 ## Many-to-one/One-to-many relations
 
@@ -51,7 +54,10 @@ type Transfer @entity {
 
 ```
 
-Here `Tranfer` defines two foreign key references and `Account` defines the corresponding inverse lookup properties.
+Here `Tranfer` defines owns the two relations and `Account` defines the corresponding inverse lookup properties. This is implemented as follows:
+- On the database side: the `from` and `to` properties of the `Transfer` entity map to `from_id` and `to_id` foreign key columns of the `transfer` table referencing the `account` table.
+- On the TypeORM side: properties `transfersTo` and `transfersFrom` decorated with `@OneToMany` get added to the `Account` entity class. Properties `to` and `from` of the `Transfer` entity class get decorated with `@ManyToOne`.
+- On the GraphQL side: sub-selection of all relation-defined properties is made available in the schema.
 
 ## Many-to-many relations
 
