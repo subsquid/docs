@@ -35,7 +35,7 @@ await ctx.store.save([new User({id: 'Bob'}), new User({id: 'Alice'}))])
 
 **`insert(e: E | E[])`**
 
-Inserts a given entity or entities into the database. Does not check if the entity(s) exist in the database and will fail if a duplicate is inserted. Executes a primitive INSERT operation **without cascading the relations**.
+Inserts a given entity or entities into the database. Does not check if the entity(s) exist in the database and will fail if a duplicate is inserted. Executes a primitive INSERT operation **without cascading to the relations**.
 
 ```ts
 await ctx.store.insert([new User({id: 'Bob'}), new User({id: 'Alice'}))])
@@ -43,7 +43,7 @@ await ctx.store.insert([new User({id: 'Bob'}), new User({id: 'Alice'}))])
 
 **`remove(e: E | E[] | EntityClass<E>, id?: string | string[])`**
 
-Deletes a given entity or entities from the database. Accepts either an object or entity ID(s). **Does not cascade the deletion**.
+Deletes a given entity or entities from the database. Accepts either an object or an entity ID(s). **Does not cascade the deletion**.
 
 ```ts
 await ctx.store.remove(User, ['Alice', 'Bob'])
@@ -51,12 +51,12 @@ await ctx.store.remove(User, ['Alice', 'Bob'])
 
 ## TypeORM methods
 
-For details see [TypeORM EntityManager reference](https://typeorm.io/entity-manager-api)
+For details see [TypeORM EntityManager reference](https://typeorm.io/entity-manager-api).
 
 
 **`get`**
 
-Get an entity by ID
+Get an entity by ID.
 
 ```ts
 await ctx.store.get(User, 'Bob')
@@ -64,7 +64,8 @@ await ctx.store.get(User, 'Bob')
 
 **`count`**
 
-count the number of entities matching a where filter
+Count the number of entities matching a where filter.
+
 ```ts
 await ctx.store.count(User, {
     where: {
@@ -75,14 +76,16 @@ await ctx.store.count(User, {
 
 **`countBy`**
 
-count the number of entities matching a filter
+Count the number of entities matching a filter.
+
 ```ts
 await ctx.store.countBy(User, { firstName: "Timber" })
 ```
 
 **`find`** 
 
-return a list matching a where filter
+Return a list matching a where filter.
+
 ```ts
 await ctx.store.find(User, {
     where: {
@@ -92,14 +95,16 @@ await ctx.store.find(User, {
 ```
 **`findBy`** 
 
-return a list matching a filter
+Return a list matching a filter.
+
 ```ts
 let accounts = await ctx.store.findBy(Account, {id: In([...accountIds])})
 ```
 
 **`findOne`** 
 
-return the first entity matching a where filter
+Return the first entity matching a where filter.
+
 ```ts
 const timber = await ctx.store.findOne(User, {
     where: {
@@ -110,11 +115,16 @@ const timber = await ctx.store.findOne(User, {
 
 **`findOneBy`** 
 
-return the first entity matching a filter
+Return the first entity matching a filter.
+
 ```ts
 const timber = await ctx.store.findOneBy(User, { firstName: "Timber" })
 ```
-- `findOneOrFail` throws if nothing is found
+
+**`findOneOrFail`**
+
+Throws if nothing is found.
+
 ```ts
 const timber = await ctx.store.findOneOrFail(User, {
     where: {
@@ -125,7 +135,8 @@ const timber = await ctx.store.findOneOrFail(User, {
 
 **`findOneByOrFail`** 
 
-throws if nothing is found
+Throws if nothing is found.
+
 ```ts
 const timber = await ctx.store.findOneByOrFail(User, { firstName: "Timber" })
 ```
@@ -147,7 +158,7 @@ const timber = await ctx.store.findOneByOrFail(User, { firstName: "Timber" })
 - `IsNull`
 - `Raw` (raw SQL fragments)
 
-See the details and examples in the [TypeORM `FindOption` docs](https://typeorm.io/find-options#advanced-options)
+See the details and examples in the [TypeORM `FindOption` docs](https://typeorm.io/find-options#advanced-options).
 
 ### Example 
 
@@ -176,6 +187,8 @@ await ctx.store.find(User, {
 See the [TypeORM docs](https://typeorm.io/find-options) sections for details. 
 
 
-## `FullTypeORMDatabase`
+## `FullTypeormDatabase`
 
-`FullTypeormDatabase` context store provides full access for [TypeORM `EntityManager`](https://typeorm.io/working-with-entity-manager). We recommend using `TypeORMDatabase` store unless full access to the database is required.
+`FullTypeormDatabase` context store provides full access to the underlying database, including execution of arbitrary queries with `.query()`. The interface is identical to that of [TypeORM EntityManager](https://orkhan.gitbook.io/typeorm/docs/entity-manager-api).
+
+We recommend using `TypeormDatabase` store unless full access to the database is required.
