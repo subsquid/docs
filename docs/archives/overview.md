@@ -1,7 +1,7 @@
 ---
 sidebar_position: 10
 title: Overview
-description: A data lake optimized for batch access
+description: Basics, public Archives, Archive registry
 ---
 
 # Squid Archives

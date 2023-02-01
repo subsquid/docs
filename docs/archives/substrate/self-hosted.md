@@ -1,10 +1,10 @@
 ---
 sidebar_position: 30
-title: Self-hosted Substrate Archive
+title: Self-hosted Archive
 description: Run a self-hosted Substrate Archive
 ---
 
-# Self-hosted Substrate Archive
+# Self-hosted Archive
 
 For Substrate-based chains, an Archive consists of a Postgres compatible database for storage,
 the ingesting service is [substrate-ingest](https://github.com/subsquid/squid/tree/master/substrate-ingest), and the data is exposed by [substrate-gateway](https://github.com/subsquid/archive-gateway)
