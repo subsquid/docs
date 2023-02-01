@@ -26,6 +26,10 @@ The minimum requirements for this tutorial are as follows:
 - Basic command line knowledge 
 - Setup [Squid CLI](/squid-cli)
 
+:::info
+This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands. Feel free to add or modify the scripts and inspect with `sqd --help`.
+:::
+
 ## Scaffold with `sqd init`
 
 Use [`sqd init`](/squid-cli/init) and come up with some unique name for you squid. This tutorial will index data on Crust, a Substrate-based network, so use the `substrate` template
