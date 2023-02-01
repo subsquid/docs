@@ -1,5 +1,9 @@
 # Client example
 
+:::warning
+The Giant Squid API is currently under active development and this part of the documentation is largely outdated. Reach out at [DevSquid chat](https://t.me/HydraDevs) to get support on the Giant Squid API.
+:::
+
 As mentioned before, any client wanting to aggregate multi-chain data available via the Giant Squid API, needs to perform two tasks:
 
 * Encode the address with the codec appropriate to the chain in question (if the objective is to monitor an account's activity across multiple chains)
