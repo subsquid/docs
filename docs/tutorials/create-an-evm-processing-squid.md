@@ -25,6 +25,10 @@ The minimum requirements for this tutorial are as follows:
 - Basic command line knowledge 
 - Setup [Squid CLI](/squid-cli)
 
+:::info
+This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands. Feel free to add or modify the scripts and inspect with `sqd --help`.
+:::
+
 ## Scaffold using `sqd init`
 
 We will start of the `frontier-evm` template of [`sqd init`](/squid-cli/init) which is based on this [repository](https://github.com/subsquid/squid-evm-template). It is used to index EVM smart contracts deployed Astar/Shiden and Moonbeam/Moonriver, with the possibility to additionally index the Substrate events.
