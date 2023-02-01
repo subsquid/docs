@@ -1,0 +1,12 @@
+{
+    "position": 10,
+    "label": "EVM Archives",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/arhives/evm",
+      "title": "EVM Archives"
+    }
+}

@@ -1,4 +1,14 @@
-# Archives Explorer API
+---
+sidebar_position: 30
+title: Explorer API
+description: Exploration GraphQL API for ad-hoc queries
+---
+
+# Explorer API
+
+:::warning
+Explorer API exposed by public Archives for Substrate networks will be deprecated in favor of the Giant Squid APIs.
+:::
 
 `substrate-explorer` provides a GraphQL API for historical blocks, events, calls and extrinsics. Subsquid maintains explorers for most parachains. To get an explorer endpoint, go to [Aquarium Archives](https://app.subsquid.io/aquarium/archives), click on the network of choice and locate the `Explorer URL` link.
 

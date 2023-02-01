@@ -1,10 +1,20 @@
-# Advanced options
+---
+sidebar_position: 30
+title: Local setup
+description: Run a Substrate Archive locally
+---
+
+# Local setup
 
 For Substrate-based chains, an Archive consists of a Postgres compatible database for storage,
 the ingesting service is [substrate-ingest](https://github.com/subsquid/squid/tree/master/substrate-ingest), and the data is exposed by [substrate-gateway](https://github.com/subsquid/archive-gateway)
 and optionally by [substrate-explorer](https://github.com/subsquid/squid/tree/master/substrate-explorer) for human-friendly exploration queries. The startup options for each service are listed below.
 
 For the instructions on how to run an archive locally and recommendations for production setups, [consult this repo](https://github.com/subsquid/squid-archive-setup). 
+
+## Database choice
+
+We recommend using a [Cockroach DB](https://www.cockroachlabs.com/docs/cockroachcloud/quickstart.html?filters=local) cluster in production as several performance issues where reported for large networks. The ingest and the gateway services work with Postrges 12+ out-of-the box, for the explorer service, set `DB_TYPE: cockroach`. 
 
 ## Substrate Ingest
 
