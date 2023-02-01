@@ -6,4 +6,4 @@ description: API for batch access
 
 # Batch API
 
-Archive API for batch-extraction of historical EVM data matching the filters.
+This page is under construction. Contact us on [Telegram](https://t.me/HydraDevs) for support.

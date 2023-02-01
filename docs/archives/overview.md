@@ -52,8 +52,8 @@ const processor = new SubstrateBatchProcessor()
 
 ## Running a self-hosted Archive
 
-To run an Archive, follow the instructions:
-- [EVM Archives](#)
-- [Substrate Archives](/archives/substrate/archives-advanced-setup)
+To run an self-hosted Archive, follow the instructions:
+- [EVM Archives](/archives/evm/self-hosted)
+- [Substrate Archives](/archives/substrate/self-hosted)
 
 

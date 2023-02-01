@@ -21,7 +21,7 @@ The minimum requirements for this tutorial are as follows:
 - Either one of:
   - [Ganache](https://trufflesuite.com/ganache/)
   - [Hardhat](https://hardhat.org/)
-- [Subsquid CLI installed](/squid-cli/index.md#0-install-and-setup-squid-cli)
+- [Subsquid CLI installed](/squid-cli)
 - Docker
 
 ## Setup
@@ -30,7 +30,7 @@ For the purpose of this tutorial, we are going to start with a squid project, an
 
 ### Squid
 
-We are going to assume you have already installed [Subsquid CLI](/squid-cli/index.md#0-install-and-setup-squid-cli). 
+We are going to assume you have already installed [Subsquid CLI](/squid-cli). 
 
 In order to create a new squid project, simply open a terminal and launch the command:
 

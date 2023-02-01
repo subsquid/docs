@@ -1,10 +1,10 @@
 ---
 sidebar_position: 30
-title: Local setup
-description: Run a Substrate Archive locally
+title: Self-hosted Substrate Archive
+description: Run a self-hosted Substrate Archive
 ---
 
-# Local setup
+# Self-hosted Substrate Archive
 
 For Substrate-based chains, an Archive consists of a Postgres compatible database for storage,
 the ingesting service is [substrate-ingest](https://github.com/subsquid/squid/tree/master/substrate-ingest), and the data is exposed by [substrate-gateway](https://github.com/subsquid/archive-gateway)
@@ -65,7 +65,7 @@ The GraphQL endpoint exposes the following queries:
 
 ## Substrate Explorer
 
-`substrate-explorer` provided a human friendly GraphQL API on top of the database populated by `substrate-ingester`. See [Explorer API](/archives/archives-explorer-api) for more details on the schema.
+`substrate-explorer` provided a human friendly GraphQL API on top of the database populated by `substrate-ingester`. See [Explorer API](/archives/substrate/archives-explorer-api) for more details on the schema.
 
 **Environment variables:**
 
