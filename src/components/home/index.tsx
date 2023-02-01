@@ -9,7 +9,7 @@ export default function Home(): JSX.Element {
 
   return (
     <div className="onboarding-homepage">
-      <div className="flex flex-col gap-4 max-w-[600px] items-start self-start mb-14 pt-8">
+      <div className="flex flex-col gap-4 max-w-[600px] items-start self-start mb-14 pt-2">
         <span className="h3">Get started
 </span>
         <div className="flex flex-col gap-2">
