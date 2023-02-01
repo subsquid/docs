@@ -29,7 +29,7 @@ Navigate to a dedicated section for each processor class:
 
 ## Configuration
 
-An instance of the processor should be configured to define the block range to be indexed, and the data selectors to be fetched from the archive. See the configuration pages of the corresponding sections
+A processor instance should be configured to define the block range to be indexed, and the selectors of data to be fetched from the archive. See the configuration pages of the corresponding sections.
 
 ## `processor.run()`
 
@@ -39,7 +39,7 @@ The actual data indexing is done by the `run()` method called on a processor ins
 run<Store>(db: Database<Store>, batchHander: (ctx: BatchContext<Store, Item>) => Promise<void>): void
 ```
 
-The `db` argument defines the target data source for the processor, and `batchHandler` is a pure function defining the data transformation and persistence logic. 
+The `db` argument defines the target data source for the processor, and `batchHandler` is an `async` `void` function defining the data transformation and persistence logic.
 
 The `Context` and `Store` interfaces are explained in the next sections.
 
