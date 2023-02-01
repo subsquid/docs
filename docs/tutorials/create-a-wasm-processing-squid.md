@@ -1,4 +1,11 @@
-# Ink! contract-indexing Squid
+---
+id: create-a-wasm-processing-squid
+title: Ink! contract indexing 
+description: >-
+  Create a sample squid indexing Ink! smart contract data on Shibuya
+sidebar_position: 6
+---
+# Ink! contract indexing
 
 ## Objective
 
@@ -38,11 +45,11 @@ and run the template:
 
 ```bash
 npm ci
-make build
-make up
-make process
+sqd build
+sqd up
+sqd process
 # open a separate terminal for this next command
-make serve
+sqd serve
 ```
 
 The tutorial will guide through the necessary changes to 
@@ -59,6 +66,10 @@ npm i @subsquid/ink-abi && npm i @subsquid/ink-typegen --save-dev
 ```
 
 Since `@subsquid/ink-typegen` is only used to generate source files, we install it as a dev dependency.
+
+:::info
+This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands. Feel free to add or modify the scripts and inspect with `sqd --help`.
+:::
 
 ## Define the data schema
 
@@ -92,23 +103,22 @@ type Transfer @entity {
 Next, we generate `TypeORM` entity classes from the schema with the `squid-typeorm-codegen` tool:
 
 ```bash
-make codegen
+sqd codegen
 ```
 The generated entity classes can be found under `src/model/generated`.
 
 To generate the database migrations matching the schema, we first drop the existing database and the existing migrations:
 
 ```bash
-make down
-rm -rf db/migrations/*.js
+sqd down
+sqd migrations:clean
 ```
 
-Next, we start a clean db, build the code and generate the new migrations matching the entities generated with `squid-typeorm-codegen`:
+Next, we start a clean db, build the code and generate the new migrations matching the entities generated with `sqd migration:generate`:
 
 ```bash
-make up
-make build
-npx squid-typeorm-migration generate
+sqd up
+sqd generate
 ```
 
 ## ABI Definition and Wrapper
@@ -276,7 +286,7 @@ As you can see in the `extractTransferRecords` function, we loop over the blocks
 To launch the processor (this will block the current terminal), you can run the following command:
 
 ```bash
-make process
+sqd process
 ```
 
 ![Launch processor](https://i.gyazo.com/66ab9c1fef9203d3e24b6e274bba47e3.gif)
@@ -284,7 +294,7 @@ make process
 Finally, in a separate terminal window, launch the GraphQL server:
 
 ```bash
-make serve
+sqd serve
 ```
 
 Visit [`localhost:4350/graphql`](http://localhost:4350/graphql) to access the [GraphiQl](https://github.com/graphql/graphiql) console. From this window, you can perform queries such as this one, to find out the account owners with the biggest balances:

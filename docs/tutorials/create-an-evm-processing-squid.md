@@ -3,7 +3,7 @@ id: create-an-evm-processing-squid
 title: Frontier EVM-indexing Squid
 description: >-
   Create a sample squid indexing EVM data on Astar
-sidebar_position: 3
+sidebar_position: 5
 ---
 
 # Frontier EVM-indexing Squid
@@ -24,6 +24,10 @@ The minimum requirements for this tutorial are as follows:
 - A properly set up [development environment](/tutorials/development-environment-set-up)
 - Basic command line knowledge 
 - Setup [Squid CLI](/squid-cli)
+
+:::info
+This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands. Feel free to add or modify the scripts and inspect with `sqd --help`.
+:::
 
 ## Scaffold using `sqd init`
 

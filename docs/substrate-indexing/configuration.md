@@ -12,7 +12,7 @@ The following setters configure the global settings. The setters return the modi
 
 - `setBlockRange(Range)`.  Limits the range of blocks to be processed
 - `setDataSource(DataSource)`. Set the data source to fetch the data from.
-   + `archive`: an archive endpoint. We recommend using it together with [`@subsquid/archive-registry`](/archives/archive-registry)
+   + `archive`: an archive endpoint. We recommend using it together with [`@subsquid/archive-registry`](/archives/overview#lookup-archive)
    + `chain`: (Optional) a node gRPC endpoint (e.g. if the processor intents do make storage queries)
 
 ### Example

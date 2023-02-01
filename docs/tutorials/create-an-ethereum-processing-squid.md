@@ -1,16 +1,16 @@
 ---
 id: create-an-ethereum-processing-squid
-title: EVM-indexing Squid
+title: NFT indexing on EVM
 description: >-
   Create a simple squid indexing smart contract data on an EVM chain
 sidebar_position: 3
 ---
 
-# EVM-indexing Squid
+# NFT indexing on EVM
 
 ## Objective
 
-This tutorial will take the Squid Ethereum template and go through all the necessary steps to customize the project, in order to interact with a different Squid Archive, synchronized with the Ethereum blockchain, and process data from a specific contract ([the Exosama NFT collection](https://exosama.com/)), with substantial configuration changes to what is defined in the template.
+This tutorial will take the squid Ethereum template and go through all the necessary steps to customize the project, in order to interact with a different Squid Archive, synchronized with the Ethereum blockchain, and process data from a specific contract ([the Exosama NFT collection](https://exosama.com/)), with substantial configuration changes to what is defined in the template.
 
 The business logic to process these contract is basic, and that is on purpose since the Tutorial aims show a simple case, highlighting the changes a developer would typically apply to the template, removing unnecessary complexity.
 
@@ -27,6 +27,10 @@ The minimum requirements for this tutorial are as follows:
 - A properly set up [development environment](/tutorials/development-environment-set-up)
 - Basic command line knowledge 
 - Setup [Squid CLI](/squid-cli)
+
+:::info
+This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands. Feel free to add or modify the scripts and inspect with `sqd --help`.
+:::
 
 ## Scaffold using `sqd init`
 

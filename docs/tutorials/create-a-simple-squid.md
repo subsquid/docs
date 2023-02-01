@@ -3,7 +3,7 @@ id: create-a-simple-squid
 description: >-
   This tutorial shows how to fork and customize the squid template in order to create a
   simple project
-sidebar_position: 2
+sidebar_position: 4
 ---
 
 # Simple Substrate Squid
@@ -25,6 +25,10 @@ The minimum requirements for this tutorial are as follows:
 - A properly set up [development environment](/tutorials/development-environment-set-up)
 - Basic command line knowledge 
 - Setup [Squid CLI](/squid-cli)
+
+:::info
+This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands. Feel free to add or modify the scripts and inspect with `sqd --help`.
+:::
 
 ## Scaffold with `sqd init`
 

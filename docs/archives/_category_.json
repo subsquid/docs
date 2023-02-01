@@ -1,0 +1,12 @@
+{
+    "position": 45,
+    "label": "Archives",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/archives",
+      "title": "Archives are specilized data lakes optimized for batch access to on-chain data."
+    }
+}
