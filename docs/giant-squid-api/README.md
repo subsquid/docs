@@ -6,7 +6,12 @@ description: >-
   multiple chains and parachains
 ---
 
+
 # Giant Squid API
+
+:::warning
+The Giant Squid API is currently under active development and this part of the documentation is largely outdated. Reach out at [DevSquid chat](https://t.me/HydraDevs) to get support on the Giant Squid API.
+:::
 
 ## Overview
 
