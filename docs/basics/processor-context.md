@@ -6,7 +6,7 @@ description: Processor Context API
 
 # Processor Context
 
-`BatchContext` is a generic interface looks as follows: 
+`BatchContext` is a generic interface defined as follows: 
 ```ts
 export interface BatchContext<Store, Item> {
     /**
@@ -24,7 +24,7 @@ export interface BatchContext<Store, Item> {
      */
     blocks: BatchBlock<Item>[]
     /**
-     * Signals, that the processor reached the head of a chain.
+     * Signals that the processor has reached the chain head.
      *
      * The head block is always included in `.blocks`.
      */
@@ -32,7 +32,7 @@ export interface BatchContext<Store, Item> {
 }
 ```
 
-Note that the `Item` type is inferred from the processor type and the configuration. The `Store` type is inferred from the `Database` instance passed into the `run()` method.
+Note that the `Item` type is inferred from the processor type and configuration. `Store` type is inferred from the `Database` instance passed into the `run()` method.
 
 ## `ctx._chain`
 
@@ -48,9 +48,9 @@ The native logger handle. See [logging](/basics/logging).
 
 ## `ctx.blocks`
 
-The on-chain data items (event logs and transaction call records) are grouped into blocks and canonically ordered by how the data is recorded on-chain. The shape data of the items is defined by the `.addXXX()` configuration methods. 
+The on-chain data items (event logs and transaction call records) are grouped into blocks and canonically ordered by how the data is recorded on-chain. The shape of item objects is determined by the processor configuration done via the `.addXXX()` methods. 
 
-An idiomatic use of the context API is as to iterate over blocks and for each block over items:
+An idiomatic use of the context API is to iterate first over blocks and then over items for each block:
 
 ```ts
 processor.run(new TypeormDatabase(), async (ctx) => {
@@ -61,7 +61,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
     }
 });
 ```
-The canonical ordering of `ctx.blocks` enables efficient in-memory data processing. For example, multiple updates of the same entity can be compressed into a single transaction.
+The canonical ordering of `ctx.blocks` enables efficient in-memory data processing. For example, multiple updates of the same entity can be compressed into a single database transaction.
 
 ## `ctx.isHead`
 
