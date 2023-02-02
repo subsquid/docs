@@ -149,10 +149,10 @@ processor.run(new TypeormDatabase(), async (ctx) => {
         case 'evmLog':
           switch (item.evmLog.topics[0]) {
             case events.FooEvent.topic:
-              handleFooEvent(ctx, item.evmLog)
+              await handleFooEvent(ctx, item.evmLog)
               continue
             case events.BarEvent.topic:
-              handleFooEvent(ctx, item.evmLog)
+              await handleFooEvent(ctx, item.evmLog)
               continue
             default:
                 continue
@@ -163,7 +163,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
           // transfer(address,uint256) sighash
           switch (sighash) {
             case '0xa9059cbb':
-              handleTransferTx(ctx, item.transaction)
+              await handleTransferTx(ctx, item.transaction)
               continue
             // other tx handlers
           }  
@@ -173,4 +173,18 @@ processor.run(new TypeormDatabase(), async (ctx) => {
     }
   }
 });
+```
+
+Similarly, one can implement pre- and post- block hooks:
+
+```ts
+processor.run(new TypeormDatabase(), async (ctx) => {
+  for (const c of ctx.blocks) {
+    await preBlockHook(ctx, c)
+    for (const item of c.items) {
+      // some logic
+    }
+    await postBlockHook(ctx, c)
+  }
+})
 ```
