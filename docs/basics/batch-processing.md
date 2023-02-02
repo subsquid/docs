@@ -9,13 +9,13 @@ description: Batch-based data transformation model
 Batch data processing model employed by Squid SDK relies on the following principles:
 
 - Minimize the number of database hits by grouping multiple single-row transactions into multi-row batch transactions.
-- Transform the data in memory using vectorized operators
-- Use the [MakerDAO `Multicall` contract](/evm-indexing/query-state) to batch EVM state queries
+- Transform the data in memory using vectorized operators.
+- Use the [MakerDAO `Multicall` contract](/evm-indexing/query-state) to batch EVM state queries.
 - Use [`XXX.getMany()`](/substrate-indexing/storage-state-calls) to batch Substrate state queries.
 
-In practice, batching is a more flexible (compared to handler parallelization) way to speed up inherently sequential indexing of on-chain transactions and logs. 
+In practice, batching is a more flexible (compared to handler parallelization) way to speed up the inherently sequential indexing of on-chain transactions and logs. 
 
-To illustrate, assume the processor is configured to listen to two on-chain events: `Create` and `Update` emitted once an on-chain record is created or updated. The [data batch](/basics/processor-context/#ctxblocks) received by the processor is then an array of event items, i.e.
+To illustrate, assume the processor must infer the current state of an on-chain record. It is configured to listen to the two on-chain events, `Create` and `Update`, that are emitted once the record is created or updated. The [data batch](/basics/processor-context/#ctxblocks) received by the processor is then an array of event items, i.e.
 ```ts
 [
     Create({id: 1, name: 'Alice'}), 
@@ -88,7 +88,7 @@ For a full implementation of the above pattern, see [EVM squid example](https://
 
 ## Anti-patterns
 
-Avoid loading or persisting single entities unless strictly necessary. For example, here is a possible antipattern for in the [Gravatar exmaple](https://github.com/subsquid/gravatar-squid) :
+Avoid loading or persisting single entities unless strictly necessary. For example, here is a possible antipattern for the [Gravatar example](https://github.com/subsquid/gravatar-squid):
 
 ```ts 
 processor.run(new TypeormDatabase(), async (ctx) => {
@@ -106,8 +106,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
             owner: decodeHex(owner),
             displayName,
             imageUrl
-            })
-        ) 
+        }))
       }
     }
 });
