@@ -60,7 +60,7 @@ const config = {
 
   themeConfig:  /** @type {import('@docusaurus/preset-classic').ThemeConfig} */ ({
     hotjar: {
-      applicationId: 3345082,
+      applicationId: 3348787,
     },
     navbar: {
       logo: {
