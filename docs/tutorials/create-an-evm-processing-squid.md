@@ -1,12 +1,12 @@
 ---
 id: create-an-evm-processing-squid
-title: Create a Frontier EVM-indexing Squid
+title: Frontier EVM-indexing Squid
 description: >-
-  Create a sample squid indexing EVM data on Astar
+  Build a squid indexing NFTs on Astar
 sidebar_position: 5
 ---
 
-# Create a Frontier EVM-indexing Squid
+# Frontier EVM-indexing Squid
 
 ## Objective
 

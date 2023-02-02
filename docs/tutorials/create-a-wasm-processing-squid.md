@@ -2,9 +2,10 @@
 id: create-a-wasm-processing-squid
 title: Ink! contract indexing 
 description: >-
-  Create a sample squid indexing Ink! smart contract data on Shibuya
+  Build a squid indexing an Ink! smart contract
 sidebar_position: 6
 ---
+
 # Ink! contract indexing
 
 ## Objective
