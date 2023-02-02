@@ -21,6 +21,13 @@ If Node.js is already present in the system, be sure to have version 16 or later
 node --version
 ```
 
+### Squid CLI
+
+Install Squid CLI as a global `sqd` executable:
+```bash
+npm i -g @subsquid/cli
+```
+
 ### Docker
 
 The other requisite is Docker, which has similar options:
