@@ -2,7 +2,7 @@
     "position": 70,
     "label": "Deploy a squid",
     "collapsible": true,
-    "collapsed": false,
+    "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
