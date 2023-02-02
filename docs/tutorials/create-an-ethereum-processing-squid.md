@@ -12,12 +12,12 @@ sidebar_position: 3
 
 This tutorial will take the squid Ethereum template and go through all the necessary steps to customize the project, in order to interact with a different Squid Archive, synchronized with the Ethereum blockchain, and process data from a specific contract ([the Exosama NFT collection](https://exosama.com/)), with substantial configuration changes to what is defined in the template.
 
-The business logic to process these contract is basic, and that is on purpose since the Tutorial aims to show a simple case, highlighting the changes a developer would typically apply to the template, removing unnecessary complexity.
+In this example we will be connecting to the [Ethereum mainnet](https://ethereum.org/en/developers/docs/networks/#ethereum-mainnet) and the final objective will be to show the NFTs, who owns them and every time they have been transferred.
 
-In this example we will be connecting to the [Ethereum mainnet](https://ethereum.org/en/developers/docs/networks/#ethereum-mainnet) and the final objective will be to show the tokens that are part of the contract, who owns them and every time they have been transferred.
 The tutorial applies to other EVM chains (Polygon, Binance Smart Chain, Arbitrum, etc). The only difference is the Archive endpoint set during the [processor configuration](/develop-a-squid/evm-processor/configuration).
 
-If you want to look at the end result, or inspect the code, the project of this tutorial is available at [this repository](https://github.com/subsquid/subsquid-ethereum-tutorial-example).
+If you want to look at the end result, inspect the code and play around, check out the [repo](https://github.com/subsquid/subsquid-ethereum-tutorial-example) or open Gitpod:
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/subsquid/subsquid-ethereum-tutorial-example.git)
 
 ## Pre-requisites
 
