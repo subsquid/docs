@@ -1,11 +1,10 @@
 ---
 sidebar_position: 1
 description: >-
-  Prepare your Development Environment to run, customize and build a Squid
-  Template
+  Setup prerequisites
 ---
 
-# Development Environment set up
+# Environment set up
 
 ### Node.js
 
@@ -19,6 +18,13 @@ If Node.js is already present in the system, be sure to have version 16 or later
 
 ```
 node --version
+```
+
+### Squid CLI
+
+Install Squid CLI as a global `sqd` executable:
+```bash
+npm i -g @subsquid/cli
 ```
 
 ### Docker

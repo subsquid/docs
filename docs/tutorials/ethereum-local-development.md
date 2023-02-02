@@ -1,12 +1,12 @@
 ---
 id: ethereum-local-development
-title: Index a local Ethereum node
+title: Run squids with Ganache or Hardhat
 description: >-
-  Use Subsquid to index an Ethereum development node running locally
-sidebar_position: 2
+  Run squids with Ganache or Hardhat
+sidebar_position: 3
 ---
 
-# Index a local Ethereum node
+# Run squids with Ganache or Hardhat
 
 ## Objective
 

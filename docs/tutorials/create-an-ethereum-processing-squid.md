@@ -1,23 +1,22 @@
 ---
 id: create-an-ethereum-processing-squid
-title: Create an EVM-indexing Squid
+title: NFT indexing on EVM
 description: >-
-  Create a simple squid indexing smart contract data on an EVM chain
-sidebar_position: 3
+  A simple squid indexing NFTs on Ethereum
+sidebar_position: 2
 ---
 
-# Create an EVM-indexing Squid
+# NFT indexing on EVM
 
 ## Objective
 
-This tutorial will take the Squid Ethereum template and go through all the necessary steps to customize the project, in order to interact with a different Squid Archive, synchronized with the Ethereum blockchain, and process data from a specific contract ([the Exosama NFT collection](https://exosama.com/)), with substantial configuration changes to what is defined in the template.
+This tutorial starts with the standard `evm` template of [`sqd init`](/squid-cli/init) and turns it into a squid indexing [the Exosama NFT contract](https://exosama.com/) deployed on Ethereum.
 
-The business logic to process these contract is basic, and that is on purpose since the Tutorial aims to show a simple case, highlighting the changes a developer would typically apply to the template, removing unnecessary complexity.
+The goal is to index the contract NFTs, historical transfers and the current owners. The tutorial applies to other EVM chains (Polygon, Binance Smart Chain, Arbitrum, etc). The only difference is the Archive endpoint set during the [processor configuration](/develop-a-squid/evm-processor/configuration).
 
-In this example we will be connecting to the [Ethereum mainnet](https://ethereum.org/en/developers/docs/networks/#ethereum-mainnet) and the final objective will be to show the tokens that are part of the contract, who owns them and every time they have been transferred.
-The tutorial applies to other EVM chains (Polygon, Binance Smart Chain, Arbitrum, etc). The only difference is the Archive endpoint set during the [processor configuration](/develop-a-squid/evm-processor/configuration).
+To look at the end result, inspect the code and play around, clone the [repo](https://github.com/subsquid/subsquid-ethereum-tutorial-example) or open Gitpod:
 
-If you want to look at the end result, or inspect the code, the project of this tutorial is available at [this repository](https://github.com/subsquid/subsquid-ethereum-tutorial-example).
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/subsquid/subsquid-ethereum-tutorial-example.git)
 
 ## Pre-requisites
 
@@ -25,23 +24,25 @@ The minimum requirements for this tutorial are as follows:
 
 - Familiarity with Git 
 - A properly set up [development environment](/tutorials/development-environment-set-up)
-- Basic command line knowledge 
 - Setup [Squid CLI](/squid-cli)
+- Docker
+
+:::info
+This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands. 
+:::
 
 ## Scaffold using `sqd init`
 
-We will start off the `evm` template of [`sqd init`](/squid-cli/init) which is based on this [repository](https://github.com/subsquid/squid-evm-template).
+We will start with the `evm` template of [`sqd init`](/squid-cli/init) which is based on this [repository](https://github.com/subsquid/squid-evm-template).
 
 ```bash
 sqd init evm-tutorial --template evm
 cd evm-tutorial
 ```
 
-## Define Entity Schema
+## Define the schema
 
-The next thing to do, in order to customize the project for our own purpose, is to make changes to the schema and define the Entities we want to keep track of.
-
-Luckily, the EVM template already contains a schema that defines the exact entities we need for the purpose of this guide. For this reason, changes are necessary, but it's still useful to explain what is going on.
+The next thing to do, in order to customize the project for our own purpose, is to make changes to `schema.graphql` defining the target data entities and the entity relations. The database migrations and TypeORM entities will be auto-generated from the schema files at the later steps.
 
 To index ERC-721 token transfers, we will need to track:
 
@@ -97,38 +98,33 @@ It's worth noting a couple of things in this [schema definition](https://docs.su
 * **type references** (i.e. `from: Owner`) - establishes a relation between two entities
 * **`@index`** - signals that the field should be indexed by the database. Very useful for increasing the performance on fields queried often.
 
-The template already has automatically generated TypeScript classes for this schema definition. They can be found under `src/model/generated`.
 
-Whenever changes are made to the schema, new TypeScript entity classes have to be generated and database schema has to be updated. Usually the easiest way to do so is to re-create the database from scratch. To do that run:
+Whenever changes are made to the schema, new TypeScript entity classes have to be (re)generated, and to do that we use the `squid-typeorm-codegen` tool. The pre-packaged `commands.json` already comes with a `codegen` shortcut, so we can invoke it with `sqd`:
 
 ```bash
-make codegen
-make build
-make down
-rm -rf db/migrations/*.js
-make up
-make migration
-make migrate
+sqd codegen
 ```
-
-See [this page](https://docs.subsquid.io/develop-a-squid/schema-file/schema-updates/) for more info.
 
 ## ABI Definition and Wrapper
 
-Squid SDK offers the `evm-typegen` tool for generating type-safe facade classes for decoding EVM smart contract transaction and log data. It uses the [`ethers.js`](https://docs.ethers.io/v5/) library under the hood and requires the contract [Application Binary Interface (ABI)](https://docs.ethers.io/v5/api/utils/abi/) as input. It accepts a local or remote path to the contract ABI, and also supports fetching public ABIs using an Etherscan-like API. See [the `evm-typegen` page](/develop-a-squid/typegen/squid-evm-typegen) for more details.
+Squid SDK offers the `squid-evm-typegen` tool for generating type-safe facade classes for decoding EVM smart contract transaction and log data. It uses [`ethers.js`](https://docs.ethers.io/v5/) under the hood and requires the contract [Application Binary Interface (ABI)](https://docs.ethers.io/v5/api/utils/abi/) as input. It accepts a local path or remote URL to the contract ABI, and also supports fetching public ABIs using an Etherscan-like API. 
+The tool comes predefined as `typegen` alias in `commands.json` so one can run
+```bash
+sqd typegen --help
+``` 
+for more usage options.
 
 In our case, we take the Exosama smart contract ABI from an external repo `subsquid/exosama-marketplace-squid`. The `exo` suffix after the `#` delimiter indicates the basename (`exo`) for the generated classes in the target (`src/abi`) folder.
 ```bash
-npx squid-evm-typegen src/abi https://raw.githubusercontent.com/subsquid/exosama-marketplace-squid/master/src/abi/ExosamaCollection.json#exo --clean
+sqd typegen src/abi https://raw.githubusercontent.com/subsquid/exosama-marketplace-squid/master/src/abi/ExosamaCollection.json#exo --clean
 ```
 
 :::info
-For contacts with public ABIs, `squid-evm-typegen` can fetch the ABI by address using the Etherescan API. For example: 
+For contacts with public ABIs, `sqd typegen` can fetch the ABI by address using the Etherescan API. For example: 
 
 ```bash
-npx squid-evm-typegen src/abi 0xac5c7493036de60e63eb81c5e9a440b42f47ebf5#my-contract 
+sqd typegen src/abi 0xac5c7493036de60e63eb81c5e9a440b42f47ebf5#my-contract 
 ```
-For more details, consult the built-in help with `npx squid-evm-typegen --help`.
 
 **Caveat:** in the wild, many contracts employ the [transparent proxy pattern](https://eips.ethereum.org/EIPS/eip-1967) and only expose the ABI for contract updates. To index the ongoing contract activity one must use the ABI of the implementation contract. To find this contract, visit the Etherscan page of the proxy contract, go to the "Contract" tab of contract details and look for the "Read as Proxy" button.
 :::
@@ -138,7 +134,7 @@ For more details, consult the built-in help with `npx squid-evm-typegen --help`.
 
 For the purpose of this tutorial, we are going to hardcode the information of the contract itself, including the total supply, the token name, and symbol. While this information can actually be sourced by accessing the state of the contract on-chain, this would have added complexity to the project. To isolate this part of our codebase, and potentially make it easier to improve it in the future, let's create a file named `src/contract.ts`, which will contain:
 
-* The chain node endpoint (necessary for accessing the contract state). If you don't have access to a private Ethereum node endpoint, you can search for a public one [here](https://ethereumnodes.com/), be sure to use a WebSocket endpoint.
+* The chain node endpoint (necessary for accessing the contract state). If you don't have access to a private Ethereum node endpoint, you can search for a public one [here](https://ethereumnodes.com/)
 * The contract's address (`0xac5c7493036de60e63eb81c5e9a440b42f47ebf5`)
 * A singleton instance of the `Contract` model, abstracting the database
 * A function that will create and save an instance of `Contract` on the database, if one does not exist already. This is where the hardcoded values will go, for now.
@@ -174,7 +170,7 @@ export async function getOrCreateContractEntity(store: Store): Promise<Contract>
 
 ## Define logic to handle and save Events & Function calls
 
-The Subsquid SDK provides users with the `EvmBatchProcessor`, that connects to the [Subsquid archive](/overview) to get chain data and apply custom transformation. It will index from the starting block, until the end block (if these are set in the configuration), or until new data is added to the chain.
+The Subsquid SDK provides users with the `EvmBatchProcessor`, that connects to the [Subsquid archive](/overview) to get chain data and apply custom transformation. It will index from the starting block and keep up with the new blocks after reaching the tip.
 
 The processor exposes methods to "subscribe" to EVM logs or smart contract function calls. These methods can be configured by specifying the EVM log contract address, and the signature of the EVM event, for example. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for *batches* of the data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive itself.
 
@@ -192,8 +188,8 @@ We have to make substantial changes here, and add the bulk of our logic. Here is
 
 * Instantiate `TypeormDatabase` and `EvmBatchProcessor` classes (already present)
 * Configure the processor by setting the block range, the Archive and RPC node endpoints, and subscribe to logs of the Exosama contract with the `setBlockRange`, `setDataSource` and `addLog` functions, respectively
-* Declare a function to handle the EVM logs, using the decoding functions defined in `exo.ts` by the `evm-typegen` tool
-* Declare a second function to save all the data extracted from the batch in one go. Saving vectors of models, instead of a single instance at a time will guarantee a much better performance and it is the preferred way to go
+* Declare a function to handle the EVM logs, using the decoding functions defined in `exo.ts` by the `sqd typegen` tool
+* Declare a second function to save all the data extracted from the batch in one go. Saving vectors of models, instead of a single instance at a time will guarantee a much better performance, and it is the preferred way to go
 * Call the `processor.run()` function to start the data processing. This will unbundle the batch of EVM logs and use the previous two functions to handle and save data
 
 And here is a code snippet with the final result:
@@ -218,7 +214,7 @@ const processor = new EvmBatchProcessor()
   .setBlockRange({ from: 15584000 })
   .setDataSource({
     chain: process.env.RPC_ENDPOINT,
-    archive: 'https://eth.archive.subsquid.io',
+    archive: lookupArchive('eth-mainnet'),
   })
   .addLog(contractAddress, {
     filter: [[exo.events.Transfer.topic]],
@@ -396,7 +392,7 @@ transfersData.map(t => [EXOSAMA_NFT_CONTRACT, [BigNumber.from(t.tokenId)]] as [s
 tells that it should be called with a single argument `tokenId` for each entity in the `transfersData` array.
 The last argument `100` corresponds to the page size, meaning that `tryAggreagate` splits the incoming array of calls to be executed into chunks of size `100`. If the page size is too large, the RPC node may time out or bounce the request.
 
-For more details on this, see the Multicall section of the [`evm-typegen` page](/develop-a-squid/typegen/squid-evm-typegen)
+For more details on see the Multicall section of the [`evm-typegen` page](/develop-a-squid/typegen/squid-evm-typegen)
 :::
 
 :::warning
@@ -424,30 +420,26 @@ To set up the database, you can take the following steps:
 1. Build the code
 
     ```bash
-    npm run build
+    sqd build
     ```
 
-2. Make sure the Postgres Docker container, `squid-template_db_1`, is running (exact name of the container could be slightly different)
+2. Make sure you start with a clean Postgres database. The following commands drop-create a new Postgres instance in Docker.
 
     ```bash
-    docker ps -a
+    sqd down
+    sqd up
     ```
 
-3. Remove existing migration(s), they are placed under the `db/migrations` folder
+3. Generate the new migration (will wipe the existing ones)
 
     ```bash
-    rm db/migrations/*js
+    sqd migration:generate
     ```
-
-4. Generate the new migration
-
-    ```bash
-    npx squid-typeorm-migration generate
-    ```
-5. Apply the migration, so tables are created on the database
+    
+4. Apply the migration, so tables are created on the database
 
     ```bash
-    npx squid-typeorm-migration apply
+    sqd migration:apply
     ```
 
 ## Launch the Project
@@ -455,7 +447,7 @@ To set up the database, you can take the following steps:
 To launch the processor (this will block the current terminal), you can run the following command:
 
 ```bash
-make process
+sqd process
 ```
 :::info
 This is an example of some of the command shortcuts that can be found in `Makefile`. Feel free to use them, to increase your productivity.
@@ -466,7 +458,7 @@ This is an example of some of the command shortcuts that can be found in `Makefi
 Finally, in a separate terminal window, launch the GraphQL server:
 
 ```bash
-npx squid-graphql-server
+sqd serve
 ```
 
 Visit [`localhost:4350/graphql`](http://localhost:4350/graphql) to access the [GraphiQL](https://github.com/graphql/graphiql) console. From this window, you can perform queries such as this one, to find out the account owners with the biggest balances:

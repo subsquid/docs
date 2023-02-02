@@ -1,16 +1,15 @@
 ---
 id: create-a-simple-squid
 description: >-
-  This tutorial shows how to fork and customize the squid template in order to create a
-  simple project
+  Build a starter squid for Substrate
 sidebar_position: 4
 ---
 
-# Create a Simple Substrate Squid
+# Simple Substrate squid
 
 ## Objective
 
-The goal of this tutorial is to guide you through creating and customizing a simple squid (API) using the Subsquid framework. The blockchain queried in this example will be the [Crust storage network](https://crust.network) and our final objective will be to observe which files have been added and deleted from the network. Additionally, our squid will be able to tell us the groups joined and the storage orders placed by a given account.
+The goal of this tutorial is to guide you through creating and customizing a simple squid the Squid SDK. The blockchain queried in this example will be the [Crust storage network](https://crust.network) and our final objective will be to observe which files have been added and deleted from the network. Additionally, our squid will be able to tell us the groups joined and the storage orders placed by a given account.
 
 We will start by forking the Subsquid squid template, then go on to run the project, define a schema, and generate TypeScript interfaces. From there, we will be able to interact directly with the Archive, and extract a types bundle from Crust's own library. 
 
@@ -26,9 +25,13 @@ The minimum requirements for this tutorial are as follows:
 - Basic command line knowledge 
 - Setup [Squid CLI](/squid-cli)
 
+:::info
+This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands. Feel free to add or modify the scripts and inspect with `sqd --help`.
+:::
+
 ## Scaffold with `sqd init`
 
-Use [`sqd init`](/squid-cli/init) and come up with some unique name for your squid. This tutorial will index data on Crust, a Substrate-based network, so use the `substrate` template
+Use [`sqd init`](/squid-cli/init) and come up with some unique name for you squid. This tutorial will index data on Crust, a Substrate-based network, so use the `substrate` template
 
 ```sh
 sqd init substrate-crust-tutorial --template substrate
