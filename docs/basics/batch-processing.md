@@ -134,3 +134,43 @@ processor.run(new TypeormDatabase(), async (ctx) => {
     await ctx.store.save([...gravatars.values()])
 });
 ```
+
+## Migrate from handlers
+
+Batch-based processing can be used as a drop-in replacement for the handler based mappings employed by e.g. subgraphs. While the handler-based processing is significantly slower due to excessive database lookups and writes, it may be a good intermediary step while migrating an existing subgraph to Squid SDK.
+
+One can simply re-use the existing handlers while looping over the `ctx` items:
+
+```ts
+processor.run(new TypeormDatabase(), async (ctx) => {
+  for (const c of ctx.blocks) {
+    for (const item of c.items) {
+      switch (item.kind) {
+        case 'evmLog':
+          switch (item.evmLog.topics[0]) {
+            case events.FooEvent.topic:
+              handleFooEvent(ctx, item.evmLog)
+              continue
+            case events.BarEvent.topic:
+              handleFooEvent(ctx, item.evmLog)
+              continue
+            default:
+                continue
+          }
+        case 'transaction':
+          // 0x + 4 bytes
+          const sighash = item.transaction.input.slice(0, 10)
+          // transfer(address,uint256) sighash
+          switch (sighash) {
+            case '0xa9059cbb':
+              handleTransferTx(ctx, item.transaction)
+              continue
+            // other tx handlers
+          }  
+        default:
+          continue
+      }
+    }
+  }
+});
+```
