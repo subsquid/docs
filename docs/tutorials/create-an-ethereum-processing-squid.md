@@ -33,7 +33,7 @@ This tutorial uses custom scripts defined in `commands.json`. The scripts are au
 
 ## Scaffold using `sqd init`
 
-We will start of the `evm` template of [`sqd init`](/squid-cli/init) which is based on this [repository](https://github.com/subsquid/squid-evm-template).
+We will start with the `evm` template of [`sqd init`](/squid-cli/init) which is based on this [repository](https://github.com/subsquid/squid-evm-template).
 
 ```bash
 sqd init evm-tutorial --template evm
