@@ -16,19 +16,21 @@ The schema file also defines the GraphQL API of the [OpenReader](https://github.
 
 ## Entities
 
-Entities are defined by root-level GraphQL types decorated with `@entity`. The entity names and the properties are expected to be camelCased and are converted into snake_cased database tables and columns. The primary key column is always mapped to the entity field of a special `ID` type. Non-nullable fields are marked with an exclamation mark (`!`) and are nullable otherwise. 
+Entities are defined by the root-level GraphQL types decorated with `@entity`. Names and properties of entities are expected to be camelCased. They are converted into snake_case for use as the corresponding database table and column names. The primary key column is always mapped to the entity field of a special `ID` type mapped as string (`varchar`). Non-nullable fields are marked with an exclamation mark (`!`) and are nullable otherwise.
 
 The following [scalar types](https://graphql.org/learn/schema/#scalar-types) are supported by the `schema.graphql` dialect:
 
 - `Boolean` (mapped to `bool`)
-- `BigInt` (mapped to `numeric`)
-- `DateTime` (mapped to `timestamptz`)
-- `Bytes` (mapped to `bytea`)
-- `JSON` (mapped to `jsonb`)
+- `BigInt` (mapped to `numeric`, ts type `bigint`)
+- `BigDecimal` (mapped to `numeric`, ts type `BigDecimal` of [`@subsquid/big-decimal`](https://www.npmjs.com/package/@subsquid/big-decimal))
+- `DateTime` (mapped to `timestamptz`, ts type `Date`)
+- `Bytes` (mapped to `bytea`, ts type `UInt8Array`)
+- `JSON` (mapped to `jsonb`, ts type `unknown`)
 - `String` (mapped to `text`)
 - `Int` (mapped to `int4`)
 - Enums (mapped to `text`)
 - User-defined scalars (non-entity types). Such properties are mapped as `jsonb` columns.
+
 
 **Example** 
 ```graphql
