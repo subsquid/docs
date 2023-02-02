@@ -11,10 +11,11 @@ Entities are defined by root-level GraphQL types decorated with `@entity`. Names
 The following [scalar types](https://graphql.org/learn/schema/#scalar-types) are supported by the `schema.graphql` dialect:
 
 - `Boolean` (mapped to `bool`)
-- `BigInt` (mapped to `numeric`)
-- `DateTime` (mapped to `timestamptz`)
-- `Bytes` (mapped to `bytea`)
-- `JSON` (mapped to `jsonb`)
+- `BigInt` (mapped to `numeric`, ts type `bigint`)
+- `BigDecimal` (mapped to `numeric`, ts type `BigDecimal` of [`@subsquid/big-decimal`](https://www.npmjs.com/package/@subsquid/big-decimal))
+- `DateTime` (mapped to `timestamptz`, ts type `Date`)
+- `Bytes` (mapped to `bytea`, ts type `UInt8Array`)
+- `JSON` (mapped to `jsonb`, ts type `unknown`)
 - `String` (mapped to `text`)
 - `Int` (mapped to `int4`)
 - Enums (mapped to `text`)
