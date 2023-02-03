@@ -10,7 +10,7 @@ description: Introducing Subsquid, an on-chain data indexing framework and platf
 The Subsquid services stack separates data ingestion (Archives) from data transformation and presentation (squids). 
 **Archives** ingest and store raw blockchain data in a normalized way. Archives can be thought of as specialized data lakes optimized for storing and filtering large volumes of raw on-chain-data. 
 
-Squid Projects (or simply **Squids**) are [Extract-Tranfsorm-Load-Query (ETLQ)](https://en.wikipedia.org/wiki/Extract,_transform,_load) projects that ingest historical on-chain data from Archives, transforming it according to user-defined data mappers. Squids are typically configured to present this data as a GraphQL API. Squids are built using the open-source [Squid SDK](https://github.com/subsquid/squid-sdk).
+Squid Projects (or simply **Squids**) are [Extract-Transform-Load-Query (ETLQ)](https://en.wikipedia.org/wiki/Extract,_transform,_load) projects that ingest historical on-chain data from Archives, transforming it according to user-defined data mappers. Squids are typically configured to present this data as a GraphQL API. Squids are built using the open-source [Squid SDK](https://github.com/subsquid/squid-sdk).
 
 The separation of the data extraction layer (Archives) and the data transformation and presentation layers (squids) make squids lightweight, while achieving indexing speeds up to 50000 blocks per second. Indeed, since the on-chain data is consumed from Archives there is no need for setup high-throuput node infrastructure. Squids can be run locally, on-premises or deployed to the [Aquarium hosted service](/deploy-squid).
 
