@@ -108,22 +108,23 @@ sqd codegen
 ## ABI Definition and Wrapper
 
 Squid SDK offers the `squid-evm-typegen` tool for generating type-safe facade classes for decoding EVM smart contract transaction and log data. It uses [`ethers.js`](https://docs.ethers.io/v5/) under the hood and requires the contract [Application Binary Interface (ABI)](https://docs.ethers.io/v5/api/utils/abi/) as input. It accepts a local path or remote URL to the contract ABI, and also supports fetching public ABIs using an Etherscan-like API. 
-The tool comes predefined as `typegen` alias in `commands.json` so one can run
-```bash
-sqd typegen --help
-``` 
-for more usage options.
+The tool comes predefined as a `typegen` alias in `commands.json`.
 
-In our case, we take the Exosama smart contract ABI from an external repo `subsquid/exosama-marketplace-squid`. The `exo` suffix after the `#` delimiter indicates the basename (`exo`) for the generated classes in the target (`src/abi`) folder.
+In our case, we take the Exosama smart contract ABI from an external repo `subsquid/exosama-marketplace-squid`. 
+We download the ABI with `cURL` into the `abi` folder pre-configured in the evm template. The filename we choose (`exo.json`) corresponds to the basename (`exo`) for the generated classes in the target (`src/abi`) folder.
 ```bash
-sqd typegen src/abi https://raw.githubusercontent.com/subsquid/exosama-marketplace-squid/master/src/abi/ExosamaCollection.json#exo --clean
+curl https://raw.githubusercontent.com/subsquid/exosama-marketplace-squid/master/src/abi/ExosamaCollection.json -o abi/exo.json
 ```
 
 :::info
-For contacts with public ABIs, `sqd typegen` can fetch the ABI by address using the Etherescan API. For example: 
+The full version of the `squid-evm-typegen` version, invoked with `npx squid-evm-typegen` allows fetching the ABI by address using the Etherescan API. For example: 
 
 ```bash
-sqd typegen src/abi 0xac5c7493036de60e63eb81c5e9a440b42f47ebf5#my-contract 
+npx squid-evm-typegen src/abi 0xac5c7493036de60e63eb81c5e9a440b42f47ebf5#my-contract 
+```
+Inspect all available options with
+```bash
+npx squid-evm-typegen --help
 ```
 
 **Caveat:** in the wild, many contracts employ the [transparent proxy pattern](https://eips.ethereum.org/EIPS/eip-1967) and only expose the ABI for contract updates. To index the ongoing contract activity one must use the ABI of the implementation contract. To find this contract, visit the Etherscan page of the proxy contract, go to the "Contract" tab of contract details and look for the "Read as Proxy" button.
