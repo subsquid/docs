@@ -1,10 +1,8 @@
 # Queries
 
 :::warning
-The Giant Squid API is currently under active development and this part of the documentation is largely outdated. Reach out at [DevSquid chat](https://t.me/HydraDevs) to get support on the Giant Squid API.
+The Giant Squid API is currently under active development and this part of the documentation is largely outdated. Reach out at [SquidDevs chat](https://t.me/HydraDevs) to get support on the Giant Squid API.
 :::
-
-The Giant Squid API is available at [this endpoint](https://graphql-console.subsquid.io/?graphql\_api=https://app.devsquid.net/squids/super-api/v2/graphql) and here is a look at the GraphiQL playground interface.
 
 ![Giant Squid API GraphiQL console](</img/.gitbook/assets/image-3.png>)
 
