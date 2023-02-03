@@ -4,8 +4,6 @@
 The Giant Squid API is currently under active development and this part of the documentation is largely outdated. Reach out at [SquidDevs chat](https://t.me/HydraDevs) to get support on the Giant Squid API.
 :::
 
-![Giant Squid API GraphiQL console](</img/.gitbook/assets/image-3.png>)
-
 ## Examples
 
 Each chain is represented as its own type and has to be queried separately, for example, the following query:
