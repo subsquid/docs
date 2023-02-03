@@ -10,11 +10,233 @@ The `substrate-gateway` services exposes a single `graphql` endpoint.
 The list of Substrate archives is available at the [Aquarium page](https://app.subsquid.io/archives), under `Data Source URL`
 Use [GraphQL Console](https://graphql-console.subsquid.io/) for a live playground and the GraphQL introspection.
 
+## Batch query
+
+Extracts a batch of block headers, calls and events matching the requested filters and data selectors.
+
+```graphql
+query {
+  batch(
+    """
+    Selector for the Substrate runtime calls 
+    """
+    calls: [CallSelectionInput!]
+    """
+    Selector for `Ethereum.transact` calls. Only for Frontier EVM networks
+    """
+    ethereumTransactions: [EthereumTransactionSelection!]
+    """
+    Selector for the Substrate runtime events 
+    """
+    events: [EventSelection!]
+    """
+    Selector for `EVM.Log` events. Only for Frontier EVM networks
+    """
+    evmLogs: [EvmLogSelection!]
+    """
+    Block range start
+    """
+    fromBlock: Int! = 0
+    """
+    Include headers for all blocks in the range. If set to `false` only the headers of the blocks with calls/events/transactions matching the filter are included in the result
+    """
+    includeAllBlocks: Boolean
+    """
+    Max number of blocks in the batch
+    """
+    limit: Int
+    """
+    Max batch range. 
+    The query returns a batch in the interval `[fromBlock, endBlock]` where
+    `endBlock` never exceeds `toBlock` but may be smaller
+    """
+    toBlock: Int): [Batch!]!
+}
+
+type Batch {
+    """
+    Headers for the blocks in the batch
+    """
+    header: BlockHeader!
+    """
+    Call data matching the selectors
+    """
+    calls: [JSON!]!
+    """
+    Extrinsic data matching the selectors
+    """
+    extrinsics: [JSON!]!
+    """
+    Event data matching the selectors
+    """
+    events: [JSON!]!
+}
+
+type BlockHeader {
+    id: String!
+    height: Int!
+    hash: String!
+    parentHash: String!
+    stateRoot: String!
+    extrinsicsRoot: String!
+    timestamp: DateTime!
+    specId: String!
+    validator: String
+}
+```
+
+### Call selectors
+
+```graphql
+type CallSelectionInput {
+    """
+    Filter by name
+    """
+    name: String!
+    """
+    Fetch the data from the selector
+    """
+    data: CallDataSelection
+}
+
+type CallDataSelection {
+    """
+    Call data
+    """
+    call: CallFields
+    """
+    Parent extrinsic data
+    """
+    extrinsic: ExtrinsicFields
+}
+
+type CallFields {
+    """
+    Include all fields
+    """
+    _all: Boolean
+    error: Boolean
+    origin: Boolean
+    args: Boolean
+    """
+    Field selector for the parent call
+    """
+    parent: ParentCallFields
+}
+
+type ExtrinsicFields {
+    _all: Boolean
+    indexInBlock: Boolean
+    version: Boolean
+    signature: Boolean
+    success: Boolean
+    error: Boolean
+    hash: Boolean
+    call: CallFields
+    fee: Boolean
+    tip: Boolean
+}
+
+type ParentCallFields {
+    """
+    `True` to include all the fields
+    """
+    _all: Boolean
+    args: Boolean
+    error: Boolean
+    origin: Boolean
+    """
+    `True` if include the parent call data should be included
+    """
+    parent: Boolean
+}
+```
+
+### Event selectors
+
+```graphql
+type EventSelection {
+    name: String!
+    data: EventDataSelection
+}
+
+type EventDataSelection {
+    event: EventFields
+}
+
+type EventFields {
+    """
+    Include all field
+    """
+    _all: Boolean
+    indexInBlock: Boolean
+    phase: Boolean
+    """
+    Field selector for the extrinsic emitted the event
+    """
+    extrinsic: ExtrinsicFields
+    """
+    Field selector for the call emitted the event
+    """
+    call: CallFields
+    args: Boolean
+}
+
+```
+
+### Frontier-EVM selectors
+
+The selectors apply only for Frontier-EVM networks
+
+```graphql
+type EthereumTransactionSelection {
+    """
+    Filter by the destination contract address
+    """
+    contract: String!
+    """
+    Filter by sighash
+    """
+    sighash: String
+    data: CallDataSelection
+}
+
+type EvmLogSelection {
+    """
+    Filter by the contract address emitted the EVM log
+    """
+    contract: String!
+    """
+    Topic filter according to the EVM spec
+    """
+    filter: [[String!]!]
+    data: EvmLogDataSelection
+}
+
+type EvmLogDataSelection {
+    event: EvmLogFields
+}
+
+type EvmLogFields {
+    _all: Boolean
+    indexInBlock: Boolean
+    phase: Boolean
+    extrinsic: ExtrinsicFields
+    call: CallFields
+    args: Boolean
+    evmTxHash: Boolean
+}
+```
+
+
 ## Metadata
 
-```gql
+```graphql
 query {
   metadata: [Metadata!]!
+  """
+  Get metadata by metadata ID
+  """
   metadataById(id: String!): Metadata
 }
 
@@ -43,7 +265,7 @@ type Metadata {
 
 ## Status
 
-```gql
+```graphql
 query {
   status: Status!
 }
