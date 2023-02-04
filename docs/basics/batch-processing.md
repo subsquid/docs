@@ -137,7 +137,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 ## Migrate from handlers
 
-Batch-based processing can be used as a drop-in replacement for the handler based mappings employed by e.g. subgraphs. While the handler-based processing is significantly slower due to excessive database lookups and writes, it may be a good intermediary step while migrating an existing subgraph to Squid SDK.
+Batch-based processing can be used as a drop-in replacement for the handler based mappings employed by e.g. subgraphs. While the handler-based processing is significantly slower due to excessive database lookups and writes, it may be a good intermediary step while [migrating an existing subgraph to Squid SDK](/migrate/migrate-subgraph/).
 
 One can simply re-use the existing handlers while looping over the `ctx` items:
 
@@ -148,24 +148,27 @@ processor.run(new TypeormDatabase(), async (ctx) => {
       switch (item.kind) {
         case 'evmLog':
           switch (item.evmLog.topics[0]) {
-            case events.FooEvent.topic:
+            case abi.events.FooEvent.topic:
               await handleFooEvent(ctx, item.evmLog)
               continue
-            case events.BarEvent.topic:
+            case abi.events.BarEvent.topic:
               await handleFooEvent(ctx, item.evmLog)
               continue
             default:
-                continue
+              continue
           }
         case 'transaction':
           // 0x + 4 bytes
           const sighash = item.transaction.input.slice(0, 10)
-          // transfer(address,uint256) sighash
           switch (sighash) {
-            case '0xa9059cbb':
+            case '0xa9059cbb': // transfer(address,uint256) sighash
               await handleTransferTx(ctx, item.transaction)
               continue
-            // other tx handlers
+            case abi.functions.approve.sighash:
+              await handleApproveTx(ctx, item.transaction)
+              continue
+            default:
+              continue
           }  
         default:
           continue
