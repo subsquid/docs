@@ -90,7 +90,7 @@ query MyQuery {
 
 - Explore more [examples](/examples/substrate) of squids for substrate chains
 - Define the [data schema](/basics/schema-file) and customize the API
-- Explore how to use [typegen](/basics/typegen/squid-substrate-typegen) for type-safe on-chain data access
+- Explore how to use [typegen](/substrate-indexing/squid-substrate-typegen) for type-safe on-chain data access
 - Explore how to efficiently transform the on-chain [data in batches](/substrate-indexing)
 - Explore native support for [Moonriver, Moombeam and Astar EVMs](/substrate-indexing/evm-support)
 - Explore native support for [Ink! contracts](/substrate-indexing/wasm-support)

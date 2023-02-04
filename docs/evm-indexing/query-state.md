@@ -64,14 +64,14 @@ processor.run(new TypeormDatabase(), async ctx => {
 })
 ```
 
-For more information on EVM Typegen, see this [dedicated page](/basics/typegen/squid-evm-typegen).
+For more information on EVM Typegen, see this [dedicated page](/evm-indexing/squid-evm-typegen).
 
 
 ## Batch state queries
 
 The [MakerDAO Multicall contract](https://github.com/makerdao/multicall) was designed to batch multiple state queries into a single contract call. In the context of indexing, it normally significantly improves the indexing speed since multiple JSON RPC calls is typically a bottleneck.
 
-`Multicall` contracts are deployed in many EVM chains, see the [contract repo](https://github.com/makerdao/multicall) for the contract addresses. [`squid-evm-typegen`](/basics/typegen/squid-evm-typegen) generates a `Multicall` facade class and the method
+`Multicall` contracts are deployed in many EVM chains, see the [contract repo](https://github.com/makerdao/multicall) for the contract addresses. [`squid-evm-typegen`](/evm-indexing/squid-evm-typegen) generates a `Multicall` facade class and the method
 ```ts
 tryAggregate<Args extends any[], R>(
         func: Func<Args, {}, R>,

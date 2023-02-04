@@ -9,7 +9,7 @@ title: State queries
 
 It is sometimes impossible to extract the required data with only event and call data without querying the runtime state.
 The context exposes a lightweight gRPC client to the chain node accessible via `ctx._chain`. 
-It exposes low-lever method for accessing the storage. However, the recommended way to query the storage is by generating type-safe access classes with [Substrate typegen](/basics/typegen). 
+It exposes low-lever method for accessing the storage. However, the recommended way to query the storage is by generating type-safe access classes with [Substrate typegen](/substrate-indexing/squid-substrate-typegen). 
 
 To enable the gRPC client, **one must provide a `chain` data source to the processor**:
 

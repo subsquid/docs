@@ -2,7 +2,7 @@ const urlList = [
     {
         "to": "/basics/overview",
         "from": "/overview"
-    }, 
+    },
     {
         "from": "/develop-a-squid/evm-processor",
         "to": "/evm-indexing"
@@ -24,20 +24,12 @@ const urlList = [
         "to": "/graphql-api"
     },
     {
-        "from": "/develop-a-squid/typegen",
-        "to": "/basics/typegen"
-    },
-    {
         "from": "/develop-a-squid/typegen/squid-substrate-typegen",
-        "to": "/basics/typegen/squid-substrate-typegen"
+        "to": "/substrate-indexing/squid-substrate-typegen"
     },
     {
         "from": "/develop-a-squid/typegen/squid-evm-typegen",
-        "to": "/basics/typegen/squid-evm-typegen"
-    },
-    {
-        "from": "/develop-a-squid/typegen/squid-wasm-typegen",
-        "to": "/basics/typegen/squid-wasm-typegen/"
+        "to": "/evm-indexing/squid-evm-typegen"
     },
     {
         "from": "/develop-a-squid/evm-processor/configuration",

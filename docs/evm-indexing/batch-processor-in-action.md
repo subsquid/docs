@@ -23,7 +23,7 @@ make up
 
 ## 2. Generate entities and facade classes with the ABI
 
-Use [`evm-typegen`](/basics/typegen/squid-evm-typegen) to generate the facade classes:
+Use [`evm-typegen`](/evm-indexing/squid-evm-typegen) to generate the facade classes:
 ```bash
 npx squid-evm-typegen src/abi 0x2E645469f354BB4F5c8a05B3b30A929361cf77eC#Gravity --clean
 ```

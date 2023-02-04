@@ -72,7 +72,7 @@ The following command runs the `evm-typegen` tool fetches the contract ABI by th
 npx squid-evm-typegen src/abi 0x2E645469f354BB4F5c8a05B3b30A929361cf77eC#Gravity --clean
 ```
 
-A boilerplate code for decoding EVM logs and the contract access classes will be generated in `src/abi/Gravity.ts`. In particular, the file contains the topic definitions used at the next step.  For more details about the EVM typegen tool, read a [dedicated doc page](/basics/typegen/squid-evm-typegen).
+A boilerplate code for decoding EVM logs and the contract access classes will be generated in `src/abi/Gravity.ts`. In particular, the file contains the topic definitions used at the next step.  For more details about the EVM typegen tool, read a [dedicated doc page](/evm-indexing/squid-evm-typegen).
 
 ### Subscribe to EVM logs
 

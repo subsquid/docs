@@ -99,9 +99,9 @@ See [EvmBatchProcessor configuration](/evm-indexing/configuration) and [Substrat
 
 ### 6. Generate Typescript facade classes to decode the obtained on-chain data
 
-- For EVM data, use [`evm-typegen`](/basics/typegen/squid-evm-typegen)
-- For Substrate data, use [`substrate-typegen`](/basics/typegen/squid-evm-typegen)
-- For Ink! smart contract data, use [`ink-typegen`](/basics/typegen/squid-wasm-typegen)
+- For EVM data, use [`evm-typegen`](/evm-indexing/squid-evm-typegen)
+- For Substrate data, use [`substrate-typegen`](/substrate-indexing/squid-substrate-typegen)
+- For Ink! smart contract data, use [`ink-typegen`](https://github.com/subsquid/squid-sdk/tree/master/substrate/ink-typegen)
 
 ### 7. Define the processor batch handler for the `processor.run()` call
 
@@ -164,4 +164,4 @@ Follow the [Deploy Squid](/deploy-squid) section.
 ## What's next?
 
 - Learn from the [Squids examples](/examples)
-- Get familiar with the [typegen tools](/basics/typegen)
+- Get familiar with the typegen tools for [EVM](/evm-indexing/squid-evm-typegen) or [Substrate](/substrate-indexing/squid-substrate-typegen)

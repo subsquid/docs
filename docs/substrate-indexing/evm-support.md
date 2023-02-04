@@ -159,7 +159,7 @@ processor.run(new TypeormDatabase(), async ctx => {
 })
 ```
 
-For more information on EVM Typegen, see this [dedicated page](/basics/typegen/squid-evm-typegen).
+For more information on EVM Typegen, see this [dedicated page](/evm-indexing/squid-evm-typegen).
 
 ## Event and transaction data
 
