@@ -40,9 +40,14 @@ The secrets required by the squid must be defined in the [deployment manifest](/
 #...
 deploy:
   # the set of secrets that must be set and provided by Aquarium
+  # the secrets are exposed to all the deployed services
   secrets:
     - MOONRIVER_GRPC_ENDPOINT
-    - COINGECKO_API_KEY 
+    - COINGECKO_API_KEY
+  processor:
+    # processor service deployment
+  api:
+    # api service deployment
 ```
 
 :::warning
