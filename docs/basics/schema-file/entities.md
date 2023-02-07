@@ -6,7 +6,7 @@ description: >-
 
 # Entities
 
-Entities are defined by root-level GraphQL types decorated with `@entity`. Names and properties of entities are expected to be camelCased. They are converted into snake_case for use as database table and column names. The primary key column is always mapped to the entity field of a special `ID` type. Non-nullable fields are marked with an exclamation mark (`!`) and are nullable otherwise.
+Entities are defined by root-level GraphQL types decorated with `@entity`. Names and properties of entities are expected to be camelCased. They are converted into snake_case for use as the corresponding database table and column names. The primary key column is always mapped to the entity field of a special `ID` type mapped as string (`varchar`). Non-nullable fields are marked with an exclamation mark (`!`) and are nullable otherwise.
 
 The following [scalar types](https://graphql.org/learn/schema/#scalar-types) are supported by the `schema.graphql` dialect:
 
