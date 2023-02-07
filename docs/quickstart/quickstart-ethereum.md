@@ -1,16 +1,16 @@
 ---
 sidebar_position: 10
-title: EVM chains (minimal)
+title: EVM chains
 description: A minimal squid for EVM indexing
 ---
 
 # Quickstart: EVM chains
 
-This guide follows through the steps required to clone, build and run a template squid for EVM networks. The squid indexes transactions to the "black hole" address `0x0000000000000000000000000000000000000000` and persists the data into a Postgres database. It is intended to be a starter project for building a custom squid indexing logs and transactions data on Ethereum and other EVM chains.
+The `evm` squid template indexes transactions to the "black hole" address `0x0000000000000000000000000000000000000000`, persists its data into a Postgres database and serves it over a GraphQL API. It is intended to be a starter project for building a custom squid indexing logs and transactions data on Ethereum and other EVM chains.
 
 ## Pre-requisites
 
-Before getting to work on your very first squid, verify that you have installed the following software: 
+Before getting to work on your very first squid, verify that you have installed the following:
 
 - Node v16.x or newer
 - [Squid CLI](/squid-cli/installation) v2.1.0 or newer
@@ -21,7 +21,7 @@ Earlier versions of the template were based on `Makefile`. The new version uses 
 :::
 
 Please note:
-- The squid template is **not** compatible with `yarn`. Use `npm` instead.
+- The squid template is **not** compatible with `yarn` and expects a `npm`-generated `package-lock.json` file in the root.
 
 ## Step 1: Scaffold from a template
 
@@ -62,7 +62,7 @@ sqd up
 
 ## Step 6: Inspect and run the processor
 
-The squid fetches, aggregates and persists burn transactions in the `processor.run()` method. The `Burn` entity is defined in `schema.graphql`, and the TypeORM model class used by this template was generated with `sqd codegen`. You can learn more about this in the [development flow](/basics/squid-development) section.
+The squid fetches, aggregates and persists burn transactions in the `processor.run()` method. The `Burn` entity is defined in `schema.graphql`, and the TypeORM model class used by this template was generated with `sqd codegen`. You can learn more about this in the [squid development](/basics/squid-development) section.
  
 Let's run the processor:
 ```bash
@@ -94,11 +94,15 @@ query MyQuery {
 }
 ```
 
+## Step 8: Customize
+
+[Hack](/basics/schema-file) the schema file `schema.graphql` and the [processor](/evm-indexing) `src/processor.ts` to index the data your way!
+
 ## What's next?
 
 - [Migrate](/migrate/migrate-subgraph) the existing subgraphs to Subsquid
-- Define your own [data schema](/develop-a-squid/schema-file)
-- Explore examples of squids for EVM networks, from [simple transfer indexing to DEX analytics](/develop-a-squid/examples)
-- Dive deeper into [`EvmBatchProcessor`](/develop-a-squid/evm-processor)
-- Explore how to enhance the GraphQL API with [custom SQL, caching and limits](/develop-a-squid/graphql-api)
+- Define your own [data schema](/basics/schema-file)
+- Explore examples of squids for EVM networks, from [simple transfer indexing to DEX analytics](/examples)
+- Dive deeper into [`EvmBatchProcessor`](/evm-indexing)
+- Explore how to enhance the GraphQL API with [custom SQL, caching and limits](/graphql-api)
 - [Deploy](/deploy-squid) the squid to the Aquarium hosted service

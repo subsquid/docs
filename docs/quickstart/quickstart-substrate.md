@@ -6,14 +6,14 @@ description: A simple squid for Substrate indexing transfers
 
 # Quickstart: Substrate chains
 
-This guide follows through the steps required to clone, build and run a template squid for substrate networks. The squid indexes transfers on the Kusama network. It is intended to be a stepping stone for building a custom squid for any Substrate-based chain.
+The `substrate` squid template indexes transfers on the Kusama network. It is intended to be a stepping stone for building a custom squid for any Substrate-based chain. 
 
 ## Pre-requisites
 
 Before getting to work on your very first squid, verify that you have installed the following software: 
 
 - Node v16.x or newer
-- [Squid CLI](/squid-cli) v2.1.0 or newer
+- [Squid CLI](/squid-cli/installation) v2.1.0 or newer
 
 Please note:
 - The squid template is **not** compatible with `yarn`. Use `npm` instead.
@@ -55,7 +55,7 @@ sqd up
 
 ## Step 5: Create the database schema and run the processor
 
-The squid we have just built ingests pre-indexed data from a Kusama Archive. This data is then transformed, as defined by the data handler in `processor.ts`.
+The squid we have just built ingests pre-indexed data from a Kusama Archive. This data is then transformed, as defined by the data handler supplied to the `processor.run()` call in `src/processor.ts`.
  
 This command will keep the console busy until manually terminated:
 
@@ -65,7 +65,7 @@ sqd process
 
 ## Step 6: Start the GraphQL server
 
-This should be run in a separate terminal window:
+Run in a separate terminal window:
 
 ```bash
 sqd serve
@@ -84,7 +84,7 @@ query MyQuery {
 
 ## Step 7: Customize
 
-[Hack](/basics/squid-development) `schema.graphql` and `src/processor.ts` to customize your squid!
+[Hack](/basics/schema-file) the schema file `schema.graphql` and the [processor](/substrate-indexing) `src/processor.ts` to index the data your way. Choose any supported network using the `lookupArchive()` method of [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) or [run one locally](/archives/).
 
 ## What's next?
 
