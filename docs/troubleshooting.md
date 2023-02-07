@@ -16,7 +16,7 @@ npm update -g @subsquid/cli
 ```bash
 npm run update
 ```
-- Check that the squid adheres to the expected [structure](/develop-a-squid/squid-structure)
+- Check that the squid adheres to the expected [structure](/basics/squid-structure)
 - Make sure you can [build and run Docker images locally](/run-squid/run-in-docker)
 - Make sure the squid source URL follows the format `https://github.com/my-account/my-squid-repo.git#my-branch`
 - If the squid is deployed from a private repository, make sure you provide an [access key](/deploy-squid/#option-2-explicitly-set-the-source-url)
@@ -29,7 +29,7 @@ Since both the squid and version name become part of the squid API endpoint URL,
 ### `driverError: error: relation "..." does not exist` in the processor logs
 
 It is likely that the generated migrations in the `db/migrations` folder are outdated and do not match the schema file.
-Recreate the migrations from scratch as detailed in [this page](/develop-a-squid/schema-file/schema-updates/#drop-create)
+Recreate the migrations from scratch as detailed in [this page](/basics/db-migrations/#updating-after-schema-changes)
 
 ### `Query runner already released. Cannot run queries anymore` in the processor logs
 
@@ -46,12 +46,12 @@ PostgreSQL doesn't support storing `NULL (\0x00)` characters in text fields. Usu
 
 ### API queries are too slow
 
-- Make sure all the necessary fields are [indexed](/develop-a-squid/schema-file/indexes-and-constraints/)
-- Annotate the schema and [set reasonable limits](/develop-a-squid/graphql-api/dos-protection/) for the incoming queries to protect against DoS attacks
+- Make sure all the necessary fields are [indexed](/basics/schema-file/indexes-and-constraints/)
+- Annotate the schema and [set reasonable limits](/graphql-api/dos-protection/) for the incoming queries to protect against DoS attacks
 
 ### `response might exceed the size limit`
 
-Make sure the input query has limits set or the entities are decorated with `@cardinality`. We recommend using `XXXConnection` queries for pagination. For configuring limits and max response sizes, see [DoS protection](/develop-a-squid/graphql-api/dos-protection/).
+Make sure the input query has limits set or the entities are decorated with `@cardinality`. We recommend using `XXXConnection` queries for pagination. For configuring limits and max response sizes, see [DoS protection](/graphql-api/dos-protection/).
 
 ### My squid run out of disk space
 

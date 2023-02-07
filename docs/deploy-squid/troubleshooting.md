@@ -8,7 +8,7 @@ description: Common gotchas deploying a squid
 
 Below are the most common deployment issues:
 
-- Unexpected folder structure. See [the squid structure](/develop-a-squid/squid-structure) for details.
+- Unexpected folder structure. See [the squid structure](/basics/squid-structure) for details.
 - Docker build failures. Build a Docker images locally (see below) to troubleshoot.
 - Database migration failures. Troubleshoot by executing the DB migration locally with a locally built image (see below).
 - Outdated Squid SDK packages. Update to the latest SDK lib versions with `npm run update`.
