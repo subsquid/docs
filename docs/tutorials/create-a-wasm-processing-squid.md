@@ -141,7 +141,7 @@ This command will automatically generate a TypeScript file named `erc20.ts`, und
 
 ## Define and Bind Event Handler(s)
 
-The Subsquid SDK provides users with a [processor](/develop-a-squid/substrate-processor) class, named `SubstrateProcessor` or, in this specific case [`SubstrateBatchProcessor`](/develop-a-squid/substrate-processor/batch-processor-in-action). The processor connects to the Shibuya [Archive](/archives) to get chain data. 
+The Subsquid SDK provides users with a [processor](/substrate-indexing) class, named `SubstrateProcessor` or, in this specific case [`SubstrateBatchProcessor`](/substrate-indexing/batch-processor-in-action). The processor connects to the Shibuya [Archive](/archives) to get chain data. 
 
 The `SubstrateBatchProcessor` class exposes functions to configure it to request the Archive for specific on-chain data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. The processor allows one to subscribe for such events emitted by a specific contract using one or multiple WASM handlers. 
 

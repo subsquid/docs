@@ -1,5 +1,5 @@
 ---
-sidebar_position: 30
+sidebar_position: 20
 title: Substrate chains
 description: A simple squid for Substrate indexing transfers
 ---
@@ -13,7 +13,7 @@ The `substrate` squid template indexes transfers on the Kusama network. It is in
 Before getting to work on your very first squid, verify that you have installed the following software: 
 
 - Node v16.x or newer
-- [Squid CLI](/squid-cli) v2.1.0 or newer
+- [Squid CLI](/squid-cli/installation) v2.1.0 or newer
 
 Please note:
 - The squid template is **not** compatible with `yarn`. Use `npm` instead.
@@ -55,7 +55,7 @@ sqd up
 
 ## Step 5: Create the database schema and run the processor
 
-The squid we have just built ingests pre-indexed data from a Kusama Archive. This data is then transformed, as defined by the `processor.run()` call in `src/processor.ts`.
+The squid we have just built ingests pre-indexed data from a Kusama Archive. This data is then transformed, as defined by the data handler supplied to the `processor.run()` call in `src/processor.ts`.
  
 This command will keep the console busy until manually terminated:
 
@@ -84,16 +84,16 @@ query MyQuery {
 
 ## Step 7: Customize
 
-[Hack](/develop-a-squid/schema-file) the schema file `schema.graphql` and the [processor](/develop-a-squid/substrate-processor) `src/processor.ts` to index the data your way. Choose any supported network using the `lookupArchive()` method of [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) or [run one locally](/archives/).
+[Hack](/basics/schema-file) the schema file `schema.graphql` and the [processor](/substrate-indexing) `src/processor.ts` to index the data your way. Choose any supported network using the `lookupArchive()` method of [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) or [run one locally](/archives/).
 
 ## What's next?
 
-- Explore more [examples](/develop-a-squid/examples#substrate-processor) of squids for substrate chains
-- Define the [data schema](/develop-a-squid/schema-file) and customize the API
-- Explore how to use [typegen](/develop-a-squid/typegen/squid-substrate-typegen) for type-safe on-chain data access
-- Explore how to efficiently transform the on-chain [data in batches](/develop-a-squid/substrate-processor)
-- Explore native support for [Moonriver, Moombeam and Astar EVMs](/develop-a-squid/substrate-processor/evm-support)
-- Explore native support for [Ink! contracts](/develop-a-squid/substrate-processor/wasm-support)
-- Explore native support for [Gear contracts](/develop-a-squid/substrate-processor/gear-support)
-- Explore native support for [Acala EVM+ contracts](/develop-a-squid/substrate-processor/acala-evm-support)
+- Explore more [examples](/examples/#substrate-processor) of squids for substrate chains
+- Define the [data schema](/basics/schema-file) and customize the API
+- Explore how to use [typegen](/substrate-indexing/squid-substrate-typegen) for type-safe on-chain data access
+- Explore how to efficiently transform the on-chain [data in batches](/substrate-indexing)
+- Explore native support for [Moonriver, Moombeam and Astar EVMs](/substrate-indexing/evm-support)
+- Explore native support for [Ink! contracts](/substrate-indexing/wasm-support)
+- Explore native support for [Gear contracts](/substrate-indexing/gear-support)
+- Explore native support for [Acala EVM+ contracts](/substrate-indexing/acala-evm-support)
 - [Deploy](/deploy-squid) the squid to the Aquarium hosted service

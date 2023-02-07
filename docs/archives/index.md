@@ -1,5 +1,5 @@
 ---
-sidebar_position: 90
+sidebar_position: 45
 title: Squid Archives
 ---
 
