@@ -13,20 +13,20 @@ git clone https://github.com/subsquid/gravatar-squid.git
 
 `EvmBatchProcessor` provided by the Squid SDK defines a single handler that indexes EVM logs and transaction data in batches of heterogeneous items.  It differs from the programming model of subgraph mappings, that define a separate data handler for each EVM log topic to be indexed. Due to significantly less frequent database hits (once per batch compared to once per log) the batch-based handling model shows up to a 10x increase in the indexing speed. 
 
-At the same time, the concepts of the [schema file](/develop-a-squid/schema-file), [code generation from the schema file](https://github.com/subsquid/squid/tree/master/typeorm-codegen) and [an auto-generated GraphQL API](/develop-a-squid/graphql-api) should be familiar for subgraph developers. In most cases the schema file of a subgraph can be imported into a squid as is. 
+At the same time, the concepts of the [schema file](/basics/schema-file), [code generation from the schema file](https://github.com/subsquid/squid/tree/master/typeorm-codegen) and [an auto-generated GraphQL API](/graphql-api) should be familiar for subgraph developers. In most cases the schema file of a subgraph can be imported into a squid as is. 
 
 There are some known limitations:
-- Many-to-Many entity relations (should be [modelled explicitly](/develop-a-squid/schema-file/entity-relations/#many-to-many-relations) as two many-to-one relations)
+- Many-to-Many entity relations (should be [modelled explicitly](/basics/schema-file/entity-relations/#many-to-many-relations) as two many-to-one relations)
 
 On top of the features provided by subgraphs, the Squid SDK and the Aquarium cloud service offers extra flexibility in developing tailored APIs and ETLs for on-chain data:
 
 - Full control over the target database (Postgres), including custom migrations and ad-hoc queries in the handler
 - Custom target databases and data formats (e.g. CSV)
 - Arbitrary code execution in the data handler
-- [Extension of the GraphQL API](/develop-a-squid/graphql-api/custom-resolvers) with arbitrary SQL
+- [Extension of the GraphQL API](/graphql-api/custom-resolvers) with arbitrary SQL
 - [Secret environment variables](/deploy-squid/env-variables), allowing to seamlessly use private third-party JSON-RPC endpoints and integrate with external APIs
 - [API versioning and aliasing](/deploy-squid/promote-to-production)
-- [API Caching](/develop-a-squid/graphql-api/caching)  
+- [API Caching](/graphql-api/caching)  
 
 ## Squid setup 
 
@@ -72,7 +72,7 @@ The following command runs the `evm-typegen` tool fetches the contract ABI by th
 npx squid-evm-typegen src/abi 0x2E645469f354BB4F5c8a05B3b30A929361cf77eC#Gravity --clean
 ```
 
-A boilerplate code for decoding EVM logs and the contract access classes will be generated in `src/abi/Gravity.ts`. In particular, the file contains the topic definitions used at the next step.  For more details about the EVM typegen tool, read a [dedicated doc page](/develop-a-squid/typegen/squid-evm-typegen).
+A boilerplate code for decoding EVM logs and the contract access classes will be generated in `src/abi/Gravity.ts`. In particular, the file contains the topic definitions used at the next step.  For more details about the EVM typegen tool, read a [dedicated doc page](/evm-indexing/squid-evm-typegen).
 
 ### Subscribe to EVM logs
 
@@ -115,7 +115,7 @@ const processor = new EvmBatchProcessor()
 
 In the snippet above we tell the squid processor to fetch logs emitted by the contract `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC` that match of the specified topics. Note that the topic filter is a double array as required by the [selector specification](https://docs.ethers.io/v5/api/utils/abi/interface/#Interface--selectors). The configuration also specifies that the indexing should start from block `6175243` onwards (when the contract was deployed).
 
-To index smart contract data deployed to other EVM chains like Polygon or Binance Smart Chain, simply change the `archive` endpoint. For the list of the supported networks and the configuration details, see [here](/develop-a-squid/evm-processor/configuration).
+To index smart contract data deployed to other EVM chains like Polygon or Binance Smart Chain, simply change the `archive` endpoint. For the list of the supported networks and the configuration details, see [here](/evm-indexing/configuration).
 
 ### Transform and save the data
 
@@ -181,7 +181,7 @@ and inspect the auto-generated GraphQL API using an interactive playground at `h
 
 ## What's Next?
 
-- Have a closer look at the `EvmBatchProcessor` batch-oriented [programming model](/develop-a-squid/evm-processor)
+- Have a closer look at the `EvmBatchProcessor` batch-oriented [programming model](/evm-indexing)
 - Learn how to [deploy a squid to the Aquarium hosted service](/deploy-squid) for free
-- Learn how to [index and query the contract state](/develop-a-squid/evm-processor/query-state)
+- Learn how to [index and query the contract state](/evm-indexing/query-state)
 - Inspect a more complex [Uniswap V3 squid](https://github.com/subsquid/uniswap-squid) which tracks Uniswap V3 trading data. It was migrated from the [Uniswap V3 subgraph](https://github.com/Uniswap/v3-subgraph). It takes only a few hours to sync from scratch on a local machine.

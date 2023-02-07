@@ -1,0 +1,12 @@
+{
+    "position": 21,
+    "label": "Schema file",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/schema-file",
+      "title": "The schema file defines the target database schema, entity classes and the GraphQL API for the squid data"
+    }
+}

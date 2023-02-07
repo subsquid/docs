@@ -5,7 +5,7 @@ title: Run in Docker
 
 # Run with Docker
 
-Squid template comes with a `Dockerfile` containing build targets for the processor and the API server. The default `Dockerfile` expects that the squid follows [the standard folder structure and the naming conventions](/develop-a-squid/squid-structure).
+Squid template comes with a `Dockerfile` containing build targets for the processor and the API server. The default `Dockerfile` expects that the squid follows [the standard folder structure and the naming conventions](/basics/squid-structure).
 
 **Build the processor:**
 ```bash

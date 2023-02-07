@@ -10,7 +10,7 @@ description: >-
 ## Overview
 
 This guide goes through the necessary steps to migrate v5 squids to FireSquid and provide a summary of the new features.
-For the sake of simplicity, this guide is built upon `SubstrateProcessor` as it has the same execution model as the previous versions. Once the guide is complete, we recommend refactoring the squid to a much more performant [`SubstrateBatchProcessor`](/develop-a-squid/substrate-processor) as the next step.
+For the sake of simplicity, this guide is built upon `SubstrateProcessor` as it has the same execution model as the previous versions. Once the guide is complete, we recommend refactoring the squid to a much more performant [`SubstrateBatchProcessor`](/substrate-indexing) as the next step.
 
 ## 1 Package version updates for FireSquid
 
@@ -120,7 +120,7 @@ processor.addCallHandler('Balances.transfer_keep_alive', ...
 
 One __SHOULD__ specify a data projection for the handler context. Only the selected data field will be fetched from the Archive. If it is skipped, the context will contain the default set of data fields.
   
-One can see all the supported projection options [here](/develop-a-squid/substrate-processor/configuration#log-items-subscription) and rely on auto-complete assist from an IDE.
+One can see all the supported projection options [here](/substrate-indexing/configuration#log-items-subscription) and rely on auto-complete assist from an IDE.
 
 Further, one __MUST__ explicitly specify a `Store` interface for handlers defined as explicit external functions. Arrow-function handlers will infer it automatically.
 
@@ -202,4 +202,4 @@ make typegen
 
 ### What's next?
 
-Get familiar with [`SubstrateBatchProcessor`](/develop-a-squid/substrate-processor) and refactor the squid to get up to a 100x speed up of the squid synchronization time. 
+Get familiar with [`SubstrateBatchProcessor`](/substrate-indexing) and refactor the squid to get up to a 100x speed up of the squid synchronization time. 

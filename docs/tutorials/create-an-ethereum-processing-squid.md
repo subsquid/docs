@@ -12,7 +12,7 @@ sidebar_position: 2
 
 This tutorial starts with the standard `evm` template of [`sqd init`](/squid-cli/init) and turns it into a squid indexing [the Exosama NFT contract](https://exosama.com/) deployed on Ethereum.
 
-The goal is to index the contract NFTs, historical transfers and the current owners. The tutorial applies to other EVM chains (Polygon, Binance Smart Chain, Arbitrum, etc). The only difference is the Archive endpoint set during the [processor configuration](/develop-a-squid/evm-processor/configuration).
+The goal is to index the contract NFTs, historical transfers and the current owners. The tutorial applies to other EVM chains (Polygon, Binance Smart Chain, Arbitrum, etc). The only difference is the Archive endpoint set during the [processor configuration](/evm-indexing/configuration).
 
 To look at the end result, inspect the code and play around, clone the [repo](https://github.com/subsquid/subsquid-ethereum-tutorial-example) or open Gitpod:
 
@@ -171,7 +171,7 @@ export async function getOrCreateContractEntity(store: Store): Promise<Contract>
 
 ## Define logic to handle and save Events & Function calls
 
-The Subsquid SDK provides users with the `EvmBatchProcessor`, that connects to the [Subsquid archive](/overview) to get chain data and apply custom transformation. It will index from the starting block and keep up with the new blocks after reaching the tip.
+The Subsquid SDK provides users with the `EvmBatchProcessor`, that connects to the [Subsquid archive](/basics/overview) to get chain data and apply custom transformation. It will index from the starting block and keep up with the new blocks after reaching the tip.
 
 The processor exposes methods to "subscribe" to EVM logs or smart contract function calls. These methods can be configured by specifying the EVM log contract address, and the signature of the EVM event, for example. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for *batches* of the data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive itself.
 
@@ -393,7 +393,7 @@ transfersData.map(t => [EXOSAMA_NFT_CONTRACT, [BigNumber.from(t.tokenId)]] as [s
 tells that it should be called with a single argument `tokenId` for each entity in the `transfersData` array.
 The last argument `100` corresponds to the page size, meaning that `tryAggreagate` splits the incoming array of calls to be executed into chunks of size `100`. If the page size is too large, the RPC node may time out or bounce the request.
 
-For more details on see the Multicall section of the [`evm-typegen` page](/develop-a-squid/typegen/squid-evm-typegen)
+For more details on see the Multicall section of the [`evm-typegen` page](/evm-indexing/squid-evm-typegen)
 :::
 
 :::warning
