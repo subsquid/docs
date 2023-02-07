@@ -64,6 +64,42 @@ sqd migration:generate
 sqd migration:apply
 ```
 
+## Updating a deployed squid schema
+
+In some rare cases it is possible to update the schema without dropping the database and restarting the squid from a blank state. The most important case is adding an index to an entity field. More complex changes are usually not feasible.
+
+**1. Update `schema.graphql` **
+
+For example, [add an index](/basics/schema-file/indexes-and-constraints)
+
+**2. Regenerate the model classes **
+
+```bash
+sqd codegen
+sqd build
+```
+
+**3. Create new database migration**
+
+Make sure the local database is running.
+
+```bash
+sqd up
+sqd migration:generate
+```
+
+**4. Apply the database migration**
+
+Inspect the new migration in `db/migrations` and apply it:
+
+```bash
+sqd migration:apply
+```
+
+**5. Update the squid in Aquairum**
+
+If the squid is deployed to Aquarium, [update the deployed version](/squid-cli/deploy).
+
 ## Aquarium deployment
 
 By default, the TypeORM migrations are automatically applied by Aquarium with the command `npx squid-typeorm-migration apply` before the squid services are started. For custom behavior, one can override the migration script using the optional `migrate:` section of [squid.yaml](/deploy-squid/deploy-manifest#deploy).
