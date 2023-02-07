@@ -178,6 +178,8 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 });
 ```
 
+## Block hooks
+
 Similarly, one can implement pre- and post- block hooks:
 
 ```ts
