@@ -4,7 +4,7 @@ description: >-
   Indexig a dynamic set of contracts
 ---
 
-## Factory contracts
+# Factory contracts
 
 It some cases the set of contracts to be indexed by the squid is not known in advance. For example, a DEX contract typically
 creates a new contract for each trading pair added, and each such trading contract is of interest. 
