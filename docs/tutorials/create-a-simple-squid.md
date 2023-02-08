@@ -3,7 +3,7 @@ id: create-a-simple-squid
 description: >-
   This tutorial shows how to fork and customize the squid template in order to create a
   simple project
-sidebar_position: 4
+sidebar_position: 40
 ---
 
 # Simple Substrate Squid

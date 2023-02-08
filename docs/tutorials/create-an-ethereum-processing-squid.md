@@ -3,7 +3,7 @@ id: create-an-ethereum-processing-squid
 title: NFT indexing on EVM
 description: >-
   Create a simple squid indexing smart contract data on an EVM chain
-sidebar_position: 3
+sidebar_position: 20
 ---
 
 # NFT indexing on EVM

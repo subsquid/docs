@@ -3,7 +3,7 @@ id: ethereum-local-development
 title: Index a local Ethereum node
 description: >-
   Use Subsquid to index an Ethereum development node running locally
-sidebar_position: 2
+sidebar_position: 30
 ---
 
 # Index a local Ethereum node

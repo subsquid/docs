@@ -3,7 +3,7 @@ id: create-an-evm-processing-squid
 title: Frontier EVM-indexing Squid
 description: >-
   Create a sample squid indexing EVM data on Astar
-sidebar_position: 5
+sidebar_position: 50
 ---
 
 # Frontier EVM-indexing Squid
