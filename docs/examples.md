@@ -26,6 +26,8 @@ Additionally, inspect the following benchmark squids:
 - [A Gravatar squid](https://github.com/subsquid/squid-evm-template/tree/gravatar-squid) a simple squid migrated from a subgraph
 - [Exosama Marketplace squid](https://github.com/subsquid/exosama-marketplace-squid) A squid indexing Exosama NFT metadata to power the [Exosama](https://exosama.com) NFT marketplace.
 - [A Uniswap v3 squid](https://github.com/subsquid/uniswap-squid). A complex squid showcasing contract state calls, wildcard filters and optimizations for batch saving.
+- [A squid for ENS](https://github.com/subsquid-labs/ethereum-name-service-indexing/tree/ens-workshop) tokens. In the `ens-workshop` branch, token metadata is fetched from ENS APIs, while indexing.
+- [Bored Ape Yacht Club Indexer](https://github.com/subsquid-labs/bored-ape-yacht-club-indexing). A squid example that uses [Maker DAO's multicall smart contract](https://github.com/makerdao/multicall) and API requests to fetch NFT metadata from IPFS. Also has a GraphQL `custom resolver` to show daily transfers.
 
 
 ## Substrate Processor
