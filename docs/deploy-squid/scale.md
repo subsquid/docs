@@ -10,42 +10,68 @@ The `scale:` section of the [deployment manifest](/deploy-squid/deploy-manifest)
 
 The manifest supports the following scaling options:
 
-## Addons 
+## `dedicated:` 
 
-Each addon is optional. In particular, the `postgres` addon should be removed if the squid only writes data to external sinks.
+Set to `true` if dedicated resources should be allocated to the squid services. Default: `dedicated: false`. 
+By default, the squids share the resources which may lead to degraded performance under heavy load. We recommend setting `dedicated: true` for squids run in production.
 
-For `postgres`:
-- `storage`: the size of the allocated disk, in [memory resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory), e.g. `100G`.
-- `profile`: `small | medium | large`. Specifies the allocated resources for the pod running the Postgres instance. The default is `small`.
+## `addons:`
+
+### `postgres:`
+
+| Name        | Description  | Type      |Default value  | Optional   |  
+|:-----------:|:------------:|:---------:|:--------------:|:----------:|
+| `storage`           | Max execution time after which any query is forcefully aborted, ms     |  [memory resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory) | `10G`        |   Optional     |
+| `profile`  | Log queries executing longer than the given threshold, ms              |  `small` \| `medium` \| `large` |`small`          |   Optional     |
 
 The profile specifications for `postgres` are as follows:
 - `small`: `1 vCPU`, `1Gi` RAM
 - `medium`: `2 vCPU`, `2Gi` RAM
 - `large`: `4 vCPU`, `4Gi` RAM
 
-## Services
+## `services:`
 
-The `api` service is optional (e.g. if the squid only writes data to external sinks)
+### `api:`
 
-`processor`:
- - `profile`: `small | medium | large`. The machine specification (with extra vCPU and RAM). Default: `small`.
-
-`api`:
- - `profile`: `small | medium | large`. The machine specification (with extra vCPU and RAM). Default: `small`.
- - `replicas`: the number of the API gateway replicas. The traffic is automatically load balanced between the replicas.
-
-Each squid has a canonical (prod) API endpoint exposed `https://squid.subsquid.io/${name}/graphql`, see [promote to production](/deploy-squid/promote-to-production). Each version is independently served at `https://squid.subsquid.io/${name}/v/${version}/graphql`.
+| Name        | Description  | Type      |Default value  | Optional   |  
+|:-----------:|:------------:|:---------:|:--------------:|:----------:|
+| `profile`  | Log queries executing longer than the given threshold, ms              |  `small` \| `medium` \| `large` |`small`          |   Optional     |
+| `replicas`  | The number of gateway replicas. The API requests are distributed between the replicas in the round-robin fashion             |  `1`          |   Optional     |
 
 The profile specifications for the API server replicas are as follows:
-- `small`: `0.5 vCPU`, `256Mi` RAM
-- `medium`: `1 vCPU`, `512Mi` RAM
-- `large`: `2 vCPU`, `1Gi` RAM
+
+| Profile | vCPU | RAM |
+|:----:|:----:|:-------:|
+|`small`| 0.5 | `256Mi` |
+| `medium`| 1 | `512Mi` |
+| `large` | 2 | `1Gi`| 
+
+### `processor:`
+
+| Name        | Description  | Type      |Default value  | Optional   |  
+|:-----------:|:------------:|:---------:|:--------------:|:----------:|
+| `profile`  | Log queries executing longer than the given threshold, ms              |  `small` \| `medium` \| `large` |`small`          |   Optional     |
+
+
 
 ## Example
 
 ```yaml title="squid.yaml"
-# ...
+manifestVersion: subsquid.io/v0.1
+name: sample-squid
+
+build: 
+
+deploy:
+  addons:
+    postgres: 
+  processor:
+    cmd: [ "node", "lib/processor" ] 
+  api:
+    cmd: [ "npx", "squid-graphql-server"]
+
 scale:
+  dedicated: true
   addons:
      postgres:
          storage: 100G
