@@ -16,18 +16,18 @@ To learn by example, inspect these squids:
 
 Browse a dedicated repository with [EVM squid examples](https://github.com/subsquid/squid-evm-examples). It contains:
 
-- A squid [indexing transfers](https://github.com/subsquid/squid-evm-examples/tree/master/1-evm-logs) by extracting `Transfer(address,address,uint256)` logs emitted by a given contract
-- A squid [indexing token swaps](https://github.com/subsquid/squid-evm-examples/tree/master/3-factory) from dynamically created AMM pools. 
-- [A squid](https://github.com/subsquid/squid-evm-examples/tree/master/4-contract) that additionally queries the historical state of the contract.
+- A squid [indexing ERC20 transfers](https://github.com/subsquid-labs/evm-logs-example) by extracting `Transfer(address,address,uint256)` logs emitted by USDC the contract
+- A squid [indexing DEX trades](https://github.com/subsquid-labs/factory-example) by dynamically tracking Uniswap v3 pools. Shows a [factory contract](/evm-indexing/factory-contracts) indexing in action
+- [A NFT indexing squid](https://github.com/subsquid-labs/multicall-example) that additionally queries the NFT metadata from the contract state. Illustrates batching RPC calls using the [Multicall contract](/evm-indexing/squid-evm-typegen/#batching-contract-state-calls-using-the-multicall-contract).
 
 
 Additionally, inspect the following benchmark squids:
 
 - [A Gravatar squid](https://github.com/subsquid/squid-evm-template/tree/gravatar-squid) a simple squid migrated from a subgraph
 - [Exosama Marketplace squid](https://github.com/subsquid/exosama-marketplace-squid) A squid indexing Exosama NFT metadata to power the [Exosama](https://exosama.com) NFT marketplace.
-- [A Uniswap v3 squid](https://github.com/subsquid/uniswap-squid). A complex squid showcasing contract state calls, wildcard filters and optimizations for batch saving.
+- [A Uniswap v3 squid](https://github.com/subsquid/uniswap-squid). A complex squid showcasing contract state calls, wildcard filters to index a dynamic set of contracts simultaneously and optimizations for batch saving.
 - [A squid for ENS](https://github.com/subsquid-labs/ethereum-name-service-indexing/tree/ens-workshop) tokens. In the `ens-workshop` branch, token metadata is fetched from ENS APIs, while indexing.
-- [Bored Ape Yacht Club Indexer](https://github.com/subsquid-labs/bored-ape-yacht-club-indexing). A squid example that uses [Maker DAO's multicall smart contract](https://github.com/makerdao/multicall) and API requests to fetch NFT metadata from IPFS. Also has a GraphQL `custom resolver` to show daily transfers.
+- [Bored Ape Yacht Club Indexer](https://github.com/subsquid-labs/bored-ape-yacht-club-indexing). A squid example that uses [Maker DAO's multicall smart contract](/evm-indexing/squid-evm-typegen/#batching-contract-state-calls-using-the-multicall-contract) and [API requests to fetch NFT metadata from IPFS](/basics/external-api). Also illustrates how to extend the GraphQL API with a  [custom resolver](/graphql-api/custom-resolvers) to show daily transfers.
 
 
 ## Substrate Processor
