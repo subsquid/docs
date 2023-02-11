@@ -9,7 +9,7 @@ sidebar_position: 40
 
 ## Objective
 
-The goal of this tutorial is to guide you through creating and customizing a simple blockchain indexer ("squid") with the Squid SDK. In this example we will query the [Crust storage network](https://crust.network). Our final objective will be to observe which files have been added and deleted from the network. Additionally, our squid will be able to tell us the groups joined and the storage orders placed by a given account.
+The goal of this tutorial is to guide you through creating a simple blockchain indexer ("squid") using Squid SDK. In this example we will query the [Crust storage network](https://crust.network). Our objective will be to observe which files have been added and deleted from the network. Additionally, our squid will be able to tell us the groups joined and the storage orders placed by a given account.
 
 We will start with the `substrate` squid template, then go on to run the project, define a schema, and generate TypeScript interfaces. From there, we will be able to interact directly with the Archive, and extract a types bundle from Crust's own library. 
 
@@ -168,7 +168,6 @@ Next, we need to [customize the processor](/substrate-indexing/configuration) by
 
 ```typescript
 const processor = new SubstrateBatchProcessor()
-  .setBatchSize(500)
   .setDataSource({
     archive: lookupArchive("crust", { release: "FireSquid" }),
   })
