@@ -35,7 +35,7 @@ We begin by retrieving the [`evm` template](https://github.com/subsquid/squid-ev
 ```bash
 sqd init evm-tutorial --template evm
 cd evm-tutorial
-npm i
+npm ci
 ```
 
 ## Define the schema
@@ -94,11 +94,12 @@ It's worth noting a few things in this [schema definition](/basics/schema-file):
 * **type references** (e.g. `from: Owner`): When used on entity types, they establish a relation between two entities.
 * **`@index`**: Signals that the field should be indexed by the database. Very useful for increasing the performance on fields queried often.
 
-Whenever changes are made to the schema, TypeScript entity classes have to be regenerated, and to do that we use the `squid-typeorm-codegen` tool. The pre-packaged `commands.json` already comes with a `codegen` shortcut, so we can invoke it with `sqd`:
+TypeScript entity classes have to be regenerated whenever the schema is changed, and to do that we use the `squid-typeorm-codegen` tool. The pre-packaged `commands.json` already comes with a `codegen` shortcut, so we can invoke it with `sqd`:
 
 ```bash
 sqd codegen
 ```
+The (re)generated entity classes can then be browsed at `src/model/generated`.
 
 ## ABI Definition and Wrapper
 
@@ -137,11 +138,11 @@ curl https://raw.githubusercontent.com/subsquid/subsquid-ethereum-tutorial-examp
 
 ### Managing the EVM contract
 
-For the purpose of this tutorial, we are going to hardcode the information on the contract itself, including total supply, token name, and symbol. While this information can actually be sourced by accessing the state of the contract on-chain, this would have added complexity to the project. To isolate this part of our codebase let's create a module named `src/contract.ts`, which will export:
+Before we begin defining the mapping logic of the squid, we are going to hardcode some information on the involved contracts. While it can actually be sourced by accessing the state of the contract on-chain, this would have added complexity to the project. To isolate this part of our codebase let's create a module named `src/contract.ts`, which will export:
 
 * The address of the [Maker DAO](https://github.com/makerdao/multicall) multicall contract (`0x5ba1e12693dc8f9c48aad8770482f4739beed696`)
 * The address of the Exosama NFT collection contract (`0xac5c7493036de60e63eb81c5e9a440b42f47ebf5`)
-* A function that will create and save an instance of the `Contract` entity to the database, if one does not exist already. This is where the hardcoded values will go, for now.
+* A function that will create and save an instance of the `Contract` entity to the database, if one does not exist already. This is where the hardcoded values will go, for now. The function returns either the already existing or the created `Contract` instance.
 
 Here are the full file contents:
 
@@ -175,15 +176,11 @@ export async function getOrCreateContractEntity(store: Store): Promise<Contract>
 
 ## Define the logic to handle and save Events & Function calls
 
-The Subsquid SDK provides users with the `EvmBatchProcessor` class. Its instances connect to a [Subsquid archive](/archives/overview/) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Subsquid SDK provides users with the [`EvmBatchProcessor` class](/evm-indexing). Its instances connect to a [Subsquid archive](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-The processor exposes methods to "subscribe" to EVM logs or smart contract function calls. These methods can be configured by specifying the address of the contract and the signature of the EVM event or public function. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for *batches* of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
+The processor exposes methods to "subscribe" to EVM logs or smart contract function calls. These methods [configure the processor](/evm-indexing/configuration) to retrieve a subset of archive data, by specifying things like addresses of contracts, signatures of public functions or topics of event of interest. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for *batches* of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
 
-It is in this callback function that all the mapping logic is expressed. This is where Event and Function decoding should be implemented, and where the code to save processed data on the database should be defined.
-
-:::info
-The ABI defines the signatures of all events in the contract. The `Transfer` event has three arguments, named: `from`, `to`, and `tokenId`. Their types are, respectively, `address`, `address`, and `uint256`. 
-:::
+It is in this callback function that all the mapping logic is expressed. This is where event and function decoding should be implemented, and where the code to save processed data on the database should be defined.
 
 ## Configure Processor and Batch Handler
 
@@ -423,7 +420,7 @@ For more details on see the Multicall section of the [`evm-typegen` page](/evm-i
 :::
 
 :::warning
-The tutorial uses a public JSON RPC endpoint set by the variable `RPC_ENDPOINT` defined in the `.env` file (find one yourself [here](https://ethereumnodes.com/)). For production squids we recommend using private endpoints set via [secrets](/deploy-squid/env-variables).
+This code expects to find an URL of a working Ethereum RPC endpoint in the `RPC_ENDPOINT` environment variable. Set it in the `.env` file and in [Aquarium secrets](/deploy-squid/env-variables) if and when you deploy your squid there. Free endpoints for testing can be found at [Ethereumnodes](https://ethereumnodes.com/); for production, we recommend using private endpoints.
 :::
 
 We used the [lodash library](https://lodash.com) to simplify the processor code. Install it as follows:
@@ -434,11 +431,11 @@ npm i --save-dev @types/lodash
 
 ## Launch and Set Up the Database
 
-When running the project locally, as it is the case for this guide, it is possible to use the `docker-compose.yml` file that comes with the template to launch a PostgreSQL container. To do so, run `sqd up` in your terminal.
+When running the project locally it is possible to use the `docker-compose.yml` file that comes with the template to launch a PostgreSQL container. To do so, run `sqd up` in your terminal.
 
 [comment]: # (Launch database container https://i.gyazo.com/907ef55371e1cdb1839d2fe7ff108ee7.gif)
 
-Squid projects automatically manage the database connection and schema, via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping). In this approach, the schema is managed through migration files. Because we made changes to the schema, we need to remove the existing migration(s) and create a new one, then apply the new migration.
+Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping). In this approach the schema is managed through migration files. Because we made changes to the schema, we need to remove the existing migration(s) and create a new one, then apply the new migration.
 
 This involves the following steps:
 
@@ -469,7 +466,7 @@ This involves the following steps:
 
 ## Launch the Project
 
-To launch the processor (this will block the current terminal), you can run the following command:
+To launch the processor run the following command (this will block the current terminal):
 
 ```bash
 sqd process
@@ -494,4 +491,4 @@ query MyQuery {
 }
 ```
 
-Have some fun playing around with queries, after all, it's a _playground_!
+Have fun playing around with queries, after all, it's a _playground_!
