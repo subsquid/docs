@@ -16,8 +16,6 @@ A somewhat outdated version of the final result can be browsed [here](https://gi
 
 ## Pre-requisites
 
-The minimum requirements for this tutorial are as follows:
-
 - Familiarity with Git 
 - A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js and Docker
 - [Squid CLI](/squid-cli/installation)
@@ -109,9 +107,9 @@ The results will be stored at `src/abi`. One module will be generated for each A
 
 ## Define and Bind Event Handler(s)
 
-Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/substrate-indexing). Its instances connect to a [Subsquid archive](/archives/overview/) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/substrate-indexing). Its instances connect to chain-specific [Subsquid archives](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-The processor exposes methods to "attach" functions that will "handle" specific data such as Substrate events, extrinsics, storage items, or EVM logs. These methods [configure the processor](/substrate-indexing/configuration) to retrieve a subset of archive data, defined by things like names of events or extrinsics or, for EVM, contract addresses, signatures of public functions or event topics.  The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for *batches* of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
+`SubstrateBatchProcessor`s [exposes methods](/substrate-indexing/configuration) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items or, for EVM, logs and transactions. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for [*batches*](/basics/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
 
 It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 

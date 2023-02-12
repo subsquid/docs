@@ -17,8 +17,6 @@ We expect that experienced software developers should be able to complete this t
 
 ## Pre-requisites
 
-The minimum requirements for this tutorial are as follows:
-
 - Familiarity with Git 
 - A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js and Docker
 - [Squid CLI](/squid-cli/installation)

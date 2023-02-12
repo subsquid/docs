@@ -16,8 +16,6 @@ This way, it's possible to start developing a squid ETL or API in the same local
 
 ## Pre-requisites
 
-The minimum requirements for this tutorial are as follows:
-
 - Either one of [Ganache](https://trufflesuite.com/ganache/) or [Hardhat](https://hardhat.org/)
 - [Subsquid CLI](/squid-cli/installation)
 - Docker
