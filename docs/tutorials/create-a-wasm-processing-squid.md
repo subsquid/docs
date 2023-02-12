@@ -2,88 +2,74 @@
 id: create-a-wasm-processing-squid
 title: Ink! contract indexing 
 description: >-
-  Create a sample squid indexing Ink! smart contract data on Shibuya
+  Build a squid indexing an Ink! smart contract
 sidebar_position: 60
 ---
 # Ink! contract indexing
 
 ## Objective
 
-This tutorial will start off the [squid template](https://github.com/subsquid/squid-substrate-template) and go through all the necessary changes to index the events of a WASM contract developed with [Ink!](https://www.parity.io/blog/ink-3-0-paritys-rust-based-language-gets-a-major-update).
+This tutorial starts with the [`substrate` squid template](https://github.com/subsquid-labs/squid-wasm-template) and goes through all the necessary changes to index the events of a WASM contract developed with [Ink!](https://www.parity.io/blog/ink-3-0-paritys-rust-based-language-gets-a-major-update).
 
-The Subsquid SDK natively supports only WASM contracts executed by the [Contracts pallet](https://crates.parity.io/pallet_contracts/index.html). In particular, it's enabled by the following network runtimes:
-
-- `Shibuya` (`Astar` testnet)
-- `Shiden` (`Kusama`-cousin of `Astar`)
-- `Astar` (a `Polkadot` parachain)
-- `AlephZero` (a standalone Substrate-based chain)
-
-For this tutorial we will use a simple test ERC20-type token contract deployed to [Shibuya](https://shibuya.subscan.io/) at the address `0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72`. Our squid will track all the token holders and account balances, together with the historical token transfers. 
-
-
-The final result of this tutorial is available in [this repo](https://github.com/subsquid/squid-wasm-template). This repository is used as a template for Ink-indexing squids. Use it with [`sqd init`](/squid-cli/init):
+The final result of this tutorial is available in [this repo](https://github.com/subsquid/squid-wasm-template). The repo is used as a template for Ink-indexing squids. Use it with [`sqd init`](/squid-cli/init):
 
 ```bash
-sqd init <you squid name here> --template ink
+sqd init <your squid name here> --template ink
 ```
+Here we start with the minimal `substrate` template to better illustrate the development process. We use a simple test ERC20-type token contract deployed to [Shibuya](https://shibuya.subscan.io/) at `0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72`. Our squid will track all the token holders and account balances, together with the historical token transfers.
 
-For educational purposes, this tutorial starts of the plain `substrate` template and goes through the necessary changes to index a sample Ink! contract.
+:::info
+Subsquid SDK only supports WASM contracts executed by the [Contracts pallet](https://crates.parity.io/pallet_contracts/index.html) natively. The pallet is enabled by the following network runtimes:
+- `Astar` (a `Polkadot` parachain)
+- `Shibuya` (`Astar` testnet)
+- `Shiden` (`Kusama`-cousin of `Astar`)
+- `AlephZero` (a standalone Substrate-based chain)
+:::
+
+:::info
+This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands.
+:::
 
 ## Pre-requisites
 
-Same as for the [Quickstart](/quickstart)
+- Familiarity with Git
+- A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js and Docker
+- [Squid CLI](/squid-cli/installation)
 
 ## Run the template
 
-Use the `substrate` template: 
+Retrieve the `substrate` template with `sqd init`: 
 ```bash
 sqd init ink-tutorial --template substrate
 cd ink-tutorial
 ```
-
-and run the template:
+and run it:
 
 ```bash
 npm ci
 sqd build
 sqd up
-sqd process
+sqd process # should begin to ingest blocks
+
 # open a separate terminal for this next command
-sqd serve
+sqd serve # should begin listening on port 4350
 ```
-
-The tutorial will guide through the necessary changes to 
-
-## WASM tools
-
-Subsquid SDK offers additional tooling for dealing with Ink contracts:
-
-- `@subsquid/ink-abi` -- A performant library to decode the binary contract data using the contract ABI
-- `@subsquid/ink-typegen` -- A tool to generate type-safe TypeScript classes and interfaces for the contract event and call data from the contract metadata
-
-```bash
-npm i @subsquid/ink-abi && npm i @subsquid/ink-typegen --save-dev
-```
-
-Since `@subsquid/ink-typegen` is only used to generate source files, we install it as a dev dependency.
-
-:::info
-This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands. Feel free to add or modify the scripts and inspect with `sqd --help`.
-:::
+After this test, shut down both processes with Ctrl-C and proceed.
 
 ## Define the data schema
 
-This part is not specific to WASM and is standard for all squids. To index ERC-20 token transfers, we will need to track:
+The next step is to define the target data entities and their relations at `schema.graphql`, then use that file to autogenerate TypeORM entity classes.
 
-* Ownership of tokens (a wallet and the current balance)
-* Token transfers (with `from`, `to` and `amount` fields)
+We track:
 
-The Owner-Transfer relationship is one-to-many.
-We want our squid API to support filtering by the holder balance and the transfer amounts, so we throw in a bunch of indexes. 
+* Wallet balances
+* Token transfers
 
-The `schema.graphql` file modelling the data above is straightforward:
+Our [schema definition](/basics/schema-file) for modelling this data is straightforward:
 
 ```graphql
+# schema.graphql
+
 type Owner @entity {
   id: ID!
   balance: BigInt! @index
@@ -99,62 +85,59 @@ type Transfer @entity {
 }
  
 ```
+Note:
+* a one-to-many [relation](/basics/schema-file/entity-relations) between `Owner` and `Transfer`;
+* `@index` decorators for properties that we want to be able to filter the data by.
 
-Next, we generate `TypeORM` entity classes from the schema with the `squid-typeorm-codegen` tool:
+Next, we generate `TypeORM` entity classes from the schema with the `squid-typeorm-codegen` tool. There is a handy `sqd` script for that:
 
 ```bash
 sqd codegen
 ```
 The generated entity classes can be found under `src/model/generated`.
 
-To generate the database migrations matching the schema, we first drop the existing database and the existing migrations:
-
+Finally, we create [database migrations](/basics/db-migrations) to match the changed schema. We restore the database to a clean state, then replace any existing migrations with the new one:
 ```bash
 sqd down
-sqd migrations:clean
-```
-
-Next, we start a clean db, build the code and generate the new migrations matching the entities generated with `sqd migration:generate`:
-
-```bash
 sqd up
-sqd generate
+sqd migrations:generate
 ```
 
-## ABI Definition and Wrapper
+## WASM ABI Tools
 
-The `Contracts` pallet stores the contract execution logs (calls and events) in a binary format. The decoding of this data is
-contract-specific and is done with the help of an ABI file typically published by the contract developer. For our contract the data can be found [here](https://raw.githubusercontent.com/subsquid/squid/42d07b0d01b02ada4b28f057ada3b05aa762a170/test/shibuya-erc20/metadata.json)
+The `Contracts` pallet stores the contract execution logs (calls and events) in a binary format. The decoding of this data is contract-specific and is done with the help of an ABI file typically published by the contract developer. For our contract the data can be found [here](https://raw.githubusercontent.com/subsquid-labs/squid-wasm-template/master/abi/erc20.json).
 
-The `ink-typegen` tool provided by Subsquid SDK generates the necessary boilerplate to decode the contract data. The generated classes will be later be used by the squid processor event handlers.
+Download that file to the `abi` folder and install the following two tools from Subsquid SDK:
 
-To follow the convention, we recommend keeping the ABI JSON file in the `src/abi` subfolder. To automatically generate TypeScript interfaces from an ABI definition, and decode event data, simply run this command from the project's root folder
+- `@subsquid/ink-abi` -- A performant library for decoding binary Ink contract data.
+- `@subsquid/ink-typegen` -- A tool for making TypeScript modules for handling contract event and call data based on ABIs of contracts.
 
 ```bash
-npx squid-ink-typegen --abi src/abi/erc20.json --output src/abi/erc20.ts
+npm i @subsquid/ink-abi && npm i @subsquid/ink-typegen --save-dev
 ```
+Since `@subsquid/ink-typegen` is only used to generate source files, we install it as a dev dependency.
 
-The `abi` parameter points at the JSON file previously created, and the `output` parameter is the name of the file that will be generated by the command itself.
+Generate the contract data handling module by running
+```bash
+npx squid-ink-typegen --abi abi/erc20.json --output src/abi/erc20.ts
+```
+The generated `src/abi/erc20.ts` module defines interfaces to represent WASM data defined in the ABI, as well as functions necessary to decode this data (e.g. the `decodeEvent` function).
 
-This command will automatically generate a TypeScript file named `erc20.ts`, under the `src/abi` subfolder, that defines data interfaces to represent output of the WASM events defined in the ABI, as well as functions necessary to decode these events (for example, see the `decodeEvent` function in the aforementioned file).
+## Define and Bind the Batch Handler
 
-## Define and Bind Event Handler(s)
+Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/substrate-indexing). Its instances connect to chain-specific [Subsquid archives](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-The Subsquid SDK provides users with a [processor](/substrate-indexing) class, named `SubstrateProcessor` or, in this specific case [`SubstrateBatchProcessor`](/substrate-indexing/batch-processor-in-action). The processor connects to the Shibuya [Archive](/archives) to get chain data. 
+`SubstrateBatchProcessor`s [exposes methods](/substrate-indexing/configuration) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor allows one to subscribe for such events emitted by a specific contract. The events can then be processed by calling the `.run()` function that starts generating requests to the Archive for [*batches*](/basics/batch-processing) of data.
 
-The `SubstrateBatchProcessor` class exposes functions to configure it to request the Archive for specific on-chain data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. The processor allows one to subscribe for such events emitted by a specific contract using one or multiple WASM handlers. 
+Every time a batch is returned by the Archive, it will trigger the callback function, or *batch handler* (passed to `.run()` as second argument). It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 
-## Configure Processor and Attach Handler
+The processor is instantiated and configured at the `src/processor.ts`. We need to make fundamental changes to the logic expressed in this code, starting from the configuration of the processor:
 
-The `src/processor.ts` file is where the template project instantiates the `SubstrateBatchProcessor` class, configures it for execution, and attaches the handler functions. We need to make fundamental changes to the logic expressed in this code, starting from the configuration of the processor:
+* We need to change the archive used to `shibuya`.
+* We need to remove the `addEvent` function call, and add `addContractsContractEmitted` instead, specifying the address of the contract we are interested in (`0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72`).
+* The logic defined in the `processor.run()` and below it has to be replaced.
 
-* we need to change the archive used to `shibuya`
-* we need to remove the `addEvent` function call, and add `addContractsContractEmitted` instead, specifying the address of the contract we are interested in
-* the logic defined in the `processor.run()` and below it, including the interfaces has to be replaced, as we no longer deal with Kusama balances transfers
-
-Recall that we use with the contract deployed at `0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72` on `Shibuya`.
-
-Look at this code snippet for the end result:
+Here is the end result:
 
 ```typescript
 // src/processor.ts
@@ -163,12 +146,10 @@ import * as ss58 from "@subsquid/ss58"
 import {BatchContext, BatchProcessorItem, SubstrateBatchProcessor} from "@subsquid/substrate-processor"
 import {Store, TypeormDatabase} from "@subsquid/typeorm-store"
 import {In} from "typeorm"
-import * as erc20 from "./erc20"
+import * as erc20 from "./abi/erc20"
 import {Owner, Transfer} from "./model"
  
- 
 const CONTRACT_ADDRESS = '0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72'
- 
  
 const processor = new SubstrateBatchProcessor()
     .setDataSource({
@@ -180,11 +161,9 @@ const processor = new SubstrateBatchProcessor()
         }
     } as const)
  
- 
 type Item = BatchProcessorItem<typeof processor>
 type Ctx = BatchContext<Store, Item>
- 
- 
+
 processor.run(new TypeormDatabase(), async ctx => {
     let txs = extractTransferRecords(ctx)
  
@@ -237,7 +216,6 @@ processor.run(new TypeormDatabase(), async ctx => {
     await ctx.store.insert(transfers)
 })
  
- 
 interface TransferRecord {
     id: string
     from?: string
@@ -246,8 +224,7 @@ interface TransferRecord {
     block: number
     timestamp: Date
 }
- 
- 
+
 function extractTransferRecords(ctx: Ctx): TransferRecord[] {
     let records: TransferRecord[] = []
     for (let block of ctx.blocks) {
@@ -269,16 +246,14 @@ function extractTransferRecords(ctx: Ctx): TransferRecord[] {
     }
     return records
 }
-
-
 ```
 
-The `extractTransferRecords` function generates a list of `TransferRecord` interfaces, containing the data we need to fill the models we have defined with our schema. This data is extracted from the events found in the `BatchContext`. It is then used in the main body of the _arrow function_ used as an argument of the `.run()` function call to fetch or create the `Owner`s on the database and create a `Transfer` instance for every event found in the context.
+The `extractTransferRecords` function generates a list of `TransferRecord` objects that contain the data we need to fill the models we have defined with our schema. This data is extracted from the events found in the `BatchContext`. It is then used in the main body of the _batch handler_, the arrow function used as the second argument of the `.run()` function call to fetch or create the `Owner`s on the database and create a `Transfer` instance for every event found in the context.
 
-All of this data is then saved on the database at the very end of the function, all in one go. This is to increase the performance, by reducing the I/O towards the database.
+All of this data is then saved on the database at the very end of the function, all in one go. This is done to reduce the number of database queries.
 
 :::info
-As you can see in the `extractTransferRecords` function, we loop over the blocks we have been given in the `BatchContext` and loop over the items contained in them. The `if` checks are redundant when there's a single handler but will be needed when the processor has multiple handlers and so `block.items` will contain a mix of different event and extrinsic data.
+As you can see in the `extractTransferRecords` function, we loop over the blocks we have been given in the `BatchContext` and loop over the items contained in them. The `if` checks are redundant when there's only one data type to process but will be needed when the processor is subscribed to multiple ones. In that case `block.items` will contain a mix of different event and extrinsic data that will need to be sorted.
 :::
 
 ## Launch the Project
@@ -288,8 +263,7 @@ To launch the processor (this will block the current terminal), you can run the 
 ```bash
 sqd process
 ```
-
-![Launch processor](https://i.gyazo.com/66ab9c1fef9203d3e24b6e274bba47e3.gif)
+[comment]: # (Launch processor https://i.gyazo.com/66ab9c1fef9203d3e24b6e274bba47e3.gif)
 
 Finally, in a separate terminal window, launch the GraphQL server:
 
@@ -301,14 +275,6 @@ Visit [`localhost:4350/graphql`](http://localhost:4350/graphql) to access the [G
 
 ```graphql
 query MyQuery {
-  transfersConnection(orderBy: id_ASC) {
-    totalCount
-  }
-}
-```
-
-```graphql
-query MyQuery {
   owners(limit: 10, where: {}, orderBy: balance_DESC) {
     balance
     id
@@ -316,7 +282,7 @@ query MyQuery {
 }
 ```
 
-Or this other one, looking up the tokens owned by a given owner:
+Or this other one, looking up the largest transfers:
 
 ```graphql
 query MyQuery {
@@ -338,4 +304,4 @@ query MyQuery {
 
 ```
 
-Have some fun playing around with queries, after all, it's a _playground_!
+Have fun playing around with queries, after all, it's a _playground_!
