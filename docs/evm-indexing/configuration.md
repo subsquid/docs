@@ -18,24 +18,24 @@ The following setters configure the global settings. The setters return the modi
 
 The following EVM networks are supported
  
-| Network                 |  Alias                    |        Archive endpoint                            |  
+| Network                 |  Lookup command                    |        Archive endpoint                            |  
 |:-----------------------:|:-------------------------:|:--------------------------------------------------:|
-| Ethereum Mainnet        | `eth-mainnet`             |  `https://eth.archive.subsquid.io`                 |
-| Ethereum Goerli Testnet | `goerli`                  |   `https://goerli.archive.subsquid.io`             | 
-| Polygon                 | `polygon`                 |   `https://polygon.archive.subsquid.io`            |
-| Polygon Mumbai Testnet  | `polygon-mumbai`          | `https://polygon-mumbai.archive.subsquid.io`       |
-| Avalance C-Chain        | `avalanche`               |  `https://avalanche-c.archive.subsquid.io`         |
-| Fantom                  | `fantom`                  | `https://fantom.archive.subsquid.io`               |
-| Exosama Network         | `exosama`                 |`https://exosama.archive.subsquid.io`               |
-| Binance Chain           | `binance`                 | `https://binance.archive.subsquid.io`              |
-| Binance Chain Testnet   | `binance-testnet`         | `https://binance-testnet.archive.subsquid.io`      |
-| Moonbeam                | `moonbeam-evm`            | `https://moonbeam-evm.archive.subsquid.io`         |
-| Moonriver               | `moonriver-evm`            | `https://moonriver-evm.archive.subsquid.io`       |
-| Moonbase                | `moonbase-evm`            | `https://moonbase-evm.archive.subsquid.io`         |
-| SKALE Calypso NFT Hub   | `skale-calypso`           | `https://skale-calypso.archive.subsquid.io`        |
-| SKALE Calypso (stage)   | `skale-calypso-stage`     | `https://skale-calypso-stage.archive.subsquid.io`  |
-| BOBA Ethereum           | `boba-eth`                | `https://boba-eth.archive.subsquid.io`             |
-| BOBA Moonbeam           | `boba-moonbeam`           | `https://boba-moonbeam.archive.subsquid.io`        |
+| Ethereum Mainnet        | `lookupArchive('eth-mainnet')`             |  `https://eth.archive.subsquid.io`                 |
+| Ethereum Goerli Testnet | `lookupArchive('goerli')`                  |   `https://goerli.archive.subsquid.io`             | 
+| Polygon                 | `lookupArchive('polygon')`                 |   `https://polygon.archive.subsquid.io`            |
+| Polygon Mumbai Testnet  | `lookupArchive('polygon-mumbai')`          | `https://polygon-mumbai.archive.subsquid.io`       |
+| Avalance C-Chain        | `lookupArchive('avalanche')`               |  `https://avalanche-c.archive.subsquid.io`         |
+| Fantom                  | `lookupArchive('fantom')`                  | `https://fantom.archive.subsquid.io`               |
+| Exosama Network         | `lookupArchive('exosama')`                 |`https://exosama.archive.subsquid.io`               |
+| Binance Chain           | `lookupArchive('binance')`                 | `https://binance.archive.subsquid.io`              |
+| Binance Chain Testnet   | `lookupArchive('binance-testnet')`         | `https://binance-testnet.archive.subsquid.io`      |
+| Moonbeam                | `lookupArchive('moonbeam', {type: 'EVM'})`            | `https://moonbeam-evm.archive.subsquid.io`         |
+| Moonriver               | `lookupArchive('moonriver', {type: 'EVM'})`           | `https://moonriver-evm.archive.subsquid.io`       |
+| Moonbase                | `lookupArchive('moonbase', {type: 'EVM'})`           | `https://moonbase-evm.archive.subsquid.io`         |
+| SKALE Calypso NFT Hub   | `lookupArchive('skale-calypso')`           | `https://skale-calypso.archive.subsquid.io`        |
+| SKALE Calypso (stage)   | `lookupArchive('skale-calypso-stage')`     | `https://skale-calypso-stage.archive.subsquid.io`  |
+| BOBA Ethereum           | `lookupArchive('boba-eth')`                | `https://boba-eth.archive.subsquid.io`             |
+| BOBA Moonbeam           | `lookupArchive('boba-moonbeam')`           | `https://boba-moonbeam.archive.subsquid.io`        |
 | Arbitrum One            |                           | `https://arbitrum.archive.subsquid.io` (*)         |
 | Optimism                | Coming Soon               |                                                    |
  
