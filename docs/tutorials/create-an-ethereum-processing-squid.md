@@ -131,10 +131,7 @@ npx squid-evm-typegen --help
 **Caveat:** in the wild, many contracts employ the [transparent proxy pattern](https://eips.ethereum.org/EIPS/eip-1967) and only expose the ABI for contract updates. To index the ongoing contract activity one must use the ABI of the implementation contract. To find this contract, visit the Etherscan page of the proxy contract, go to the "Contract" tab of contract details and look for the "Read as Proxy" button.
 :::
 
-Additionally, we will need a Typescript ABI for the [Maker DAO muticall contract](https://github.com/makerdao/multicall). The contract will be used to access the state of the Exosama contract in a much more efficient way. The code for this ABI can be obtained e.g. from the repository of this example:
-```bash
-curl https://raw.githubusercontent.com/subsquid/subsquid-ethereum-tutorial-example/main/src/abi/multicall.ts -o src/abi/multicall.ts
-```
+Note that aside from the Exosama Typescript ABI module at `src/abi/exo.ts` the tool has also generated a module for handling the [Maker DAO muticall contract](https://github.com/makerdao/multicall). This contract will be used to access the state of the Exosama contract in a much more efficient way.
 
 ### Managing the EVM contract
 
