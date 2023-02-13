@@ -1,17 +1,16 @@
 ---
 sidebar_position: 50
 description: >-
-  Indexig a dynamic set of contracts
+  Indexing a dynamic set of contracts
 ---
 
 # Factory contracts
 
-It some cases the set of contracts to be indexed by the squid is not known in advance. For example, a DEX contract typically
-creates a new contract for each trading pair added, and each such trading contract is of interest. 
+It some cases the set of contracts to be indexed by the squid is not known in advance. For example, a DEX contract typically creates a new contract for each trading pair added, and each such trading contract is of interest. 
 
-While the set of handler subscriptions is static and defined at the processor creation, one can leverage the wildcard subscriptions and filter the contract of interest in runtime. 
+While the set of handler subscriptions is static and defined at the processor creation, one can leverage wildcard subscriptions and filter for contracts of interest at runtime. 
 
-Let's consider how it works in a DEX example, with a contract emitting `PoolCreated` log when a new pool contract is created by the main contract. The full code is available in the [examples repo](https://github.com/subsquid/squid-evm-examples).
+Let's consider how it works in a DEX example, with a contract emitting `PoolCreated` log when a new pool contract is created by the main contract. Full code is available in the [examples repo](https://github.com/subsquid/squid-evm-examples).
 
 ```typescript
 let processor = new EvmBatchProcessor()
