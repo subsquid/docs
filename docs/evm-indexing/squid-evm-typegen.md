@@ -7,7 +7,7 @@ description: Type-safe EVM tx, log and state data
 
 **Since `@subsquid/evm-typegen@2.0.0`**
 
-The `evm-typegen(1)` tool generates TypeScript facades for EVM transactions, logs and `eth_call` queries.
+The `squid-evm-typegen(1)` tool generates TypeScript facades for EVM transactions, logs and `eth_call` queries.
 
 The generated facades are assumed to be used by squids indexing EVM data.
 
@@ -18,6 +18,11 @@ The tool takes a JSON ABIs as an input. Those can be specified in three ways:
 ```bash
 npx squid-evm-typegen src/abi erc20.json
 ```
+If you use this option, you can also place your JSON ABIs to the `abi` folder and run.
+```bash
+sqd typegen
+```
+Script is available in all EVM templates.
 
 - as a contract address (to fetch the ABI from Etherscan API). Once can pass multiple addresses at once.
 
