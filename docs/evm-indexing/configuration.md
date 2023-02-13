@@ -29,6 +29,9 @@ The following EVM networks are supported
 | Exosama Network         | `exosama`                 |`https://exosama.archive.subsquid.io`               |
 | Binance Chain           | `binance`                 | `https://binance.archive.subsquid.io`              |
 | Binance Chain Testnet   | `binance-testnet`         | `https://binance-testnet.archive.subsquid.io`      |
+| Moonbeam                | `moonbeam-evm`            | `https://moonbeam-evm.archive.subsquid.io`         |
+| Moonriver               | `moonriver-evm`            | `https://moonriver-evm.archive.subsquid.io`       |
+| Moonbase                | `moonbase-evm`            | `https://moonbase-evm.archive.subsquid.io`         |
 | SKALE Calypso NFT Hub   | `skale-calypso`           | `https://skale-calypso.archive.subsquid.io`        |
 | SKALE Calypso (stage)   | `skale-calypso-stage`     | `https://skale-calypso-stage.archive.subsquid.io`  |
 | BOBA Ethereum           | `boba-eth`                | `https://boba-eth.archive.subsquid.io`             |
