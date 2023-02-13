@@ -3,6 +3,7 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const { urlList } = require('./redirectRules');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -110,6 +111,11 @@ const config = {
 
   plugins: [
     'docusaurus-plugin-hotjar',
+    [
+        '@docusaurus/plugin-client-redirects', {
+            redirects: urlList
+        }
+    ],
     async function tailWindCssPlugin(context, options) {
       return {
         name: 'docusaurus-tailwindcss',
