@@ -1,12 +1,12 @@
 ---
 sidebar_position: 10
 description: >-
-  The squid processor ingests raw on-chain data from an Archive, transforms it and saves into the target data store.
+  Overview of SubstrateBatchProcessor
 ---
 
 # Substrate Processor
 
-This section applies to squid processors indexing [Substrate](https://dcos.substrate.io)-based chains, including:
+This section applies to squid processors indexing [Substrate](https://substrate.io)-based chains, including:
 
 - Polkadot
 - Kusama
@@ -17,21 +17,15 @@ This section applies to squid processors indexing [Substrate](https://dcos.subst
 
 ## Overview and the data model
 
-A squid processor is a separate node.js process that fetches historical on-chain data from an [Archive](/archives), performs arbitrary transformations and saves the result into the target database schema defined above. By convention, the processor entry point is `src/processor.ts`.
+A squid processor is a Node.js process that fetches historical on-chain data from an [Archive](/archives), performs arbitrary transformations and saves the result. By convention, the processor entry point is `src/processor.ts`.`SubstrateBatchProcessor` is the central class that handles Substrate data extraction, transformation and persistence. A single batch handler function supplied to `SubstrateBatchProcessor.run()` is responsible for transforming data from multiple events and transactions in a single in-memory batch.
 
-A processor treats the historical on-chain data as an ordered execution log. The processor subscribes to the log items of interest by defining data handlers. The data handlers define the data to be fetched and how the data is transformed and persisted to the target database. The execution log items are processed by the handlers strictly in the order defined by the data stored in the historical chain blocks.
+Processor treats historical on-chain data as an ordered execution log. It subscribes to log items and receives items in batches. The order of items within the batch is identical to the order of data within the historical chain blocks. The batch handler function is called once for each batch.
 
-For Substrate-based chains, the execution log items can be of the following kind.
+For Substrate-based chains execution log items can be of the following kinds:
 
-- event item, corresponds to a matching [Substrate runtime event](https://docs.substrate.io/main-docs/build/events-errors/) 
+- Event items, corresponding to matching [Substrate runtime events](https://docs.substrate.io/main-docs/build/events-errors/).
+- Call items, corresponding to matching calls executed by the Substrate runtime. All events emitted within a call are placed before the call. All the child calls are placed before the parent call. By default, only successful calls will be handled.
 
-- call item, corresponds to a matching call executed by the Substrate runtime. All the calls are processed sequentially according to their position in the unified log of events and calls. All events emitted within a call are placed
-before the call. All the child calls are placed before the parent call. By default, only successful calls will be handled.
+Additional support is available for log items produced by the [Frontier EVM pallet](https://paritytech.github.io/frontier/frame/evm.html) (see [EVM support](/substrate-indexing/evm-support)), the [Contracts pallet](https://crates.parity.io/pallet_contracts/index.html) (see [Ink! support](/substrate-indexing/wasm-support)) and the [Gear Messages pallet](/substrate-indexing/gear-support).
 
-Additional support is added for log items produced by the [Frontier EVM pallet](https://paritytech.github.io/frontier/frame/evm.html) (see [EVM support](/substrate-indexing/evm-support)), [Contracts pallet](https://crates.parity.io/pallet_contracts/index.html) (see [Ink! support](/substrate-indexing/wasm-support)) and the [Gear Messages pallet](/substrate-indexing/gear-support).
-
-Further, the processor can extract additional data by querying the [historical runtime state](/substrate-indexing/storage-state-calls) and indeed any [external API](https://github.com/subsquid/squid-external-api-example).
-
-
-The Subsquid SDK provides two flavors of squid processors. `SubstrateBatchProcessor`, introduced in the FireSquid release, and the legacy `SubstrateProcessor`. `SubstrateBatchProcessor`, is designed to have only a single data handler that processes an array of ordered log items of different kinds in a single batch. `SubstrateProcessor` expects a separate data handler to be defined for each kind of the log item to be processed. As `SubstrateBatchProcessor` delivers up to 100x better processing speed due to the reduced number of roundtrips to the database, the current documentation is focused around it.
-
+Further, processor can extract additional data by querying the [historical runtime state](/substrate-indexing/storage-state-calls) and indeed any [external API](https://github.com/subsquid/squid-external-api-example).
