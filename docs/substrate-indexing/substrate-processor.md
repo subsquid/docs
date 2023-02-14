@@ -24,7 +24,7 @@ Processor treats historical on-chain data as an ordered execution log. It subscr
 For Substrate-based chains execution log items can be of the following kinds:
 
 - Event items, corresponding to matching [Substrate runtime events](https://docs.substrate.io/main-docs/build/events-errors/).
-- Call items, corresponding to matching calls executed by the Substrate runtime. All events emitted within a call are placed before the call. All the child calls are placed before the parent call. By default, only successful calls will be handled.
+- Call items, corresponding to matching calls executed by the Substrate runtime. All events emitted within a call are placed before the call. All the child calls are placed before the parent call. By default, both successful and failed calls will be handled.
 
 Additional support is available for log items produced by the [Frontier EVM pallet](https://paritytech.github.io/frontier/frame/evm.html) (see [EVM support](/substrate-indexing/evm-support)), the [Contracts pallet](https://crates.parity.io/pallet_contracts/index.html) (see [Ink! support](/substrate-indexing/wasm-support)) and the [Gear Messages pallet](/substrate-indexing/gear-support).
 
