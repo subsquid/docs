@@ -52,11 +52,6 @@ Argument properties:
  
 (*) Experimental support
 
-
-**`setPrometheusPort(port: string | number)`**: Sets the port for a built-in prometheus metrics server. By default, the value of PROMETHEUS_PORT environment variable is used. When it is not set, the processor will pick up an ephemeral port.
-
-**`includeAllBlocks(range?: Range | undefined)`**: By default, the processor will fetch only blocks which contain requested items. This method modifies such behaviour to fetch all chain blocks. Optionally a `Range` (`{from: number, to?: number | undefined}`) of blocks can be specified for which the setting should be effective.
-
 ## EVM logs
 
 **`addLog(contract: string | string[], options?)`**: Subscribe to EVM log data (events) emitted by specific contracts.
@@ -210,6 +205,12 @@ processor.addTransaction([
   }
 })
 ```
+
+## Less common setters
+
+**`setPrometheusPort(port: string | number)`**: Sets the port for a built-in prometheus metrics server. By default, the value of PROMETHEUS_PORT environment variable is used. When it is not set, the processor will pick up an ephemeral port.
+
+**`includeAllBlocks(range?: Range | undefined)`**: By default, the processor will fetch only blocks which contain requested items. This method modifies such behaviour to fetch all chain blocks. Optionally a `Range` (`{from: number, to?: number | undefined}`) of blocks can be specified for which the setting should be effective.
 
 ## Data selectors
 
