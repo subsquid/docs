@@ -24,13 +24,13 @@ The following setters configure the global settings of `EvmBatchProcessor`. They
 
 ```typescript
 processor.setDataSource({
-  chain: 'wss://rpc.polkadot.io',
+  chain: 'https://rpc.ankr.com/eth',
   archive: 'https://eth.archive.subsquid.io'
 })
 ```
 Argument properties:
-+ `archive`: An archive endpoint providing the data for the selected network. A short list of Subsquid-maintained archives is provided below; use [Archive registry](/archives/overview/#archive-registry) to obtain exhaustive, up-to-date information. The registry also provides a `lookupArchive` function that maps archive aliases to endpoint URL, like this: `archive: lookupArchive('eth-mainnet')`.
-+ `chain?`: A JSON-RPC endpoint for the network of interest. Required if the processor has to make [contract state queries](/evm-indexing/query-state). For squids indexing only event and/or transaction data it can be omitted. 
++ `archive`: An archive endpoint providing the data for the selected network. A short list of Subsquid-maintained archives is provided below; use [Archive registry](/archives/overview/#archive-registry) to obtain exhaustive, up-to-date information. The registry also provides a `lookupArchive` function that maps archive aliases to endpoint URLs, like this: `archive: lookupArchive('eth-mainnet')`.
++ `chain?`: A JSON-RPC endpoint for the network of interest. Required if the processor has to make [contract state queries](/evm-indexing/query-state). For squids indexing only event and/or transaction data it can be omitted. HTTPS and WSS endpoints are supported.
 
 | Network                 |  Alias                    |        Archive endpoint                            |
 |:-----------------------:|:-------------------------:|:--------------------------------------------------:|

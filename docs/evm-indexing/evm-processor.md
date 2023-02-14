@@ -1,7 +1,7 @@
 ---
 sidebar_position: 10
 description: >-
-  Overview of EvmBathProcessor
+  Overview of EvmBatchProcessor
 ---
 
 # EVM Processor
