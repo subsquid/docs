@@ -100,13 +100,9 @@ processor.addEthereumTransaction('*', {sighash: '0xa9059cbb'})
 
 The way the Frontier EVM pallet exposes EVM logs and transaction may change due to runtime upgrades. The util library [`@subsquid/frontier`](https://github.com/subsquid/squid-sdk/tree/master/substrate/frontier) provides helper methods that are aware of the upgrades:
 
-`getEvmLog(ctx: ChainContext, event: Event): EvmLog`
+`getEvmLog(ctx: ChainContext, event: Event): EvmLog`: Extract the EVM log data from `EVM.Log` event.
 
-Extract the EVM log data from `EVM.Log` event.
-
-`getTransaction(ctx: ChainContext, call: Call): LegacyTransaction | EIP2930Transaction | EIP1559Transaction`
-
-Extract the transaction data from `Ethereum.transact` call with additional fields depending on the EVM transaction type.
+`getTransaction(ctx: ChainContext, call: Call): LegacyTransaction | EIP2930Transaction | EIP1559Transaction`: Extract the transaction data from `Ethereum.transact` call with additional fields depending on the EVM transaction type.
 
 #### Example
 
