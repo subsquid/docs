@@ -141,7 +141,7 @@ interface CallItem {
   extrinsic?: Partial<SubstrateExtrinsic>
 }
 ```
-See the [`event` items](/context-interfaces/#event-items) section for definitions of `SubstrateCall` and `SubstrateExtrinsic`.
+See the [`event` items](/substrate-indexing/context-interfaces/#event-items) section for definitions of `SubstrateCall` and `SubstrateExtrinsic`.
 
 ### `Store`
 

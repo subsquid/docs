@@ -13,7 +13,7 @@ Method documentation provided here is mostly also available as inline and access
 :::
 
 :::warning
-All contract addresses supplied to `EvmBatchProcessor` configuration addresses must be in flat lower case.
+All contract addresses supplied to `EvmBatchProcessor` must be in flat lower case.
 :::
 
 The following setters configure the global settings of `EvmBatchProcessor`. They return the modified instance and can be chained.
