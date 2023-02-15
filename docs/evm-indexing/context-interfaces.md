@@ -19,14 +19,14 @@ Batch handler accepts a single argument of type `BatchContext`. It has the follo
 
 ```ts
 export interface BatchContext<Store, Item> {
-    // an internal handle
-    _chain: Chain
-    // a logger to be used within the handler
-    log: Logger
-    // the facade interface for the target database
-    store: Store
-    // input on-chain data as requested by the subscriptions
-    blocks: BatchBlock<Item>[]
+  // an internal handle
+  _chain: Chain
+  // a logger to be used within the handler
+  log: Logger
+  // the facade interface for the target database
+  store: Store
+  // input on-chain data as requested by the subscriptions
+  blocks: BatchBlock<Item>[]
 }
 ```
 
@@ -35,8 +35,8 @@ export interface BatchContext<Store, Item> {
 The `blocks` field holds the log items data to be processed, aligned at the block level.
 ```ts
 export interface BatchBlock<Item> {
-    header: EvmBlock
-    items: Item[]
+  header: EvmBlock
+  items: Item[]
 }
 ```
 
@@ -47,14 +47,14 @@ export interface BatchBlock<Item> {
 Each `Item` has the following structure:
 ```ts
 { 
-    // either it's an `event` or `transaction` item
-    kind: 'evmLog' | 'transaction',
-    // address of the contract that emitted the log or the transaction destination
-    address: string, 
-    // the evm log data as specified by the corresponding `addLog()` or `addTransaction()` data selectors
-    evmLog?: {},
-    // the transaction data as specified by the corresponding `addLog()` or `addTransaction()` data selectors
-    transaction?: {}
+  // either it's an `event` or `transaction` item
+  kind: 'evmLog' | 'transaction',
+  // address of the contract that emitted the log or the transaction destination
+  address: string,
+  // the evm log data as specified by the corresponding `addLog()` or `addTransaction()` data selectors
+  evmLog?: {},
+  // the transaction data as specified by the corresponding `addLog()` or `addTransaction()` data selectors
+  transaction?: {}
 }
 ```
 
@@ -187,4 +187,4 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 One can experiment with the [data selectors](/evm-indexing/configuration/#data-selectors) and see how the output changes.
 
-For a more elaborate example, check the [Gravatar squid](https://github.com/subsquid/squid-evm-template/tree/gravatar-squid) and the [EVM Examples](/examples).
+For more elaborate examples, check the [Gravatar squid](https://github.com/subsquid/squid-evm-template/tree/gravatar-squid) and [EVM Examples](/examples).
