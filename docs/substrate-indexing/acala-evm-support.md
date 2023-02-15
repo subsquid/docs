@@ -12,8 +12,7 @@ Acala and Karura networks offer [EVM+ pallet](https://wiki.acala.network/learn/a
 
 ## `EVM.Executed` events
 
-**`addAcalaEvmExecuted(contract: '*' | string | string[], {logs?, data?, range?}?)`**: Subscribe to the `EVM.Executed` events emitted by specific contract(s) and/or matching a topic filter.
-
+**`addAcalaEvmExecuted(contract: '*' | string | string[], options?: {logs?, data?, range?})`**: Subscribe to the `EVM.Executed` events emitted by specific contract(s) and/or matching a topic filter.
 For capturing all events emitted by a specific contract:
 
 ```typescript
@@ -49,7 +48,7 @@ For details on the topic filter, check out the [EVM logs section of the EVM proc
 
 ## `EVM.ExecutedFailed` events
 
-**`addAcalaEvmExecutedFailed(contract: '*' | string | string[], {logs?, data?, range?})`**: Subscribe to EVM logs emitted by unsuccessful EVM transactions. Note that even though such logs are emitted by failed EVM transactions, the enveloping Substrate extrinsic executes successfully.
+**`addAcalaEvmExecutedFailed(contract: '*' | string | string[], options?: {logs?, data?, range?})`**: Subscribe to EVM logs emitted by unsuccessful EVM transactions. Note that even though such logs are emitted by failed EVM transactions, the enveloping Substrate extrinsic executes successfully.
 
 ```typescript
 const processor = new SubstrateBatchProcessor()
