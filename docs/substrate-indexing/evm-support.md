@@ -1,142 +1,153 @@
 ---
 sidebar_position: 50
 description: >-
-  Additional support for indexing EVM smart contract data
+  Indexing EVMs running on Substrate
 ---
 
 # Frontier EVM support
 
-This section describes additional options available for Substrate chains with the Frontier EVM pallet like Moonbeam or Astar. Follow the [EVM squid tutorial](/tutorials/create-an-evm-processing-squid) for a step-by-step tutorial on building an EVM-processing. We recommend using [squid-frontier-evm-template](https://github.com/subsquid/squid-frontier-evm-template) as a reference.
+:::info
+Method documentation provided here is mostly also available as inline and accessible via suggestions in most IDEs.
+:::
 
-The page describes the additional options available for `SubstrateBatchProcessor`. The handler-based `SubstrateProcessor` exposes similar interfaces with the `addXXXHandler` methods. Please refer to the inline docs for details.
+:::warning
+All contract addresses supplied to the functions mentioned here must be in flat lower case.
+:::
+
+This section describes additional options available for Substrate chains with the Frontier EVM pallet like Moonbeam or Astar. We recommend using [squid-frontier-evm-template](https://github.com/subsquid-labs/squid-frontier-evm-template) as a starting point. For a step-by-step instruction, check out the [Frontier EVM squid tutorial](/tutorials/create-an-evm-processing-squid).
+
+This page describes the tools for handling EVM contracts and additional options available for `SubstrateBatchProcessor`.
+
+## Squid EVM typegen
+
+[`squid-evm-typegen`](/evm-indexing/squid-evm-typegen) tool is used to generate Typescript modules for convenient interaction with EVM contracts. Each such module is generated from a JSON ABI read from a local file or from an Etherscan-like API. When local JSON ABI files are placed at the `abi` folder, the modules can be generated with an `sqd` shortcut:
+```bash
+sqd typegen
+```
+Results will be placed at `src/abi`. For example, a JSON ABI file placed at `abi/erc721.json` will be used to generate `src/abi/erc721.ts`.
+
+These modules provide:
+1. Constants such as topic0 values of event logs and function signature hashes:
+   ```typescript
+   import { events, functions } from "abi/erc721"
+
+   let transferEventTopic: string = events.Transfer.topic
+   let approveFunctionSighash: string = functions.approve.sighash
+   ```
+2. Decoders for event data:
+   ```typescript
+   // in the batch handler
+   for (const block of ctx.blocks) {
+     for (const item of block.items) {
+       if (item.name === "EVM.Log") {
+         const { from, to, tokenId } = events.Transfer.decode(item.event.args)
+      }
+    }
+   }
+   ```
+3. Classes for querying the contract state - see the [Access contract state](/substrate-indexing/evm-support/#access-the-contract-state) section.
 
 ## Subscribe to EVM events
 
-Use `addEvmLog(contract: string | string[], options)` to subscribe to the EVM log data (event) emitted by a specific EVM contract: 
+**`addEvmLog(contract: string | string[], options?)`**: A `SubstrateBatchProcessor` configuration setter that subscribes it to EVM log data (events) emitted by a specific EVM contract. 
 
 ```typescript
 const processor = new SubstrateBatchProcessor()
   .setDataSource({
-    archive: lookupArchive("moonbeam", { release: "FireSquid" }),
+    archive: lookupArchive("moonbeam", {type: "Substrate"}),
   })
-  .setTypesBundle("moonbeam")
-  .addEvmLog("0xb654611f84a8dc429ba3cb4fda9fad236c505a1a", {
-    filter: [erc721.events["Transfer(address,address,uint256)"].topic],
+  .addEvmLog([
+    "0xb654611f84a8dc429ba3cb4fda9fad236c505a1a",
+    "0x6a2d262d56735dba19dd70682b39f6be9a931d98"
+  ],
+  {
+    filter: [[erc721.events.Transfer.topic]],
   });
 ```
-
-The `option` argument supports the same selectors as for `addEvent` and additionally a set of topic filters:
+The `options` argument has the same format as for [`addEvent`](/substrate-indexing/configuration/#events), supports the same [data selectors](/substrate-indexing/configuration/#event-data-selector) and additionally a topic filter:
 
 ```typescript
 {
-   range?: DataRange,
-   filter?: EvmTopicSet[],
-   data?: {} // same as the data selector for `addEvent` 
+  range?: {from: number, to?: number | undefined},
+  filter?: EvmTopicSet[],
+  data?: {} // same as the data selector for `addEvent` 
 }
 ```
-
-Note, that the topic filter follows the [Ether.js filter specification](https://docs.ethers.io/v5/concepts/events/#events--filters). For example, for a filter that accepts the ERC721 topic `Transfer(address,address,uint256)` AND `ApprovalForAll(address,address,bool)` use a double array: 
-```ts
-processor.addEvmLog('0xb654611f84a8dc429ba3cb4fda9fad236c505a1a', {
-  filter: [[
-    erc721.events["Transfer(address,address,uint256)"].topic, 
-    erc721.events["ApprovalForAll(address,address,bool)"].topic
-  ]]
-})
-```
-
-Since `@subsquid/substrate-processor@1.7.0` it is possible to pass multiple contracts to `addEvmLog()`:
-
-```ts
-processor.addEvmLog([
-    '0xb654611f84a8dc429ba3cb4fda9fad236c505a1a',
-    '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98'
-  ], {
-     topics: ['0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef']
-})
-```
+For details on the topic filter, check out the [EVM logs section of the EVM processor configuration page](/evm-indexing/configuration/#evm-logs) and examples within.
 
 ## Subscribe to EVM transactions
 
-**Since `@subsquid/substrate-processor@1.7.0`**
+**`addEthereumTransaction(contractAddress: string | string[], options?: {data?, range?, sighash?})`**: A `SubstrateBatchProcessor` configuration setter that subscribes it to `Ethereum.transact()` calls. Filtering by contract address(es), function [4-byte signature hash](https://www.4byte.directory) (`sighash`) and block range are supported. `data` selection options are similar to those of [`addCall()`](/substrate-indexing/configuration/#call-data-selector).
 
-It is possible to subscribe to `Ethereum.transact()` calls with the option to filter by the contract address (or addresses) and `sighash`, used as a [function selector](https://docs.ethers.io/v5/api/utils/abi/interface/#Interface--selectors) by the EVM spec.
-The data selection options are similar to [`addCall()`](/substrate-indexing/data-subscriptions#addcallname-options).
+Note that by default both successful and failed transactions are fetched. Further, there's a difference between the success of a Substrate call and the internal EVM transaction. The transaction may fail even if the enclosing Substrate call has succeeded.
 
-Note that by default both successful and failed transactions are fetched. Further, there's a difference between the success of a Substrate call and the internal EVM transaction, the transaction may fail even if the enclosing Substrate call has succeeded. 
+#### Examples
 
-
-### Examples
-
-Request all EVM calls to the contract `0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98`:
+Request all EVM calls to two contracts:
 ```ts
-processor.addEthereumTransaction('0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98')
+processor.addEthereumTransaction([
+  '0x6a2d262d56735dba19dd70682b39f6be9a931d98'
+  '0x3795c36e7d12a8c252a20c5a7b455f7c57b60283'
+])
 ```
 
-Request all EVM calls with the signature `transfer(address,uint256)`:
+Request all `transfer(address,uint256)` EVM calls on the network:
 ```ts
 processor.addEthereumTransaction('*', {sighash: '0xa9059cbb'})
 ```
 
-Request the same data from multiple contracts at once:
-```ts
-processor.addEthereumTransaction([
-  '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98',
-  '0x3795C36e7D12A8c252A20C5a7B455f7c57b60283'
-], {
-  sighash: '0xa9059cbb'
+## Event and transaction data parsing
+
+The way the Frontier EVM pallet exposes EVM logs and transaction may change due to runtime upgrades. The util library [`@subsquid/frontier`](https://github.com/subsquid/squid-sdk/tree/master/substrate/frontier) provides helper methods that are aware of the upgrades:
+
+`getEvmLog(ctx: ChainContext, event: Event): EvmLog`: Extract the EVM log data from `EVM.Log` event.
+
+`getTransaction(ctx: ChainContext, call: Call): LegacyTransaction | EIP2930Transaction | EIP1559Transaction`: Extract the transaction data from `Ethereum.transact` call with additional fields depending on the EVM transaction type.
+
+#### Example
+
+```typescript 
+const processor = new SubstrateBatchProcessor()
+  .setBatchSize(200)
+  .setDataSource({
+    archive: lookupArchive('moonbeam', {type: 'Substrate'})
+  })
+  .addEthereumTransaction('*', {
+    data: {
+      call: true,
+    }
+  })
+  .addEvmLog('*', {
+    data: {
+      event: true
+    }
+  })
+
+processor.run(new TypeormDatabase(), async ctx => {
+  for (const block of ctx.blocks) {
+    for (const item of block.items) {
+      if (item.kind === 'event' && item.name === 'EVM.Log') {
+        const { address, data, topics } = getEvmLog(ctx, item.event)
+        // process evm log data
+      }
+      if (item.kind === 'call' && item.name === 'Ethereum.transact') {
+        const tx = getTransaction(ctx, item.call)
+      }   
+    }
+  }
 })
 ```
 
+## Access contract state
 
-## Typegen 
-
-`squid-evm-typegen` is used to generate type-safe facade classes to call the contract state and decode the log events. By convention, the generated classes and the ABI file is kept in `src/abi`.
-```
-npx squid-evm-typegen --abi=src/abi/ERC721.json --output=src/abi/erc721.ts
-```
-
-The file generated by `squid-evm-typegen` defines the `events` object with methods for decoding EVM logs into a typed object:
-
+EVM contract state is accessed using the [typegen-](/substrate-indexing/evm-support/#squid-evm-typegen)generated `Contract` class that takes the handler context and the contract address as constructor arguments. The state is always accessed at the context block height unless explicitly defined in the constructor.
 ```typescript title="src/abi/erc721.ts"
-export const events = {
-  // for each topic defined in the ABI
-  "Transfer(address,address,uint256)": {
-    topic: abi.getEventTopic("Transfer(address,address,uint256)"),
-    decode(data: EvmLog): Transfer0Event {
-      return decodeEvent("Transfer(address,address,uint256)", data)
-    }
-  }
+export class Contract extends ContractBase {
   //...
-}
-```
-
-It can be the used in the handler in the following way:
-```typescript
-for (const block of ctx.blocks) {
-    for (const item of block.items) {
-      if (item.name === "EVM.Log") {
-        const { from, to, tokenId } = erc721.events["Transfer(address,address,uint256)"].decode(item.event.args)
-      }
-    }
-  }
-```
-
-## Access the contract state
-
-The EVM contract state is accessed using the generated `Contract` class that takes the handler context and the contract address as constructor arguments. The state is always accessed at the context block height unless explicitly defined in the constructor.
-```typescript title="src/abi/erc721.ts"
-export class Contract  {
-  constructor(ctx: BlockContext, address: string)
-  constructor(ctx: ChainContext, block: Block, address: string) { 
-    //...
-  }
-  private async call(name: string, args: any[]) : Promise<ReadonlyArray<any>>  {
-    //...
-  }
-  async balanceOf(owner: string): Promise<ethers.BigNumber> {
+  balanceOf(owner: string): Promise<ethers.BigNumber> {
     return this.call("balanceOf", [owner])
   }
+  //...
 }
 ```
 
@@ -147,81 +158,33 @@ It then can be constructed using the context variable and queried in a straightf
 const CONTRACT_ADDRESS= "0xb654611f84a8dc429ba3cb4fda9fad236c505a1a"
 
 processor.run(new TypeormDatabase(), async ctx => {
-    for (const block of ctx.blocks) { 
-      for (const item of block.items) {
-        if (item.name === "EVM.Log") {
-          const contract = new erc721.Contract(ctx, block, CONTRACT_ADDRESS);
-          // query the contract state
-          const uri = await contract.tokenURI(1137)
-        }
+  for (const block of ctx.blocks) { 
+    for (const item of block.items) {
+      if (item.name === "EVM.Log") {
+        const contract = new erc721.Contract(ctx, block, CONTRACT_ADDRESS);
+        // query the contract state
+        const uri = await contract.tokenURI(1137)
       }
     }
+  }
 })
 ```
 
 For more information on EVM Typegen, see this [dedicated page](/evm-indexing/squid-evm-typegen).
 
-## Event and transaction data
-
-The way the Frontier EVM pallet exposes EVM logs and transaction may change due to runtime upgrades. The util library [`@subsquid/frontier`](https://github.com/subsquid/squid-sdk/tree/master/substrate/frontier) provides helper methods that are aware of the upgrades:
-
-`getEvmLog(ctx: ChainContext, event: Event): EvmLog`
-
-Extract the EVM log data from `EVM.Log` event.
-
-`getTransaction(ctx: ChainContext, call: Call): LegacyTransaction | EIP2930Transaction | EIP1559Transaction`
-
-Extract the transaction data from `Ethereum.transact` call with additional fields depending on the EVM transaction type.
-
-### Example
-
-```typescript 
-
-const processor = new SubstrateBatchProcessor()
-    .setBatchSize(200)
-    .setDataSource({
-        archive: lookupArchive('moonbeam', { release: 'FireSquid' })
-    })
-    .addEthereumTransaction('*', {
-        data: {
-            call: true,
-        }
-     })
-    .addEvmLog('*', {
-        data: {
-            event: true
-        }
-    })
-
-
-processor.run(new TypeormDatabase(), async ctx => {
-    for (const block of ctx.blocks) { 
-      for (const item of block.items) {
-        if (item.kind === 'event' && item.name === 'EVM.Log') {
-          const { address, data, topics } = getEvmLog(ctx, item.event)
-          // process evm log data
-        }
-        if (item.kind === 'call' && item.name === 'Ethereum.transact') {
-          const tx = getTransaction(ctx, item.call)
-        }
-        
-      }
-    }
-})
-```
-
 ## Factory contracts
 
-It some cases the set of contracts to be indexed by the squid is not known in advance. For example, a DEX contract typically
-creates a new contract for each trading pair added, and each such trading contract is of interest. 
+It some cases the set of contracts to be indexed by the squid is not known in advance. For example, a DEX contract typically creates a new contract for each trading pair added, and each such trading contract is of interest.
 
-While the set of handler subscriptions is static and defined at the processor creation, one can leverage the wildcard subscriptions and filter the contract of interest in runtime. 
+While the set of handler subscriptions is static and defined at the processor creation, one can leverage the wildcard subscriptions and filter the contracts of interest in runtime. 
 
 Let's consider how it works in a DEX example, with a contract emitting `'PairCreated(address,address,address,uint256)'` log when a new pair trading contract is created by the main contract. The full code (used by BeamSwap) is available in this [repo](https://github.com/subsquid/beamswap-squid/blob/master/src/processor.ts).
 
 ```typescript
 const FACTORY_ADDRESS = '0x985bca32293a7a496300a48081947321177a86fd'
-const PAIR_CREATE_TOPIC = abi.events['PairCreated(address,address,address,uint256)'].decode(evmLog)
+const PAIR_CREATE_TOPIC = abi.events[
+    'PairCreated(address,address,address,uint256)'
+].decode(evmLog)
 // subscribe to events when a new contract is created by the parent 
 // factory contract
 const processor = new SubstrateBatchProcessor()
@@ -256,10 +219,15 @@ processor.run(database, async (ctx) => {
     }
 })
 
-async function handleEvmLog(ctx: BatchContext<Store, unknown>, block: SubstrateBlock, event: EvmLogEvent) {
+async function handleEvmLog(
+    ctx: BatchContext<Store, unknown>,
+    block: SubstrateBlock,
+    event: EvmLogEvent
+) {
     const evmLog = getEvmLog(ctx, event)
     const contractAddress = evmLog.address
-    if (contractAddress === FACTORY_ADDRESS && evmLog.topics[0] === PAIR_CREATED_TOPIC) {
+    if (contractAddress === FACTORY_ADDRESS &&
+        evmLog.topics[0] === PAIR_CREATED_TOPIC) {
         // updated the list of contracts to whatch
     } else if (await isPairContract(ctx.store, contractAddress)) {
         // the contract has been created by the factory,
@@ -267,3 +235,4 @@ async function handleEvmLog(ctx: BatchContext<Store, unknown>, block: SubstrateB
     }
 }
 ```
+Note: this code is using the legacy style of addressing EVM contract ABI modules. For example, `pair.events['Sync(uint112,uint112)'].topic` is equivalent to `pair.events.Sync.topic`.

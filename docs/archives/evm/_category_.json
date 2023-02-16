@@ -1,12 +1,12 @@
 {
-    "position": 55,
-    "label": "Tutorials",
+    "position": 20,
+    "label": "EVM Archives",
     "collapsible": true,
     "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
-      "title": "Step-by-step tutorials",
-      "slug":"/tutorials"
+      "slug": "/arhives/evm",
+      "title": "EVM Archives"
     }
 }
