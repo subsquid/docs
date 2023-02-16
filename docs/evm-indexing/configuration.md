@@ -33,7 +33,7 @@ The following EVM networks are supported
 | Moonriver               | `lookupArchive('moonriver', {type: 'EVM'})`           | `https://moonriver-evm.archive.subsquid.io`       |
 | Moonbase                | `lookupArchive('moonbase', {type: 'EVM'})`           | `https://moonbase-evm.archive.subsquid.io`         |
 | SKALE Calypso NFT Hub   | `lookupArchive('skale-calypso')`           | `https://skale-calypso.archive.subsquid.io`        |
-| SKALE Calypso (stage)   | `lookupArchive('skale-calypso-stage')`     | `https://skale-calypso-stage.archive.subsquid.io`  |
+| SKALE Calypso (stage)   | `lookupArchive('skale-calypso-staging')`     | `https://skale-calypso-staging.archive.subsquid.io`  |
 | BOBA Ethereum           | `lookupArchive('boba-eth')`                | `https://boba-eth.archive.subsquid.io`             |
 | BOBA Moonbeam           | `lookupArchive('boba-moonbeam')`           | `https://boba-moonbeam.archive.subsquid.io`        |
 | Arbitrum One            |                           | `https://arbitrum.archive.subsquid.io` (*)         |
