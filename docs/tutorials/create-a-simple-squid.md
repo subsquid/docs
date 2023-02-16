@@ -44,11 +44,11 @@ Now you can follow the [quickstart](/quickstart) guide to get the project up and
 
 ```bash
 npm ci
-npm run build
-make up
-make process
+sqd build
+sqd up
+sqd process
 # open a separate terminal for this next command
-make serve
+sqd serve
 ```
 
 :::info
@@ -118,7 +118,7 @@ Refer to [this article](/troubleshooting#how-do-i-know-which-events-and-extrinsi
 To finalize this step, run the `codegen` tool:
 
 ```bash
-make codegen
+sqd codegen
 ```
 
 This will automatically generate TypeScript Entity classes for our schema. They can be found in the `src/model/generated` folder of the project.
@@ -371,7 +371,7 @@ Doing this may be useful for manual inspection, debugging, or for simple consult
 Finally, you may run the following command to generate type-safe TypeScript wrappers around the metadata
 
 ```bash
-make typegen
+sqd typegen
 ```
 
 <details>
@@ -544,7 +544,7 @@ The declared `Item` and `Ctx` types are still useful, so we are going to keep th
 
 For this project, we need to do something similar, but not exactly the same: in order to process the three events we want to index, we need to extract Event data from the passed context, depending on the Event's name and store that information. But this time, we are saving the data directly to the database models, and we also need to handle the Account information separately, and we'll look at how it is dealt with in a moment.
 
-We still need the AccountIds, though, so we are building some special interfaces to keep track of the rapport between an AccountId and the data related to it. Let's start with deleting the `TransferEvent` interface and defining this, instead:
+We still need the `AccountIds`, though, so we are building some special interfaces to keep track of the rapport between an `AccountId` and the data related to it. Let's start with deleting the `TransferEvent` interface and defining this, instead:
 
 ```typescript
 type Tuple<T,K> = [T,K];
@@ -868,47 +868,46 @@ A repository with the entire project is also available on [GitHub](https://githu
 
 Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping). As such, we need to use the provided automated tools to manage the database schema and migrations.
 
-### Remove default migration
+### Remove default migration, generate new one
 
-First, we need to get rid of the template's default migration:
+First, in order to have a database to which we can connect, we must make sure that the Postgres docker container is running. If you have not done it yet, launch the command:
 
 ```bash
-rm -rf db/migrations/*.js
+sqd up
 ```
 
-Then, in order to have a database to which we can connect, we must make sure that the Postgres docker container is running, then run the following commands:
+Then we need to get rid of the template's default migration, and create a new one. So run the following command:
 
 ```bash
-npx squid-typeorm-migration generate
-npx squid-typeorm-migration apply
+sqd migration:generate
 ```
 
 These will:
 
-1. create the initial migration by looking up the schema we defined in the previous chapter;
-2. apply the migration.
+1. delete any existing migration file under `db/migrations`
+2. create the initial migration by looking up the schema we defined in the previous chapter
 
 ## Launch the project
 
 It's finally time to run the project! First, let's build the code
 
 ```bash
-npm run build
+sqd build
 ```
 
-And then launch the processor (this will block the current terminal)
+And then launch the processor (this will block the current terminal). This will also apply the migration we just created.
 
 ```bash
-node -r dotenv/config lib/processor.js
+sqd process
 ```
 
 Launch the GraphQL server (in a separate command line console window)
 
 ```bash
-npx squid-graphql-server
+sqd serve
 ```
 
-Now you can see the resuls of our hard work by visiting the `localhost:4350/graphql` URL in a browser and accessing the [GraphiQL](https://github.com/graphql/graphiql) console.
+Now you can see the results of our hard work by visiting the `localhost:4350/graphql` URL in a browser and accessing the [GraphiQL](https://github.com/graphql/graphiql) console.
 
 From this window, we can perform queries. This one displays which files have been added or deleted by an account:
 
