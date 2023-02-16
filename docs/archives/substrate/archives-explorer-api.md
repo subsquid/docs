@@ -7,12 +7,12 @@ description: Exploration GraphQL API for ad-hoc queries
 # Explorer API
 
 :::warning
-Explorer API exposed by public Archives for Substrate networks will be deprecated in favor of the Giant Squid APIs.
+Explorer API exposed by public Archives for Substrate networks will be deprecated in favor of the Giant Squid APIs. Its new primary use case is network exploration by means of a local or private Archive.
 :::
 
-`substrate-explorer` provides a GraphQL API for historical blocks, events, calls and extrinsics. Subsquid maintains explorers for most parachains. To get an explorer endpoint, go to [Aquarium Archives](https://app.subsquid.io/aquarium/archives), click on the network of choice and locate the `Explorer URL` link.
+`substrate-explorer` provides a GraphQL API for historical blocks, events, calls and extrinsics. [Run the service locally](/archives/substrate/self-hosted) together with `substrate-ingest` and browse the API using a playground tool like [Chrome GraphiQL extension](https://github.com/PowerKiKi/graphiql-extension).
 
-The API is derived from the [OpenReader](https://github.com/subsquid/squid/tree/master/openreader) schema below and allows filtering, pagination and nested queries for most fields. Note that not all fields are indexed and thus some queries may appear to be slow.
+The API is derived from the [OpenReader](https://github.com/subsquid/openreader) schema below and allows filtering, pagination and nested queries for most fields. Note that not all fields are indexed and thus some queries may appear to be slow.
 
 ## Block
 
@@ -52,10 +52,9 @@ type Extrinsic @entity {
 }
 ```
 
-
 ## Call
 
-Calls are more granular than extrinsics. Calls are used to unwrap `util.batch`, `sudo` and `proxy` extrinsics.
+Calls are more granular than extrinsics. They are used to unwrap `util.batch`, `sudo` and `proxy` extrinsics.
 
 ```graphql
 type Call @entity {
@@ -87,7 +86,6 @@ type Event @entity {
     pos: Int!
 }
 ```
-
 
 ## Metadata
 
