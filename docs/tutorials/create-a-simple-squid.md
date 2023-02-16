@@ -346,7 +346,7 @@ Then we replace any old migrations with the new one with
 ```bash
 sqd migration:generate
 ```
-Optionally, we can also apply the new migration right away:
+The new migration will be generated from the TypeORM entity classes we previously made out of `schema.graphql` with `sqd codegen`. Optionally, we can apply the migration right away:
 ```bash
 sqd migration:apply
 ```
@@ -362,7 +362,7 @@ in one terminal, then open another one and run
 ```bash
 sqd serve
 ```
-Now you can see the resuls of our hard work by visiting [`localhost:4350/graphql`](http://localhost:4350/graphql) in a browser and accessing the [GraphiQL](https://github.com/graphql/graphiql) console.
+Now you can see the results of our hard work by visiting [`localhost:4350/graphql`](http://localhost:4350/graphql) in a browser and accessing the [GraphiQL](https://github.com/graphql/graphiql) console.
 
 From this window we can perform queries. This one displays info on ten latest work reports, including all involved files and the account id:
 
