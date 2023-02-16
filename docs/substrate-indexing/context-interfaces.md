@@ -169,7 +169,7 @@ import { toJSON } from '@subsquid/util-internal-json'
 const processor = new SubstrateBatchProcessor()
   // set the data source
   .setDataSource({
-    archive: lookupArchive("kusama", {release: "FireSquid"})
+    archive: lookupArchive("kusama")
   })
   // subscribe to Balances.Transfer events
  .addEvent('Balances.Transfer')

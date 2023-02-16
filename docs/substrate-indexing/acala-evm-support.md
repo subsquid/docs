@@ -18,7 +18,7 @@ For capturing all events emitted by a specific contract:
 ```typescript
 const processor = new SubstrateBatchProcessor()
   .setDataSource({
-    archive: lookupArchive("acala", { release: "FireSquid" }),
+    archive: lookupArchive("acala"),
   })
   // request all `EVM.Executed` events from contract `0xae9d7fe007b3327aa64a32824aaac52c42a6e624`
   .addAcalaEvmExecuted("0xae9d7fe007b3327aa64a32824aaac52c42a6e624");
@@ -53,7 +53,7 @@ For details on the topic filter, check out the [EVM logs section of the EVM proc
 ```typescript
 const processor = new SubstrateBatchProcessor()
   .setDataSource({
-    archive: lookupArchive("acala", { release: "FireSquid" }),
+    archive: lookupArchive("acala"),
   })
   // request all `EVM.Executed` events from contract `0xae9d7fe007b3327aa64a32824aaac52c42a6e624`
   .addAcalaEvmExecutedFailed("0xae9d7fe007b3327aa64a32824aaac52c42a6e624");

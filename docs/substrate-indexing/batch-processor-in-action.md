@@ -19,7 +19,7 @@ See [Configuration section](/substrate-indexing/configuration) for more details.
 const processor = new SubstrateBatchProcessor()
     // set the data source
     .setDataSource({
-        archive: lookupArchive("kusama", {release: "FireSquid"})
+        archive: lookupArchive("kusama")
     })
     // set subsciptions and define the data 
     // to be fetched for each log item

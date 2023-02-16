@@ -217,7 +217,7 @@ const processor = new SubstrateBatchProcessor()
   .setBlockRange({ from: 442693 })
   .setDataSource({
     chain: process.env.RPC_ENDPOINT,
-    archive: lookupArchive("astar", { release: "FireSquid" }),
+    archive: lookupArchive("astar"),
   })
   .setTypesBundle("astar")
   .addEvmLog(astarDegensAddress, {

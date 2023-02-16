@@ -16,7 +16,7 @@ To enable the gRPC client, **one must provide a `chain` data source to the proce
 ```typescript
 const processor = new SubstrateBatchProcessor()
   .setDataSource({
-    archive: lookupArchive("kusama", {release: "FireSquid"})
+    archive: lookupArchive("kusama")
     chain: 'wss://kusama-rpc.polkadot.io'
   })
 ```
@@ -114,7 +114,7 @@ const processor = new SubstrateBatchProcessor()
   .setBlockRange({ from: 9_000_000, to: 9_100_000})
   .setDataSource({
     // Lookup archive by the network name in the Subsquid registry
-    archive: lookupArchive("kusama", {release: "FireSquid"}),
+    archive: lookupArchive("kusama"),
     // use a private endpoint for production
     chain: 'wss://kusama-rpc.polkadot.io'
   }).includeAllBlocks({ from: 9_000_000, to: 9_100_000})

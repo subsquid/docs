@@ -167,7 +167,7 @@ Next, we need to [customize the processor](/substrate-indexing/configuration) by
 ```typescript
 const processor = new SubstrateBatchProcessor()
   .setDataSource({
-    archive: lookupArchive("crust", { release: "FireSquid" }),
+    archive: lookupArchive("crust"),
   })
   .setBlockRange({ from: 583000 })
   .addEvent("Market.FileSuccess", {

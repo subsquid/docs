@@ -9,7 +9,7 @@ description: >-
 **Available since `@subsquid/substrate-processor@1.6.0`**
 
 :::info
-Use `lookupArchive("gear-testnet", { release: "FireSquid" })` to connect to an Archive for Gear testnet. An Archive for the Gear mainnet will be added in due course when the network is launched.
+Use `lookupArchive("gear-testnet")` to connect to an Archive for Gear testnet. An Archive for the Gear mainnet will be added in due course when the network is launched.
 :::
 
 Indexing [Gear Network](https://wiki.gear-tech.io/) programs is supported with the following specialized processor configuration setters: 

@@ -26,7 +26,7 @@ Once set, it can be accessed in a squid with `process.env`:
 ```typescript
 const processor = new SubstrateBatchProcessor()
     .setDataSource({
-        archive: lookupArchive("moonriver", {release: "FireSquid"}),
+        archive: lookupArchive("moonriver", {type: "Substrate"}),
         chain: process.env.MOONRIVER_GRPC_ENDPOINT
     })
 ```

@@ -99,7 +99,7 @@ const processor = new SubstrateProcessor(new TypeormDatabase())
     .setBatchSize(500)
     .setDataSource({
         // Lookup archive by the network name in the Subsquid registry
-        archive: lookupArchive("kusama", { release: "FireSquid" })
+        archive: lookupArchive("kusama")
 
         // Use archive created by archive/docker-compose.yml
         // archive: 'http://localhost:8888/graphql'

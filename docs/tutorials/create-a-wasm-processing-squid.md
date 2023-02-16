@@ -153,7 +153,7 @@ const CONTRACT_ADDRESS = '0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070
  
 const processor = new SubstrateBatchProcessor()
     .setDataSource({
-        archive: lookupArchive("shibuya", { release: "FireSquid" })
+        archive: lookupArchive("shibuya")
     })
     .addContractsContractEmitted(CONTRACT_ADDRESS, {
         data: {

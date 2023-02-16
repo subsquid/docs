@@ -17,7 +17,7 @@ This section describes additional options available for indexing [Ink!-based WAS
 ```ts
 const processor = new SubstrateBatchProcessor()
   .setDataSource({
-    archive: lookupArchive("shibuya", { release: "FireSquid" })
+    archive: lookupArchive("shibuya")
   })
   .addContractsContractEmitted('0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72', {
     data: {

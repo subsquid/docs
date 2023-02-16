@@ -54,7 +54,7 @@ These modules provide:
 ```typescript
 const processor = new SubstrateBatchProcessor()
   .setDataSource({
-    archive: lookupArchive("moonbeam", { release: "FireSquid" }),
+    archive: lookupArchive("moonbeam", {type: "Substrate"}),
   })
   .addEvmLog([
     "0xb654611f84a8dc429ba3cb4fda9fad236c505a1a",
@@ -110,7 +110,7 @@ The way the Frontier EVM pallet exposes EVM logs and transaction may change due 
 const processor = new SubstrateBatchProcessor()
   .setBatchSize(200)
   .setDataSource({
-    archive: lookupArchive('moonbeam', { release: 'FireSquid' })
+    archive: lookupArchive('moonbeam', {type: 'Substrate'})
   })
   .addEthereumTransaction('*', {
     data: {
