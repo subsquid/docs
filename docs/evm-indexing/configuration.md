@@ -18,7 +18,7 @@ The following setters configure the global settings. The setters return the modi
 
 The following EVM networks are supported
  
-| Network                 |  Lookup command                    |        Archive endpoint                            |  
+| Network                 |  How to get endpoint by alias                    |        Endpoint URL                           |  
 |:-----------------------:|:-------------------------:|:--------------------------------------------------:|
 | Ethereum Mainnet        | `lookupArchive('eth-mainnet')`             |  `https://eth.archive.subsquid.io`                 |
 | Ethereum Goerli Testnet | `lookupArchive('goerli')`                  |   `https://goerli.archive.subsquid.io`             | 
