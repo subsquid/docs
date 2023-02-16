@@ -30,32 +30,35 @@ const config = {
     },
     trailingSlash: true,
 
-    presets: [
-        [
-            'classic',
-            /** @type {import('@docusaurus/preset-classic').Options} */
-            ({
-                docs: {
-                    routeBasePath: '/',
-                    lastVersion: 'current',
-                    versions: {
-                        current: {
-                            label: 'Firesquid',
-                            path: '/'
-                        }
-                    },
-                    sidebarPath: require.resolve('./sidebars.js'),
-                    editUrl: 'https://github.com/subsquid/docs/edit/master/'
-                },
-                theme: {
-                    customCss: require.resolve('./src/css/custom.css'),
-                },
-                gtag: {
-                    trackingID: 'G-WMH2V85G1B',
-                    anonymizeIP: true,
-                },
-            }),
-        ],
+  presets: [
+    [
+      'classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
+        docs: {
+          routeBasePath: '/',
+          lastVersion: 'current',
+          versions: {
+            current: {
+              label: 'Firesquid',
+              path: '/'
+            }
+          },
+          sidebarPath: require.resolve('./sidebars.js'),
+          editUrl: 'https://github.com/subsquid/docs/edit/master/'
+        },
+        theme: {
+          customCss: require.resolve('./src/css/custom.css'),
+        },
+        gtag: {
+          trackingID: 'G-WMH2V85G1B',
+          anonymizeIP: true,
+        },
+        googleAnalytics: {
+          trackingID: 'G-WMH2V85G1B',
+        },
+      }),
+    ],
 
     ],
 
