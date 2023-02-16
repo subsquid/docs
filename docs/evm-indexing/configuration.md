@@ -17,7 +17,7 @@ The following setters configure the global settings. The setters return the modi
    + `chain`: (Optional) A JSON-RPC endpoint (e.g. if the processor intents do make storage queries). The JSON-RPC endpoint is required for making contract state queries. If the squid indexes only event and/or transaction data, it can be omitted. 
 
 The following EVM networks are supported
-
+ 
 | Network                 |  Lookup command                    |        Archive endpoint                            |  
 |:-----------------------:|:-------------------------:|:--------------------------------------------------:|
 | Ethereum Mainnet        | `lookupArchive('eth-mainnet')`             |  `https://eth.archive.subsquid.io`                 |
