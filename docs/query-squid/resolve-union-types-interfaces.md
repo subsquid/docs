@@ -73,7 +73,7 @@ query MyQuery {
 
 The special `__typename` field allows users to discern the returned object type without relying on comparing the sets of regular fields. For example, in the output of the query above `JoinGroup` and `StorageOrder` events can only be distingushed by looking at the `__typename` field. Here is a possible output to illustrate:
 
-```graphql
+```json
 {
   "data": {
     "accounts": [
