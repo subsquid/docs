@@ -1,125 +1,117 @@
 ---
 sidebar_position: 70
 description: >-
-  Use the __typename meta field to resolve types when querying unions or
-  interfaces
+  Use __typename field to resolve types
 ---
 
 # Union type resolution
 
-The use cases for [Union types](/basics/schema-file/unions-and-typed-json) has been discussed in the [schema reference pages](/basics/schema-file/).
+Use cases for [Union types](/basics/schema-file/unions-and-typed-json) have been discussed in the [schema reference](/basics/schema-file). Here, we discuss how to query union types.
 
-In that context, examples also showed how to query them. What's important to know is that these might create situations where it's not possible to know what type the GraphQL service is returning. To overcome this scenario, it is important to find some way to determine how to handle that data on the client.
-
-This is where the `__typename` meta filed comes in. To witness it in action, let's take the schema from the [Union types](/basics/schema-file/unions-and-typed-json) page:
+Let's take this modified schema from the [Substrate tutorial](/tutorials/create-a-simple-squid):
 
 ```graphql title="schema.graphql"
 type Account @entity {
   id: ID! #Account address
-  workReports: [WorkReport] @derivedFrom(field: "account")
-  joinGroups: [JoinGroup] @derivedFrom(field: "member")
-  storageOrders: [StorageOrder] @derivedFrom (field: "account")
+  events: [Event]
 }
 
-type WorkReport @entity {
+type WorkReport {
   id: ID! #event id
-  account: Account!
   addedFiles: [[String]]
   deletedFiles: [[String]]
-  extrinisicId: String
-  createdAt: DateTime!
+  extrinsicId: String
   blockHash: String!
-  blockNum: Int!
 }
 
-type JoinGroup @entity {
+type JoinGroup {
   id: ID!
-  member: Account!
   owner: String!
-  extrinisicId: String
-  createdAt: DateTime!
+  extrinsicId: String
   blockHash: String!
-  blockNum: Int!
 }
 
-type StorageOrder @entity {
+type StorageOrder {
   id: ID!
-  account: Account!
   fileCid: String!
-  extrinisicId: String
-  createdAt: DateTime!
+  extrinsicId: String
   blockHash: String!
-  blockNum: Int!
 }
 
 union Event = WorkReport | JoinGroup | StorageOrder
 
 ```
-
-
-This time, if we use this query:
+Here, an `Event` will have different fields depending on the underlying type. This query demonstrates how to request different fields for each of these types:
 
 ```graphql
-query EventQuery {
-  event(where: {created_at_gt: "2022-01-01T00:00:00.000Z"} {
-    __typename 
-    ... on WorkReport {
-      id
-      createdAt
-      blockHash
+query MyQuery {
+  accounts {
+    events {
+      __typename
+      ... on WorkReport {
+        id
+        blockHash
+        extrinsicId
+        deletedFiles
+      }
+      ... on JoinGroup {
+        id
+        blockHash
+        extrinsicId
+      }
+      ... on StorageOrder {
+        id
+        blockHash
+        extrinsicId
+      }
     }
-    ... on JoinGroup {
-      id
-      createdAt
-      blockHash
-    }
-    ... on StorageOrder {
-      id
-      createdAt
-      blockHash
-    }
+    id
   }
 }
 
 ```
 
-It would be impossible to discern a returned object type from the other, without `__typename`, because we only queried for fields that are common, or that have the same name across all object types. This is a sample result of the above query:
+The special `__typename` field allows users to discern the returned object type without relying on comparing the sets of regular fields. For example, in the output of the query above `JoinGroup` and `StorageOrder` events can only be distingushed by looking at the `__typename` field. Here is a possible output to illustrate:
 
-```graphql
+```json
 {
-    event: [
+  "data": {
+    "accounts": [
       {
-        "__typename": "WorkReport",
-        "id": "1"
-        "createdAt": "2022-01-01T00:00:00.000Z"
-        "blockHash": "0xb0a8d493285c2df73290dfb7e61f870f17b41801197a149ca93654499ea3dafe"
+        "events": [
+          {
+            "__typename": "WorkReport",
+            "id": "0000584321-000001-01cdb",
+            "blockHash": "0x01cdb3cb6fa00f62fd20220104f1d740a53518b63517419da8a89325d065562b",
+            "extrinsicId": "0000584321-000001-01cdb",
+            "deletedFiles": []
+          }
+        ],
+        "id": "cTKmzHG3RHa1yhujyZpPnNL17p8a48Av3JFwDjpttLcxeSo26"
       },
       {
-        "__typename": "WorkReport",
-        "id": "2"
-        "createdAt": "2022-01-01T00:00:00.000Z"
-        "blockHash": "0xcd123ac567bbedf73290dfb7e61f870f17b41801197a149ca9365455de34ac3b"
+        "events": [
+          {
+            "__typename": "JoinGroup",
+            "id": "0000584598-000010-d06ec",
+            "blockHash": "0xd06ec6716e96108e24987ef03d23c857ef3b467dd057d7a32c4e123fe5a8df36",
+            "extrinsicId": "0000584598-000004-d06ec"
+          }
+        ],
+        "id": "cTKqevWRdvbNNAQ3hLxhsNYhQ8pf5YGkYnnVjgjLNiVr4kd7a"
       },
       {
-        "__typename": "JoinGroup",
-        "id": "1"
-        "createdAt": "2022-01-01T00:00:00.000Z"
-        "blockHash": "0xace45fe78aa367f73290dfb7e61f870f17b41801197a149ca936544fe09ae87c"
-      },
-      {
-        "__typename": "StorageOrder",
-        "id": "1000"
-        "createdAt": "2022-01-01T00:00:00.000Z"
-        "blockHash": "0xb0a8d493285c2df73290dfb7e61f870f17b41801197a149ca93654499ea3dafe"
-      },
-      {
-        "__typename": "StorageOrder",
-        "id": "1001"
-        "createdAt": "2022-01-01T00:00:00.000Z"
-        "blockHash": "0xbfd57689facdf73290dfb7e61f870f17b41801197a149ca9365gac45cece097a"
+        "events": [
+          {
+            "__typename": "StorageOrder",
+            "id": "0000584627-000013-1fa19",
+            "blockHash": "0x1fa19ae98731afad853ffd491fcbc0c3dcda6b8b7f5a2d56ac6c4c1eb9e4f95e",
+            "extrinsicId": "0000584627-000005-1fa19"
+          }
+        ],
+        "id": "cTGYF8jvcpnRmgNopqT4nVs5rWHEviAAdRdfNrZE8NFz2Av7B"
       }
     ]
+  }
 }
 ```
-
-Because all the returned objects have the same structure, the only way to know if one of the is a `WorkReport` or a `JoinGroup` or a `StorageOrder` is using the `__typename` meta field.
