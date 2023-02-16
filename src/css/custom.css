@@ -1,5 +1,6 @@
 @import url('https://fonts.googleAPIs.com/css2?family=Inter:wght@400;600;700&amp;display=swap');
 @import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
+@import url('https://fonts.cdnfonts.com/css/circular-std');
 
 @tailwind base;
 @tailwind components;
@@ -12,6 +13,7 @@
     font-weight: normal;
 }
 
+
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
@@ -21,7 +23,7 @@
 /* You can override the default Infima variables here. */
 :root {
     --fg-base--default: #20203A;
-    --fg-base--muted: #9494A0;
+    --fg-base--muted: #777777;
     --fg-base--contrast: #FFFFFF;
     --fg-base--indistinguishable: #9B9BA8;
 
@@ -32,11 +34,11 @@
     --fg-role--active: #8021C9;
 
     --bg-base--default: #FFFFFF;
-    --bg-base--subtle: #F6F6F7;
+    --bg-base--subtle: #F2F2F2;
     --bg-base--mutedDefault: #FFFFFF;
     --bg-base--mutedBlue: #E2E6F3;
     --bg-base--indistinguishable: #E1E1E6;
-    --bg-base--contrast: #393B47;
+    --bg-base--contrast: #3880EC;
 
     --bg-transparent--blue--02: rgba(58, 148, 254, 0.2);
     --bg-transparent--blue--05: rgba(58, 148, 254, 0.5);
@@ -55,7 +57,7 @@
     --border-color-base--default: #D4D4E8;
     --border-color-base--muted: #A4A4C6;
     --border-color-base--subtle: #707082;
-    --border-color-base--contrast: #373B53;
+    --border-color-base--contrast: #E1AC3A;
     --border-color-base--accentPurple: #B434F1;
 
     --border-color-role--blue: #3A94FE;
@@ -64,14 +66,14 @@
 
     --ifm-background-color: var(--bg-base--default);
     --ifm-color-primary: var(--fg-role--accent-01);
-    --ifm-font-family-base: 'Inter', sans-serif;
-    --ifm-heading-font-family: 'Inter', sans-serif;
+    --ifm-font-family-base: 'Circular Std', sans-serif;
+    --ifm-heading-font-family: 'Circular Std', sans-serif;
 
     --ifm-menu-color: var(--fg-base--default);
 
-    --ifm-menu-link-padding-vertical: .25rem;
+    --ifm-menu-link-padding-vertical: 8px;
     --ifm-toc-border-color: transparent !important;
-    --doc-sidebar-width: 240px !important;
+    --doc-sidebar-width: 260px !important;
 
     --ifm-navbar-padding-vertical: 24px;
     --ifm-navbar-height: auto;
@@ -82,13 +84,22 @@
     --docsearch-modal-background: var(--bg-base--indistinguishable) !important;
     --docsearch-footer-background: var(--bg-base--mutedBlue) !important;
     --docsearch-key-gradient: var(--bg-base--mutedBlue) !important;
+
+    --ifm-menu-link-padding-horizontal: 8px !important;
+    --ifm-breadcrumb-color-active: #3880EC !important;
+    --ifm-breadcrumb-item-background-active: none !important;
+    --link-color: #3880EC;
+    --link-color-hover: #1C1E21;
+    --docsearch-searchbox-background: #F2F2F2 !important;
+
+    --breadcrumb-color: #7A7B8A;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
     --fg-base--default: #F1F2F6;
-    --fg-base--muted: #7A7B8B;
-    --fg-base--contrast: #18181C;
+    --fg-base--muted: #D1D1D1;
+    --fg-base--contrast: #FFFFFF;
     --fg-base--indistinguishable: #424356;
 
     --fg-role--accent-01: #3A94FE;
@@ -102,7 +113,7 @@
     --bg-base--mutedDefault: #383841;
     --bg-base--mutedBlue: #29293A;
     --bg-base--indistinguishable: #1B1B1F;
-    --bg-base--contrast: #FAFAFA;
+    --bg-base--contrast: #3880EC;
 
     --bg-transparent--blue--02: rgba(58, 148, 254, 0.2);
     --bg-transparent--blue--05: rgba(58, 148, 254, 0.5);
@@ -121,7 +132,7 @@
     --border-color-base--default: #2F2F3A;
     --border-color-base--subtle: #9A9AA7;
     --border-color-base--muted: #484856;
-    --border-color-base--contrast: #FFFFFF;
+    --border-color-base--contrast: #E1AC3A;
     --border-color-base--accentPurple: rgba(156, 36, 151, 1);
 
     --border-color-role--blue: #3A94FE;
@@ -130,7 +141,7 @@
 
     --ifm-background-color: var(--bg-base--default) !important;
 
-    --ifm-font-family-base: 'Inter', sans-serif;
+    --ifm-font-family-base: 'Circular Std', sans-serif;
 
     --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 
@@ -140,6 +151,11 @@
     --docsearch-modal-background: var(--bg-base--indistinguishable) !important;
     --docsearch-footer-background: var(--bg-base--mutedBlue) !important;
     --docsearch-key-gradient: var(--bg-base--mutedBlue) !important;
+
+    --link-color: #3880EC;
+    --link-color-hover: #E3E3E3;
+    --docsearch-searchbox-background: #242428 !important;
+    --breadcrumb-color: #A4A1A9;
 }
 
 .markdown h1:not(:where(.onboarding-homepage *)) {
@@ -389,11 +405,8 @@ html {
 }
 
 .navbar {
-    background-image: url('/static/img/header-bg.png');
-    background-position-x: 40vw;
-    background-position-y: 60%;
-    background-repeat: no-repeat;
-    background-size: 75%;
+    background: none;
+    box-shadow: none;
 }
 
 .navbar__inner {
@@ -457,3 +470,104 @@ ul, ol {
     }
 }
 
+.DocSearch-Button-Keys {
+    display: none !important;
+}
+
+.DocSearch.DocSearch-Button {
+    min-width: 172px;
+    border-radius: 8px;
+    color: var(--fg-base--muted) !important;
+}
+
+.DocSearch.DocSearch-Button:hover {
+    box-shadow: inset 0 0 0 1px #3880EC;
+}
+
+.DocSearch-Search-Icon {
+    color: #777777 !important;
+    height: 12px;
+    width: 12px;
+}
+
+.DocSearch-Button-Placeholder {
+    font-style: normal;
+    font-weight: 450;
+    font-size: 14px !important;
+    line-height: 14px;
+    padding: 0 8px 0 8px !important;
+    letter-spacing: -0.02em;
+}
+
+
+.menu__link {
+    font-size: 16px;
+}
+
+.menu__link.menu__link--active {
+
+}
+
+.menu__list .menu__list {
+    padding-left: 34px !important;
+}
+
+
+.x-button.bg-bg-base--contrast {
+    border-color: var(--bg-base--contrast);
+}
+.x-button.bg-bg-base--contrast:hover {
+    background-color: var(--border-color-base--contrast);
+}
+
+.homepage__text {
+    color: var(--breadcrumb-color);
+    font-weight: 400;
+}
+
+.homepage__text strong {
+    color: var(--link-color-hover);
+}
+
+.homepage__text a {
+    color: #C730FC !important;
+}
+
+.homepage__text a:hover {
+    color: var(--link-color-hover) !important;
+}
+
+.x-button--small {
+    padding: 4px 10px !important;
+    font-size: 14px !important;
+    font-weight: 500;
+    border-radius: 100px;
+    background: none;
+    color: var(--link-color);
+    transition: background 200ms, color 200ms;
+}
+
+.x-button--small:hover {
+    background: var(--link-color);
+    color: #fff;
+}
+
+.breadcrumbs__link {
+    color: var(--breadcrumb-color);
+}
+
+.breadcrumbs__item.breadcrumbs__item--active .breadcrumbs__link {
+
+}
+
+.breadcrumbs .breadcrumbs__item:first-child .breadcrumbs__link {
+    padding-left: 0 !important;
+}
+
+.link {
+    color: var(--link-color) !important;
+}
+
+.link:hover {
+    color: var(--link-color-hover) !important;
+}

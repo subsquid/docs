@@ -4,15 +4,17 @@ import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import { GuideCard } from '@site/src/components/guide-card';
 import { ExpandContent } from '@site/src/components/Expand/ExpandContent';
 import { TutorialCard } from '@site/src/components/tutorial-card';
+import clsx from "clsx";
+import {Expand} from "@site/src/components/Expand/Expand";
 
 export default function Home(): JSX.Element {
 
   return (
     <div className="onboarding-homepage">
-      <div className="flex flex-col gap-4 max-w-[600px] items-start self-start mb-14 pt-2">
+      <div className="flex flex-col gap-8 max-w-[640px] items-start self-start mb-14 pt-2">
         <span className="h3">Get started
 </span>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 homepage__text">
           <span>Subsquid is a full-stack blockchain indexing SDK and specialized data lakes (Archives) optimized for extraction of large volumes of historical on-chain data.</span><p/>
           <span>The SDK offers a highly customizable Extract-Transform-Load-Query stack and indexing speeds of up to and beyond <strong>50,000 blocks per second</strong> when indexing events and transactions.</span><p/>
           <span>To put this into perspective, all 10k events in 4M blocks of <a href="https://etherscan.io/address/0x1f98431c8ad98523631ae4a59f267346ea31f984">Uniswap V3 Factory contract</a> history can be indexed in about 8 minutes. For a busier <a href="https://etherscan.io/address/0xc36442b4a4522e871399cd717abdd847ab11fe88">Uniswap V3 Positions NFT contract</a> with 3.1M events and function calls the indexing takes about 40 minutes.</span>
@@ -27,6 +29,7 @@ export default function Home(): JSX.Element {
         </div>
       </div>
 
+      {/*
       <section className="flex flex-col gap-12 mb-16">
         <span className="h3 text-fg-base--muted">Subsquid Docs</span>
 
@@ -68,11 +71,12 @@ export default function Home(): JSX.Element {
 
         </div>
       </section>
+      */}
 
-      <div className="flex flex-col gap-12 mb-14">
-        <span className="h3 text-fg-base--muted">Highlights</span>
+      <div className="flex flex-col gap-10 mb-14">
+        <span className="h3">Highlights</span>
 
-        <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-10">
           <GuideCard
             path="/tutorials/create-an-ethereum-processing-squid"
             color={'bg-role--success'}
@@ -102,8 +106,8 @@ export default function Home(): JSX.Element {
         </div>
       </div>
 
-      <div className="flex flex-col gap-12 mb-16">
-        <span className="h3 text-fg-base--muted">Migration</span>
+      <div className="flex flex-col gap-10 mb-16">
+        <span className="h3">Migration</span>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
          <TutorialCard
@@ -119,55 +123,61 @@ export default function Home(): JSX.Element {
         </div>
       </div>
 
-      <div className="flex flex-col gap-12">
-        <span className="h3 text-fg-base--muted">FAQ</span>
+      <div className="flex flex-col gap-10">
+        <span className="h3">FAQ</span>
 
         <div className="flex flex-col gap--6">
 
-          <ExpandContent title="What is a squid?">
-            <p className="text-fg-base--muted">
-              A squid is a project that extracts and transforms on-chain data in order to present it as a GraphQL API. 
-              Squids are developed using the Subsquid SDK, which provides extensive tooling to define data schemas, data transfomation rules, and the 
-              shape of the resulting API.
-            </p>
-          </ExpandContent>
+            <div className="relative border border-border-color-base--default rounded-lg p-6 mb-8">
+                <h4 className="mb-4 body--m">What is a squid?</h4>
+                <p className="text-fg-base--muted font-light">
+                    A squid is a project that extracts and transforms on-chain data in order to present it as a GraphQL API.
+                    Squids are developed using the Subsquid SDK, which provides extensive tooling to define data schemas, data transfomation rules, and the
+                    shape of the resulting API.
+                </p>
+            </div>
 
-          <ExpandContent title="Why should I use Subsquid?">
-            <p className="text-fg-base--muted">The latency of serving app data with a squid is much lower compared to direct node access via gRPC. This means significantly better UX for your application. The flexibility of 
-            the Subsquid SDK gives developers the full power to access and manipulate historical on-chain data and build complex and responsive dApps with familiar tools. 
-            Finally, by using the Aquarium cloud service, developers no longer have to care about indexing infrastructure maintenance costs and hassle.
-            </p>
-          </ExpandContent>
+            <div className="relative border border-border-color-base--default rounded-lg p-6 mb-8">
+                <h4 className="mb-4 body--m">Why should I use Subsquid?</h4>
+                <p className="text-fg-base--muted font-light">
+                    The latency of serving app data with a squid is much lower compared to direct node access via gRPC. This means significantly better UX for your application. The flexibility of
+                    the Subsquid SDK gives developers the full power to access and manipulate historical on-chain data and build complex and responsive dApps with familiar tools.
+                    Finally, by using the Aquarium cloud service, developers no longer have to care about indexing infrastructure maintenance costs and hassle.
+                </p>
+            </div>
 
-          <ExpandContent
-            title="How much does Subsquid cost?">
-            <p className="text-fg-base--muted">The Subsquid SDK is open source, and access to public Archives maintained by Subsquid Labs is free of charge. Following our TGE and mainnet launch, the price of Archive queries will be determined by an open market.
-            The basic plan for deploying squids to the Aquarium is free and always will be, with some premium features to be introduced in the future.
-            </p>
-          </ExpandContent>
+            <div className="relative border border-border-color-base--default rounded-lg p-6 mb-8">
+                <h4 className="mb-4 body--m">How much does Subsquid cost?</h4>
+                <p className="text-fg-base--muted font-light">
+                    The Subsquid SDK is open source, and access to public Archives maintained by Subsquid Labs is free of charge. Following our TGE and mainnet launch, the price of Archive queries will be determined by an open market.
+                    The basic plan for deploying squids to the Aquarium is free and always will be, with some premium features to be introduced in the future.
+                </p>
+            </div>
 
-          <ExpandContent
-            title="What is an Archive?">
-            <p className="text-fg-base--muted">Archives ingest and store the full log of historical on-chain data in a normalized format. 
-            Designed to be data sources for squids, Archives serve on-chain data as an API that supports batching over multiple blocks. 
-          </p>
-          </ExpandContent>
+            <div className="relative border border-border-color-base--default rounded-lg p-6 mb-8">
+                <h4 className="mb-4 body--m">What is an Archive?</h4>
+                <p className="text-fg-base--muted font-light">
+                    Archives ingest and store the full log of historical on-chain data in a normalized format.
+                    Designed to be data sources for squids, Archives serve on-chain data as an API that supports batching over multiple blocks.
+                </p>
+            </div>
 
-          <ExpandContent
-            title="What is Aquarium?">
-            <p className="text-fg-base--muted"><a
-              href="https://app.subsquid.io/aquarium/"
-              target="_blank"
-              className="text-fg-role--active">Aquarium</a> is a cloud service for hosting squids. This service is managed by Subsquid Labs.
-              &nbsp;
-              <a href="/deploy-squid/squid-cli" className="text-fg-role--active">Subsquid's CLI</a> provides a convenient way to deploy squids to the Aquarium and manage them once they are hosted.
-            </p>
-          </ExpandContent>
+            <div className="relative border border-border-color-base--default rounded-lg p-6 mb-8">
+                <h4 className="mb-4 body--m">What is Aquarium?</h4>
+                <p className="text-fg-base--muted font-light">
+                    <a
+                        href="https://app.subsquid.io/aquarium/"
+                        target="_blank"
+                        className="link">Aquarium</a> is a cloud service for hosting squids. This service is managed by Subsquid Labs.
+                    &nbsp;
+                    <a href="/deploy-squid/squid-cli" className="link">Subsquid's CLI</a> provides a convenient way to deploy squids to the Aquarium and manage them once they are hosted.
+                </p>
+            </div>
+
         </div>
 
         <span className="body--s text-fg-base--muted">
-          More questions? Check out our extensive <a
-          href="/faq">FAQ</a>
+          More questions? Check out our <a className="link" href="/faq">technical community</a>
         </span>
       </div>
     </div>
