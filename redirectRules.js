@@ -4,6 +4,10 @@ const urlList = [
         "from": "/overview"
     },
     {
+        "from": "/develop-a-squid",
+        "to": "/basics"
+    },
+    {
         "from": "/develop-a-squid/evm-processor",
         "to": "/evm-indexing"
     },
