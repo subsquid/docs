@@ -1,6 +1,6 @@
 ---
 sidebar_position: 20
-title: Substrate chains
+title: Simple Substrate indexer
 description: A simple squid for Substrate indexing transfers
 ---
 
