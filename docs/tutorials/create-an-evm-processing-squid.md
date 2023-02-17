@@ -26,7 +26,7 @@ This tutorial uses custom scripts defined in `commands.json`. The scripts are au
 
 ## Scaffold using `sqd init`
 
-We will start with the [`frontier-evm` squid template](https://github.com/subsquid-labs/squid-frontier-evm-template/) available through [`sqd init`](/squid-cli/init). It is built to index EVM smart contracts deployed on Astar/Shiden and Moonbeam/Moonriver, but it is also capable of indexing Substrate events. To retrieve the template and install the dependencies, run
+We will start with the [`frontier-evm` squid template](https://github.com/subsquid-labs/squid-frontier-evm-template/) available through [`sqd init`](/squid-cli/init). It is built to index EVM smart contracts deployed on Astar/Shiden, but it is also capable of indexing Substrate events. To retrieve the template and install the dependencies, run
 
 ```bash
 sqd init astar-evm-tutorial --template frontier-evm

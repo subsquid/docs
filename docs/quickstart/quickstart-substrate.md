@@ -24,7 +24,7 @@ Come up with a new memorable name for your squid. Choose the template matching y
 scaffold using [`sqd init`](/squid-cli/init).
 
 - For indexing native events emitted by Substrate-based chains, use `substrate` 
-- For indexing Frontier EVM contracts on Moonbeam, Moonriver, Astar, Shiden use `frontier-evm`
+- For indexing Frontier EVM contracts on Astar and Shiden use `frontier-evm`
 - For indexing Ink! smart contracts, use `ink`
 - For indexing EVM+ contracts on Karura or Acala, use `acala`
 

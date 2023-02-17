@@ -39,7 +39,7 @@ OPTIONS
         on Ethereum.
       - substrate  A template squid for indexing Substrate-based chains.
       - frontier-evm  A template for indexing Frontier EVM chains, like 
-        Moonbeam and Astar.
+        Astar and Shiden.
       - ink A template for indexing Ink! smart contracts
       - acala A template for indexing Acala EVM+ smart contracts
 ```

@@ -7,14 +7,14 @@ description: >-
 # Frontier EVM support
 
 :::info
-Method documentation provided here is mostly also available as inline and accessible via suggestions in most IDEs.
+The method documentation is also available inline and can be accessed via suggestions in most IDEs.
 :::
 
 :::info
 If contract address(es) supplied to `EvmBatchProcessor` are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/evm-indexing/context-interface) for item filtration, and all contract addresses in the items are **always** in flat lower case.
 :::
 
-This section describes additional options available for Substrate chains with the Frontier EVM pallet like Moonbeam or Astar. We recommend using [squid-frontier-evm-template](https://github.com/subsquid-labs/squid-frontier-evm-template) as a starting point. For a step-by-step instruction, check out the [Frontier EVM squid tutorial](/tutorials/create-an-evm-processing-squid).
+This section describes additional options available for Substrate chains with the Frontier EVM pallet like Astar. We recommend using [squid-frontier-evm-template](https://github.com/subsquid-labs/squid-frontier-evm-template) as a starting point. For a step-by-step instruction, check out the [Frontier EVM squid tutorial](/tutorials/create-an-evm-processing-squid).
 
 This page describes the tools for handling EVM contracts and additional options available for `SubstrateBatchProcessor`.
 
@@ -54,7 +54,7 @@ These modules provide:
 ```typescript
 const processor = new SubstrateBatchProcessor()
   .setDataSource({
-    archive: lookupArchive("moonbeam", {type: "Substrate"}),
+    archive: lookupArchive("astar", {type: "Substrate"}),
   })
   .addEvmLog([
     "0xb654611f84a8dc429ba3cb4fda9fad236c505a1a",
@@ -110,7 +110,7 @@ The way the Frontier EVM pallet exposes EVM logs and transaction may change due 
 const processor = new SubstrateBatchProcessor()
   .setBatchSize(200)
   .setDataSource({
-    archive: lookupArchive('moonbeam', {type: 'Substrate'})
+    archive: lookupArchive('astar', {type: 'Substrate'})
   })
   .addEthereumTransaction('*', {
     data: {

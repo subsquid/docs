@@ -97,6 +97,6 @@ query MyQuery {
 }
 ```
 
-The same exact query can be used for `kusama`, or `astar`, or `moonbeam`, but the Address ID `13KJ3t8w1CKMkXCmZ6s3VwdWo4h747kXE88ZNh6rCBTvojmM` needs to be correctly converted to the encoding specific to the chain in question.
+The same exact query can be used for `kusama`, or `astar` but the Address ID `13KJ3t8w1CKMkXCmZ6s3VwdWo4h747kXE88ZNh6rCBTvojmM` needs to be correctly converted to the encoding specific to the chain in question.
 
 Once again, address encoding and conversion have to be performed on the client's  side.
