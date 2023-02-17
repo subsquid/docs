@@ -9,7 +9,7 @@ description: >-
 ## Initialization
 
 :::info
-Method documentation provided here is mostly also available as inline and accessible via suggestions in most IDEs.
+The method documentation is also available inline and can be accessed via suggestions in most IDEs.
 :::
 
 :::info
