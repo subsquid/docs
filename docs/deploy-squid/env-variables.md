@@ -24,9 +24,9 @@ sqd secrets set MOONRIVER_GRPC_ENDPOINT wss://moonriver.my-endpoint.com/ws/my-se
 
 Once set, it can be accessed in a squid with `process.env`:
 ```typescript
-const processor = new SubstrateBatchProcessor()
+const processor = new EvmBatchProcessor()
     .setDataSource({
-        archive: lookupArchive("moonriver", {release: "FireSquid"}),
+        archive: lookupArchive("moonriver", { type: 'EVM' }),
         chain: process.env.MOONRIVER_GRPC_ENDPOINT
     })
 ```

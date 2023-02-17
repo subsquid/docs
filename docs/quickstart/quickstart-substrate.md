@@ -92,7 +92,7 @@ query MyQuery {
 - Define the [data schema](/basics/schema-file) and customize the API
 - Explore how to use [typegen](/substrate-indexing/squid-substrate-typegen) for type-safe on-chain data access
 - Explore how to efficiently transform the on-chain [data in batches](/substrate-indexing)
-- Explore native support for [Moonriver, Moombeam and Astar EVMs](/substrate-indexing/evm-support)
+- Explore native support for [Frontier EVM](/substrate-indexing/evm-support) on Astar and Shiden
 - Explore native support for [Ink! contracts](/substrate-indexing/wasm-support)
 - Explore native support for [Gear contracts](/substrate-indexing/gear-support)
 - Explore native support for [Acala EVM+ contracts](/substrate-indexing/acala-evm-support)
