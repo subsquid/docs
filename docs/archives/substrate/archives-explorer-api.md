@@ -7,7 +7,7 @@ description: Exploration GraphQL API for ad-hoc queries
 # Explorer API
 
 :::warning
-Explorer API exposed by public Archives for Substrate networks will be deprecated in favor of the Giant Squid APIs. Its new primary use case is network exploration by means of a local or private Archive.
+The Explorer API endpoints exposed by public Archives for Substrate networks will be deprecated in favor of the Giant Squid APIs. Its new primary use case is network exploration by means of a local or private Archive.
 :::
 
 `substrate-explorer` provides a GraphQL API for historical blocks, events, calls and extrinsics. [Run the service locally](/archives/substrate/self-hosted) together with `substrate-ingest` and browse the API using a playground tool like [Chrome GraphiQL extension](https://github.com/PowerKiKi/graphiql-extension).
