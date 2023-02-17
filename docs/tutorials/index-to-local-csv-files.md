@@ -1,127 +1,121 @@
 ---
 id: index-to-local-csv-files
-title: Save indexed data on CSV files, locally
+title: Save indexed data in CSV files, locally
 description: >-
-  Index blockchain data, save it on local CSV files, and do some data analysis prototyping
+  Storing data in files for analysis
 sidebar_position: 7
 ---
 
-# Save indexed data on CSV files, locally
+# Save indexed data in CSV files, locally
 
 ## Objective
 
-This tutorial describes how to use Subsquid's indexing framework for saving processed blockchain data to CSV files, locally. Ultimately, this is a great example of how Subsquid SDK can be used for data analytics prototyping.
+This tutorial describes how to use Subsquid's indexing framework for saving processed blockchain data to CSV files, locally. The intent is to show how Subsquid SDK can be used for data analytics prototyping.
 
-Following the indications on this page, users will be able to build an indexer that processes MATIC transactions on Ethereum mainnet, and dumps them on a local CSV files.
+File-based data formats like CSV are convenient for data analysis, especially in the early prototyping stages. This convenience motivated Subsquid Team to develop some extensions to allow saving processed data to file-based storage.
 
-Both Python and CSV files are the bread and butter of data analysts, especially in the early prototyping stages, when trying to validate hypothesis, or get some inspiration from raw data.
+We chose MATIC transactions on Ethereum mainnet for this example. This selection provides enough data to highlight the performance of the Subsquid framework and is interesting from a data analysis standpoint.
 
-Which is why it's so important to have a blockchain data framework with the flexibility to allow data analysts to save data to CSV files, in order to play with this data with the tools they are already familiar with.
-
-MATIC transactions on Ethereum mainnet were chosen, because this provides enough data to be significant, both in terms of performance, and from a data analysis standpoint.
-
-An article about this demo project [has been published on Medium](https://medium.com/@raekwonthethird/how-you-can-supercharge-blockchain-data-analysis-with-local-indexing-88b713e7948e), and the demo project can be found [in this repository on GitHub](https://github.com/RaekwonIII/local-csv-indexing).
+An article about this demo project [has been published on Medium](https://medium.com/@raekwonthethird/how-you-can-supercharge-blockchain-data-analysis-with-local-indexing-88b713e7948e). The project source code can be found [in this repository on GitHub](https://github.com/RaekwonIII/local-csv-indexing).
 
 ## Pre-requisites
 
-The minimum requirements for this tutorial are as follows:
-
-- [Subsquid CLI installed](/squid-cli/index.md#0-install-and-setup-squid-cli)
+- [Subsquid CLI](/squid-cli/installation)
 - (optional) Python
 
 ## Setup
 
-Let's start by creating a new squid ETL, so in a terminal, launch the command:
+Let's start by creating a new blockchain indexer, or "squid" in Subsquid terminology. In a terminal, launch this command:
 
 ```bash
 sqd init local-csv-indexing -t evm
 ```
 
-Where `local-csv-indexing` is the name of the project, and can be changed to anything else. And `-t evm` specifies what template should be used and makes sure the setup will create a project from the EVM-indexing template.
-
+Here, `local-csv-indexing` is the name of the project, and can be changed to anything else. The `-t evm` option specifies that the [`evm` template](https://github.com/subsquid-labs/squid-evm-template) should be used as a starting point.
 
 :::info
-**Note:** The template actually has more than what we need for this project. In the repository used for this article, unnecessary packages have been removed, so the [repository's `package.json`](https://github.com/RaekwonIII/local-csv-indexing/blob/main/package.json) can be used.
+**Note:** The template actually has more than what we need for this project. Unnecessary packages have been removed in the tutorial repository. You can grab [`package.json`](https://github.com/RaekwonIII/local-csv-indexing/blob/main/package.json) from there to do the same.
 
-Similarly, the [list of available commands](https://github.com/RaekwonIII/local-csv-indexing/blob/main/commands.json) has been shortened, `docker-compoes.yml` has been removed, as well as `schema.graphql`, and `squid.yaml`, because they will not be used.
+Files-wise, `docker-compose.yml`, `schema.graphql` and `squid.yaml` were removed. `commands.json`, the list of local `sqd` scripts, has been significantly shortened ([here is the updated version](https://github.com/RaekwonIII/local-csv-indexing/blob/main/commands.json)).
 :::
 
 ### ERC-20 token ABI
 
-To be able to index the transfers of a token, it's necessary to have the token's address, as well as the smart contract's ABI (Abstract Binary Interface), which defines the contract's functions, the events, as well as their inputs and outputs, and their types.
+To be able to index transfers of a token, it's necessary to know the address and the ABI ([Application Binary Interface](https://docs.ethers.org/v5/api/utils/abi/)) of the token contract. The ABI defines the contract's functions and events, including their typed inputs and outputs.
 
 Luckily, both of these can be found on block explorers like [Etherscan](https://medium.com/r/?url=https%3A%2F%2Fetherscan.io%2Ftoken%2F0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0).
 
-The indexer needs the ABI, because that's how it can decode the contract's events or functions inputs (and outputs), and provide the information they carry. The SDK has a handy command to generate some boilerplate TypeScript code to achieve this.
+The indexer needs the ABI for locating the contract events or functions in the EVM execution trace and decoding their inputs. Subsquid SDK has a handy command to generate some boilerplate TypeScript code to achieve this:
 
 ```bash
-sqd typegen 0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0#matic
+npx squid-evm-typegen src/abi 0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0#matic
 ```
 :::info
-Because the contract is deployed on Ethereum, and available through Etherscan API, the SDK is able to generate the necessary code with just the smart contract address.
+The typegen tool uses Etherscan API to fetch the contract ABI. Other compatible APIs are supported via the `--etherscan-api` flag. For example, if the contract was deployed to Polygon and its ABI was available from Polygonscan, it could still be fetched with the same command extended with `--etherscan-api https://api.polygonscan.io`.
 
-For all other cases, the same command needs the path to a JSON file containing the smart contract's ABI, instead of its address.
+Alternatilvely, the same command can be used with a path (local or URL) to a JSON ABI in place of the contract address.
 :::
 
 This will generate some files under the `src/abi` folder, the most interesting of which is `matic.ts`.
 
 ### CSV, Tables and Databases
 
-It's necessary to install the `file-store-csv` package, because the goal is to save data on CSV files locally, and this package is not available by default:
+For writing local CSVs we will need the `file-store-csv` package:
 
 ```bash
 npm i @subsquid/file-store-csv
 ```
-
 :::info
-Equivalent packages for parquet files, and for uploading files using S3-compatible APIs are also available
+Packages are also available for [writing to parquet files](https://www.npmjs.com/package/@subsquid/file-store-parquet) and for [uploading to S3-compatible cloud services](https://www.npmjs.com/package/@subsquid/file-store-s3).
 :::
 
-Next, let's create a new file, named `tables.ts`, in case the project should be expanded to multiple files. This is where it's possible to provide a filename for the CSV files, as well as configure their data structure, the same way as if they were a database table (the class name is no coincidence):
+Next, let's create a new file at `src/tables.ts`. This is where it's possible to provide filenames for the CSV files, as well as configure their data structure, in much the same way as if they were a database table (the class name is no coincidence):
 
 ```typescript
 import {Table, Column, Types} from '@subsquid/file-store-csv'
 
 export const Transfers = new Table(
-    'transfers.csv',
-    {
-        blockNumber: Column(Types.Integer()),
-        timestamp: Column(Types.Timestamp()),
-        contractAddress: Column(Types.String()),
-        from: Column(Types.String()),
-        to: Column(Types.String()),
-        amount: Column(Types.Decimal()),
-    },
-    {
-        header: false,
-    }
+  'transfers.csv',
+  {
+    blockNumber: Column(Types.Integer()),
+    timestamp: Column(Types.Timestamp()),
+    contractAddress: Column(Types.String()),
+    from: Column(Types.String()),
+    to: Column(Types.String()),
+    amount: Column(Types.Decimal()),
+  },
+  {
+    header: false,
+  }
 )
 ```
 
-Let's create another file next, this time named `db.ts`, to configure the data abstraction layer. This class is called `Database`, and it's on purpose, because it provides a transparent interface to the processor, which is consistent with how the ETL usually saves data on PostgreSQL, or any future data storage.
+Let's create another file next, this time named `src/db.ts`, to configure the data abstraction layer. Here we export an instance of the [`Database` class](/basics/store/custom-database) implementation from the `file-store` package (a dependency of `file-store-csv`). We will use this instance in much the same way as we would use a [`TypeormDatabase`](/basics/store/typeorm-store) instance in a PostgreSQL-based squid.
 
 ```typescript
 import {Database, LocalDest, Store} from '@subsquid/file-store'
 import { Transfers } from './tables'
 
 export const db = new Database({
-    tables: {
-        Transfers,
-    },
-    dest: new LocalDest('./data'),
-    chunkSizeMb: 100,
-    syncIntervalBlocks: 10000
+  tables: {
+    Transfers,
+  },
+  dest: new LocalDest('./data'),
+  chunkSizeMb: 100,
+  syncIntervalBlocks: 10000
 })
 ```
 
-info:::
-Note: the `chunkSizeMb` configuration defines the size (in MB) of a CSV file, before it's saved on disk, and a new one is created.
-Similarly, the `syncIntervalBlocks` configuration defines how many blocks have to be ingested, before creating a new CSV file, when the indexing process has reached the blockchain's head and is in sync with it.
+:::info
+Note the `chunkSizeMb` and `syncIntervalBlocks` option. `file-store-csv` chunks its output into multiple files, and these options are used to control that. A new chunk (that is, a new folder with a new CSV file in it) will be written when when either
+1. the amount of data stored in the processor buffer exceeds `chunkSizeMb`, or
+2. the blockchain head is reached in the sync process, or
+3. a multiple of `syncIntervalBlocks` blocks has been processed since the blockchain head was first reached.
 :::
 
 ### Data indexing
 
-All the indexing logic is defined in the file named processor.ts, so let's open it, and edit the `EvmBatchProcessor` class configuration, to request data for the right smart contract, and the right EVM log:
+All the indexing logic is defined in `src/processor.ts`, so let's open it and edit the `EvmBatchProcessor` class configuration. We should request data for the right smart contract and the right EVM event log:
 
 ```typescript
 export const contractAddress =
@@ -155,11 +149,11 @@ RPC_ENDPOINT="https://rpc.ankr.com/eth"
 ```
 :::
 
-Let's then define the logic to process a batch of EVM log data, and save it in the CSV files.
+Let's then define the logic to process a batch of EVM log data, and save it to CSV files.
 
-A double loop is necessary to explore all the blocks in each batch, and the items in each block. In the innermost loop, it's necessary to check that the items are actually EVM logs (this favors TypeScript typings, as [different kind of items have access to different fields](/evm-indexing/index.md#overview-and-the-data-model)), that they have been generated by the right address and that they have the right topic signature.
+A double loop is necessary to explore all the blocks in each batch, and the items in each block. In the innermost loop, it's necessary to check that the items are actually EVM logs (this favors TypeScript typings, as [different kind of items have access to different fields](/evm-indexing/evm-processor/#overview-and-the-data-model)), that they have been generated by the right address and that they have the right topic signature.
 
-It's then possible to decode the event and prepare an object with the right data structure, which is then written on the `Transfers` CSV file.
+It's then possible to decode the event and prepare an object with the right data structure, which is then written to the `Transfers` CSV file.
 Here is a short summary of the logic:
 
 ```typescript
@@ -187,7 +181,7 @@ processor.run(db, async (ctx) => {
 ```
 
 :::info
-The file in the GitHub repository is slightly different, as there's some added logic to obtain the number of decimals for the token, using Subsquid's SDK to interact with the smart contract deployed on chain (this is where the `RPC_ENDPOINT` variable is being used).
+The file in the GitHub repository is slightly different, as there's some added logic to obtain the number of decimals for the token. For that, the processor [interacts with the smart contract deployed on chain](/evm-indexing/query-state). This is where the `RPC_ENDPOINT` variable is being used.
 :::
 
 ### Launch the project
@@ -197,9 +191,7 @@ To launch the project, simply open a terminal and run this command:
 ```bash
 sqd process
 ```
-
 And in a few minutes, a few sub-folders (whose names are the block ranges where the data is coming from) should be created under the `data` directory, each containing a `transfer.csv` file.
-
 ![multiple folders containing CSV files](</img/csv-files.png>)
 
 ### Data analysis with Python
@@ -208,6 +200,6 @@ If you want to learn how to analyze this data using Python and Pandas, refer to 
 
 ## Conclusions
 
-The purpose of this project was to demonstrate how to use Subsquid's indexing framework for data analytics prototyping: the indexer was able to ingest all this data, process it, and dump it on local CSV files in roughly 20 minutes, and a simple Python script in the project's repository shows how to read multiple CSV files, and perform some data analysis with Pandas.
+The purpose of this project was to demonstrate how to use Subsquid's indexing framework for data analytics prototyping: the indexer was able to ingest all this data, process it, and dump it to local CSV files in roughly 20 minutes. The simple Python script in the project's repository shows how to read multiple CSV files, and perform some data analysis with Pandas.
 
-Subsquid also wants to collect feedback on this new tool that Subsquid has made available for the developer community, so if you want to express an opinion, have suggestions, feel free to reach out.
+Subsquid Team seeks feedback on this new tool. If you want to share any thoughts or have any suggestions, feel free to reach out to us at [the SquidDevs Telegram channel](https://t.me/HydraDevs).
