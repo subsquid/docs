@@ -74,31 +74,32 @@ export default function Home(): JSX.Element {
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2">
           <GuideCard
-            path="/tutorials/create-an-ethereum-processing-squid"
+            path="/quickstart/quickstart-ethereum/"
             color={'bg-role--success'}
-            description="Index EVM smart contracts on chains like Ethereum, Polygon, BSC">Index EVM data
+            description="Blazing fast batch indexing of logs and txs for major EVM chains">Index EVM data
           </GuideCard>
           <GuideCard
-            color={'bg-role--notice'}
-            path="/tutorials/create-a-simple-squid"
-            description="Learn how to build a simple squid for a Substrate-based chain">Index
-            Substrate data</GuideCard>
-          <GuideCard
-            path="/deploy-squid/promote-to-production"
-            color={'bg-role--warning'}
-            description="Switch between squid versions with zero downtime">Promote to production</GuideCard>
-          <GuideCard
-            path="/tutorials/create-a-wasm-processing-squid"
+            path="/basics/external-api"
             color={'bg-role--success'}
-            description="Index WASM contracts developed with Ink!">WASM smart contracts</GuideCard>
+            description="Enrich the indexed data with third-party API and IPFS queries">Query APIs and IPFS
+          </GuideCard>
           <GuideCard
             path="/graphql-api/subscriptions"
-            color={'bg-role--notice'}
+            color={'bg-role--success'}
             description="Live query updates with GraphQL subscriptions">GraphQL subscriptions</GuideCard>
           <GuideCard
-            path="/tutorials/create-an-evm-processing-squid"
-            color={'bg-role--success'}
-            description="Index data from Substrate EVM chains like Moonbeam and Astar">Frontier EVM data</GuideCard>
+            path="/deploy-squid/promote-to-production"
+            color={'bg-role--notice'}
+            description="Switch between versions with zero downtime">Production aliases</GuideCard>
+          <GuideCard
+            color={'bg-role--notice'}
+            path="/quickstart/quickstart-substrate/"
+            description="The most advanced SDK for indexing Substrate-based chains">Index
+            Substrate data</GuideCard>
+          <GuideCard
+            path="/tutorials/create-a-wasm-processing-squid"
+            color={'bg-role--notice'}
+            description="Index WASM contracts developed with Ink!">WASM smart contracts</GuideCard>
         </div>
       </div>
 
