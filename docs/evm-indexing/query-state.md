@@ -6,13 +6,13 @@ description: >-
 
 # Query the contract state
 
-In order to make on-chain calls, one must set up a websocket JSON-RPC endpoint using [setDataSource()](/evm-indexing/configuration/#initialization). We recommend using a private endpoint from e.g. Infura or NodeReal, and set it via an environment variable:
+In order to make on-chain calls, one must set up a websocket JSON-RPC endpoint using [setDataSource()](/evm-indexing/configuration/#initialization). We recommend using a private endpoint from e.g. [BlastAPI](https://blastapi.io/), and set it via an environment variable:
 
 ```ts
 //... 
   .setDataSource({
-    chain: process.env.ETHEREUM_MAINNET_WSS,
-    archive: 'https://eth.archive.subsquid.io',
+    chain: process.env.ETHEREUM_MAINNET_RPC,
+    archive: lookupArchive('eth-mainnet'),
   })
 //...
 ```
