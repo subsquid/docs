@@ -79,7 +79,7 @@ const processor = new EvmBatchProcessor()
     archive: 'https://eth.archive.subsquid.io',
   })
   .addLog([
-    '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'.toLowerCase()
+    '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
   ], {
     filter: [[
       events.Deposit.topic, events.Withdrawal.topic

@@ -42,7 +42,7 @@ const processor = new EvmBatchProcessor()
   .setBlockRange({ from: 6175243 })
   // fetch logs emitted by '0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'
   // matching either `NewGravatar` or `UpdatedGravatar`
-  .addLog('0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'.toLowerCase(), {
+  .addLog('0x2E645469f354BB4F5c8a05B3b30A929361cf77eC', {
     filter: [[
       events.NewGravatar.topic,
       events.UpdatedGravatar.topic,

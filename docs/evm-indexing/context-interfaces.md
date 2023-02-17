@@ -162,7 +162,7 @@ const processor = new EvmBatchProcessor()
     archive: 'https://eth.archive.subsquid.io',
   })
   .setBlockRange({ from: 6175243 })
-  .addLog('0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'.toLowerCase(), {
+  .addLog('0x2E645469f354BB4F5c8a05B3b30A929361cf77eC', {
     filter: [[ ]],
     data: {
       evmLog: {

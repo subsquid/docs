@@ -12,8 +12,8 @@ description: >-
 Method documentation provided here is mostly also available as inline and accessible via suggestions in most IDEs.
 :::
 
-:::warning
-All contract addresses supplied to `EvmBatchProcessor` must be in flat lower case.
+:::info
+If contract address(es) supplied to `EvmBatchProcessor` are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/evm-indexing/context-interface) for item filtration, and all contract addresses in the items are **always** in flat lower case.
 :::
 
 The following setters configure the global settings of `EvmBatchProcessor`. They return the modified instance and can be chained.
