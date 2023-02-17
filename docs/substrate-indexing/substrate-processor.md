@@ -10,14 +10,14 @@ This section applies to squid processors indexing [Substrate](https://substrate.
 
 - Polkadot
 - Kusama
-- Moonbeam
-- Moonriver
+- Moonbeam (Substrate data). For EVM data, use [EVM Processor](/evm-indexing)
+- Moonriver (Substrate data). For EVM data, use [EVM Processor](/evm-indexing)
 - Astar
 - Acala
 
 ## Overview and the data model
 
-A squid processor is a Node.js process that fetches historical on-chain data from an [Archive](/archives), performs arbitrary transformations and saves the result. By convention, the processor entry point is `src/processor.ts`.`SubstrateBatchProcessor` is the central class that handles Substrate data extraction, transformation and persistence. A single batch handler function supplied to `SubstrateBatchProcessor.run()` is responsible for transforming data from multiple events and transactions in a single in-memory batch.
+A squid processor is a Node.js process that fetches historical on-chain data from an [Archive](/archives), performs arbitrary transformations and saves the result. By convention, the processor entry point is `src/processor.ts`. `SubstrateBatchProcessor` is the central class that handles Substrate data extraction, transformation and persistence. A single batch handler function supplied to `SubstrateBatchProcessor.run()` is responsible for transforming data from multiple events and transactions in a single in-memory batch.
 
 Processor treats historical on-chain data as an ordered execution log. It subscribes to log items and receives items in batches. The order of items within the batch is identical to the order of data within the historical chain blocks. The batch handler function is called once for each batch.
 
