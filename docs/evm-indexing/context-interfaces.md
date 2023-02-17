@@ -15,7 +15,7 @@ The batch handler is an async void function. It repeatedly receives batches of a
 
 ## `BatchContext` interface
 
-Batch handler accepts a single argument of type `BatchContext`. It has the following structure:
+The batch handler accepts a single argument of type `BatchContext`. It has the following structure:
 
 ```ts
 export interface BatchContext<Store, Item> {
@@ -40,11 +40,11 @@ export interface BatchBlock<Item> {
 }
 ```
 
-`BatchBlock.header` contains the block header data. `BatchBlock.items` is a unified log containing the event and the call data. It is canonically ordered:
- - all events emitted by a call are placed before the call itself;
- - all the child calls are placed before the parent call.
+`BatchBlock.header` contains the block header data. `BatchBlock.items` is a unified log containing the event and the transaction data items. It is canonically ordered following the EVM execution trace:
+ - all transaction items respect the execution order with the block
+ - all events emitted by a transaction are placed before the transaction item (if is requested);
 
-Each `Item` has the following structure:
+Each data `Item` has the following structure:
 ```ts
 { 
   // either it's an `event` or `transaction` item
@@ -108,7 +108,7 @@ Here is a full list of fields for items with `item.kind==='transaction'`.
 ```ts
 {
   kind: 'transaction'
-  address: string
+  address: string // transaction.to
   transaction: {
     id?: string
     from?: string

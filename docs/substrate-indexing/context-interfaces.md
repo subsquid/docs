@@ -15,7 +15,7 @@ The batch handler is an async void function. It repeatedly receives batches of a
 
 ## `BatchContext` interface
 
-Batch handler accepts a single argument of type `BatchContext`. It has the following structure:
+The batch handler accepts a single argument of type `BatchContext`. It has the following structure:
 
 ```ts
 export interface BatchContext<Store, Item> {
