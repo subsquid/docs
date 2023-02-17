@@ -137,22 +137,20 @@ export const contractMapping: Map<string, Contract> = new Map<
 >();
 
 contractMapping.set(astarDegensAddress, {
-    id: astarDegensAddress,
-    name: "AstarDegens",
-    symbol: "DEGEN",
-    totalSupply: 10000n,
-    mintedTokens: [],
-  }
-);
+  id: astarDegensAddress,
+  name: "AstarDegens",
+  symbol: "DEGEN",
+  totalSupply: 10000n,
+  mintedTokens: [],
+});
 
 contractMapping.set(astarCatsAddress, {
-    id: astarCatsAddress,
-    name: "AstarCats",
-    symbol: "CAT",
-    totalSupply: 7777n,
-    mintedTokens: [],
-  }
-);
+  id: astarCatsAddress,
+  name: "AstarCats",
+  symbol: "CAT",
+  totalSupply: 7777n,
+  mintedTokens: [],
+});
 
 function createContractEntity(address: string): Contract {
   const contractObj = contractMapping.get(address);
