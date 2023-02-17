@@ -44,7 +44,7 @@ Options:
 import { lookupArchive } from "@subsquid/archive-registry";
 import { EVMBatchProcessor } from "@subsquid/evm-processor";
 
-const processor = new SubstrateBatchProcessor()
+const processor = new EVMBatchProcessor()
   .setDataSource({
      archive: lookupArchive("eth-mainnet")
 })
