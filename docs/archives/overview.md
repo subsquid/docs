@@ -20,10 +20,9 @@ Subsquid publishes the up-to-date list of public Archives in the [Archive Regist
 
 ### Listing the available archives
 
-Use the included `squid-archive-registry` executable to list aliases for the supported networks:
-
+Use the `squid-archive-registry` executable included in `@subsquid/archive-registry` to list aliases for the supported networks:
 ```bash
-$ squid-archive-registry --help
+$ npx squid-archive-registry --help
 Usage: run [options]
 
 Display list of available archives
