@@ -10,7 +10,7 @@ It some cases the set of contracts to be indexed by the squid is not known in ad
 
 While the set of handler subscriptions is static and defined at the processor creation, one can leverage wildcard subscriptions and filter for contracts of interest at runtime. 
 
-Let's consider how it works in a DEX example, with a contract emitting `PoolCreated` log when a new pool contract is created by the main contract. Full code is available in the [examples repo](https://github.com/subsquid/squid-evm-examples).
+Let's consider how it works in a DEX example, with a contract emitting `PoolCreated` log when a new pool contract is created by the main contract. Full code is available in the [examples repo](https://github.com/subsquid-labs/factory-example).
 
 ```typescript
 let processor = new EvmBatchProcessor()
