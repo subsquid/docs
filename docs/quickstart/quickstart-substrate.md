@@ -1,6 +1,6 @@
 ---
 sidebar_position: 20
-title: Substrate chains
+title: Simple Substrate indexer
 description: A simple squid for Substrate indexing transfers
 ---
 
@@ -24,7 +24,7 @@ Come up with a new memorable name for your squid. Choose the template matching y
 scaffold using [`sqd init`](/squid-cli/init).
 
 - For indexing native events emitted by Substrate-based chains, use `substrate` 
-- For indexing Frontier EVM contracts on Moonbeam, Moonriver, Astar, Shiden use `frontier-evm`
+- For indexing Frontier EVM contracts on Astar and Shiden use `frontier-evm`
 - For indexing Ink! smart contracts, use `ink`
 - For indexing EVM+ contracts on Karura or Acala, use `acala`
 
@@ -92,7 +92,7 @@ query MyQuery {
 - Define the [data schema](/basics/schema-file) and customize the API
 - Explore how to use [typegen](/substrate-indexing/squid-substrate-typegen) for type-safe on-chain data access
 - Explore how to efficiently transform the on-chain [data in batches](/substrate-indexing)
-- Explore native support for [Moonriver, Moombeam and Astar EVMs](/substrate-indexing/evm-support)
+- Explore native support for [Frontier EVM](/substrate-indexing/evm-support) on Astar and Shiden
 - Explore native support for [Ink! contracts](/substrate-indexing/wasm-support)
 - Explore native support for [Gear contracts](/substrate-indexing/gear-support)
 - Explore native support for [Acala EVM+ contracts](/substrate-indexing/acala-evm-support)

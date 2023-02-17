@@ -3,56 +3,46 @@ id: create-an-evm-processing-squid
 title: Frontier EVM-indexing Squid
 description: >-
   Build a squid indexing NFTs on Astar
-sidebar_position: 5
+sidebar_position: 50
 ---
 
 # Frontier EVM-indexing Squid
 
 ## Objective
 
-This tutorial will take the Squid EVM template and go through all the necessary steps to customize the project, in order to interact with a different Squid Archive, synchronized with a different blockchain, and process data from two different contracts (AstarDegens and AstarCats), instead of the one used in the template.
+The goal of this tutorial is to guide you through creating a simple blockchain indexer ("squid") using Squid SDK. The squid will be indexing the data from two contracts ([AstarDegens](https://blockscout.com/astar/address/0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a) and [AstarCats](https://blockscout.com/astar/address/0x8b5d62f396Ca3C6cF19803234685e693733f9779)) deployed on the [Astar network](https://astar.network/). The objective will be to track ownership and transfers of all NFTs issued by these contracts.
 
-The business logic to process these contract is basic, and that is on purpose since the Tutorial aims show a simple case, highlighting the changes a developer would typically apply to the template, removing unnecessary complexity.
-
-The blockchain used in this example will be the [Astar network](https://astar.network/) and the final objective will be to show the tokens that are part of these smart contracts, who owns them and every time they have been transferred.
+A somewhat outdated version of the final result can be browsed [here](https://github.com/subsquid/squid-astar-example/tree/astar-degens).
 
 ## Pre-requisites
 
-The minimum requirements for this tutorial are as follows:
-
 - Familiarity with Git 
-- A properly set up [development environment](/tutorials/development-environment-set-up)
-- Basic command line knowledge 
-- Setup [Squid CLI](/squid-cli)
+- A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js and Docker
+- [Squid CLI](/squid-cli/installation)
 
 :::info
-This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands. Feel free to add or modify the scripts and inspect with `sqd --help`.
+This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands.
 :::
 
 ## Scaffold using `sqd init`
 
-We will start of the `frontier-evm` template of [`sqd init`](/squid-cli/init) which is based on this [repository](https://github.com/subsquid/squid-evm-template). It is used to index EVM smart contracts deployed Astar/Shiden and Moonbeam/Moonriver, with the possibility to additionally index the Substrate events.
+We will start with the [`frontier-evm` squid template](https://github.com/subsquid-labs/squid-frontier-evm-template/) available through [`sqd init`](/squid-cli/init). It is built to index EVM smart contracts deployed on Astar/Shiden, but it is also capable of indexing Substrate events. To retrieve the template and install the dependencies, run
 
 ```bash
 sqd init astar-evm-tutorial --template frontier-evm
 cd astar-tutorial
+npm ci
 ```
-
-For reference on the complete work, you can find the entire project [here](https://github.com/subsquid/squid-astar-example/tree/astar-degens).
 
 ## Define Entity Schema
 
-The next thing to do, in order to customize the project for our own purpose, is to make changes to the schema and define the Entities we want to keep track of.
-
-Luckily, the EVM template already contains a schema that defines the exact entities we need for the purpose of this guide. For this reason, changes are necessary, but it's still useful to explain what is going on.
-
-To index ERC-721 token transfers, we will need to track:
+Next, we ensure that the data [schema](/basics/schema-file) of the squid defines [entities](/basics/schema-file/entities) that we would like to track. We are interested in:
 
 * Token transfers
 * Ownership of tokens
 * Contracts and their minted tokens
 
-And the `schema.graphql` file defines them like this:
+Luckily, the EVM template already contains a schema file that defines the exact entities we need:
 
 ```graphql
 type Token @entity {
@@ -86,81 +76,60 @@ type Transfer @entity {
   block: Int!
   transactionHash: String!
 }
-
 ```
 
-It's worth noting a couple of things in this [schema definition](https://docs.subsquid.io/reference/openreader-schema):
+It's worth noting a couple of things in this [schema definition](/basics/schema-file):
 
-* **`@entity`** - signals that this type will be translated into an ORM model that is going to be persisted in the database
-* **`@derivedFrom`** - signals the field will not be persisted on the database, it will rather be derived
-* **type references** (i.e. `from: Owner`) - establishes a relation between two entities
+* **`@entity`**: Signals that this type will be translated into an ORM model that is going to be persisted in the database.
+* **`@derivedFrom`**: Signals that the field will not be persisted in the database. Instead, it will be [derived from](/basics/schema-file/entity-relations) the entity relations.
+* **type references** (e.g. `from: Owner`): When used on entity types, they establish a relation between two entities.
 
-The template already has automatically generated TypeScript classes for this schema definition. They can be found under `src/model/generated`.
-
-Whenever changes are made to the schema, new TypeScript entity classes have to be generated, and to do that you'll have to run the `codegen` tool:
+TypeScript entity classes have to be regenerated whenever the schema is changed, and to do that we use the `squid-typeorm-codegen` tool. The pre-packaged `commands.json` already comes with a `codegen` shortcut, so we can invoke it with `sqd`:
 
 ```bash
-make codegen
+sqd codegen
 ```
+The (re)generated entity classes can then be browsed at `src/model/generated`.
 
 ## ABI Definition and Wrapper
 
-Subsquid offers support for automatically building TypeScript type-safe interfaces for Substrate data sources (events, extrinsics, storage items). Changes are automatically detected in the runtime.
+Subsquid maintains [tools](/substrate-indexing/squid-substrate-typegen) for automated generation of TypeScript classes for handling Substrate data sources (events, extrinsics, storage items). Possible runtime upgrades are automatically detected and accounted for.
 
-This functionality has been extended to EVM indexing, with the release of a `evm-typegen` tool to generate TypeScript interfaces and decoding functions for EVM logs.
+Similar functionality is available for EVM indexing through the [`squid-evm-typegen`](/evm-indexing/squid-evm-typegen) tool. It generates TypeScript modules for handling EVM logs and transactions based on a [JSON ABI](https://docs.ethers.io/v5/api/utils/abi/) of the contract.
 
-Once again, the template repository already includes interfaces for ERC-721 contracts, which is the subject of this guide. But it is still important to explain what needs to be done, in case, for example, one wants to index a different type of contract.
+For our squid we will need such a module for the [ERC-721](https://eips.ethereum.org/EIPS/eip-721)-compliant part of the contracts' interfaces. Once again, the template repository already includes it, but it is still important to explain what needs to be done in case one wants to index a different type of contract.
 
-First, it is necessary to obtain the definition of its Application Binary Interface (ABI). This can be obtained in the form of a JSON file, which will be imported into the project.
-
-1. It is advisable to copy the JSON file in the `src/abi` subfolder.
-2. To automatically generate TypeScript interfaces from an ABI definition, and decode event data, simply run this command from the project's root folder
-
+The procedure uses an `sqd` script from the template that uses `squid-evm-typegen` to generate Typescript facades for JSON ABIs stored in the `abi` folder. Place any ABIs you requre for interfacing your contracts there and run
 ```bash
-npx squid-evm-typegen --abi src/abi/ERC721.json --output src/abi/erc721.ts
+sqd typegen
 ```
-
-The `abi` parameter points at the JSON file previously created, and the `output` parameter is the name of the file that will be generated by the command itself.
-
-This command will automatically generate a TypeScript file named `erc721.ts`, under the `src/abi` subfolder, that defines data interfaces to represent output of the EVM events defined in the ABI, as well as a mapping of the functions necessary to decode these events (see the `events` dictionary in the aforementioned file).
-
-:::info
-The ERC-721 ABI defines the signatures of all events in the contract. The `Transfer` event has three arguments, named: `from`, `to`, and `tokenId`. Their types are, respectively, `address`, `address`, and `uint256`. As such, the actual definition of the `Transfer` event looks like this: `Transfer(address, address, uint256)`.
-:::
+The results will be stored at `src/abi`. One module will be generated for each ABI file, and it will include constants useful for filtering and functions for decoding EVM events and functions defined in the ABI.
 
 ## Define and Bind Event Handler(s)
 
-The Subsquid SDK provides users with a [processor](/substrate-indexing) class, named `SubstrateProcessor` or, in this specific case [`SubstrateBatchProcessor`](/substrate-indexing/batch-processor-in-action). The processor connects to the [Subsquid archive](/basics/overview) to get chain data. It will index from the configured starting block, until the configured end block, or until new data is added to the chain.
+Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/substrate-indexing). Its instances connect to chain-specific [Subsquid archives](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-The processor exposes methods to "attach" functions that will "handle" specific data such as Substrate events, extrinsics, storage items, or EVM logs. These methods can be configured by specifying the event or extrinsic name, or the EVM log contract address, for example. As the processor loops over the data, when it encounters one of the configured event names, it will execute the logic in the "handler" function.
+`SubstrateBatchProcessor`s [exposes methods](/substrate-indexing/configuration) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items or, for EVM, logs and transactions. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for [*batches*](/basics/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
+
+It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 
 ### Managing the EVM contract
 
-It is worth pointing out, at this point, that some important auxiliary code like constants and helper functions to manage the EVM contract is defined in the `src/contracts.ts` file. Here's a summary of what is in it:
+Before we begin defining the mapping logic of the squid, we are going to rewrite the `src/contracts.ts` utility module for managing the involved EVM contracts. It will export:
 
-* Define the chain node endpoint (optional but useful)
-* Create a contract interface(s) to store information such as the address and ABI
-* Define functions to fetch or create contract entities from the database and the contract URI from the `ethers` instance
-* Define a couple of functions to avoid that the connection generated by the `ethers` instance will stall
+* Addresses of [astarDegens](https://blockscout.com/astar/address/0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a) and [astarCats](https://blockscout.com/astar/address/0x8b5d62f396Ca3C6cF19803234685e693733f9779) contracts.
+* A `Map` from the contract addresses to constructor arguments of the `Contract` [entity](/basics/schema-file/entities). The arguments are hardcoded.
+* A function that will create and save an instance of the `Contract` entity to the database, if one does not exist already. Either the already existing or the created entity instance will be returned on the first time the function is called on a given address. It will also be cached and on subsequent calls the cached version will be returned.
 
-In order to adapt the template to the scope of this guide, we need to apply a couple of changes:
-
-1. edit the `CHAIN_NODE` constant to the endpoint URL of Astar network (e.g. `wss://astar.api.onfinality.io/public-ws`)
-2. define a map that relates the contract address with the contract model and the Contract instance defined by the `ethers` library
-3. edit the hexadecimal address used to create the `contract` constant (we are going to use [this token](https://blockscout.com/astar/token/0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a/token-transfers) for the purpose of this guide)
-4. change the `name`, `symbol` and `totalSupply` values used in the `createContractEntity` function to their correct values (see link in the previous point)
-5. create a second `ethers` Contract for the second ERC721 token contract we want to index and a second entry in the map
-
-In case someone wants to index an EVM event different from `Transfer`, they would also have to implement a different handler function from `processTransfer`, especially the line where the event `"Transfer(address,address,uint256)"` is decoded.
+Here are the full file contents:
 
 ```typescript
 // src/contract.ts
 import { Store } from "@subsquid/typeorm-store";
 import { Contract } from "./model";
 
-export const CHAIN_NODE = "wss://astar.public.blastapi.io";
-export const astarDegensAddress = "0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a";
-export const astarCatsAddress = "0x8b5d62f396Ca3C6cF19803234685e693733f9779";
+export const astarDegensAddress = "0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a".toLowerCase();
+export const astarCatsAddress = "0x8b5d62f396Ca3C6cF19803234685e693733f9779".toLowerCase();
 
 export const contractMapping: Map<string, Contract> = new Map<
   string,
@@ -168,24 +137,22 @@ export const contractMapping: Map<string, Contract> = new Map<
 >();
 
 contractMapping.set(astarDegensAddress, {
-    id: astarDegensAddress,
-    name: "AstarDegens",
-    symbol: "DEGEN",
-    totalSupply: 10000n,
-    mintedTokens: [],
-  }
-);
+  id: astarDegensAddress,
+  name: "AstarDegens",
+  symbol: "DEGEN",
+  totalSupply: 10000n,
+  mintedTokens: [],
+});
 
 contractMapping.set(astarCatsAddress, {
-    id: astarCatsAddress,
-    name: "AstarCats",
-    symbol: "CAT",
-    totalSupply: 7777n,
-    mintedTokens: [],
-  }
-);
+  id: astarCatsAddress,
+  name: "AstarCats",
+  symbol: "CAT",
+  totalSupply: 7777n,
+  mintedTokens: [],
+});
 
-export function createContractEntity(address: string): Contract {
+function createContractEntity(address: string): Contract {
   const contractObj = contractMapping.get(address);
   if (contractObj)
     return new Contract(contractObj);
@@ -213,23 +180,13 @@ export async function getContractEntity(
   
   return contractAddresstoModel.get(address);
 }
-
 ```
 
 ## Configure Processor and Attach Handler
 
-The `src/processor.ts` file is where the template project instantiates the `SubstrateBatchProcessor` class, configures it for execution, and attaches the handler functions.
+The `src/processor.ts` file is where squids instantiate the processor (a `SubstrateBatchProcessor` in our case), configure it and attach the handler functions.
 
-Luckily for us, most of the job is already done, but we still need to adapt the code to handle two contracts, instead of only one. We also need to change the `addEvmLog` function call, with the appropriate contract address for AstarDegens, and add a second one for AstarCats.
-
-Furthermore, we need to adapt the logic to save `Token`s in a way that avoids ID clashing.
-
-:::info
-It is also important to note that, since the template was built for the `moonriver` network, it is necessary to change the `archive` parameter of the `setDataSource` function to fetch the Archive URL for Astar.
-The `lookupArchive` function is used to consult the [archive registry](https://github.com/subsquid/archive-registry) and yield the archive address, given a network name. Network names should be in lowercase.
-:::
-
-Look at this code snippet for the end result:
+We adapt the template code to handle two contracts instead of one and change the logic of saving `Token`s in a way that avoids ID clashing. We also change the processor data source setting and point it the `astar` archive URL retrieved from the [archive registry](https://github.com/subsquid/archive-registry). Here is the end result:
 
 ```typescript
 // src/processor.ts
@@ -245,31 +202,29 @@ import {
 import { In } from "typeorm";
 import { ethers } from "ethers";
 import {
-  CHAIN_NODE,
   astarDegensAddress,
-  getContractEntity,
   astarCatsAddress,
   contractMapping,
+  getContractEntity,
 } from "./contract";
 import { Owner, Token, Transfer } from "./model";
 import * as erc721 from "./abi/erc721";
 
 const database = new TypeormDatabase();
 const processor = new SubstrateBatchProcessor()
-  .setBatchSize(500)
   .setBlockRange({ from: 442693 })
   .setDataSource({
-    chain: CHAIN_NODE,
-    archive: lookupArchive("astar", { release: "FireSquid" }),
+    chain: process.env.RPC_ENDPOINT,
+    archive: lookupArchive("astar"),
   })
   .setTypesBundle("astar")
   .addEvmLog(astarDegensAddress, {
     range: { from: 442693 },
-    filter: [erc721.events["Transfer(address,address,uint256)"].topic],
+    filter: [erc721.events.Transfer.topic],
   })
   .addEvmLog(astarCatsAddress, {
     range: { from: 800854 },
-    filter: [erc721.events["Transfer(address,address,uint256)"].topic],
+    filter: [erc721.events.Transfer.topic],
   });
 
 type Item = BatchProcessorItem<typeof processor>;
@@ -305,9 +260,7 @@ function handleTransfer(
   block: SubstrateBlock,
   event: EvmLogEvent
 ): TransferData {
-  const { from, to, tokenId } = erc721.events[
-    "Transfer(address,address,uint256)"
-  ].decode(event.args);
+  const { from, to, tokenId } = erc721.events.Transfer.decode(event.args);
 
   const transfer: TransferData = {
     id: event.id,
@@ -399,70 +352,69 @@ async function saveTransfers(ctx: Context, transfersData: TransferData[]) {
   await ctx.store.save([...tokens.values()]);
   await ctx.store.save([...transfers]);
 }
-
 ```
 
 :::info
-Pay close attention to the line with `id` in the `Token` model, because this is how we avoid the two token collection to clash. Both are using cardinal numbers to identify their own tokens, but we are now adding them to the same table, so we need a way to identify them uniquely and in this case, we chose the contract symbol to do so.
+Pay close attention to the line with the `const tokenId` definition, because this is how we avoid the clash while storing tokens from both collections. The contracts are using cardinal numbers to identify their own tokens, but now we are adding the IDs to the same table column. To identify tokens uniquely, we use a concatenation of the contract symbol and a string represenation of the original ID.
 :::
 
 :::info
-It is also interesting to notice that `contract.tokenURI` is accessing the **state** of the contract, directly from the chain endpoint we provided. This is slowing down the indexing a little bit, because of the repeated RPC calls, but this data is only available this way. You'll find more information in the [dedicated section of our docs](/substrate-indexing/evm-support#access-the-contract-state).
+It is also worth pointing out that the `contract.tokenURI` call is accessing the **state** of the contract via a chain RPC endpoint. This is slowing down the indexing a little bit, but this data is only available this way. You'll find more information on accessing state in the [dedicated section of our docs](/substrate-indexing/evm-support#access-the-contract-state).
+:::
+
+:::warning
+This code expects to find an URL of a working Astar RPC endpoint in the `RPC_ENDPOINT` environment variable. Set it in the `.env` file and in [Aquarium secrets](/deploy-squid/env-variables) if and when you deploy your squid there. We tested the code using a public endpoint available at `wss://astar.public.blastapi.io`; for production, we recommend using private endpoints.
 :::
 
 ## Launch and Set Up the Database
 
-When running the project locally, as it is the case for this guide, it is possible to use the `docker-compose.yml` file that comes with the template to launch a PostgreSQL container. To do so, run the following command in your terminal:
+When running the project locally it is possible to use the `docker-compose.yml` file that comes with the template to launch a PostgreSQL container. To do so, run `sqd up` in your terminal.
 
-```bash
-make up
-```
+[comment]: # (Launch database container https://i.gyazo.com/907ef55371e1cdb1839d2fe7ff108ee7.gif)
 
-![Launch database container](https://i.gyazo.com/907ef55371e1cdb1839d2fe7ff108ee7.gif)
+Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping). In this approach the schema is managed through migration files. Because we made changes to the schema, we need to remove the existing migration(s) and create a new one, then apply the new migration.
 
-!!! Note The `-d` parameter is optional, it launches the container in `daemon` mode, so the terminal will not be blocked, and no further output will be visible.
+This involves the following steps:
 
-Squid projects automatically manage the database connection and schema, via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping).
-
-To set up the database, you can take the following steps:
-
-1. Build the code
+1. Build the code:
 
     ```bash
-    make build
+    sqd build
     ```
 
-2. Make sure the Postgres Docker container, `squid-evm-template_db_1`, is running (the exact name depends on the name you gave the repository, when cloning it)
+2. Make sure you start with a clean Postgres database. The following commands drop-create a new Postgres instance in Docker:
 
     ```bash
-    docker ps -a
+    sqd down
+    sqd up
     ```
 
-3. Remove existing migrations, because our schema may have changed
+3. Generate the new migration (this will wipe any old migrations):
 
     ```bash
-    rm db/migrations/*js
+    sqd migration:generate
     ```
-4. Generate a new migration, so tables are created on the database
+
+4. Apply the migration, so that the tables are created in the database:
 
     ```bash
-    make migration
+    sqd migration:apply
     ```
 
 ## Launch the Project
 
-To launch the processor (this will block the current terminal), you can run the following command:
+To launch the processor run the following command (this will block the current terminal):
 
 ```bash
-make process
+sqd process
 ```
 
-![Launch processor](https://i.gyazo.com/66ab9c1fef9203d3e24b6e274bba47e3.gif)
+[comment]: # (Launch processor https://i.gyazo.com/66ab9c1fef9203d3e24b6e274bba47e3.gif)
 
 Finally, in a separate terminal window, launch the GraphQL server:
 
 ```bash
-make serve
+sqd serve
 ```
 
 Visit [`localhost:4350/graphql`](http://localhost:4350/graphql) to access the [GraphiQL](https://github.com/graphql/graphiql) console. From this window, you can perform queries such as this one, to find out the account owners with the biggest balances:
@@ -492,4 +444,4 @@ query MyQuery {
 }
 ```
 
-Have some fun playing around with queries, after all, it's a _playground_!
+Have fun playing around with queries, after all, it's a _playground_!

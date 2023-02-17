@@ -1,7 +1,7 @@
 ---
 sidebar_position: 10
-title: EVM chains
-description: A minimal squid for EVM indexing
+title: Minimal EVM indexer
+description: Minimal squid for EVM chains
 ---
 
 # Quickstart: EVM chains

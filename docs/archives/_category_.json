@@ -1,12 +1,12 @@
 {
-    "position": 25,
-    "label": "Tutorials",
+    "position": 45,
+    "label": "Archives",
     "collapsible": true,
     "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
-      "title": "Step-by-step tutorials",
-      "slug":"/tutorials"
+      "slug": "/archives",
+      "title": "Specilized data lakes for on-chain data"
     }
 }
