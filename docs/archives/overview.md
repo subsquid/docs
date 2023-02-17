@@ -16,7 +16,7 @@ If you are a network developer and would like to see your chain supported by Sub
 
 ## Archive Registry
 
-Subsquid publishes the up-to-date list of public Archives in the [Archive Registry repository](https://github.com/subsquid/archive-registry/). The registry is available as an [npm package `@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry). The package contains a script for listing the available archives and a function for looking up archive URLs.
+Subsquid publishes the up-to-date list of public Archives in the [Archive Registry repository](https://github.com/subsquid/archive-registry/). The registry is available as a [npm package `@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry). The package contains a script for listing the available archives and a function for looking up archive URLs.
 
 ### Listing the available archives
 

@@ -22,14 +22,14 @@ const processor = new SubstrateBatchProcessor()
 ```
 
 :::tip
-We recommend using private endpoints for better performance and stability of your squids. The standard approach is to keep the endpoint URL in an environement variable and set it via [secrets](/deploy-squid/env-variables#secrets) when deploying to Aquarium.
+We recommend using private endpoints for better performance and stability of your squids. The standard approach is to keep the endpoint URL in an environment variable and set it via [secrets](/deploy-squid/env-variables#secrets) when deploying to Aquarium.
 :::
 
 ## Type-safe storage access with typegen
 
 Substrate typegen tool generates storage access classes at `src/types/storage.ts`. The classes take historical runtime upgrades into account by exposing versioned getters (like `asVxx`). The generated access methods support single- and multi-key queries and allow listing storage keys and pairs.
 
-Note that the generated getters **always query historical blockchain state at the "current" block derived the context**. This is the recommended way to access the storage.
+Note that the generated getters **always query the historical blockchain state at the "current" block derived the context**. This is the recommended way to access the storage.
 
 To generate storage classes with typegen:
 

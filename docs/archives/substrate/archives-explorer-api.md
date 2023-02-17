@@ -54,7 +54,7 @@ type Extrinsic @entity {
 
 ## Call
 
-Calls are more granular than extrinsics. They are used to unwrap `util.batch`, `sudo` and `proxy` extrinsics.
+Calls are more granular than extrinsics. The extrinsics `util.batch`, `sudo` and `proxy` are unwrapped by the Archive into an array of child calls.
 
 ```graphql
 type Call @entity {

@@ -45,7 +45,7 @@ See the [Event data selector section](/substrate-indexing/configuration/#event-d
 
 ## Calls
 
-**`addCall(name: string, options?)`**: Subscribe to a specific runtime call (even if wrapped into a `system.sudo` or `util.batch` extrinsic). Use `*` for the name to subscribe to each and every call. The name must follow the convention `${Pallet}.${call_name}`. The pallet name is normally capitalized and the call name is in the snake_case format, as in `Balances.transfer_keep_alive`. By default, both successful and failed calls are fetched and passed to the [handler context](/substrate-indexing/context-interfaces). Use the `call.success` data selector and later check `item.call.success` within the batch handler, if so needed.
+**`addCall(name: string, options?)`**: Subscribe to a specific runtime call (even if wrapped into a `system.sudo` or `util.batch` extrinsic). Use `*` for the name to subscribe to each and every call. The name must follow the convention `${Pallet}.${call_name}`. The pallet name is normally capitalized, and the call name is in the snake_case format, as in `Balances.transfer_keep_alive`. By default, both successful and failed calls are fetched and passed to the [handler context](/substrate-indexing/context-interfaces). Use the `call.success` data selector and later check `item.call.success` within the batch handler, if so needed.
 
 The `options?` argument has the following structure.
 ```ts
@@ -75,7 +75,7 @@ Subscribe to messages emitted by a Gear program. See [Gear Support](/substrate-i
 
 **`addAcalaEvmExecuted()`**
 **`addAcalaEvmExecutedFailed()`**
-Subscribe to EVM logs emitted by a Acala EVM+ contract. See [Acala Support](/substrate-indexing/acala-evm-support).
+Subscribe to EVM logs emitted by an Acala EVM+ contract. See [Acala Support](/substrate-indexing/acala-evm-support).
 
 ## Less common setters
 

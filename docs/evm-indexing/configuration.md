@@ -13,7 +13,7 @@ The method documentation is also available inline and can be accessed via sugges
 :::
 
 :::info
-If contract address(es) supplied to `EvmBatchProcessor` are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/evm-indexing/context-interface) for item filtration, and all contract addresses in the items are **always** in flat lower case.
+If contract address(-es) supplied to `EvmBatchProcessor` are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/evm-indexing/context-interface) for item filtration, and all contract addresses in the items are **always** in flat lower case.
 :::
 
 The following setters configure the global settings of `EvmBatchProcessor`. They return the modified instance and can be chained.
@@ -29,7 +29,7 @@ processor.setDataSource({
 })
 ```
 Argument properties:
-+ `archive`: An archive endpoint providing the data for the selected network. A short list of Subsquid-maintained archives is provided below; use [Archive registry](/archives/overview/#archive-registry) to obtain exhaustive, up-to-date information. The registry also provides a `lookupArchive` function that maps archive aliases to endpoint URLs, like this: `archive: lookupArchive('eth-mainnet')`.
++ `archive`: An archive endpoint providing the data for the selected network. A short list of archives maintained by Subsquid is provided below; use [Archive registry](/archives/overview/#archive-registry) to obtain exhaustive, up-to-date information. The registry also provides a `lookupArchive` function that maps archive aliases to endpoint URLs, like this: `archive: lookupArchive('eth-mainnet')`.
 + `chain?`: A JSON-RPC endpoint for the network of interest. Required if the processor has to make [contract state queries](/evm-indexing/query-state). For squids indexing only event and/or transaction data it can be omitted. HTTPS and WSS endpoints are supported.
 
 | Network                 |  Alias                    |        Archive endpoint                            |
