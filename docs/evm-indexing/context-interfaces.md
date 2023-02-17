@@ -6,7 +6,7 @@ description: >-
 
 # BatchContext for EVM
 
-`EvmBatchProcessor` expects a single user-defined batch handler to be implemented by the `processor.run()` method: 
+A `EvmBatchProcessor` instance expects a single user-defined batch handler to be implemented by the `run()` method: 
 ```ts
 processor.run<Store>(db: Database<Store>, batchHandler: (ctx: BatchContext<Store>) => Promise<void>)
 ```

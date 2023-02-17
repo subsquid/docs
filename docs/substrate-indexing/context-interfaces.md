@@ -6,7 +6,7 @@ description: >-
 
 # BatchContext for Substrate
 
-`SubstrateBatchProcessor` uses a single user-defined batch handler that it obtains via the `processor.run()` method:
+A `SubstrateBatchProcessor` instance expects a single user-defined batch handler to be implemented by the `run()` method: 
 ```ts
 processor.run<Store>(db: Database<Store>, batchHandler: (ctx: BatchContext<Store>) => Promise<void>)
 ```
