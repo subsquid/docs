@@ -11,7 +11,7 @@ The method documentation is also available inline and can be accessed via sugges
 :::
 
 :::info
-If contract address(es) supplied to `EvmBatchProcessor` are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/evm-indexing/context-interface) for item filtration, and all contract addresses in the items are **always** in flat lower case.
+If contract address(es) supplied to `EvmBatchProcessor` are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/substrate-indexing/context-interfaces) for item filtration, and all contract addresses in the items are **always** in flat lower case.
 :::
 
 This section describes additional options available for Substrate chains with the Frontier EVM pallet like Astar. We recommend using [squid-frontier-evm-template](https://github.com/subsquid-labs/squid-frontier-evm-template) as a starting point. For a step-by-step instruction, check out the [Frontier EVM squid tutorial](/tutorials/create-an-evm-processing-squid).
