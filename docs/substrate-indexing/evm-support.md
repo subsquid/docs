@@ -77,7 +77,9 @@ For details on the topic filter, check out the [EVM logs section of the EVM proc
 
 ## Subscribe to EVM transactions
 
-**`addEthereumTransaction(contractAddress: string | string[], options?: {data?, range?, sighash?})`**: A `SubstrateBatchProcessor` configuration setter that subscribes it to `Ethereum.transact()` calls. Filtering by contract address(es), function [4-byte signature hash](https://www.4byte.directory) (`sighash`) and block range are supported. `data` selection options are similar to those of [`addCall()`](/substrate-indexing/configuration/#call-data-selector).
+**`addEthereumTransaction(contractAddress: string | string[], options?: {data?, range?, sighash?})`**: A `SubstrateBatchProcessor` configuration setter that subscribes it to `Ethereum.transact()` calls. `Ethereum.Executed` event will be loaded for each `Ethereum.transact` call from the result set. 
+
+Filtering by contract address(es), function [4-byte signature hash](https://www.4byte.directory) (`sighash`) and block range are supported. `data` selection options are similar to those of [`addCall()`](/substrate-indexing/configuration/#call-data-selector).
 
 Note that by default both successful and failed transactions are fetched. Further, there's a difference between the success of a Substrate call and the internal EVM transaction. The transaction may fail even if the enclosing Substrate call has succeeded.
 
@@ -103,6 +105,8 @@ The way the Frontier EVM pallet exposes EVM logs and transaction may change due 
 `getEvmLog(ctx: ChainContext, event: Event): EvmLog`: Extract the EVM log data from `EVM.Log` event.
 
 `getTransaction(ctx: ChainContext, call: Call): LegacyTransaction | EIP2930Transaction | EIP1559Transaction`: Extract the transaction data from `Ethereum.transact` call with additional fields depending on the EVM transaction type.
+
+`getTransactionResult(ctx: ChainContext, ethereumExecuted: Event): {from: string, to: string, transactionHash: string, status: 'Succeed' | 'Error' | 'Revert' | 'Fatal', statusReason: string}`: Extract transaction result from an `Ethereum.Executed` event.
 
 #### Example
 
