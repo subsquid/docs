@@ -13,6 +13,13 @@
     font-weight: normal;
 }
 
+@font-face {
+    font-family: 'Circular Std';
+    src: local('Circular Std'),
+    url('/static/fonts/Circular/CircularAir-Light.ttf') format('truetype');
+    font-weight: 300;
+}
+
 
 /**
  * Any CSS included here will be global. The classic template
@@ -23,7 +30,7 @@
 /* You can override the default Infima variables here. */
 :root {
     --fg-base--default: #20203A;
-    --fg-base--muted: #777777;
+    --fg-base--muted: #424242;
     --fg-base--contrast: #FFFFFF;
     --fg-base--indistinguishable: #9B9BA8;
 
@@ -224,7 +231,7 @@ html, body, #__docusaurus {
 .markdown p:not(:where(.onboarding-homepage *)) {
     font-family: var(--ifm-font-family-base);
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
     font-size: 16px;
     line-height: 24px;
     letter-spacing: -0.02em;
@@ -289,7 +296,7 @@ html, body, #__docusaurus {
     .body--s {
         font-family: var(--ifm-font-family-base);
         font-style: normal;
-        font-weight: 400;
+        font-weight: 300;
         font-size: 16px;
         line-height: 24px;
         letter-spacing: -0.02em;
@@ -298,7 +305,7 @@ html, body, #__docusaurus {
     .caption {
         font-family: var(--ifm-font-family-base);
         font-style: normal;
-        font-weight: 400;
+        font-weight: 300;
         font-size: 12px;
         line-height: 16px;
         letter-spacing: -0.02em;
@@ -321,6 +328,7 @@ html, body, #__docusaurus {
 
 .markdown ul {
     @apply pl-4 ml-12;
+    font-weight: 300;
 }
 
 .codestep + div {
@@ -525,28 +533,24 @@ ul, ol {
     padding-left: 34px !important;
 }
 
+.menu__list .menu__list .menu__link {
+    font-weight: 300;
+}
+
 
 .x-button.bg-bg-base--contrast {
     border-color: var(--bg-base--contrast);
 }
+
 .x-button.bg-bg-base--contrast:hover {
     background-color: var(--border-color-base--contrast);
 }
 
-.homepage__text {
-    color: var(--breadcrumb-color);
-    font-weight: 400;
+.onboarding-homepage__text a {
+    color: var(--link-color) !important;
 }
 
-.homepage__text strong {
-    color: var(--link-color-hover);
-}
-
-.homepage__text a {
-    color: #C730FC !important;
-}
-
-.homepage__text a:hover {
+.onboarding-homepage__text a:hover {
     color: var(--link-color-hover) !important;
 }
 
@@ -590,25 +594,43 @@ ul, ol {
     @apply gap-5;
 }
 
-.btn-like, .btn-dislike {
+.icon-like, .icon-dislike {
     cursor: pointer;
 }
 
-.btn-like, .btn-dislike, .btn-smile {
+.icon {
     width: 24px;
     height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.btn-like::before {
-    content: url("/static/img/like.png");
+.icon::before {
+    content: '';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-position: center;
+    background-size: contain;
 }
 
-.btn-dislike::before {
-    content: url("/static/img/dislike.png");
+.icon-like::before {
+    background-image: url("/static/img/like.png");
 }
 
-.btn-smile::before {
-    content: url("/static/img/smile.png");
+.icon-dislike::before {
+    background-image: url("/static/img/dislike.png");
+}
+
+.icon-smile::before {
+    background-image: url("/static/img/smile.png");
+}
+
+.icon-mage::before {
+    background-image: url("/static/img/mage.png");
 }
 
 .navbar--fixed-top {

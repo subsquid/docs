@@ -28,7 +28,7 @@ const DocsRating = ({label}) => {
                 <>
                     <div className="flex items-center gap-4">
                         Thanks for letting us know!
-                        <div className="btn-smile"></div>
+                        <div className="icon icon-smile"></div>
                     </div>
                 </>
             ) : (
@@ -36,8 +36,8 @@ const DocsRating = ({label}) => {
                     <div className="flex items-center gap-4">
                         Thanks for letting us know!
                         <div className="flex items-center gap-2">
-                            <div className="btn-like" onClick={() => giveFeedback(1)}></div>
-                            <div className="btn-dislike" onClick={() => giveFeedback(0)}></div>
+                            <div className="icon icon-like" onClick={() => giveFeedback(1)}></div>
+                            <div className="icon icon-dislike" onClick={() => giveFeedback(0)}></div>
                         </div>
                     </div>
                 </>
