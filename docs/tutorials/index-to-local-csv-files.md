@@ -16,7 +16,7 @@ File-based data formats like CSV are convenient for data analysis, especially in
 
 We chose MATIC transactions on Ethereum mainnet for this example. This selection provides enough data to highlight the performance of the Subsquid framework and is interesting from a data analysis standpoint.
 
-An article about this demo project [has been published on Medium](https://medium.com/@raekwonthethird/how-you-can-supercharge-blockchain-data-analysis-with-local-indexing-88b713e7948e). The project source code can be found [in this repository on GitHub](https://github.com/RaekwonIII/local-csv-indexing).
+An article about this demo project [has been published on Medium](https://link.medium.com/1NPC1S2czxb). The project source code can be found [in this repository on GitHub](https://github.com/RaekwonIII/local-csv-indexing).
 
 ## Pre-requisites
 
@@ -196,7 +196,7 @@ And in a few minutes, a few sub-folders (whose names are the block ranges where 
 
 ### Data analysis with Python
 
-If you want to learn how to analyze this data using Python and Pandas, refer to [the Medium article dedicated to this demo project](https://medium.com/@raekwonthethird/how-you-can-supercharge-blockchain-data-analysis-with-local-indexing-88b713e7948e), or consult the [project's repository on GitHub](https://github.com/RaekwonIII/local-csv-indexing).
+If you want to learn how to analyze this data using Python and Pandas, refer to [the Medium article dedicated to this demo project](https://link.medium.com/1NPC1S2czxb), or consult the [project's repository on GitHub](https://github.com/RaekwonIII/local-csv-indexing).
 
 ## Conclusions
 
