@@ -106,7 +106,7 @@ The way the Frontier EVM pallet exposes EVM logs and transaction may change due 
 
 `getTransaction(ctx: ChainContext, call: Call): LegacyTransaction | EIP2930Transaction | EIP1559Transaction`: Extract the transaction data from `Ethereum.transact` call with additional fields depending on the EVM transaction type.
 
-`getTransactionResult(ctx: ChainContext, ethereumExecuted: Event): {from: string, to: string, transactionHash: string, status: 'Succeed' | 'Error' | 'Revert' | 'Fatal', statusReason: string}`: Extract transaction status from an `Ethereum.Executed` event.
+`getTransactionResult(ctx: ChainContext, ethereumExecuted: Event): {from: string, to: string, transactionHash: string, status: 'Succeed' | 'Error' | 'Revert' | 'Fatal', statusReason: string}`: Extract transaction result from an `Ethereum.Executed` event.
 
 #### Example
 
