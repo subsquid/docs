@@ -6,14 +6,14 @@ import { ExpandContent } from '@site/src/components/Expand/ExpandContent';
 import { TutorialCard } from '@site/src/components/tutorial-card';
 import clsx from "clsx";
 import {Expand} from "@site/src/components/Expand/Expand";
+import DocsRating from "@site/src/components/docs-rating";
 
 export default function Home(): JSX.Element {
 
   return (
     <div className="onboarding-homepage">
-      <div className="flex flex-col gap-8 max-w-[640px] items-start self-start mb-14 pt-2">
-        <span className="h3">Get started
-</span>
+      <div className="flex flex-col gap-6 max-w-[640px] items-start self-start mb-14 pt-2">
+        <span className="h3">Get started</span>
         <div className="flex flex-col gap-2 homepage__text">
           <span>Subsquid is a full-stack blockchain indexing SDK and specialized data lakes (Archives) optimized for extraction of large volumes of historical on-chain data.</span><p/>
           <span>The SDK offers a highly customizable Extract-Transform-Load-Query stack and indexing speeds of up to and beyond <strong>50,000 blocks per second</strong> when indexing events and transactions.</span><p/>
@@ -73,7 +73,7 @@ export default function Home(): JSX.Element {
       </section>
       */}
 
-      <div className="flex flex-col gap-10 mb-14">
+      <div className="flex flex-col gap-6 mb-14">
         <span className="h3">Highlights</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-10">
@@ -106,7 +106,7 @@ export default function Home(): JSX.Element {
         </div>
       </div>
 
-      <div className="flex flex-col gap-10 mb-16">
+      <div className="flex flex-col gap-6 mb-16">
         <span className="h3">Migration</span>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
@@ -123,7 +123,7 @@ export default function Home(): JSX.Element {
         </div>
       </div>
 
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-6">
         <span className="h3">FAQ</span>
 
         <div className="flex flex-col gap--6">
@@ -179,6 +179,8 @@ export default function Home(): JSX.Element {
         <span className="body--s text-fg-base--muted">
           More questions? Check out our <a className="link" href="/faq">technical community</a>
         </span>
+
+          <DocsRating label="Is this page useful?"/>
       </div>
     </div>
   );

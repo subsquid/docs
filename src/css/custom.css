@@ -93,6 +93,8 @@
     --docsearch-searchbox-background: #F2F2F2 !important;
 
     --breadcrumb-color: #7A7B8A;
+    --bg-nav-bar: #ffffff;
+    --ifm-footer-background-color: #ffffff;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -156,6 +158,14 @@
     --link-color-hover: #E3E3E3;
     --docsearch-searchbox-background: #242428 !important;
     --breadcrumb-color: #A4A1A9;
+    --bg-nav-bar: #18181C;
+
+    --ifm-footer-background-color: #18181C;
+}
+
+
+html, body, #__docusaurus {
+    background: var(--bg-nav-bar);
 }
 
 .markdown h1:not(:where(.onboarding-homepage *)) {
@@ -335,6 +345,7 @@
 
 .sidebar_node_modules-\@docusaurus-theme-classic-lib-theme-DocSidebar-Desktop-styles-module {
     padding-top: 0 !important;
+    top: 32px !important;
 }
 
 .main-wrapper {
@@ -401,11 +412,11 @@ html {
 }
 
 #__docusaurus .main-wrapper {
-    @apply pt-16 pb-28 !important;
+    @apply pt-10 pb-28 !important;
 }
 
 .navbar {
-    background: none;
+    background: var(--bg-nav-bar);
     box-shadow: none;
 }
 
@@ -464,6 +475,10 @@ ul, ol {
     @apply text-fg-role--accent-01;
 }
 
+.theme-doc-footer {
+    margin-top: 1.8rem !important;
+}
+
 @media screen and (min-width: 1280px) {
     .main-wrapper {
         @apply px-6 !important;
@@ -502,10 +517,8 @@ ul, ol {
 
 .menu__link {
     font-size: 16px;
-}
-
-.menu__link.menu__link--active {
-
+    height: 32px;
+    border-radius: 8px;
 }
 
 .menu__list .menu__list {
@@ -556,10 +569,6 @@ ul, ol {
     color: var(--breadcrumb-color);
 }
 
-.breadcrumbs__item.breadcrumbs__item--active .breadcrumbs__link {
-
-}
-
 .breadcrumbs .breadcrumbs__item:first-child .breadcrumbs__link {
     padding-left: 0 !important;
 }
@@ -570,4 +579,34 @@ ul, ol {
 
 .link:hover {
     color: var(--link-color-hover) !important;
+}
+
+.tutorial-card:hover .tutorial-card__btn {
+    background: var(--link-color);
+    color: #fff;
+}
+
+.navbar__items--right {
+    @apply gap-5;
+}
+
+.btn-like, .btn-dislike {
+    cursor: pointer;
+}
+
+.btn-like, .btn-dislike, .btn-smile {
+    width: 24px;
+    height: 24px;
+}
+
+.btn-like::before {
+    content: url("/static/img/like.png");
+}
+
+.btn-dislike::before {
+    content: url("/static/img/dislike.png");
+}
+
+.btn-smile::before {
+    content: url("/static/img/smile.png");
 }
