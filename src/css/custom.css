@@ -610,3 +610,7 @@ ul, ol {
 .btn-smile::before {
     content: url("/static/img/smile.png");
 }
+
+.navbar--fixed-top {
+    position: relative !important;
+}
