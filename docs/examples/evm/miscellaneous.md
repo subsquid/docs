@@ -1,10 +1,10 @@
 ---
 sidebar_position: 10
 description: >-
-  Squid examples for EVM chains
+  A list of examples with short descriptions
 ---
 
-# EVM indexing examples
+# Miscellaneous examples
 
 Browse a dedicated repository with [EVM squid examples](https://github.com/subsquid/squid-evm-examples). It contains:
 
