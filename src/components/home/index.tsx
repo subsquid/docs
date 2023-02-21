@@ -1,11 +1,6 @@
 import React from 'react';
-import { ContentFeature } from '@site/src/components/content-feature';
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import { GuideCard } from '@site/src/components/guide-card';
-import { ExpandContent } from '@site/src/components/Expand/ExpandContent';
 import { TutorialCard } from '@site/src/components/tutorial-card';
-import clsx from "clsx";
-import {Expand} from "@site/src/components/Expand/Expand";
 import DocsRating from "@site/src/components/docs-rating";
 
 export default function Home(): JSX.Element {
@@ -76,7 +71,7 @@ export default function Home(): JSX.Element {
       <div className="flex flex-col gap-6 mb-14">
         <span className="h3">Highlights</span>
 
-        <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2 guide-cards">
           <GuideCard
             path="/tutorials/create-an-ethereum-processing-squid"
             color={'bg-role--success'}
@@ -177,10 +172,10 @@ export default function Home(): JSX.Element {
         </div>
 
         <span className="body--s text-fg-base--muted">
-          More questions? Check out our <a className="link" href="/faq">technical community</a>
+          More questions? Check out our <a className="link" href="https://discord.gg/subsquid">technical community</a>
         </span>
 
-          <DocsRating label="Is this page useful?"/>
+          <DocsRating/>
       </div>
     </div>
   );

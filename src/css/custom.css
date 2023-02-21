@@ -540,6 +540,7 @@ ul, ol {
 
 .x-button.bg-bg-base--contrast {
     border-color: var(--bg-base--contrast);
+    font-weight: 450;
 }
 
 .x-button.bg-bg-base--contrast:hover {
@@ -635,4 +636,8 @@ ul, ol {
 
 .navbar--fixed-top {
     position: relative !important;
+}
+
+.guide-cards {
+    margin: -16px;
 }

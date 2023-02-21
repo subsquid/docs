@@ -20,8 +20,17 @@ export type GuideCardProps = React.PropsWithChildren<{
 export function GuideCard(props: GuideCardProps) {
   return (
     <>
-      <a className="flex flex-col rounded-lg gap-2" href={props.path ?? null}>
-        <div className="flex flex-col pb-6 gap-2">
+      <a href={props.path ?? null}
+         className={
+           clsx(
+               'flex flex-col rounded-lg gap-2 cursor-pointer transition duration-150 ease-out p-4',
+               {
+                 'hover:border-border-color-base--default hover:shadow-[0_0_4px_rgba(67,65,65,0.15)]': true
+               }
+           )
+         }
+      >
+        <div className="flex flex-col gap-2">
           <h5 className={clsx("body--m", {
             'text-fg-base--default': !props.isDisabled,
             'text-fg-base--muted': props.isDisabled
