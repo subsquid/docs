@@ -641,3 +641,7 @@ ul, ol {
 .guide-cards {
     margin: -16px;
 }
+
+.docsRating {
+    @apply mt-6;
+}

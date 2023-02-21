@@ -1,7 +1,6 @@
 import React from 'react';
 import { GuideCard } from '@site/src/components/guide-card';
 import { TutorialCard } from '@site/src/components/tutorial-card';
-import DocsRating from "@site/src/components/docs-rating";
 
 export default function Home(): JSX.Element {
 
@@ -174,8 +173,6 @@ export default function Home(): JSX.Element {
         <span className="body--s text-fg-base--muted">
           More questions? Check out our <a className="link" href="https://discord.gg/subsquid">technical community</a>
         </span>
-
-          <DocsRating/>
       </div>
     </div>
   );
