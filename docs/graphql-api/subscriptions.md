@@ -50,7 +50,7 @@ The subscription `wss` endpoint will be available at the canonical API endpoint 
 
 ## Example
 
-Let's take the following simple schema reprsenting accounts and transfers:
+Let's take the following simple schema with account and transfer entities:
 
 ```graphql file=schema.graphql
 type Account @entity {
