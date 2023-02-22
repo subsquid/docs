@@ -2,7 +2,7 @@
 sidebar_position: 30
 title: USDC transfers
 description: >-
-  Squid indexing USDC transfers on Ethereum
+  USDC Transfer events on Ethereum
 ---
 
 # USDC transfers
