@@ -21,8 +21,10 @@ and a few others.
 
 Additionally, inspect the following benchmark squids:
 
-- [A Gravatar squid](https://github.com/subsquid/squid-evm-template/tree/gravatar-squid) a simple squid migrated from a subgraph
-- [Exosama Marketplace squid](https://github.com/subsquid-labs/exosama-marketplace-squid) A squid indexing Exosama NFT metadata to power the [Exosama](https://exosama.com) NFT marketplace.
-- [A Uniswap v3 squid](https://github.com/subsquid-labs/uniswap-squid). A complex squid showcasing contract state calls, wildcard filters to index a dynamic set of contracts simultaneously and optimizations for batch saving.
-- [A squid for ENS](https://github.com/subsquid-labs/ethereum-name-service-indexing/tree/ens-workshop) tokens. In the `ens-workshop` branch, token metadata is fetched from ENS APIs, while indexing.
+- [Gravatar squid](https://github.com/subsquid/squid-evm-template/tree/gravatar-squid): a simple squid migrated from a subgraph
+- [Exosama Marketplace squid](https://github.com/subsquid-labs/exosama-marketplace-squid)(*): A squid indexing Exosama NFT metadata to power the [Exosama](https://exosama.com) NFT marketplace.
+- [Uniswap v3 squid](https://github.com/subsquid-labs/uniswap-squid)(*): A complex squid showcasing contract state calls, wildcard filters to index a dynamic set of contracts simultaneously and optimizations for batch saving.
+- [A squid for ENS](https://github.com/subsquid-labs/ethereum-name-service-indexing/tree/ens-workshop) tokens. In the `ens-workshop` branch, token metadata is fetched from ENS APIs while indexing.
 - [Bored Ape Yacht Club Indexer](https://github.com/subsquid-labs/bored-ape-yacht-club-indexing). A squid example that uses [Maker DAO's multicall smart contract](/evm-indexing/squid-evm-typegen/#batching-contract-state-calls-using-the-multicall-contract) and [API requests to fetch NFT metadata from IPFS](/basics/external-api). Also illustrates how to extend the GraphQL API with a  [custom resolver](/graphql-api/custom-resolvers) to show daily transfers.
+
+(*) These archive squids use the older Makefile-based interface. Look into their README files for guidance.
