@@ -13,7 +13,31 @@ This is an experimental feature. Reach out on [Squid Devs Chat](https://t.me/Hyd
 
 The OpenReader supports [GraphQL subscriptions](https://www.apollographql.com/docs/react/data/subscriptions/) via live queries. The query is repeatedly executed (every 5 seconds by default) and the clients are responsible for handling the result set updates. 
 
-To enable subscriptions, add the additional `--subscriptions` flag to the `squid-graphql-server` startup command. For Aquarium deployments, update the `api` command in the [deployment manifest](/deploy-squid/deploy-manifest/#deploy):
+To enable subscriptions, add the additional `--subscriptions` flag to the `squid-graphql-server` startup command. The subscriptions will be available at the standard squid endpoint but with the `wss://` protocol. For a full list of available options for the graphql server, run 
+```bash
+npx squid-graphql-server --help
+```
+
+For each entity types, the following queries are supported for subscriptions:
+- `${EntityName}ById` -- query a single entity
+- `${EntityName}s` -- query multiple entities with a `where` filter
+
+## Local runs
+
+To enable subscriptions for local run, add the `--subsrciptions` flag to the `serve` command `commands.json`:
+```json title=commands.json
+      ...
+      "serve": {
+        "description": "Start the GraphQL API server",
+        "cmd": ["squid-graphql-server", "--subscriptions"]
+      },
+      ...
+```
+
+
+## Aquairum deployments
+
+For Aquarium deployments, update the `api` command in the [deployment manifest](/deploy-squid/deploy-manifest/#deploy):
 
 ```yaml title="squid.yaml"
 # ...
@@ -23,28 +47,47 @@ deploy:
     cmd: [ "npx", "squid-graphql-server", "--subscriptions" ]
 ```
 
-For local development, update accordingly the `Makefile` and the scripts in `package.json`:
-```bash title=Makefile
-...
-serve:
-	@npx squid-graphql-server --subscriptions
-...
+
+## Example
+
+Let's take the following simple schema reprsenting accounts and transfers:
+
+```graphql file=schema.graphql
+type Account @entity {
+  "Account address"
+  id: ID!
+  transfersTo: [Transfer!] @derivedFrom(field: "to")
+  transfersFrom: [Transfer!] @derivedFrom(field: "from")
+}
+
+type Transfer @entity {
+  id: ID!
+  timestamp: DateTime! @index
+  from: Account!
+  to: Account!
+  amount: BigInt! @index
+}
 ```
 
-The subscriptions will be available at the standard squid endpoint but with the `wss://` protocol.
+Run the GraphQL server with subscriptions:
+```bash
+sqd serve
+```
 
-For each entity types, the following queries are supported for subscriptions:
-- `${EntityName}ById` -- query a single entity
-- `${EntityName}s` -- query multiple entities with a `where` filter
-
-**Example** 
-
-The squid-substrate-template has a sample [script](https://github.com/subsquid/squid-substrate-template/blob/main/scripts/sub-client.js) to demonstrate how to subscribe to the five most recent transfers on Kusama:
+The following sample [script](https://github.com/subsquid/squid-substrate-template/blob/main/scripts/sub-client.js) will subscribe to the most recent transfers (by `timestamp`).
 
 ```typescript
+const WebSocket = require('ws')
+const { createClient } = require('graphql-ws');
+
+const port = process.env.GQL_PORT || 4350
+const host = process.env.GQL_HOST || 'localhost'
+const proto = process.env.GQL_PROTO || 'ws'
+
+
 const client = createClient({
   webSocketImpl: WebSocket,
-  url: `ws://localhost:4350/graphql`,
+  url: `${proto}://${host}:${port}/graphql`,
 });
 
 client.subscribe(
