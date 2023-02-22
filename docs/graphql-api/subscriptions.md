@@ -13,7 +13,7 @@ This is an experimental feature. Reach out on [Squid Devs Chat](https://t.me/Hyd
 
 The OpenReader supports [GraphQL subscriptions](https://www.apollographql.com/docs/react/data/subscriptions/) via live queries. The query is repeatedly executed (every 5 seconds by default) and the clients are responsible for handling the result set updates. 
 
-To enable subscriptions, add the additional `--subscriptions` flag to the `squid-graphql-server` startup command. The subscriptions will be available at the standard squid endpoint but with the `wss://` protocol. For a full list of available options for the graphql server, run 
+To enable subscriptions, add the additional `--subscriptions` flag to the `squid-graphql-server` startup command. The poll interval is configured with the `--subscription-poll-interval` flag. For details and a full list of available options, run 
 ```bash
 npx squid-graphql-server --help
 ```
@@ -46,7 +46,7 @@ deploy:
   api:
     cmd: [ "npx", "squid-graphql-server", "--subscriptions" ]
 ```
-
+The subscription `wss` endpoint will be available at the canonical API endpoint `wss://squid.subsquid.io/{name}/v/v{version}/graphql`.
 
 ## Example
 
