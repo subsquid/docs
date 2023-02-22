@@ -27,7 +27,7 @@ npm ci
 # start the database
 sqd up
 
-# starts a long-running ETL and blocks the terminal
+# builds the project, starts a long-running ETL and blocks the terminal
 sqd process
 
 # starts the GraphQL API server at localhost:4350/graphql
