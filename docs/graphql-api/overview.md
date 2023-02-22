@@ -3,17 +3,21 @@ sidebar_position: 10
 description: Zero-config GraphQL server
 ---
 
-# GraphQL server
+# Overview
 
-The data indexed by a squid into a Postgres database can be automatically presented with a GraphQL API service powered by the [OpenReader](https://github.com/subsquid/squid/tree/master/openreader) lib of the Squid SDK. The OpenReader GraphQL server takes [the schema file](/basics/schema-file) as an input argument and serves a GraphQL API supporting [OpenCRUD](https://www.opencrud.org/) queries for the entities defined in the schema. 
+The data indexed by a squid into a Postgres database can be automatically presented with a GraphQL API service powered by the [OpenReader](https://github.com/subsquid/squid-sdk/tree/master/graphql/openreader) lib of the Squid SDK. The OpenReader GraphQL server takes [the schema file](/basics/schema-file) as an input and serves a GraphQL API supporting [OpenCRUD](https://www.opencrud.org/) queries for the entities defined in the schema.
 
-To start the API server based on the `schema.graphql` run in the root folder:
+To start the API server based on the `schema.graphql` run in the squid project root:
+```bash
+sqd serve
+```
+or, for more options,
 ```bash
 npx squid-graphql-server
 ```
-The `squid-graphql-server` binary supports multiple optional flags to enable e.g. caching, subscriptions, DoS protection, covered in the next sections.
+The `squid-graphql-server` binary supports multiple optional flags to enable caching, subscriptions, DoS protection etc. Its features are covered in the next sections.
 
-The API server listens at port defined by `GQL_PORT` (default to `4350`). The database connection is configured with the env variables `DB_NAME`, `DB_USER`, `DB_PASS`, `DB_HOST`, `DB_PORT`.
+The API server listens at port defined by `GQL_PORT` (defaults to `4350`). The database connection is configured with the env variables `DB_NAME`, `DB_USER`, `DB_PASS`, `DB_HOST`, `DB_PORT`.
 
 The GraphQL API is enabled by the `api:` service in the `deploy` section of [squid.yaml](/deploy-squid/deploy-manifest) for Aquarium deployments.
 
@@ -28,12 +32,12 @@ The details of the supported OpenReader queries can be found in a separate secti
 - [Subsriptions](/graphql-api/subscriptions) via live queries
 - (Deprecated in favor of Relay connections) Lookup queries with the name `{entityName}s`. 
 
-[Union and typed JSON types](/basics/schema-file/unions-and-typed-json) are mapped into [GraphQL Union Types](https://graphql.org/learn/schema/#union-types) with a proper type resolution with `__typename`.
+[Union and typed JSON types](/basics/schema-file/unions-and-typed-json) are mapped into [GraphQL Union Types](https://graphql.org/learn/schema/#union-types) with a [proper type resolution](/query-squid/resolve-union-types-interfaces) with `__typename`.
 
-## Built-in custom scalars
+## Built-in custom scalar types
 
-The OpenReader GraphQL API defines the following custom scalars in the GraphQL to present the corresponding entity fields:
+The OpenReader GraphQL API defines the following custom scalar types:
 
-- `DateTime`: `DateTime` fields in the schema are presented in the ISO format
-- `Bytes`: `Bytes` fields are presented as hex-encoded strings prefixed with `0x`
-- `BigInt`: `BigInt` fields are presented as strings
+- `DateTime` entity field values are presented in the ISO format
+- `Bytes` entity field values are presented as hex-encoded strings prefixed with `0x`
+- `BigInt` entity field values are presented as strings
