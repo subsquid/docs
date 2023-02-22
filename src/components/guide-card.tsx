@@ -23,7 +23,7 @@ export function GuideCard(props: GuideCardProps) {
       <a href={props.path ?? null}
          className={
            clsx(
-               'flex flex-col rounded-lg gap-2 cursor-pointer transition duration-150 ease-out p-4',
+               'flex flex-col rounded-lg gap-2 cursor-pointer transition duration-150 ease-out p-4 quide-card',
                {
                  'hover:border-border-color-base--default hover:shadow-[0_0_4px_rgba(67,65,65,0.15)]': true
                }

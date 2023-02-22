@@ -102,6 +102,9 @@
     --breadcrumb-color: #7A7B8A;
     --bg-nav-bar: #ffffff;
     --ifm-footer-background-color: #ffffff;
+
+    --quide-card-bg-hover: transperent;
+    --quide-card-shadow-hover: 0px 0px 4px rgba(67, 65, 65, 0.15);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -118,7 +121,7 @@
     --fg-role--active: #C14FF6;
 
     --bg-base--default: #18181C;
-    --bg-base--subtle: #26282F;
+    --bg-base--subtle: #242428;
     --bg-base--mutedDefault: #383841;
     --bg-base--mutedBlue: #29293A;
     --bg-base--indistinguishable: #1B1B1F;
@@ -168,6 +171,9 @@
     --bg-nav-bar: #18181C;
 
     --ifm-footer-background-color: #18181C;
+
+    --quide-card-bg-hover: #242428;
+    --quide-card-shadow-hover: 0px 0px 12px rgba(67, 65, 65, 0.3), 0px 0px 4px rgba(67, 65, 65, 0.15)
 }
 
 
@@ -318,7 +324,7 @@ html, body, #__docusaurus {
 .markdown a:not(.x-button) {
     font-family: inherit;
     font-style: inherit;
-    font-weight: inherit;
+    font-weight: 450;
     font-size: inherit;
     line-height: inherit;
     letter-spacing: inherit;
@@ -352,8 +358,9 @@ html, body, #__docusaurus {
 }
 
 .sidebar_node_modules-\@docusaurus-theme-classic-lib-theme-DocSidebar-Desktop-styles-module {
-    padding-top: 0 !important;
-    top: 32px !important;
+    padding-top: 32px !important;
+    margin-top: -32px !important;
+    top: 0 !important;
 }
 
 .main-wrapper {
@@ -567,6 +574,7 @@ ul, ol {
 
 .x-button--small:hover {
     background: var(--link-color);
+    border-color: var(--link-color);
     color: #fff;
 }
 
@@ -586,8 +594,14 @@ ul, ol {
     color: var(--link-color-hover) !important;
 }
 
+.tutorial-card__btn {
+    border-color: transparent;
+    margin-left: -10px;
+}
+
 .tutorial-card:hover .tutorial-card__btn {
     background: var(--link-color);
+    border-color: var(--link-color);
     color: #fff;
 }
 
@@ -644,4 +658,9 @@ ul, ol {
 
 .docsRating {
     @apply mt-6;
+}
+
+.quide-card:hover {
+    background: var(--quide-card-bg-hover);
+    box-shadow: var(--quide-card-shadow-hover);
 }
