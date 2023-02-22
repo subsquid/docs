@@ -1,8 +1,8 @@
 ---
 sidebar_position: 20
-title: Squids for Substrate
+title: Examples list
 description: >-
-  Substrate indexing examples
+  Start here
 ---
 
 # Substrate indexing examples
