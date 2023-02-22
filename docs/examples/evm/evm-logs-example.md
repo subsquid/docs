@@ -18,11 +18,9 @@ description: >-
 ## Running 
 
 ```bash
-sqd init my-new-squid --template https://github.com/subsquid-labs/evm-logs-example
+sqd init my-new-squid --template https://github.com/subsquid-labs/evm-logs-example && cd my-new-squid
 # or
-git clone https://github.com/subsquid-labs/evm-logs-example.git
-
-cd evm-logs-example
+git clone https://github.com/subsquid-labs/evm-logs-example.git && cd evm-logs-example
 
 npm ci
 
