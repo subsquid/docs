@@ -6,10 +6,11 @@ description: Prometheus endpoints for squid services
 
 # Monitoring
 
-Each deployed squid version exposes Prometheus metrics for external monitoring with e.g. Grafana. Each squid service exposes Prometheus metrics at the canonical `/${service}/metrics` route. For example, the processor metrics for a squid named `colonial-pink`, version `1` are available at https://squid.subsquid.io/colonial-pink/v/v1/processor/metrics. 
-It works as well [production aliases](/deploy-squid/promote-to-production): https://squid.subsquid.io/colonial-pink/processor/metrics 
+Each deployed squid version exposes Prometheus metrics for external monitoring with e.g. Grafana. 
 
 ## Processor metrics
+
+The processor metrics are available at `https://squid.subsquid.io/${name}/v/v${version}/processor/metrics`. It is also exposed for the [production alias](/deploy-squid/promote-to-production) at `https://squid.subsquid.io/${name}/processor/metrics`.
 
 The metrics are documented inline and include: 
 - `sqd_processor_last_block`. The last processed block.
