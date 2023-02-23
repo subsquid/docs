@@ -2,7 +2,7 @@
 sidebar_position: 40
 title: Cross-relation queries
 description: >-
-  Filtering by the fields of nested objects
+  Filtering by fields of nested entities
 ---
 
 # Cross-relation field queries
