@@ -29,6 +29,10 @@ Squids can be run locally, on-premises or deployed to the [Aquarium hosted servi
 
 ## Squid SDK
 
+Squid SDK is a set of tools and libraries to efficiently query the Archive data, transform, enrich and persist into the target store. Squid SDK projects are called **squids**.
+
+![Squid SDK](</img/archive-and-sdk.png>)
+
 Squids have a certain structure and are supposed to be developed as regular node.js packages. Use [`sqd init`](/squid-cli/init) command to scaffold a new squid project from a suitable template.
 
 A squid project consists of a long-running `processor` service fetching and transforming the data from an archive and an optional `api` service presenting the transformed data with a GraphQL API generated from `schema.graphql`. 
