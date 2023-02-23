@@ -1,5 +1,5 @@
 ---
-sidebar_position: 20
+sidebar_position: 40
 title: Subscriptions
 description: Subscribe to updates over a websocket
 ---
@@ -9,10 +9,10 @@ description: Subscribe to updates over a websocket
 **Available since `@subsquid/graphql-server@2.0.0`**
 
 :::info
-This is an experimental feature. Reach out on [Squid Devs Chat](https://t.me/HydraDevs) for more details.
+This is an experimental feature. Reach out to us at [Squid Devs Chat](https://t.me/HydraDevs) for more details.
 :::
 
-The OpenReader supports [GraphQL subscriptions](https://www.apollographql.com/docs/react/data/subscriptions/) via live queries. The query is repeatedly executed (every 5 seconds by default) and the clients are responsible for handling the result set updates. 
+OpenReader supports [GraphQL subscriptions](https://www.apollographql.com/docs/react/data/subscriptions/) via live queries. To use these, a client opens a WebSocket Secure connection to the server and sends a `subscription` query there. The query body is then repeatedly executed (every 5 seconds by default) and the results are sent to the client whenever they change.
 
 To enable subscriptions, add the additional `--subscriptions` flag to the `squid-graphql-server` startup command. For Aquarium deployments, update the `api` command in the [deployment manifest](/deploy-squid/deploy-manifest/#deploy):
 
@@ -24,44 +24,46 @@ deploy:
     cmd: [ "npx", "squid-graphql-server", "--subscriptions" ]
 ```
 
-For local development, update accordingly the `Makefile` and the scripts in `package.json`:
-```bash title=Makefile
+For local development, update `commands.json` accordingly:
+```json
 ...
-serve:
-	@npx squid-graphql-server --subscriptions
+    "serve": {
+      "description": "Start the GraphQL API server",
+      "cmd": [ "squid-graphql-server", "--subscriptions" ]
+    },
 ...
 ```
 
-The subscriptions will be available at the standard squid endpoint but with the `wss://` protocol.
+The subscriptions will be available at the standard squid endpoint URL but with the `wss://` protocol.
 
-For each entity types, the following queries are supported for subscriptions:
+For each entity type, the following queries are supported for subscriptions:
 - `${EntityName}ById` -- query a single entity
 - `${EntityName}s` -- query multiple entities with a `where` filter
 
 **Example** 
 
-The squid-substrate-template has a sample [script](https://github.com/subsquid/squid-substrate-template/blob/main/scripts/sub-client.js) to demonstrate how to subscribe to the five most recent transfers on Kusama:
+The `squid-substrate-template` repo contains a sample [script](https://github.com/subsquid/squid-substrate-template/blob/main/scripts/sub-client.js) to demonstrate how to subscribe to the five most recent transfers on Kusama:
 
 ```typescript
 const client = createClient({
   webSocketImpl: WebSocket,
-  url: `ws://localhost:4350/graphql`,
+  url: `wss://localhost:4350/graphql`,
 });
 
 client.subscribe(
   {
     query: `
     subscription {
-        transfers(limit: 5, orderBy: timestamp_DESC) {
-            amount
-            blockNumber
-            from {
-              id
-            }
-            to {
-              id
-            }
+      transfers(limit: 5, orderBy: timestamp_DESC) {
+        amount
+        blockNumber
+        from {
+          id
         }
+        to {
+          id
+        }
+      }
     }  
     `,
   },
