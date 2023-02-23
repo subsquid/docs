@@ -2,7 +2,7 @@
 sidebar_position: 30
 title: Nested field queries
 description: >-
-  Queries for objects with object fields
+  Query entities related to other entities
 ---
 
 # Nested field queries
