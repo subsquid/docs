@@ -1,8 +1,7 @@
 ---
 sidebar_position: 70
 description: >-
-  Use the __typename meta field to resolve types when querying unions or
-  interfaces
+  Using the __typename field to resolve types
 ---
 
 # Union type resolution
@@ -53,9 +52,7 @@ type StorageOrder @entity {
 }
 
 union Event = WorkReport | JoinGroup | StorageOrder
-
 ```
-
 
 This time, if we use this query:
 
@@ -80,7 +77,6 @@ query EventQuery {
     }
   }
 }
-
 ```
 
 It would be impossible to discern a returned object type from the other, without `__typename`, because we only queried for fields that are common, or that have the same name across all object types. This is a sample result of the above query:
