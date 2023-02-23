@@ -7,24 +7,17 @@ title: Entity queries
 
 ## Introduction
 
-OpenReader auto-generates queries from the input `schema.graphql` file. All entities defined in the schema can be queried over the GraphQL endpoint.
+OpenReader auto-generates queries from the `schema.graphql` file. All entities defined in the schema can be queried over the GraphQL endpoint.
 
 ## Exploring queries
 
-Let’s take a look at the different queries you can run using the GraphQL server. We’ll use examples based on a typical channel/video schema for reference.
-
-* Simple entity queries
-* Relation entity queries
-* Filter query results / search queries
-* Sort query results
+Let’s take a look at the different queries you can run using the GraphQL server. We’ll use examples based on a typical channel/video schema.
 
 ### Simple entity queries
 
-You can fetch a single entity or multiple entities of the same type using a simple entity query.
-
 #### **Fetch list of entities**
 
-Example: Fetch a list of channels:
+Fetch a list of channels:
 
 ```graphql
 query {
@@ -34,10 +27,24 @@ query {
   }
 }
 ```
+or, using a [newer](/graphql-api/overview/#supported-queries) and [more advanced](/query-squid/paginate-query-results) `{entityName}sConnection` query
+
+```graphql
+query {
+  channelsConnection(orderBy: id_ASC) {
+    edges {
+      node {
+        id
+        handle
+      }
+    }
+  }
+}
+```
 
 #### **Fetch an entity using its unique fields**
 
-Example: Fetch a channel using by unique id:
+Fetch a channel by a unique id or handle:
 
 ```graphql
 query Query1 {
@@ -51,19 +58,15 @@ query Query2 {
   channelByUniqueInput(where: { handle: "Joy Channel" }) {
     id
     handle
-  
+  }
+}
 ```
-
-
-### Relation entity queries
-
-Please look at the cross-filters documentation.
 
 ### Filter query results / search queries
 
 #### **The `where` argument**
 
-You can use the `where` argument in your queries to filter results based on some field’s values. You can even use multiple filters in the same where clause using the `AND` or the `OR` operators.
+You can use the `where` argument in your queries to filter results based on some field’s values. You can even use multiple filters in the same `where` clause using the `AND` or the `OR` operators.
 
 For example, to fetch data for a channel named `Joy Channel`:
 
@@ -75,10 +78,23 @@ query {
   }
 }
 ```
+Note that `{entityName}sConnection` queries support exactly the same format of the `where` argument:
+```graphql
+query {
+  channelsConnection(orderBy: id_ASC, where: { handle_eq: "Joy Channel"}) {
+    edges {
+      node {
+        id
+        handle
+      }
+    }
+  }
+}
+```
 
 #### **Supported Scalar Types**
 
-Squid supports following scalar types:
+Subsquid supports the following scalar types:
 
 * String
 * Int
@@ -90,13 +106,13 @@ Squid supports following scalar types:
 
 #### **Equality Operators (`_eq`)**
 
-`_eq` is supported by all the scalar types
+`_eq` is supported by all the scalar types.
 
 The following are examples of using this operator on different types:
 
 1. Fetch a list of videos where `title` is "Bitcoin"
 2. Fetch a list of videos where `isExplicit` is "true"
-3. Fetch a list of videos `publishedOn` "2021-01-05"
+3. Fetch a list of videos `publishedOn` is "2021-01-05"
 
 ```graphql
 query Query1 {
@@ -123,7 +139,7 @@ query Query3 {
 
 #### **Greater than or less than operators (`gt`, `lt`, `gte`, `lte`)**
 
-The `_gt` (greater than), `_lt` (less than), `_gte` (greater than or equal to), `_lte` (less than or equal to) operators are available on `Int, BigInt, Float, DataTime` types.
+The `_gt` (greater than), `_lt` (less than), `_gte` (greater than or equal to), `_lte` (less than or equal to) operators are available on `Int, BigInt, Float, DateTime` types.
 
 The following are examples of using these operators on different types:
 
