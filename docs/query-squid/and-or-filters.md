@@ -1,6 +1,8 @@
 ---
 sidebar_position: 20
 title: AND/OR filters
+description: >-
+  Basic logic operators for use in filters
 ---
 
 # AND/OR filters

@@ -1,6 +1,8 @@
 ---
 sidebar_position: 30
 title: Nested field queries
+description: >-
+  Queries for objects with object fields
 ---
 
 # Nested field queries

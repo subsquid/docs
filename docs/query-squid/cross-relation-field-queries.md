@@ -1,6 +1,8 @@
 ---
 sidebar_position: 40
 title: Cross-relation queries
+description: >-
+  Filtering by the fields of nested objects
 ---
 
 # Cross-relation field queries

@@ -1,7 +1,7 @@
 ---
 sidebar_position: 10
 description: >-
-  GraphQL intro
+  GraphQL and its support in Subsquid
 ---
 
 # GraphQL Intro

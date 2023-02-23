@@ -1,6 +1,8 @@
 ---
 sidebar_position: 10
 title: Entity queries
+description: >-
+  Basic data retrieval
 ---
 
 # Entity Queries
