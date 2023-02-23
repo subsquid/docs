@@ -18,7 +18,7 @@ In contrast, the Parquet format is designed to make data accessible in chunks, a
 
 The subject of this project is the Uniswap V3 smart contract, namely the data from its pools and positions held by investors. The choice of the project's subject fell on Uniswap, because the protocol generates a very large amount of information, and ultimately, this helps to better show how to leverage a more performance-oriented format.
 
-An article about this demo project [has been published on Medium](https://link.medium.com/7gU0BrLbDxb). The project source code can be found [in this repository on GitHub](https://github.com/subsquid-labs/uniswap-squid/tree/parquet).
+An article about this demo project [has been published on Medium](https://link.medium.com/7gU0BrLbDxb). The project source code can be found [in this repository on GitHub](https://github.com/subsquid-labs/squid-parquet-storage).
 
 ## Pre-requisites
 
@@ -36,9 +36,9 @@ sqd init local-parquet-indexing -t evm
 Here, `local-parquet-indexing` is the name of the project, and can be changed to anything else. The `-t evm` option specifies that the [`evm` template](https://github.com/subsquid-labs/squid-evm-template) should be used as a starting point.
 
 :::info
-**Note:** The template actually has more than what we need for this project. Unnecessary packages have been removed in the tutorial repository. You can grab [`package.json`](https://github.com/subsquid-labs/uniswap-squid/blob/parquet/package.json) from there to do the same.
+**Note:** The template actually has more than what we need for this project. Unnecessary packages have been removed in the tutorial repository. You can grab [`package.json`](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/package.json) from there to do the same.
 
-Files-wise, `docker-compose.yml`, `schema.graphql` and `squid.yaml` were removed. In `commands.json`, the list of local `sqd` scripts, has been significantly shortened ([here is the updated version](https://github.com/subsquid-labs/uniswap-squid/blob/parquet/commands.json)).
+Files-wise, `docker-compose.yml`, `schema.graphql` and `squid.yaml` were removed. In `commands.json`, the list of local `sqd` scripts, has been significantly shortened ([here is the updated version](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/commands.json)).
 :::
 
 Finally, make sure to install the dependencies:
@@ -59,10 +59,10 @@ For this project, you will need:
 * The ABI of [any one of the Uniswap V3 Pool](https://etherscan.io/address/0x390a4d096ba2cc450e73b3113f562be949127ceb#code) smart contracts deployed by the Factory
 * The [Uniswap V3 Positions](https://etherscan.io/address/0xc36442b4a4522e871399cd717abdd847ab11fe88) smart contract address, and ABI
 * The address of any deployed Maker DAO's Multicall smart contract. Luckily, [Uniswap have their own](https://etherscan.io/address/0x5ba1e12693dc8f9c48aad8770482f4739beed696)
-* The ABI of an ERC-20 token (can be compiled from [OpenZeppelin repository](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol), or downloaded, for example from [here](https://gist.github.com/veox/8800debbf56e24718f9f483e1e40c35c), or from the [repository of this article's project](https://github.com/subsquid-labs/uniswap-squid/tree/parquet/abi)). Save it as `abi/ERC20.json`.
+* The ABI of an ERC-20 token (can be compiled from [OpenZeppelin repository](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol), or downloaded, for example from [here](https://gist.github.com/veox/8800debbf56e24718f9f483e1e40c35c), or from the [repository of this article's project](https://github.com/subsquid-labs/squid-parquet-storage/tree/main/abi)). Save it as `abi/ERC20.json`.
 
 :::info
-**Note:** The project also uses `[ERC20NameBytes](https://github.com/subsquid-labs/uniswap-squid/blob/parquet/abi/ERC20NameBytes.json)` and `[ERC20SymbolBytes](https://github.com/subsquid-labs/uniswap-squid/blob/parquet/abi/ERC20SymbolBytes.json)` ABIs, which OpenZeppelin defines in `[IERC20Metadata.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/IERC20Metadata.sol)` and includes in `[ERC20.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol)`. So if you use this, you might have to change some imports in `mappings` or `utils`.
+**Note:** The project also uses `[ERC20NameBytes](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/abi/ERC20NameBytes.json)` and `[ERC20SymbolBytes](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/abi/ERC20SymbolBytes.json)` ABIs, which OpenZeppelin defines in `[IERC20Metadata.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/IERC20Metadata.sol)` and includes in `[ERC20.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol)`. So if you use this, you might have to change some imports in `mappings` or `utils`.
 :::
 
 :::info
@@ -119,7 +119,7 @@ export const Tokens = new Table(
 )
 ```
 
-The rest of the tables definitions can be found [here](https://github.com/subsquid-labs/uniswap-squid/blob/parquet/src/tables.ts).
+The rest of the tables definitions can be found [here](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/src/tables.ts).
 
 Similarly, a `src/db.ts` file should be created to configure the `Database` class, which acts as the interface to the `EvmBatchProcessor`. By specifying the tables used, as well as the destination, and the size of the chunks in which the data is going to be split.
 
@@ -276,7 +276,7 @@ Here's a brief explanation of the code above:
     
 * Finally, the processor is launched, and data is processed in batches, by functions defined in `src/mappings` 
 
-For a brief explanation of what[`processFactory`](https://github.com/subsquid-labs/uniswap-squid/blob/parquet/src/mappings/factory.ts), [`processPools`](https://github.com/subsquid-labs/uniswap-squid/blob/parquet/src/mappings/pools.ts), [`processPositions`](https://github.com/subsquid-labs/uniswap-squid/blob/parquet/src/mappings/positions.ts) do, let's take the `processPositions` functions as an example:
+For a brief explanation of what[`processFactory`](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/mappings/factory.ts), [`processPools`](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/mappings/pools.ts), [`processPositions`](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/mappings/positions.ts) do, let's take the `processPositions` functions as an example:
 
 * it needs to "unbundles" the batch of items received
     
@@ -291,7 +291,7 @@ For a brief explanation of what[`processFactory`](https://github.com/subsquid-la
 * writes the decoded information to the corresponding table (parquet file)
     
 
-To better understand how data is transformed, and how the other functions are defined as well, it's advised to [browse the repository](https://github.com/subsquid-labs/uniswap-squid/tree/parquet/src/mappings) and inspect the code. Be sure to check the [`utils`](https://github.com/subsquid-labs/uniswap-squid/tree/parquet/src/utils) folder as well, as there are some auxiliary files and functions used in the mapping logic.
+To better understand how data is transformed, and how the other functions are defined as well, it's advised to [browse the repository](https://github.com/subsquid-labs/squid-parquet-storage/tree/main/src/mappings) and inspect the code. Be sure to check the [`utils`](https://github.com/subsquid-labs/squid-parquet-storage/tree/main/src/utils) folder as well, as there are some auxiliary files and functions used in the mapping logic.
 
 ### Launch the project
 
