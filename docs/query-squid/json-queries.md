@@ -1,15 +1,14 @@
 ---
 sidebar_position: 41
-description: Powerful queries leveraging JSON objects as fields in a schema
+description: >-
+  Query entities with Object-typed fields
 ---
 
 # JSON queries
 
-The possibility of defining JSON objects as fields of a type in a GraphQL schema has been explained in
-the [schema reference page](/basics/schema-file).
+The possibility of defining JSON objects as fields of a type in a GraphQL schema has been explained in the [schema reference](/basics/schema-file).
 
-This guide is focusing on how to query such objects and how to fully leverage their potential. Let's take the example of
-this (non-crypto related, for once😁) schema:
+This guide is focusing on how to query such objects and how to fully leverage their potential. Let's take the example of this (non-crypto related, for once😁) schema:
 
 ```graphql title="schema.graphql"
 type Entity @entity {
@@ -55,5 +54,4 @@ This will return a result such as this one (imagining this data exists in the da
 }
 ```
 
-Simply enough, the first two objects have an object of type `A` with some content inside, the third one has an object,
-but its `a` field is `null` and the fourth one simply does not have an `A` object at all.
+Simply enough, the first two objects have an object of type `A` with some content inside, the third one has an object, but its `a` field is `null` and the fourth one simply does not have an `A` object at all.
