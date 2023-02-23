@@ -2,20 +2,28 @@
 sidebar_position: 60
 title: Sorting
 description: >-
-  The orderBy argument has been introduced in the previous section, but let's
-  take a look at it in more detail.
+  The orderBy argument
 ---
 
 # Sorting
 
 ## Sort order
 
-The sort order (ascending vs. descending) is set by specifying the `ASC` or `DESC` enum value for the column name in the `orderBy` input object, e.g. `title_DESC`.
+The sort order (ascending vs. descending) is set by specifying an `ASC` or `DESC` suffix for the column name in the `orderBy` input object, e.g. `title_DESC`.
 
 ### **Sorting entities**
 
 Example: Fetch a list of videos sorted by their titles in an ascending order:
 
+```graphql
+query {
+  videos(orderBy: title_ASC) {
+    id
+    title
+  }
+}
+```
+or
 ```graphql
 query {
   videos(orderBy: [title_ASC]) {
