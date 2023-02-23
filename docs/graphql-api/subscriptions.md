@@ -39,6 +39,7 @@ The subscriptions will be available at the standard squid endpoint URL but with 
 For each entity type, the following queries are supported for subscriptions:
 - `${EntityName}ById` -- query a single entity
 - `${EntityName}s` -- query multiple entities with a `where` filter
+Note that despite being [deprecated](/graphql-api/overview/#supported-queries) from the regular query set, `${EntityName}s` queries will continue to be available for subscriptions going forward.
 
 **Example** 
 
