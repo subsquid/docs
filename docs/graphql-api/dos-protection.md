@@ -1,5 +1,5 @@
 ---
-sidebar_position: 30
+sidebar_position: 50
 title: DoS protection
 description: Enforce limits in the queries
 ---
@@ -8,7 +8,7 @@ description: Enforce limits in the queries
 
 **Available since `@subsquid/graphql-server@2.1.0`**
 
-The squid [GraphQL API server](https://github.com/subsquid/squid/tree/master/graphql-server) accepts the following optional start arguments to fend off heavy queries. 
+The squid [GraphQL API server](https://github.com/subsquid/squid-sdk/tree/master/graphql/graphql-server) accepts the following optional start arguments to fend off heavy queries. 
 
 To enable the protection for squids deployed to Aquarium, add the corresponding flags the GraphQL `api` service command in the [deployment manifest](/deploy-squid/deploy-manifest/#deploy). Here is an example:
 
@@ -20,12 +20,14 @@ deploy:
     cmd: [ "npx", "squid-graphql-server", "--max-root-fields", "10", "--max-response-size", "1000" ]
 ```
 
-For local development, update the `Makefile` and `package.json` scripts accordingly:
+For local development, update `commands.json` accordingly:
 
-```bash title=Makefile
+```json
 ...
-serve:
-	@npx squid-graphql-server --max-root-fields 10 --max-response-size 1000
+    "serve": {
+      "description": "Start the GraphQL API server",
+      "cmd": ["squid-graphql-server", "--max-root-fields", "10", "--max-response-size", "1000"]
+    },
 ...
 ```
 
@@ -39,16 +41,15 @@ The maximal allowed number of root-level queries in a single GraphQL request.
 
 **`--max-response-size <nodes>`**
 
-This option limits the *estimated* query response size and errors if it exceeds the provided value. Note, that the estimated size depends only on the decorators in `schema.graphql` and the requested fields. 
-
+This option limits the *estimated* query response size and makes server return an error if it exceeds the provided value. Note that the estimated size depends only on the decorators in `schema.graphql` and the requested fields.
 
 The estimate is the product of the cardinality of the entity list and the response item weight.
 
 The cardinality is estimated as the minimum of
 
-- the query limit argument (`Infinity` if not provided)
-- `@cardinality` value defined `schema.graphql` (if the requested entity type is decorated in the schema file, `Infinity` otherwise)
-- `_eq` and `id_in` filters in the `where` clause (if applicable)
+- the `limit` argument of the query (`Infinity` if not provided)
+- `@cardinality` value defined in `schema.graphql` (if the requested entity type is decorated in the schema file, `Infinity` otherwise)
+- the size of the argument list of the `_eq` and `id_in` filters in the `where` clause (if applicable)
 
 In particular, if there are no `@cardinality` decorators in `schema.graphql`, the client queries must explicitly provide limits or where filters to pass through.
 
@@ -64,9 +65,9 @@ In a nutshell, assuming that the schema file is properly decorated with `@cardin
 
 Same as `--max-response-size` but for live query [subscriptions](/graphql-api/subscriptions).
 
-### Example 
+#### Example
 
-Assume the schema is defined as follows, and server is launched with `--max-response-size 1000`.
+Assume the schema is defined as follows, and the server is launched with `--max-response-size 1000`.
 
 ```ts title=schema.graphql
 type Foo @entity {
@@ -88,8 +89,6 @@ type Baz @entity @cardinality(value: 100) {
     id: ID!
     bar: Bar!
 }
-
-
 ```
 
 The following queries will be bounced:
@@ -160,7 +159,7 @@ query B {
 }
 
 query C {
-    bazs {
+    bars {
         id
         bar {
             foos(where: { id_in ["1", "2" ]}) {
