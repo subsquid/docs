@@ -1,0 +1,12 @@
+{
+    "position": 10,
+    "label": "Squids for EVM",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/examples/evm",
+      "title": "EVM indexing examples"
+    }
+}

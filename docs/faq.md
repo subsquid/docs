@@ -22,4 +22,4 @@ Typically, the data is indexed within a second after the block has been finalize
 
 ### How do I enable GraphQL subscriptions for local runs?
 
-Add `--subscription` flag to the `serve` command defined in `commands.json`. See [Subscriptions](/graphql-api/subcriptions) for details.
+Add `--subscription` flag to the `serve` command defined in `commands.json`. See [Subscriptions](/graphql-api/subscriptions) for details.

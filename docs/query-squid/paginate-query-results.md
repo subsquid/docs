@@ -2,8 +2,7 @@
 sidebar_position: 50
 title: Pagination
 description: >-
-  When query results are too big, one can chose to limit them or divide them in
-  "chunks"
+  Dealing with large query outputs
 ---
 
 # Paginate query results
@@ -12,15 +11,15 @@ There are multiple ways to obtain this behavior, let's take a look at a couple o
 
 ## Cursor based pagination
 
-Cursors are used to traverse across entities of an entity set. They work by returning a pointer to a specific entity which can then be used to fetch the next batch of entities. For cursor-based pagination, OpenReader follows the [Relay Cursor Connections spec](https://relay.dev/graphql/connections.htm).
+Cursors are used to traverse across entities of an entity set. They work by returning a pointer ("cursor") to a specific entity which can then be used to fetch the next batch. The batch will start with the entity after the one the cursor points to. For cursor-based pagination, OpenReader follows the [Relay Cursor Connections spec](https://relay.dev/graphql/connections.htm).
 
-In the case of cursor based pagination, for every entity in the input schema, the query name follows the naming convention `{entityName}sConnection` pattern.
+In Subsquid GraphQL server, cursor based pagination is implemented with `{entityName}sConnection` queries available for every entity in the input schema. These queries require an explicitly supplied [`orderBy` argument](/query-squid/sorting), and *the field that is used for ordering must also be requested by the query itself*. Check out [this section](/query-squid/paginate-query-results/#important-note-on-orderby) for a valid query template.
 
-Example: this query fetches a list of videos where `isExplicit` is true and get their count. Thanks to the `videosConnection`, we can limit the number of videos to return.
+Example: this query fetches a list of videos where `isExplicit` is true and gets their count.
 
 ```graphql
 query {
-  videosConnection(where: { isExplicit_eq: true }) {
+  videosConnection(orderBy: id_ASC, where: { isExplicit_eq: true }) {
     totalCount
     edges {
       node {
@@ -32,15 +31,15 @@ query {
 }
 ```
 
-### **Operators `first`  `last`**
+### **Operators `first` and `last`**
 
-The `first` operator is used to fetch specified number of entities from the beginning and `last` is vice versa.
+The `first` operator is used to fetch a specified number of entities from the beginning of the output. The `last` operator does the same for the end of the output.
 
-Example: Fetch first 5 videos and last 5 videos:
+Example: Fetch the first 5 videos and the last 5 videos:
 
 ```graphql
 query Query1 {
-  videosConnection(first: 5) {
+  videosConnection(orderBy: id_ASC, first: 5) {
     edges {
       node {
         id
@@ -51,7 +50,7 @@ query Query1 {
 }
 
 query Query1 {
-  videosConnection(last: 5) {
+  videosConnection(orderBy: id_ASC, last: 5) {
     edges {
       node {
         id
@@ -64,7 +63,7 @@ query Query1 {
 
 ### **PageInfo object**
 
-`PageInfo` returns the cursor, page information and object has following fields:
+`PageInfo` is a "virtual" entity that can be requested from any `{entityName}sConnection` query (see below). It returns the relevant cursors and some page information:
 
 ```graphql
 pageInfo {
@@ -75,9 +74,9 @@ pageInfo {
 }
 ```
 
-### Operators **`before` and `after`**
+### **Operators `before` and `after`**
 
-Example: Fetch a first 10 channels, ordered by `createdAt`. Then, in a second query, fetch the next 10 channels:
+Example: Fetch the first 10 channels, ordered by `createdAt`. Then, in a second query, fetch the next 10 channels:
 
 ```graphql
 query FirstBatchQ {
@@ -119,8 +118,8 @@ Example: Fetch the last 10 channels, ordered by `createdAt`. Then, in a second q
 query FirstBatchQ {
   channelsConnection(last: 10, orderBy: createdAt_ASC) {
     pageInfo {
-      endCursor
-      hasNextPage
+      startCursor
+      hasPreviousPage
     }
     edges {
       node {
@@ -133,10 +132,10 @@ query FirstBatchQ {
 }
 
 query SecondBatchQ {
-  channelsConnection(before: <endCursor>, orderBy: createdAt_ASC) {
+  channelsConnection(before: <startCursor>, orderBy: createdAt_ASC) {
     pageInfo {
-      endCursor
-      hasNextPage
+      startCursor
+      hasPreviousPage
     }
     edges {
       node {
@@ -151,34 +150,32 @@ query SecondBatchQ {
 
 ### **Important Note on `orderBy`**
 
-When using `orderBy` in a query, the field chosen to order by, needs to be present in the query itself:
+The field chosen to `orderBy` needs to be present in the query itself. For example, any `after` query must follow this template:
 
 ```graphql
 query QueryName {
-  <entity>Connection(before: <endCursor>, orderBy: <fieldNameToOrderBy>_ASC) {
+  <entityName>sConnection(after: <endCursor>, orderBy: <fieldNameToOrderBy>_ASC) {
     pageInfo {
       endCursor
       hasNextPage
+      ...<any other page info fields>...
     }
     edges {
       node {
-        <anyOtherField>
         <fieldNameToOrderBy>
+        ...<any other fields of interest>...
       }
     }
   }
 }
 ```
-
 Otherwise, the returned result wouldn't be ordered correctly.
 
-## Arguments `limit` and `offset`
+## Paginating with `{entityName}s` queries
 
-The operators limit and offset are used for pagination.
+### Arguments `limit` and `offset`
 
-`limit` specifies the number of entities to retain from the result set and `offset` determines which slice to retain from the results.
-
-**Note:** Default value for `limit` is `50` and `offset` is `0`.
+In a list of entities returned by a query, the `limit` argument specifies how many should be retained, while the `offset` argument specifies how many should be skipped first. Default values are `50` for `limit` and `0` for `offset`.
 
 ### **Limit results**
 
