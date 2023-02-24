@@ -105,6 +105,7 @@
 
     --quide-card-bg-hover: transperent;
     --quide-card-shadow-hover: 0px 0px 4px rgba(67, 65, 65, 0.15);
+    --ifm-list-item-margin: 0.5rem;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -181,6 +182,10 @@ html, body, #__docusaurus {
     background: var(--bg-nav-bar);
 }
 
+body p, body span {
+    font-size: 17px;
+}
+
 .markdown h1:not(:where(.onboarding-homepage *)) {
     font-family: var(--ifm-heading-font-family);
     font-style: normal;
@@ -221,7 +226,7 @@ html, body, #__docusaurus {
     font-style: normal;
     font-weight: 600;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 24px;
 }
 
@@ -229,7 +234,7 @@ html, body, #__docusaurus {
     font-family: var(--ifm-font-family-base);
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 24px;
     letter-spacing: -0.02em;
 }
@@ -238,7 +243,7 @@ html, body, #__docusaurus {
     font-family: var(--ifm-font-family-base);
     font-style: normal;
     font-weight: 300;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 24px;
     letter-spacing: -0.02em;
 }
@@ -303,7 +308,7 @@ html, body, #__docusaurus {
         font-family: var(--ifm-font-family-base);
         font-style: normal;
         font-weight: 300;
-        font-size: 16px;
+        font-size: 17px;
         line-height: 24px;
         letter-spacing: -0.02em;
     }
@@ -531,7 +536,7 @@ ul, ol {
 
 
 .menu__link {
-    font-size: 16px;
+    font-size: 17px;
     height: 32px;
     border-radius: 8px;
 }
