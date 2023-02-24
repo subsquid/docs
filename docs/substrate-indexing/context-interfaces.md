@@ -150,7 +150,7 @@ A concrete `ctx.store` instance is derived at runtime from the run argument via
 ```ts
 processor.run<Store>(db: Database<Store>, batchHandler: (ctx: BatchContext<Store>) => Promise<void>)
 ``` 
-For Postgres-compatible `Database`s, `ctx.store` has a TypeORM [EntityManager](https://orkhan.gitbook.io/typeorm/docs/entity-manager-api)-like [interface](/basics/store/typeorm-store) extended with additional support for batch updates. The interface may differ for other `Database` implementations, including the experimental `@subsquid/file-store` package.
+For Postgres-compatible `Database`s, `ctx.store` has a TypeORM [EntityManager](https://typeorm.io/entity-manager-api)-like [interface](/basics/store/typeorm-store) extended with additional support for batch updates. The interface may differ for other `Database` implementations, including the experimental `@subsquid/file-store` package.
 
 See [Processor Store](/basics/store) for details.
 
