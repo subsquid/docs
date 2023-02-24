@@ -1,19 +1,16 @@
 ---
-sidebar_position: 20
+sidebar_position: 40
 title: Subscriptions
+description: Subscribe to updates over a websocket
 ---
 
 # Query subscriptions
 
 **Available since `@subsquid/graphql-server@2.0.0`**
 
-:::info
-This is an experimental feature. Reach out on [Squid Devs Chat](https://t.me/HydraDevs) for more details.
-:::
+OpenReader supports [GraphQL subscriptions](https://www.apollographql.com/docs/react/data/subscriptions/) via live queries. To use these, a client opens a websocket connection to the server and sends a `subscription` query there. The query body is then repeatedly executed (every 5 seconds by default) and the results are sent to the client whenever they change.
 
-The OpenReader supports [GraphQL subscriptions](https://www.apollographql.com/docs/react/data/subscriptions/) via live queries. The query is repeatedly executed (every 5 seconds by default) and the clients are responsible for handling the result set updates. 
-
-To enable subscriptions, add the additional `--subscriptions` flag to the `squid-graphql-server` startup command. The poll interval is configured with the `--subscription-poll-interval` flag. For details and a full list of available options, run 
+To enable subscriptions, add the additional `--subscriptions` flag to the `squid-graphql-server` startup command. The poll interval is configured with the `--subscription-poll-interval` flag. For details and a full list of available options, run
 ```bash
 npx squid-graphql-server --help
 ```
@@ -21,10 +18,11 @@ npx squid-graphql-server --help
 For each entity types, the following queries are supported for subscriptions:
 - `${EntityName}ById` -- query a single entity
 - `${EntityName}s` -- query multiple entities with a `where` filter
+Note that despite being [deprecated](/graphql-api/overview/#supported-queries) from the regular query set, `${EntityName}s` queries will continue to be available for subscriptions going forward.
 
 ## Local runs
 
-To enable subscriptions for local run, add the `--subsrciptions` flag to the `serve` command `commands.json`:
+To enable subscriptions for local runs, add the `--subscriptions` flag to the `serve` command at `commands.json`:
 ```json title=commands.json
       ...
       "serve": {
@@ -33,7 +31,7 @@ To enable subscriptions for local run, add the `--subsrciptions` flag to the `se
       },
       ...
 ```
-
+A `ws` endpoint will be available the usual `localhost:<GQL_PORT>/graphql` URL.
 
 ## Aquairum deployments
 
@@ -69,7 +67,7 @@ type Transfer @entity {
 }
 ```
 
-Run the GraphQL server with subscriptions:
+After modifying `commands.json` GraphQL server with subscriptions can be started with
 ```bash
 sqd serve
 ```

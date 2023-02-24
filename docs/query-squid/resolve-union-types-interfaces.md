@@ -1,7 +1,7 @@
 ---
 sidebar_position: 70
 description: >-
-  Use __typename field to resolve types
+  Use the __typename field to resolve types
 ---
 
 # Union type resolution
@@ -39,7 +39,6 @@ type StorageOrder {
 }
 
 union Event = WorkReport | JoinGroup | StorageOrder
-
 ```
 Here, an `Event` will have different fields depending on the underlying type. This query demonstrates how to request different fields for each of these types:
 
@@ -68,7 +67,6 @@ query MyQuery {
     id
   }
 }
-
 ```
 
 The special `__typename` field allows users to discern the returned object type without relying on comparing the sets of regular fields. For example, in the output of the query above `JoinGroup` and `StorageOrder` events can only be distingushed by looking at the `__typename` field. Here is a possible output to illustrate:
