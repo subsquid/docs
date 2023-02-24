@@ -105,7 +105,7 @@
 
     --quide-card-bg-hover: transperent;
     --quide-card-shadow-hover: 0px 0px 4px rgba(67, 65, 65, 0.15);
-    --ifm-list-item-margin: 0.5rem;
+    --ifm-list-item-margin: 1.2rem;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
