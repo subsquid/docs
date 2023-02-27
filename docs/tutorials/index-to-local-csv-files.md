@@ -1,9 +1,9 @@
 ---
 id: index-to-local-csv-files
-title: Save indexed data in CSV files, locally
+title: Index to local CSV files
 description: >-
   Storing data in files for analysis
-sidebar_position: 7
+sidebar_position: 25
 ---
 
 # Save indexed data in CSV files, locally
