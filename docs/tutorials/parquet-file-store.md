@@ -12,13 +12,15 @@ sidebar_position: 26
 
 This tutorial describes how to use the Subsquid indexing framework to save the processed blockchain data to local [parquet files](https://parquet.apache.org/) instead of a database. The intent is to show how Subsquid SDK can be used for data analytics, this time with focus on tools suitable for larger datasets. 
 
-File-based data formats like CSV are convenient for data analysis, especially in the early prototyping stages. On the other hand, when analyzing very large datasets, it's common to use distributed systems such as Hadoop or Spark, and the workers in a cluster usually "divide and conquer" multiple files during the import process. CSV format severely limits the available design choices when doing this.
+File-based data formats like [CSV](/tutorials/index-to-local-csv-files) are convenient for data analysis, especially in the early prototyping stages. On the other hand, when analyzing very large datasets, it's common to use distributed systems such as Hadoop or Spark, and the workers in a cluster usually "divide and conquer" multiple files during the import process. CSV format severely limits the available design choices when doing this.
 
 In contrast, the Parquet format is designed to make data accessible in chunks, allowing efficient read/write operations without processing the entire file. To better serve data analysts' needs, the Subsquid Team developed a library to allow the storage of processed data in this file format.
 
 The subject of this project is the Uniswap V3 smart contract, namely the data from its pools and positions held by investors. The choice of the project's subject fell on Uniswap because the protocol generates a very large amount of information, and ultimately, this helps to better show how to leverage a more performance-oriented format.
 
 An article about this demo project [has been published on Medium](https://link.medium.com/7gU0BrLbDxb). The project source code can be found [in this repository on GitHub](https://github.com/subsquid-labs/squid-parquet-storage).
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/subsquid-labs/squid-parquet-storage)
 
 ## Pre-requisites
 
@@ -84,7 +86,7 @@ The `@subsquid/file-store` library defines the `Table` and `Database` classes.
 
 The `Database` class gets its name from the interface that was originally developed to [access an actual database](/basics/store/typeorm-store). Here, the interface is [used without modification](/basics/store/custom-database) in a class designed to access a filesystem. `Table`s play a similar role to that of tables of an actual database: they represent collections of rows, all of which share same set of fields/columns. Each such data structure requires one or more data files to store it in both CSV and Parquet, hence the mapping of `Table`s to files.
 
-To summarize, `Table` instances are used to define data files along with their schemas and hold file-settings specific. `Database` facilitates the interactions with the processor, coordinates writing to the files and maintains any state that facilitates that process (configuration options, cloud connections and so on).
+To summarize, `Table` instances are used to define data files along with their schemas and hold file-specific settings. `Database` facilitates the interactions with the processor, coordinates writing to the files and maintains any state that facilitates that process (configuration, cloud connections and so on).
 
 There are two main differences with the [CSV tutorial](/tutorials/index-to-local-csv-files.md) and the first one is that for this project we will be using a `Table` implementation from `@subsquid/file-store-parquet`. Let's install it:
 
@@ -93,7 +95,7 @@ npm i @subsquid/file-store-parquet
 ```
 The other one is that this project is more involved and is, in fact, using ten different tables instead of one.
 
-It's advised to define these tables in a separate file. The original project has them under `src/tables.ts`. The syntax is pretty much the same as for the CSV tables, except now the `Table`, `Column`, and `Types` classes are imported from the `@subsquid/file-store-parquet` library. A special note to the new `Compression` class, which, as the name implies, configures the parquet file's compression on a per-column or file-wide basis.
+It's advisable to define these tables in a separate file. The original project has them under `src/tables.ts`. The syntax is pretty much the same as for the CSV tables, except now the `Table`, `Column`, and `Types` classes are imported from the `@subsquid/file-store-parquet` library. A special note to the new `Compression` class, which, as the name implies, configures the parquet file's compression on a per-column or file-wide basis.
 
 Here's an example:
 
@@ -324,7 +326,7 @@ To justify the use of Parquet, and test the performance, Uniswap V3 smart contra
 The project described here was able to index the entirety of Uniswap Pool events, across all the pools created by the Factory contract, as well as the Positions held by investors, in less than an hour (~45 minutes)
 
 :::info
-**Note:** Indexing time may vary, depending on factors, such as the Ethereum node used ([Ankr public node](https://rpc.ankr.com/eth) in this case), on the hardware, and quality of the connection.
+**Note:** Indexing time may vary, depending on factors, such as the Ethereum node used ([Ankr public node](https://rpc.ankr.com/eth) in our case), on the hardware, and quality of the connection.
 :::
 
 The simple Python script in the project's repository shows how to read multiple Parquet files, and perform some data analysis with Pandas.
