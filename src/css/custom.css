@@ -38,7 +38,7 @@
     --fg-role--accent-02: #BD9400;
     --fg-role--success: #0F6D13;
     --fg-role--error: #EB1239;
-    --fg-role--active: #8021C9;
+    --fg-role--active: #3880EC;
 
     --bg-base--default: #FFFFFF;
     --bg-base--subtle: #F2F2F2;
@@ -80,7 +80,7 @@
 
     --ifm-menu-link-padding-vertical: 8px;
     --ifm-toc-border-color: transparent !important;
-    --doc-sidebar-width: 260px !important;
+    --doc-sidebar-width: 300px !important;
 
     --ifm-navbar-padding-vertical: 24px;
     --ifm-navbar-height: auto;
@@ -119,7 +119,7 @@
     --fg-role--accent-02: #E0BF48;
     --fg-role--success: #7BD17F;
     --fg-role--error: #EE506D;
-    --fg-role--active: #C14FF6;
+    --fg-role--active: #3880EC;
 
     --bg-base--default: #18181C;
     --bg-base--subtle: #242428;
@@ -542,7 +542,7 @@ ul, ol {
 }
 
 .menu__list .menu__list {
-    padding-left: 34px !important;
+    padding-left: 14px !important;
 }
 
 .menu__list .menu__list .menu__link {
@@ -557,14 +557,6 @@ ul, ol {
 
 .x-button.bg-bg-base--contrast:hover {
     background-color: var(--border-color-base--contrast);
-}
-
-.onboarding-homepage__text a {
-    color: var(--link-color) !important;
-}
-
-.onboarding-homepage__text a:hover {
-    color: var(--link-color-hover) !important;
 }
 
 .x-button--small {
@@ -672,4 +664,8 @@ ul, ol {
 
 .markdown ul {
     margin-left: 0.5rem !important;
+}
+
+code, kbd, samp, pre {
+    font-size: 1rem;
 }
