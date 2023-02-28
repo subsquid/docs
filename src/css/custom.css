@@ -38,7 +38,7 @@
     --fg-role--accent-02: #BD9400;
     --fg-role--success: #0F6D13;
     --fg-role--error: #EB1239;
-    --fg-role--active: #3880EC;
+    --fg-role--active: #C730FC;
 
     --bg-base--default: #FFFFFF;
     --bg-base--subtle: #F2F2F2;
@@ -119,7 +119,7 @@
     --fg-role--accent-02: #E0BF48;
     --fg-role--success: #7BD17F;
     --fg-role--error: #EE506D;
-    --fg-role--active: #3880EC;
+    --fg-role--active: #C730FC;
 
     --bg-base--default: #18181C;
     --bg-base--subtle: #242428;
@@ -244,7 +244,7 @@ body p, body span {
     font-style: normal;
     font-weight: 300;
     font-size: 17px;
-    line-height: 24px;
+    line-height: 28px;
     letter-spacing: -0.02em;
 }
 
@@ -584,7 +584,7 @@ ul, ol {
 }
 
 .link {
-    color: var(--link-color) !important;
+    color: #C730FC !important;
 }
 
 .link:hover {
@@ -667,5 +667,6 @@ ul, ol {
 }
 
 code, kbd, samp, pre {
-    font-size: 1rem;
+    font-size: inherit;
+    vertical-align: baseline;
 }
