@@ -15,7 +15,7 @@ const DocsRating = () => {
                 hitType: 'event',
                 eventCategory: 'button',
                 eventAction: 'feedback',
-                eventLabel: window.location.href,
+                eventLabel: 'like',
                 eventValue: value,
             });
         }
