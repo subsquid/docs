@@ -7,7 +7,7 @@ title: Ink! contracts support
 
 # Ink! contracts support
 
-This section describes additional options available for indexing [Ink!-based WASM contracts](https://use.ink), supported by chains with a `Contracts` pallet. At the moment of writing, Shibuya (a testnet), Shiden (Kusama parachain) and Astar (Polkadot parachain) are the most popular chains for deploying Ink! contracts. Follow the [WASM squid tutorial](/tutorials/create-a-wasm-processing-squid) for a step-by-step instruction on building a WASM-processing squid. We recommend using [squid-wasm-template](https://github.com/subsquid-labs/squid-wasm-template) as a reference project.
+This section describes additional options available for indexing [Ink!-based WASM contracts](https://use.ink), supported by chains with a `Contracts` pallet. At the moment of writing, AlephZero, Shibuya (Astar testnet), Shiden (Kusama parachain) and Astar (Polkadot parachain) are the most popular chains for deploying Ink! contracts. Follow the [WASM squid tutorial](/tutorials/create-a-wasm-processing-squid) for a step-by-step instruction on building a WASM-processing squid. We recommend using [squid-wasm-template](https://github.com/subsquid-labs/squid-wasm-template) as a reference project.
 
 ## Processor options
 
@@ -28,9 +28,10 @@ const processor = new SubstrateBatchProcessor()
 
 ## Ink! Typegen
 
-Use [`squid-ink-typegen`](https://github.com/subsquid/squid-sdk/tree/master/substrate/ink-typegen) to generate the boilerplate for decoding the WASM data from JSON ABI metadata.
+Use [`squid-ink-typegen`](https://github.com/subsquid/squid-sdk/tree/master/substrate/ink-typegen) to generate facade classes for decoding Ink! smart contract data from JSON ABI metadata.
 
-*Usage*
+### Usage
+
 ```bash
 npx squid-ink-typegen --abi abi/erc20.json --output src/abi/erc20.ts
 ```
@@ -53,6 +54,8 @@ export function decodeConstructor(hex: string): Constructor {
 }
 ```
 
+#### Example
+
 The usage in a batch handler is straightforward:
 ```ts
 processor.run(new TypeormDatabase(), async ctx => {
@@ -64,6 +67,42 @@ processor.run(new TypeormDatabase(), async ctx => {
           //  event is of type `Event_Transfer`
         }
       }
+    }
+  }
+})
+```
+
+### State queries
+
+**Available since `@subsquid/ink-typegen@0.2.0`**
+
+The generated `Contract` class provides facades for all state calls that don't mutate the contract state. The info about the state mutability is taken from the contract metadata.
+```ts
+// Generated code:
+export class Contract {
+    // optional blockHash indicates the block at which the state is queried
+    constructor(private ctx: ChainContext, private address: string, private blockHash?: string) { }
+
+    total_supply(): Promise<Balance> {
+        return this.stateCall('0xdb6375a8', [])
+    }
+
+    balance_of(oowner: Uint8Array): Promise<bigint> {
+        return this.stateCall('0x6568382f', [owner])
+    }
+}
+```
+
+#### Example
+
+```ts
+processor.run(new TypeormDatabase(), async ctx => {
+  for (let block of ctx.blocks) {
+    for (let item of block.items) {
+       // query the balance at the current block
+       conts contract = new Contract(ctx, CONTRACT_ADDRESS, block.header.hash)
+       let aliceAddress = ss58.decode('5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY').bytes
+       await contract.balance_of(aliceAddress)
     }
   }
 })
