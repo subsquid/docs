@@ -26,7 +26,8 @@ The table below list the public EVM Archive endpoints to be used with [`setDataS
 | SKALE Calypso NFT Hub   | `lookupArchive('skale-calypso')`           | `https://skale-calypso.archive.subsquid.io`        |
 | SKALE Calypso (stage)   | `lookupArchive('skale-calypso-stage')`     | `https://skale-calypso-stage.archive.subsquid.io`  |
 | BOBA Ethereum           | `lookupArchive('boba-eth')`                | `https://boba-eth.archive.subsquid.io`             |
-| BOBA Moonbeam           | `lookupArchive('boba-moonbeam')`           | `https://boba-moonbeam.archive.subsquid.io`        |
+| BOBA Moonbeam           | `lookupArchive('boba-moonbeam')`           |  `https://boba-moonbeam.archive.subsquid.io`       |
+| Mantle testnet          | `lookupArchive('mantle-testnet')`          | `https://mantle-testnet.archive.subsquid.io`       |
 | Arbitrum One            |                           | `https://arbitrum.archive.subsquid.io` (*)         |
 | Optimism                | Coming Soon               |                                                    |
  
