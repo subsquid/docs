@@ -115,13 +115,13 @@ These synchronous methods add rows of data to an in-memory buffer and perform no
 As the indexing proceeds, the processor continues to append new data to the in-memory buffer of `Database`. At the end of each batch the tool decides whether to write a new dataset partition. A partition is written when either
 
 1. the amount of data stored in the buffer exceeds **`chunkSizeMb`** (20 MBytes by default) _across all tables_, or
-2. **(1)** **`syncIntervalBlocks`** is finite (default - infinite) and **(2)** the blockchain head is reached, or
-3. **(1)** **`syncIntervalBlocks`** is finite, **(2)** at least **`syncIntervalBlocks`** blocks has been processed since the blockchain head was first reached and **(3)** there is at least one row of data in the buffer.
+2. **(1)** **`syncIntervalBlocks`** is finite (default - infinite), **(2)** the blockchain head is reached and **(3)** there is at least one row of data in the buffer, or
+3. **(1)** **`syncIntervalBlocks`** is finite, **(2)** at least **`syncIntervalBlocks`** blocks has been processed since the last write and **(3)** there is at least one row of data in the buffer.
 
 This approach keeps the number of files at a reasonable level while ensuring that the dataset is kept up-to-date, and it does that for both high and low rates of processor data:
 
 1. For high, stable data rates (e.g. events from the [USDC contract](https://etherscan.io/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48)), it suffices to keep `syncIntervalBlocks` at the default value (infinity). Once the processor catches up with the blockchain, it will keep producing partitions of roughly the same size at block intervals much smaller than the blockchain size, thus keeping the dataset updated. The balance between the dataset latency and the number of files is tuned with the `chunkSizeMb` parameter.
-2. For low data rates (e.g. `LiquidationCall` events from the [AAVE V2 LendingPool](https://etherscan.io/address/0x7d2768de32b0b80b7a3454c06bdac94a69ddc7a9) - emitted once every few hours) `syncIntervalBlocks` allows to govern the dataset latency directly. The dataset is never more than `syncIntervalBlocks` blocks behind the chain. Absence of new partitions beyond that range has a clear interpretation: no new data is available.
+2. For low data rates (e.g. `LiquidationCall` events from the [AAVE V2 LendingPool](https://etherscan.io/address/0x7d2768de32b0b80b7a3454c06bdac94a69ddc7a9) - emitted once every few hours) `syncIntervalBlocks` allows to govern the dataset latency directly. Once the processor reaches the blockhain head, it keeps the dataset up to date to within `syncIntervalBlocks` blocks behind the chain. Absence of new partitions beyond that range has a clear interpretation: no new data is available.
 
 :::warning
 If `syncIntervalBlocks` is kept at the default value and the data rate is low, the resulting dataset may end up never catching up to the chain in a practical sense. Indeed, in extreme cases the processor _may end up writing no data at all_. For example, all the aforementioned `LiquidationCall` events fit into a CSV file less than 20 Mbytes in size. With the default values of `syncIntervalBlocks` and `chunkSizeMb` the buffer size never reaches the threshold value and no data is written to the filesystem.
