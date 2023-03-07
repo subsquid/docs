@@ -11,10 +11,25 @@ const DocsRating = () => {
         // @ts-ignore
         if (window.ga) {
             // @ts-ignore
+            window.ga('send', {
+                hitType: 'event',
+                eventCategory: 'button',
+                eventAction: 'click',
+                eventLabel: 'like',
+                eventValue: value,
+            });
+
+            // @ts-ignore
+            window.gtag('event', "click", {
+                "event_label": "like",
+                "value": value
+            });
+
+            // @ts-ignore
             window.gtag('event', 'click', {
                 event_label: "like",
                 value: value
-            })
+            });
         }
 
         setHaveVoted(true)
