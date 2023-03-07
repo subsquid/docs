@@ -52,11 +52,9 @@ const config = {
         },
         googleAnalytics: {
           trackingID: 'G-8JDGLY43TY',
-          anonymizeIP: true,
         },
         gtag: {
           trackingID: 'G-8JDGLY43TY',
-          anonymizeIP: true,
         },
       }),
     ],
