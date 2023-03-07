@@ -85,7 +85,7 @@ The above code accomplishes these tasks:
 * Finally, using `chainCodecs`, it fills the `Account` instance's map with encoded addresses
 
 :::caution
-The only exception to everything explained above are Moonbeam and Moonriver networks, which have Ethereum-formatted Accound addresses, and as such, cannot be directly converted from the "Any network" format.
+The only exception to everything explained above are Moonbeam and Moonriver networks, which have Ethereum-formatted `AccountId` addresses, and as such, cannot be directly converted from the "Any network" format.
 :::
 
 ## Generating the query

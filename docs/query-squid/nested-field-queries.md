@@ -1,15 +1,15 @@
 ---
 sidebar_position: 30
 title: Nested field queries
+description: >-
+  Query entities related to other entities
 ---
 
 # Nested field queries
 
-## Overview
-
 With OpenReader, fields of an Entity that contain fields themselves are shown as nested fields and it is possible to filter these as well. GraphQL queries can traverse related objects and their fields, letting clients fetch lots of related data in one request, instead of making several roundtrips as one would need in a classic REST architecture.
 
-As an example, this query searches for all `accounts` whose balance is bigger than a threshold value, fetching the `id`, `balance` simple fields, and the `historicalBalances` **nested field**.
+As an example, this query searches for all `accounts` whose balance is bigger than a threshold value, fetching the `id` and `balance` simple fields, as well as the `historicalBalances` **nested field**.
 
 ```graphql
 query {
@@ -26,9 +26,9 @@ query {
 
 ```
 
-The nested field is a list (one account can have multiple `historicalBalances`) of objects with fields of their own and these results are filtered, in turn.
+A nested field is a list (one account can have multiple `historicalBalances`) of objects with fields of their own. These objects can be filtered, too.
 
-In this query, the `historicalBalances` are filtered, so that only results created after a certain date are returned
+In the following query the `historicalBalances` are filtered in order to only return the balances created after a certain date:
 
 ```graphql
 query {
@@ -44,4 +44,4 @@ query {
 }
 
 ```
-
+Note that the [newer](/graphql-api/overview/#supported-queries) and [more advanced](/query-squid/paginate-query-results) `{entityName}sConnection` queries support exactly the same format of the `where` argument as the older `{entityName}s` queries used in the examples provided here.

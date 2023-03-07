@@ -189,6 +189,6 @@ See the [TypeORM docs](https://typeorm.io/find-options) sections for details.
 
 ## `FullTypeormDatabase`
 
-`FullTypeormDatabase` context store provides full access to the underlying database, including execution of arbitrary queries with `.query()`. The interface is identical to that of [TypeORM EntityManager](https://orkhan.gitbook.io/typeorm/docs/entity-manager-api).
+`FullTypeormDatabase` context store provides full access to the underlying database, including execution of arbitrary queries with `.query()`. The interface is identical to that of [TypeORM EntityManager](https://typeorm.io/entity-manager-api).
 
 We recommend using `TypeormDatabase` store unless full access to the database is required.

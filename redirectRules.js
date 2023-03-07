@@ -4,6 +4,10 @@ const urlList = [
         "from": "/overview"
     },
     {
+        "from": "/develop-a-squid",
+        "to": "/basics"
+    },
+    {
         "from": "/develop-a-squid/evm-processor",
         "to": "/evm-indexing"
     },
@@ -34,6 +38,38 @@ const urlList = [
     {
         "from": "/develop-a-squid/evm-processor/configuration",
         "to": "/evm-indexing/configuration"
+    },
+    {
+        "from": "/evm-indexing/data-mapping",
+        "to": "/evm-indexing/context-interfaces"
+    },
+    {
+        "from": "/evm-indexing/store-interface",
+        "to": "/basics/store"
+    },
+    {
+        "from": "/substrate-indexing/data-handlers",
+        "to": "/substrate-indexing/context-interfaces"
+    },
+    {
+        "from": "/substrate-indexing/store-interface",
+        "to": "/basics/store"
+    },
+    {
+        "from": "/substrate-indexing/data-subscriptions",
+        "to": "/substrate-indexing/configuration"
+    },
+    {
+        "from": "/archives/archive-registry",
+        "to": "/archives/overview"
+    },
+    {
+        "from": "/archives/archives-advanced-setup",
+        "to": "/archives/substrate/self-hosted"
+    },
+    {
+        "from": "/archives/archives-explorer-api",
+        "to": "/archives/substrate/archives-explorer-api"
     }
 ]
 

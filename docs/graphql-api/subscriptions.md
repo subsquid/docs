@@ -1,19 +1,41 @@
 ---
-sidebar_position: 20
+sidebar_position: 40
 title: Subscriptions
+description: Subscribe to updates over a websocket
 ---
 
 # Query subscriptions
 
 **Available since `@subsquid/graphql-server@2.0.0`**
 
-:::info
-This is an experimental feature. Reach out on [Squid Devs Chat](https://t.me/HydraDevs) for more details.
-:::
+OpenReader supports [GraphQL subscriptions](https://www.apollographql.com/docs/react/data/subscriptions/) via live queries. To use these, a client opens a websocket connection to the server and sends a `subscription` query there. The query body is then repeatedly executed (every 5 seconds by default) and the results are sent to the client whenever they change.
 
-The OpenReader supports [GraphQL subscriptions](https://www.apollographql.com/docs/react/data/subscriptions/) via live queries. The query is repeatedly executed (every 5 seconds by default) and the clients are responsible for handling the result set updates. 
+To enable subscriptions, add the additional `--subscriptions` flag to the `squid-graphql-server` startup command. The poll interval is configured with the `--subscription-poll-interval` flag. For details and a full list of available options, run
+```bash
+npx squid-graphql-server --help
+```
 
-To enable subscriptions, add the additional `--subscriptions` flag to the `squid-graphql-server` startup command. For Aquarium deployments, update the `api` command in the [deployment manifest](/deploy-squid/deploy-manifest/#deploy):
+For each entity types, the following queries are supported for subscriptions:
+- `${EntityName}ById` -- query a single entity
+- `${EntityName}s` -- query multiple entities with a `where` filter
+Note that despite being [deprecated](/graphql-api/overview/#supported-queries) from the regular query set, `${EntityName}s` queries will continue to be available for subscriptions going forward.
+
+## Local runs
+
+To enable subscriptions for local runs, add the `--subscriptions` flag to the `serve` command at `commands.json`:
+```json title=commands.json
+      ...
+      "serve": {
+        "description": "Start the GraphQL API server",
+        "cmd": ["squid-graphql-server", "--subscriptions"]
+      },
+      ...
+```
+A `ws` endpoint will be available the usual `localhost:<GQL_PORT>/graphql` URL.
+
+## Aquairum deployments
+
+For Aquarium deployments, update the `api` command in the [deployment manifest](/deploy-squid/deploy-manifest/#deploy):
 
 ```yaml title="squid.yaml"
 # ...
@@ -22,29 +44,48 @@ deploy:
   api:
     cmd: [ "npx", "squid-graphql-server", "--subscriptions" ]
 ```
+The subscription `wss` endpoint will be available at the canonical API endpoint `wss://squid.subsquid.io/{name}/v/v{version}/graphql`.
 
-For local development, update accordingly the `Makefile` and the scripts in `package.json`:
-```bash title=Makefile
-...
-serve:
-	@npx squid-graphql-server --subscriptions
-...
+## Example
+
+Let's take the following simple schema with account and transfer entities:
+
+```graphql file=schema.graphql
+type Account @entity {
+  "Account address"
+  id: ID!
+  transfersTo: [Transfer!] @derivedFrom(field: "to")
+  transfersFrom: [Transfer!] @derivedFrom(field: "from")
+}
+
+type Transfer @entity {
+  id: ID!
+  timestamp: DateTime! @index
+  from: Account!
+  to: Account!
+  amount: BigInt! @index
+}
 ```
 
-The subscriptions will be available at the standard squid endpoint but with the `wss://` protocol.
+After modifying `commands.json` GraphQL server with subscriptions can be started with
+```bash
+sqd serve
+```
 
-For each entity types, the following queries are supported for subscriptions:
-- `${EntityName}ById` -- query a single entity
-- `${EntityName}s` -- query multiple entities with a `where` filter
-
-**Example** 
-
-The squid-substrate-template has a sample [script](https://github.com/subsquid/squid-substrate-template/blob/main/scripts/sub-client.js) to demonstrate how to subscribe to the five most recent transfers on Kusama:
+The following sample [script](https://github.com/subsquid/squid-substrate-template/blob/main/scripts/sub-client.js) will subscribe to the most recent transfers (by `timestamp`).
 
 ```typescript
+const WebSocket = require('ws')
+const { createClient } = require('graphql-ws');
+
+const port = process.env.GQL_PORT || 4350
+const host = process.env.GQL_HOST || 'localhost'
+const proto = process.env.GQL_PROTO || 'ws'
+
+
 const client = createClient({
   webSocketImpl: WebSocket,
-  url: `ws://localhost:4350/graphql`,
+  url: `${proto}://${host}:${port}/graphql`,
 });
 
 client.subscribe(

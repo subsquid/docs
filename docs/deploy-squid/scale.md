@@ -12,8 +12,10 @@ The manifest supports the following scaling options:
 
 ## `dedicated:` 
 
-Set to `true` if dedicated resources should be allocated to the squid services. Default: `dedicated: false`. 
-By default, the squids share the resources which may lead to degraded performance under heavy load. We recommend setting `dedicated: true` for squids run in production.
+Default: `dedicated: false`. 
+
+By default, the service deployments are collocated and so the maximal allowed resource allocation is not guaranteed. With the `dedicated: true` option, the resources are reserved in advance. See the profile specifications below for details. 
+We recommend setting `dedicated: true` for squids running in production.
 
 ## `addons:`
 
@@ -24,10 +26,13 @@ By default, the squids share the resources which may lead to degraded performanc
 | `storage`           | Max execution time after which any query is forcefully aborted, ms     |  [memory resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory) | `10G`        |   Optional     |
 | `profile`  | Log queries executing longer than the given threshold, ms              |  `small` \| `medium` \| `large` |`small`          |   Optional     |
 
-The profile specifications for `postgres` are as follows:
-- `small`: `1 vCPU`, `1Gi` RAM
-- `medium`: `2 vCPU`, `2Gi` RAM
-- `large`: `4 vCPU`, `4Gi` RAM
+The profile specifications for a `postgres` service are as follows:
+
+| Profile | colocated vCPU (max) | colocated RAM (max) | dedicated vCPU (requested) | dedicated RAM (max) |
+|:----:|:----:|:-------:|:-----:|:------:|
+|`small`| 0.2 | `768Mi` | 1 | `2Gi` |
+| `medium`| 0.5 | `1.5Gi` | 2 | `4Gi` |
+| `large` | 1 | `3Gi`| 4 | `4Gi` |
 
 ## `services:`
 
@@ -36,15 +41,15 @@ The profile specifications for `postgres` are as follows:
 | Name        | Description  | Type      |Default value  | Optional   |  
 |:-----------:|:------------:|:---------:|:--------------:|:----------:|
 | `profile`  | Log queries executing longer than the given threshold, ms              |  `small` \| `medium` \| `large` |`small`          |   Optional     |
-| `replicas`  | The number of gateway replicas. The API requests are distributed between the replicas in the round-robin fashion             |  `1`          |   Optional     |
+| `replicas`  | The number of gateway replicas. The API requests are distributed between the replicas in the round-robin fashion        | Number    |  `1`          |   Optional     |
 
-The profile specifications for the API server replicas are as follows:
+The profile specifications for API service replicas are as follows:
 
-| Profile | vCPU | RAM |
-|:----:|:----:|:-------:|
-|`small`| 0.5 | `256Mi` |
-| `medium`| 1 | `512Mi` |
-| `large` | 2 | `1Gi`| 
+| Profile | colocated vCPU (max) | colocated RAM (max) | dedicated vCPU (requested) | dedicated RAM (max) |
+|:----:|:----:|:-------:|:-----:|:------:|
+|`small`| 0.2 | `768Mi` | 0.5 | `768Mi` |
+| `medium`| 0.5 | `1.5Gi` | 1 |  `1.5Gi` |
+| `large` | 1 | `3Gi`| 2 | `3Gi` |
 
 ### `processor:`
 
@@ -52,6 +57,13 @@ The profile specifications for the API server replicas are as follows:
 |:-----------:|:------------:|:---------:|:--------------:|:----------:|
 | `profile`  | Log queries executing longer than the given threshold, ms              |  `small` \| `medium` \| `large` |`small`          |   Optional     |
 
+The profile specifications for a processor service are as follows:
+
+| Profile | colocated vCPU (max) | colocated RAM (max) | dedicated vCPU (requested) | dedicated RAM (max) |
+|:----:|:----:|:-------:|:-----:|:------:|
+|`small`| 0.2 | `768Mi` | 0.5 | `768Mi` |
+| `medium`| 0.5 | `1.5Gi` | 1 |  `1.5Gi` |
+| `large` | 1 | `3Gi`| 2 | `3Gi` |
 
 
 ## Example
