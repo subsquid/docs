@@ -11,13 +11,21 @@ const DocsRating = () => {
         // @ts-ignore
         if (window.ga) {
             // @ts-ignore
-            window.ga('send', {
+            const eventSend = window.ga('send', {
                 hitType: 'event',
                 eventCategory: 'button',
-                eventAction: 'feedback',
+                eventAction: 'click',
                 eventLabel: 'like',
                 eventValue: value,
             });
+
+            // @ts-ignore
+            window.gtag('event', "click", {
+                "event_label": "like",
+                "value": value
+            });
+
+            console.log(eventSend)
         }
 
         setHaveVoted(true)
