@@ -9,16 +9,16 @@ description: >-
 
 ## `Table` Implementation
 
-The `@subsquid/file-store-csv` package provides a `Table` implementation for writing to CSV files. Use it by [supplying one or more of its instances via the `tables` field of the `Database` constructor argument](../overview/#database-options). The constructor the `Table` implementation accepts the following arguments:
+The `@subsquid/file-store-csv` package provides a `Table` implementation for writing to CSV files. Use it by [supplying one or more of its instances via the `tables` field of the `Database` constructor argument](../overview/#database-options). Constructor of the `Table` implementation accepts the following arguments:
 1. **`fileName: string`**: the name of the output file in every dataset partition folder.
-2. **`schema: {[column: string]: Column}`**: a mapping from CSV column names to [`Column` objects](#columns). A mapping of the same keys to data values is the row type used by the [table writer](overview/#table-writer-interface).
+2. **`schema: {[column: string]: Column}`**: a mapping from CSV column names to [`Column` objects](#columns). A mapping of the same keys to data values is the row type used by the [table writer](../overview/#table-writer-interface).
 3. **`options?: TableOptions`**: see [`Table` Options](#table-options).
 
 ## `Column`s
 
-The `Column` class is responsible for serializing the in-memory data representation. Its constructor accepts the type of the column data and an optional `{nullable?: boolean}` `options` object.
+`Column` objects determine how the in-memory data representation of each table column should be serialized. Constructor of `Column`s accepts a column data type and an optional `{nullable?: boolean}` `options` object as arguments.
 
-Column types can be obtained by making the following function calls from the `Types` submodule. They determine the type that the [table writer](overview/#table-writer-interface) will expect to find at the corresponding fields of data row objects.
+Column types can be obtained by making the function calls listed below from the `Types` submodule. They determine the type that the [table writer](../overview/#table-writer-interface) will expect to find at the corresponding field of data row objects.
 
 | Column type         | Type of the data row field |
 |:-------------------:|:--------------------------:|
