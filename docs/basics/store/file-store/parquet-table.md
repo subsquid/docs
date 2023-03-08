@@ -71,26 +71,26 @@ When `pageSize` is less than `rowGroupSize` times the number of columns, the lat
 
 ## Encoding and Compression
 
-[Encodings](https://parquet.apache.org/docs/file-format/data-pages/encodings/) are set at a per-column basis. At the moment the default and the only supported value is `Encoding.PLAIN`.
+[Encodings](https://parquet.apache.org/docs/file-format/data-pages/encodings/) are set at a per-column basis. At the moment the default and the only supported value is `'PLAIN'`.
 
 [Compression](https://github.com/apache/parquet-format/blob/master/Compression.md) can be set at a per-file or a per-column basis. Available values are
-- `Compression.UNCOMPRESSED` (default)
-- `Compression.GZIP`
-- `Compression.LZO`
-- `Compression.BROTLI`
-- `Compression.LZ4`
+- `'UNCOMPRESSED'` (default)
+- `'GZIP'`
+- `'LZO'`
+- `'BROTLI'`
+- `'LZ4'`
 
 ## Example
 
 This saves ERC20 `Transfer` events captured by the processor to a Parquet file. All columns except for `from` are `GZIP`ped. Row groups are set to be roughly 30000 bytes in size each. Each row group contains roughly ten ~1000 bytes-long pages per column.
 
 ```typescript
+import {Database} from '@subsquid/file-store'
 import {
   Column,
   Table,
-  Types,
-  Compression
-} from '@subsquid/file-store-csv'
+  Types
+} from '@subsquid/file-store-parquet'
 
 ...
 
@@ -102,14 +102,14 @@ const dbOptions = {
         from: Column(
           Types.String(),
           {
-            compression: Compression.UNCOMPRESSED
+            compression: 'UNCOMPRESSED'
           }
         ),
         to: Column(Types.String()),
         value: Column(Types.Uint64())
       },
       { 
-        compression: Compression.GZIP,
+        compression: 'GZIP',
         rowGroupSize: 300000,
         pageSize: 1000
       }
