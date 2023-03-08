@@ -6,6 +6,10 @@ description: >-
 
 # EVM Processor
 
+:::warning
+The EVM Archive API and `EvmBatchProcessor` are currently in beta. Breaking changes may be introduced in the future releases of the Squid SDK.
+:::
+
 This section applies to squids indexing EVM chains. Subsquid supports all major EVM chains, including Ethereum, Polygon, BSC and many others. See the [configuration page](/evm-indexing/configuration) for a full list.
 
 ## Overview and the data model

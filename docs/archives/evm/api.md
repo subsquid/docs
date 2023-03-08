@@ -6,6 +6,10 @@ description: API for batch access
 
 # Batch API
 
+:::warning
+The EVM Archive API is currently in beta. Breaking changes may be introduced in the future releases.
+:::
+
 This page describes the API of Subsquid EVM Archives.
 
 <details>
