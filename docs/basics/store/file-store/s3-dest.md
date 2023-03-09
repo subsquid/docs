@@ -18,19 +18,20 @@ Writing to Amazon S3-compatible file storage services such as [AWS](https://aws.
      region: process.env.S3_REGION,
      endpoint: process.env.S3_ENDPOINT,
      credentials: {
-       secretAccessKey: assertNotNull(process.env.S3_SECRET_ACCESS_KEY),
        accessKeyId: assertNotNull(process.env.S3_ACCESS_KEY_ID),
+       secretAccessKey: assertNotNull(process.env.S3_SECRET_ACCESS_KEY),
      },
    }
    ```
 
 ## Example
 
-This saves the processor data at the `transfers-data` folder of the `subsquid-file-store-test-bucket` bucket. Hardcoded authentication credentials are used instead of the environment variables' values.
+This saves the processor data in the `transfers-data` folder of the bucket defined by the `S3_BUCKET_NAME` environment variable at the [Filebase](https://filebase.com) service. The service only has one region and one endpoint, and here they are hardcoded to reduce the number of required envirionment variables and illustrate how connection parameters can be supplied programmatically. Full squid code is available in [this repo](https://github.com/subsquid-labs/file-store-s3-example).
 
 ```typescript
 import {Database} from '@subsquid/file-store'
 import {S3Dest} from '@subsquid/file-store-s3'
+import {assertNotNull} from '@subsquid/util-internal' // pulled by @subsquid/file-store-s3
 
 ...
 
@@ -38,13 +39,13 @@ const dbOptions = {
   ...
   dest: new S3Dest(
     'transfers-data',
-    'subsquid-file-store-test-bucket',
+    assertNotNull(process.env.S3_BUCKET_NAME),
     {
-      region: 'eu-central-1',
-      endpoint: 'https://s3.eu-central-1.amazonaws.com',
+      region: 'us-east-1',
+      endpoint: 'https://s3.filebase.com',
       credentials: {
-        secretAccessKey: 'mySecretAccessKey',
-        accessKeyId: 'myAccessKeyId'
+        accessKeyId: assertNotNull(process.env.S3_ACCESS_KEY_ID),
+        secretAccessKey: assertNotNull(process.env.S3_SECRET_ACCESS_KEY)
       }
     }
   ),
