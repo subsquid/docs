@@ -30,7 +30,8 @@ The table below list the public EVM Archive endpoints to be used with [`setDataS
 | BOBA Ethereum           | `lookupArchive('boba-eth')`                | `https://boba-eth.archive.subsquid.io`             |
 | BOBA Moonbeam           | `lookupArchive('boba-moonbeam')`           |  `https://boba-moonbeam.archive.subsquid.io`       |
 | Mantle testnet          | `lookupArchive('mantle-testnet')`          | `https://mantle-testnet.archive.subsquid.io`       |
-| Arbitrum One            |                           | `https://arbitrum.archive.subsquid.io` (*)         |
+| Arbitrum One            | `lookupArchive('arbitrum')`                | `https://arbitrum.archive.subsquid.io`          |
+| Arbitrum Nova            | `lookupArchive('arbitrum-nova')`                | `https://arbitrum-nova.archive.subsquid.io`          |
 | Optimism                | Coming Soon               |                                                    |
  
 (*) Experimental support
