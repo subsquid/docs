@@ -107,7 +107,7 @@ export const db = new Database({
 ```
 
 :::info
-Note the `chunkSizeMb` and `syncIntervalBlocks` option. `file-store-csv` chunks its output into multiple files, and these options are used to control that. A new chunk (that is, a new folder with a new CSV file in it) will be written when when either
+Note the `chunkSizeMb` and `syncIntervalBlocks` option. `file-store-csv` chunks its output into multiple files, and these options are used to control that. A new chunk (that is, a new folder with a new CSV file in it) will be written when either
 1. the amount of data stored in the processor buffer exceeds `chunkSizeMb`, or
 2. the blockchain head is reached in the sync process, or
 3. a multiple of `syncIntervalBlocks` blocks has been processed since the blockchain head was first reached.
