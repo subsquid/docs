@@ -1,0 +1,12 @@
+{
+    "position": 45,
+    "label": "Archives",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/archives",
+      "title": "Specilized data lakes for on-chain data"
+    }
+}

@@ -19,7 +19,7 @@ Subsquid is designed ground-up around batch processing in contrast to other bloc
 
 The Subsquid indexing stack separates on-chain data ingestion (Archives) from data transformation and presentation (squids). 
 
-Squid SDK indexing projects (or simply **squids**) are [Extract-Tranfsorm-Load-Query (ETLQ)](https://en.wikipedia.org/wiki/Extract,_transform,_load) projects built using the open-source [Squid SDK](https://github.com/subsquid/squid-sdk). Squids ingest historical on-chain data from Archive in batches and transform it with a user-defined data processor. After reaching the blockchain head, squids continuously ingest and process the new blocks in near real-time. The Squid SDK offers a built-in server to present the transformed data with a GraphQL API as well as customizable adapters for transactional databases (e.g. Postgres) and data lakes (e.g. s3). 
+Squid SDK indexing projects (or simply **squids**) are [Extract-Transform-Load-Query (ETLQ)](https://en.wikipedia.org/wiki/Extract,_transform,_load) projects built using the open-source [Squid SDK](https://github.com/subsquid/squid-sdk). Squids ingest historical on-chain data from Archive in batches and transform it with a user-defined data processor. After reaching the blockchain head, squids continuously ingest and process the new blocks in near real-time. The Squid SDK offers a built-in server to present the transformed data with a GraphQL API as well as customizable adapters for transactional databases (e.g. Postgres) and data lakes (e.g. s3). 
 
 **Archives** are specialized data lakes optimized for extracting and filtering large volumes of raw on-chain data in batches. Until fully decentralized, Subsquid Labs maintains public Archive endpoints and offers batch access via the Squid SDK free of charge. A full list of Archive endpoints for the supported EVM and Substrate networks is available in this [repo](https://github.com/subsquid/archive-registry) and is published as a package [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) for easy access.
 
@@ -28,6 +28,10 @@ Squids can be run locally, on-premises or deployed to the [Aquarium hosted servi
 ![Subsquid ecosystem](</img/subsquid-ecosystem.png>)
 
 ## Squid SDK
+
+Squid SDK is a set of tools and libraries to efficiently query the Archive data, transform, enrich and persist into the target store. Squid SDK projects are called **squids**.
+
+![Squid SDK](</img/archive-and-sdk.png>)
 
 Squids have a certain structure and are supposed to be developed as regular node.js packages. Use [`sqd init`](/squid-cli/init) command to scaffold a new squid project from a suitable template.
 

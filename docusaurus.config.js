@@ -3,6 +3,7 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const { urlList } = require('./redirectRules');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -48,6 +49,9 @@ const config = {
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
+        },
+        googleAnalytics: {
+          trackingID: 'G-WMH2V85G1B',
         },
         gtag: {
           trackingID: 'G-WMH2V85G1B',
@@ -110,6 +114,11 @@ const config = {
 
   plugins: [
     'docusaurus-plugin-hotjar',
+    [
+        '@docusaurus/plugin-client-redirects', {
+            redirects: urlList
+        }
+    ],
     async function tailWindCssPlugin(context, options) {
       return {
         name: 'docusaurus-tailwindcss',

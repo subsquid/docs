@@ -1,17 +1,17 @@
 ---
 sidebar_position: 12
 title: Caching
+description: Enable caching for faster queries
 ---
 
 # Caching 
 
 **Available since `@subsquid/graphql-server@3.2.0`**
 
-The GraphQL API server provided by `@subsquid/graphql-server` supports caching via additional flags. The cache is per-query and caches the whole response for a specified amount of time (`maxAge`).
-
+The GraphQL API server provided by `@subsquid/graphql-server` supports caching via additional flags. It is done on a per-query basis. The whole response is cached for a specified amount of time (`maxAge`).
 
 To enable caching when deploying to Aquarium, add the caching flags to `cmd` sections of the [deployment manifest](/deploy-squid/deploy-manifest/#deploy). Aquarium currently supports only in-memory cache, with Redis-based cache to be supported in the near future.
-For example, the snippet below will deploy the GraphQL API server with a `100Mb` in-memory cache and `5` seconds invalidation time:
+For example, the snippet below will deploy a GraphQL API server with a `100Mb` in-memory cache and invalidation time of `5` seconds:
 
 
 ```yaml title="squid.yaml"
@@ -22,7 +22,7 @@ deploy:
     cmd: [ "npx", "squid-graphql-server", "--dumb-cache", "in-memory", "--dumb-cache-ttl", "5000", "--dumb-cache-size", "100", "--dumb-cache-max-age", "5000" ]
 ```
 
-The following flags can be inspected with `npx squid-graphql-server --help` and are as follows:
+Caching flags list is available via `npx squid-graphql-server --help`. Here are some more details on them:
 
 ### `--dumb-cache <cache-type>`
 
@@ -34,7 +34,7 @@ Cache max size. Applies only to in-memory cache.
 
 ### `--dumb-cache-max-age <ms>`
 
-A globally set cache max age in milliseconds. The cached queries are invalidated after that period of time.
+A globally set max age in milliseconds. The cached queries are invalidated after that period of time.
 
 ### `--dumb-cache-ttl <ms>`
 

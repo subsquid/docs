@@ -1,0 +1,55 @@
+---
+sidebar_position: 21
+description: >-
+  A list of public EVM archives
+title: Supported networks
+---
+
+# Supported EVM networks
+
+The table below list the public EVM Archive endpoints to be used with [`setDataSource()`](/evm-indexing/configuration) `EvmBatchProcessor` configuration. 
+
+| Network                 |  Endpoint lookup command                    |        Archive endpoint                            |  
+|:-----------------------:|:-------------------------:|:--------------------------------------------------:|
+| Ethereum Mainnet        | `lookupArchive('eth-mainnet')`             |  `https://eth.archive.subsquid.io`                 |
+| Ethereum Goerli Testnet | `lookupArchive('goerli')`                  |   `https://goerli.archive.subsquid.io`             | 
+| Polygon                 | `lookupArchive('polygon')`                 |   `https://polygon.archive.subsquid.io`            |
+| Polygon Mumbai Testnet  | `lookupArchive('polygon-mumbai')`          | `https://polygon-mumbai.archive.subsquid.io`       |
+| Avalance C-Chain        | `lookupArchive('avalanche')`               |  `https://avalanche-c.archive.subsquid.io`         |
+| Fantom                  | `lookupArchive('fantom')`                  | `https://fantom.archive.subsquid.io`               |
+| Exosama Network         | `lookupArchive('exosama')`                 |`https://exosama.archive.subsquid.io`               |
+| Binance Chain           | `lookupArchive('binance')`                 | `https://binance.archive.subsquid.io`              |
+| Binance Chain Testnet   | `lookupArchive('binance-testnet')`         | `https://binance-testnet.archive.subsquid.io`      |
+| Moonbeam                | `lookupArchive('moonbeam', {type: 'EVM'})`            | `https://moonbeam-evm.archive.subsquid.io`         |
+| Moonriver               | `lookupArchive('moonriver', {type: 'EVM'})`           | `https://moonriver-evm.archive.subsquid.io`       |
+| Moonbase                | `lookupArchive('moonbase', {type: 'EVM'})`           | `https://moonbase-evm.archive.subsquid.io`         |
+| SKALE Calypso NFT Hub   | `lookupArchive('skale-calypso')`           | `https://skale-calypso.archive.subsquid.io`        |
+| SKALE Calypso (stage)   | `lookupArchive('skale-calypso-stage')`     | `https://skale-calypso-stage.archive.subsquid.io`  |
+| BOBA Ethereum           | `lookupArchive('boba-eth')`                | `https://boba-eth.archive.subsquid.io`             |
+| BOBA Moonbeam           | `lookupArchive('boba-moonbeam')`           | `https://boba-moonbeam.archive.subsquid.io`        |
+| Arbitrum One            |                           | `https://arbitrum.archive.subsquid.io` (*)         |
+| Optimism                | Coming Soon               |                                                    |
+ 
+(*) Experimental support
+
+
+### Examples 
+
+Explicit Archive endpoints:
+```typescript
+const processor = new EvmBatchProcessor()
+  .setDataSource({
+     chain: 'https://rpc.ankr.com/eth', // RPC endpoint
+     archive: 'https://eth.archive.subsquid.io'
+  })
+```
+Registry lookup:
+```typescript
+import { lookupArchive } from '@subsquid/archive-registry'
+
+const processor = new EvmBatchProcessor()
+  .setDataSource({
+     // resolved to 'https://moonriver-evm.archive.subsquid.io'
+     archive: lookupArchive('moonriver', {type: 'EVM'}) 
+   })
+```
