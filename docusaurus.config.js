@@ -55,7 +55,6 @@ const config = {
         },
         gtag: {
           trackingID: 'G-WMH2V85G1B',
-          anonymizeIP: true,
         },
       }),
     ],

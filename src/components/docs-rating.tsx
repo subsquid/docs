@@ -9,14 +9,11 @@ const DocsRating = () => {
     const [haveVoted, setHaveVoted] = useState(!!(localStorage.getItem(window.location.href)));
     const giveFeedback = value => {
         // @ts-ignore
-        if (window.ga) {
+        if (window.gtag) {
             // @ts-ignore
-            window.ga('send', {
-                hitType: 'event',
-                eventCategory: 'button',
-                eventAction: 'feedback',
-                eventLabel: 'like',
-                eventValue: value,
+            window.gtag('event', 'click', {
+                event_label: "like",
+                value: value
             });
         }
 
