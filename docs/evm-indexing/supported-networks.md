@@ -15,11 +15,12 @@ The table below list the public EVM Archive endpoints to be used with [`setDataS
 | Ethereum Goerli Testnet | `lookupArchive('goerli')`                  |   `https://goerli.archive.subsquid.io`             | 
 | Polygon                 | `lookupArchive('polygon')`                 |   `https://polygon.archive.subsquid.io`            |
 | Polygon Mumbai Testnet  | `lookupArchive('polygon-mumbai')`          | `https://polygon-mumbai.archive.subsquid.io`       |
-| Avalance C-Chain        | `lookupArchive('avalanche')`               |  `https://avalanche-c.archive.subsquid.io`         |
-| Fantom                  | `lookupArchive('fantom')`                  | `https://fantom.archive.subsquid.io`               |
-| Exosama Network         | `lookupArchive('exosama')`                 |`https://exosama.archive.subsquid.io`               |
+| Arbitrum One            | `lookupArchive('arbitrum')`                | `https://arbitrum.archive.subsquid.io`          |
+| Arbitrum Nova           | `lookupArchive('arbitrum-nova')`           | `https://arbitrum-nova.archive.subsquid.io`          |
 | Binance Chain           | `lookupArchive('binance')`                 | `https://binance.archive.subsquid.io`              |
 | Binance Chain Testnet   | `lookupArchive('binance-testnet')`         | `https://binance-testnet.archive.subsquid.io`      |
+| Avalanche C-Chain        | `lookupArchive('avalanche')`               |  `https://avalanche-c.archive.subsquid.io`         |
+| Fantom                  | `lookupArchive('fantom')`                  | `https://fantom.archive.subsquid.io`               |
 | Moonbeam                | `lookupArchive('moonbeam', {type: 'EVM'})`            | `https://moonbeam-evm.archive.subsquid.io`         |
 | Moonriver               | `lookupArchive('moonriver', {type: 'EVM'})`           | `https://moonriver-evm.archive.subsquid.io`       |
 | Moonbase                | `lookupArchive('moonbase', {type: 'EVM'})`           | `https://moonbase-evm.archive.subsquid.io`         |
@@ -30,8 +31,7 @@ The table below list the public EVM Archive endpoints to be used with [`setDataS
 | BOBA Ethereum           | `lookupArchive('boba-eth')`                | `https://boba-eth.archive.subsquid.io`             |
 | BOBA Moonbeam           | `lookupArchive('boba-moonbeam')`           |  `https://boba-moonbeam.archive.subsquid.io`       |
 | Mantle testnet          | `lookupArchive('mantle-testnet')`          | `https://mantle-testnet.archive.subsquid.io`       |
-| Arbitrum One            | `lookupArchive('arbitrum')`                | `https://arbitrum.archive.subsquid.io`          |
-| Arbitrum Nova            | `lookupArchive('arbitrum-nova')`                | `https://arbitrum-nova.archive.subsquid.io`          |
+| Exosama Network         | `lookupArchive('exosama')`                 |`https://exosama.archive.subsquid.io`               |
 | Optimism                | Coming Soon               |                                                    |
  
 (*) Experimental support
