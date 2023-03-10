@@ -20,13 +20,15 @@ The `@subsquid/file-store-csv` package provides a `Table` implementation for wri
 
 Column types can be obtained by making the function calls listed below from the `Types` submodule. They determine the type that the [table writer](../overview/#table-writer-interface) will expect to find at the corresponding field of data row objects.
 
-| Column type         | Type of the data row field |
-|:-------------------:|:--------------------------:|
-| `Types.String()`    | `string`                   |
-| `Types.Integer()`   | `number` or `bigint`       |
-| `Types.Decimal()`   | `number`                   |
-| `Types.Boolean()`   | `boolean`                  |
-| `Types.Timestamp()` | `Date`                     |
+| Column type                       | Type of the data row field |
+|:---------------------------------:|:--------------------------:|
+| `Types.String()`                  | `string`                   |
+| `Types.Integer()`                 | `number` or `bigint`       |
+| `Types.Decimal()`                 | `number`                   |
+| `Types.Boolean()`                 | `boolean`                  |
+| `Types.DateTime(format?: string)` | `Date`                     |
+
+`Types.DateTime` accepts an optional [strftime](https://pubs.opengroup.org/onlinepubs/009695399/functions/strftime.html)-compatible format string. If it is omitted, the dates will be serialized to [ISO strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString).
 
 ## `Table` Options
 
