@@ -49,7 +49,7 @@ enum Enum {
 
 ## Arrays
 
-An entity field can be an array of any scalar type. It will be mapped to the corresponding Postgres array type. Array elements may be defined as nullable or non-nullable.
+An entity field can be an array of any scalar type except `BigInt` and `BigDecimal`. It will be mapped to the corresponding Postgres array type. Array elements may be defined as nullable or non-nullable.
 
 **Example**
 
@@ -58,7 +58,6 @@ type Lists @entity {
   id: ID!
   intArray: [Int!]!
   enumArray: [Enum!]
-  bigintArray: [BigInt!]
   datetimeArray: [DateTime!]
   bytesArray: [Bytes!]
   listOfListsOfInt: [[Int]]
