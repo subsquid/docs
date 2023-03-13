@@ -1,0 +1,12 @@
+{
+    "position": 50,
+    "label": "Migrate",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/migrate",
+      "title": "A comprehensive list of squid project examples"
+    }
+}
