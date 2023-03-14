@@ -14,10 +14,10 @@ description: Comparison of Subsquid and TheGraph
 |                                 |  Subsquid                 |            TheGraph                      |  
 |:-------------------------------:|:-------------------------:|:--------------------------------------- :|
 |  Programming language           |     Typescript            |    AssemblyScript (complied to WASM)     |
-|  Indexing speed                 |     ~1k-50k bps            |       ~100-150 bps                      |
+|  Indexing speed                 |     ~1k-50k bps           |       ~100-150 bps                       |
 |  ABI-based generator            |        Yes                |          Yes                             |
-|  Real-time unfinalized blocks   |     Yes (*)               |          No                              |  
-|  Off-chain data (via APIs)      |        Yes                |        No                                |
+|  Real-time indexing (unfinalized blocks)   |     Yes (*)    |          No                              |  
+|  Off-chain data                 |        Yes                |        No                                |
 |  Data targets                   |     Customizable          |      Postgres-only                       |
 |  Customizable DB migrations     |        Yes                |        No                                |
 |  Factory contract indexing      |   Yes, via wildcards      |       Yes                                |
@@ -29,13 +29,13 @@ description: Comparison of Subsquid and TheGraph
 |  Subscriptions                  |  Yes         |  Via middleware       |
 |  Hosted service                 |  Yes         |  Yes (to be sunset)  |
 |  Secret env variables           |  Yes         |  No                  |
-|  Payment                        |  Fiat, subscription-based (**) | GRT, pay-per-query  |
-|  Decentralization               |  Opt-in via decentralized data targets (Kwil DB, Ceramic)  (***)    |  TheGraph network   |
+|  Payment                        |  Fiat, subscription-based (**) | GRT, pay-per-query |
+|  Decentralization               |  Opt-in, via decentralized data targets (Kwil DB, Ceramic) |  TheGraph network   |
 
 
-(*) to be supported by the Squid SDK
+(*) to be supported by the Squid SDK in Q1 2023
 
-(**) for the Aquarium Premium plan
+(**) for the Aquarium Premium plan 
 
 ## Architecture difference
 
