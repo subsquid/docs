@@ -1,6 +1,7 @@
 ---
 sidebar_position: 2
 title: Migrate from TheGraph
+description: Migrate a subgraph to Subsquid
 ---
 
 # Migrate from TheGraph
@@ -27,6 +28,8 @@ On top of the features provided by subgraphs, the Squid SDK and the Aquarium clo
 - [Secret environment variables](/deploy-squid/env-variables), allowing to seamlessly use private third-party JSON-RPC endpoints and integrate with external APIs
 - [API versioning and aliasing](/deploy-squid/promote-to-production)
 - [API Caching](/graphql-api/caching)  
+
+For a full feature set comparison, see [Subsquid vs TheGraph](/migrate/subsquid-vs-thegraph).
 
 ## Squid setup 
 
