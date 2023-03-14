@@ -11,7 +11,7 @@ const DocsRating = () => {
         // @ts-ignore
         if (window.gtag) {
             // @ts-ignore
-            window.gtag('event', 'click', {
+            window.gtag('event', 'like', {
                 event_label: "like",
                 value: value
             });
