@@ -17,30 +17,34 @@ Support for the Parquet format is currently experimental. Contact us at the [Squ
 
 The `@subsquid/file-store-parquet` package provides a `Table` implementation for writing to Parquet files. Use it by [supplying one or more of its instances via the `tables` field of the `Database` constructor argument](../overview/#database-options). Constructor of the `Table` implementation accepts the following arguments:
 1. **`fileName: string`**: the name of the output file in every dataset partition folder.
-2. **`schema: {[column: string]: Column}`**: a mapping from Parquet column names to [`Column` objects](#columns). A mapping of the same keys to data values is the row type used by the [table writer](../overview/#table-writer-interface).
+2. **`schema: {[column: string]: ColumnData}`**: a mapping from Parquet column names to [`ColumnData` objects](#columns). A mapping of the same keys to data values is the row type used by the [table writer](../overview/#table-writer-interface).
 3. **`options?: TableOptions`**: see [`Table` Options](#table-options).
 
-## `Column`s
+## Columns
 
-`Column` objects define storage options for each table column. Constructor of `Column`s accepts a column data type and an optional `options: ColumnOptions` object.
+`ColumnData` objects define storage options for each table column. They are made with the `Column` factory function that accepts a column data type and an optional `options: ColumnOptions` object.
 
 Column types can be obtained by making the function calls listed below from the `Types` submodule. They determine the [Parquet type](https://parquet.apache.org/docs/file-format/types/) that will be used to store the data and the type that the [table writer](../overview/#table-writer-interface) will expect to find at the corresponding field of data row objects.
 
-| Column type          | Logical type                   | Primitive type | Valid data row object field contents                      |
-|:--------------------:|:------------------------------:|:--------------:|:---------------------------------------------------------:|
-| `Types.String()`     | string                         | `BYTE_ARRAY`   | `string`                                                  |
-| `Types.Int8()`       | 8-bit signed integer           | `INT32`        | `number` from -128 to 127                                 |
-| `Types.Int16()`      | 16-bit signed integer          | `INT32`        | `number` from -32768 to 32767                             |
-| `Types.Int32()`      | 32-bit signed integer          | `INT32`        | `number` from -2147483648 to 2147483647                   |
-| `Types.Int64()`      | 64-bit signed integer          | `INT64`        | `bigint` from -9223372036854775808 to 9223372036854775807 |
-| `Types.Uint8()`      | 8-bit unsigned integer         | `INT32`        | `number` from 0 to 255                                    |
-| `Types.Uint16()`     | 16-bit unsigned integer        | `INT32`        | `number` from 0 to 65535                                  |
-| `Types.Uint32()`     | 32-bit unsigned integer        | `INT32`        | `number` from 0 to 4294967295                             |
-| `Types.Uint64()`     | 64-bit unsigned integer        | `INT64`        | `bigint` from 0 to 18446744073709551615                   |
-| `Types.Float()`      | 32-bit floating point number   | `FLOAT`        | non-`Nan` `number`                                        |
-| `Types.DOUBLE()`     | 64-bit floating point number   | `DOUBLE`       | non-`Nan` `number`                                        |
-| `Types.Boolean()`    | boolean value                  | `BOOLEAN`      | `boolean`                                                 |
-| `Types.Timestamp()`  | UNIX timestamp in milliseconds | `INT64`        | `Date`                                                    |
+| Column type                             | Logical type                   | Primitive type | Valid data row object field contents                      |
+|:---------------------------------------:|:------------------------------:|:--------------:|:---------------------------------------------------------:|
+| `Types.String()`                        | string                         | `BYTE_ARRAY`   | `string`                                                  |
+| `Types.Int8()`                          | 8-bit signed integer           | `INT32`        | `number` from -128 to 127                                 |
+| `Types.Int16()`                         | 16-bit signed integer          | `INT32`        | `number` from -32768 to 32767                             |
+| `Types.Int32()`                         | 32-bit signed integer          | `INT32`        | `number` from -2147483648 to 2147483647                   |
+| `Types.Int64()`                         | 64-bit signed integer          | `INT64`        | `bigint` from -9223372036854775808 to 9223372036854775807 |
+| `Types.Uint8()`                         | 8-bit unsigned integer         | `INT32`        | `number` from 0 to 255                                    |
+| `Types.Uint16()`                        | 16-bit unsigned integer        | `INT32`        | `number` from 0 to 65535                                  |
+| `Types.Uint32()`                        | 32-bit unsigned integer        | `INT32`        | `number` from 0 to 4294967295                             |
+| `Types.Uint64()`                        | 64-bit unsigned integer        | `INT64`        | `bigint` from 0 to 18446744073709551615                   |
+| `Types.Float()`                         | 32-bit floating point number   | `FLOAT`        | non-`Nan` `number`                                        |
+| `Types.Double()`                        | 64-bit floating point number   | `DOUBLE`       | non-`Nan` `number`                                        |
+| `Types.Boolean()`                       | boolean value                  | `BOOLEAN`      | `boolean`                                                 |
+| `Types.Timestamp()`                     | UNIX timestamp in milliseconds | `INT64`        | `Date`                                                    |
+| `Types.Decimal` `(precision, scale=0)`  | decimal with `precision` digits and `scale` digits to the right of the decimal point | `INT32` or `INT64` or `BYTE_ARRAY` | `number` or `bigint` or [`BigDecimal`](https://github.com/subsquid/squid-sdk/tree/master/util/big-decimal) |
+| `Types.List` `(itemType, {nullable=false})`  | a list filled with optionally nullable items of `itemType` column type | - | `Array` of items satisfying `itemType` |
+| `Types.JSON<T extends {[k: string]: any}>()` | JSON object of type `T`   | `BYTE_ARRAY`   | `Object` of type `T`                                      |
+| `Types.BSON<T extends {[k: string]: any}>()` | BSON object of type `T`   | `BYTE_ARRAY`   | `Object` of type `T`                                      |
 
 The following column options are available:
 ```typescript
@@ -64,10 +68,10 @@ TableOptions {
 ```
 Here,
 1. **`compression`** determines the file-wide compression algorithm. Per-column settings override this. See [Encoding and Compression](#encoding-and-compression) for the list of available algorithms. Default: `Compression.UNCOMPRESSED`.
-2. **`rowGroupSize`** determines the approximate uncompressed size of the row group in bytes. Default: 4096.
-3. **`pageSize`** determines the approximate uncompressed page size in bytes. Default: 8192.
+2. **`rowGroupSize`** determines the approximate uncompressed size of the row group in bytes. Default: `32 * 1024 * 1024`.
+3. **`pageSize`** determines the approximate uncompressed page size in bytes. Default: `8 * 1024`.
 
-When `pageSize` is less than `rowGroupSize` times the number of columns, the latter setting will be ignored. In this case each row group will contain exactly one roughly `pageSize`d page for each column. This occurs by default.
+When `pageSize` is less than `rowGroupSize` times the number of columns, the latter setting will be ignored. In this case each row group will contain exactly one roughly `pageSize`d page for each column.
 
 ## Encoding and Compression
 
