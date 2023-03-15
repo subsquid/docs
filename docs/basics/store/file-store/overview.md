@@ -32,7 +32,7 @@ const dbOptions = {
     TransfersTable: new Table('transfers.csv', {
       from: Column(Types.String()),
       to: Column(Types.String()),
-      value: Column(Types.Integer())
+      value: Column(Types.Numeric())
     })
   },
   dest: new LocalDest('./data'),
@@ -94,8 +94,8 @@ DatabaseOptions {
 }
 ```
 Here,
-1. `Table` is an interface for classes that convert in-memory tabular data into format-specific file contents. An implementation of `Table` is available for every file format supported by `file-store`. Consult [documentation pages on support for specific file formats](..) for details.
-2. **`tables`** is a mapping from developer-defined string handles to `Table` instances. A [table writer](#table-writer-interface) will be created for each `Table` in this mapping. It will be exposed at `ctx.store.<tableHandle>`.
+1. `Table` is an interface for classes that make [table writers](#table-writer-interface), objects that convert in-memory tabular data into format-specific file contents. An implementation of `Table` is available for every file format supported by `file-store`. Consult [pages about specific output formats](..) to find out how to define `Table`s.
+2. **`tables`** is a mapping from developer-defined string handles to `Table` instances. A table writer will be created for each `Table` in this mapping. It will be exposed at `ctx.store.<tableHandle>`.
 3. **`dest`** is an instance of `Dest`, an interface for classes that take the properly formatted file contents and write them onto a particular filesystem. An implementation of `Dest` is available for every filesystem supported by `file-store`. For local filesystems use the `LocalDest` class from the `@subsquid/file-store` package and supply `new LocalDest(outputDirectoryName)` here. For other targets consult [documentation pages specific to your filesystem choice](..).
 4. **`chunkSizeMb`**, **`syncIntervalBlocks`** and **`hooks`** are optional parameters that tune the behavior of the [dataset partitioning algorithm](#filesystem-syncs-and-dataset-partitioning).
 
@@ -108,7 +108,7 @@ For each `Table` supplied via the `tables` field of the constructor argument, `D
 
 Here, `T` is a `Table`-specific data row type. See the [documentation pages on support for specific file formats](..) for details.
 
-These synchronous methods add rows of data to an in-memory buffer and perform no actual filesystem writes. Instead, the write [happens automatically when a new dataset partition is created](#filesystem-syncs-and-dataset-partitioning). The methods return the table writer instance and can be chained. 
+These synchronous methods add rows of data to an in-memory buffer and perform no actual filesystem writes. Instead, the write [happens automatically when a new dataset partition is created](#filesystem-syncs-and-dataset-partitioning). The methods return the table writer instance and can be chained.
 
 ## Filesystem Syncs and Dataset Partitioning
 
