@@ -11,6 +11,10 @@ description: >-
 Please be aware that this part of the Giant Squid API is currently in beta version. This means that it is still undergoing testing and development, and as such, there may be bugs and changes to its functionality and structure before it is finalized.
 :::
 
+:::info
+Giant Squid Stats is an open-source project. You can find source code [here](https://github.com/subsquid-labs/giant-squid-stats)
+:::
+
 **Stats** part of The Giant Squid API provides developers and data analysts with useful and relevant statistics of a blockchain. The Stats API provides access to a wide range of statistics, including the number of extrinsics, tranfers, staking stats, issuances, holders and much more. This data is available both in real-time and historical formats, allowing users to monitor trends and track performance over time.
 
 :::info
