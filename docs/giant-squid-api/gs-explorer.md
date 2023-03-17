@@ -1,6 +1,6 @@
 ---
 sidebar_position: 11
-title: Giant Squid Explorer
+title: Explorer API
 description: >-
   Search raw on-chain data
 ---

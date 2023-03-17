@@ -1,6 +1,6 @@
 ---
 sidebar_position: 20
-title: Giant Squid Stats
+title: Statistics API
 description: >-
   Receive analytics-ready statistics of the chain
 ---

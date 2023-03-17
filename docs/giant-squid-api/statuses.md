@@ -1,15 +1,15 @@
 ---
 sidebar_position: 200
-title: Chains statuses
+title: Status page
 description: >-
-  API chains list and statuses
+  Giant Squid API endpoints statuses
 ---
 
 # API Status
 
 Here you can find list of all Giant Squid API supproted chains and see live statuses of their indexation
 
-| Chain | GS endpoints | Explorer status | Stats status | Main status | Main features|
+| Chain | API endpoints | Explorer API status | Stats API status | Main status | Main features|
 | :-: | :-: | :-: | :-: | :-: | :-: |
 | Polkadot | <p>[Explorer](https://squid.subsquid.io/gs-explorer-polkadot/graphql)</p><p>[Stats](https://squid.subsquid.io/gs-stats-polkadot/graphql)</p> | _Active_ | _Active_ | _WIP_ | _WIP_ |
 | Kusama | <p>[Explorer](https://squid.subsquid.io/gs-explorer-kusama/graphql)</p><p>[Stats](https://squid.subsquid.io/gs-stats-kusama/graphql)</p> | _Active_ | _Active_ | _WIP_ | _WIP_ |
