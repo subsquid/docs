@@ -18,6 +18,7 @@ The Giant Squid currently consists of two families of endpoints outlined below. 
 
 - [Statistics API](/giant-squid-api/gs-stats). The endpoint URLs follow the convention `https://squid.subsquid.io/gs-stats-${network}/graphql`. Support queries on:
    - Validator/Collator data
+   - Account balances
    - Staking statistics
    - Nomination pools statistics
    - Transfers statistics
