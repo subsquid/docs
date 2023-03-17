@@ -1,0 +1,13 @@
+{
+  "position": 200,
+  "label": "Giant Squid API",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "title": "Giant Squid API",
+    "description": "The Giant Squid API is a powerful tool being developed by Subsquid using the Squid SDK. It aims to cover the most common data needs of DApp developers on diverse Substrate chains and consists of three separate parts: Main, Stats, and Explorer.",
+    "slug":"/giant-squid-api"
+  }
+}
