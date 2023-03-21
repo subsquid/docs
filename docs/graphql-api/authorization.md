@@ -6,8 +6,6 @@ description: Authentication and authorization
 
 # Access control
 
-GraphQL APIs served by `@subsquid/graphql-server` can be extended to support authentication and authorization. This functionality was not a part of the original design, so using it in production is generally discouraged. The feature is offered for use in early prototypes.
-
 To implement access control, define the following function in the designated `src/server-extension/check` module:
 ```typescript
 import {
