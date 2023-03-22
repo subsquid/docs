@@ -1,7 +1,7 @@
 ---
 sidebar_position: 30
 description: >-
-  Configure filters and data selectors for transactions
+  Set filters and data selectors for transactions
 ---
 
 # EVM transactions 

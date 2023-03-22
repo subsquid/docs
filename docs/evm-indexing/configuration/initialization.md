@@ -1,7 +1,7 @@
 ---
 sidebar_position: 10
 description: >-
-  Configure the source Archive and the block range
+  Set the source Archive and the block range
 ---
 
 # Initialization

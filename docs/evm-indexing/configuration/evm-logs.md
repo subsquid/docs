@@ -1,7 +1,7 @@
 ---
 sidebar_position: 20
 description: >-
-  Configure filters and data selectors for EVM logs
+  Set filters and data selectors for EVM logs
 ---
 
 # EVM logs
