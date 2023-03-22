@@ -21,6 +21,7 @@ The table below list the public EVM Archive endpoints to be used with [`setDataS
 | Binance Chain Testnet   | `lookupArchive('binance-testnet')`         | `https://binance-testnet.archive.subsquid.io`      |
 | Avalanche C-Chain        | `lookupArchive('avalanche')`               |  `https://avalanche-c.archive.subsquid.io`         |
 | Fantom                  | `lookupArchive('fantom')`                  | `https://fantom.archive.subsquid.io`               |
+| Optimism                | `lookupArchive('optimism-mainnet')`     | `https://optimism-mainnet.archive.subsquid.io` |                                                  |
 | Moonbeam                | `lookupArchive('moonbeam', {type: 'EVM'})`            | `https://moonbeam-evm.archive.subsquid.io`         |
 | Moonriver               | `lookupArchive('moonriver', {type: 'EVM'})`           | `https://moonriver-evm.archive.subsquid.io`       |
 | Moonbase                | `lookupArchive('moonbase', {type: 'EVM'})`           | `https://moonbase-evm.archive.subsquid.io`         |
@@ -32,7 +33,6 @@ The table below list the public EVM Archive endpoints to be used with [`setDataS
 | BOBA Moonbeam           | `lookupArchive('boba-moonbeam')`           |  `https://boba-moonbeam.archive.subsquid.io`       |
 | Mantle testnet          | `lookupArchive('mantle-testnet')`          | `https://mantle-testnet.archive.subsquid.io`       |
 | Exosama Network         | `lookupArchive('exosama')`                 |`https://exosama.archive.subsquid.io`               |
-| Optimism                | Coming Soon               |                                                    |
  
 (*) Experimental support
 
