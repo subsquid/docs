@@ -8,6 +8,22 @@ description: >-
 
 Data selectors define which data should be fetched for log and transaction iterms. The selectors can define any subset of the fields below:
 
+## EVM Logs
+
+```ts
+export interface EvmLog {
+  id: string
+  address: string
+  data: string
+  index: number
+  removed: boolean
+  topics: string[]
+  transactionIndex: number
+}
+```
+
+## EVM Transactions
+
 ```ts
 export interface EvmTransaction {
   id: string
@@ -27,16 +43,6 @@ export interface EvmTransaction {
   s: string
   maxPriorityFeePerGas: bigint
   maxFeePerGas: bigint
-}
-
-export interface EvmLog {
-  id: string
-  address: string
-  data: string
-  index: number
-  removed: boolean
-  topics: string[]
-  transactionIndex: number
 }
 ```
 

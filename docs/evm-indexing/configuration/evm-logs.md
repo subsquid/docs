@@ -27,13 +27,42 @@ The optional `options?` argument defines:
    }  
 }
 ```
-Topic filter format is a (fully expressive) subset of [Ethers.js filter specification](https://docs.ethers.io/v5/concepts/events/#events--filters). The difference here is due to `EvmTopicSet` being a non-nullable type: instead of `null`s empty lists `[]` must be used. See examples below.
+
+## Filters
+
+Topic filter format is a (fully expressive) subset of [Ethers.js filter specification](https://docs.ethers.io/v5/concepts/events/#events--filters). 
+
+| Filter                 | Matching Logs                         |  
+|:-----------------------:|:------------------------------------:|
+| `[ A ]`                 | `topic[0] == A`                      |
+| `[ [], B ]`             | `topic[1] == B`                      |
+| `[ A, B ]` or `[A, [B]]`| `(topic[0] == A) AND (topic[1] = B)` |
+| `[[ A, B ]]`            | `(topic[0] == A) OR (topic[1] = B)`  |
+| `[ [ A, B ], [ C, D ] ]`| `[ (topic[0] == A) OR (topic[0] == B) ] AND [ (topic[1] == C) OR (topic[1] == D) ]` |
+
+
+The difference here is due to `EvmTopicSet` being a non-nullable type: instead of `null`s empty lists `[]` must be used. See examples below.
 
 `EvmBatchProcessor`s subscribed to events also *always* retrieve the transactions that emitted the events and place them immediately after their event log items in the batch.
 
-### Example 1
+## Data Selectors
 
-Fetch `NewGravatar(uint256,address,string,string)` and `UpdateGravatar(uint256,address,string,string)` event logs emitted by `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC`. For each log, fetch transaction input, topic set and log data.
+The optional `data?` field is expected to contain a [data selector](/evm-indexing/configuration/data-selectors):
+```ts
+data: {
+  evmLog: {
+    // data selector for the event item
+  },
+  transaction: {
+    // data selector for the tx emitted the event
+  }
+}
+```
+The requested fields will be populated in the corresponding [items](/evm-indexing/context-interfaces) of the `processor.run()` context.
+
+## Examples
+
+1) Fetch `NewGravatar(uint256,address,string,string)` and `UpdateGravatar(uint256,address,string,string)` event logs emitted by `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC`. For each log, fetch transaction input, topic set and log data.
 
 ```ts
 const processor = new EvmBatchProcessor()
@@ -59,9 +88,7 @@ const processor = new EvmBatchProcessor()
   })
 ```
 
-### Example 2
-
-Fetch every `Transfer(address,address,uint256)` event on Ethereum mainnet where *topic2* is set to the destination address (a common but [non-standard](https://eips.ethereum.org/EIPS/eip-20) practice) and the destination is `vitalik.eth` a.k.a. `0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045`. For each log, fetch transaction hash and log data.
+2) Fetch every `Transfer(address,address,uint256)` event on Ethereum mainnet where *topic2* is set to the destination address (a common but [non-standard](https://eips.ethereum.org/EIPS/eip-20) practice) and the destination is `vitalik.eth` a.k.a. `0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045`. For each log, fetch transaction hash and log data.
 
 ```ts
 const processor = new EvmBatchProcessor()
