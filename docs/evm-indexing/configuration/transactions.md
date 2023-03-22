@@ -11,7 +11,7 @@ description: >-
 ## Filters
 
 The `options` argument specifies additional filtering options and a data selector which tells which transaction data should be fetched from the archive. Currently, the following filters are accepted:
-+ `from?: string | string[]`: Specify and address or a set of addresses of the tx sender
++ `from?: string | string[]`: Specify and address or a set of addresses of the tx sender. Supported since `@subsquid/evm-processor@0.4.0`.
 + `range?: { from: number, to?: number | undefined } | undefined`;
 + `sighash?: string | undefined`: [First four bytes](https://ethereum.org/en/developers/docs/transactions/#the-data-field) of the Keccak hash (SHA3) of the canonical representation of the function signature.
 
