@@ -73,7 +73,7 @@ The `options` argument has the same format as for [`addEvent`](/substrate-indexi
   data?: {} // same as the data selector for `addEvent` 
 }
 ```
-For details on the topic filter, check out the [EVM logs section of the EVM processor configuration page](/evm-indexing/configuration/#evm-logs) and examples within.
+For details on the topic filter, check out the [EVM logs section of the EVM processor configuration page](/evm-indexing/configuration/evm-logs) and examples within.
 
 ## Subscribe to EVM transactions
 
