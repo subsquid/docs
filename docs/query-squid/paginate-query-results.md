@@ -171,6 +171,10 @@ query QueryName {
 ```
 Otherwise, the returned result wouldn't be ordered correctly.
 
+### Examples
+
+An interactive example using cursor-based pagination can be found in [this repo](https://github.com/subsquid-labs/cursor-pagination-client-example).
+
 ## Paginating with `{entityName}s` queries
 
 ### Arguments `limit` and `offset`
