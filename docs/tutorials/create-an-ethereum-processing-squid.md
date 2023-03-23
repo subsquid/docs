@@ -103,7 +103,7 @@ The (re)generated entity classes can then be browsed at `src/model/generated`.
 
 ## ABI Definition and Wrapper
 
-Squid SDK offers the `squid-evm-typegen` tool for generating type-safe facade classes for decoding EVM smart contract transaction and log data. It uses [`ethers.js`](https://docs.ethers.io/v5/) under the hood and requires the contract [Application Binary Interface (ABI)](https://docs.ethers.io/v5/api/utils/abi/) as input. It accepts a local path or remote URL to the contract ABI, and also supports fetching public ABIs from any Etherscan-like API. 
+Squid SDK offers the `squid-evm-typegen` tool for generating type-safe facade classes for decoding EVM smart contract transaction and log data. It uses [`ethers.js`](https://docs.ethers.io/) under the hood and requires the contract [Application Binary Interface (ABI)](https://docs.ethers.io/v5/api/utils/abi/) as input. It accepts a local path or an URL of the contract ABI, and also supports fetching public ABIs from any Etherscan-like API. 
 
 In our case, we take the Exosama smart contract ABI from an external repo `subsquid/exosama-marketplace-squid`.
  
@@ -254,11 +254,13 @@ processor.run(database, async (ctx) => {
     }
   }
 
-  ctx.log.info(`Saving ${transfersData.length} transfers`)
-  await saveTransfers({
-    ...ctx,
-    block: ctx.blocks[ctx.blocks.length - 1].header,
-  }, transfersData);
+  if (transfersData.length>0) {
+    ctx.log.info(`Saving ${transfersData.length} transfers`)
+    await saveTransfers({
+      ...ctx,
+      block: ctx.blocks[ctx.blocks.length - 1].header,
+    }, transfersData);
+  }
 });
 
 type TransferData = {
@@ -455,19 +457,14 @@ This involves the following steps:
     sqd migration:generate
     ```
    
-4. Apply the migration, so that the tables are created in the database:
-
-    ```bash
-    sqd migration:apply
-    ```
-
 ## Launch the Project
 
-To launch the processor run the following command (this will block the current terminal):
+To launch the processor run the following command:
 
 ```bash
 sqd process
 ```
+Before actually executing the processor the command will apply the migrations. Once it starts, the processor will block the current terminal.
 
 [comment]: # (Launch processor https://i.gyazo.com/66ab9c1fef9203d3e24b6e274bba47e3.gif)
 
