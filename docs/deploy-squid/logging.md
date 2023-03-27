@@ -1,5 +1,5 @@
 ---
-sidebar_position: 11
+sidebar_position: 12
 title: Inspect logs
 description: Inspect the deployment logs
 ---

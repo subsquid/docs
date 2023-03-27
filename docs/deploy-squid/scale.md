@@ -1,5 +1,5 @@
 ---
-sidebar_position: 10
+sidebar_position: 11
 title: Scale the deployment
 description: Scale the squid with the deployment manifest
 ---
@@ -21,18 +21,7 @@ We recommend setting `dedicated: true` for squids running in production.
 
 ### `postgres:`
 
-| Name        | Description  | Type      |Default value  | Optional   |  
-|:-----------:|:------------:|:---------:|:--------------:|:----------:|
-| `storage`           | Max execution time after which any query is forcefully aborted, ms     |  [memory resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory) | `10G`        |   Optional     |
-| `profile`  | Log queries executing longer than the given threshold, ms              |  `small` \| `medium` \| `large` |`small`          |   Optional     |
-
-The profile specifications for a `postgres` service are as follows:
-
-| Profile | colocated vCPU (max) | colocated RAM (max) | dedicated vCPU (requested) | dedicated RAM (max) |
-|:----:|:----:|:-------:|:-----:|:------:|
-|`small`| 0.2 | `768Mi` | 1 | `2Gi` |
-| `medium`| 0.5 | `1.5Gi` | 2 | `4Gi` |
-| `large` | 1 | `3Gi`| 4 | `4Gi` |
+See [Postgres addon](/deploy-squid/pg-addon) for details.
 
 ## `services:`
 

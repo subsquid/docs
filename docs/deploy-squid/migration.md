@@ -1,12 +1,12 @@
 ---
 sidebar_position: 30
-title: Migration guide
+title: Migrate from v0
 description: Migrate to manifest-based deployments 
 ---
 
 # Migrate from `@subsquid/cli@0.x`
 
-Since `@subsquid/cli@2.x` the commands `squid:deploy` and `squid:update` are deprecated in favor of the manifest-based deployments and `sqd deploy`.
+Since `@subsquid/cli@2.x` the CLI commands `squid:deploy` and `squid:update` are deprecated in favor of the manifest-based deployments and `sqd deploy`.
 
 To migrate:
 

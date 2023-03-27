@@ -44,4 +44,4 @@ OPTIONS
       - acala A template for indexing Acala EVM+ smart contracts
 ```
 
-_See code: [src/commands/init.ts](https://github.com/subsquid/squid-cli/tree/master/src/commands/init.ts)_
+_See code: [src/commands/explorer.ts](https://github.com/subsquid/squid-cli/tree/master/src/commands/explorer.ts)_
