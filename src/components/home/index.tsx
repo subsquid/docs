@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import { Markprompt } from "markprompt"
 import { GuideCard } from '@site/src/components/guide-card';
 import { TutorialCard } from '@site/src/components/tutorial-card';
 
@@ -22,6 +23,8 @@ export default function Home(): JSX.Element {
               href="/basics/overview">Overview</a>
         </div>
       </div>
+
+      <Markprompt projectKey="cKo9NpNjUdPMvFMqTEWse1vm15pSWavw" />
 
       {/*
       <section className="flex flex-col gap-12 mb-16">
