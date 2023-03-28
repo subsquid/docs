@@ -24,7 +24,11 @@ export default function Home(): JSX.Element {
         </div>
       </div>
 
-      <Markprompt projectKey="cKo9NpNjUdPMvFMqTEWse1vm15pSWavw" />
+      <Markprompt 
+        projectKey="cKo9NpNjUdPMvFMqTEWse1vm15pSWavw" 
+        model="gpt-4"
+        iDontKnowMessage="Sorry, I don't know!"
+        placeholder="Ask the Subsquid bot!"/>
 
       {/*
       <section className="flex flex-col gap-12 mb-16">
