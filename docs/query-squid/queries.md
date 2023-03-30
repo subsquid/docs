@@ -112,9 +112,9 @@ Subsquid supports the following scalar types:
 
 The following are examples of using this operator on different types:
 
-1. Fetch a list of videos where `title` is "Bitcoin"
-2. Fetch a list of videos where `isExplicit` is "true"
-3. Fetch a list of videos `publishedOn` is "2021-01-05"
+* Fetch a list of videos where `title` is "Bitcoin"
+* Fetch a list of videos where `isExplicit` is "true"
+* Fetch a list of videos `publishedOn` is "2021-01-05"
 
 ```graphql
 query Query1 {
@@ -145,8 +145,8 @@ The `_gt` (greater than), `_lt` (less than), `_gte` (greater than or equal to), 
 
 The following are examples of using these operators on different types:
 
-1. Fetch a list of videos published before "2021-01-05"
-2. Fetch a list of channels before block "999"
+* Fetch a list of videos published before "2021-01-05"
+* Fetch a list of channels before block "999"
 
 ```graphql
 query Query1 {

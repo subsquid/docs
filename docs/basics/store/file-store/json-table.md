@@ -14,9 +14,9 @@ The `@subsquid/file-store-json` package provides a `Table` implementation for wr
 Table<S extends Record<string, any>>(fileName: string, options?: {lines?: boolean})
 ```
 Here,
-1. **`S`** is a Typescript type describing the schema of the table data.
-1. **`fileName: string`** is the name of the output file in every dataset partition folder.
-3. **`options?: {lines?: boolean}`** are table options. At the moment the only available setting is whether to use JSONL instead of a plain JSON array (default: false).
+* **`S`** is a Typescript type describing the schema of the table data.
+* **`fileName: string`** is the name of the output file in every dataset partition folder.
+* **`options?: {lines?: boolean}`** are table options. At the moment the only available setting is whether to use JSONL instead of a plain JSON array (default: false).
 
 ## Example
 
