@@ -19,9 +19,9 @@ export async function requestCheck(
 }
 ```
 Once defined, this function will be called every time a request arrives. Then,
-1. if the function returns `true`, the request is processed as usual;
-2. if the function returns `false`, the server responds with `'{"errors":[{"message":"not allowed"}]}'`;
-3. if the function returns an `errorString`, the server responds with `` `{{"errors":[{"message":"${errorString}"}]}` ``.
+* if the function returns `true`, the request is processed as usual;
+* if the function returns `false`, the server responds with `'{"errors":[{"message":"not allowed"}]}'`;
+* if the function returns an `errorString`, the server responds with `` `{{"errors":[{"message":"${errorString}"}]}` ``.
 
 The request information such as HTTP headers and GraphQL selections is available in the context. This makes it possible to authenticate the user that sent the query and either allow or deny access. The decision may take the query contents into account, allowing for some authorization granularity.
 
@@ -39,12 +39,12 @@ RequestCheckContext {
 }
 ```
 Here,
-1. `http` field contains the low level HTTP info. Information on headers is stored in a `Map` from lowercase header names to values. For example, `req.http.headers.get('authorization')` is the value of the authorization header.
-2. `operation` is the root [`OperationDefinitionNode`](https://graphql-js.org/api/interface/OperationDefinitionNode) of the tree describing the query. Useful if the authorization decision depends on the query contents.
-3. `operationName` is the query name.
-4. `schema` is a [`GraphQLSchema`](https://graphql-js.org/api/class/GraphQLSchema) object.
-5. `context` holds a [`PoolOpenreaderContext`](https://github.com/subsquid/squid-sdk/blob/master/graphql/openreader/src/db.ts) at `context.openreader`. It can be used to access the database, though this is highly discouraged: the interfaces involved are considered to be internal and are subject to change without notice.
-6. `model` is an Openreader data [`Model`](https://github.com/subsquid/squid-sdk/blob/master/graphql/openreader/src/model.ts).
+* `http` field contains the low level HTTP info. Information on headers is stored in a `Map` from lowercase header names to values. For example, `req.http.headers.get('authorization')` is the value of the authorization header.
+* `operation` is the root [`OperationDefinitionNode`](https://graphql-js.org/api/interface/OperationDefinitionNode) of the tree describing the query. Useful if the authorization decision depends on the query contents.
+* `operationName` is the query name.
+* `schema` is a [`GraphQLSchema`](https://graphql-js.org/api/class/GraphQLSchema) object.
+* `context` holds a [`PoolOpenreaderContext`](https://github.com/subsquid/squid-sdk/blob/master/graphql/openreader/src/db.ts) at `context.openreader`. It can be used to access the database, though this is highly discouraged: the interfaces involved are considered to be internal and are subject to change without notice.
+* `model` is an Openreader data [`Model`](https://github.com/subsquid/squid-sdk/blob/master/graphql/openreader/src/model.ts).
 
 ## Examples
 

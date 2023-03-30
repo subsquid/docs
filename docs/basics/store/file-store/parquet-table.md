@@ -16,9 +16,9 @@ Support for the Parquet format is currently experimental. Contact us at the [Squ
 [Apache Parquet](https://parquet.apache.org) is an advanced format for storing tabular data in files. It divides table columns into [column chunks](https://parquet.apache.org/docs/concepts/). Each column chunk is stored contiguously, allowing efficient partial reads of column subsets. Column chunks can also be compressed with row-specific compression algorithms, further enhancing the performance. Retrieval relies on metadata appended to the end of a Parquet file. [Metadata standard](https://parquet.apache.org/docs/file-format/metadata/) of Apache Parquet is extremely powerful, enabling all sorts of [extensions](https://parquet.apache.org/docs/file-format/extensibility/). Among other things, metadata contains the schema of the data, making the format self-describing.
 
 The `@subsquid/file-store-parquet` package provides a `Table` implementation for writing to Parquet files. Use it by [supplying one or more of its instances via the `tables` field of the `Database` constructor argument](../overview/#database-options). Constructor of the `Table` implementation accepts the following arguments:
-1. **`fileName: string`**: the name of the output file in every dataset partition folder.
-2. **`schema: {[column: string]: ColumnData}`**: a mapping from Parquet column names to [`ColumnData` objects](#columns). A mapping of the same keys to data values is the row type used by the [table writer](../overview/#table-writer-interface).
-3. **`options?: TableOptions`**: see [`Table` Options](#table-options).
+* **`fileName: string`**: the name of the output file in every dataset partition folder.
+* **`schema: {[column: string]: ColumnData}`**: a mapping from Parquet column names to [`ColumnData` objects](#columns). A mapping of the same keys to data values is the row type used by the [table writer](../overview/#table-writer-interface).
+* **`options?: TableOptions`**: see [`Table` Options](#table-options).
 
 ## Columns
 
@@ -67,9 +67,9 @@ TableOptions {
 }
 ```
 Here,
-1. **`compression`** determines the file-wide compression algorithm. Per-column settings override this. See [Encoding and Compression](#encoding-and-compression) for the list of available algorithms. Default: `Compression.UNCOMPRESSED`.
-2. **`rowGroupSize`** determines the approximate uncompressed size of the row group in bytes. Default: `32 * 1024 * 1024`.
-3. **`pageSize`** determines the approximate uncompressed page size in bytes. Default: `8 * 1024`.
+* **`compression`** determines the file-wide compression algorithm. Per-column settings override this. See [Encoding and Compression](#encoding-and-compression) for the list of available algorithms. Default: `Compression.UNCOMPRESSED`.
+* **`rowGroupSize`** determines the approximate uncompressed size of the row group in bytes. Default: `32 * 1024 * 1024`.
+* **`pageSize`** determines the approximate uncompressed page size in bytes. Default: `8 * 1024`.
 
 When `pageSize` is less than `rowGroupSize` times the number of columns, the latter setting will be ignored. In this case each row group will contain exactly one roughly `pageSize`d page for each column.
 

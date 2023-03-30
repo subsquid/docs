@@ -10,9 +10,9 @@ description: >-
 ## `Table` Implementation
 
 The `@subsquid/file-store-csv` package provides a `Table` implementation for writing to CSV files. Use it by [supplying one or more of its instances via the `tables` field of the `Database` constructor argument](../overview/#database-options). Constructor of the `Table` implementation accepts the following arguments:
-1. **`fileName: string`**: the name of the output file in every dataset partition folder.
-2. **`schema: {[column: string]: ColumnData}`**: a mapping from CSV column names to [`ColumnData` objects](#columns). A mapping of the same keys to data values is the row type used by the [table writer](../overview/#table-writer-interface).
-3. **`options?: TableOptions`**: see [`Table` Options](#table-options).
+* **`fileName: string`**: the name of the output file in every dataset partition folder.
+* **`schema: {[column: string]: ColumnData}`**: a mapping from CSV column names to [`ColumnData` objects](#columns). A mapping of the same keys to data values is the row type used by the [table writer](../overview/#table-writer-interface).
+* **`options?: TableOptions`**: see [`Table` Options](#table-options).
 
 ## Columns
 
@@ -43,9 +43,9 @@ TableOptions {
 }
 ```
 Here,
-1. **`extension`** determines the file extension (default: `'csv'`)
-2. **`dialect`** determines the details of the CSV formatting (see the details below, default: `dialects.excel`)
-3. **`header`** determines whether a CSV header should be added (default: `true`)
+* **`extension`** determines the file extension (default: `'csv'`)
+* **`dialect`** determines the details of the CSV formatting (see the details below, default: `dialects.excel`)
+* **`header`** determines whether a CSV header should be added (default: `true`)
 
 `Dialect` type is defined as follows:
 ```typescript
