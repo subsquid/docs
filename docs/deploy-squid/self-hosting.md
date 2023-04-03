@@ -96,9 +96,9 @@ services:
     ports:
       # prometheus metrics exposed at port 3000
       - "3000:3000"
-    command: ["sqd", "process"]
+    command: ["sqd", "process:prod"]
     depends_on:
       - db
 ```
 
-Note that `sqd serve:prod` and `sqd process` commands are defined in `commands.json` file.
+Note that `sqd serve:prod` and `sqd process:prod` commands are defined in `commands.json` file.
