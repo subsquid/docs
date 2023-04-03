@@ -41,19 +41,13 @@ cd my-awesome-squid
 npm ci
 ```
 
-## Step 3: Build the squid
-
-```bash
-sqd build
-```
-
-## Step 4: Launch Postgres in a detached Docker container
+## Step 3: Launch Postgres in a detached Docker container
 
 ```bash
 sqd up
 ```
 
-## Step 5: Create the database schema and run the processor
+## Step 4: Create the database schema and run the processor
 
 The squid we have just built ingests pre-indexed data from a Kusama Archive. This data is then transformed, as defined by the data handler supplied to the `processor.run()` call in `src/processor.ts`.
  
@@ -63,7 +57,7 @@ This command will keep the console busy until manually terminated:
 sqd process
 ```
 
-## Step 6: Start the GraphQL server
+## Step 5: Start the GraphQL server
 
 Run in a separate terminal window:
 
@@ -82,7 +76,7 @@ query MyQuery {
 }
 ```
 
-## Step 7: Customize
+## Step 6: Customize
 
 [Hack](/basics/schema-file) the schema file `schema.graphql` and the [processor](/substrate-indexing) `src/processor.ts` to index the data your way. Choose any supported network using the `lookupArchive()` method of [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) or [run one locally](/archives/).
 
