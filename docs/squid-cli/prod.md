@@ -1,7 +1,7 @@
 `sqd prod`
 ==========
 
-Assign a squid version to the production endpoint
+Assign squid version to the production endpoint
 
 * [`sqd prod NAMEANDVERSION`](#sqd-prod-nameandversion)
 

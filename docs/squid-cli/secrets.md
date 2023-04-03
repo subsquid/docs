@@ -1,7 +1,9 @@
 `sqd secrets`
 =============
 
-Manage account secrets. The secrets are exposed as environment variables, and are accessible to all the squids deployed by the current Aquarium account.
+Manage account secrets
+
+The secrets are exposed as environment variables, and are accessible to all the squids deployed by the current Aquarium account.
 
 * [`sqd secrets:ls`](#sqd-secretsls)
 * [`sqd secrets:rm NAME`](#sqd-secretsrm-name)

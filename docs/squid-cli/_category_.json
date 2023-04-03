@@ -1,0 +1,12 @@
+{
+    "position": 60,
+    "label": "Squid CLI",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/squid-cli",
+      "title": "Reference manual for the sqd utility"
+    }
+}

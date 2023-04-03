@@ -1,7 +1,9 @@
 `sqd deploy`
 ============
 
-Deploy a new or update the existing squid version. The squid name and the version is taken from the provided deployment manifest.
+Deploy or update a squid version
+
+Squid name and version are taken from the provided deployment manifest.
 
 * [`sqd deploy SOURCE`](#sqd-deploy-source)
 

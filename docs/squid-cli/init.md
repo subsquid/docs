@@ -1,7 +1,7 @@
 `sqd init`
 ==========
 
-Create a squid from template
+Create a squid from a template
 
 * [`sqd init NAME`](#sqd-init-name)
 
