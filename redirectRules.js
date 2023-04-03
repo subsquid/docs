@@ -70,6 +70,18 @@ const urlList = [
     {
         "from": "/archives/archives-explorer-api",
         "to": "/archives/substrate/archives-explorer-api"
+    },
+    {
+        "from": "/run-squid",
+        "to": "/archives/substrate/self-hosted"
+    },
+    {
+        "from": "/run-squid/run-in-docker",
+        "to": "/deploy-squid/self-hosting"
+    },
+    {
+        "from": "/run-squid/run-in-production",
+        "to": "/deploy-squid/self-hosting"
     }
 ]
 
