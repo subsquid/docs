@@ -28,15 +28,16 @@ Column types can be obtained by making the function calls listed below from the 
 
 | Column type                             | Logical type                   | Primitive type | Valid data row object field contents                      |
 |:---------------------------------------:|:------------------------------:|:--------------:|:---------------------------------------------------------:|
-| `Types.String()`                        | string                         | `BYTE_ARRAY`   | `string`                                                  |
+| `Types.String` `(length?)`              | variable or fixed length string     | `BYTE_ARRAY` or `FIXED_LEN_` `BYTE_ARRAY` | `string` of length equal to `length` if it is set or of any length otherwise     |
+| `Types.Binary` `(length?)`              | variable or fixed length byte array | `BYTE_ARRAY` or `FIXED_LEN_` `BYTE_ARRAY` | `Uint8Array` of length equal to `length` if it is set or of any length otherwise |
 | `Types.Int8()`                          | 8-bit signed integer           | `INT32`        | `number` from -128 to 127                                 |
 | `Types.Int16()`                         | 16-bit signed integer          | `INT32`        | `number` from -32768 to 32767                             |
 | `Types.Int32()`                         | 32-bit signed integer          | `INT32`        | `number` from -2147483648 to 2147483647                   |
-| `Types.Int64()`                         | 64-bit signed integer          | `INT64`        | `bigint` from -9223372036854775808 to 9223372036854775807 |
+| `Types.Int64()`                         | 64-bit signed integer          | `INT64`        | `bigint` or `number` from -9223372036854775808 to 9223372036854775807 |
 | `Types.Uint8()`                         | 8-bit unsigned integer         | `INT32`        | `number` from 0 to 255                                    |
 | `Types.Uint16()`                        | 16-bit unsigned integer        | `INT32`        | `number` from 0 to 65535                                  |
 | `Types.Uint32()`                        | 32-bit unsigned integer        | `INT32`        | `number` from 0 to 4294967295                             |
-| `Types.Uint64()`                        | 64-bit unsigned integer        | `INT64`        | `bigint` from 0 to 18446744073709551615                   |
+| `Types.Uint64()`                        | 64-bit unsigned integer        | `INT64`        | `bigint` or `number` from 0 to 18446744073709551615                   |
 | `Types.Float()`                         | 32-bit floating point number   | `FLOAT`        | non-`Nan` `number`                                        |
 | `Types.Double()`                        | 64-bit floating point number   | `DOUBLE`       | non-`Nan` `number`                                        |
 | `Types.Boolean()`                       | boolean value                  | `BOOLEAN`      | `boolean`                                                 |
