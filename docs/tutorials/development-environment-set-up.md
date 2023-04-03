@@ -20,6 +20,10 @@ If Node.js is already present in the system, ensure that version 16 or later is 
 node --version
 ```
 
+### Subsquid CLI
+
+Follow [these instructions](/squid-cli/installation).
+
 ### Docker
 
 The other requisite is Docker, which has similar options:
