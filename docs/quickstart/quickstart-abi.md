@@ -17,7 +17,7 @@ Before getting to work on your very first squid, verify that you have installed 
 - Docker
 
 :::info
-Earlier versions of the template were based on `Makefile`. The new version uses [`@subsquid/commands` scripts](https://github.com/subsquid/squid-sdk/tree/master/util/commands), defined in `commands.json` which are automatically recognized as `sqd` sub-commands.
+With the exception of `sqd init`, `sqd` commands mentioned here are just scripts defined in `commands.json` that the `sqd` executable automatically discovers. Take a look at the contents of this file to learn more about how squids work under the hood.
 :::
 
 Please note:
@@ -35,7 +35,7 @@ cd my-awesome-squid
 npm ci
 ```
 
-##  Step 2: Generate and build the squid
+##  Step 2: Generate the squid
 
 - Consult the [EVM configuration page](/evm-indexing/configuration) and choose an archive endpoint from the list of supported EVM networks.
 - Prepare the contract ABI and save it into the `assets` folder, e.g. as `assets/abi.json`.
@@ -45,20 +45,18 @@ For public contracts the ABI can be fetched automatically using an Etherscan-lik
 ```sh
 sqd generate --help
 ```
-for a full list of supported options.
+for a list of supported CLI options.
 :::
 
-Generate and build the squid with
+Generate the squid with
 ```bash
 sqd generate \
 --address <address> \
---abi assets/abi.json \
+--abi <path to contract ABI> \
 --archive <network archive alias or endpoint URL> \
 --event '*' \
 --function '*' \
 --from <starting block>
-
-sqd build
 ```
 
 ### Example
@@ -66,14 +64,16 @@ sqd build
 ```bash
 sqd generate \
 --address 0x6B175474E89094C44Da98b954EedeAC495271d0F \
---abi assets/abi.json \
+--abi abi/erc20.json \
 --archive eth-mainnet \
 --event '*' \
 --function '*' \
 --from 1000000
-
-sqd build
 ```
+
+:::info
+Squid generation tools can also be [configured with YAML files](/basics/squid-gen/). This mode unlocks advanced features such as working with multiple contracts and saving the squid data to file-based datasets.
+:::
 
 ## Step 3: Launch Postgres in a detached Docker container
 
@@ -110,9 +110,10 @@ This starts a GraphQL server serving the indexed events and transactions from th
 
 ```graphql
 query MyQuery {
-  events(limit: 10) {
+  contractEventTransfers(limit: 10) {
     id
-    name
+    src
+    dst
   }
 }
 ```
