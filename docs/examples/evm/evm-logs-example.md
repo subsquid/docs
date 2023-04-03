@@ -13,7 +13,7 @@ description: >-
 
 - Node v16.x
 - Docker
-- [Squid CLI](/squid-cli/)
+- [Squid CLI](/squid-cli/installation)
 
 ## Running 
 

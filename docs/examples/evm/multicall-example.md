@@ -14,7 +14,7 @@ contract](https://etherscan.io/address/0x5ba1e12693dc8f9c48aad8770482f4739beed69
 
 - Node v16.x
 - Docker
-- [Squid CLI](/squid-cli)
+- [Squid CLI](/squid-cli/installation)
 
 ## Running 
 
