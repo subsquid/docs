@@ -13,6 +13,8 @@ There are multiple ways to obtain this behavior, let's take a look at a couple o
 
 Cursors are used to traverse across entities of an entity set. They work by returning a pointer ("cursor") to a specific entity which can then be used to fetch the next batch. The batch will start with the entity after the one the cursor points to. For cursor-based pagination, OpenReader follows the [Relay Cursor Connections spec](https://relay.dev/graphql/connections.htm).
 
+Currently, only forward pagination is supported. If your use case requires bidirectional pagination please let us know at our [Telegram channel](https://t.me/HydraDevs).
+
 In Subsquid GraphQL server, cursor based pagination is implemented with `{entityName}sConnection` queries available for every entity in the input schema. These queries require an explicitly supplied [`orderBy` argument](/query-squid/sorting), and *the field that is used for ordering must also be requested by the query itself*. Check out [this section](/query-squid/paginate-query-results/#important-note-on-orderby) for a valid query template.
 
 Example: this query fetches a list of videos where `isExplicit` is true and gets their count.
@@ -31,26 +33,15 @@ query {
 }
 ```
 
-### **Operators `first` and `last`**
+### **Operator `first`**
 
-The `first` operator is used to fetch a specified number of entities from the beginning of the output. The `last` operator does the same for the end of the output.
+The `first` operator is used to fetch a specified number of entities from the beginning of the output.
 
-Example: Fetch the first 5 videos and the last 5 videos:
+Example: Fetch the first 5 videos:
 
 ```graphql
 query Query1 {
   videosConnection(orderBy: id_ASC, first: 5) {
-    edges {
-      node {
-        id
-        title
-      }
-    }
-  }
-}
-
-query Query1 {
-  videosConnection(orderBy: id_ASC, last: 5) {
     edges {
       node {
         id
@@ -74,7 +65,7 @@ pageInfo {
 }
 ```
 
-### **Operators `before` and `after`**
+### **Operator `after`**
 
 Example: Fetch the first 10 channels, ordered by `createdAt`. Then, in a second query, fetch the next 10 channels:
 
@@ -112,42 +103,6 @@ query SecondBatchQ {
 }
 ```
 
-Example: Fetch the last 10 channels, ordered by `createdAt`. Then, in a second query, fetch the previous 10 channels:
-
-```graphql
-query FirstBatchQ {
-  channelsConnection(last: 10, orderBy: createdAt_ASC) {
-    pageInfo {
-      startCursor
-      hasPreviousPage
-    }
-    edges {
-      node {
-        id
-        handle
-        createdAt
-      }
-    }
-  }
-}
-
-query SecondBatchQ {
-  channelsConnection(before: <startCursor>, orderBy: createdAt_ASC) {
-    pageInfo {
-      startCursor
-      hasPreviousPage
-    }
-    edges {
-      node {
-        id
-        handle
-        createdAt
-      }
-    }
-  }
-}
-```
-
 ### **Important Note on `orderBy`**
 
 The field chosen to `orderBy` needs to be present in the query itself. For example, any `after` query must follow this template:
@@ -173,7 +128,7 @@ Otherwise, the returned result wouldn't be ordered correctly.
 
 ### Examples
 
-An interactive example using cursor-based pagination can be found in [this repo](https://github.com/subsquid-labs/cursor-pagination-client-example).
+An interactive example of using cursor-based pagination can be found in [this repo](https://github.com/subsquid-labs/cursor-pagination-client-example).
 
 ## Paginating with `{entityName}s` queries
 
