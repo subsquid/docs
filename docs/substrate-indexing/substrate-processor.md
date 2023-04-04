@@ -1,5 +1,6 @@
 ---
 sidebar_position: 10
+title: Substrate processor
 description: >-
   Overview of SubstrateBatchProcessor
 ---

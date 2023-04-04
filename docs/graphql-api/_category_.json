@@ -1,6 +1,6 @@
 {
     "position": 40,
-    "label": "GraphQL Server",
+    "label": "GraphQL server",
     "collapsible": true,
     "collapsed": true,
     "className": "red",

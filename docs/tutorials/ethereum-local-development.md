@@ -1,6 +1,6 @@
 ---
 id: ethereum-local-development
-title: Run squids with Ganache or Hardhat
+title: Use with Ganache or Hardhat
 description: >-
   Use Subsquid to index an Ethereum dev node
 sidebar_position: 30

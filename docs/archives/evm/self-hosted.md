@@ -1,7 +1,7 @@
 ---
 sidebar_position: 30
-title: Self-hosted Archive
-description: Run an self-hosed EVM Archive
+title: Self-hosted archive
+description: Run an self-hosed EVM archive
 ---
 
 # Self-hosted Archive

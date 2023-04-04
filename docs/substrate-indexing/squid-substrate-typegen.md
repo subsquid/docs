@@ -3,7 +3,7 @@ sidebar_position: 35
 description: Type-safe Substrate data handling
 ---
 
-# Squid Substrate typegen
+# Substrate typegen
 
 ## Installation
 

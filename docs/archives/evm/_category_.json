@@ -1,12 +1,12 @@
 {
     "position": 20,
-    "label": "EVM Archives",
+    "label": "EVM archives",
     "collapsible": true,
     "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
       "slug": "/archives/evm",
-      "title": "EVM Archives"
+      "title": "EVM archives"
     }
 }

@@ -1,7 +1,7 @@
 ---
 sidebar_position: 20
-title: Self-hosted Archive
-description: Run a self-hosted Substrate Archive
+title: Self-hosted archive
+description: Run a self-hosted Substrate archive
 ---
 
 # Self-hosted Archive
