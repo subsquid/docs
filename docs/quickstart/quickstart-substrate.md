@@ -25,7 +25,7 @@ scaffold using [`sqd init`](/squid-cli/init).
 
 - For indexing native events emitted by Substrate-based chains, use `substrate` 
 - For indexing Frontier EVM contracts on Astar and Shiden use `frontier-evm`
-- For indexing Ink! smart contracts, use `ink`
+- For indexing ink! smart contracts, use `ink`
 - For indexing EVM+ contracts on Karura or Acala, use `acala`
 
 For example:
@@ -87,7 +87,7 @@ query MyQuery {
 - Explore how to use [typegen](/substrate-indexing/squid-substrate-typegen) for type-safe on-chain data access
 - Explore how to efficiently transform the on-chain [data in batches](/substrate-indexing)
 - Explore native support for [Frontier EVM](/substrate-indexing/evm-support) on Astar and Shiden
-- Explore native support for [Ink! contracts](/substrate-indexing/wasm-support)
+- Explore native support for [ink! contracts](/substrate-indexing/wasm-support)
 - Explore native support for [Gear contracts](/substrate-indexing/gear-support)
 - Explore native support for [Acala EVM+ contracts](/substrate-indexing/acala-evm-support)
 - [Deploy](/deploy-squid) the squid to the Aquarium hosted service

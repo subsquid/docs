@@ -1,17 +1,19 @@
 ---
 sidebar_position: 60
 description: >-
-  Ink! WASM smart contracts support
-title: Ink! contracts support
+  ink! WASM smart contracts support
+title: ink! contracts support
 ---
 
-# Ink! contracts support
+# ink! contracts support
 
-This section describes additional options available for indexing [Ink!-based WASM contracts](https://use.ink), supported by chains with a `Contracts` pallet. At the moment of writing, AlephZero, Shibuya (Astar testnet), Shiden (Kusama parachain) and Astar (Polkadot parachain) are the most popular chains for deploying Ink! contracts. Follow the [WASM squid tutorial](/tutorials/create-a-wasm-processing-squid) for a step-by-step instruction on building a WASM-processing squid. We recommend using [squid-wasm-template](https://github.com/subsquid-labs/squid-wasm-template) as a reference project.
+This section describes additional options available for indexing [ink!-based WASM contracts](https://use.ink), supported by chains with a `Contracts` pallet. At the moment of writing, AlephZero, Shibuya (Astar testnet), Shiden (Kusama parachain) and Astar (Polkadot parachain) are the most popular chains for deploying ink! contracts.
+
+[Generate an ink! indexing squid automatically](/basics/squid-gen/), follow the [WASM squid tutorial](/tutorials/create-a-wasm-processing-squid) for a step-by-step instruction or check out the [squid-wasm-template](https://github.com/subsquid-labs/squid-wasm-template) reference project.
 
 ## Processor options
 
-**`addContractsContractEmitted(contractAddress: string, options?: {data?, range?})`**: Subscribe to the Ink! events of the WASM runtime emitted by a contract deployed at the specified address. The `options` argument and the data selectors are similar to that of [`addEvent()`](/substrate-indexing/configuration/#events).
+**`addContractsContractEmitted(contractAddress: string, options?: {data?, range?})`**: Subscribe to the ink! events of the WASM runtime emitted by a contract deployed at the specified address. The `options` argument and the data selectors are similar to that of [`addEvent()`](/substrate-indexing/configuration/#events).
 
 #### Example
 ```ts
@@ -26,9 +28,9 @@ const processor = new SubstrateBatchProcessor()
   } as const)
 ```
 
-## Ink! Typegen
+## ink! Typegen
 
-Use [`squid-ink-typegen`](https://github.com/subsquid/squid-sdk/tree/master/substrate/ink-typegen) to generate facade classes for decoding Ink! smart contract data from JSON ABI metadata.
+Use [`squid-ink-typegen`](https://github.com/subsquid/squid-sdk/tree/master/substrate/ink-typegen) to generate facade classes for decoding ink! smart contract data from JSON ABI metadata.
 
 ### Usage
 

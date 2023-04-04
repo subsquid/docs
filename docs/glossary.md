@@ -52,9 +52,9 @@ A Substrate palette implementing the Ethereum Virtual Machine. In particular, Su
 
 A declarative query language and an API specification developed by Facebook as an alternative to REST. See the official [GraphQL docs](https://graphql.org/) for more details.
 
-### Ink!
+### ink!
 
-An SDK (software development kit) and a smart-contract language for developing WASM-based smart contracts, maintained by Parity. The contracts developed with Ink! are compiled into a WASM blob compatible with the API exposed by the `Contracts` pallet. More details [here](https://paritytech.github.io/ink/)
+An SDK (software development kit) and a smart-contract language for developing WASM-based smart contracts, maintained by Parity. The contracts developed with ink! are compiled into a WASM blob compatible with the API exposed by the `Contracts` pallet. More details [here](https://paritytech.github.io/ink/)
 
 ### OpenReader
 
@@ -105,7 +105,7 @@ A collection of open-source libraries to build squids.
 A tool generating strongly typed data access classes from a metadata in some format. Subsquid SDK includes typegen tools:
 - for accessing event, extrinsics and storage data based on the substrate metadata. See [Substrate typegen](/substrate-indexing/squid-substrate-typegen)
 - for accessing EVM smart contract data based on the contract ABI. See [EVM typegen](/evm-indexing/squid-evm-typegen)
-- for accessing Ink! smart contract data based on the contract metadata. See [Ink! typegen](https://github.com/subsquid/squid-sdk/tree/master/substrate/ink-typegen)
+- for accessing ink! smart contract data based on the contract metadata. See [ink! typegen](https://github.com/subsquid/squid-sdk/tree/master/substrate/ink-typegen)
 
 ### WASM
 

@@ -40,7 +40,7 @@ OPTIONS
       - substrate  A template squid for indexing Substrate-based chains.
       - frontier-evm  A template for indexing Frontier EVM chains, like 
         Astar and Shiden.
-      - ink A template for indexing Ink! smart contracts
+      - ink A template for indexing ink! smart contracts
       - acala A template for indexing Acala EVM+ smart contracts
 ```
 
