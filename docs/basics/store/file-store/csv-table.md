@@ -10,25 +10,27 @@ description: >-
 ## `Table` Implementation
 
 The `@subsquid/file-store-csv` package provides a `Table` implementation for writing to CSV files. Use it by [supplying one or more of its instances via the `tables` field of the `Database` constructor argument](../overview/#database-options). Constructor of the `Table` implementation accepts the following arguments:
-1. **`fileName: string`**: the name of the output file in every dataset partition folder.
-2. **`schema: {[column: string]: Column}`**: a mapping from CSV column names to [`Column` objects](#columns). A mapping of the same keys to data values is the row type used by the [table writer](../overview/#table-writer-interface).
-3. **`options?: TableOptions`**: see [`Table` Options](#table-options).
+* **`fileName: string`**: the name of the output file in every dataset partition folder.
+* **`schema: {[column: string]: ColumnData}`**: a mapping from CSV column names to [`ColumnData` objects](#columns). A mapping of the same keys to data values is the row type used by the [table writer](../overview/#table-writer-interface).
+* **`options?: TableOptions`**: see [`Table` Options](#table-options).
 
-## `Column`s
+## Columns
 
-`Column` objects determine how the in-memory data representation of each table column should be serialized. Constructor of `Column`s accepts a column data type and an optional `{nullable?: boolean}` `options` object as arguments.
+`ColumnData` objects determine how the in-memory data representation of each table column should be serialized. They are made with the `Column` factory function that accepts a column data type and an optional `{nullable?: boolean}` `options` object as arguments.
 
 Column types can be obtained by making the function calls listed below from the `Types` submodule. They determine the type that the [table writer](../overview/#table-writer-interface) will expect to find at the corresponding field of data row objects.
 
 | Column type                       | Type of the data row field |
 |:---------------------------------:|:--------------------------:|
 | `Types.String()`                  | `string`                   |
-| `Types.Integer()`                 | `number` or `bigint`       |
-| `Types.Decimal()`                 | `number`                   |
+| `Types.Numeric()`                 | `number` or `bigint`       |
 | `Types.Boolean()`                 | `boolean`                  |
 | `Types.DateTime(format?: string)` | `Date`                     |
+| `Types.JSON<T>()`                 | `T`                        |
 
 `Types.DateTime` accepts an optional [strftime](https://pubs.opengroup.org/onlinepubs/009695399/functions/strftime.html)-compatible format string. If it is omitted, the dates will be serialized to [ISO strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString).
+
+The type `T` supplied to the `Types.JSON()` generic function must be an object with string keys (extend `{[k: string]: any}`).
 
 ## `Table` Options
 
@@ -41,9 +43,9 @@ TableOptions {
 }
 ```
 Here,
-1. **`extension`** determines the file extension (default: `'csv'`)
-2. **`dialect`** determines the details of the CSV formatting (see the details below, default: `dialects.excel`)
-3. **`header`** determines whether a CSV header should be added (default: `true`)
+* **`extension`** determines the file extension (default: `'csv'`)
+* **`dialect`** determines the details of the CSV formatting (see the details below, default: `dialects.excel`)
+* **`header`** determines whether a CSV header should be added (default: `true`)
 
 `Dialect` type is defined as follows:
 ```typescript
@@ -62,7 +64,7 @@ enum Quote {
   MINIMAL,    // Only quote strings with special characters.
               // A special character is one of the following:
               // delimiter, lineterminator, quoteChar.
-  NONNUMERIC, // Quote strings, booleans and Dates.
+  NONNUMERIC, // Quote strings, booleans, DateTimes and JSONs.
   NONE        // Do not quote values.
 }
 ```
@@ -108,7 +110,7 @@ const dbOptions = {
       {
         from: Column(Types.String()),
         to: Column(Types.String()),
-        value: Column(Types.Integer())
+        value: Column(Types.Numeric())
       },
       {
         extension: 'tsv',

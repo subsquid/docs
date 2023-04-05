@@ -27,25 +27,25 @@ sqd typegen
 Results will be placed at `src/abi`. For example, a JSON ABI file placed at `abi/erc721.json` will be used to generate `src/abi/erc721.ts`.
 
 These modules provide:
-1. Constants such as topic0 values of event logs and function signature hashes:
-   ```typescript
-   import { events, functions } from "abi/erc721"
+* Constants such as topic0 values of event logs and function signature hashes:
+  ```typescript
+  import { events, functions } from "abi/erc721"
 
-   let transferEventTopic: string = events.Transfer.topic
-   let approveFunctionSighash: string = functions.approve.sighash
-   ```
-2. Decoders for event data:
-   ```typescript
-   // in the batch handler
-   for (const block of ctx.blocks) {
-     for (const item of block.items) {
-       if (item.name === "EVM.Log") {
-         const { from, to, tokenId } = events.Transfer.decode(item.event.args)
-      }
-    }
+  let transferEventTopic: string = events.Transfer.topic
+  let approveFunctionSighash: string = functions.approve.sighash
+  ```
+* Decoders for event data:
+  ```typescript
+  // in the batch handler
+  for (const block of ctx.blocks) {
+    for (const item of block.items) {
+      if (item.name === "EVM.Log") {
+        const { from, to, tokenId } = events.Transfer.decode(item.event.args)
+     }
    }
-   ```
-3. Classes for querying the contract state - see the [Access contract state](/substrate-indexing/evm-support/#access-the-contract-state) section.
+  }
+  ```
+* Classes for querying the contract state - see the [Access contract state](/substrate-indexing/evm-support/#access-the-contract-state) section.
 
 ## Subscribe to EVM events
 
@@ -73,7 +73,7 @@ The `options` argument has the same format as for [`addEvent`](/substrate-indexi
   data?: {} // same as the data selector for `addEvent` 
 }
 ```
-For details on the topic filter, check out the [EVM logs section of the EVM processor configuration page](/evm-indexing/configuration/#evm-logs) and examples within.
+For details on the topic filter, check out the [EVM logs section of the EVM processor configuration page](/evm-indexing/configuration/evm-logs) and examples within.
 
 ## Subscribe to EVM transactions
 

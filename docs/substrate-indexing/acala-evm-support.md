@@ -44,7 +44,7 @@ processor.addAcalaEvmExecuted('*', {
   }]
 })
 ```
-For details on the topic filter, check out the [EVM logs section of the EVM processor configuration page](/evm-indexing/configuration/#evm-logs) and examples within.
+For details on the topic filter, check out the [EVM logs section of the EVM processor configuration page](/evm-indexing/configuration/evm-logs) and examples within.
 
 ## `EVM.ExecutedFailed` events
 

@@ -6,7 +6,7 @@ description: >-
 
 # Query the contract state
 
-In order to make on-chain calls, one must set up a Websocket JSON-RPC endpoint using [setDataSource()](/evm-indexing/configuration/#initialization). We recommend using a private endpoint from e.g. [BlastAPI](https://blastapi.io/), and set it via an environment variable:
+In order to make on-chain calls, one must set up a Websocket JSON-RPC endpoint using [setDataSource()](/evm-indexing/configuration/initialization). We recommend using a private endpoint from e.g. [BlastAPI](https://blastapi.io/), and set it via an environment variable:
 
 ```ts
 //... 

@@ -16,39 +16,7 @@ Below are the most common deployment issues:
 
 ## Local Docker build
 
-To make a dry run locally, create a local `Dockerfile` with the following content:
-
-```dockerfile title="Dockerfile"
-FROM node:16-alpine AS node
-FROM node AS node-with-gyp
-RUN apk add g++ make python3
-
-FROM node-with-gyp AS builder
-WORKDIR /squid
-ADD package.json .
-ADD package-lock.json .
-RUN npm ci
-ADD tsconfig.json .
-ADD src src
-RUN npm run build
-
-FROM node-with-gyp AS deps
-WORKDIR /squid
-ADD package.json .
-ADD package-lock.json .
-RUN npm ci --production
-
-FROM node AS squid
-WORKDIR /squid
-COPY --from=deps /squid/package.json .
-COPY --from=deps /squid/package-lock.json .
-COPY --from=deps /squid/node_modules node_modules
-COPY --from=builder /squid/lib lib
-RUN echo -e "loglevel=silent\\nupdate-notifier=false" > /squid/.npmrc
-ADD db db
-ADD assets assets
-ADD schema.graphql .
-```
+To make a dry run locally, create a local `Dockerfile` as described on the [self-hosting](/deploy-squid/self-hosting) page.
 
 Then build an image locally with 
 ```bash

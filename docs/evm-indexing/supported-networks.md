@@ -13,17 +13,25 @@ The table below list the public EVM Archive endpoints to be used with [`setDataS
 |:-----------------------:|:-------------------------:|:--------------------------------------------------:|
 | Ethereum Mainnet        | `lookupArchive('eth-mainnet')`             |  `https://eth.archive.subsquid.io`                 |
 | Ethereum Goerli Testnet | `lookupArchive('goerli')`                  |   `https://goerli.archive.subsquid.io`             | 
+| Ethereum Sepolia Testnet |  `lookupArchive('sepolia')`               |  `https://sepolia.archive.subsquid.io`   |
 | Polygon                 | `lookupArchive('polygon')`                 |   `https://polygon.archive.subsquid.io`            |
 | Polygon Mumbai Testnet  | `lookupArchive('polygon-mumbai')`          | `https://polygon-mumbai.archive.subsquid.io`       |
 | Arbitrum One            | `lookupArchive('arbitrum')`                | `https://arbitrum.archive.subsquid.io`          |
 | Arbitrum Nova           | `lookupArchive('arbitrum-nova')`           | `https://arbitrum-nova.archive.subsquid.io`          |
+| Arbitrum Goerli         | `lookupArchive('arbitrum-goerli')`           | `https://arbitrum-goerli.archive.subsquid.io`          |
+| Base Goerli             | `lookupArchive('base-goerli')`           | `https://base-goerli.archive.subsquid.io`          |
 | Binance Chain           | `lookupArchive('binance')`                 | `https://binance.archive.subsquid.io`              |
 | Binance Chain Testnet   | `lookupArchive('binance-testnet')`         | `https://binance-testnet.archive.subsquid.io`      |
 | Avalanche C-Chain        | `lookupArchive('avalanche')`               |  `https://avalanche-c.archive.subsquid.io`         |
 | Fantom                  | `lookupArchive('fantom')`                  | `https://fantom.archive.subsquid.io`               |
-| Moonbeam                | `lookupArchive('moonbeam', {type: 'EVM'})`            | `https://moonbeam-evm.archive.subsquid.io`         |
-| Moonriver               | `lookupArchive('moonriver', {type: 'EVM'})`           | `https://moonriver-evm.archive.subsquid.io`       |
-| Moonbase                | `lookupArchive('moonbase', {type: 'EVM'})`           | `https://moonbase-evm.archive.subsquid.io`         |
+| Optimism                | `lookupArchive('optimism-mainnet')`     | `https://optimism-mainnet.archive.subsquid.io` |                                                  |
+| Moonbeam EVM    (*)          | `lookupArchive('moonbeam', {type: 'EVM'})`            | `https://moonbeam-evm.archive.subsquid.io`         |
+| Moonriver EVM    (*)       | `lookupArchive('moonriver', {type: 'EVM'})`           | `https://moonriver-evm.archive.subsquid.io`       |
+| Moonbase  EVM    (*)         | `lookupArchive('moonbase', {type: 'EVM'})`           | `https://moonbase-evm.archive.subsquid.io`         |
+| Astar EVM     (*)         | `lookupArchive('astar', {type: 'EVM'})` | `https://astar-evm.archive.subsquid.io`            |
+| Scroll Alpha Testnet    | `lookupArchive('scroll-alpha-testnet')` | `https://scroll-alpha-testnet.archive.subsquid.io` |
+| ZkSync                  | `lookupArchive('zksync')`   | `https://zksync.archive.subsquid.io` |
+| ZkSync Testnet          | `lookupArchive('zksync-testnet')`   | `https://zksync-testnet.archive.subsquid.io` |
 | SKALE Calypso           | `lookupArchive('skale-calypso')`           | `https://skale-calypso.archive.subsquid.io`        |
 | SKALE Calypso (stage)   | `lookupArchive('skale-calypso-staging')`     | `https://skale-calypso-staging.archive.subsquid.io`  |
 | SKALE Nebula            | `lookupArchive('skale-nebula')`           | `https://skale-nebula.archive.subsquid.io`        |
@@ -32,9 +40,8 @@ The table below list the public EVM Archive endpoints to be used with [`setDataS
 | BOBA Moonbeam           | `lookupArchive('boba-moonbeam')`           |  `https://boba-moonbeam.archive.subsquid.io`       |
 | Mantle testnet          | `lookupArchive('mantle-testnet')`          | `https://mantle-testnet.archive.subsquid.io`       |
 | Exosama Network         | `lookupArchive('exosama')`                 |`https://exosama.archive.subsquid.io`               |
-| Optimism                | Coming Soon               |                                                    |
  
-(*) Experimental support
+(*) Only for EVM data. For Substrate/Ink! data use the corresponding [Substrate archive](/archives/substrate)
 
 
 ### Examples 

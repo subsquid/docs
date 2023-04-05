@@ -54,13 +54,7 @@ A list of addon services to be deployed along the squid services.
 
 - **`postgres:`**
 
-Deploys a Postgres 14 instance and injects `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_PORT` env. variables to the squid services.
-
-
-| Name                                 | Description                                                            | Type      | Default value  | Optional   |  
-|:------------------------------------:|:----------------------------------------------------------------------:|:---------:|:--------------:|:----------:|
-| `config.statement_timeout`           | Max execution time after which any query is forcefully aborted, ms     |  `number` | `60000`        |   Optional     |
-| `config.log_min_duration_statement`  | Log queries executing longer than the given threshold, ms              |  `number` |`5000`          |   Optional     |
+See [Postgres addon](/deploy-squid/pg-addon) for details.
 
 ### `migrate:`
 

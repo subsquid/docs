@@ -1,5 +1,5 @@
 ---
-sidebar_position: 11
+sidebar_position: 15
 title: Environment variables
 description: |- 
   Add secrets and custom env variables

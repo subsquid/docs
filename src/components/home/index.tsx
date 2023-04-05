@@ -98,6 +98,16 @@ export default function Home(): JSX.Element {
             path="/tutorials/create-a-wasm-processing-squid"
             color={'bg-role--notice'}
             description="Index WASM contracts developed with Ink!">WASM smart contracts</GuideCard>
+          <GuideCard
+            path="/migrate/subsquid-vs-thegraph/"
+            color={'bg-role--success'}
+            description="Compare the feature set and the architecture">Subsquid vs TheGraph
+          </GuideCard>
+          <GuideCard
+            path="https://www.youtube.com/playlist?list=PLH2948XqklrgTvG6-ro3eqS17j7n_raiN"
+            color={'bg-role--success'}
+            description="Step-by-step video tutorials covering the most powerful Subsquid features">Subsquid Academy
+          </GuideCard>
         </div>
       </div>
 

@@ -1,19 +1,9 @@
----
-sidebar_position: 100
-title: Giant Squid API
-description: >-
-  Introducing the Giant Squid API, a single endpoint containing data from
-  multiple chains and parachains
----
 
-
-# Giant Squid API
+# Overview
 
 :::warning
 The Giant Squid API is currently under active development and this part of the documentation is largely outdated. Reach out at [SquidDevs chat](https://t.me/HydraDevs) to get support on the Giant Squid API.
 :::
-
-## Overview
 
 The subject of this guide is not how to build a Squid API project, but rather how to use one particular kind of Squid API.
 

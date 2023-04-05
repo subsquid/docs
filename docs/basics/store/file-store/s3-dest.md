@@ -1,5 +1,5 @@
 ---
-sidebar_position: 40
+sidebar_position: 50
 title: S3 support
 description: >-
   A Dest class for uploading data to buckets
@@ -10,9 +10,9 @@ description: >-
 ## Overview
 
 Writing to Amazon S3-compatible file storage services such as [AWS](https://aws.amazon.com) and [Filebase](https://filebase.com) is supported via the `S3Dest` class from the `@subsquid/file-store-s3` package. Use it by [setting the `dest` field of the `Database` constructor argument](../overview/#database-options) to its instance. Constructor of `S3Dest` accepts the following arguments:
-1. **`dir: string`**: name of the top level output folder within the bucket.
-2. **`bucket: string`**: bucket name.
-3. **`optionsOrClient?: S3Client | S3ClientConfig`**: an optional [S3 client](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/classes/s3client.html) or [client config](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/interfaces/s3clientconfig.html). By default, a simple config parameterized by environment variables is used:
+* **`dir: string`**: name of the top level output folder within the bucket.
+* **`bucket: string`**: bucket name.
+* **`optionsOrClient?: S3Client | S3ClientConfig`**: an optional [S3 client](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/classes/s3client.html) or [client config](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/interfaces/s3clientconfig.html). By default, a simple config parameterized by environment variables is used:
    ```typescript
    {
      region: process.env.S3_REGION,

@@ -32,7 +32,7 @@ const dbOptions = {
     TransfersTable: new Table('transfers.csv', {
       from: Column(Types.String()),
       to: Column(Types.String()),
-      value: Column(Types.Integer())
+      value: Column(Types.Numeric())
     })
   },
   dest: new LocalDest('./data'),
@@ -73,13 +73,13 @@ Each of the folders here contains a little over 10 MBytes of data. `status.txt` 
 
 `@subsquid/file-store` is the core package that contains the implementation of `Database` for filesystems. At least one file format addon must be installed alongside it. Available formats:
 
-1. **CSV**: Supported via [`@subsquid/file-store-csv`](../csv-table).
-2. **Parquet**: An [advanced format](https://parquet.apache.org) that works well for larger data sets. Supported via [`@subsquid/file-store-parquet`](../parquet-table).
+* **CSV**: Supported via [`@subsquid/file-store-csv`](../csv-table).
+* **Parquet**: An [advanced format](https://parquet.apache.org) that works well for larger data sets. Supported via [`@subsquid/file-store-parquet`](../parquet-table).
 
 Data in either of these formats can be written to
 
-1. **A local filesystem**: Supported by `@subsquid/file-store` out of the box.
-2. **A bucket in an Amazon S3-compatible cloud**: Supported via [`@subsquid/file-store-s3`](../s3-dest).
+* **A local filesystem**: Supported by `@subsquid/file-store` out of the box.
+* **A bucket in an Amazon S3-compatible cloud**: Supported via [`@subsquid/file-store-s3`](../s3-dest).
 
 ## `Database` Options
 
@@ -94,10 +94,10 @@ DatabaseOptions {
 }
 ```
 Here,
-1. `Table` is an interface for classes that convert in-memory tabular data into format-specific file contents. An implementation of `Table` is available for every file format supported by `file-store`. Consult [documentation pages on support for specific file formats](..) for details.
-2. **`tables`** is a mapping from developer-defined string handles to `Table` instances. A [table writer](#table-writer-interface) will be created for each `Table` in this mapping. It will be exposed at `ctx.store.<tableHandle>`.
-3. **`dest`** is an instance of `Dest`, an interface for classes that take the properly formatted file contents and write them onto a particular filesystem. An implementation of `Dest` is available for every filesystem supported by `file-store`. For local filesystems use the `LocalDest` class from the `@subsquid/file-store` package and supply `new LocalDest(outputDirectoryName)` here. For other targets consult [documentation pages specific to your filesystem choice](..).
-4. **`chunkSizeMb`**, **`syncIntervalBlocks`** and **`hooks`** are optional parameters that tune the behavior of the [dataset partitioning algorithm](#filesystem-syncs-and-dataset-partitioning).
+* `Table` is an interface for classes that make [table writers](#table-writer-interface), objects that convert in-memory tabular data into format-specific file contents. An implementation of `Table` is available for every file format supported by `file-store`. Consult [pages about specific output formats](..) to find out how to define `Table`s.
+* **`tables`** is a mapping from developer-defined string handles to `Table` instances. A table writer will be created for each `Table` in this mapping. It will be exposed at `ctx.store.<tableHandle>`.
+* **`dest`** is an instance of `Dest`, an interface for classes that take the properly formatted file contents and write them onto a particular filesystem. An implementation of `Dest` is available for every filesystem supported by `file-store`. For local filesystems use the `LocalDest` class from the `@subsquid/file-store` package and supply `new LocalDest(outputDirectoryName)` here. For other targets consult [documentation pages specific to your filesystem choice](..).
+* **`chunkSizeMb`**, **`syncIntervalBlocks`** and **`hooks`** are optional parameters that tune the behavior of the [dataset partitioning algorithm](#filesystem-syncs-and-dataset-partitioning).
 
 ## Table Writer Interface
 
@@ -108,20 +108,20 @@ For each `Table` supplied via the `tables` field of the constructor argument, `D
 
 Here, `T` is a `Table`-specific data row type. See the [documentation pages on support for specific file formats](..) for details.
 
-These synchronous methods add rows of data to an in-memory buffer and perform no actual filesystem writes. Instead, the write [happens automatically when a new dataset partition is created](#filesystem-syncs-and-dataset-partitioning). The methods return the table writer instance and can be chained. 
+These synchronous methods add rows of data to an in-memory buffer and perform no actual filesystem writes. Instead, the write [happens automatically when a new dataset partition is created](#filesystem-syncs-and-dataset-partitioning). The methods return the table writer instance and can be chained.
 
 ## Filesystem Syncs and Dataset Partitioning
 
 As the indexing proceeds, the processor continues to append new data to the in-memory buffer of `Database`. At the end of each batch the tool decides whether to write a new dataset partition. A partition is written when either
 
-1. the amount of data stored in the buffer exceeds **`chunkSizeMb`** (20 MBytes by default) _across all tables_, or
-2. **(1)** **`syncIntervalBlocks`** is finite (default - infinite), **(2)** the blockchain head is reached and **(3)** there is at least one row of data in the buffer, or
-3. **(1)** **`syncIntervalBlocks`** is finite, **(2)** at least **`syncIntervalBlocks`** blocks has been processed since the last write and **(3)** there is at least one row of data in the buffer.
+* the amount of data stored in the buffer exceeds **`chunkSizeMb`** (20 MBytes by default) _across all tables_, or
+* **(1)** **`syncIntervalBlocks`** is finite (default - infinite), **(2)** the blockchain head is reached and **(3)** there is at least one row of data in the buffer, or
+* **(1)** **`syncIntervalBlocks`** is finite, **(2)** at least **`syncIntervalBlocks`** blocks has been processed since the last write and **(3)** there is at least one row of data in the buffer.
 
 This approach keeps the number of files at a reasonable level while ensuring that the dataset is kept up-to-date, and it does that for both high and low rates of processor data:
 
-1. For high, stable data rates (e.g. events from the [USDC contract](https://etherscan.io/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48)), it suffices to keep `syncIntervalBlocks` at the default value (infinity). Once the processor catches up with the blockchain, it will keep producing partitions of roughly the same size at block intervals much smaller than the blockchain size, thus keeping the dataset updated. The balance between the dataset latency and the number of files is tuned with the `chunkSizeMb` parameter.
-2. For low data rates (e.g. `LiquidationCall` events from the [AAVE V2 LendingPool](https://etherscan.io/address/0x7d2768de32b0b80b7a3454c06bdac94a69ddc7a9) - emitted once every few hours) `syncIntervalBlocks` allows to govern the dataset latency directly. Once the processor reaches the blockhain head, it keeps the dataset up to date to within `syncIntervalBlocks` blocks behind the chain. Absence of new partitions beyond that range has a clear interpretation: no new data is available.
+* For high, stable data rates (e.g. events from the [USDC contract](https://etherscan.io/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48)), it suffices to keep `syncIntervalBlocks` at the default value (infinity). Once the processor catches up with the blockchain, it will keep producing partitions of roughly the same size at block intervals much smaller than the blockchain size, thus keeping the dataset updated. The balance between the dataset latency and the number of files is tuned with the `chunkSizeMb` parameter.
+* For low data rates (e.g. `LiquidationCall` events from the [AAVE V2 LendingPool](https://etherscan.io/address/0x7d2768de32b0b80b7a3454c06bdac94a69ddc7a9) - emitted once every few hours) `syncIntervalBlocks` allows to govern the dataset latency directly. Once the processor reaches the blockhain head, it keeps the dataset up to date to within `syncIntervalBlocks` blocks behind the chain. Absence of new partitions beyond that range has a clear interpretation: no new data is available.
 
 :::warning
 If `syncIntervalBlocks` is kept at the default value and the data rate is low, the resulting dataset may end up never catching up to the chain in a practical sense. Indeed, in extreme cases the processor _may end up writing no data at all_. For example, all the aforementioned `LiquidationCall` events fit into a CSV file less than 20 Mbytes in size. With the default values of `syncIntervalBlocks` and `chunkSizeMb` the buffer size never reaches the threshold value and no data is written to the filesystem.
@@ -141,8 +141,8 @@ DatabaseHooks<Dest> {
 }
 ```
 Parameters:
-1. **dest**: the `Dest` object used by `Database`. Use it to access the filesystem.
-2. **range**: the range of blocks covered by the current dataset partition.
-3. **isHead**: true if the blockchain head has been reached.
+* **dest**: the `Dest` object used by `Database`. Use it to access the filesystem.
+* **range**: the range of blocks covered by the current dataset partition.
+* **isHead**: true if the blockchain head has been reached.
 
 An example of using **`hooks`** can be found [here](https://github.com/subsquid/squid-file-store/blob/master/test/src/processor.ts#L35).

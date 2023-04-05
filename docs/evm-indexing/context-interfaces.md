@@ -99,7 +99,7 @@ Here is a full list of fields for items with `item.kind==='evmLog'`.
 }
 ```
 
-Note that to make the properties of `item.evmLog` and `item.transaction` available, one has to specify the corresponding [data selectors](/evm-indexing/configuration/#data-selectors) in the [`addLog()`](/evm-indexing/configuration/#evm-logs) configuration method.
+Note that to make the properties of `item.evmLog` and `item.transaction` available, one has to specify the corresponding [data selectors](/evm-indexing/configuration/data-selectors) in the [`addLog()`](/evm-indexing/configuration/evm-logs) configuration method.
 
 ### `transaction` items
 
@@ -131,7 +131,7 @@ Here is a full list of fields for items with `item.kind==='transaction'`.
 }
 ```
 
-Note that to make the properties of `item.transaction` available, one has to specify the corresponding [data selectors](/evm-indexing/configuration/#data-selectors) in the [`addTransaction()`](/evm-indexing/configuration/#evm-transactions) configuration method.
+Note that to make the properties of `item.transaction` available, one has to specify the corresponding [data selectors](/evm-indexing/configuration/data-selectors) in the [`addTransaction()`](/evm-indexing/configuration/transactions) configuration method.
 
 ### `Store`
 
@@ -185,6 +185,6 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 });
 ```
 
-One can experiment with the [data selectors](/evm-indexing/configuration/#data-selectors) and see how the output changes.
+One can experiment with the [data selectors](/evm-indexing/configuration/data-selectors) and see how the output changes.
 
 For more elaborate examples, check the [Gravatar squid](https://github.com/subsquid/squid-evm-template/tree/gravatar-squid) and [EVM Examples](/examples).
