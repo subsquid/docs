@@ -1,12 +1,12 @@
 {
-    "position": 20,
-    "label": "EVM archives",
+    "position": 60,
+    "label": "Squid CLI",
     "collapsible": true,
     "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
-      "slug": "/archives/evm",
-      "title": "EVM archives"
+      "slug": "/squid-cli",
+      "title": "Reference manual for the sqd utility"
     }
 }

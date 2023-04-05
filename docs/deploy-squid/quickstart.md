@@ -17,7 +17,7 @@ The scaling option is available only to the Aquairum Premium users. To apply for
 
 ## 0. Setup and install Squid CLI
 
-If Squid CLI is not installed, see the [Squid CLI doc](/squid-cli)
+If Squid CLI is not installed, follow [this guide](/squid-cli/installation)
 
 :::info 
 The manifest-based deployment flow below was introduced in `@subsquid/cli` version `2.x`. 

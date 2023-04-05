@@ -1,5 +1,6 @@
 ---
 sidebar_position: 10
+title: EVM processor
 description: >-
   Overview of EvmBatchProcessor
 ---

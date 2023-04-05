@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-title: Store Interface
+title: Store interface
 description: >-
   Store API for persisting the transformed data
 ---

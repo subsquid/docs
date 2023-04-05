@@ -1,12 +1,12 @@
 {
   "position": 30,
-  "label": "Substrate Archives",
+  "label": "Substrate archives",
   "collapsible": true,
   "collapsed": true,
   "className": "red",
   "link": {
     "type": "generated-index",
-    "slug": "/arhives/substrate",
-    "title": "Substrate Archives"
+    "slug": "/archives/substrate",
+    "title": "Substrate archives"
   }
 }

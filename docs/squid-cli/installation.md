@@ -5,10 +5,11 @@ description: Setup Squid CLI
 
 # Installation
 
-Squid CLI is an overarching command line tool for 
+Squid CLI is a command line tool for
 
-- managing squid deployments in Aquarium 
-- scaffolding new squid from templates
+- scaffolding new squids from templates
+- running SDK tools and scripts defined in `commands.json` in a cross-platform way
+- managing squid deployments in the [Aquarium hosted service](/deploy-squid)
 
 The CLI is distributed as a [`npm` package](https://www.npmjs.com/package/@subsquid/cli). 
 
@@ -32,8 +33,11 @@ Check the version:
 ```bash
 sqd --version
 ```
-
 Make sure the output looks like `@subsquid/cli@<version>`.
+
+:::info
+The next steps are **optional** for building and running squids. A key is required to enable the CLI commands managing the [Aquarium hosted service](/deploy-squid) deployments.
+:::
 
 ## 1. Obtain an Aquarium deployment key
 

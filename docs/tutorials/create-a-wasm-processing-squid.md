@@ -1,22 +1,20 @@
 ---
 id: create-a-wasm-processing-squid
-title: Ink! contract indexing 
+title: ink! contract indexing
 description: >-
-  Build a squid indexing an Ink! smart contract
+  Build a squid indexing an ink! smart contract
 sidebar_position: 60
 ---
-# Ink! contract indexing
+# ink! contract indexing
 
 ## Objective
 
-This tutorial starts with the [`substrate` squid template](https://github.com/subsquid-labs/squid-wasm-template) and goes through all the necessary changes to index the events of a WASM contract developed with [Ink!](https://www.parity.io/blog/ink-3-0-paritys-rust-based-language-gets-a-major-update).
-
-The final result of this tutorial is available in [this repo](https://github.com/subsquid/squid-wasm-template). The repo is used as a template for Ink-indexing squids. Use it with [`sqd init`](/squid-cli/init):
-
+This tutorial starts with the [`substrate` squid template](https://github.com/subsquid-labs/squid-wasm-template) and goes through all the necessary changes to index the events of a WASM contract developed with [ink!](https://www.parity.io/blog/ink-3-0-paritys-rust-based-language-gets-a-major-update). This approach is taken to illustrate the development process. If you want to start indexing ASAP, consider using the WASM/ink! [squid generation tool](/basics/squid-gen/) or starting with the [`ink` template](https://github.com/subsquid/squid-wasm-template) that contains the final code of this tutorial:
 ```bash
 sqd init <your squid name here> --template ink
 ```
-Here we start with the minimal `substrate` template to better illustrate the development process. We use a simple test ERC20-type token contract deployed to [Shibuya](https://shibuya.subscan.io/) at `0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72`. Our squid will track all the token holders and account balances, together with the historical token transfers.
+
+Here we will use a simple test ERC20-type token contract deployed to [Shibuya](https://shibuya.subscan.io/) at `0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72`. Our squid will track all the token holders and account balances, together with the historical token transfers.
 
 :::info
 Subsquid SDK only supports WASM contracts executed by the [Contracts pallet](https://crates.parity.io/pallet_contracts/index.html) natively. The pallet is enabled by the following network runtimes:
@@ -109,7 +107,7 @@ The `Contracts` pallet stores the contract execution logs (calls and events) in 
 
 Download that file to the `abi` folder and install the following two tools from Subsquid SDK:
 
-- `@subsquid/ink-abi` -- A performant library for decoding binary Ink contract data.
+- `@subsquid/ink-abi` -- A performant library for decoding binary ink! contract data.
 - `@subsquid/ink-typegen` -- A tool for making TypeScript modules for handling contract event and call data based on ABIs of contracts.
 
 ```bash

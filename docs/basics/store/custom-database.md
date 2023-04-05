@@ -1,6 +1,6 @@
 ---
 sidebar_position: 30
-title: Custom Database
+title: Custom Database classes
 description: >-
   Implement a custom data sink
 ---

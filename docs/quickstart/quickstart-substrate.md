@@ -25,7 +25,7 @@ scaffold using [`sqd init`](/squid-cli/init).
 
 - For indexing native events emitted by Substrate-based chains, use `substrate` 
 - For indexing Frontier EVM contracts on Astar and Shiden use `frontier-evm`
-- For indexing Ink! smart contracts, use `ink`
+- For indexing ink! smart contracts, use `ink`
 - For indexing EVM+ contracts on Karura or Acala, use `acala`
 
 For example:
@@ -41,19 +41,13 @@ cd my-awesome-squid
 npm ci
 ```
 
-## Step 3: Build the squid
-
-```bash
-sqd build
-```
-
-## Step 4: Launch Postgres in a detached Docker container
+## Step 3: Launch Postgres in a detached Docker container
 
 ```bash
 sqd up
 ```
 
-## Step 5: Create the database schema and run the processor
+## Step 4: Create the database schema and run the processor
 
 The squid we have just built ingests pre-indexed data from a Kusama Archive. This data is then transformed, as defined by the data handler supplied to the `processor.run()` call in `src/processor.ts`.
  
@@ -63,7 +57,7 @@ This command will keep the console busy until manually terminated:
 sqd process
 ```
 
-## Step 6: Start the GraphQL server
+## Step 5: Start the GraphQL server
 
 Run in a separate terminal window:
 
@@ -82,7 +76,7 @@ query MyQuery {
 }
 ```
 
-## Step 7: Customize
+## Step 6: Customize
 
 [Hack](/basics/schema-file) the schema file `schema.graphql` and the [processor](/substrate-indexing) `src/processor.ts` to index the data your way. Choose any supported network using the `lookupArchive()` method of [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) or [run one locally](/archives/).
 
@@ -93,7 +87,7 @@ query MyQuery {
 - Explore how to use [typegen](/substrate-indexing/squid-substrate-typegen) for type-safe on-chain data access
 - Explore how to efficiently transform the on-chain [data in batches](/substrate-indexing)
 - Explore native support for [Frontier EVM](/substrate-indexing/evm-support) on Astar and Shiden
-- Explore native support for [Ink! contracts](/substrate-indexing/wasm-support)
+- Explore native support for [ink! contracts](/substrate-indexing/wasm-support)
 - Explore native support for [Gear contracts](/substrate-indexing/gear-support)
 - Explore native support for [Acala EVM+ contracts](/substrate-indexing/acala-evm-support)
 - [Deploy](/deploy-squid) the squid to the Aquarium hosted service

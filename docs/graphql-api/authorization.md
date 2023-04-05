@@ -46,6 +46,62 @@ Here,
 * `context` holds a [`PoolOpenreaderContext`](https://github.com/subsquid/squid-sdk/blob/master/graphql/openreader/src/db.ts) at `context.openreader`. It can be used to access the database, though this is highly discouraged: the interfaces involved are considered to be internal and are subject to change without notice.
 * `model` is an Openreader data [`Model`](https://github.com/subsquid/squid-sdk/blob/master/graphql/openreader/src/model.ts).
 
+## Sending user data to resolvers
+
+Authentication data such as user name can be passed from `requestCheck()` to a [custom resolver](/graphql-api/custom-resolvers/) through Openreader context:
+```typescript
+export async function requestCheck(req: RequestCheckContext): Promise<boolean | string> {
+  ...
+  // obtain user name e.g. by decoding the authentication header
+  let user = ...
+  // save user name to Openreader context
+  req.context.openreader.user = user
+  ...
+}
+```
+A custom resolver that retrieves it may look like this:
+```typescript
+@Resolver()
+export class UserCommentResolver {
+  constructor(private tx: () => Promise<EntityManager>) {}
+
+  @Query(() => [UserCommentCountQueryResult])
+  async countUserComments(
+    @Ctx() ctx: any
+  ): Promise<UserCommentCountQueryResult[]> {
+    let user = ctx.openreader.user
+    let manager = await this.tx()
+    let result: UserCommentCountQueryResult[] =
+      await manager
+        .getRepository(UserComment)
+        .query(`
+          SELECT COUNT(*) as total
+          FROM user_comment
+          WHERE "user" = '${user}'
+        `)
+    return result
+  }
+
+  @Mutation(() => Boolean)
+  async addComment(
+    @Arg('text') comment: string,
+    @Ctx() ctx: any
+  ): Promise<Boolean> {
+    let user = ctx.openreader.user
+    let manager = await this.tx()
+    await manager.save(new UserComment({
+      id: `${user}-${comment}`,
+      user,
+      comment
+    }))
+    return true
+  }
+}
+```
+See full code in [this branch](https://github.com/subsquid-labs/access-control-example/tree/interacting-with-resolver).
+
+This approach does not work with [subscriptions](/graphql-api/subscriptions/).
+
 ## Examples
 
 A simple strategy that authorizes anyone with a `12345` token to perform any query can be implemented with
@@ -60,4 +116,4 @@ export async function requestCheck(
   return req.http.headers.get('authorization')==='Bearer 12345'
 }
 ```
-A more elaborate example with two users authorized to perform different query sets is available in [this repo](https://github.com/subsquid-labs/access-control-example).
+A more elaborate example with two users authorized to perform different query sets is available in [this repo](https://github.com/subsquid-labs/access-control-example). Another great example of using `requestCheck()` for authorization can be [spotted in the wild](https://github.com/reef-defi/reef-subsquid-processor/tree/master/src/server-extension) in the code of a squid used by [Reef](https://reef.io).

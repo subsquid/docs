@@ -1,12 +1,12 @@
 {
     "position": 42,
-    "label": "Processor Store",
+    "label": "Persisting data",
     "collapsible": true,
     "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
       "slug": "/basics/store",
-      "title": "Processor Store"
+      "title": "Persisting data"
     }
 }

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 40
-title: Squid Processor
+title: Squid processor
 description: Data ingestion and transformation 
 ---
 

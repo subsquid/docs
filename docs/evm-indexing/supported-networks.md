@@ -41,7 +41,7 @@ The table below list the public EVM Archive endpoints to be used with [`setDataS
 | Mantle testnet          | `lookupArchive('mantle-testnet')`          | `https://mantle-testnet.archive.subsquid.io`       |
 | Exosama Network         | `lookupArchive('exosama')`                 |`https://exosama.archive.subsquid.io`               |
  
-(*) Only for EVM data. For Substrate/Ink! data use the corresponding [Substrate archive](/archives/substrate)
+(*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate archive](/archives/substrate)
 
 
 ### Examples 

@@ -17,7 +17,7 @@ npm update -g @subsquid/cli
 npm run update
 ```
 - Check that the squid adheres to the expected [structure](/basics/squid-structure)
-- Make sure you can [build and run Docker images locally](/run-squid/run-in-docker)
+- Make sure you can [build and run Docker images locally](/deploy-squid/self-hosting)
 - Make sure the squid source URL follows the format `https://github.com/my-account/my-squid-repo.git#my-branch`
 - If the squid is deployed from a private repository, make sure you provide an [access key](/deploy-squid/#option-2-explicitly-set-the-source-url)
 

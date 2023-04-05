@@ -1,6 +1,6 @@
 ---
 sidebar_position: 41
-title: Processor Context
+title: BatchContext interface
 description: Processor Context API 
 ---
 

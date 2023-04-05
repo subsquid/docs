@@ -1,5 +1,6 @@
 ---
 sidebar_position: 10
+title: Subsquid overview
 description: Squid SDK, squids, Archives and Aquarium
 ---
 

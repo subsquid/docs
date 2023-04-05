@@ -101,7 +101,7 @@ See [EvmBatchProcessor configuration](/evm-indexing/configuration) and [Substrat
 
 - For EVM data, use [`evm-typegen`](/evm-indexing/squid-evm-typegen)
 - For Substrate data, use [`substrate-typegen`](/substrate-indexing/squid-substrate-typegen)
-- For Ink! smart contract data, use [`ink-typegen`](https://github.com/subsquid/squid-sdk/tree/master/substrate/ink-typegen)
+- For ink! smart contract data, use [`ink-typegen`](https://github.com/subsquid/squid-sdk/tree/master/substrate/ink-typegen)
 
 ### 7. Define the processor batch handler for the `processor.run()` call
 

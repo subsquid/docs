@@ -17,7 +17,7 @@ Before getting to work on your very first squid, verify that you have installed 
 - Docker
 
 :::info
-Earlier versions of the template were based on `Makefile`. The new version uses [`@subsquid/commands` scripts](https://github.com/subsquid/squid-sdk/tree/master/util/commands), defined in `commands.json` that are automatically recognized as `sqd` sub-commands.
+With the exception of `sqd init`, `sqd` commands mentioned here are just scripts defined in `commands.json` that the `sqd` executable automatically discovers. Take a look at the contents of this file to learn more about how squids work under the hood.
 :::
 
 Please note:
@@ -48,19 +48,13 @@ npm ci
 Inspect `src/processor.ts` and set the EVM network of interest. Consult the [processor configuration page](/evm-indexing/configuration) 
 for the list of supported networks and configuration options.
 
-## Step 4: Build the squid
-
-```bash
-sqd build
-```
-
-## Step 5: Launch Postgres and detach
+## Step 4: Launch Postgres and detach
 
 ```bash
 sqd up
 ```
 
-## Step 6: Inspect and run the processor
+## Step 5: Inspect and run the processor
 
 The squid fetches, aggregates and persists burn transactions in the `processor.run()` method. The `Burn` entity is defined in `schema.graphql`, and the TypeORM model class used by this template was generated with `sqd codegen`. You can learn more about this in the [squid development](/basics/squid-development) section.
  
@@ -71,7 +65,7 @@ sqd process
 
 It outputs simple aggregations of the burned ETH and batch-inserts the tx data into the Postgres database.
 
-## Step 7: Start the GraphQL server
+## Step 6: Start the GraphQL server
 
 This should be run in a separate terminal window:
 ```bash
@@ -94,7 +88,7 @@ query MyQuery {
 }
 ```
 
-## Step 8: Customize
+## Step 7: Customize
 
 [Hack](/basics/schema-file) the schema file `schema.graphql` and the [processor](/evm-indexing) `src/processor.ts` to index the data your way!
 

@@ -35,8 +35,8 @@ This page describes the API of Subsquid EVM Archives.
 - **fromBlock**: Block number to start from (inclusive).
 - **toBlock**: Block number to end on (inclusive) (optional). If this is not given, the query will go on for a fixed amount of time or until it reaches the height of the archive.
 - **logs.address**: Array of addresses to query for. A log will be included in the response if the log's address matches any of the addresses given in the query. (null or empty array means any address).
-- **log.topics**: Array of arrays of topics. Outer array has an element for each topic an EVM log can have. Each inner array represents possible matching values for a topic. For example topics[2] is an array of possible values that should match the log's third topic or the log won't be included in the response.
-- **transactions.from** and **transactions.to**: Array of addresses that should match the transaction's `to` field or the transaction's `from`. If none of these match, the transaction won't be included in the response. null or empty array means any address will pass.
+- **log.topics**: Array of arrays of topics. Outer array has an element for each topic an EVM log can have. Each inner array represents possible matching values for a topic. For example topics[2] is an array of possible values that should match the log's third topic or the log won't be included in the response. Empty arrays match everything.
+- **transactions.from** and **transactions.to**: Array of addresses that should match the transaction's `to` field or the transaction's `from`. If none of these match, the transaction won't be included in the response. If both are null or empty array, any address will pass.
 - **transactions.sighash**: Array of values that should match first four bytes of the transaction input. null or empty array means any value will pass.
 
 <details>

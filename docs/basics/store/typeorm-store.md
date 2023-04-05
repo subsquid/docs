@@ -1,6 +1,6 @@
 ---
 sidebar_position: 10
-title: TypeormDatabase
+title: TypeormDatabase class
 description: >-
   Optimized TypeORM-based store
 ---
