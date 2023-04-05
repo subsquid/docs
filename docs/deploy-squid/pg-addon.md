@@ -37,7 +37,7 @@ The `postgres` addon supports storage and compute resource scaling by extending 
 
 | Name        | Description  | Type      |Default value  | Optional   |  
 |:-----------:|:------------:|:---------:|:--------------:|:----------:|
-| `storage`           | Max execution time after which any query is forcefully aborted, ms     |  [memory resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory) | `10G`        |   Optional     |
+| `storage`           | Volume size for the postgres container  |  [memory resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory) | `10G`        |   Optional     |
 | `profile`  | Log queries executing longer than the given threshold, ms              |  `small` \| `medium` \| `large` |`small`          |   Optional     |
 
 The profile specifications for a `postgres` service are as follows:
