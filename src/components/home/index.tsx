@@ -1,7 +1,7 @@
 import React from 'react'
-import { Markprompt } from "markprompt"
 import { GuideCard } from '@site/src/components/guide-card';
 import { TutorialCard } from '@site/src/components/tutorial-card';
+import {Bot} from "@site/src/components/Bot";
 
 export default function Home(): JSX.Element {
 
@@ -24,11 +24,7 @@ export default function Home(): JSX.Element {
         </div>
       </div>
 
-      <Markprompt 
-        projectKey="cKo9NpNjUdPMvFMqTEWse1vm15pSWavw" 
-        model="gpt-4"
-        iDontKnowMessage="Sorry, I don't know!"
-        placeholder="Ask the Subsquid bot!"/>
+      <Bot/>
 
       {/*
       <section className="flex flex-col gap-12 mb-16">
