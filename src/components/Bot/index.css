@@ -19,6 +19,16 @@
 .Bot__main {
     background: #F2F2F2;
     overflow-y: auto;
+    margin-bottom: 72px;
+}
+
+.Bot__message {
+    font-family: 'Circular Std', sans-serif;
+    font-weight: 450;
+    font-size: 16px;
+    line-height: 170%;
+    color: #1C1E21;
+    padding: 24px;
 }
 
 .Bot__main .relative.flex.h-full.flex-col {
@@ -186,4 +196,43 @@
 
 .Bot.Bot--fullscreen .Bot__main {
     height: 100%;
+}
+
+.rounded-md.border.border-neutral-900.bg-neutral-1100.px-2.py-1.text-sm.font-medium.text-neutral-300 {
+    background: #FFFFFF;
+    border: 1px solid #387FEB;
+    border-radius: 100px;
+    color: #387FEB;
+    padding: 4px 15px;
+}
+
+.mt-4.flex.w-full.flex-row.flex-wrap.items-center.gap-2 {
+    margin-top: 32px;
+    justify-content: center;
+}
+
+pre.markdown-node {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 170%;
+    color: #1C1E21;
+}
+
+code.markdown-node {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 170%;
+    color: #1C1E21;
+}
+
+.markdown-node {
+    font-family: 'Circular Std', sans-serif;
+    font-weight: 450;
+    font-size: 16px;
+    line-height: 200%;
+    color: #1C1E21;
 }
