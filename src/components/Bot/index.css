@@ -126,6 +126,12 @@
     left: 0;
 }
 
+@media (max-width: 768px) {
+    .Bot__dialog {
+        filter: drop-shadow(0px 0px 12px rgba(67, 65, 65, 0.6));
+    }
+}
+
 .BotFloating {
     display: flex;
     flex-direction: column;
@@ -153,6 +159,12 @@
     box-shadow: 0 0 20px rgba(67, 65, 65, 0.09);
     border-radius: 4px;
     padding: 12px 16px 24px 16px;
+}
+
+@media (max-width: 768px) {
+    .BotFloating__message {
+        box-shadow: 0 0 20px rgba(67, 65, 65, 0.3);
+    }
 }
 
 .BotFloating__message p {
@@ -235,4 +247,37 @@ code.markdown-node {
     font-size: 16px;
     line-height: 200%;
     color: #1C1E21;
+}
+
+[data-theme='dark'] .Bot__header, [data-theme='dark'] .BotFloating__message {
+    background: var(--bg-base--subtle);
+}
+
+[data-theme='dark'] .BotFloating__message p {
+    color: var(--fg-base--muted);
+}
+
+[data-theme='dark'] .Bot__main {
+    background:  var(--bg-nav-bar);
+}
+
+[data-theme='dark'] .Bot__main input {
+    background: var(--bg-base--subtle);
+    color: var(--fg-base--muted);
+}
+
+[data-theme='dark'] .Bot__main input::placeholder {
+    color: #9d9d9d;
+}
+
+[data-theme='dark'] .Bot__message, [data-theme='dark'] .Bot__name, [data-theme='dark'] .Bot__desc{
+    color: var(--fg-base--muted);
+}
+
+[data-theme='dark'] .Bot__tool {
+    filter: invert(100%);
+}
+
+[data-theme='dark'] .Bot__dialog {
+    filter: drop-shadow(0px 0px 12px rgba(0, 0, 0, 0.3));
 }
