@@ -182,6 +182,27 @@
     height: 16px;
 }
 
+.Bot__success {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+}
+
+.Bot__success--loading {
+    animation: flashing 1s infinite;
+}
+
+@keyframes flashing {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
 .Bot.Bot--open .BotFloating {
     opacity: 0;
@@ -280,4 +301,20 @@ code.markdown-node {
 
 [data-theme='dark'] .Bot__dialog {
     filter: drop-shadow(0px 0px 12px rgba(0, 0, 0, 0.3));
+}
+
+[data-theme='dark']  .markdown-node {
+    color: var(--fg-base--muted);
+}
+
+.prompt-answer a {
+    color: #3880EC !important;
+}
+
+.prompt-answer a {
+    color: #3880EC !important;
+}
+
+.prompt-answer a:hover {
+    color: var(--link-color-hover) !important;
 }

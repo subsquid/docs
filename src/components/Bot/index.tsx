@@ -14,20 +14,20 @@ import clsx from "clsx";
 //     window.dispatchEvent(doneEvent);
 // });
 //
-// function waitForElm(selector) {
-//     return new Promise(resolve => {
-//         const observer = new MutationObserver(mutations => {
-//             if (document.querySelector(selector)) {
-//                 resolve(document.querySelector(selector));
-//             }
-//         });
-//
-//         observer.observe(document.body, {
-//             childList: true,
-//             subtree: true
-//         });
-//     });
-// }
+function waitForElm(selector) {
+    return new Promise(resolve => {
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector)) {
+                resolve(document.querySelector(selector));
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+}
 
 export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscrenn: boolean, isLoading: boolean, isMessageShow: boolean }> {
     constructor(props) {
@@ -42,15 +42,19 @@ export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscre
     }
 
     componentDidMount() {
-        // window.addEventListener('bot_loading', () => {
-        //     console.log("bot_loading")
-        //     this.setState({isLoading: true})
-        // })
-        //
-        // window.addEventListener('bot_done', () => {
-        //     console.log("bot_done")
-        //     this.setState({isLoading: false})
-        // })
+
+        const form = document.querySelector('.Bot form')
+        if(form) {
+            form.addEventListener('submit', async () => {
+                this.setState({isLoading: true})
+
+                const waitIsDone = await waitForElm('.Bot .prompt-answer-done')
+
+                if(waitIsDone) {
+                    this.setState({isLoading: false})
+                }
+            })
+        }
     }
 
     setFullscreen = (value: boolean = false) => {
@@ -117,6 +121,9 @@ export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscre
                             model="gpt-4"
                             iDontKnowMessage="Sorry, I don't know!"
                             placeholder="Ask the Subsquid bot!"/>
+                        <img className={clsx("Bot__success", {
+                            "Bot__success--loading": this.state.isLoading,
+                        })} src="/img/success.svg" alt=""/>
                     </div>
                 </div>
             </div>
