@@ -57,7 +57,7 @@ type Transfer @entity {
     tokenId: BigInt! @index
 }
 ```
-Remove the code adding the removed entities at `src/processor.ts`:
+Remove the code adding the removed entity instances at `src/processor.ts`:
 ```diff
  processor.run(db, async (ctx: BatchHandlerContext<Store, any>) => {
      for (let {header: block, items} of ctx.blocks) {
@@ -121,7 +121,7 @@ Open the file, remove the `FunctionItem` type declaration and retype the `parse`
 -export function parse(ctx: CommonHandlerContext<Store>, block: EvmBlock, item: EventItem | FunctionItem) {
 +export function parse(ctx: CommonHandlerContext<Store>, block: EvmBlock, item: EventItem) {
 ```
-Remove the code that fills the removed fields of the `Transfer` entities:
+Remove the code that fills the removed fields of the `Transfer` entity instances:
 ```diff
                  EntityBuffer.add(
                      new Transfer({
