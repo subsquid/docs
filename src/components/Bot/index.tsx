@@ -4,17 +4,6 @@ import "./index.css";
 import clsx from "clsx";
 import lottie from "lottie-web";
 
-// const loadingEvent = new CustomEvent("bot_loading");
-// const doneEvent = new CustomEvent("bot_done");
-
-// waitForElm('.Bot .prompt-answer-loading').then((elm) => {
-//     window.dispatchEvent(loadingEvent);
-// });
-//
-// waitForElm('.Bot .prompt-answer-done').then((elm) => {
-//     window.dispatchEvent(doneEvent);
-// });
-//
 function waitForElm(selector) {
     return new Promise(resolve => {
         const observer = new MutationObserver(mutations => {
@@ -91,13 +80,6 @@ export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscre
 
     setShowMessage(val: boolean = false) {
         this.setState({isShowMessage: val})
-    }
-
-    submit = () => {
-        if (this.state.form) {
-            const input = this.state.form.querySelector('input')
-
-        }
     }
 
     render() {
