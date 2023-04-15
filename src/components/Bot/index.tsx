@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Markprompt} from "markprompt";
 import "./index.css";
 import clsx from "clsx";
@@ -6,7 +6,7 @@ import lottie from "lottie-web";
 
 function waitForElm(selector) {
     return new Promise(resolve => {
-        const observer = new MutationObserver(mutations => {
+        const observer = new MutationObserver(() => {
             if (document.querySelector(selector)) {
                 resolve(document.querySelector(selector));
             }
@@ -19,7 +19,7 @@ function waitForElm(selector) {
     });
 }
 
-export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscrenn: boolean, isLoading: boolean, isMessageShow: boolean, isShowMessage: boolean, form: HTMLFormElement }> {
+export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscrenn: boolean, isLoading: boolean, isMessageShow: boolean, isShowMessage: boolean }> {
     constructor(props) {
         super(props);
 
@@ -28,14 +28,12 @@ export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscre
             isFullscrenn: false,
             isLoading: false,
             isMessageShow: false,
-            isShowMessage: true,
-            form: document.querySelector('.Bot form')
+            isShowMessage: true
         }
     }
 
     componentDidMount() {
         const form: HTMLFormElement = document.querySelector('.Bot form')
-        this.setState({form: form})
 
         const button = document.createElement('button')
         button.type = "submit"
@@ -57,11 +55,11 @@ export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscre
         }
 
         lottie.loadAnimation({
-            container: document.getElementById('loading'), // the dom element that will contain the animation
+            container: document.getElementById('loading'),
             renderer: 'svg',
             loop: true,
             autoplay: true,
-            path: "/lottie/loading.json" // the path to the animation json
+            path: "/lottie/loading.json"
         });
     }
 
