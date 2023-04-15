@@ -1,7 +1,7 @@
 ---
-title: Step 2: Deriving owners and tokens
+title: "Step 2: Owners & tokens"
 description: >-
-  Creating entities for NFTs and tokens from Transfers data
+  Deriving entities for NFTs and their owners
 sidebar_position: 20
 ---
 
@@ -37,7 +37,9 @@ Now `Token` is an _owning entity_ with respect to `Owner`. As a consequence,
 - On the database side: the `token` table that maps to the `Token` entity gains a foreign key column `owner_id` holding primary keys of the `owner` table.
 - On the Typeorm side: the `Token` entity gains an `owner` field decorated with [`@ManyToOne`](https://github.com/typeorm/typeorm/blob/master/docs/many-to-one-one-to-many-relations.md). To create a well-formed `Token` entity instance in processor code, we now will have to first get a hold of an appropriate `Owner` entity instance and populate the `owner` field of a new `Token` with a reference to it:
   ```typescript
-  let newOwner: Owner = new Owner({id: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'})
+  let newOwner: Owner = new Owner({
+      id: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+  })
   let newToken: Token = new Token({
       id: '1',
       tokenId: 1,
@@ -98,4 +100,178 @@ Let us repurpose the existing `EntityBuffer` singleton class to do that. Begin b
 sed -i -e 's/EntityBuffer/EntityGenerator/g' ./src/entityBuffer.ts ./src/mapping/contract.ts ./src/processor.ts
 mv src/entityBuffer.ts src/entityGenerator.ts
 sed -i -e 's/entityBuffer/entityGenerator/g' ./src/mapping/contract.ts ./src/processor.ts
+```
+The new class should hold
+- raw blockchain data;
+- entities;
+- callback functions that create new entities given the raw data and the previously generated entities;
+- order of entity generation.
+
+Adding this and a few convenience methods, we arrive at
+```typescript
+import assert from 'assert'
+
+interface Entity {
+    id: string
+    constructor: {
+        name: string
+    }
+}
+
+export class EntityGenerator {
+    /*
+     * Maps freeform string keys to arrays of raw blockchain data
+     */
+    static rawData: Record<string, any[]> = {}
+    /*
+     * Maps entity names to maps from entity instance ids to entity instances
+     */
+    static entities: Record<string, Map<string, any>> = {}
+    /*
+     * Array of entity names in the order in which they have to be processed
+     */
+    private static entityGenerationOrder: string[] = []
+    /*
+     * Maps entity names to entity generating functions
+     * TODO: type the functions
+     */
+    private static entityGenerators: Record<string, any> = {}
+
+    private constructor() {}
+
+    static setGenerationOrder(order: string[]): void {
+        this.entityGenerationOrder = order
+    }
+
+    static addGenerator(entityName: string, generator: any): void {
+        assert(this.entityGenerators[entityName] == null)
+        this.entityGenerators[entityName] = generator
+    }
+
+    static addRawData(key: string, data: any): void {
+        let rawDataArray = this.rawData[key]
+        if (rawDataArray == null) {
+            rawDataArray = this.rawData[key] = []
+        }
+        rawDataArray.push(data)
+    }
+
+    static addEntityInstance<E extends Entity>(e: E) {
+        let entityMap = this.entities[e.constructor.name]
+        if (entityMap == null) {
+            entityMap = this.entities[e.constructor.name] = new Map()
+        }
+        entityMap.set(e.id, e)
+    }
+
+    static async generateAllEntities(store: any): Promise<void> {
+        for (let entityName of this.entityGenerationOrder) {
+            await this.entityGenerators[entityName](store)
+        }
+    }
+
+    static clearBatchState(): void {
+        this.rawData = {}
+        this.entities = {}
+    }
+}
+```
+
+## Tweaking data collection and deriving the new entities
+
+Adapting raw data collection for this new architecture is straighforward:
+```diff title=src/mapping/contract.ts
+-import {EntityBuffer} from '../entityBuffer'
+-import {Transfer} from '../model'
++import {EntityGenerator} from '../entityGenerator'
++import {Owner, Token, Transfer} from '../model'
+```
+```diff title=src/mapping/contract.ts
+function parseEvent(ctx: CommonHandlerContext<Store>, block: EvmBlock, item: EventItem) {
+    try {
+         switch (item.evmLog.topics[0]) {
+             case spec.events['Transfer'].topic: {
+                 let e = normalize(spec.events['Transfer'].decode(item.evmLog))
+-                EntityBuffer.add(
+-                    new Transfer({
+-                        id: item.evmLog.id,
+-                        blockNumber: block.height,
+-                        blockTimestamp: new Date(block.timestamp),
+-                        transactionHash: item.transaction.hash,
+-                        from: e[0],
+-                        to: e[1],
+-                        tokenId: e[2],
+-                    })
+-                )
++                EntityGenerator.addRawData('transferEvents', {
++                    id: item.evmLog.id,
++                    blockNumber: block.height,
++                    blockTimestamp: new Date(block.timestamp),
++                    transactionHash: item.transaction.hash,
++                    from: e[0],
++                    to: e[1],
++                    tokenId: e[2],
++                })
+                 break
+             }
+         }
+    }
+    catch (error) {
+        ctx.log.error({error, blockNumber: block.height, blockHash: block.hash, address}, `Unable to decode event "${item.evmLog.topics[0]}"`)
+    }
+}
+```
+When done, all that's left is to add the callbacks that generate and persist the entities:
+```typescript
+export function addAllEntityGenerators() {
+    EntityGenerator.addGenerator('Owner', generatorOfOwners)
+    EntityGenerator.addGenerator('Token', generatorOfTokens)
+    EntityGenerator.addGenerator('Transfers', generatorOfTransfers)
+    EntityGenerator.addGenerationOrder(['Owner', 'Token', 'Transfers'])
+}
+
+
+async function generatorOfOwners(store: any) {
+    let rawTransfers = EntityGenerator.rawData['transferEvents']
+    let ownerIds = rawTransfers.map(re => re.from).concat(
+        rawTransfers.map(re => re.to)
+    )
+    let ownerIdsSet = new Set(ownerIds)
+
+    ownerIdsSet.forEach(id => {
+        EntityGenerator.addEntityInstance(new Owner({id}))
+    })
+
+    await store.save([...EntityGenerator.entities['Owner'].values()])
+}
+
+async function generatorOfTokens(store: any) {
+    let rawTransfers = EntityGenerator.rawData['transferEvents']
+    rawTransfers.forEach(t => {
+        EntityGenerator.addEntityInstance(new Token({
+            id: `${t.tokenId}`,
+            tokenId: t.tokenId,
+            owner: EntityGenerator.entities['Owner'].get(t.to)
+        }))
+    })
+
+    await store.save([...EntityGenerator.entities['Token'].values()])
+}
+
+async function generatorOfTransfers(store: any) {
+    let rawTransfers = EntityGenerator.rawData['transferEvents']
+    rawTransfers.forEach(t => {
+        EntityGenerator.addEntityInstance(new Transfer({
+            id: t.id,
+            blockNumber: t.blockNumber,
+            blockTimestamp: t.blockTimestamp,
+            transactionHash: t.transactionHash,
+            from: EntityGenerator.entities['Owner'].get(t.from),
+            to: EntityGenerator.entities['Owner'].get(t.to),
+            token: EntityGenerator.entities['Token'].get(t.tokenId)
+        }))
+    })
+
+    await store.insert([...EntityGenerator.entities['Transfer'].values()])
+}
 ```
