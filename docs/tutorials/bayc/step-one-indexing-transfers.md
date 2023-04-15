@@ -147,6 +147,6 @@ sqd migration:generate
 ```
 Verify that the squid is still functional by running `sqd process` then `sqd serve` in a separate terminal. Note how the schema shown on the [GraphiQL playground](http://localhost:4350/graphql) has become much simpler compared to a freshly generate squid.
 
-Full squid code at this point can be found at [this commit](/dead).
+Full squid code at this point can be found at [this commit](https://github.com/abernatskiy/tmp-bayc-squid/tree/be9f94deb837e5485e98ec5ed9afe79fd6611b6a).
 
 In the next step we will extract the information on NFTs and their owners from the `Transfer` events data. We will store the new info in the same database with proper [foreign key relations](/basics/schema-file/entity-relations), allowing us to query our GraphQL API efficiently.

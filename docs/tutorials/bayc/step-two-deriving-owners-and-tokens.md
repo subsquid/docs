@@ -9,7 +9,7 @@ sidebar_position: 20
 
 This is the second part of the tutorial in which we will build a squid that gets data about [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org) and [IPFS](https://ipfs.tech/), stores it in a database and serves it over a GraphQL API. In the [first part](/tutorials/bayc/step-one-indexing-transfers) we created a simple squid that scrapped the `Transfer` events emitted by [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d) from Ethereum blockchain. Here we go a step further and derive separate entities for NFTs and their owners from the transfers data. The new entities will be connected to the `Transfer` entity in the database via foreign key columns, allowing efficient querying over GraphQL.
 
-Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the first part ([this commit](/dead)).
+Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the first part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid/tree/be9f94deb837e5485e98ec5ed9afe79fd6611b6a)).
 
 ## Writing `schema.graphql`
 
@@ -79,7 +79,7 @@ Finally, add the virtual [reverse lookup fields](/basics/schema-file/entity-rela
 ```
 This adds no database columns, but makes `ownedTokens` and `transfers` fields available via GraphQL and Typeorm.
 
-The final version of `schema.graphql` is available [here](/dead). Regenerate the Typeorm entity code once you're done:
+The final version of `schema.graphql` is available [here](https://github.com/abernatskiy/tmp-bayc-squid/blob/c4bc82a9625d0c82b1bb5166e76add46099ac9e8/schema.graphql). Regenerate the Typeorm entity code once you're done:
 ```bash
 sqd codegen
 ```
@@ -275,3 +275,17 @@ async function generatorOfTransfers(store: any) {
     await store.insert([...EntityGenerator.entities['Transfer'].values()])
 }
 ```
+The result is a working squid. Recreate the database and migrations, start the processor and take a look at the new entities' data flowing into the database:
+```bash
+sqd down
+sqd up
+sqd migration:generate
+sqd process
+# in a separate terminal
+PGPASSWORD=postgres psql -U postgres -p 23798 -h localhost squid
+```
+You can also take a look at the GraphQL API and see that all the entity relations are properly mapped onto the API schema:
+```bash
+sqd serve
+```
+Full code at the end of this step can be found at [this commit](https://github.com/abernatskiy/tmp-bayc-squid/tree/c4bc82a9625d0c82b1bb5166e76add46099ac9e8).
