@@ -5,7 +5,7 @@ description: >-
 sidebar_position: 20
 ---
 
-# Step 1: Deriving owners and tokens
+# Step 2: Deriving owners and tokens
 
 This is the second part of the tutorial in which we will build a squid that gets data about [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org) and [IPFS](https://ipfs.tech/), stores it in a database and serves it over a GraphQL API. In the [first part](/tutorials/bayc/step-one-indexing-transfers) we created a simple squid that scrapped the `Transfer` events emitted by [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d) from Ethereum blockchain. Here we go a step further and derive separate entities for NFTs and their owners from the transfers data. The new entities will be connected to the `Transfer` entity in the database via foreign key columns, allowing efficient querying over GraphQL.
 
