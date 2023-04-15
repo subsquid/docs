@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Markprompt} from "markprompt";
 import "./index.css";
 import clsx from "clsx";
+import lottie from "lottie-web";
 
 // const loadingEvent = new CustomEvent("bot_loading");
 // const doneEvent = new CustomEvent("bot_done");
@@ -29,7 +30,7 @@ function waitForElm(selector) {
     });
 }
 
-export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscrenn: boolean, isLoading: boolean, isMessageShow: boolean }> {
+export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscrenn: boolean, isLoading: boolean, isMessageShow: boolean, isShowMessage: boolean, form: HTMLFormElement }> {
     constructor(props) {
         super(props);
 
@@ -37,24 +38,42 @@ export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscre
             isOpenDialog: false,
             isFullscrenn: false,
             isLoading: false,
-            isMessageShow: false
+            isMessageShow: false,
+            isShowMessage: true,
+            form: document.querySelector('.Bot form')
         }
     }
 
     componentDidMount() {
+        const form: HTMLFormElement = document.querySelector('.Bot form')
+        this.setState({form: form})
 
-        const form = document.querySelector('.Bot form')
-        if(form) {
+        const button = document.createElement('button')
+        button.type = "submit"
+        button.className = "Bot__submit"
+        button.innerHTML = "<img class='Bot__success' src='/img/enter.svg' alt=''/>"
+
+        form.appendChild(button)
+
+        if (form) {
             form.addEventListener('submit', async () => {
                 this.setState({isLoading: true})
 
                 const waitIsDone = await waitForElm('.Bot .prompt-answer-done')
 
-                if(waitIsDone) {
+                if (waitIsDone) {
                     this.setState({isLoading: false})
                 }
             })
         }
+
+        lottie.loadAnimation({
+            container: document.getElementById('loading'), // the dom element that will contain the animation
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: "/lottie/loading.json" // the path to the animation json
+        });
     }
 
     setFullscreen = (value: boolean = false) => {
@@ -70,6 +89,17 @@ export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscre
         this.setState({isMessageShow: true})
     }
 
+    setShowMessage(val: boolean = false) {
+        this.setState({isShowMessage: val})
+    }
+
+    submit = () => {
+        if (this.state.form) {
+            const input = this.state.form.querySelector('input')
+
+        }
+    }
+
     render() {
         return <>
             <div className={clsx("Bot", {
@@ -77,15 +107,20 @@ export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscre
                 "Bot--fullscreen": this.state.isFullscrenn,
                 "Bot--loading": this.state.isLoading
             })}>
-                <div className="BotFloating" onClick={() => this.setDialog(true)}>
-                    <div className="BotFloating__message">
-                        <p>Hello! <br/><br/>My name is Thaddeus. I know these<br/>docs better than anyone. Yes, I’m a
+                <div className="BotFloating">
+                    {this.state.isShowMessage ? <div className="BotFloating__message">
+                        <p onClick={() => this.setDialog(true)}>Hello! <br/><br/>My name is Thaddeus. I know these<br/>docs
+                            better than anyone. Yes, I’m a
                             bot,<br/>but think of me more like your personal<br/>Subsquid assistant.<br/><br/>Ask me a
                             question.</p>
-                        <img src="/img/robot.png" alt="" className="BotFloating__icon16x"/>
-                    </div>
+                        <img onClick={() => this.setDialog(true)} src="/img/robot.png" alt=""
+                             className="BotFloating__icon16x"/>
+                        <img onClick={() => this.setShowMessage(false)} src="/img/x.svg" alt=""
+                             className="BotFloating__close"/>
+                    </div> : ""}
 
-                    <img src="/img/bot-logo.svg" alt="" className="BotFloating__logotype"/>
+                    <img onClick={() => this.setDialog(true)} src="/img/bot-logo.svg" alt=""
+                         className="BotFloating__logotype"/>
                 </div>
 
                 <div className="Bot__dialog">
@@ -108,11 +143,17 @@ export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscre
                                 src="/img/close.svg" alt=""/></button>
                         </div>
                     </div>
-                    <div className="Bot__main">
+                    <div className={clsx("Bot__main", {
+                        "Bot__main--loading": this.state.isLoading,
+                    })}>
                         {!this.state.isMessageShow ? <p className="Bot__message">Hello! I’m Thaddeus! 🦑
                             I’m programmed to answer your <br/>questions about Subsquid.<br/><br/>Ask me things
                             like:<br/>”How do I build my first squid?”<br/>”Why is Subsquid better than the Graph?”<br/>”Where
                             can I find an example of IPFS indexing?” </p> : ""}
+
+                        <div id="loading" className={clsx({
+                            "loading": this.state.isLoading,
+                        })}></div>
                         <Markprompt
                             didCompleteFirstQuery={() => {
                                 this.setFirst()
@@ -121,9 +162,6 @@ export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscre
                             model="gpt-4"
                             iDontKnowMessage="Sorry, I don't know!"
                             placeholder="Ask the Subsquid bot!"/>
-                        <img className={clsx("Bot__success", {
-                            "Bot__success--loading": this.state.isLoading,
-                        })} src="/img/success.svg" alt=""/>
                     </div>
                 </div>
             </div>
