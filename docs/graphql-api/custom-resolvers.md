@@ -53,6 +53,6 @@ export class MyResolver {
 }
 ```
 
-Some great examples of `@subsquid/graphql-server`-based custom resolvers can be spotted in the wild in the [Rubik repo](https://github.com/kodadot/rubick/tree/main/src/server-extension/resolvers) by KodaDot.
+Some great examples of `@subsquid/graphql-server`-based custom resolvers can be spotted in the wild in the [Rubick repo](https://github.com/kodadot/rubick/tree/main/src/server-extension/resolvers) by [KodaDot](https://github.com/kodadot).
 
 For more examples of resolvers, see [TypeGraphQL examples repo](https://github.com/MichalLytek/type-graphql/tree/master/examples).
