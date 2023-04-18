@@ -14,7 +14,7 @@ This tutorial starts with the [`substrate` squid template](https://github.com/su
 sqd init <your squid name here> --template ink
 ```
 
-Here we will use a simple test ERC20-type token contract deployed to [Shibuya](https://shibuya.subscan.io/) at `0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72`. Our squid will track all the token holders and account balances, together with the historical token transfers.
+Here we will use a simple test ERC20-type token contract deployed to [Shibuya](https://shibuya.subscan.io/) at `XnrLUQucQvzp5kaaWLG9Q3LbZw5DPwpGn69B5YcywSWVr5w`. Our squid will track all the token holders and account balances, together with the historical token transfers.
 
 :::info
 Subsquid SDK only supports WASM contracts executed by the [Contracts pallet](https://crates.parity.io/pallet_contracts/index.html) natively. The pallet is enabled by the following network runtimes:
@@ -132,7 +132,7 @@ Every time a batch is returned by the Archive, it will trigger the callback func
 The processor is instantiated and configured at the `src/processor.ts`. We need to make fundamental changes to the logic expressed in this code, starting from the configuration of the processor:
 
 * We need to change the archive used to `shibuya`.
-* We need to remove the `addEvent` function call, and add `addContractsContractEmitted` instead, specifying the address of the contract we are interested in (`0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72`).
+* We need to remove the `addEvent` function call, and add `addContractsContractEmitted` instead, specifying the address of the contract we are interested in. The address should be represented as a hex string, so we need to decode our ss58 address of interest, `XnrLUQucQvzp5kaaWLG9Q3LbZw5DPwpGn69B5YcywSWVr5w`.
 * The logic defined in the `processor.run()` and below it has to be replaced.
 
 Here is the end result:
@@ -141,14 +141,17 @@ Here is the end result:
 // src/processor.ts
 import { lookupArchive } from "@subsquid/archive-registry"
 import * as ss58 from "@subsquid/ss58"
+import {toHex} from "@subsquid/util-internal-hex"
 import {BatchContext, BatchProcessorItem, SubstrateBatchProcessor} from "@subsquid/substrate-processor"
 import {Store, TypeormDatabase} from "@subsquid/typeorm-store"
 import {In} from "typeorm"
 import * as erc20 from "./abi/erc20"
 import {Owner, Transfer} from "./model"
  
-const CONTRACT_ADDRESS = '0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72'
- 
+const CONTRACT_ADDRESS_SS58 = 'XnrLUQucQvzp5kaaWLG9Q3LbZw5DPwpGn69B5YcywSWVr5w'
+const CONTRACT_ADDRESS = toHex(ss58.decode(CONTRACT_ADDRESS_SS58).bytes)
+const SS58_PREFIX = ss58.decode(CONTRACT_ADDRESS_SS58).prefix
+
 const processor = new SubstrateBatchProcessor()
     .setDataSource({
         archive: lookupArchive("shibuya")
@@ -232,8 +235,8 @@ function extractTransferRecords(ctx: Ctx): TransferRecord[] {
                 if (event.__kind == 'Transfer') {
                     records.push({
                         id: item.event.id,
-                        from: event.from && ss58.codec(5).encode(event.from),
-                        to: event.to && ss58.codec(5).encode(event.to),
+                        from: event.from && ss58.codec(SS58_PREFIX).encode(event.from),
+                        to: event.to && ss58.codec(SS58_PREFIX).encode(event.to),
                         amount: event.value,
                         block: block.header.height,
                         timestamp: new Date(block.header.timestamp)
