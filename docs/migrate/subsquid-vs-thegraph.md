@@ -11,8 +11,8 @@ description: Comparison of Subsquid and The Graph
 
 ## Feature matrix
 
-|                                 |  Subsquid                 |            The Graph                     |  
-|:-------------------------------:|:-------------------------:|:--------------------------------------- :|
+|                                 |  Subsquid                 |            The Graph                     |
+|:-------------------------------:|:-------------------------:|:----------------------------------------:|
 |  Programming language           |     Typescript            |    AssemblyScript (complied to WASM)     |
 |  Indexing speed                 |     ~1k-50k bps           |       ~100-150 bps                       |
 |  ABI-based generator            |        Yes                |          Yes                             |
@@ -24,12 +24,12 @@ description: Comparison of Subsquid and The Graph
 |  Multi-contract indexing        |        Yes                |     Limited                              | 
 |  Analytic data targets          |  BigQuery, Parquet, CSV   |        No                                |
 |  Local setup                    |       Easy                |       Requires an archival node          |    
-|  GraphQL API                    |    Generated from `schema.graphql`      |        Generated from `schema.graphql` |
-|  Custom resolvers and mutations |  Yes         |   No   | 
-|  Subscriptions                  |  Yes         |  Via middleware       |
-|  Hosted service                 |  Yes         |  Yes (to be sunset)  |
-|  Secret env variables           |  Yes         |  No                  |
-|  Payment                        |  Fiat, subscription-based (**) | GRT, pay-per-query |
+|  GraphQL API                    | Generated from `schema.graphql` |    Generated from `schema.graphql` |
+|  Custom resolvers and mutations |  Yes                      |          No                              |
+|  Subscriptions                  |  Yes                      |       Via middleware                     |
+|  Hosted service                 |  Yes                      |       Yes (to be sunset)                 |
+|  Secret env variables           |  Yes                      |          No                              |
+|  Payment                        |  Fiat, subscription-based (**) |   GRT, pay-per-query                |
 |  Decentralization               |  Opt-in, via decentralized data targets (Kwil DB, Ceramic) |  The Graph network   |
 
 

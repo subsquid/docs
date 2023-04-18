@@ -1,10 +1,10 @@
 ---
 sidebar_position: 2
-title: Migrate from TheGraph
+title: Migrate from The Graph
 description: Migrate a subgraph to Subsquid
 ---
 
-# Migrate from TheGraph
+# Migrate from The Graph
 
 This guide walks through the steps to migrate a subgraph to Subsquid. In what follows we will convert the [Gravatar](https://github.com/graphprotocol/example-subgraph) subgraph into a squid and run it locally. Impatient readers may clone the squid from the [repo](https://github.com/subsquid/gravatar-squid) and run it by following the instructions in README:
 
@@ -29,7 +29,7 @@ On top of the features provided by subgraphs, the Squid SDK and the Aquarium clo
 - [API versioning and aliasing](/deploy-squid/promote-to-production)
 - [API Caching](/graphql-api/caching)  
 
-For a full feature set comparison, see [Subsquid vs TheGraph](/migrate/subsquid-vs-thegraph).
+For a full feature set comparison, see [Subsquid vs The Graph](/migrate/subsquid-vs-thegraph).
 
 ## Squid setup 
 
