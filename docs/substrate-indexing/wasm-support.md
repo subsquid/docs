@@ -13,19 +13,25 @@ This section describes additional options available for indexing [ink!-based WAS
 
 ## Processor options
 
-**`addContractsContractEmitted(contractAddress: string, options?: {data?, range?})`**: Subscribe to the ink! events of the WASM runtime emitted by a contract deployed at the specified address. The `options` argument and the data selectors are similar to that of [`addEvent()`](/substrate-indexing/configuration/#events).
+**`addContractsContractEmitted(contractAddress: string, options?: {data?, range?})`**: Subscribe to the ink! events of the WASM runtime emitted by a contract deployed at the specified address. The address must be specified as a hex string, so make sure to decode it if you have an ss58 encoded one. The `options` argument and the data selectors are similar to that of [`addEvent()`](/substrate-indexing/configuration/#events).
 
 #### Example
 ```ts
+import * as ss58 from "@subsquid/ss58"
+import {toHex} from "@subsquid/util-internal-hex"
+
 const processor = new SubstrateBatchProcessor()
   .setDataSource({
     archive: lookupArchive("shibuya")
   })
-  .addContractsContractEmitted('0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72', {
-    data: {
-      event: {args: true}
-    }
-  } as const)
+  .addContractsContractEmitted(
+    toHex(ss58.decode('XnrLUQucQvzp5kaaWLG9Q3LbZw5DPwpGn69B5YcywSWVr5w').bytes),
+    {
+      data: {
+        event: {args: true}
+      }
+    } as const
+  )
 ```
 
 ## ink! Typegen
@@ -89,7 +95,7 @@ export class Contract {
         return this.stateCall('0xdb6375a8', [])
     }
 
-    balance_of(oowner: Uint8Array): Promise<bigint> {
+    balance_of(owner: Uint8Array): Promise<bigint> {
         return this.stateCall('0x6568382f', [owner])
     }
 }
