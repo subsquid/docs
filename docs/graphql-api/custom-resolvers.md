@@ -12,12 +12,35 @@ A custom resolver should import [TypeGraphQL](https://typegraphql.com) types and
 
 Custom resolvers are normally used in combination with [TypeORM EntityManager](https://typeorm.io/entity-manager-api) for accessing the API server target database. It is automatically injected when defined as a single constructor argument of the resolver.
 
-A custom resolver may then look as follows:
+## Examples
+
+#### Simple entity counter
+
+```typescript
+import { Query, Resolver } from 'type-graphql'
+import type { EntityManager } from 'typeorm'
+import { Burn } from '../model'
+
+@Resolver()
+export class CountResolver {
+  constructor(private tx: () => Promise<EntityManager>) {}
+
+  @Query(() => Number)
+  async totalBurns(): Promise<number> {
+    const manager = await this.tx()
+    return await manager.getRepository(Burn).count()
+  }
+}
+```
+
+This example is designed to work with the `evm` template: just grab a test squid as described [here](/quickstart/quickstart-ethereum/), write the example code to `src/server-extension/resolver.ts` and observe the `totalBurns` selection appear in the [GraphiQL playground](http://localhost:4350/graphql).
+
+#### Custom SQL query
 
 ```typescript
 import { Arg, Field, ObjectType, Query, Resolver } from 'type-graphql'
 import type { EntityManager } from 'typeorm'
-import { MyEntity } from '../../model/generated'
+import { MyEntity } from '../model'
 
 // Define custom GraphQL ObjectType of the query result
 @ObjectType()
@@ -52,6 +75,8 @@ export class MyResolver {
   }
 }
 ```
+
+#### More examples
 
 Some great examples of `@subsquid/graphql-server`-based custom resolvers can be spotted in the wild in the [Rubik repo](https://github.com/kodadot/rubick/tree/main/src/server-extension/resolvers) by KodaDot.
 
