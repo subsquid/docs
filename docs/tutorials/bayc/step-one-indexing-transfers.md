@@ -185,4 +185,6 @@ then
 ```bash
 sqd serve
 ```
-in a separate terminal. If all is well, a GraphiQL playground should become available at [localhost:4350/graphql](http://localhost:4350/graphql).
+in a separate terminal. If all is well, a GraphiQL playground should become available at [localhost:4350/graphql](http://localhost:4350/graphql):
+
+![BAYC GraphiQL at step one](</img/bayc-playground-step-one.png>)
