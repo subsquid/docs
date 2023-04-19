@@ -6,7 +6,7 @@ description: Tools that generate squids from ABIs
 
 # Squid generation tools
 
-Subsquid provides [tools](https://github.com/subsquid/squid-gen) for generating ready-to-use, customizable squids that index events and function calls of smart contracts. EVM/Solidity and WASM/ink! smart contracts are supported. The tools can be configured to make squids that save data to a [PostgreSQL database](https://docs.subsquid.io/basics/store/typeorm-store/) or to a [file-based dataset](https://docs.subsquid.io/basics/store/file-store/). All that is required is NodeJS, [Subsquid CLI](/squid-cli/installation/) and, if your squid will be using a database, Docker.
+Subsquid provides [tools](https://github.com/subsquid/squid-gen) for generating ready-to-use squids that index events and function calls of smart contracts. EVM/Solidity and WASM/ink! smart contracts are supported. The tools can be configured to make squids that save data to a [PostgreSQL database](https://docs.subsquid.io/basics/store/typeorm-store/) or to a [file-based dataset](https://docs.subsquid.io/basics/store/file-store/). All that is required is NodeJS, [Subsquid CLI](/squid-cli/installation/) and, if your squid will be using a database, Docker.
 
 Squid generation procedure is very similar for both contract types. Here are the steps:
 
@@ -43,7 +43,7 @@ Squid generation procedure is very similar for both contract types. Here are the
    - for PostgreSQL-based squids you can also connect to the database with `PGPASSWORD=postgres psql -U postgres -p 23798 -h localhost squid` and take a look at the contents;
    - if it is storing data to a file-based dataset, [wait for the first filesystem sync](/basics/store/file-store/overview/#filesystem-syncs-and-dataset-partitioning) then verify that all the expected files are present and contain the expected data.
 
-At this point your squid is ready. You can customize it, run it on your own infrastructure or [deploy it to Aquarium](/deploy-squid/).
+At this point your squid is ready. You can run it on your own infrastructure or [deploy it to Aquarium](/deploy-squid/).
 
 ## Configuration
 
