@@ -118,15 +118,12 @@ query MyQuery {
 }
 ```
 
-## Step 7: Customize
-
-[Hack](/basics/squid-development) the schema file `schema.graphql` and the [processor](/evm-indexing) `src/processor.ts` to index the data your way!
-
 ## What's next?
 
+- [Deploy the squid to the Aquarium hosted service](/deploy-squid)
 - [Migrate your existing subgraphs to Subsquid](/migrate/migrate-subgraph)
-- [Define your own data schema](/basics/schema-file)
 - [Explore examples of squids for EVM networks, from simple transfer indexing to DEX analytics](/examples/#evm-processor)
+- [Develop a custom EVM squid from scratch](/quickstart/quickstart-ethereum)
+- [Define your own data schema](/basics/schema-file)
 - [Deeper dive into `EvmBatchProcessor`](/evm-indexing)
 - [Explore how to enhance the GraphQL API with custom SQL, caching and limits](/graphql-api)
-- [Deploy the squid to the Aquarium hosted service](/deploy-squid)

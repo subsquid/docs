@@ -57,6 +57,6 @@ Squids can be deployed to the Subsquid cloud service, called the [Aquarium](http
 
 - Follow the [Quickstart](/quickstart) to build your first squid
 - Explore [Examples](/examples)
-- Learn how to [migrate from TheGraph](/migrate/migrate-subgraph)
+- Learn how to [migrate from The Graph](/migrate/migrate-subgraph)
 - Dive deeper into [EVM Indexing](/evm-indexing) and [Substrate Indexing](/substrate-indexing)
 - Explore the [GraphQL API options](/graphql-api) including custom extensions, caching and DoS protection in production

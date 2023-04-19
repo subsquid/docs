@@ -101,7 +101,7 @@ export default function Home(): JSX.Element {
           <GuideCard
             path="/migrate/subsquid-vs-thegraph/"
             color={'bg-role--success'}
-            description="Compare the feature set and the architecture">Subsquid vs TheGraph
+            description="Compare the feature set and the architecture">Subsquid vs The Graph
           </GuideCard>
           <GuideCard
             path="https://www.youtube.com/playlist?list=PLH2948XqklrgTvG6-ro3eqS17j7n_raiN"
@@ -117,7 +117,7 @@ export default function Home(): JSX.Element {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
          <TutorialCard
             path="/migrate/migrate-subgraph"
-            description="Migrate your subgraph and improve sync times up to 10x.">Migrate from TheGraph</TutorialCard>
+            description="Migrate your subgraph and improve sync times up to 10x.">Migrate from The Graph</TutorialCard>
         {/* <TutorialCard
             path="/migrate/migrate-to-fire-squid"
             description="Migrate to FireSquid from older versions of squid SDK">Migrate to FireSquid</TutorialCard>
