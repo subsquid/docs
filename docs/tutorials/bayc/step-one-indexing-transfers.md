@@ -7,7 +7,7 @@ sidebar_position: 10
 
 # Step 1: Indexing Transfer events
 
-In the course of this tutorial we will build a squid that gets data about [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org) and [IPFS](https://ipfs.tech/), stores it in a database and serves it over a GraphQL API. Here we do the first step: make a squid that indexes just the `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).
+In the course of this tutorial we will build a squid that gets data about [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database and serves it over a GraphQL API. Here we do the first step: make a squid that indexes just the `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).
 
 Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker.
 
@@ -71,7 +71,7 @@ let processor = new EvmBatchProcessor()
 Here,
 * `'eth-mainnet'` is the alias for the public archive that Subsquid maintains for Ethereum mainnet. Check out `npx squid-archive-registry` for a list of public archives for all supported networks or explore the [archives documentation](/archives/) to find out how to host your own archive.
 * `12_287_507` is the block at which the BAYC token contract was deployed. Can be found on the [contract's Etherscan page](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).
-* `[[bayc.events.Transfer.topic]]` is the filter that tells the processor to retrieve all event logs with [topic[0]](https://docs.soliditylang.org/en/v0.8.19/abi-spec.html#abi-events) matching the hash of the full signature of the `Transfer` event. The hash is taken from the previously generated Typescript ABI.
+* `[[bayc.events.Transfer.topic]]` is a filter that tells the processor to retrieve all event logs with [topic[0]](https://docs.soliditylang.org/en/v0.8.19/abi-spec.html#abi-events) matching the hash of the full signature of the `Transfer` event. The hash is taken from the previously generated Typescript ABI.
 * The `data` field of the [`addLog`](/evm-indexing/configuration/evm-logs/) options object specifies the exact data we need on every event to be retrieved. We are requesting topics and data for the event logs. Event log data is always supplimented by function call data on their parent transactions; we are requesting transaction hashes for that part.
 
 See the [Configuration](/evm-indexing/configuration/) for more options.
