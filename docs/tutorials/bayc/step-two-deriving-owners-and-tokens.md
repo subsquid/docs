@@ -84,25 +84,25 @@ The final version of `schema.graphql` is available [here](https://github.com/abe
 sqd codegen
 ```
 
-## Generating the entities
+## Creating the entities
 
 Note how the entities we define form an acyclic dependency graph:
-- `Owner` entity instances are generated straight from the raw events data;
+- `Owner` entity instances can be made straight from the raw events data;
 - `Token`s require the raw data plus the `Owner`s;
 - `Transfer` entities require all of the above.
 
-As a consequence, entity generation must proceed in a [particular order](https://en.wikipedia.org/wiki/Topological_sorting). Squids usually use small graphs like this one, and in these the order can be easily found manually (e.g. `Owner`s then `Token`s then `Transfer`s in this case). We will assume that it can be hardcoded by the programmer.
+As a consequence, the creation of entity instances must proceed in a [particular order](https://en.wikipedia.org/wiki/Topological_sorting). Squids usually use small graphs like this one, and in these the order can be easily found manually (e.g. `Owner`s then `Token`s then `Transfer`s in this case). We will assume that it can be hardcoded by the programmer.
 
 Further, at each step we will [process the data for the whole batch](/basics/batch-processing/) instead of handling the items individually. This is crucial for achieving a good syncing performance.
 
-With all that in mind, let us write down the batch processor that generates our entities:
+With all that in mind, let us write down a batch processor that creates and persists all of our entities:
 ```typescript
 processor.run(new TypeormDatabase(), async (ctx) => {
     let rawTransfers: RawTransfer[] = getRawTransfers(ctx)
 
-    let owners: Map<string, Owner> = generateOwners(rawTransfers)
-    let tokens: Map<string, Token> = generateTokens(rawTransfers, owners)
-    let transfers: Transfer[] = generateTransfers(rawTransfers, owners, tokens)
+    let owners: Map<string, Owner> = createOwners(rawTransfers)
+    let tokens: Map<string, Token> = createTokens(rawTransfers, owners)
+    let transfers: Transfer[] = createTransfers(rawTransfers, owners, tokens)
 
     await ctx.store.upsert([...owners.values()])
     await ctx.store.upsert([...tokens.values()])
@@ -121,7 +121,7 @@ interface RawTransfer {
     txHash: string
 }
 ```
-is an interface very similar to that of the `Transfer` entity as it was at the beginning of this part of the tutorial. This allows us to reuse most of the code of the old batch handler in `generateRawTransfers()`:
+is an interface very similar to that of the `Transfer` entity as it was at the beginning of this part of the tutorial. This allows us to reuse most of the code of the old batch handler in `getRawTransfers()`:
 ```typescript
 function getRawTransfers(ctx: Context): RawTransfer[] {
     let transfers: RawTransfer[] = []
@@ -153,44 +153,44 @@ import { EvmBatchProcessor, BatchProcessorItem, BatchHandlerContext } from '@sub
 type Item = BatchProcessorItem<typeof processor>
 type Context = BatchHandlerContext<Store, Item>
 ```
-The next step is the generation of `Owner` entity instances. We will need these for generating both `Token`s and `Transfer`s, and in both cases we'll have the IDs of the owners (that is, their addresses) ready. To ease these future lookups we choose to return the `Owner`s as a `Map<string, Owner>`:
+The next step is the creation of `Owner` entity instances. We will need these for making both `Token`s and `Transfer`s, and in both cases we'll have the IDs of the owners (that is, their addresses) ready. To ease these future lookups we choose to return the `Owner`s as a `Map<string, Owner>`:
 ```typescript
-function generateOwners(rawTransfers: RawTransfer[]): Map<string, Owner> {
+function createOwners(rawTransfers: RawTransfer[]): Map<string, Owner> {
     let owners: Map<string, Owner> = new Map()
-    rawTransfers.forEach(t => {
+    for (let t of rawTransfers) {
         owners.set(t.from, new Owner({id: t.from}))
         owners.set(t.to, new Owner({id: t.to}))
-    })
+    }
     return owners
 }
 ```
-`Token`s, too, will have to be looked up subsequently, so we return them as a `Map<string, Token>`. To find the most recent owner of each token we go through all the transfers in the same order as they appear on the blockchain and set the owner of any involved tokens to their receiver:
+`Token`s, too, will have to be looked up later, so we return them as a `Map<string, Token>`. To find the most recent owner of each token we go through all the transfers in the same order as they appear on the blockchain and set the owner of any involved tokens to their receiver:
 ```typescript
-function generateTokens(
+function createTokens(
     rawTransfers: RawTransfer[],
     owners: Map<string, Owner>): Map<string, Token> {
 
     let tokens: Map<string, Token> = new Map()
-    rawTransfers.forEach(t => {
+    for (let t of rawTransfers) {
         let tokenIdString = `${t.tokenId}`
         tokens.set(tokenIdString, new Token({
             id: tokenIdString,
             tokenId: t.tokenId,
             owner: owners.get(t.to)
         }))
-    })
+    }
     return tokens
 }
 ```
 Some of the `Token`s and `Owner`s might have been encountered in previous batches, so we use `ctx.store.upsert()` to store instances of these entities while updating any older versions.
 
 :::info
-In some circumstances we might have had to retrieve these from the database before updating, but here we have all the data that their newer version may possibly hold and there is no need to retrieve anything. Any row overwrites by `ctx.store.upsert()` will not incur data loss.
+In some circumstances we might have had to retrieve the old entity instances from the database before updating, but here we have all the data that their newer version may possibly hold and there is no need to retrieve anything. Any row overwrites by `ctx.store.upsert()` will not incur data loss.
 :::
 
-Finally, we generate an array of `Transfer` entity instances through a simple mapping:
+Finally, we create an array of `Transfer` entity instances through a simple mapping:
 ```typescript
-function generateTransfers(
+function createTransfers(
     rawTransfers: RawTransfer[],
     owners: Map<string, Owner>,
     tokens: Map<string, Token>): Transfer[] {
