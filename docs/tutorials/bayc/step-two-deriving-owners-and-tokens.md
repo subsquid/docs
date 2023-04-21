@@ -156,11 +156,12 @@ type Context = BatchHandlerContext<Store, Item>
 The next step is the generation of `Owner` entity instances. We will need these for generating both `Token`s and `Transfer`s, and in both cases we'll have the IDs of the owners (that is, their addresses) ready. To ease these future lookups we choose to return the `Owner`s as a `Map<string, Owner>`:
 ```typescript
 function generateOwners(rawTransfers: RawTransfer[]): Map<string, Owner> {
-    let fromOwnerIds = rawTransfers.map(t => t.from)
-    let toOwnerIds = rawTransfers.map(t => t.to)
-    let ownerIds = new Set(fromOwnerIds.concat(toOwnerIds))
-
-    return new Map([...ownerIds].map(id => [id, new Owner({id})]))
+    let owners: Map<string, Owner> = new Map()
+    rawTransfers.forEach(t => {
+        owners.set(t.from, new Owner({id: t.from}))
+        owners.set(t.to, new Owner({id: t.to}))
+    })
+    return owners
 }
 ```
 `Token`s, too, will have to be looked up subsequently, so we return them as a `Map<string, Token>`. To find the most recent owner of each token we go through all the transfers in the same order as they appear on the blockchain and set the owner of any involved tokens to their receiver:
@@ -213,7 +214,7 @@ sqd down
 sqd up
 sqd migration:generate
 ```
-Full code can be found at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/075aa66330810eebbbb4ad585207b96b40cd5df3).
+Full code can be found at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/f6446e5ece2e70a4a984f8486036e6b1a9e373b9).
 
 To test it, start the processor and the GraphQL server by running `sqd process` and `sqd serve` in separate terminals, then visit the [GraphiQL playground](http://localhost:4350/graphql):
 
