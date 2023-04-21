@@ -214,7 +214,7 @@ sqd down
 sqd up
 sqd migration:generate
 ```
-Full code can be found at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/f6446e5ece2e70a4a984f8486036e6b1a9e373b9).
+Full code can be found at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/6f41cba76b9d90d12638a17d64093dbeb19d00ec).
 
 To test it, start the processor and the GraphQL server by running `sqd process` and `sqd serve` in separate terminals, then visit the [GraphiQL playground](http://localhost:4350/graphql):
 
