@@ -1,0 +1,12 @@
+{
+    "position": 15,
+    "label": "Indexing BAYC",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "title": "Guide into building a squid that indexes transfers, tokens and token owners of Bored Ape Yach Club NFTs. Each step ends with a working squid implementing a part of the final functionality.",
+      "slug": "/tutorials/bayc"
+    }
+}
