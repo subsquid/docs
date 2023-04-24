@@ -7,13 +7,13 @@ sidebar_position: 10
 
 # Step 1: Indexing Transfer events
 
-In the course of this tutorial we will build a squid that gets data about [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database and serves it over a GraphQL API. Here we do the first step: make a squid that indexes just the `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).
+In this step-by-step tutorial we will build a squid that gets data about [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), indexes the NFT metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database and serves it over a GraphQL API. Here we do the first step: build a squid that indexes only the `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).
 
 Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker.
 
 ## Starting with a template
 
-Begin by retrieving the `evm` template and installing its dependencies:
+Begin by retrieving the `evm` template and installing the dependencies:
 ```bash
 sqd init bayc-squid -t evm
 cd bayc-squid
@@ -23,11 +23,11 @@ The resulting code can be found at [this commit](https://github.com/abernatskiy/
 
 ## Interfacing with the contract ABI
 
-Any data retrieval operation begins with understanding what data is available and which values should be supplied to any available data filters. For EVM contracts, the information on data availability, segmentation and decoding is summarized in their [Application Binary Interfaces](https://www.alchemy.com/overviews/what-is-an-abi-of-a-smart-contract-examples-and-usage) (ABIs). Subsquid provides a [tool](/evm-indexing/squid-evm-typegen/) for retrieving contract ABIs from Etherscan-like APIs and converting them into Typescript code. For the contract of interest, this can be done with
+Firts, we inspect which data is available for indexing. For EVM contracts, the metadata descrbing the shape of the smart contract logs, transactions and contract state methods is distributed as [Application Binary Interfaces](https://www.alchemy.com/overviews/what-is-an-abi-of-a-smart-contract-examples-and-usage) (ABIs) files. For many popular contracts the ABI files are published on Etherscan (as in the case of the BAYC NFT contracts). Subsquid provides a [tool](/evm-indexing/squid-evm-typegen/) for retrieving contract ABIs from Etherscan-like APIs and generating the boilerplate for retrieving and decoding the data. For the contract of interest, this can be done with
 ```bash
 npx squid-evm-typegen src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#bayc
 ```
-Here, `src/abi` is the destination folder and `bayc` is the name I decided to use for the contract.
+Here, `src/abi` is the destination folder and the `bayc` suffix sets the base name for the generated file.
 
 Checking out the generated `src/abi/bayc.ts` file we see all events and contract functions listed in the ABI. Among them there is the `Transfer` event:
 ```typescript
@@ -85,12 +85,12 @@ processor.run(db, async (ctx) => {
 });
 ```
 Here,
-* `db` is a [`Database` implementation](/basics/store/store-interface/) specific to the target data sink. We want to store the data in a PostgreSQL database, so we'll need to provide a [`TypeormDatabase`](/basics/store/typeorm-store/) object here.
+* `db` is a [`Database` implementation](/basics/store/store-interface/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/basics/store/typeorm-store/) object here.
 * `ctx` is a [batch context](/evm-indexing/context-interfaces/) object that exposes a batch of data retrieved from the archive (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
 
-Batch handler is where all data transformation and output happens. This is the part the we'll be concerned with for the rest of the tutorial.
+Batch handler is where the raw on-chain data from the archive is decoded, transformed and persisted to the to target store. This is the part we'll be concerned with for the rest of the tutorial.
 
-We begin defining the batch handler by decoding the `Transfer` event:
+We begin by defining a batch handler decoding the `Transfer` event:
 ```typescript
 processor.run(new TypeormDatabase(), async (ctx) => {
     for (let block of ctx.blocks) {
@@ -115,7 +115,7 @@ and you should see lots of lines like these in the output:
 03:56:02 INFO  sqd:processor Parsed a Transfer of token 6326 from 0x0000000000000000000000000000000000000000 to 0xb136c6A1Eb83d0b4B8e4574F28e622A57F8EF01A
 03:56:02 INFO  sqd:processor Parsed a Transfer of token 4407 from 0x082C99d47E020a00C95460D50a83338d509A0e3a to 0x5cf0E6da6Ec2bd7165edcD52D3d31f2528dCf007
 ```
-Full code can be found at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/be0ebfadff4be69f4d2f6a68418274b87adb707e).
+The full code can be found at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/be0ebfadff4be69f4d2f6a68418274b87adb707e).
 
 ## Extending and persisting the data
 
