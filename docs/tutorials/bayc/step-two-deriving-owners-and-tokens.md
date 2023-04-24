@@ -7,13 +7,13 @@ sidebar_position: 20
 
 # Step 2: Deriving owners and tokens
 
-This is the second part of the tutorial in which we build a squid that gets data about [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database and serves it over a GraphQL API. In the [first part](/tutorials/bayc/step-one-indexing-transfers) we created a simple squid that scrapped `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d). Here we go a step further and derive separate entities for NFTs and their owners from the transfers data. The new entities will be connected to the `Transfer` entity in the database via foreign key columns, allowing efficient querying over GraphQL.
+This is the second part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database and serves it over a GraphQL API. In the [first part](/tutorials/bayc/step-one-indexing-transfers) we created a simple squid that scrapped `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d). Here we go a step further and derive separate entities for the NFTs and their owners from the transfers. The new entities will be connected to the `Transfer` entity in the database via foreign key columns, allowing efficient querying over GraphQL.
 
 Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the first part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/d99cd9b3f6921c7f591e5817d54025a388925a08)).
 
 ## Writing `schema.graphql`
 
-Begin by adding the new [entities](/basics/schema-file/entities/) to `schema.graphql`:
+Start by adding the new [entities](/basics/schema-file/entities/) to `schema.graphql`:
 ```graphql
 # any unique string can be used as id
 type Owner @entity {
@@ -89,7 +89,7 @@ sqd codegen
 Note how the entities we define form an acyclic dependency graph:
 - `Owner` entity instances can be made straight from the raw events data;
 - `Token`s require the raw data plus the `Owner`s;
-- `Transfer` entities require all of the above.
+- `Transfer` entities require all the above.
 
 As a consequence, the creation of entity instances must proceed in a [particular order](https://en.wikipedia.org/wiki/Topological_sorting). Squids usually use small graphs like this one, and in these the order can be easily found manually (e.g. `Owner`s then `Token`s then `Transfer`s in this case). We will assume that it can be hardcoded by the programmer.
 
@@ -182,10 +182,10 @@ function createTokens(
     return tokens
 }
 ```
-Some of the `Token`s and `Owner`s might have been encountered in previous batches, so we use `ctx.store.upsert()` to store instances of these entities while updating any older versions.
+Some `Token`s and `Owner`s might have been already created in previous batches, so we use `ctx.store.upsert()` to store instances of these entities while updating any older versions.
 
 :::info
-In some circumstances we might have had to retrieve the old entity instances from the database before updating, but here we have all the data that their newer version may possibly hold and there is no need to retrieve anything. Any row overwrites by `ctx.store.upsert()` will not incur data loss.
+In some circumstances we might have had to retrieve the old entity instances from the database before updating, but here we have all the required fields populated, so we simply overwrite the whole entity with `ctx.store.upsert()`. 
 :::
 
 Finally, we create an array of `Transfer` entity instances through a simple mapping:
