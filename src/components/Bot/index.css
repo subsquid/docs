@@ -29,6 +29,8 @@
 
 .Bot__main--loading form input {
     background: #e4e4e4;
+    -webkit-border-radius:0;
+    border-radius:0;
 }
 
 .Bot__main--loading form button {
@@ -337,6 +339,13 @@ code.markdown-node {
     filter: invert(100%);
 }
 
+[data-theme='dark'] .rounded-md.border.border-neutral-900.bg-neutral-1100.px-2.py-1.text-sm.font-medium.text-neutral-300 {
+    background: #242428;
+    border: 1px solid #387FEB;
+    color: #387FEB;
+}
+
+
 .prompt-answer a {
     color: #3880EC !important;
 }
@@ -357,7 +366,7 @@ code.markdown-node {
     transition: opacity 300ms;
 }
 #loading svg{
-    width: 50px !important;
+    width: 90px !important;
 }
 
 #loading.loading {
