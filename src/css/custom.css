@@ -444,6 +444,12 @@ html {
     @apply max-w-[1128px] xl:max-w-[1280px] xl:max-w-[1360px] wide:max-w-[1480px] px-6 mx-auto !important;
 }
 
+@media (max-width: 480px) {
+    .navbar__inner {
+        @apply px-0 !important;
+    }
+}
+
 .theme-doc-sidebar-menu .menu__list-item:not(:first-child) {
     @apply mt-2;
 }
