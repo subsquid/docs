@@ -83,6 +83,7 @@ The final version of `schema.graphql` is available [here](https://github.com/abe
 ```bash
 sqd codegen
 ```
+We also need to regenerate migrations, but that is on hold for now: that step requires recompiling the squid code and that is not possible until we fix the creation of all entities.
 
 ## Creating the entities
 
