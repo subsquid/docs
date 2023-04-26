@@ -377,6 +377,6 @@ code.markdown-node {
     visibility: visible;
 }
 
-.sidebarLogo_node_modules-\@docusaurus-theme-classic-lib-theme-DocSidebar-Desktop-styles-module {
+.sidebarLogo_node_modules-\@docusaurus-theme-classic-lib-theme-DocSidebar-Desktop-styles-module, .sidebarLogo_isFc {
     display: none !important;
 }
