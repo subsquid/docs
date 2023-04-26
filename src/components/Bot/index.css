@@ -380,3 +380,9 @@ code.markdown-node {
 .sidebarLogo_node_modules-\@docusaurus-theme-classic-lib-theme-DocSidebar-Desktop-styles-module, .sidebarLogo_isFc {
     display: none !important;
 }
+
+@media (min-width: 997px) {
+    .sidebarLogo_isFc {
+        display: none !important;
+    }
+}
