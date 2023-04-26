@@ -260,6 +260,12 @@
 .Bot.Bot--fullscreen .Bot__main {
     height: 100%;
 }
+.Bot input {
+    border-radius: 0 !important;
+}
+.Bot input:disabled {
+    opacity: 1 !important;
+}
 
 .rounded-md.border.border-neutral-900.bg-neutral-1100.px-2.py-1.text-sm.font-medium.text-neutral-300 {
     background: #FFFFFF;
