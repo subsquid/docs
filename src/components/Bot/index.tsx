@@ -19,7 +19,7 @@ function waitForElm(selector) {
     });
 }
 
-export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscrenn: boolean, isLoading: boolean, isMessageShow: boolean, isShowMessage: boolean }> {
+export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscrenn: boolean, isLoading: boolean, isFirstReply: boolean, isMessageShow: boolean, isShowMessage: boolean }> {
     constructor(props) {
         super(props);
 
@@ -27,6 +27,7 @@ export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscre
             isOpenDialog: false,
             isFullscrenn: false,
             isLoading: false,
+            isFirstReply: false,
             isMessageShow: false,
             isShowMessage: true
         }
@@ -42,15 +43,35 @@ export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscre
 
         form.appendChild(button)
 
+
+
         if (form) {
+            const input = form.querySelector('input[type="text"]') as HTMLInputElement
+
             form.addEventListener('submit', async () => {
                 this.setState({isLoading: true})
+                input.setAttribute('disabled', "true")
+
+                const interval = setInterval(() => {
+                    const botMain = document.querySelector('.Bot__main')
+                    botMain.scrollTo(0, botMain.scrollHeight);
+                }, 100)
+
+                const waitIsFirstEl = await waitForElm('.Bot .prompt-answer-loading > .markdown-node')
+                if(waitIsFirstEl) {
+                    this.setState({isFirstReply: true})
+                    this.setState({isMessageShow: true})
+                }
 
                 const waitIsDone = await waitForElm('.Bot .prompt-answer-done')
-
                 if (waitIsDone) {
                     this.setState({isLoading: false})
+                    this.setState({isFirstReply: false})
+                    input.removeAttribute('disabled')
+                    input.value = ""
                 }
+
+                clearInterval(interval);
             })
         }
 
@@ -70,10 +91,6 @@ export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscre
     setDialog = (value: boolean = false) => {
         this.setState({isOpenDialog: value})
         this.setState({isFullscrenn: false})
-    }
-
-    setFirst() {
-        this.setState({isMessageShow: true})
     }
 
     setShowMessage(val: boolean = false) {
@@ -132,12 +149,9 @@ export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscre
                             can I find an example of IPFS indexing?” </p> : ""}
 
                         <div id="loading" className={clsx({
-                            "loading": this.state.isLoading,
+                            "loading": !this.state.isFirstReply && this.state.isLoading,
                         })}></div>
                         <Markprompt
-                            didCompleteFirstQuery={() => {
-                                this.setFirst()
-                            }}
                             projectKey="sk_test_Vf7NLfOpfMQeKH8kQfx6qhdEmCvzsxJ0"
                             model="gpt-4"
                             iDontKnowMessage="Sorry, I don't know!"

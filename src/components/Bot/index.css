@@ -20,6 +20,8 @@
     background: #F2F2F2;
     overflow-y: auto;
     margin-bottom: 72px;
+    -ms-scroll-chaining: none;
+    overscroll-behavior: none;
 }
 
 .Bot__main--loading form {
