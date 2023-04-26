@@ -44,9 +44,8 @@ export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscre
         form.appendChild(button)
 
 
-
         if (form) {
-            const input = form.querySelector('input[type="text"]') as HTMLInputElement
+            const input = form.querySelector('input') as HTMLInputElement
 
             form.addEventListener('submit', async () => {
                 this.setState({isLoading: true})

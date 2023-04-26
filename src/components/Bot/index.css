@@ -376,3 +376,7 @@ code.markdown-node {
     height: auto;
     visibility: visible;
 }
+
+.sidebarLogo_node_modules-\@docusaurus-theme-classic-lib-theme-DocSidebar-Desktop-styles-module {
+    display: none !important;
+}
