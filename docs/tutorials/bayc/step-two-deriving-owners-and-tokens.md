@@ -7,7 +7,7 @@ sidebar_position: 20
 
 # Step 2: Deriving owners and tokens
 
-This is the second part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database and serves it over a GraphQL API. In the [first part](/tutorials/bayc/step-one-indexing-transfers) we created a simple squid that scrapped `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d). Here we go a step further and derive separate entities for the NFTs and their owners from the transfers. The new entities will be connected to the `Transfer` entity in the database via foreign key columns, allowing efficient querying over GraphQL.
+This is the second part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database and serves it over a GraphQL API. In the [first part](/tutorials/bayc/step-one-indexing-transfers) we created a simple squid that scraped `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d). Here we go a step further and derive separate entities for the NFTs and their owners from the transfers. The new entities will be connected to the `Transfer` entity in the database via foreign key columns, allowing efficient querying over GraphQL.
 
 Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the first part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/d99cd9b3f6921c7f591e5817d54025a388925a08)).
 
@@ -169,7 +169,8 @@ function createOwners(rawTransfers: RawTransfer[]): Map<string, Owner> {
 ```typescript
 function createTokens(
     rawTransfers: RawTransfer[],
-    owners: Map<string, Owner>): Map<string, Token> {
+    owners: Map<string, Owner>
+): Map<string, Token> {
 
     let tokens: Map<string, Token> = new Map()
     for (let t of rawTransfers) {
@@ -194,7 +195,8 @@ Finally, we create an array of `Transfer` entity instances through a simple mapp
 function createTransfers(
     rawTransfers: RawTransfer[],
     owners: Map<string, Owner>,
-    tokens: Map<string, Token>): Transfer[] {
+    tokens: Map<string, Token>
+): Transfer[] {
 
     return rawTransfers.map(t => new Transfer({
         id: t.id,
