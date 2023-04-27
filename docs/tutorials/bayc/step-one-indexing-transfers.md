@@ -1,7 +1,7 @@
 ---
-title: "Step 1: Indexing Transfer events"
+title: "Step 1: Transfer events"
 description: >-
-  Indexing events of one type emitted by one contract
+  Indexing events emitted by the BAYC contract
 sidebar_position: 10
 ---
 
