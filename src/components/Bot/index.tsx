@@ -68,6 +68,31 @@ export class Bot extends React.Component<{}, { isOpenDialog: boolean, isFullscre
                     this.setState({isFirstReply: false})
                     input.removeAttribute('disabled')
                     input.value = ""
+
+                    const createLink = (text) => {
+                        const link = document.createElement('a')
+                        link.className = "cursor-pointer rounded-md border border-neutral-900 bg-neutral-1100 px-2 py-1 text-sm font-medium text-neutral-300 transition hover:border-neutral-800 hover:text-neutral-200"
+                        const endpoint = text.replace(/\.md/ig, "").replace(/\/docs/ig, "")
+                        const href= `https://docs.subsquid.io${endpoint}`
+                        link.setAttribute('href', href)
+                        link.innerHTML = endpoint
+
+                        return link
+                    }
+
+                    const linksContainerEl = document.querySelector('.Bot .mt-4.flex.w-full.flex-row.flex-wrap.items-center.gap-2')
+                    if(linksContainerEl) {
+                        const links = []
+
+                        linksContainerEl.childNodes.forEach(item => {
+                            const link = createLink(item.textContent)
+                            links.push(link)
+                        })
+
+                        linksContainerEl.innerHTML = ""
+                        links.forEach((link) => {linksContainerEl.append(link)})
+                    }
+
                 }
 
                 clearInterval(interval);
