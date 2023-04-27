@@ -1,5 +1,5 @@
 ---
-title: "Step 3: Adding external data"
+title: "Step 3: External data"
 description: >-
   Getting data from state calls, IPFS and HTTP
 sidebar_position: 30
@@ -7,7 +7,7 @@ sidebar_position: 30
 
 # Step 3: Adding external data
 
-This is the third part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database and serves it over a GraphQL API. In the first two parts ([1](/tutorials/bayc/step-one-indexing-transfers), [2](docs/tutorials/bayc/step-two-deriving-owners-and-tokens)) we created a squid that scrapped `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d) and derived some information on tokens and their owners from that data. In this part we enrich token data with information obtained from contract state calls, IPFS and regular HTTP URLs.
+This is the third part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database and serves it over a GraphQL API. In the first two parts ([1](/tutorials/bayc/step-one-indexing-transfers), [2](/tutorials/bayc/step-two-deriving-owners-and-tokens)) we created a squid that scraped `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d) and derived some information on tokens and their owners from that data. In this part we enrich token data with information obtained from contract state calls, IPFS and regular HTTP URLs.
 
 Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the second part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/6f41cba76b9d90d12638a17d64093dbeb19d00ec)).
 
@@ -174,10 +174,12 @@ async function completeTokens(
     partialTokens: Map<string, PartialToken>
 ): Promise<Map<string, Token>> {
 
+    let tokens: Map<string, Token> = new Map()
+    if (partialTokens.size === 0) return tokens
+
     let lastBatchBlockHeader = ctx.blocks[ctx.blocks.length-1].header
     let contract = new bayc.Contract(ctx, lastBatchBlockHeader, CONTRACT_ADDRESS)
 
-    let tokens: Map<string, Token> = new Map()
     for (let [id, ptoken] of partialTokens) {
         let uri = await contract.tokenURI(BigNumber.from(ptoken.tokenId))
         ctx.log.info(`Retrieved metadata URI ${uri}`)
@@ -196,7 +198,7 @@ URI retrieval here is similar to what we did in the exploration step: we create 
 
 ## Retrieving external resources
 
-In the `fetchTokenMetadata()` implementation we first classify the URIs depending on the protocol. For IPFS links we replace `'ipfs://'` with an address of an IPFS gateway (we use a public one provided by [Filebase](https://filebase.com)), then we retrieve the metadata from all links using a regular HTTPS client:
+In the `fetchTokenMetadata()` implementation we first classify the URIs depending on the protocol. For IPFS links we replace `'ipfs://'` with an address of an IPFS gateway (we use [ipfs.io](https://ipfs.tech)), then retrieve the metadata from all links using a regular HTTPS client:
 ```typescript
 export async function fetchTokenMetadata(
   ctx: Context,
@@ -228,7 +230,7 @@ We use [Axios](https://axios-http.com) for HTTPS retrieval. Install it with
 ```bash
 npm i axios
 ```
-To avoid reinitializing the HTTPS client every time we call the function we bind it to a module-scope variable:
+To avoid reinitializing the HTTPS client every time we call the function we bind it to a module-scope constant:
 ```typescript
 const client = axios.create({
     headers: {'Content-Type': 'application/json'},
@@ -242,13 +244,13 @@ const client = axios.create({
     },
 })
 ```
-We move all the code related to metadata retrieval to a separate module `src/metadata.ts`. Examine its full contents [here](https://github.com/abernatskiy/tmp-bayc-squid-2/blob/880813d7458461c9afdf7afa6b41040af963a162/src/metadata.ts).
+We move all the code related to metadata retrieval to a separate module `src/metadata.ts`. Examine its full contents [here](https://github.com/abernatskiy/tmp-bayc-squid-2/blob/d98676253419e845e2e6c131a8ec9f7bcabe775f/src/metadata.ts).
 
 Then all that is left is to import the relevant parts in `src/processor.ts`:
 ```diff title=src/processor.ts
 +import { TokenMetadata, fetchTokenMetadata } from './metadata'
 ```
-and we are done with the processor code for this part of the tutorial. Full squid code at this point is available at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/880813d7458461c9afdf7afa6b41040af963a162).
+and we are done with the processor code for this part of the tutorial. Full squid code at this point is available at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/d98676253419e845e2e6c131a8ec9f7bcabe775f).
 
 Recreate the database and refresh the migrations with
 ```bash
