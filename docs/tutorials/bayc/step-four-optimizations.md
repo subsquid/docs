@@ -183,7 +183,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 +    }
  })
 ```
-Full implementation requires changes to the schema, replacement of `completeTokens()` with `updateTokensWithOutdatedMetadata()` and rewrites of `createTokens()` and `selectivelyUpdateMetadata()`. It is available in [this branch](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/lazy-metadata). The resulting squid takes 10 minutes for the initial sync, then ??? more to retrieve metadata at least once for every token.
+Full implementation requires changes to the schema, replacement of `completeTokens()` with `updateTokensWithOutdatedMetadata()` and rewrites of `createTokens()` and `selectivelyUpdateMetadata()`. It is available in [this branch](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/lazy-metadata). The resulting squid took 10 minutes for the initial sync, then 50 minutes more to retrieve metadata at least once for every token.
 
 ## Extra: Using Multicall for metadata exploration
 
