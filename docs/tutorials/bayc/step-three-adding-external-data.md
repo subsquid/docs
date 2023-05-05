@@ -1,21 +1,21 @@
 ---
 title: "Step 3: External data"
 description: >-
-  Getting data from state calls, IPFS and HTTP
+  Retrieving data from state calls, IPFS and HTTP
 sidebar_position: 30
 ---
 
 # Step 3: Adding external data
 
-This is the third part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database and serves it over a GraphQL API. In the first two parts ([1](/tutorials/bayc/step-one-indexing-transfers), [2](/tutorials/bayc/step-two-deriving-owners-and-tokens)) we created a squid that scraped `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d) and derived some information on tokens and their owners from that data. In this part we enrich token data with information obtained from contract state calls, IPFS and regular HTTP URLs.
+This is the third part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database and serves it over a GraphQL API. In the first two parts of the tutorial ([1](/tutorials/bayc/step-one-indexing-transfers), [2](/tutorials/bayc/step-two-deriving-owners-and-tokens)) we created a squid that scraped `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d) and derived some information on tokens and their owners from that data. In this part we enrich token data with information obtained from contract state calls, IPFS and regular HTTP URLs.
 
-Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the second part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/6f41cba76b9d90d12638a17d64093dbeb19d00ec)).
+Prerequisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the second part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/6f41cba76b9d90d12638a17d64093dbeb19d00ec)).
 
 ## Exploring token metadata
 
-Now that we have a record for each BAYC NFT, let's see what we can do to retrieve a bit more data for each token.
+Now that we have a record for each BAYC NFT. Let's explore how we can retrieve more data for each token.
 
-[EIP-721](https://eips.ethereum.org/EIPS/eip-721) suggests that token metadata contracts may make token data available in a JSON referred to by the output of the `tokenURI()` contract function. Examining `src/abi/bayc.ts` we see that the BAYC token contract does implement this function. Also, the public ABI has no obvious contract methods that may set token URI or events that may be emitted on its change. In other words, it looks like the only way to get this data is to [query the contract state](/evm-indexing/query-state/).
+[EIP-721](https://eips.ethereum.org/EIPS/eip-721) suggests that token metadata contracts may make token data available in a JSON referred to by the output of the `tokenURI()` contract function. Upon examining `src/abi/bayc.ts`, we find that the BAYC token contract implements this function. Also, the public ABI has no obvious contract methods that may set token URI or events that may be emitted on its change. In other words, it appears that the only way to retrieve this data is by [querying the contract state](/evm-indexing/query-state/).
 
 We prepare for this by supplying a RPC endpoint of an archive Ethereum node on processor initialization:
 ```diff title=src/processor.ts
@@ -26,7 +26,7 @@ We prepare for this by supplying a RPC endpoint of an archive Ethereum node on p
      })
 ```
 
-The next step is to prepare for retrieving and parsing the metadata proper. For that we need to know which protocols are used in the URIs and the structure of metadata JSONs. To learn that, we need to retrieve and inspect some URIs ahead of the main squid sync. The simplest way to accomplish this is to add the following to the batch handler:
+The next step is to prepare for retrieving and parsing the metadata proper. For this, we need to understand the protocols used in the URIs and the structure of the metadata JSONs. To learn that, we need to retrieve and inspect some URIs ahead of the main squid sync. The most straightforward way to achieve this is by adding the following to the batch handler:
 ```diff
 +import { BigNumber } from 'ethers'
 +
@@ -46,9 +46,9 @@ processor.run(new TypeormDatabase(), async (ctx) => {
      await ctx.store.insert(transfers)
 })
 ```
-Here we use an instance of the `Contract` class supplied by the `src/abi/bayc.ts` module that we generated from the contract ABI in the first part of the tutorial. It uses an RPC endpoint supplied by the processor via `ctx` to call methods of contract `CONTRACT_ADDRESS` at the height corresponding to the last block of each batch. Once we have the `Contract` instance, we call `tokenURI()` for each token mentioned in the batch and print the retrieved URI.
+Here, we utilize an instance of the `Contract` class provided by the `src/abi/bayc.ts` module. It uses an RPC endpoint supplied by the processor via `ctx` to call methods of contract `CONTRACT_ADDRESS` at the height corresponding to the last block of each batch. Once we have the `Contract` instance, we call `tokenURI()` for each token mentioned in the batch and print the retrieved URI.
 
-This simple approach is rather slow: the modified squid needs about three to eight hours to get a reasonably sized sample of URIs. A faster but more complicated [alternative](../step-four-optimizations/#extra-using-multicall-for-metadata-exploration) will be discussed in the next part of the tutorial.
+This simple approach is rather slow: the modified squid needs about three to eight hours to get a reasonably sized sample of URIs. A faster yet more complex [alternative](../step-four-optimizations/#extra-using-multicall-for-metadata-exploration) will be discussed in the next part of the tutorial.
 
 Running the modified squid reveals that some metadata URIs point to HTTPS and some point to IPFS. Here is [one](<https://us-central1-bayc-metadata.cloudfunctions.net/api/tokens/ 0>) of the metadata JSONs:
 ```json
@@ -85,10 +85,10 @@ Running the modified squid reveals that some metadata URIs point to HTTPS and so
 Note how it does not conform to the [ERC721 Metadata JSON Schema](https://eips.ethereum.org/EIPS/eip-721).
 
 Summary of our findings:
-- BAYC metadata URIs can point to HTTPS or IPFS - we need to be able to retrieve both;
+- BAYC metadata URIs can point to HTTPS or IPFS -- we need to be able to retrieve both;
 - Metadata JSONs have two fields: `"image"`, a string, and `"attributes"`, an array of pairs `{"trait_type": string, "value": string}`.
 
-Roll back the exploratory code when done:
+Once finished, roll back the exploratory code:
 ```diff
 processor.run(new TypeormDatabase(), async (ctx) => {
      let tokens: Map<string, Token> = createTokens(rawTransfers, owners)
@@ -104,7 +104,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 ## Extending the `Token` entity
 
-We will save both `image` and `attributes` metadata fields and the metadata URI to the database. For that we add some new fields to the exising `Token` entity:
+We will save both `image` and `attributes` metadata fields and the metadata URI to the database. To do this, we need to add some new fields to the existing `Token` entity:
 
 ```diff
  type Token @entity {
@@ -124,7 +124,7 @@ We will save both `image` and `attributes` metadata fields and the metadata URI 
 ```
 Here, `Attribute` is a [non-entity type](/basics/schema-file/unions-and-typed-json/#typed-json) that we use to type the `attributes` field.
 
-After updating `schema.graphql` we regenerate the TypeORM data model code:
+Once `schema.graphql` is updated, we regenerate the TypeORM data model code::
 
 ```bash
 sqd codegen
@@ -157,7 +157,9 @@ interface PartialToken {
     owner: Owner
 }
 ```
-Here, `PartialToken`s store incomplete `Token` information obtained purely from blockchain events and function calls, before any [state queries](/evm-indexing/query-state/) or enhancements with [external data](/basics/external-api/). `completeTokens()` is the function responsible for filling `Token` fields that are missing in `PartialToken`s. This involves IO operations, so both the function and its caller `createTokens()` have to be asynchronous. The functions also require batch context for state queries and logging. We tweak the `createTokens()` call in the batch handler to reflect these changes:
+
+Here, `PartialToken` stores the incomplete `Token` information obtained purely from blockchain events and function calls, before any [state queries](/evm-indexing/query-state/) or enrichment with [external data](/basics/external-api/). 
+The function `completeTokens()` is responsible for filling `Token` fields that are missing in `PartialToken`s. This involves IO operations, so both the function and its caller `createTokens()` have to be asynchronous. The functions also require a batch context for state queries and logging. We modify the `createTokens()` call in the batch handler to accommodate these changes:
 ```diff
  processor.run(new TypeormDatabase(), async (ctx) => {
      let rawTransfers: RawTransfer[] = getRawTransfers(ctx)
@@ -194,11 +196,12 @@ async function completeTokens(
     return tokens
 }
 ```
-URI retrieval here is similar to what we did in the exploration step: we create a `Contract` object and use it to call the `tokenURI()` method of the BAYC token contract. The retrieved URIs are then used by the `fetchTokenMetadata()` function responsible for HTTPS/IPFS metadata retrieval and parsing. Once we have its output we can create and return the final `Token` entity instances.
+URI retrieval here is similar to what we did in the exploration step: we create a `Contract` object and use it to call the `tokenURI()` method of the BAYC token contract. The retrieved URIs are then used by the `fetchTokenMetadata()` function, which is responsible for HTTPS/IPFS metadata retrieval and parsing. Once we have its output, we can create and return the final `Token` entity instances.
 
 ## Retrieving external resources
 
-In the `fetchTokenMetadata()` implementation we first classify the URIs depending on the protocol. For IPFS links we replace `'ipfs://'` with an address of an IPFS gateway (we use [ipfs.io](https://ipfs.tech)), then retrieve the metadata from all links using a regular HTTPS client:
+In the `fetchTokenMetadata()` implementation we first classify the URIs depending on the protocol. For IPFS links we replace `'ipfs://'` with an address of an IPFS gateway, then retrieve the metadata from all links using a regular HTTPS client. Here for the demonstration purposes we use the public [ipfs.io](https://ipfs.io) gateway, which is slow and prone to dropping requests due to rate-limiting. For production squids we recommend using a dedicated gateway, e.g. from [Filebase](https://docs.filebase.com/ipfs/about-ipfs/ipfs-gateways).
+
 ```typescript
 export async function fetchTokenMetadata(
   ctx: Context,
@@ -264,6 +267,6 @@ sqd process
 ```
 It runs much slower than before, requiring about three hours to get through the first batch and more than a day to sync. This is something we will address in the next part of the tutorial.
 
-Nevertheless, the squid is already fully capable of scraping token metadata and serving it over GraphQL. Verify that by running `sqd serve` and visiting the [GraphiQL playground](http://localhost:4350/graphql). It is now possible to retrieve image URLs and attributes for each token:
+Nevertheless, the squid is already fully capable of scraping token metadata and serving it over GraphQL. Verify that by running `sqd serve` and visiting the [local GraphiQL playground](http://localhost:4350/graphql). It is now possible to retrieve image URLs and attributes for each token:
 
 ![BAYC GraphiQL at step three](</img/bayc-playground-step-three.png>)
