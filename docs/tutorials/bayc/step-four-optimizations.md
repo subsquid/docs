@@ -1,13 +1,13 @@
 ---
-title: "Step 4: Optimizations"
+title: "Step 4: Optimization"
 description: >-
   Syncing faster while tracking changing data
 sidebar_position: 40
 ---
 
-# Step 4: Optimizations
+# Step 4: Optimization
 
-This is the fourth part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database and serves it over a GraphQL API. In the first three parts ([1](/tutorials/bayc/step-one-indexing-transfers), [2](/tutorials/bayc/step-two-deriving-owners-and-tokens), [3](/tutorials/bayc/step-three-adding-external-data)) we created a squid that does all of the above, but does a lot of IO operations sequentially and ends up taking too long to sync. Here we discuss the strategies for mitigating that shortcoming. We also discuss an alternative metadata fetching strategy that makes fewer redundant fetches and handles the changes in metadata of "cold" (that is, not involved in any transfers) tokens better.
+This is the fourth part of the tutorial where we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers, and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database, and serves it over a GraphQL API. In the first three parts ([1](/tutorials/bayc/step-one-indexing-transfers), [2](/tutorials/bayc/step-two-deriving-owners-and-tokens), [3](/tutorials/bayc/step-three-adding-external-data)), we created a squid that does all the above but performs many IO operations sequentially, resulting in a long sync time. In this part, we discuss strategies for mitigating that shortcoming. We also discuss an alternative metadata fetching strategy that reduces redundant fetches and handles the changes in metadata of "cold" (i.e., not involved in any transfers) tokens more effectively.
 
 Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the third part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/20206c337d443e3cb96133f527cc9fac2a8f1d2a)).
 
@@ -61,7 +61,7 @@ async function completeTokens(
 
 // ...
 ```
-Here we replaced aggregated the direct calls to `tokenURI()` of the BAYC token contract into batches of 100 and called `aggregate()` of the multicall contract on each. `Multicall.aggregate()` takes care of splitting the original batch and putting the results together. The number 100 for the batch size was chosen to be as large as possible while not triggering any limits of the RPC endpoint we use; try increasing it if you're using a different one.
+Here we replaced the direct calls to `tokenURI()` of the BAYC token contract with aggreaged batches of 100 state calls and called `aggregate()` of the multicall contract for each batch. `Multicall.aggregate()` takes care of splitting the set of state calls into chunks and merging the results together. The number 100 for the batch size was chosen to be as large as possible while not triggering any response size limits on the public RPC endpoint we use. For private RPC endpoints one would try to further increase the batch size.
 
 You can find the full code after this optimization at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/d9f3b775ffb03aa1636bac674370a552a083c416). In our test this optimization reduced the time required for retrieving the contract state for all 10000 tokens once from 114 minutes to 94 seconds.
 
@@ -69,7 +69,7 @@ You can find the full code after this optimization at [this commit](https://gith
 
 Next, we make our metadata retrieval requests concurrent.
 
-Many metadata URIs point to the same HTTPS server or to IPFS that we are accessing through a single gate. When retrieving data from just a few servers, it is a common courtesy to not send all the requests at once; often, this is enforced by rate limits. Our code takes that into account, limiting the rate of the outgoing requests.
+Many metadata URIs point to the same HTTPS server or to IPFS that we are accessing through a single gateway. When retrieving data from just a few servers, it is a common courtesy to not send all the requests at once; often, this is enforced by rate limits. Our code takes that into account, limiting the rate of the outgoing requests.
 
 We implement HTTPS batching at [`src/metadata.ts`](https://github.com/abernatskiy/tmp-bayc-squid-2/blob/b7023af18256360fe2c3d0f1c9f5ca682cdb4006/src/metadata.ts):
 ```typescript
@@ -159,9 +159,9 @@ Full code is available at [this commit](https://github.com/abernatskiy/tmp-bayc-
 
 ## Alternative: Post-sync retrieval of metadata
 
-Despite all the optimizations, our squid still takes 1.5 hours to sync instead of 11 minutes it needed [before we introduced metadata retrieval](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/6f41cba76b9d90d12638a17d64093dbeb19d00ec). This is the cost of maintaining a fully populated database at all stages of the sync, which is rarely a requirement. An alternative is to begin retrieving metadata only after the rest of the data has been fully synced and the squid has caught up with the blockchain. We do that by reading `Token` entities from the database after the initial sync, retrieving their metadata and persisting them.
+Despite all the optimizations, our squid still takes 1.5 hours to sync instead of 11 minutes it needed [before we introduced metadata retrieval](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/6f41cba76b9d90d12638a17d64093dbeb19d00ec). This is the cost of maintaining a fully populated database at all stages of the sync, which is rarely a requirement. An alternative is to begin retrieving metadata only after the rest of the data has been fully synced, and the squid has caught up with the blockchain. We do that by reading `Token` entities from the database after the initial sync, retrieving their metadata and persisting them.
 
-This approach has another advantage: metadata URIs can change without notice, and our old retrieval strategy would only pick up the changes when the token changes hands. If our goal is to keep token metadata as up-to-date as possible, we have to constantly renew it even for tokens that are not involved in any recent transfers. This is easy to implement with our new metadata retrieval strategy: simply add a field to the `Token` entity that tracks the block height of the most recent metadata update and select `Token`s that were updated some fixed number of blocks ago for metadata updates.
+This approach has another advantage: metadata URIs can change without notice, and our old retrieval strategy would only pick up the changes when the token has been transferred. If our goal is to keep token metadata as up-to-date as possible, we have to constantly renew it even for tokens that are not involved in any recent transfers. This is easy to implement with our new metadata retrieval strategy: simply add a field to the `Token` entity that tracks the block height of the most recent metadata update and select `Token`s that were updated some fixed number of blocks ago for metadata updates.
 
 Here is how the new metadata retrieval strategy reflects in the batch handler code:
 ```diff
