@@ -32,3 +32,6 @@ Here you can find list of all Giant Squid API supproted chains and see live stat
 | Rococo | <p>[Explorer](https://squid.subsquid.io/gs-explorer-rococo/graphql)</p><p>[Stats](https://squid.subsquid.io/gs-stats-rococo/graphql)</p> | _Active_ | _Down_ | _WIP_ | _WIP_ |
 | Interlay | <p>[Explorer](https://squid.subsquid.io/gs-explorer-interlay/graphql)</p><p>[Stats](https://squid.subsquid.io/gs-stats-interlay/graphql)</p> | _Active_ | _Down_ | _WIP_ | _WIP_ |
 | HydraDX | <p>[Explorer](https://squid.subsquid.io/gs-explorer-hydradx/graphql)</p><p>[Stats](https://squid.subsquid.io/gs-stats-hydradx/graphql)</p> | _Active_ | _Down_ | _WIP_ | _WIP_ |
+
+## View Status for the APIs against data from RPCs
+[https://giant-squid-status.netlify.app](https://giant-squid-status.netlify.app)
