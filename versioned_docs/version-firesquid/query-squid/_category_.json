@@ -1,0 +1,12 @@
+{
+    "position": 41,
+    "label": "Query a squid",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/query-squid",
+      "title": "Queries exposed by the squid GraphQL API"
+    }
+}

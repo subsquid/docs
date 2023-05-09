@@ -1,0 +1,12 @@
+{
+    "position": 25,
+    "label": "Tutorials",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "title": "Step-by-step tutorials",
+      "slug":"/tutorials"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "position": 43,
+    "label": "Deploy a squid",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/deploy-squid",
+      "title": "Deploy a squid to the Aquarium hosted service"
+    }
+}

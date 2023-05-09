@@ -1,0 +1,12 @@
+{
+    "position": 50,
+    "label": "Migrate",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/migrate",
+      "title": "Guides to migrations from other frameworks and older Subsquid versions"
+    }
+}

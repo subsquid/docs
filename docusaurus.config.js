@@ -40,8 +40,12 @@ const config = {
           lastVersion: 'current',
           versions: {
             current: {
-              label: 'Firesquid',
+              label: 'Arrowsquid',
               path: '/'
+            },
+            firesquid: {
+              label: 'Firesquid',
+              path: '/firesquid'
             }
           },
           sidebarPath: require.resolve('./sidebars.js'),

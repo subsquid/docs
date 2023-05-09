@@ -1,0 +1,13 @@
+{
+  "position": 109,
+  "label": "Giant Squid API",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "title": "Giant Squid API",
+    "description": "The Giant Squid API is a set of ready-to-use GraphQL APIs maintained by Subsquid",
+    "slug":"/giant-squid-api"
+  }
+}

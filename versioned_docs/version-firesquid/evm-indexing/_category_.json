@@ -1,0 +1,12 @@
+{
+    "position": 35,
+    "label": "EVM indexing",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/evm-indexing",
+      "title": "Squid processor for indexing EVM chains"
+    }
+}

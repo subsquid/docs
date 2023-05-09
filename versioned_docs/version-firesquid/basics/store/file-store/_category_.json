@@ -1,0 +1,12 @@
+{
+    "position": 20,
+    "label": "Saving to files",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/basics/store/file-store",
+      "title": "Saving to files"
+    }
+}
