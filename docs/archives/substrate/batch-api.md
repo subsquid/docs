@@ -42,7 +42,7 @@ query {
     """
     includeAllBlocks: Boolean
     """
-    Max number of blocks in the batch
+    DEPRECATED, has no effect
     """
     limit: Int
     """
