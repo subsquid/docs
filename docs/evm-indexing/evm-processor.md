@@ -21,9 +21,7 @@ A squid processor is a Node.js process that fetches historical on-chain data fro
 
 A batch provides iterables to access all items requested in [processor configuration](/evm-indexing/configuration), which may include logs, transactions, traces and contract state diffs. It is customary to configure the processor object at `src/processor.ts` and export the `EvmBatchProcessor` object and types derived from it.
 
-(???? Update the info on statediffs ordering)
-
-Logs and transactions are ordered in the same way as they are within blocks; for traces there are no order guarantees.
+Logs and transactions are ordered in the same way as they are within blocks; state diffs are ordered in the same way as the transactions that give rise to them; and for traces there are no order guarantees.
 
 Further, the processor can extract additional data by querying the [historical chain state](/evm-indexing/query-state) and indeed any [external API](https://github.com/subsquid/squid-external-api-example).
 
