@@ -74,10 +74,10 @@ export type BlockData<F extends FieldSelection = {}> = {
 Log<F> {
   // fixed fields
   id: string
-  transaction?: Transaction<F>
-  block: BlockHeader<F>
   logIndex: number
   transactionIndex: number
+  transaction?: Transaction<F>
+  block: BlockHeader<F>
 
   // fields that can be disabled via F
   address: string
@@ -94,30 +94,30 @@ See the [block header section](#blockheader) for the definition of `BlockHeader<
 
 ```ts
 Transaction<F> {
-  // fixed fields
-
-  // fields that can be disabled via F
-
-  // fields that can be requested via F
-
-    id?: string
-    from?: string
-    gas?: biging
-    gasPrice?: bigint
-    hash?: string
-    input?: string
-    nonce?: bigint
-    to?: string
-    index?: number
-    value?: bigint
-    type?: number
-    chainId?: number
-    v?: bigint
-    r?: string
-    s?: string
-    maxPriorityFeePerGas?: bigint,
-    maxFeePerGas?: bigint,
-
+  from: string
+  gas: bigint
+  gasPrice: bigint
+  maxFeePerGas?: bigint
+  maxPriorityFeePerGas?: bigint
+  hash: string
+  input: string
+  nonce: number
+  to?: string
+  transactionIndex: number
+  value: bigint
+  v?: bigint
+  r?: string
+  s?: string
+  yParity?: number
+  chainId?: number
+  gasUsed?: bigint
+  cumulativeGasUsed?: bigint
+  effectiveGasPrice?: bigint
+  contractAddress?: string
+  type?: number
+  status?: number
+  sighash: string
+}
 ```
 
 ### `BlockHeader`
