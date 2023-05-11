@@ -1,0 +1,12 @@
+{
+    "position": 20,
+    "label": "Squids for Substrate",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/examples/substrate",
+      "title": "Substrate indexing examples"
+    }
+}

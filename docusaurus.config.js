@@ -37,9 +37,13 @@ const config = {
       ({
         docs: {
           routeBasePath: '/',
-          lastVersion: 'current',
+          lastVersion: 'firesquid',
           versions: {
             current: {
+              label: 'ArrowSquid',
+              path: '/arrowsquid'
+            },
+            firesquid: {
               label: 'Firesquid',
               path: '/'
             }
@@ -71,7 +75,14 @@ const config = {
         src: 'img/logo-light.svg',
         srcDark: 'img/logo-dark.svg',
       },
-      items: [],
+      items: [
+        {
+          type: 'docsVersionDropdown',
+          position: 'left',
+          dropdownItemsAfter: [{to: '/versions', label: 'All versions'}],
+          dropdownActiveClassDisabled: true,
+        },
+      ],
       hideOnScroll: true
     },
     colorMode: {

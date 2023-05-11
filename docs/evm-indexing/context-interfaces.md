@@ -1,24 +1,36 @@
 ---
 sidebar_position: 30
 description: >-
-  BatchContext interfaces for EVM
+  DataHandlerContext interfaces for EVM
 ---
 
 # BatchContext for EVM
 
 A `EvmBatchProcessor` instance expects a single user-defined batch handler to be implemented by the `run()` method: 
 ```ts
-processor.run<Store>(db: Database<Store>, batchHandler: (ctx: BatchContext<Store>) => Promise<void>)
+processor.run<Store>(
+  db: Database<Store>,
+  batchHandler: (ctx: DataHandlerContext<Store, F>) => Promise<void>
+): void
 ```
-
 The batch handler is an async void function. It repeatedly receives batches of archive data stored in `ctx.blocks`, transforms them and persists the results to the target database using the `ctx.store` interface.
 
-## `BatchContext` interface
+Here, `F` and `Store` are inferred from the `EvmBatchProcessor` method calls:
+ * `F` is the type of the argument of the [`setFields()`](/dead) processor configuration call and the argument of the `EvmBatchProcessor` generic:
+   ```ts
+    export class EvmBatchProcessor<F extends FieldSelection = {}> {
+      ...
+    }
+   ```
+   It is used to determine the exact set of fields within the [data items](#data-item-types) retrieved by the processor.
+ * [`Store`](#store) is the interface used to persist the processed data.
 
-The batch handler accepts a single argument of type `BatchContext`. It has the following structure:
+## `DataHandlerContext` interface
+
+The batch handler accepts a single argument of type `DataHandlerContext`. It has the following structure:
 
 ```ts
-export interface BatchContext<Store, Item> {
+export interface DataHandlerContext<Store, F extends FieldSelection = {}> {
   // an internal handle
   _chain: Chain
   // a logger to be used within the handler
@@ -26,114 +38,101 @@ export interface BatchContext<Store, Item> {
   // the facade interface for the target database
   store: Store
   // input on-chain data as requested by the subscriptions
-  blocks: BatchBlock<Item>[]
+  blocks: BlockData<F>[]
+  // a flag indicating whether the processor is at the chain head
+  isHead: boolean
 }
 ```
 
-### `BatchBlock`
+## `BlockData`
 
-The `blocks` field holds the log items data to be processed, aligned at the block level.
+(???? Update the interface with any final corrections)
+
+The `blocks` field holds the data to be processed, aligned at the block level.
 ```ts
-export interface BatchBlock<Item> {
-  header: EvmBlock
-  items: Item[]
+export type BlockData<F extends FieldSelection = {}> = {
+  header: BlockHeader<F>
+  transactions: Transaction<F>[]
+  logs: Log<F>[]
+  traces: Trace<F>[]
+  stateDiffs: StateDiff<F>[]
 }
 ```
 
-`BatchBlock.header` contains the block header data. `BatchBlock.items` is a unified log containing the event and the transaction data items. It is canonically ordered following the EVM execution trace:
- - all transaction items respect the execution order with the block
- - all events emitted by a transaction are placed before the transaction item (if is requested);
+`BlockData.header` contains the block header data. The rest of the fields are iterables containing various blockchain data:
+ - `transactions` and `logs` are ordered in the same way as they are within blocks;
+ - [`stateDiffs`](/dead) follow the order of transactions that gave rise to them;
+ - `traces` are ordered in a deterministic but otherwise unspecified way.
 
-Each data `Item` has the following structure:
-```ts
-{ 
-  // either it's an `event` or `transaction` item
-  kind: 'evmLog' | 'transaction',
-  // address of the contract that emitted the log or the transaction destination
-  address: string,
-  // the evm log data as specified by the corresponding `addLog()` or `addTransaction()` data selectors
-  evmLog?: {},
-  // the transaction data as specified by the corresponding `addLog()` or `addTransaction()` data selectors
-  transaction?: {}
-}
-```
+## Data item types
 
-### `evmLog` items
+### `Log`
 
-Here is a full list of fields for items with `item.kind==='evmLog'`.
+`Log<F extends FieldSelection>` is a generic type for EVM log data. Some of its fields are fixed and some can be added or removed [upon request](/dead).
 
 ```ts
-{
-  kind: 'evmLog'
+Log<F> {
+  // fixed fields
+  id: string
+  logIndex: number
+  transactionIndex: number
+  transaction?: Transaction<F>
+  block: BlockHeader<F>
+
+  // fields that can be disabled via F
   address: string
-  evmLog: {
-    id: string
-    blockNumber: number
-    address?: string
-    data?: string
-    index?: number
-    removed?: boolean
-    topics?: string[]
-    transactionIndex?: number
-  },
-  // transaction emitted the log
-  transaction: {
-    id?: string
-    from?: string
-    gas?: biging
-    gasPrice?: bigint
-    hash?: string
-    input?: string
-    nonce?: bigint
-    to?: string
-    index?: number
-    value?: bigint
-    type?: number
-    chainId?: number
-    v?: bigint
-    r?: string
-    s?: string
-    maxPriorityFeePerGas?: bigint
-    maxFeePerGas?: bigint
-  }
+  data: string
+  topics: string[]
+
+  // fields that can be requested via F
+  transactionHash: string
 }
 ```
+See the [block header section](#blockheader) for the definition of `BlockHeader<F>`.
 
-Note that to make the properties of `item.evmLog` and `item.transaction` available, one has to specify the corresponding [data selectors](/evm-indexing/configuration/data-selectors) in the [`addLog()`](/evm-indexing/configuration/evm-logs) configuration method.
-
-### `transaction` items
-
-Here is a full list of fields for items with `item.kind==='transaction'`.
+### `Transaction`
 
 ```ts
-{
-  kind: 'transaction'
-  address: string // transaction.to
-  transaction: {
-    id?: string
-    from?: string
-    gas?: biging
-    gasPrice?: bigint
-    hash?: string
-    input?: string
-    nonce?: bigint
-    to?: string
-    index?: number
-    value?: bigint
-    type?: number
-    chainId?: number
-    v?: bigint
-    r?: string
-    s?: string
-    maxPriorityFeePerGas?: bigint,
-    maxFeePerGas?: bigint,
-  }
+Transaction<F> {
+  from: string
+  gas: bigint
+  gasPrice: bigint
+  maxFeePerGas?: bigint
+  maxPriorityFeePerGas?: bigint
+  hash: string
+  input: string
+  nonce: number
+  to?: string
+  transactionIndex: number
+  value: bigint
+  v?: bigint
+  r?: string
+  s?: string
+  yParity?: number
+  chainId?: number
+  gasUsed?: bigint
+  cumulativeGasUsed?: bigint
+  effectiveGasPrice?: bigint
+  contractAddress?: string
+  type?: number
+  status?: number
+  sighash: string
 }
 ```
 
-Note that to make the properties of `item.transaction` available, one has to specify the corresponding [data selectors](/evm-indexing/configuration/data-selectors) in the [`addTransaction()`](/evm-indexing/configuration/transactions) configuration method.
+### `BlockHeader`
 
-### `Store`
+```ts
+BlockHeader<F>{
+  hash: string
+  height: number
+  id: string
+  parentHash: string
+  timestamp: number
+}
+```
+
+## `Store`
 
 A concrete `ctx.store` instance is derived at runtime from the `run()` method argument via
 
@@ -144,7 +143,7 @@ For Postgres-compatible `Database`s, `ctx.store` has a TypeORM [EntityManager](h
 
 See [Processor Store](/basics/store) for details.
 
-### `Logger`
+## `Logger`
 
 The `log` field is a dedicated `Logger` instance. See [Logging](/basics/logging) for more details.
 

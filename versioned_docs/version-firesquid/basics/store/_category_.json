@@ -1,0 +1,12 @@
+{
+    "position": 42,
+    "label": "Persisting data",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/basics/store",
+      "title": "Persisting data"
+    }
+}

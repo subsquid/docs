@@ -1,0 +1,166 @@
+---
+sidebar_position: 10
+title: Deployment manifest
+description: A reference for the squid deployment manifest
+---
+
+# Deployment manifest
+
+The deployment manifest is named `squid.yaml` by convention. The manifest defines how the squid should be built, customized and scaled during the deployment to Aquarium. It is used together with [`sqd deploy`](/squid-cli/deploy) to deploy or update an existing squid version.
+
+With the introduction of the deployment manifest the addons (`postgres`) and the API services (`api`) become optional. This allows flexible deployment configuration for analytic use-cases (e.g. transform and write to s3 or BigQuery).
+ 
+## Header
+
+The manifest header defines the squid metadata
+
+| Field                    |      Archive endpoint                         |  
+|:-----------------------:|:---------------------------------------------:|
+| `manifestVersion`        | Only `subsquid.io/v0.1` is currently supported     |
+| `name` | A globally unique squid name. Can only contain lowercase Latin letters (`a-z`) and a dash (`-`). | 
+| `version`                 | Squid version. **Must be an integer**. A squid deployment is canonically identified as `${name}@${version}`.  |
+| `description`  | (Optional) A short description of the squid  |
+
+## `build:`
+
+Specifies the way the squid is built into a docker image. Only an empty `build:` section is supported, and the squid must adhere
+to the default [folder structure](/basics/squid-structure).
+
+In particular, the following files and folders **must** be present in the root folder of the squid:
+
+- `/src` 
+- `schema.graphql`
+- `tsconfig.json` 
+- `package-lock.json`
+- `package.json` 
+
+The `db` and `assets` folders are added to the build context if present in the squid folder.
+
+Under the hood, Aquarium builds a Docker image and runs a docker container for each service (`api`, `processor`, `migrate`) using the same image. 
+See [Troubleshooting](/deploy-squid/troubleshooting/#local-build) for instructions on how to build and run the Docker image locally.
+Even though the squid services (`api`, `processor`, `migrate`) use the same single container image, the exec command is different and can is defined by the `deploy:` section as explained below.
+
+## `deploy:`
+
+The `deploy` section may define:
+
+### `secrets:`
+
+A list of secret names that must be added in the [Aquarium app](https://app.subsquid.io). If any of the secrets is not defined, the deployment will fail.
+
+### `addons:`
+
+A list of addon services to be deployed along the squid services.
+
+- **`postgres:`**
+
+See [Postgres addon](/deploy-squid/pg-addon) for details.
+
+### `migrate:`
+
+**Optional** The init container run before `processor` and `api` services are started. If exits with an error, the squid deployment fails.
+
+| Name        | Description                                           | Type          | Default value         |         Optional   | 
+|:-----------:|:-----------------------------------------------------:|:-------------:|----------------------:|:------------------:|
+| `cmd`       | Exec command passed to the squid container. By default runs TypeORM migrations in the `db` folder  |  `string[]`   | `['npx', 'squid-typorem-migration', 'apply']` |   Optional   |
+| `env`       | A key-value list of env variables to be set           |  `{k:v}[]`    |       []               | Optional                |
+
+
+### `processor:`
+
+The processor service of the squid. 
+
+| Name        | Description                                           | Type          | Default value         |         Optional   | 
+|:-----------:|:-----------------------------------------------------:|:-------------:|----------------------:|:------------------:|
+| `cmd`       | Processor exec command passed to the squid container  |  `string[]`   |                       |   **Required**     |
+| `env`       | A key-value list of env variables to be set           |  `{k:v}[]`    |   []                |      Optional              |
+
+### `api:`
+
+**Optional** The GraphQL API service of the squid. Automatically provisions a publicly available endpoint `https://squid.subsquid.io/{name}/v/v{version}/graphql` and binds it to the server.
+ 
+| Name        | Description                                                             | Type          | Default value         |         Optional   | 
+|:-----------:|:-----------------------------------------------------------------------:|:-------------:|----------------------:|:------------------:|
+| `cmd`       | GraphQL API server exec command passed to the squid container. The server must be listening at port `GRAPHQL_SERVER_PORT`. |  `string[]` |    |   **Required**     |
+| `env`       | A key-value list of env variables to be set                             |  `{k:v}[]`    |  []                 |   Optional                |
+
+
+## `scale:`
+
+See the [Scale the deployment](/deploy-squid/scale) section.
+
+## Examples
+
+A minimal example of manifest is below:
+
+```yaml title="squid.yaml"
+manifestVersion: subsquid.io/v0.1
+name: sample-squid
+version: 1
+description: |-
+  My sample squid  
+
+build: 
+
+deploy:
+  addons:
+    postgres: 
+  processor:
+    cmd: [ "node", "lib/processor" ] 
+  api:
+    cmd: [ "npx", "squid-graphql-server"]
+```
+
+An extended version:
+
+```yaml title="squid.yaml"
+manifestVersion: subsquid.io/v0.1
+name: sample-squid
+version: 1
+description: |-
+  My advanced squid 
+
+build: 
+
+deploy:
+  addons:
+    postgres: 
+  # the set of secrets that must be set and provided by Aquarium
+  secrets:
+    - ACALA_RPC_ENDPOINT
+    - COINGECKO_API_KEY 
+  migrate:
+    env:
+      FOO: 
+        bar
+    cmd: ["echo", "skip migrations!"]
+  processor:
+    # additional env variables
+    env:
+      SQD_DEBUG: 
+        sqd:mapping
+    cmd: [ "node", "lib/processor" ] 
+  api:
+    env:
+      SQD_DEBUG: 
+        '*'
+    # custom run command for the GraphQL server
+    cmd: [ "npx", "squid-graphql-server", "--subscriptions", "--max-root-fields", "10", "--sql-statement-timeout", "1000" ] 
+
+scale:
+  addons:
+     postgres:
+         storage: 100G
+         profile: medium
+  processor:
+     profile: medium
+  api:
+     profile: large
+     # load-balance three replicas
+     replicas: 3
+```
+
+
+
+
+

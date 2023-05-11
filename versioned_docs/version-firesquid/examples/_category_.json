@@ -1,0 +1,12 @@
+{
+    "position": 50,
+    "label": "Examples",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/examples",
+      "title": "A comprehensive list of squid project examples"
+    }
+}

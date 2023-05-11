@@ -7,6 +7,8 @@ description: >-
 
 # EVM Processor
 
+**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
+
 :::warning
 The EVM Archive API and `EvmBatchProcessor` are currently in beta. Breaking changes may be introduced in the future releases of the Squid SDK.
 :::
@@ -15,15 +17,21 @@ This section applies to squids indexing EVM chains. Subsquid supports all major 
 
 ## Overview and the data model
 
-A squid processor is a Node.js process that fetches historical on-chain data from an [Archive](/archives), performs arbitrary transformations and saves the result. By convention, the processor entry point is `src/processor.ts`. `EvmBatchProcessor` is the central class that handles EVM data extraction, transformation and persistence. A single [batch handler](/basics/batch-processing) function supplied to `EvmBatchProcessor.run()` is responsible for transforming data from multiple events and transactions in a single in-memory batch.
+A squid processor is a Node.js process that fetches historical on-chain data from an [Archive](/archives), performs arbitrary transformations and saves the result. `EvmBatchProcessor` is the central class that handles EVM data extraction, transformation and persistence. By convention, the processor entry point is `src/main.ts`; it is started by calling `EvmBatchProcessor.run()` there. A single [batch handler](/basics/batch-processing) function supplied to that method is responsible for transforming data from multiple blocks in a single in-memory batch.
 
-A batch can be thought of a simplified execution trace of the EVM runtime. It consists of `evmLog` and `transaction` items. The list of items that get into the batch is determined by the filters defined by the `EvmBatchProcessor` [configuration](/evm-indexing/configuration). Configuration is set by calling the `addLog()` and `addTransaction()` methods. The items in the batch are canonically ordered. Any event log item placed in a batch will always be immediately followed by an item for the transaction that emitted the event.
+(???? Update with the final processor capabilities)
+
+A batch provides iterables to access all items requested in [processor configuration](/evm-indexing/configuration), which may include logs, transactions, traces and contract [state diffs](/dead). It is customary to configure the processor object at `src/processor.ts` and export the `EvmBatchProcessor` object and types derived from it.
+
+Logs and transactions are ordered in the same way as they are within blocks; state diffs are ordered in the same way as the transactions that give rise to them; and for traces there are no order guarantees.
 
 Further, the processor can extract additional data by querying the [historical chain state](/evm-indexing/query-state) and indeed any [external API](https://github.com/subsquid/squid-external-api-example).
 
-Results of the ETL process can be stored in any Postgres-compatible database. Support for storing to CSV and [Parquet](https://parquet.apache.org), located either on a local filesystem or on an Amazon S3-compatible cloud storage, [is currently experimental](https://github.com/subsquid/squid-file-store).
+Results of the ETL process can be stored in any [Postgres-compatible database](/basics/store/typeorm-store/) or in [filesystem-based datasets](/basics/store/file-store/) in CSV and [Parquet](https://parquet.apache.org) formats.
 
 A typical processor looks as below:
+
+(???? The illustration needs updating)
 
 ![Batch processor context](</img/batch-context.png>)
 

@@ -7,6 +7,8 @@ title: Supported networks
 
 # Supported EVM networks
 
+(???? Update the list once the dev-ops are complete)
+
 The table below list the public EVM Archive endpoints to be used with [`setDataSource()`](/evm-indexing/configuration) `EvmBatchProcessor` configuration. 
 
 | Network                 |  Endpoint lookup command                    |        Archive endpoint                            |  
