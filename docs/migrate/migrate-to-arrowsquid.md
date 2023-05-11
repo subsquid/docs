@@ -25,7 +25,7 @@ Another major feature introduced by ArrowSquid is the support for transaction ex
 
 The `EvmBatchProcessor` configuration and data selection interfaces has been simplifed, together with a more efficient way to fetch the data from the archives. See [release notes](/dead) for a full list of changes.
 
-Here is a step-by-step guide for migrating a squid built with an older SDK version to the post-ArrowSquid tooling. An end-to-end ArrowSquid example indexing USDC transfers can be found [here](https://github.com/subsquid/squid-sdk/tree/master/test/eth-usdc-transfers).
+Here is a step-by-step guide for migrating a squid built with an older SDK version to the post-ArrowSquid tooling. An end-to-end ArrowSquid example indexing USDC transfers can be found [here](https://github.com/subsquid/squid-sdk/tree/master/test/eth-usdc-transfers). 
 
 ## Step 1
 
@@ -93,6 +93,8 @@ const processor = new EvmBatchProcessor()
   })
 ```
 
+The full documentation for the field selectors in under construction. Refer to this [gist](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a7d) for an early access.
+
 [//]: # "(???? can using a union of all field subsets increase the amount of data retrieved? or in other words, when we applied the `data` selector on a per-filter basis, did we actually use a different subset of fields for each filter? cause now it's not the case, apparently)"
 
 ## Step 4
@@ -132,6 +134,8 @@ then the new global selector should be added like this:
 +    }
    })
 ```
+
+The full documentation for the field selectors in under construction. Refer to this [gist](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a7d) for an early access.
 
 ## Step 5
 
