@@ -6,6 +6,8 @@ description: Step-by-step guide to the Arrowsquid update
 
 # Migrate to Arrowsquid
 
+**Disclaimer: This page has been (re)written for Arrowsquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
+
 This is a EVM guide. For a Substrate guide see [this page](/dead).
 
 Arrowsquid refers to the versions of Subsquid SDK after (???? add exact version info here).

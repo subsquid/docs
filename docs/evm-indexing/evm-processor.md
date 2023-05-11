@@ -7,6 +7,8 @@ description: >-
 
 # EVM Processor
 
+**Disclaimer: This page has been (re)written for Arrowsquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
+
 :::warning
 The EVM Archive API and `EvmBatchProcessor` are currently in beta. Breaking changes may be introduced in the future releases of the Squid SDK.
 :::
