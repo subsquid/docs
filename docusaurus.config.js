@@ -44,7 +44,7 @@ const config = {
               path: '/arrowsquid'
             },
             firesquid: {
-              label: 'Firesquid',
+              label: 'FireSquid',
               path: '/'
             }
           },
