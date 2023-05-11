@@ -41,7 +41,7 @@ If your squid did not use an RPC endpoint before, find one for your network and 
  processor.setDataSource({
 -   archive: lookupArchive('your-network', {type: 'EVM'})
 +  archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
-+  chain: 'https://your-network.public.blastapi.io'
++  chain: 'https://eth-mainnet.public.blastapi.io'
  })
 ```
 Note the new `v2`-archive endpoint, which has to be explicitly provided. We recommend using a private endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/).
