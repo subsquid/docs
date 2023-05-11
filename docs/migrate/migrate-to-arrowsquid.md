@@ -10,7 +10,7 @@ description: Step-by-step guide to the ArrowSquid update
 
 This is a EVM guide. For a Substrate guide see [this page](/dead).
 
-ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/evm-processor@3.x`. Both packages are currently are in beta and are published with the `@next` tag. Once fully stabilized, the packages will be released to general availability with the `@latest` tag.
+ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/evm-processor@3.x`. Both packages are currently are in beta and are published with the `@next` tag. Once fully stabilized, the packages will be released to general availability with the `@latest` tag. ArrowSquid is not compatible with the Firesquid archive endpoints, and a new `v2` Archive is currently released only Ethereum mainnet. ArrowSquid-compatible archives for the rest of EVM chains, including the Binance Chain, Polygon, Arbitrum will be gradually rolled out.
 
 The main feature introduced by the ArrowSquid update on EVM is the new ability of the [processor](/dead) to ingest unfinalized blocks directly from a network node, instead of waiting for the [archive](/dead) to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency. 
 
@@ -39,11 +39,12 @@ sqd bump
 If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor:
 ```diff
  processor.setDataSource({
-   archive: lookupArchive('your-network', {type: 'EVM'})
+-   archive: lookupArchive('your-network', {type: 'EVM'})
++  archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
 +  chain: 'https://your-network.public.blastapi.io'
  })
 ```
-We recommend using a private endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/).
+Note the new `v2`-archive endpoint, which has to be explicitly provided. We recommend using a private endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/).
 
 [//]: # "(???? can we relax the requirement to use the archive node at least for some processor settings? e.g. no traces)"
 
