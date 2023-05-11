@@ -10,11 +10,20 @@ description: Step-by-step guide to the ArrowSquid update
 
 This is a EVM guide. For a Substrate guide see [this page](/dead).
 
-ArrowSquid refers to the versions of Subsquid SDK after (???? add exact version info here).
+ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/evm-processor@3.x`. Both packages are currently are in beta and are published with the `@next` tag. Once fully stabilized, the packages will be released to general availability with the `@latest` tag.
 
-The main change introduced by the ArrowSquid update on EVM is the new ability of the [processor](/dead) to get its most recent chain data directly from network nodes, instead of waiting for the [archive](/dead) to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to follow the blockchain much more closely. Additionally, this relaxes the requirements on how closely [archives](/dead) must follow the chain, making it easier to decentralize them.
+The main feature introduced by the ArrowSquid update on EVM is the new ability of the [processor](/dead) to ingest unfinalized blocks directly from a network node, instead of waiting for the [archive](/dead) to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency. 
 
-Besides all of that, in ArrowSquid we streamlined the interface, added support for [EVM traces](/dead) and [state diffs](/dead), switched to a [more efficient mechanism](/dead) for transferring data from archives to squids and did much more. See [release notes](/dead) for a full list of changes.
+[//]: # "Additionally, this relaxes the requirements on how closely [archives](/dead) must follow the chain, making it easier to decentralize them. <-- Don't understand this sentence at all"
+
+Another major feature introduced by ArrowSquid is the support for transaction execution receipts, [EVM traces](/dead) and [state diffs](/dead). It enables a significantly more fine-grained control over the smart contract states, especially in the situations when the EVM log data is insufficient. For example, one can reliably index:
+
+- Transaction data, taking into account the transaction status
+- Keep track of internal calls
+- Watch smart contract state changes even if caused by internal transactions
+- Track smart contract creation and destruction
+
+The `EvmBatchProcessor` configuration and data selection interfaces has been simplifed, together with a more efficient way to fetch the data from the archives. See [release notes](/dead) for a full list of changes.
 
 Here is a step-by-step guide for migrating a squid built with an older SDK version to the post-ArrowSquid tooling.
 
@@ -31,11 +40,12 @@ If your squid did not use an RPC endpoint before, find one for your network and 
 ```diff
  processor.setDataSource({
    archive: lookupArchive('your-network', {type: 'EVM'})
-+  chain: 'https://rpc.ankr.com/yournetwork'
++  chain: 'https://your-network.public.blastapi.io'
  })
 ```
+We recommend using a private endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/).
 
-(???? can we relax the requirement to use the archive node at least for some processor settings? e.g. no traces)
+[//]: # "(???? can we relax the requirement to use the archive node at least for some processor settings? e.g. no traces)"
 
 ## Step 3
 
@@ -82,7 +92,7 @@ const processor = new EvmBatchProcessor()
   })
 ```
 
-(???? can using a union of all field subsets increase the amount of data retrieved? or in other words, when we applied the `data` selector on a per-filter basis, did we actually use a different subset of fields for each filter? cause now it's not the case, apparently)
+[//]: # "(???? can using a union of all field subsets increase the amount of data retrieved? or in other words, when we applied the `data` selector on a per-filter basis, did we actually use a different subset of fields for each filter? cause now it's not the case, apparently)"
 
 ## Step 4
 
@@ -212,7 +222,7 @@ If your squid uses [`typeorm-store`](/basics/store/typeorm-store/), enable hot b
 
 Iteratively reconcile any type errors arising when building your squid (e.g. with `sqd build`). In case you're using `tranformContext.ts` you may find the types it exports helpful.
 
-(???? Where do I get the `Fields` type?)
+[//]: # "(???? Where do I get the `Fields` type?)"
 
 At this point your squid should be able to work with the ArrowSquid tooling. If it doesn't, read on.
 
