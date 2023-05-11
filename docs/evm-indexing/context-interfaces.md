@@ -6,6 +6,8 @@ description: >-
 
 # BatchContext for EVM
 
+**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
+
 A `EvmBatchProcessor` instance expects a single user-defined batch handler to be implemented by the `run()` method: 
 ```ts
 processor.run<Store>(
