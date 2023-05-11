@@ -40,7 +40,7 @@ const config = {
           lastVersion: 'firesquid',
           versions: {
             current: {
-              label: 'Arrowsquid',
+              label: 'ArrowSquid',
               path: '/arrowsquid'
             },
             firesquid: {
@@ -75,7 +75,14 @@ const config = {
         src: 'img/logo-light.svg',
         srcDark: 'img/logo-dark.svg',
       },
-      items: [],
+      items: [
+        {
+          type: 'docsVersionDropdown',
+          position: 'left',
+          dropdownItemsAfter: [{to: '/versions', label: 'All versions'}],
+          dropdownActiveClassDisabled: true,
+        },
+      ],
       hideOnScroll: true
     },
     colorMode: {

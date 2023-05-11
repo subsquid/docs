@@ -1,22 +1,22 @@
 ---
 sidebar_position: 3
-title: Migrate to Arrowsquid
-description: Step-by-step guide to the Arrowsquid update
+title: Migrate to ArrowSquid
+description: Step-by-step guide to the ArrowSquid update
 ---
 
-# Migrate to Arrowsquid
+# Migrate to ArrowSquid
 
-**Disclaimer: This page has been (re)written for Arrowsquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
+**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
 
 This is a EVM guide. For a Substrate guide see [this page](/dead).
 
-Arrowsquid refers to the versions of Subsquid SDK after (???? add exact version info here).
+ArrowSquid refers to the versions of Subsquid SDK after (???? add exact version info here).
 
-The main change introduced by the Arrowsquid update on EVM is the new ability of the [processor](/dead) to get its most recent chain data directly from network nodes, instead of waiting for the [archive](/dead) to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to follow the blockchain much more closely. Additionally, this relaxes the requirements on how closely [archives](/dead) must follow the chain, making it easier to decentralize them.
+The main change introduced by the ArrowSquid update on EVM is the new ability of the [processor](/dead) to get its most recent chain data directly from network nodes, instead of waiting for the [archive](/dead) to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to follow the blockchain much more closely. Additionally, this relaxes the requirements on how closely [archives](/dead) must follow the chain, making it easier to decentralize them.
 
-Besides all of that, in Arrowsquid we streamlined the interface, added support for [EVM traces](/dead) and [state diffs](/dead), switched to a [more efficient mechanism](/dead) for transferring data from archives to squids and did much more. See [release notes](/dead) for a full list of changes.
+Besides all of that, in ArrowSquid we streamlined the interface, added support for [EVM traces](/dead) and [state diffs](/dead), switched to a [more efficient mechanism](/dead) for transferring data from archives to squids and did much more. See [release notes](/dead) for a full list of changes.
 
-Here is a step-by-step guide for migrating a squid built with an older SDK version to the post-Arrowsquid tooling.
+Here is a step-by-step guide for migrating a squid built with an older SDK version to the post-ArrowSquid tooling.
 
 ## Step 1
 
@@ -214,7 +214,7 @@ Iteratively reconcile any type errors arising when building your squid (e.g. wit
 
 (???? Where do I get the `Fields` type?)
 
-At this point your squid should be able to work with the Arrowsquid tooling. If it doesn't, read on.
+At this point your squid should be able to work with the ArrowSquid tooling. If it doesn't, read on.
 
 ## Troubleshooting
 
