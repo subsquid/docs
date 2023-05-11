@@ -19,19 +19,15 @@ This section applies to squids indexing EVM chains. Subsquid supports all major 
 
 A squid processor is a Node.js process that fetches historical on-chain data from an [Archive](/archives), performs arbitrary transformations and saves the result. `EvmBatchProcessor` is the central class that handles EVM data extraction, transformation and persistence. By convention, the processor entry point is `src/main.ts`; it is started by calling `EvmBatchProcessor.run()` there. A single [batch handler](/basics/batch-processing) function supplied to that method is responsible for transforming data from multiple blocks in a single in-memory batch.
 
-(???? Update with the final processor capabilities)
+[//]: # (???? Update with the final processor capabilities)
 
-A batch provides iterables to access all items requested in [processor configuration](/evm-indexing/configuration), which may include logs, transactions, traces and contract [state diffs](/dead). It is customary to configure the processor object at `src/processor.ts` and export the `EvmBatchProcessor` object and types derived from it.
-
-Logs and transactions are ordered in the same way as they are within blocks; state diffs are ordered in the same way as the transactions that give rise to them; and for traces there are no order guarantees.
-
-Further, the processor can extract additional data by querying the [historical chain state](/evm-indexing/query-state) and indeed any [external API](https://github.com/subsquid/squid-external-api-example).
+A batch provides iterables to access all items requested in [processor configuration](/evm-indexing/configuration), which may include logs, transactions, traces and contract [state diffs](/dead); see the [batch context page](../context-interfaces/) for details. Further, the processor can extract additional data by querying the [historical chain state](../query-state) and indeed any [external API](https://github.com/subsquid/squid-external-api-example).
 
 Results of the ETL process can be stored in any [Postgres-compatible database](/basics/store/typeorm-store/) or in [filesystem-based datasets](/basics/store/file-store/) in CSV and [Parquet](https://parquet.apache.org) formats.
 
 A typical processor looks as below:
 
-(???? The illustration needs updating)
+[//]: # (???? The illustration needs updating)
 
 ![Batch processor context](</img/batch-context.png>)
 

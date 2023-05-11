@@ -10,7 +10,7 @@ description: Step-by-step guide to the ArrowSquid update
 
 This is a EVM guide. For a Substrate guide see [this page](/dead).
 
-ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/evm-processor@3.x`. Both packages are currently are in beta and are published with the `@next` tag. Once fully stabilized, the packages will be released to general availability with the `@latest` tag. ArrowSquid is not compatible with the FireSquid archive endpoints, and a new `v2` Archive is currently released only Ethereum mainnet. ArrowSquid-compatible archives for the rest of EVM chains, including the Binance Chain, Polygon, Arbitrum will be gradually rolled out.
+ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`. Both packages are currently are in beta and are published with the `@next` tag. Once fully stabilized, the packages will be released to general availability with the `@latest` tag. ArrowSquid is not compatible with the FireSquid archive endpoints, and a new `v2` Archive is currently released only for Ethereum mainnet. ArrowSquid-compatible archives for the rest of EVM chains, including the Binance Chain, Polygon, Arbitrum will be gradually rolled out.
 
 The main feature introduced by the ArrowSquid update on EVM is the new ability of the [processor](/dead) to ingest unfinalized blocks directly from a network node, instead of waiting for the [archive](/dead) to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency. 
 
@@ -20,10 +20,10 @@ Another major feature introduced by ArrowSquid is the support for transaction ex
 
 - Transaction data, taking into account the transaction status
 - Keep track of internal calls
-- Watch smart contract state changes even if caused by internal transactions
+- Observe smart contract state changes even if they are caused by internal transactions
 - Track smart contract creation and destruction
 
-The `EvmBatchProcessor` configuration and data selection interfaces has been simplifed, together with a more efficient way to fetch the data from the archives. See [release notes](/dead) for a full list of changes.
+The `EvmBatchProcessor` configuration and data selection interfaces has been simplified and the way in which the data is fetched from archives has been made more efficient. See [release notes](/dead) for a full list of changes.
 
 Here is a step-by-step guide for migrating a squid built with an older SDK version to the post-ArrowSquid tooling. An end-to-end ArrowSquid example indexing USDC transfers can be found [here](https://github.com/subsquid/squid-sdk/tree/master/test/eth-usdc-transfers). 
 
@@ -31,17 +31,18 @@ Here is a step-by-step guide for migrating a squid built with an older SDK versi
 
 Update all packages affected by the update:
 ```bash
-sqd bump
+npm i @subsquid/evm-processor@next
+npm i @subsquid/typeorm-store@next
 ```
 
 ## Step 2
 
-If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor:
+If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor, e.g.
 ```diff
  processor.setDataSource({
--   archive: lookupArchive('your-network', {type: 'EVM'})
-+  archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
-+  chain: 'https://eth-mainnet.public.blastapi.io'
+-  archive: lookupArchive('eth-mainnet', {type: 'EVM'})
++  archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
++  chain: 'https://eth-rpc.gateway.pokt.network'
  })
 ```
 Note the new `v2`-archive endpoint, which has to be explicitly provided. We recommend using a private endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/).
@@ -50,7 +51,7 @@ Note the new `v2`-archive endpoint, which has to be explicitly provided. We reco
 
 ## Step 3
 
-Next, we have to account for the changes in the signatures of [`addLog()`](/evm-indexing/configuration/evm-logs/) and [`addTransaction()`](/evm-indexing/configuration/transactions/) processor methods. Previously, each call of these methods supplied its own fine-grained [data selectors](/evm-indexing/configuration/data-selectors/). In the new interface, these calls can only enable or disable access to additional data (with boolean flags `transaction` for `addLog()` and `logs` for `addTransaction()`). Fine-grained field selection is now done by the new `setFields()` method on a per-item-type basis: once for all `log`s, once for all `transaction`s etc. The setting is processor-wide: for example, all `log`s returned by the processor will have the same set of available fields, regardless of whether they are taken from the batch context directly or are accessed from within a `transaction` item.
+Next, we have to account for the changes in signatures of [`addLog()`](/evm-indexing/configuration/evm-logs/) and [`addTransaction()`](/evm-indexing/configuration/transactions/) processor methods. Previously, each call of these methods supplied its own fine-grained [data selectors](/evm-indexing/configuration/data-selectors/). In the new interface, these calls can only enable or disable access to additional data (with boolean flags `transaction` for `addLog()` and `logs` for `addTransaction()`). Fine-grained field selection is now done by the new `setFields()` method on a per-item-type basis: once for all `log`s, once for all `transaction`s etc. The setting is processor-wide: for example, all `transaction`s returned by the processor will have the same set of available fields, regardless of whether they are taken from the batch context directly or are accessed from within a `log` item.
 
 Begin migrating to the new interface by finding all calls to `addLog()` and combining all the `evmLog` data selectors into a single processor-wide data selector that requests all fields previously requested by individual selectors. Remove the `id`, `logIndex` (previously `index`) and `transactionIndex` fields: now they are always available and cannot be requested explicitly. When done, make a call to `setFields()` and supply the new data selector at the `log` field of its argument. For example, suppose the processor was initialized with the following three calls:
 ```typescript
@@ -92,10 +93,11 @@ const processor = new EvmBatchProcessor()
     }
   })
 ```
+Be aware that this operation will not increase the amount of data retrieved from the archive, since previously such coalescence was done under the hood and all fields were retrieved by the processor anyway. In fact, the amount of data should decrease due to a more efficient transfer mechanism employed by ArrowSquid.
 
 The full documentation for the field selectors in under construction. Refer to this [gist](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a7d) for an early access.
 
-[//]: # "(???? can using a union of all field subsets increase the amount of data retrieved? or in other words, when we applied the `data` selector on a per-filter basis, did we actually use a different subset of fields for each filter? cause now it's not the case, apparently)"
+[//]: # (!!!! provide a link to the full documentation once done)
 
 ## Step 4
 
@@ -136,6 +138,8 @@ then the new global selector should be added like this:
 ```
 
 The full documentation for the field selectors in under construction. Refer to this [gist](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a7d) for an early access.
+
+[//]: # (!!!! provide a link to the full documentation once done)
 
 ## Step 5
 
@@ -195,7 +199,7 @@ const processor = new EvmBatchProcessor()
 
 ## Step 6
 
-Finally, update the batch handler to use the new [batch context](/dead). There are two ways to do that:
+Finally, update the batch handler to use the new [batch context](/arrowsquid/evm-indexing/context-interfaces). There are two ways to do that:
 
 1. If you're in a hurry, use the [`transformContext.ts`](https://gist.github.com/belopash/aa6b67dc374add44b9bdff1c9c1eee17) module. Download it with
    ```bash
@@ -213,7 +217,9 @@ Finally, update the batch handler to use the new [batch context](/dead). There a
    })
    ```
 
-2. Alternatively, rewrite your batch handler using the [new batch context interface](/dead).
+2. Alternatively, rewrite your batch handler using the [new batch context interface](/arrowsquid/evm-indexing/context-interfaces/).
+
+[//]: # (!!!! remove the /arrowsquid prefix from links)
 
 ## Step 7
 

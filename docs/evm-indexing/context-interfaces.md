@@ -6,6 +6,8 @@ description: >-
 
 # BatchContext for EVM
 
+**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
+
 A `EvmBatchProcessor` instance expects a single user-defined batch handler to be implemented by the `run()` method: 
 ```ts
 processor.run<Store>(
@@ -23,7 +25,7 @@ Here, `F` and `Store` are inferred from the `EvmBatchProcessor` method calls:
     }
    ```
    It is used to determine the exact set of fields within the [data items](#data-item-types) retrieved by the processor.
- * [`Store`](#store) is the interface used to persist the processed data.
+ * [`Store`](#the-store-interface) is the interface used to persist the processed data.
 
 ## `DataHandlerContext` interface
 
@@ -46,7 +48,7 @@ export interface DataHandlerContext<Store, F extends FieldSelection = {}> {
 
 ## `BlockData`
 
-(???? Update the interface with any final corrections)
+[//]: # (???? Update the interface with any final corrections)
 
 The `blocks` field holds the data to be processed, aligned at the block level.
 ```ts
@@ -66,9 +68,9 @@ export type BlockData<F extends FieldSelection = {}> = {
 
 ## Data item types
 
-### `Log`
+All data item types are generics depending on the field selection type, `F extends FieldSelection`. Some of their fields are fixed and some can be added or removed via [`setFields()`](/dead).
 
-`Log<F extends FieldSelection>` is a generic type for EVM log data. Some of its fields are fixed and some can be added or removed [upon request](/dead).
+### `Log`
 
 ```ts
 Log<F> {
@@ -76,8 +78,8 @@ Log<F> {
   id: string
   logIndex: number
   transactionIndex: number
-  transaction?: Transaction<F>
   block: BlockHeader<F>
+  transaction?: Transaction<F>
 
   // fields that can be disabled via F
   address: string
@@ -88,22 +90,29 @@ Log<F> {
   transactionHash: string
 }
 ```
-See the [block header section](#blockheader) for the definition of `BlockHeader<F>`.
+See the [block header section](#blockheader) for the definition of `BlockHeader<F>` and the [transaction section](#transaction) for the definition of `Transaction<F>`.
 
 ### `Transaction`
 
 ```ts
 Transaction<F> {
+  // fixed fields
+  id: string
+  transactionIndex: number
+  block: BlockHeader<F>
+
+  // fields that can be disabled via F
   from: string
+  to?: string
+  hash: string
+
+  // fields that can be requested via F
   gas: bigint
   gasPrice: bigint
   maxFeePerGas?: bigint
   maxPriorityFeePerGas?: bigint
-  hash: string
   input: string
   nonce: number
-  to?: string
-  transactionIndex: number
   value: bigint
   v?: bigint
   r?: string
@@ -119,27 +128,128 @@ Transaction<F> {
   sighash: string
 }
 ```
+See the [block header section](#blockheader) for the definition of `BlockHeader<F>`.
+
+### `StateDiff`
+
+```ts
+StateDiff<F> {
+  // fixed fields
+  transactionIndex: number
+  block: BlockHeader<F>
+  transaction?: Transaction<F>
+  address: string
+  key: 'balance' | 'code' | 'nonce' | string
+
+  // fields that can be disabled via F
+  kind: '=' | '+' | '*' | '-'
+  prev?: string | null
+  next?: string | null
+}
+```
+See the [block header section](#blockheader) for the definition of `BlockHeader<F>` and the [transaction section](#transaction) for the definition of `Transaction<F>`.
+
+### `Trace`
+
+[//]: # (???? extra attention to any interface changes here)
+
+```ts
+Trace<F> {
+  // fixed fields
+  transactionIndex: number
+  block: BlockHeader<F>
+  transaction?: Transaction<F>
+  traceAddress: number[]
+  type: 'create' | 'call' | 'suicide' | 'reward'
+
+  // fields that can be disabled via F
+  error: string | null
+
+  // fields that can be requested via F
+  subtraces: number
+  // if (type==='create')
+  action: {
+    from: string
+    value: bigint
+    gas: bigint
+    init: string
+  }
+  result?: {
+    gasUsed: bigint
+    code: string
+    address?: string
+  }
+  // if (type==='call')
+  action: {
+    from: string
+    to: string
+    value: bigint
+    gas: bigint
+    sighash: string
+    input: string
+  }
+  result?: {
+    gasUsed: bigint
+    output: string
+  }
+  // if (type==='suicide')
+  action: {
+    address: string
+    refundAddress: string
+    balance: bigint
+  }
+  // if (type==='reward')
+  action: {
+    author: string
+    value: bigint
+    type: string
+  }
+}
+```
 
 ### `BlockHeader`
 
 ```ts
 BlockHeader<F>{
+  // fixed fields
   hash: string
   height: number
   id: string
   parentHash: string
+
+  // fields that can be disabled via F
   timestamp: number
+
+  // fields that can be requested via F
+  nonce?: string
+  sha3Uncles: string
+  logsBloom: string
+  transactionsRoot: string
+  stateRoot: string
+  receiptsRoot: string
+  mixHash?: string
+  miner: string
+  difficulty?: bigint
+  totalDifficulty?: bigint
+  extraData: string
+  size: bigint
+  gasLimit: bigint
+  gasUsed: bigint
+  baseFeePerGas?: bigint
 }
 ```
 
-## `Store`
+## The `Store` interface
 
 A concrete `ctx.store` instance is derived at runtime from the `run()` method argument via
 
 ```ts
-processor.run<Store>(db: Database<Store>, batchHandler: (ctx: BatchContext<Store>) => Promise<void>)
+processor.run<Store>(
+  db: Database<Store>,
+  batchHandler: (ctx: DataHandlerContext<Store, F>) => Promise<void>
+): void
 ``` 
-For Postgres-compatible `Database`s, `ctx.store` has a TypeORM [EntityManager](https://typeorm.io/entity-manager-api)-like [interface](/basics/store/typeorm-store) extended with additional support for batch updates. The interface may differ for other `Database` implementations, including the experimental `@subsquid/file-store` package.
+For Postgres-compatible `Database`s, `ctx.store` has a TypeORM [EntityManager](https://typeorm.io/entity-manager-api)-like [interface](/basics/store/typeorm-store) extended with additional support for batch updates. The interface may differ for other `Database` implementations, including [`@subsquid/file-store`](/basics/store/file-store).
 
 See [Processor Store](/basics/store) for details.
 
@@ -158,32 +268,33 @@ import { MyEntity } from './model/generated/myEntity.model';
 
 const processor = new EvmBatchProcessor()
   .setDataSource({
-    archive: 'https://eth.archive.subsquid.io',
+    archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
+    chain: 'https://eth-rpc.gateway.pokt.network'
   })
-  .setBlockRange({ from: 6175243 })
-  .addLog('0x2E645469f354BB4F5c8a05B3b30A929361cf77eC', {
-    filter: [[ ]],
-    data: {
-      evmLog: {
-        topics: true,
-        data: true,
-      },
-    } as const,
-  });
+  .setBlockRange({ from: 17000000 })
+  .addLog({
+    address: ['0x2E645469f354BB4F5c8a05B3b30A929361cf77eC']
+  })
+  .setFields({
+    log: {
+      topics: true,
+      data: true
+    }
+  })
 
-processor.run(new TypeormDatabase(), async (ctx) => {
-  for (const c of ctx.blocks) {
-    for (const i of c.items) {
-      ctx.log.info(i, `Item:`)
+processor.run(new TypeormDatabase({supportHotBlocks: true}), async (ctx) => {
+  for (let c of ctx.blocks) {
+    for (let log of c.logs) {
+      ctx.log.info(log, `Log:`)
     }
   }
   await ctx.store.save([
     new MyEntity({id: '1', foo: 'bar'}), 
     new MyEntity({id: '2', foo: 'baz'})
   ])
-});
+})
 ```
 
-One can experiment with the [data selectors](/evm-indexing/configuration/data-selectors) and see how the output changes.
+One can experiment with the [`setFields()`](/dead) and see how the output changes.
 
-For more elaborate examples, check the [Gravatar squid](https://github.com/subsquid/squid-evm-template/tree/gravatar-squid) and [EVM Examples](/examples).
+For more elaborate examples, check [EVM Examples](/examples).
