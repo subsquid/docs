@@ -1,7 +1,7 @@
 ---
 sidebar_position: 20
 description: >-
-  Set filters and data selectors for EVM logs
+  Filter and retrieve EVM logs
 ---
 
 # EVM logs
@@ -12,9 +12,9 @@ description: >-
 ```typescript
 {
   // filters
-  address?: string[],
-  topic0?: string[],
-  range?: {from: number, to?: number},
+  address?: string[]
+  topic0?: string[]
+  range?: {from: number, to?: number}
 
   // data selector
   transaction?: boolean
@@ -29,7 +29,7 @@ The filters here are:
 
 Enabling the coarse-grained `transaction` data selector will cause the processor to retrieve parent transaction data and add it to the log items.
 
-Selection of the exact data to be retrieved for each log item is done with the `setFields()` method documented on the [Data selection](../data-selection) page. Some examples of its usage are available below.
+Selection of the exact data to be retrieved for each log item is done with the `setFields()` method documented on the [Data selection](../data-selection) page. Some examples are available below.
 
 ## Examples
 
@@ -40,7 +40,8 @@ Fetch `NewGravatar(uint256,address,string,string)` and `UpdateGravatar(uint256,a
 ```ts
 const processor = new EvmBatchProcessor()
   .setDataSource({
-    archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
+    archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
+    chain: 'https://eth-rpc.gateway.pokt.network'
   })
   .addLog({
     address: ['0x2e645469f354bb4f5c8a05b3b30a929361cf77ec'],
