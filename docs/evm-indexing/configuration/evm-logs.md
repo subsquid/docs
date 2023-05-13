@@ -1,113 +1,66 @@
 ---
 sidebar_position: 20
 description: >-
-  Set filters and data selectors for EVM logs
+  Filter and retrieve EVM logs
 ---
 
 # EVM logs
 
-**`addLog(contract: string | string[], options?)`**: Subscribe to EVM log data (events) emitted by specific contracts.
+**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
 
-The optional `options?` argument defines:
-+ filters by block range and topic, and
-+ [data selectors](/evm-indexing/configuration/data-selectors) to specify the data provided by the corresponding [item](/evm-indexing/context-interfaces):
-
+**`addLog(options)`**: Subscribe to events/EVM log data. The `options` object has the following structure:
 ```typescript
 {
-   range?: Range,
-   filter?: EvmTopicSet[],
-   data?: {
-     evmLog: { 
-        // data selection, a subset of EvmLog fields
-     },
-     transaction: {
-        // data selection for the associated transaction, 
-        // a subset of EvmTransaction fields
-     }
-   }  
+  // filters
+  address?: string[]
+  topic0?: string[]
+  range?: {from: number, to?: number}
+
+  // data selector
+  transaction?: boolean
 }
 ```
+The filters here are:
++ `address`: the set of addresses of contracts emitting the logs. Leave undefined or set to `[]` to subscribe to all events from the whole network.
++ `topic0`: the set of values of `topic0`.
++ `range`: the range of blocks where the logs should be looked for.
 
-## Filters
+[//]: # (!!!! Update when the filter set stabilizes)
 
-Topic filter format is a (fully expressive) subset of [Ethers.js filter specification](https://docs.ethers.io/v5/concepts/events/#events--filters). 
+Enabling the coarse-grained `transaction` data selector will cause the processor to retrieve parent transaction data and add it to the log items.
 
-| Filter                 | Matching Logs                         |  
-|:-----------------------:|:------------------------------------:|
-| `[ A ]`                 | `topic[0] == A`                      |
-| `[ [], B ]`             | `topic[1] == B`                      |
-| `[ A, B ]` or `[A, [B]]`| `(topic[0] == A) AND (topic[1] = B)` |
-| `[[ A, B ]]`            | `(topic[0] == A) OR (topic[1] = B)`  |
-| `[ [ A, B ], [ C, D ] ]`| `[ (topic[0] == A) OR (topic[0] == B) ] AND [ (topic[1] == C) OR (topic[1] == D) ]` |
-
-
-The difference here is due to `EvmTopicSet` being a non-nullable type: instead of `null`s empty lists `[]` must be used. See examples below.
-
-`EvmBatchProcessor`s subscribed to events also *always* retrieve the transactions that emitted the events and place them immediately after their event log items in the batch.
-
-## Data Selectors
-
-The optional `data?` field is expected to contain a [data selector](/evm-indexing/configuration/data-selectors):
-```ts
-data: {
-  evmLog: {
-    // data selector for the event item
-  },
-  transaction: {
-    // data selector for the tx emitted the event
-  }
-}
-```
-The requested fields will be populated in the corresponding [items](/evm-indexing/context-interfaces) of the `processor.run()` context.
+Selection of the exact data to be retrieved for each log item is done with the `setFields()` method documented on the [Data selection](../data-selection) page. Some examples are available below.
 
 ## Examples
 
-1) Fetch `NewGravatar(uint256,address,string,string)` and `UpdateGravatar(uint256,address,string,string)` event logs emitted by `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC`. For each log, fetch transaction input, topic set and log data.
+Fetch `NewGravatar(uint256,address,string,string)` and `UpdateGravatar(uint256,address,string,string)` event logs emitted by `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC`. For each log, fetch topic set, log data and the input of the parent transaction.
+
+[//]: # (!!!! change the archive URL back once archive-registry has arrowsquid archives)
 
 ```ts
 const processor = new EvmBatchProcessor()
   .setDataSource({
-    archive: lookupArchive('eth-mainnet'),
+    archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
+    chain: 'https://eth-rpc.gateway.pokt.network'
   })
-  .addLog('0x2e645469f354bb4f5c8a05b3b30a929361cf77ec', {
-    filter: [[
+  .addLog({
+    address: ['0x2e645469f354bb4f5c8a05b3b30a929361cf77ec'],
+    topic0: [
       // topic: 'NewGravatar(uint256,address,string,string)'
       '0x9ab3aefb2ba6dc12910ac1bce4692cf5c3c0d06cff16327c64a3ef78228b130b',
       // topic: 'UpdatedGravatar(uint256,address,string,string)'
       '0x76571b7a897a1509c641587568218a290018fbdc8b9a724f17b77ff0eec22c0c',
-    ]],
-    data: {
-      evmLog: {
-        topics: true, 
-        data: true,  
-      },
-      transaction: {
-        input: true
-      }
-    },
-  })
-```
-
-2) Fetch every `Transfer(address,address,uint256)` event on Ethereum mainnet where *topic2* is set to the destination address (a common but [non-standard](https://eips.ethereum.org/EIPS/eip-20) practice) and the destination is `vitalik.eth` a.k.a. `0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045`. For each log, fetch transaction hash and log data.
-
-```ts
-const processor = new EvmBatchProcessor()
-  .setDataSource({
-    archive: 'https://eth.archive.subsquid.io'
-  })
-  .addLog([], {
-    filter: [
-      // topic0: 'Transfer(address,address,uint256)'
-      [ '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef' ],
-      // topic1: anything goes
-      [],
-      // topic2: vitalik.eth
-      [ '0x000000000000000000000000d8da6bf26964af9d7eed9e03e53415d37aa96045' ]
     ],
-    data: {
-      evmLog: { id: true, data: true },
-      transaction: { hash: true }
-    } as const
+    transaction: true
+  })
+  .setFields({
+    log: {
+      topics: true,
+      data: true
+    },
+    transaction: {
+      input: true
+    }
   })
 ```
 
@@ -117,10 +70,12 @@ Typescript ABI modules generated by [`squid-evm-typegen`](/evm-indexing/squid-ev
 ```ts
   import * as gravatarAbi from './abi/gravatar'
   // ...
-    filter: [[
+    topic0: [
       gravatarAbi.events.NewGravatar.topic,
       gravatarAbi.events.UpdatedGravatar.topic,
-    ]],
+    ],
   // ...
 ```
 :::
+
+[//]: # (!!!! restore the second example from commit af65797005511332462064c390a471761b7578b0 once the processor is capable of that)

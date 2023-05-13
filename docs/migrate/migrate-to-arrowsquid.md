@@ -12,9 +12,9 @@ This is a EVM guide. For a Substrate guide see [this page](/dead).
 
 ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`. Both packages are currently are in beta and are published with the `@next` tag. Once fully stabilized, the packages will be released to general availability with the `@latest` tag. ArrowSquid is not compatible with the FireSquid archive endpoints, and a new `v2` Archive is currently released only for Ethereum mainnet. ArrowSquid-compatible archives for the rest of EVM chains, including the Binance Chain, Polygon, Arbitrum will be gradually rolled out.
 
-The main feature introduced by the ArrowSquid update on EVM is the new ability of the [processor](/dead) to ingest unfinalized blocks directly from a network node, instead of waiting for the [archive](/dead) to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency. 
+The main feature introduced by the ArrowSquid update on EVM is the new ability of the [processor](/arrowsquid/evm-indexing/evm-processor) to ingest unfinalized blocks directly from a network node, instead of waiting for the [archive](/dead) to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency. 
 
-[//]: # "Additionally, this relaxes the requirements on how closely [archives](/dead) must follow the chain, making it easier to decentralize them. <-- Don't understand this sentence at all"
+[//]: # (???? Additionally, this relaxes the requirements on how closely archives must follow the chain, making it easier to decentralize them. <-- Don't understand this sentence at all)
 
 Another major feature introduced by ArrowSquid is the support for transaction execution receipts, [EVM traces](/dead) and [state diffs](/dead). It enables a significantly more fine-grained control over the smart contract states, especially in the situations when the EVM log data is insufficient. For example, one can reliably index:
 
@@ -51,7 +51,9 @@ Note the new `v2`-archive endpoint, which has to be explicitly provided. We reco
 
 ## Step 3
 
-Next, we have to account for the changes in signatures of [`addLog()`](/evm-indexing/configuration/evm-logs/) and [`addTransaction()`](/evm-indexing/configuration/transactions/) processor methods. Previously, each call of these methods supplied its own fine-grained [data selectors](/evm-indexing/configuration/data-selectors/). In the new interface, these calls can only enable or disable access to additional data (with boolean flags `transaction` for `addLog()` and `logs` for `addTransaction()`). Fine-grained field selection is now done by the new `setFields()` method on a per-item-type basis: once for all `log`s, once for all `transaction`s etc. The setting is processor-wide: for example, all `transaction`s returned by the processor will have the same set of available fields, regardless of whether they are taken from the batch context directly or are accessed from within a `log` item.
+[//]: # (!!!! remove /arrowsquid from links)
+
+Next, we have to account for the changes in signatures of [`addLog()`](/arrowsquid/evm-indexing/configuration/evm-logs/) and [`addTransaction()`](/arrowsquid/evm-indexing/configuration/transactions/) processor methods. Previously, each call of these methods supplied its own fine-grained [data selectors](/evm-indexing/configuration/data-selectors/). In the new interface, these calls can only enable or disable access to additional data (with boolean flags `transaction` for `addLog()` and `logs` for `addTransaction()`). Fine-grained field selection is now done by the new `setFields()` method on a per-item-type basis: once for all `log`s, once for all `transaction`s etc. The setting is processor-wide: for example, all `transaction`s returned by the processor will have the same set of available fields, regardless of whether they are taken from the batch context directly or are accessed from within a `log` item.
 
 Begin migrating to the new interface by finding all calls to `addLog()` and combining all the `evmLog` data selectors into a single processor-wide data selector that requests all fields previously requested by individual selectors. Remove the `id`, `logIndex` (previously `index`) and `transactionIndex` fields: now they are always available and cannot be requested explicitly. When done, make a call to `setFields()` and supply the new data selector at the `log` field of its argument. For example, suppose the processor was initialized with the following three calls:
 ```typescript
@@ -101,7 +103,7 @@ The full documentation for the field selectors in under construction. Refer to t
 
 ## Step 4
 
-Repeat step 3 for the `transaction` data selector. Make sure to check any transaction data selections by `addLog()` calls in addition to these made by [`addTransaction()`](/evm-indexing/configuration/transactions/). Remove the default fields `id` and `transactionIndex` (previously `index`) and add the final data selector to the `.setFields()` call. For example, suppose the processor was initialized like this:
+Repeat step 3 for the `transaction` data selector. Make sure to check any transaction data selections by `addLog()` calls in addition to these made by [`addTransaction()`](/arrowsquid/evm-indexing/configuration/transactions/). Remove the default fields `id` and `transactionIndex` (previously `index`) and add the final data selector to the `.setFields()` call. For example, suppose the processor was initialized like this:
 ```typescript
 const processor = new EvmBatchProcessor()
   .addLog(CONTRACT_ADDRESS, {
@@ -143,7 +145,7 @@ The full documentation for the field selectors in under construction. Refer to t
 
 ## Step 5
 
-Replace the old calls to `addLog()` and `addTransaction()` with the calls using [new signatures](/dead).
+Replace the old calls to `addLog()` and `addTransaction()` with the calls using [new signatures](/arrowsquid/evm-indexing/configuration).
 
 Old data selectors will be erased during the process. Make sure to request the appropriate data with the boolean flags (`transaction` for `addLog()` and `logs` for `addTransaction()`) while doing that.
 
