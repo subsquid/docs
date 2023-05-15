@@ -1,7 +1,7 @@
 ---
 sidebar_position: 20
 description: >-
-  Filter and retrieve EVM logs
+  Subscribe to event data with addLog()
 ---
 
 # EVM logs

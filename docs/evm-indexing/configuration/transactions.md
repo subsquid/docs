@@ -1,7 +1,7 @@
 ---
 sidebar_position: 30
 description: >-
-  Filter and retrieve transactions
+  Subscribe to txn data with addTransaction()
 ---
 
 # EVM transactions 
