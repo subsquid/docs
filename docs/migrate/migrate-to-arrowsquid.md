@@ -14,8 +14,6 @@ ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/s
 
 The main feature introduced by the ArrowSquid update on EVM is the new ability of the [processor](/arrowsquid/evm-indexing/evm-processor) to ingest unfinalized blocks directly from a network node, instead of waiting for the [archive](/dead) to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency. 
 
-[//]: # (???? Additionally, this relaxes the requirements on how closely archives must follow the chain, making it easier to decentralize them. <-- Don't understand this sentence at all)
-
 Another major feature introduced by ArrowSquid is the support for transaction execution receipts, [EVM traces](/dead) and [state diffs](/dead). It enables a significantly more fine-grained control over the smart contract states, especially in the situations when the EVM log data is insufficient. For example, one can reliably index:
 
 - Transaction data, taking into account the transaction status
@@ -97,9 +95,7 @@ const processor = new EvmBatchProcessor()
 ```
 Be aware that this operation will not increase the amount of data retrieved from the archive, since previously such coalescence was done under the hood and all fields were retrieved by the processor anyway. In fact, the amount of data should decrease due to a more efficient transfer mechanism employed by ArrowSquid.
 
-The full documentation for the field selectors in under construction. Refer to this [gist](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a7d) for an early access.
-
-[//]: # (!!!! provide a link to the full documentation once done)
+See the [Data selection](/arrowsquid/evm-indexing/configuration/data-selection) page for full documentation on field selectors.
 
 ## Step 4
 
@@ -139,9 +135,7 @@ then the new global selector should be added like this:
    })
 ```
 
-The full documentation for the field selectors in under construction. Refer to this [gist](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a7d) for an early access.
-
-[//]: # (!!!! provide a link to the full documentation once done)
+See the [Data selection](/arrowsquid/evm-indexing/configuration/data-selection) page for full documentation on field selectors.
 
 ## Step 5
 
