@@ -14,7 +14,7 @@ ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/s
 
 The main feature introduced by the ArrowSquid update on EVM is the new ability of the [processor](/arrowsquid/evm-indexing/evm-processor) to ingest unfinalized blocks directly from a network node, instead of waiting for the [archive](/dead) to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency. 
 
-Another major feature introduced by ArrowSquid is the support for transaction execution receipts, [EVM traces](/dead) and [state diffs](/dead). It enables a significantly more fine-grained control over the smart contract states, especially in the situations when the EVM log data is insufficient. For example, one can reliably index:
+Another major feature introduced by ArrowSquid is the support for transaction execution receipts, [EVM traces](/dead) and [state diffs](/arrowsquid/evm-indexing/configuration/state-diffs). It enables a significantly more fine-grained control over the smart contract states, especially in the situations when the EVM log data is insufficient. For example, one can reliably index:
 
 - Transaction data, taking into account the transaction status
 - Keep track of internal calls
