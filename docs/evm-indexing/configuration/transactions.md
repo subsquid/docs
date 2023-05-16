@@ -27,7 +27,7 @@ description: >-
 The filters here are
 + `from` and `to`: the sets of addresses of tx senders and receivers.
 + `sighash`: [first four bytes](https://ethereum.org/en/developers/docs/transactions/#the-data-field) of the Keccak hash (SHA3) of the canonical representation of the function signature.
-+ `range`: the range of blocks where the logs should be looked for.
++ `range`: the range of blocks where the transactions should be looked for.
 
 Enabling the coarse-grained `stateDiffs` and/or `traces` data selector will cause the processor to retrieve [state diff](/dead) and/or [traces](/dead) data for each transaction and add it to the transaction items.
 
