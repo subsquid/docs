@@ -147,6 +147,12 @@ StateDiff<F> {
   next?: string | null
 }
 ```
+The meaning of the `kind` field values is as follows:
+ - `'='`: no change has occured;
+ - `'+'`: a value was added;
+ - `'*'`: a value was changed;
+ - `'-'`: a value was removed.
+
 See the [block header section](#blockheader) for the definition of `BlockHeader<F>` and the [transaction section](#transaction) for the definition of `Transaction<F>`.
 
 ### `Trace`
