@@ -68,7 +68,7 @@ export type BlockData<F extends FieldSelection = {}> = {
 
 ## Data item types
 
-All data item types are generics depending on the field selection type, `F extends FieldSelection`. Some of their fields are fixed and some can be added or removed via [`setFields()`](/dead).
+All data item types are generics depending on the field selection type, `F extends FieldSelection`. Some of their fields are fixed and some can be added or removed via [`setFields()`](/dead). Removing unnecessary fields will improve sync performance, as the data for these fields will not be fetched.
 
 ### `Log`
 
@@ -152,6 +152,8 @@ The meaning of the `kind` field values is as follows:
  - `'+'`: a value was added;
  - `'*'`: a value was changed;
  - `'-'`: a value was removed.
+
+The values of the `key` field are regular hexadecimal contract storage key strings or one of the special keys `'balance' | 'code' | 'nonce'` denoting ETH balance, contract code and nonce value associated with the state diff.
 
 See the [block header section](#blockheader) for the definition of `BlockHeader<F>` and the [transaction section](#transaction) for the definition of `Transaction<F>`.
 
