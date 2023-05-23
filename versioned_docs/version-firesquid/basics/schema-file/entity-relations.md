@@ -33,8 +33,23 @@ type User @entity {
 
 The `User` entity references `Account` and owns the one-to-one relation. This is implemented as follows:
 - On the database side: the `account` property of the `User` entity maps to the `account_id` foreign key column of the `user` table referencing the `account` table.
-- On the TypeORM side: the `account` property of the `User` entity gets decorated with `@OneToOne` and `@JoinColumn`. _Known issue: codegen should also add a `user` property to the `Account` entity decorated with just `@OneToOne`, but it does not. The field is only required for inverse lookups in processor code._
+- On the TypeORM side: the `account` property of the `User` entity gets decorated with `@OneToOne` and `@JoinColumn`.
 - On the GraphQL side: sub-selection of the `account` property is made available in `user`-related queries. Sub-selection of the `user` property is made available in `account`-related queries.
+
+:::info
+Unlike for the many-to-one case, the codegen will not add a virtual reverse lookup property to the TypeORM code for one-to-one relations. You can add it manually:
+```typescript title=src/model/generated/account.model.ts
+import {OneToOne as OneToOne_} from "typeorm"
+
+@Entity_()
+export class Account {
+  // ...
+  @OneToOne_(() => User, e => e.account)
+  user: User
+}
+```
+If you are using this feature, please let us know at [the SquidDevs Telegram channel](https://t.me/HydraDevs).
+:::
 
 ## Many-to-one/One-to-many relations
 
