@@ -16,24 +16,26 @@ description: >-
   topic0?: string[]
   range?: {from: number, to?: number}
 
-  // data selector
+  // related data retrieval
   transaction?: boolean
 }
 ```
 The filters here are:
-+ `address`: the set of addresses of contracts emitting the logs. Leave undefined or set to `[]` to subscribe to all events from the whole network.
++ `address`: the set of addresses of contracts emitting the logs. Leave undefined or set to `[]` to subscribe to events from the whole network.
 + `topic0`: the set of values of `topic0`.
 + `range`: the range of blocks where the logs should be looked for.
 
 [//]: # (!!!! Update when the filter set stabilizes)
 
-Enabling the coarse-grained `transaction` data selector will cause the processor to retrieve parent transaction data and add it to the log items.
+Enabling the `transaction` flag will cause the processor to retrieve all parent transactions and add them to the `transactions` iterable within the [block data](/arrowsquid/evm-indexing/context-interfaces/#blockdata).
 
-Selection of the exact data to be retrieved for each log item is done with the `setFields()` method documented on the [Data selection](../data-selection) page. Some examples are available below.
+[//]: # (???? Check whether the final version adds the logs to the items, too)
+
+Selection of the exact data to be retrieved for each log and its optional parent transaction is done with the `setFields()` method documented on the [Data selection](../data-selection) page. Some examples are available below.
 
 ## Examples
 
-Fetch `NewGravatar(uint256,address,string,string)` and `UpdateGravatar(uint256,address,string,string)` event logs emitted by `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC`. For each log, fetch topic set, log data and the input of the parent transaction.
+Fetch `NewGravatar(uint256,address,string,string)` and `UpdateGravatar(uint256,address,string,string)` event logs emitted by `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC`. For each log, fetch topic set, log data. Fetch parent transactions with their inputs.
 
 [//]: # (!!!! change the archive URL back once archive-registry has arrowsquid archives)
 

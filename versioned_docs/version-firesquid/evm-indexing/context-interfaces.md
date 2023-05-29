@@ -58,6 +58,35 @@ Each data `Item` has the following structure:
 }
 ```
 
+### The block header
+
+Here is the full list of fields for the `EvmBlock` type:
+
+```ts
+export interface EvmBlock {
+  id: string
+  height: number
+  hash: string
+  parentHash: string
+  nonce?: bigint
+  sha3Uncles: string
+  logsBloom: string
+  transactionsRoot: string
+  stateRoot: string
+  receiptsRoot: string
+  miner: string
+  difficulty?: string
+  totalDifficulty?: string
+  extraData: string
+  size: bigint
+  gasLimit: bigint
+  gasUsed: bigint
+  timestamp: number
+  mixHash?: string
+  baseFeePerGas?: bigint
+}
+```
+
 ### `evmLog` items
 
 Here is a full list of fields for items with `item.kind==='evmLog'`.
