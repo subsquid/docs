@@ -22,7 +22,7 @@ description: >-
   type?: string[]
   range?: {from: number, to?: number}
 
-  // data selectors
+  // related data retrieval
   transaction?: boolean
   subtraces?: boolean
 }
@@ -38,9 +38,9 @@ The filters here are:
 
 [//]: # (!!!! Update when the filter set stabilizes)
 
-Enabling the coarse-grained `transaction` data selector will cause the processor to retrieve the data of the transaction that is being traced. Enabling `subtraces` will add an eponymous field to each retrieved trace data item that indicates how many subtraces it has.
+Enabling the  `transaction` flag will cause the processor to retrieve transactions that the traces belong to. Enabling `subtraces` will cause the processor to retrieve the downstream traces in addition to those that matched the filters. These extra data items will be added to the appropriate iterables within the [block data](/arrowsquid/evm-indexing/context-interfaces/#blockdata).
 
-[//]: # (???? This subtraces field is weird. Does it really have to break all conventions that the rest of the code follows?)
+[//]: # (???? Check whether the final version adds the transactions / subtraces to the items, too)
 
 Selection of the exact data to be retrieved for each trace item is done with the `setFields()` method documented on the [Data selection](../data-selection) page. Be aware that field selectors for traces do not share their names with the fields of trace data items, unlike field selectors for other data item types. This is due to traces varying their structure depending on the value of the `type` field.
 

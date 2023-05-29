@@ -21,7 +21,7 @@ description: >-
   kind?: ('=' | '+' | '*' | '-')[]
   range?: {from: number, to?: number}
 
-  // data selector
+  // related data retrieval
   transaction?: boolean
 }
 ```
@@ -33,10 +33,11 @@ The filters here are:
 
 [//]: # (!!!! Update when the filter set stabilizes)
 
-Enabling the coarse-grained `transaction` data selector will cause the processor to retrieve the data of the transaction that gave rise to each state change and add it to the state diff items.
+Enabling the `transaction` flag will cause the processor to retrieve the transaction that gave rise to each state change and add it to the [`transactions` iterable of block data](/arrowsquid/evm-indexing/context-interfaces/#blockdata).
 
+[//]: # (???? Check whether the final version adds the transaction to the items, too)
 [//]: # (???? Check that the statement about all fields being disable-only for state diffs still holds in the final version)
 
-Selection of the exact data to be retrieved for each state diff item is done with the `setFields()` method documented on the [Data selection](../data-selection) page. Unlike other data items, state diffs do not have any fields that can be enabled, but some can be disabled for improved sync performance.
+Selection of the exact data to be retrieved for each state diff item and its optional parent transaction is done with the `setFields()` method documented on the [Data selection](../data-selection) page. Unlike other data items, state diffs do not have any fields that can be enabled, but some can be disabled for improved sync performance.
 
 [//]: # (!!!! Add example)
