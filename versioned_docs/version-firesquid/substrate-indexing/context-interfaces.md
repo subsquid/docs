@@ -60,6 +60,51 @@ Each `Item` has the following structure:
 }
 ```
 
+### The block header
+
+Here is the full list of fields for the `SubstrateBlock` type:
+
+```ts
+export interface SubstrateBlock {
+  /**
+   * Unique block id, following the format `<block height>-<first hex digits of the hash>`
+   */
+  id: string;
+  /**
+   * Block height
+   */
+  height: number;
+  /**
+   * Current block hash
+   */
+  hash: string;
+  /**
+   * Hash of the parent block
+   */
+  parentHash: string;
+  /**
+   * Block timestamp as set by `timestamp.now()`
+   */
+  timestamp: number;
+  /**
+   * Runtime spec id formatted as `{spec_name}@{spec_version}`
+   */
+  specId: SpecId;
+  /**
+   * Account address of block validator
+   */
+  validator?: string;
+  /**
+   * Root hash of the extrinsics merkle tree
+   */
+  extrinsicsRoot: string;
+  /**
+   * Root hash of the state merkle tree
+   */
+  stateRoot: string;
+}
+```
+
 ### `event` items
 
 This is the full shape of the items with `item.kind == 'event'`. The actual set of fields corresponds to the [event data selector](/substrate-indexing/configuration#event-data-selector) specified by the `addEvent()`, `addEvmLog()` and similar event-based [processor config methods](/substrate-indexing/configuration):
