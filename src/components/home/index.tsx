@@ -104,9 +104,16 @@ export default function Home(): JSX.Element {
             description="Compare the feature set and the architecture">Subsquid vs The Graph
           </GuideCard>
           <GuideCard
+            isExternalLink={true}
             path="https://www.youtube.com/playlist?list=PLH2948XqklrgTvG6-ro3eqS17j7n_raiN"
             color={'bg-role--success'}
             description="Step-by-step video tutorials covering the most powerful Subsquid features">Subsquid Academy
+          </GuideCard>
+          <GuideCard
+            isExternalLink={true}
+            path="https://github.com/subsquid-labs/"
+            color={'bg-role--success'}
+            description="Dive into our SDK samples and indexing templates on GitHub">Show me the code!
           </GuideCard>
         </div>
       </div>

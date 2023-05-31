@@ -15,12 +15,14 @@ export type GuideCardProps = React.PropsWithChildren<{
   color: BgColor;
   path?: string;
   isDisabled?: boolean;
+  isExternalLink?: boolean;
 }>
 
 export function GuideCard(props: GuideCardProps) {
   return (
     <>
       <a href={props.path ?? null}
+         {...(props.isExternalLink ? {target: '_blank'} : {})}
          className={
            clsx(
                'flex flex-col rounded-lg gap-2 cursor-pointer transition duration-150 ease-out p-4 quide-card',
