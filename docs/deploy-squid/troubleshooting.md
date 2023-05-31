@@ -1,5 +1,5 @@
 ---
-sidebar_position: 21
+sidebar_position: 110
 title: Troubleshooting
 description: Common gotchas deploying a squid
 ---

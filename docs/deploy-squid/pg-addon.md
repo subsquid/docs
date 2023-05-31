@@ -1,5 +1,5 @@
 ---
-sidebar_position: 11
+sidebar_position: 30
 title: Postgres addon
 description: Provision and scale postgress for a squid
 ---
