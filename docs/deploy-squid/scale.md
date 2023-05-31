@@ -1,5 +1,5 @@
 ---
-sidebar_position: 11
+sidebar_position: 40
 title: Scale the deployment
 description: Scale the squid with the deployment manifest
 ---
