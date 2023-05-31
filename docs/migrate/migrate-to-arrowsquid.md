@@ -6,17 +6,23 @@ description: Step-by-step guide to the ArrowSquid update
 
 # Migrate to ArrowSquid
 
+[//]: # (!!!! remove /arrowsquid from links)
+
 **Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
 
-This is a EVM guide. For a Substrate guide see [this page](/dead).
+This is a EVM guide. Substrate guide will be released later.
 
-ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`. Both packages are currently are in beta and are published with the `@next` tag. Once fully stabilized, the packages will be released to general availability with the `@latest` tag. ArrowSquid is not compatible with the FireSquid archive endpoints, and a new `v2` Archive is currently released only for Ethereum mainnet. ArrowSquid-compatible archives for the rest of EVM chains, including the Binance Chain, Polygon, Arbitrum will be gradually rolled out.
+[//]: # (!!!! add the substrate guide link)
 
-The main feature introduced by the ArrowSquid update on EVM is the new ability of the [processor](/arrowsquid/evm-indexing/evm-processor) to ingest unfinalized blocks directly from a network node, instead of waiting for the [archive](/dead) to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency. 
+ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`. Both packages are currently are in beta and are published with the `@next` tag. Once fully stabilized, the packages will be released to general availability with the `@latest` tag. ArrowSquid is not compatible with the FireSquid archive endpoints, and the new `v2` archives are currently released only for a limited set of networks (see the [Supported EVM networks](/arrowsquid/evm-indexing/supported-networks/) page).
 
-Another major feature introduced by ArrowSquid is the support for transaction execution receipts, [EVM traces](/dead) and [state diffs](/arrowsquid/evm-indexing/configuration/state-diffs). It enables a significantly more fine-grained control over the smart contract states, especially in the situations when the EVM log data is insufficient. For example, one can reliably index:
+[//]: # (!!!! add a link to the archives page below)
 
-- Transaction data, taking into account the transaction status
+The main feature introduced by the ArrowSquid update on EVM is the new ability of the [processor](/arrowsquid/evm-indexing/evm-processor) to ingest unfinalized blocks directly from a network node, instead of waiting for the archive to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency.
+
+Another major feature introduced by ArrowSquid is the support for transaction execution receipts, [traces](/arrowsquid/evm-indexing/configuration/traces) and [state diffs](/arrowsquid/evm-indexing/configuration/state-diffs). It enables a significantly more fine-grained control over the smart contract states, especially in the situations when the EVM log data is insufficient. For example, one can:
+
+- Reliably index transaction data, taking into account the transaction status
 - Keep track of internal calls
 - Observe smart contract state changes even if they are caused by internal transactions
 - Track smart contract creation and destruction
@@ -32,10 +38,11 @@ Update all packages affected by the update:
 npm i @subsquid/evm-processor@next
 npm i @subsquid/typeorm-store@next
 ```
+If your squid uses [`file-store`](/basics/store/file-store), please update any related packages to the `@next` version, too.
 
 ## Step 2
 
-If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor, e.g.
+Replace the old archive URL or lookup command with a [`v2` archive URL for your network](/arrowsquid/evm-indexing/supported-networks) within the `setDataSource` configuration call. If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor, e.g.
 ```diff
  processor.setDataSource({
 -  archive: lookupArchive('eth-mainnet', {type: 'EVM'})
@@ -43,15 +50,15 @@ If your squid did not use an RPC endpoint before, find one for your network and 
 +  chain: 'https://eth-rpc.gateway.pokt.network'
  })
 ```
-Note the new `v2`-archive endpoint, which has to be explicitly provided. We recommend using a private endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/).
+We recommend using a private RPC endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/). For squids deployed to [Aquarium](/deploy-squid/quickstart/) you may also consider using our [RPC proxies](/arrowsquid/deploy-squid/rpc-proxy) (currently experimental).
 
-[//]: # "(???? can we relax the requirement to use the archive node at least for some processor settings? e.g. no traces)"
+[//]: # (!!!! remove the experimental notice once RPC proxy is stable)
+
+Your squid will work without an RPC endpoint, but with a significantly increased chain latency (up to tens of thousands blocks/half a day). If that works for you, you can replace the archive URL without setting an RPC here and skip [Step 7](#step-7) altogether.
 
 ## Step 3
 
-[//]: # (!!!! remove /arrowsquid from links)
-
-Next, we have to account for the changes in signatures of [`addLog()`](/arrowsquid/evm-indexing/configuration/evm-logs/) and [`addTransaction()`](/arrowsquid/evm-indexing/configuration/transactions/) processor methods. Previously, each call of these methods supplied its own fine-grained [data selectors](/evm-indexing/configuration/data-selectors/). In the new interface, these calls can only enable or disable access to additional data (with boolean flags `transaction` for `addLog()` and `logs` for `addTransaction()`). Fine-grained field selection is now done by the new `setFields()` method on a per-item-type basis: once for all `log`s, once for all `transaction`s etc. The setting is processor-wide: for example, all `transaction`s returned by the processor will have the same set of available fields, regardless of whether they are taken from the batch context directly or are accessed from within a `log` item.
+Next, we have to account for the changes in signatures of [`addLog()`](/arrowsquid/evm-indexing/configuration/evm-logs/) and [`addTransaction()`](/arrowsquid/evm-indexing/configuration/transactions/) processor methods. Previously, each call of these methods supplied its own fine-grained [data selectors](/evm-indexing/configuration/data-selectors/). In the new interface, these calls can only enable or disable the retrieval of related data (with boolean flags `transaction` for `addLog()` and `logs` and a few others for `addTransaction()`). Field selection is now done by the new `setFields()` method on a per-item-type basis: once for all `log`s, once for all `transaction`s etc. The setting is processor-wide: for example, all `transaction`s returned by the processor will have the same set of available fields, regardless of whether they are taken from the batch context directly or are accessed from within a `log` item.
 
 Begin migrating to the new interface by finding all calls to `addLog()` and combining all the `evmLog` data selectors into a single processor-wide data selector that requests all fields previously requested by individual selectors. Remove the `id`, `logIndex` (previously `index`) and `transactionIndex` fields: now they are always available and cannot be requested explicitly. When done, make a call to `setFields()` and supply the new data selector at the `log` field of its argument. For example, suppose the processor was initialized with the following three calls:
 ```typescript
@@ -139,7 +146,7 @@ See the [Data selection](/arrowsquid/evm-indexing/configuration/data-selection) 
 
 ## Step 5
 
-Replace the old calls to `addLog()` and `addTransaction()` with the calls using [new signatures](/arrowsquid/evm-indexing/configuration).
+Replace the old calls to `addLog()` and `addTransaction()` with calls using the [new signatures](/arrowsquid/evm-indexing/configuration).
 
 Old data selectors will be erased during the process. Make sure to request the appropriate data with the boolean flags (`transaction` for `addLog()` and `logs` for `addTransaction()`) while doing that.
 
@@ -192,6 +199,7 @@ const processor = new EvmBatchProcessor()
     }
   })
 ```
+[//]: # (???? .transaction may be removed from the log item interface in the final version, do check)
 
 ## Step 6
 
@@ -215,8 +223,6 @@ Finally, update the batch handler to use the new [batch context](/arrowsquid/evm
 
 2. Alternatively, rewrite your batch handler using the [new batch context interface](/arrowsquid/evm-indexing/context-interfaces/).
 
-[//]: # (!!!! remove the /arrowsquid prefix from links)
-
 ## Step 7
 
 If your squid uses [`typeorm-store`](/basics/store/typeorm-store/), enable hot blocks support when constructing the `TypeormDatabase` object:
@@ -227,9 +233,27 @@ If your squid uses [`typeorm-store`](/basics/store/typeorm-store/), enable hot b
 
 ## Step 8
 
-Iteratively reconcile any type errors arising when building your squid (e.g. with `sqd build`). In case you're using `tranformContext.ts` you may find the types it exports helpful.
+Iteratively reconcile any type errors arising when building your squid (e.g. with `sqd build`). In case you're using `tranformContext.ts` you may find the types it exports helpful. If you need to specify the field selection generic argument explicitly, get it as a `typeof` of the `setFields` argument value:
 
-[//]: # "(???? Where do I get the `Fields` type?)"
+```ts
+import { OldBlockData } from './transformContext'
+
+const fieldSelection = {
+  log: {
+    data: true
+  },
+  transaction: {
+    hash: true,
+  }
+} as const
+
+let processor = new EvmBatchProcessor()
+  .setFields(fieldSelection)
+  /* the rest of the processor configuration */
+
+type MyBlockData = OldBlockData<typeof fieldSelection>
+// ...
+```
 
 At this point your squid should be able to work with the ArrowSquid tooling. If it doesn't, read on.
 
