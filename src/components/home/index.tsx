@@ -113,7 +113,7 @@ export default function Home(): JSX.Element {
             isExternalLink={true}
             path="https://github.com/subsquid-labs/"
             color={'bg-role--success'}
-            description="Jump straight into a GitHub org with sample indexing projects and templates">Show me the code!
+            description="Jump straight to our collection of sample indexing projects and templates">Show me the code!
           </GuideCard>
         </div>
       </div>
