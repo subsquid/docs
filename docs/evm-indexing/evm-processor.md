@@ -21,19 +21,19 @@ A squid processor is a Node.js process that fetches historical on-chain data fro
 
 [//]: # (???? Update with the final processor capabilities)
 
-A batch provides iterables to access all items requested in [processor configuration](/evm-indexing/configuration), which may include logs, transactions, traces and contract [state diffs](/dead); see the [batch context page](../context-interfaces/) for details. Further, the processor can extract additional data by querying the [historical chain state](../query-state) and indeed any [external API](https://github.com/subsquid/squid-external-api-example).
+A batch provides iterables to access all items requested in [processor configuration](../configuration), which may include logs, transactions, traces and contract [state diffs](../configuration/state-diffs/); see the [batch context page](../context-interfaces/) for details. Further, the processor can extract additional data by querying the [historical chain state](../query-state) and indeed any [external API](https://github.com/subsquid/squid-external-api-example).
 
 Results of the ETL process can be stored in any [Postgres-compatible database](/basics/store/typeorm-store/) or in [filesystem-based datasets](/basics/store/file-store/) in CSV and [Parquet](https://parquet.apache.org) formats.
 
-A typical processor looks as below:
 
 [//]: # (???? The illustration needs updating)
 
-![Batch processor context](</img/batch-context.png>)
+[//]: # (!!!! A typical processor looks as below:)
+[//]: # (!!!! Batch processor context/img/batch-context.png)
 
 ## What's next?
 
-- Move forward to the [`EvmBatchProcessor` configuration page](/evm-indexing/configuration)
+- Move forward to the [`EvmBatchProcessor` configuration page](../configuration)
 - Explore the [migration guide](/migrate/migrate-subgraph/) and create a squid from a subgraph within minutes
 - Follow the [tutorial](/tutorials/create-an-ethereum-processing-squid/) to build an Ethereum-indexing squid step by step
 - Check the [examples](/examples)
