@@ -7,6 +7,8 @@ description: >-
 
 # USDC transfers
 
+**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
+
 [The squid](https://github.com/subsquid-labs/evm-logs-example) indexes USDC transfers by tracking the historical `Transfer(address,address,uint256)` logs emitted by the [USDC contract](https://etherscan.io/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48) on the Ethereum Mainnet. 
 
 ## Prerequisites
