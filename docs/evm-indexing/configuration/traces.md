@@ -54,6 +54,8 @@ Selection of the exact data to be retrieved for each trace item is done with the
 
 For a [`mint` call to Uniswap V3 Positions NFT](https://etherscan.io/tx/0xf178718219151463aa773deaf7d9367b8408e35a624550af975e089ca6e015ca).
 
+[//]: # (!!!! replace the archive URL once ArrowSquid is released to archive-registry, consider setting the chain RPC to something else)
+
 ```ts
 import {EvmBatchProcessor} from '@subsquid/evm-processor'
 import {TypeormDatabase} from '@subsquid/typeorm-store'
