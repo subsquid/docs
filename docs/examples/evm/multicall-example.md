@@ -2,7 +2,7 @@
 sidebar_position: 32
 title: Batch state queries for NFT
 description: >-
-  Getting NFT metadata with batch RPC queries
+  Getting metadata with batch RPC queries
 ---
 
 # NFT indexer with batch state queries
