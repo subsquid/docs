@@ -29,7 +29,9 @@ Another major feature introduced by ArrowSquid is the support for transaction ex
 
 The `EvmBatchProcessor` configuration and data selection interfaces has been simplified and the way in which the data is fetched from archives has been made more efficient. See [release notes](/dead) for a full list of changes.
 
-Here is a step-by-step guide for migrating a squid built with an older SDK version to the post-ArrowSquid tooling. An end-to-end ArrowSquid example indexing USDC transfers can be found [here](https://github.com/subsquid/squid-sdk/tree/master/test/eth-usdc-transfers). 
+End-to-end ArrowSquid examples can be found [in the SDK repo](https://github.com/subsquid/squid-sdk/tree/master/test/eth-usdc-transfers) and in the [EVM examples](/arrowsquid/examples/evm) section.
+
+Here is a step-by-step guide for migrating a squid built with an older SDK version to the post-ArrowSquid tooling.
 
 ## Step 1
 

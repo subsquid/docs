@@ -29,6 +29,8 @@ The filters here are:
 
 Enabling the `transaction` flag will cause the processor to retrieve all parent transactions and add them to the `transactions` iterable within the [block data](/arrowsquid/evm-indexing/context-interfaces/#blockdata).
 
+Note that logs can also be requested by the [`addTransaction()`](../transactions) method as related data.
+
 [//]: # (???? Check whether the final version adds the logs to the items, too)
 
 Selection of the exact data to be retrieved for each log and its optional parent transaction is done with the `setFields()` method documented on the [Data selection](../data-selection) page. Some examples are available below.

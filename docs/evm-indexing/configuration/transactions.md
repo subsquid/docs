@@ -32,6 +32,8 @@ The filters here are
 
 Enabling the `stateDiffs`, `traces` and/or `logs` flags will cause the processor to retrieve [state diffs](/arrowsquid/evm-indexing/configuration/state-diffs/), [traces](/arrowsquid/evm-indexing/configuration/traces/) and/or event logs that occured as a result of each selected transaction. The data will be added to the appropriate iterables within the [block data](/arrowsquid/evm-indexing/context-interfaces/#blockdata).
 
+Note that transactions can also be requested by [`addLog()`](../evm-logs), [`addStateDiff()`](../state-diffs) and [`addTrace()`](../traces) as related data.
+
 [//]: # (!!!! check in the final version whether it also adds the data to the items)
 
 Selection of the exact data to be retrieved for each transaction and the optional related data items is done with the `setFields()` method documented on the [Data selection](../data-selection) page. Some examples are available below.

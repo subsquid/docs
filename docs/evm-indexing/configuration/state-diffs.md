@@ -35,6 +35,8 @@ The filters here are:
 
 Enabling the `transaction` flag will cause the processor to retrieve the transaction that gave rise to each state change and add it to the [`transactions` iterable of block data](/arrowsquid/evm-indexing/context-interfaces/#blockdata).
 
+Note that state diffs can also be requested by the [`addTransaction()`](../transactions) method as related data.
+
 [//]: # (???? Check whether the final version adds the transaction to the items, too)
 [//]: # (???? Check that the statement about all fields being disable-only for state diffs still holds in the final version)
 
