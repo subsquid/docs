@@ -18,7 +18,7 @@ Archives index only finalized blocks. Handling unfinalized blocks and potential 
 
 ### What is the latency for the data served by the squid? 
 
-Since the ArrowSquid release, the Squid SDK has the option to ingest unfinalized blocks directly from an RPC endpoint, makeing the indexing real-time. Archive-only squids without an RPC datasource typically have a latency of a few minutes.
+Since the ArrowSquid release, the Squid SDK has the option to ingest unfinalized blocks directly from an RPC endpoint, making the indexing real-time. Archive-only squids without an RPC datasource typically have a latency of a few minutes to a few hours.
 
 ### How do I enable GraphQL subscriptions for local runs?
 
