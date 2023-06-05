@@ -8,11 +8,11 @@ sidebar_position: 30
 
 # Run squids with Ganache or Hardhat
 
+**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
+
 ## Objective
 
-This tutorial will show you how it's possible to start using Subsquid from the very early stages of development. Simply by using a pre-built docker image of Subsquid's EVM Archive, you'll be able to index your Ethereum development node running locally.
-
-This way, it's possible to start developing a squid ETL or API in the same local development environment where your smart contract or frontend is being developed, without waiting for the contract to be deployed to a testnet.
+Here we show how it is possible to index an Ethereum development node running locally. This is useful for those who want to start developing a squid ETL or API in a local environment without waiting for the contract to be deployed to a testnet.
 
 ## Pre-requisites
 
@@ -22,23 +22,25 @@ This way, it's possible to start developing a squid ETL or API in the same local
 
 ## Setup
 
-For the purpose of this tutorial, we are going to start with a squid project, then add a Hardhat/Ganache setup to the same folder. This is done only for keeping this tutorial simple. For more complicated projects you would probably want to separate those two.
-
-### Squid
-
-In order to create a new squid project, open a terminal and launch the command:
+In this tutorial we will be using a layout in which the squid and the Hardhat/Ganache setup share the same folder. Create a new squid by running:
 
 ```bash
 sqd init ethereum-local-indexing -t evm
 ```
+Here, `ethereum-local-indexing` is the project name and `evm` refers to the [`evm` template](https://github.com/subsquid-labs/squid-evm-template).
 
-Here, `ethereum-local-indexing` is the project name we chose and `-t evm` tells `sqd init` to use the [`evm` template](https://github.com/subsquid-labs/squid-evm-template).
+Install the dependencies and update `evm-processor` and `typeorm-store` to their ArrowSquid versions:
+```bash
+cd ethereum-local-indexing
+npm i
+npm i @subsquid/evm-processor@next @subsquid/typeorm-store@next
+```
 
-The next two sections are instructions dedicated to the two main options for local Ethereum development: [Hardhat](#hardhat) and [Ganache](#ganache). Choose according to your preference and follow only one of the two setups.
+Next, we set up a local EVM development environment. We consider two common options: [Hardhat](#hardhat) and [Ganache](#ganache).
 
-### Hardhat
+## If you chose Hardhat
 
-In order to start working with Hardhat, it's necessary to [install the package](https://hardhat.org/hardhat-runner/docs/getting-started#installation).
+[Install the package](https://hardhat.org/hardhat-runner/docs/getting-started#installation).
 
 #### 1. Create project
 
@@ -61,7 +63,7 @@ mv tsconfig.json.save tsconfig.json
 
 #### 2. Configure Hardhat automining
 
-Then, open the `hardhat.config.ts` and add this in the `HardhatUserConfig` object:
+Then, open the `hardhat.config.ts` and replace the `HardhatUserConfig` object with this one:
 
 ```typescript
 const config: HardhatUserConfig = {
@@ -89,7 +91,7 @@ There should be a `contracts` subfolder in the project folder now, with a sample
 npx hardhat compile
 ```
 
-You should find the contract's ABI at `artifacts/contracts/Lock.sol/Lock.json`. This file **will be useful in squid development**.
+You should find the contract's ABI at `artifacts/contracts/Lock.sol/Lock.json`. **We will use this file in squid development.**
 
 #### 4. Launch hardhat node
 
@@ -105,30 +107,31 @@ The node will keep the console window busy. In a different terminal, run this co
 
 ```bash
 npx hardhat run scripts/deploy.ts --network localhost
+```
+If the contract deployed successfully, the output should look like
+```
 Lock with 1 ETH and unlock timestamp 1704810454 deployed to 0x5FbDB2315678afecb367f032d93F642f64180aa3
 ```
+Take note of the contract address, **you'll need it later**.
 
-You should see a log file confirming the successful deployment, like the second line in the code box above. Take note of the contract address, **you'll need it later**.
+## If you chose Ganache
 
-### Ganache
-
-In order to start working with Ganache node, it's necessary to Install [Truffle](https://trufflesuite.com/docs/truffle/how-to/install/) and [Ganache packages](https://trufflesuite.com/docs/ganache/quickstart/#1-install-ganache).
+Install [Truffle](https://trufflesuite.com/docs/truffle/how-to/install/) and [Ganache](https://trufflesuite.com/docs/ganache/quickstart/#1-install-ganache) packages.
 
 #### 1. Truffle project, sample contract 
 
-Let's create a new truffle project with a sample contract. In a terminal navigate to the project's main folder and run
+Let's create a new truffle project with a sample contract. In the project main folder run
 
 ```bash
 truffle unbox metacoin
 ```
 
-To compile the contracts, launch this command in the same console window:
-
+Compile the contracts with
 ```bash
 truffle compile
 ```
 
-You should find the contract's ABI at the location: `build/contracts/MetaCoin.json`, **it will be useful for indexing**.
+You should find the contract's ABI at `build/contracts/MetaCoin.json`. **It will be useful for indexing**.
 
 #### 2. Create a workspace
 
@@ -144,15 +147,11 @@ In this window, change the server configuration to the exact values reported in 
 
 ![Server configuration](</img/ganache-create-workspace-2.png>)
 
-:::info
-**Note:** It is not mandatory to change `PORT NUMBER` or `NETWORK ID`, but they are set to the same value as Hardhat, so the rest of the Tutorial will look the same.
+The [`AUTOMINE` option](https://trufflesuite.com/docs/ganache/reference/cli-options/#miner) is disabled to ease the debugging.
 
-The [`AUTOMINE` option](https://trufflesuite.com/docs/ganache/reference/cli-options/#miner) is disabled to ease the debugging, same as in the *Hardhat* section of this tutorial.
-:::
+Finally, click "Start" to launch the blockchain emulator.
 
-Finally, click "Save Workspace" to launch the blockchain emulator.
-
-#### 3. Deploy smart contract
+#### 3. Deploy a smart contract
 
 Configure Truffle by uncommenting the `development` section in `truffle-config.js` and setting its properties as follows:
 
@@ -194,65 +193,25 @@ Log information similar to this should be displayed:
 
 Take note of the contract address, **you'll need it later**.
 
-### Archive Docker image
-
-In order to index the local Ethereum node, we need to use a pre-built Docker image of Subsquid's Ethereum Archive. You can do it, by creating a `docker-compose.archive.yml` file, and paste this:
-
-```yaml
-version: "3"
-
-services:
-  worker:
-    image: subsquid/eth-archive-worker:latest
-    environment:
-      RUST_LOG: "info"
-    ports:
-      - 8080:8080
-    command: [
-            "/eth/eth-archive-worker",
-            "--server-addr", "0.0.0.0:8080",
-            "--db-path", "/data/db",
-            "--request-timeout-secs", "300",
-            "--connect-timeout-ms", "1000",
-            "--block-batch-size", "10",
-            "--http-req-concurrency", "10",
-            "--best-block-offset", "10",
-            "--rpc-urls", "http://host.docker.internal:8545/",
-            "--max-resp-body-size", "30",
-            "--resp-time-limit", "5000",
-            "--query-concurrency", "16",
-    ]
-    volumes:
-      - db:/data/db
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-
-volumes:
-  db:
-```
-
-Then start the service by opening the terminal and launching the command:
-
-```bash
-docker compose -f docker-compose.archive.yml up -d
-```
-
-### Squid development
+## Squid development
 
 Now you can poke your smart contract however you please, and index events or transactions with Subsquid's SDK. Use the **contract's ABI** ([here](#3-sample-contract) or [here](#1-truffle-project-sample-contract)) and contract **address** ([here](#5-deploy-the-contract) and [here](#3-deploy-smart-contract)) from previous steps.
 
-To develop your squid ETL, indexing events of your smart contract, please head over to the [dedicated tutorial](/tutorials/create-an-ethereum-processing-squid). Just be mindful that the data source of the processor class needs to be set to the local endpoints:
+To develop your squid ETL indexing events of your smart contract, please head over to the [dedicated tutorial](/tutorials/bayc). Just be mindful that the data source of the processor class needs to be set to the local endpoints:
 
 ```typescript
 // ...
 
 const processor = new EvmBatchProcessor()
   .setDataSource({
-    chain: "localhost:8545",
-    archive: "localhost:8080",
+    chain: 'localhost:8545'
   })
 
 // ...
 ```
 
 You can also use environment variables, just like shown in [this complete end-to-end project example](https://medium.com/subsquid/how-to-build-a-performant-and-scalable-full-stack-nft-marketplace-63c12466b959). This will make sure the project code stays the same and only the environment variables change depending on where the project is deployed.
+
+:::info
+Prior to the [ArrowSquid release](/dead) of Subsquid SDK it was not possible for squids to ingest data directly from an RPC endpoint, so a local [Archive](/dead) setup was required. This is no longer the case.
+:::
