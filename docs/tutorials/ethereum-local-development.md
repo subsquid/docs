@@ -195,22 +195,50 @@ Take note of the contract address, **you'll need it later**.
 
 ## Squid development
 
-Now you can poke your smart contract however you please, and index events or transactions with Subsquid's SDK. Use the **contract's ABI** ([here](#3-sample-contract) or [here](#1-truffle-project-sample-contract)) and contract **address** ([here](#5-deploy-the-contract) and [here](#3-deploy-smart-contract)) from previous steps.
+The indexing setup is ready to use. To test it, replace the contents of `src/processor.ts` with the following.
 
-To develop your squid ETL indexing events of your smart contract, please head over to the [dedicated tutorial](/tutorials/bayc). Just be mindful that the data source of the processor class needs to be set to the local endpoints:
-
-```typescript
-// ...
+```ts
+import {TypeormDatabase} from '@subsquid/typeorm-store'
+import {EvmBatchProcessor} from '@subsquid/evm-processor'
 
 const processor = new EvmBatchProcessor()
   .setDataSource({
-    chain: 'localhost:8545'
+    chain: 'http://localhost:8545'
+  })
+  .setFinalityConfirmation(5)
+  .addTransaction({})
+  .setFields({
+    transaction: {
+      contractAddress: true
+    }
   })
 
+processor.run(new TypeormDatabase(), async (ctx) => {
+  for (let blk of ctx.blocks) {
+    for (let txn of blk.transactions) {
+      console.log(txn)
+    }
+  }
+})
+```
+This defines a squid that retrieves all chain transactions from the local node RPC endpoint without filtering, making sure to retrieve the addresses of the deployed contracts for deployment transactions. Run the squid with
+
+```bash
+sqd up
+sqd process
+```
+You should see the data of one (for Hardhat) or two (for Truffle+Ganache) contract deployment transactions printed to your terminal.
+
+Now you can develop a Subsquid-based indexer alongside your contracts. Head over to the [dedicated tutorial](/tutorials/bayc) for guidance on squid development. Use the **contract's ABI** ([here](#3-sample-contract) or [here](#1-truffle-project-sample-contract)) and contract **address** ([here](#5-deploy-the-contract) and [here](#3-deploy-smart-contract)) from previous steps and be mindful that the data source of the processor class needs to be set to the local node RPC endpoint, as in the example above:
+
+```typescript
+// ...
+  .setDataSource({
+    chain: 'http://localhost:8545'
+  })
 // ...
 ```
-
-You can also use environment variables, just like shown in [this complete end-to-end project example](https://medium.com/subsquid/how-to-build-a-performant-and-scalable-full-stack-nft-marketplace-63c12466b959). This will make sure the project code stays the same and only the environment variables change depending on where the project is deployed.
+You can also set the data source through an environment variable like it is done in [this complete end-to-end project example](https://medium.com/subsquid/how-to-build-a-performant-and-scalable-full-stack-nft-marketplace-63c12466b959). This will make sure the project code stays the same and only the environment variables change depending on where the project is deployed.
 
 :::info
 Prior to the [ArrowSquid release](/dead) of Subsquid SDK it was not possible for squids to ingest data directly from an RPC endpoint, so a local [Archive](/dead) setup was required. This is no longer the case.
