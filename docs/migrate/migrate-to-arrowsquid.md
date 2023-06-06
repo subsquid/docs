@@ -44,19 +44,21 @@ If your squid uses [`file-store`](/basics/store/file-store), please update any r
 
 ## Step 2
 
-Replace the old archive URL or lookup command with a [`v2` archive URL for your network](/arrowsquid/evm-indexing/supported-networks) within the `setDataSource` configuration call. If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor, e.g.
+Replace the old archive URL or lookup command with a [`v2` archive URL for your network](/arrowsquid/evm-indexing/supported-networks) within the `setDataSource` configuration call. If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor. Also configure the network-specific number of transaction confirmations sufficient for finality. For Ethereum mainnet your edit might look like this:
 ```diff
- processor.setDataSource({
--  archive: lookupArchive('eth-mainnet', {type: 'EVM'})
-+  archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
-+  chain: 'https://eth-rpc.gateway.pokt.network'
- })
+ processor
+   .setDataSource({
+-    archive: lookupArchive('eth-mainnet', {type: 'EVM'})
++    archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
++    chain: 'https://eth-rpc.gateway.pokt.network'
+   })
++  .setFinalityConfirmation(35)
 ```
 We recommend using a private RPC endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/). For squids deployed to [Aquarium](/deploy-squid/quickstart/) you may also consider using our [RPC proxies](/arrowsquid/deploy-squid/rpc-proxy) (currently experimental).
 
 [//]: # (!!!! remove the experimental notice once RPC proxy is stable)
 
-Your squid will work without an RPC endpoint, but with a significantly increased chain latency (up to tens of thousands blocks/half a day). If that works for you, you can replace the archive URL without setting an RPC here and skip [Step 7](#step-7) altogether.
+Your squid will work without an RPC endpoint, but with a significantly increased chain latency (a few hours for most chains, roughly a day for BSC). If that works for you, you can replace the archive URL without setting an RPC here and skip [Step 7](#step-7) altogether.
 
 ## Step 3
 

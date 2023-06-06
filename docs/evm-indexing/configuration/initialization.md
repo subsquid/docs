@@ -16,18 +16,20 @@ The method documentation is also available inline and can be accessed via sugges
 If contract address(-es) supplied to `EvmBatchProcessor` are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/evm-indexing/context-interfaces) for data filtration, and all contract addresses in batch context data are **always** in flat lower case.
 :::
 
-The following setters configure the global settings of `EvmBatchProcessor`. They return the modified instance and can be chained.
+The following setters configure the global settings of `EvmBatchProcessor`. Some of them are required. They return the modified instance and can be chained.
 
-**`setBlockRange({from: number, to?: number | undefined})`**: Limits the range of blocks to be processed. When the upper bound is specified, processor will terminate with exit code 0 once it reaches it.
-
-**`setDataSource({archive: string, chain?: string | undefined})`**: Sets the blockchain data source. Argument properties:
+**`setDataSource({archive: string, chain?: string | undefined})` (required)**: Sets the blockchain data source. Argument properties:
 + `archive`: An archive endpoint providing the data for the selected network. See [supported networks](/evm-indexing/supported-networks) for a list of endpoints for public EVM Archives and a usage example. The endpoints are also published to the [Archive registry](/archives/overview/#archive-registry) and exposed with the `lookupArchive` function of `@subsquid/archive-regitry` package.
 
 + `chain?`: A JSON-RPC endpoint for the network of interest. HTTPS and WSS endpoints are supported. Required in most cases, or more precisely when
   * the squid has to follow the chain with latency below about half a day, or
   * the processor has to make [contract state queries](/evm-indexing/query-state).
 
+**`setFinalityConfirmation(nBlocks: number)` (required)**: Sets the number of blocks after which the processor will consider the consensus data final. Use a value appropriate for your network. For example, for Ethereum mainnet a widely cited value is 15 minutes/75 blocks.
+
 [//]: # (???? update the latency figure once the dust settles)
+
+**`setBlockRange({from: number, to?: number | undefined})`**: Limits the range of blocks to be processed. When the upper bound is specified, processor will terminate with exit code 0 once it reaches it.
 
 ## Less common settings
 
