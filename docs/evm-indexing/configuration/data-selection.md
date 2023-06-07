@@ -220,6 +220,7 @@ const processor = new EvmBatchProcessor()
     archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
     chain: 'https://eth-rpc.gateway.pokt.network'
   })
+  .setFinalityConfirmation(75)
   .setBlockRange({ from: 6_000_000 })
   .addLog({
     address: [
@@ -251,8 +252,10 @@ const processor = new EvmBatchProcessor()
     }
   })
 
-processor.run(new TypeormDatabase({supportHotBlocks: true}), async (ctx) => {
-  // simply output all the items in the batch
+processor.run(new TypeormDatabase(), async (ctx) => {
+  // Simply output all the items in the batch.
+  // It is guaranteed to have all the data matching the filters,
+  // but not guaranteed to not have any other data.
   ctx.log.info(ctx.blocks, "Got blocks")
 })
 ```

@@ -274,14 +274,17 @@ import { Store, TypeormDatabase } from '@subsquid/typeorm-store';
 import { EvmBatchProcessor } from '@subsquid/evm-processor'
 import { MyEntity } from './model/generated/myEntity.model';
 
+const CONTRACT_ADDRESS = '0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'.toLowerCase()
+
 const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
     chain: 'https://eth-rpc.gateway.pokt.network'
   })
+  .setFinalityConfirmation(75)
   .setBlockRange({ from: 17000000 })
   .addLog({
-    address: ['0x2E645469f354BB4F5c8a05B3b30A929361cf77eC']
+    address: [CONTRACT_ADDRESS]
   })
   .setFields({
     log: {
@@ -290,10 +293,12 @@ const processor = new EvmBatchProcessor()
     }
   })
 
-processor.run(new TypeormDatabase({supportHotBlocks: true}), async (ctx) => {
+processor.run(new TypeormDatabase(), async (ctx) => {
   for (let c of ctx.blocks) {
     for (let log of c.logs) {
-      ctx.log.info(log, `Log:`)
+      if (log.address === CONTRACT_ADDRESS) {
+        ctx.log.info(log, `Log:`)
+      }
     }
   }
   await ctx.store.save([

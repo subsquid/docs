@@ -8,6 +8,10 @@ description: >-
 
 **Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
 
+:::warning
+Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/arrowsquid/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
+:::
+
 **`addTransaction(options)`**: Subscribe to transactions data. The `options` object has the following structure:
 ```typescript
 {
@@ -90,18 +94,19 @@ processor
 [//]: # (???? which traces are these - "execution" or "debug"?)
 
 ```ts
+const VITALIK_ETH = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'.toLowerCase()
+
 const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
     chain: 'https://eth-rpc.gateway.pokt.network'
   })
-  // Txs sent to vitalik.eth
+  .setFinalityConfirmation(75)
   .addTransaction({
-    to: ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
+    to: [VITALIK_ETH]
   })
-  // Txs sent from vitalik.eth
   .addTransaction({
-    from: ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'],
+    from: [VITALIK_ETH],
     traces: true
   })
   .setFields({
@@ -113,11 +118,13 @@ const processor = new EvmBatchProcessor()
     }
   })
 
-processor.run(new TypeormDatabase({supportHotBlocks: true}), async (ctx) => {
+processor.run(new TypeormDatabase(), async (ctx) => {
   for (let c of ctx.blocks) {
     for (let txn of c.transactions) {
-      // just output the tx data to console
-      ctx.log.info(txn, 'Tx:')
+      if (txn.to === VITALIK_ETH || txn.from === VITALIK_ETH) {
+        // just output the tx data to console
+        ctx.log.info(txn, 'Tx:')
+      }
     }
   }
 })

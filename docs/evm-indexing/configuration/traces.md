@@ -8,6 +8,10 @@ description: >-
 
 **Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.** 
 
+:::warning
+Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/arrowsquid/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
+:::
+
 [//]: # (!!!! Remove the /arrowsquid prefixes once the release becomes stable)
 
 **`addTrace(options)`**: Subscribe to [call execution traces](https://docs.alchemy.com/reference/debug-tracecall). This allows for tracking internal calls. The `options` object has the following structure:
@@ -65,29 +69,34 @@ const TO_CONTRACT = '0xc36442b4a4522e871399cd717abdd847ab11fe88' // Uniswap v3 P
 const METHOD_SIGHASH = '0x88316456' // mint
 
 const processor = new EvmBatchProcessor()
-    .setDataSource({
-        archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
-        chain: 'https://rpc.ankr.com/eth'
-    })
-    .setBlockRange({ from: 16962349, to: 16962349 })
-    .addTransaction({ to: [TO_CONTRACT], sighash: [METHOD_SIGHASH], traces: true })
-    .setFields({ trace: { callTo: true } })
+  .setDataSource({
+    archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
+    chain: 'https://rpc.ankr.com/eth'
+  })
+  .setFinalityConfirmation(75)
+  .setBlockRange({ from: 16962349, to: 16962349 })
+  .addTransaction({
+    to: [TO_CONTRACT],
+    sighash: [METHOD_SIGHASH],
+    traces: true
+  })
+  .setFields({ trace: { callTo: true } })
 
 processor.run(new TypeormDatabase(), async ctx => {
-    let involvedContracts = new Set<string>()
-    let traceCount = 0
+  let involvedContracts = new Set<string>()
+  let traceCount = 0
 
-    for (let block of ctx.blocks) {
-        for (let trc of block.traces) {
-            if (trc.type === 'call' && trc.transaction?.hash === TARGET_TRANSACTION) {
-                involvedContracts.add(trc.action.to)
-                traceCount += 1
-            }
-        }
+  for (let block of ctx.blocks) {
+    for (let trc of block.traces) {
+      if (trc.type === 'call' && trc.transaction?.hash === TARGET_TRANSACTION) {
+        involvedContracts.add(trc.action.to)
+        traceCount += 1
+      }
     }
+  }
 
-    console.log(`txn ${TARGET_TRANSACTION} had ${traceCount-1} internal transactions`)
-    console.log(`${involvedContracts.size} contracts were involved in txn ${TARGET_TRANSACTION}:`)
-    involvedContracts.forEach(c => { console.log(c) })
+  console.log(`txn ${TARGET_TRANSACTION} had ${traceCount-1} internal transactions`)
+  console.log(`${involvedContracts.size} contracts were involved in txn ${TARGET_TRANSACTION}:`)
+  involvedContracts.forEach(c => { console.log(c) })
 })
 ```
