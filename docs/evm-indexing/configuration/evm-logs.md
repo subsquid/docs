@@ -8,6 +8,10 @@ description: >-
 
 **Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
 
+:::warning
+Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/arrowsquid/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
+:::
+
 **`addLog(options)`**: Subscribe to events/EVM log data. The `options` object has the following structure:
 ```typescript
 {
@@ -47,6 +51,7 @@ const processor = new EvmBatchProcessor()
     archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
     chain: 'https://eth-rpc.gateway.pokt.network'
   })
+  .setFinalityConfirmation(75)
   .addLog({
     address: ['0x2e645469f354bb4f5c8a05b3b30a929361cf77ec'],
     topic0: [
