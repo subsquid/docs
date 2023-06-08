@@ -19,7 +19,9 @@ sqd init bayc-squid -t evm
 cd bayc-squid
 npm i
 ```
-The resulting code can be found at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/4dc090bad00618dec3309baf90bd1a9f864f32cd).
+The resulting code can be found at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/4dc090bad00618dec3309baf90bd1a9f864f32cd) (out of date).
+
+[//]: # (!!!! Update the final code)
 
 ## Interfacing with the contract ABI
 
@@ -43,42 +45,48 @@ Reading about [elsewhere](https://eips.ethereum.org/EIPS/eip-721) we learn that 
 ## Configuring the data filters
 
 A "squid processor" is the Node.js process and the [object that powers it](/evm-indexing/evm-processor/) that are responsible for retrieving filtered blockchain data from a specialized data lake (an [archive](/archives)), transforming it and saving the result to a destination of choice. To configure the processor (object) to retrieve the `Transfer` events of the BAYC token contract, we initialize it like this:
-```typescript
+```typescript title=src/processor.ts
 import * as bayc from './abi/bayc'
 
-const CONTRACT_ADDRESS = '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
+export const CONTRACT_ADDRESS = '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
 
-let processor = new EvmBatchProcessor()
+const fieldSelection = {
+    log: {
+        transactionHash: true
+    }
+} as const
+
+export const processor = new EvmBatchProcessor()
     .setDataSource({
         archive: lookupArchive('eth-mainnet'),
+        chain: 'https://eth-rpc.gateway.pokt.network'
     })
+    .setFinalityConfirmation(75)
     .setBlockRange({
         from: 12_287_507,
     })
-    .addLog(CONTRACT_ADDRESS, {
-        filter: [[bayc.events.Transfer.topic]],
-        data: {
-            evmLog: {
-                topics: true,
-                data: true,
-            },
-            transaction: {
-                hash: true,
-            },
-        },
+    .addLog({
+        address: [CONTRACT_ADDRESS],
+        topic0: [bayc.events.Transfer.topic]
     })
+    .setFields(fieldSection)
 ```
+
+[//]: # (!!!! Reconsider using a public RPC endpoint here)
+
 Here,
 * `'eth-mainnet'` is the alias for the public archive that Subsquid maintains for Ethereum mainnet. Check out `npx squid-archive-registry` for a list of public archives for all supported networks or explore the [archives documentation](/archives/) to find out how to host your own archive.
+* `'https://eth-rpc.gateway.pokt.network'` is a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within the archive. Please use a private endpoint or Aquarium's [RPC proxy service](/deploy-squid/rpc-proxy) in production.
+* `setFinalityConfirmation(75)` call instructs the processor to consider blocks final after 75 confirmations when ingesting data from an RPC endpoint.
 * `12_287_507` is the block at which the BAYC token contract was deployed. Can be found on the [contract's Etherscan page](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).
-* `[[bayc.events.Transfer.topic]]` is a filter that tells the processor to retrieve all event logs with [topic[0]](https://docs.soliditylang.org/en/v0.8.19/abi-spec.html#abi-events) matching the hash of the full signature of the `Transfer` event. The hash is taken from the previously generated Typescript ABI.
-* The `data` field of the [`addLog`](/evm-indexing/configuration/evm-logs/) options object specifies the exact data we need on every event to be retrieved. We are requesting topics and data for the event logs. Event log data is always supplemented by function call data on their parent transactions; we are requesting transaction hashes for that part.
+* The argument of [`addLog()`](/evm-indexing/configuration/evm-logs) is a set of filters that tells the processor to retrieve all event logs emitted by the BAYC contract with topic0 matching the hash of the full signature of the `Transfer` event. The hash is taken from the previously generated Typescript ABI.
+* The argument of [`setFields()`](/evm-indexing/configuration/data-selection/) specifies the exact data we need on every event to be retrieved. In addition to the data that is [provided by default](/evm-indexing/configuration/data-selection/#logs) we are requesting hashes of parent transactions for all event logs.
 
-See the [Configuration](/evm-indexing/configuration/) for more options.
+See [configuration](/evm-indexing/configuration) for more options.
 
 ## Decoding the event data
 
-The other part of processor configuration is the callback function used to process batches of the filtered data, the [batch handler](/basics/squid-processor/#processorrun). It is typically defined at the `processor.run()` call at `src/processor.ts`, like this:
+The other part of processor configuration is the callback function used to process batches of the filtered data, the [batch handler](/basics/squid-processor/#processorrun). It is typically defined at the `processor.run()` call at `src/main.ts`, like this:
 ```typescript
 processor.run(db, async (ctx) => {
     // data transformation and persistence code here
@@ -86,23 +94,24 @@ processor.run(db, async (ctx) => {
 ```
 Here,
 * `db` is a [`Database` implementation](/basics/store/store-interface/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/basics/store/typeorm-store/) object here.
-* `ctx` is a [batch context](/evm-indexing/context-interfaces/) object that exposes a batch of data retrieved from the archive (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
+* `ctx` is a [batch context](/evm-indexing/context-interfaces/) object that exposes a batch of data retrieved from an archive or a RPC endpoint (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
 
-Batch handler is where the raw on-chain data from the archive is decoded, transformed and persisted to the to target store. This is the part we'll be concerned with for the rest of the tutorial.
+Batch handler is where the raw on-chain data from the archive is decoded, transformed and persisted. This is the part we'll be concerned with for the rest of the tutorial.
 
 We begin by defining a batch handler decoding the `Transfer` event:
-```typescript
+```typescript title=src/main.ts
 processor.run(new TypeormDatabase(), async (ctx) => {
     for (let block of ctx.blocks) {
-        for (let item of block.items) {
-            if (item.kind !== 'evmLog') continue
-            let {from, to, tokenId} = bayc.events.Transfer.decode(item.evmLog)
-            ctx.log.info(`Parsed a Transfer of token ${tokenId} from ${from} to ${to}`)
+        for (let log of block.logs) {
+            if (log.address === CONTRACT_ADDRESS && log.topics[0] === bayc.events.Transfer.topic) {
+                let {from, to, tokenId} = bayc.events.Transfer.decode(log)
+                ctx.log.info(`Parsed a Transfer of token ${tokenId} from ${from} to ${to}`)
+            }
         }
     }
 })
 ```
-This goes through all the data items retrieved from the archive, decodes the data of each log item and logs the results into the terminal. It also discards the items that are not EVM logs, which is necessary because every log item is always followed by an item of its parent transaction. The decoding is done with the `bayc.events.Transfer.decode()` function from the Typescript ABI we previously generated.
+This goes through all the log items in the batch, verifies that they indeed are `Transfer` events emitted by the BAYC contract and decodes the data of each log item, then logs the results to the terminal. The verification step is required because the processor does not guarantee that it won't supply any extra data, only that it *will* supply the data matching the filters. The decoding is done with the `bayc.events.Transfer.decode()` function from the Typescript ABI we previously generated.
 
 At this point the squid is ready for its first test run. Execute
 ```bash
@@ -115,7 +124,9 @@ and you should see lots of lines like these in the output:
 03:56:02 INFO  sqd:processor Parsed a Transfer of token 6326 from 0x0000000000000000000000000000000000000000 to 0xb136c6A1Eb83d0b4B8e4574F28e622A57F8EF01A
 03:56:02 INFO  sqd:processor Parsed a Transfer of token 4407 from 0x082C99d47E020a00C95460D50a83338d509A0e3a to 0x5cf0E6da6Ec2bd7165edcD52D3d31f2528dCf007
 ```
-The full code can be found at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/be0ebfadff4be69f4d2f6a68418274b87adb707e).
+The full code can be found at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/be0ebfadff4be69f4d2f6a68418274b87adb707e) (out of date).
+
+[//]: # (!!!! Update the final code)
 
 ## Extending and persisting the data
 
@@ -148,23 +159,24 @@ sqd up
 sqd migration:generate
 ```
 The generated code is in `src/model`. We can now import a `Transfer` entity class from there and use it to perform [various operations](/basics/store/typeorm-store/) on the corresponding database table. Let us rewrite our batch handler to save the parsed `Transfer` events data to the database:
-```typescript
+```typescript title=src/main.ts
 processor.run(new TypeormDatabase(), async (ctx) => {
     let transfers: Transfer[] = []
 
     for (let block of ctx.blocks) {
-        for (let item of block.items) {
-            if (item.kind !== 'evmLog') continue
-            let {from, to, tokenId} = bayc.events.Transfer.decode(item.evmLog)
-            transfers.push(new Transfer({
-                id: item.evmLog.id,
-                tokenId: tokenId.toNumber(),
-                from,
-                to,    
-                timestamp: new Date(block.header.timestamp),
-                blockNumber: block.header.height,
-                txHash: item.transaction.hash,
-            }))
+        for (let log of block.logs) {
+            if (log.address === CONTRACT_ADDRESS && log.topics[0] === bayc.events.Transfer.topic) {
+                let {from, to, tokenId} = bayc.events.Transfer.decode(log)
+                transfers.push(new Transfer({
+                    id: log.id,
+                    tokenId: tokenId.toNumber(),
+                    from,
+                    to,
+                    timestamp: new Date(block.header.timestamp),
+                    blockNumber: block.header.height,
+                    txHash: log.transactionHash,
+                }))
+            }
         }
     }
 
@@ -172,7 +184,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 })
 ```
 Note a few things here:
-* A unique event log ID is available at `item.evmLog.id` - no need to generate your own!
+* A unique event log ID is available at `log.id` - no need to generate your own!
 * `tokenId` returned from the decoder is an `ethers.BigNumber`, so it has to be explicitly converted to `number`. The conversion is valid only because we know that BAYC NFT IDs run from 0 to 9999; in most cases we would use `BigInt` for the entity field type and convert with `tokenId.toBigInt()`.
 * `block.header` contains block metadata that we use to fill the extra fields.
 * Accumulating the `Transfer` entity instances before using `ctx.store.insert()` on the whole array of them in the end allows us to get away with just one database transaction per batch. This is [crucial for achieving a good syncing performance](/basics/batch-processing/).

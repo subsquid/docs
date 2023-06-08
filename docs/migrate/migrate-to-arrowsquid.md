@@ -52,7 +52,7 @@ Replace the old archive URL or lookup command with a [`v2` archive URL for your 
 +    archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
 +    chain: 'https://eth-rpc.gateway.pokt.network'
    })
-+  .setFinalityConfirmation(35)
++  .setFinalityConfirmation(75)
 ```
 We recommend using a private RPC endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/). For squids deployed to [Aquarium](/deploy-squid/quickstart/) you may also consider using our [RPC proxies](/arrowsquid/deploy-squid/rpc-proxy) (currently experimental).
 
