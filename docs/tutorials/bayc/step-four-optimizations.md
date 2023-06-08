@@ -9,7 +9,10 @@ sidebar_position: 40
 
 This is the fourth part of the tutorial where we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers, and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database, and serves it over a GraphQL API. In the first three parts ([1](/tutorials/bayc/step-one-indexing-transfers), [2](/tutorials/bayc/step-two-deriving-owners-and-tokens), [3](/tutorials/bayc/step-three-adding-external-data)), we created a squid that does all the above but performs many IO operations sequentially, resulting in a long sync time. In this part, we discuss strategies for mitigating that shortcoming. We also discuss an alternative metadata fetching strategy that reduces redundant fetches and handles the changes in metadata of "cold" (i.e., not involved in any transfers) tokens more effectively.
 
-Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the third part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/20206c337d443e3cb96133f527cc9fac2a8f1d2a)).
+Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the third part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/20206c337d443e3cb96133f527cc9fac2a8f1d2a) (link out of date)).
+
+[//]: # (!!!! Update URL)
+[//]: # (???? Find all benchmarks marked with "figure out of date"/"figures out of date" and update them)
 
 ## Using Multicall for aggregating state queries
 
@@ -18,7 +21,7 @@ We begin by introducing [batch processing](/basics/batch-processing/) wherever p
 npx squid-evm-typegen --multicall src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#bayc
 ```
 This adds a Typescript ABI interface at `src/abi/multicall.ts`. Let us use it in a rewrite of `completeTokens()`:
-```typescript title=src/processor.ts
+```typescript title=src/main.ts
 import { Multicall } from './abi/multicall'
 
 const MULTICALL_ADDRESS = '0x5ba1e12693dc8f9c48aad8770482f4739beed696'
@@ -61,9 +64,11 @@ async function completeTokens(
 
 // ...
 ```
-Here we replaced the direct calls to `tokenURI()` of the BAYC token contract with aggreaged batches of 100 state calls and called `aggregate()` of the multicall contract for each batch. `Multicall.aggregate()` takes care of splitting the set of state calls into chunks and merging the results together. The number 100 for the batch size was chosen to be as large as possible while not triggering any response size limits on the public RPC endpoint we use. For private RPC endpoints one would try to further increase the batch size.
+Here we replaced the direct calls to `tokenURI()` of the BAYC token contract with aggreaged batches of 100 state calls and called `aggregate()` of the multicall contract for each batch. `Multicall.aggregate()` takes care of splitting the set of state calls into chunks and merging the results together. The number 100 for the batch size was chosen to be as large as possible while not triggering any response size limits on the public RPC endpoint we use. With a private RPC endpoint one would try to further increase the batch size.
 
-You can find the full code after this optimization at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/d9f3b775ffb03aa1636bac674370a552a083c416). In our test this optimization reduced the time required for retrieving the contract state for all 10000 tokens once from 114 minutes to 94 seconds.
+[//]: # (!!!! Update URL)
+
+You can find the full code after this optimization at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/d9f3b775ffb03aa1636bac674370a552a083c416) (link out of date). In our test this optimization reduced the time required for retrieving the contract state for all 10000 tokens once from 114 minutes to 94 seconds (figures out of date).
 
 ## Retrieving metadata from HTTPS concurrently
 
@@ -94,9 +99,11 @@ export async function fetchTokenMetadatasConcurrently(
     return metadatas
 }
 ```
-then we call the function from [`completeTokens()`](https://github.com/abernatskiy/tmp-bayc-squid-2/blob/b7023af18256360fe2c3d0f1c9f5ca682cdb4006/src/processor.ts#L117) and use its output to populate metadata fields of `Token` entity instances. Utility functions `asyncSleep()` and `splitIntoBathches()` are implemented [here](https://github.com/abernatskiy/tmp-bayc-squid-2/blob/b7023af18256360fe2c3d0f1c9f5ca682cdb4006/src/util.ts). Full code is available at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/b7023af18256360fe2c3d0f1c9f5ca682cdb4006).
+then we call the function from [`completeTokens()`](https://github.com/abernatskiy/tmp-bayc-squid-2/blob/b7023af18256360fe2c3d0f1c9f5ca682cdb4006/src/processor.ts#L117) and use its output to populate metadata fields of `Token` entity instances. Utility functions `asyncSleep()` and `splitIntoBathches()` are implemented [here](https://github.com/abernatskiy/tmp-bayc-squid-2/blob/b7023af18256360fe2c3d0f1c9f5ca682cdb4006/src/util.ts). Full code is available at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/b7023af18256360fe2c3d0f1c9f5ca682cdb4006) (links out of date).
 
-On the first processor batch, when we retrieve metadata from `us-central1-bayc-metadata.cloudfunctions.net` for all 10000 tokens, this optimization reduced the required time from 45 to 21 minutes.
+[//]: # (!!!! Update URLs)
+
+On the first processor batch, when we retrieve metadata from `us-central1-bayc-metadata.cloudfunctions.net` for all 10000 tokens, this optimization reduced the required time from 45 to 21 minutes (figures out of date).
 
 ## Retrieving immutable metadata once
 
@@ -155,11 +162,11 @@ export function uriPointsToImmutable(uri: string): boolean {
     return uri.startsWith('ipfs://') && !uri.includes('ipns')
 }
 ```
-Full code is available at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/dc8531dc99cee998bcf025a45fa0e792b031e0bd). In our test this optimization reduced the total sync time from about 4.1 to 1.5 hours.
+Full code is available at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/dc8531dc99cee998bcf025a45fa0e792b031e0bd) (link out of date). In our test this optimization reduced the total sync time from about 4.1 to 1.5 hours (figures out of date).
 
 ## Alternative: Post-sync retrieval of metadata
 
-Despite all the optimizations, our squid still takes 1.5 hours to sync instead of 11 minutes it needed [before we introduced metadata retrieval](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/6f41cba76b9d90d12638a17d64093dbeb19d00ec). This is the cost of maintaining a fully populated database at all stages of the sync, which is rarely a requirement. An alternative is to begin retrieving metadata only after the rest of the data has been fully synced, and the squid has caught up with the blockchain. We do that by reading `Token` entities from the database after the initial sync, retrieving their metadata and persisting them.
+Despite all the optimizations, our squid still takes 1.5 hours to sync instead of 11 minutes it needed [before we introduced metadata retrieval](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/6f41cba76b9d90d12638a17d64093dbeb19d00ec) (figures out of date). This is the cost of maintaining a fully populated database at all stages of the sync, which is rarely a requirement. An alternative is to begin retrieving metadata only after the rest of the data has been fully synced, and the squid has caught up with the blockchain. We do that by reading `Token` entities from the database after the initial sync, retrieving their metadata and persisting them.
 
 This approach has another advantage: metadata URIs can change without notice, and our old retrieval strategy would only pick up the changes when the token has been transferred. If our goal is to keep token metadata as up-to-date as possible, we have to constantly renew it even for tokens that are not involved in any recent transfers. This is easy to implement with our new metadata retrieval strategy: simply add a field to the `Token` entity that tracks the block height of the most recent metadata update and select `Token`s that were updated some fixed number of blocks ago for metadata updates.
 
@@ -183,24 +190,19 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 +    }
  })
 ```
-Full implementation requires changes to the schema, replacement of `completeTokens()` with `updateTokensWithOutdatedMetadata()` and rewrites of `createTokens()` and `selectivelyUpdateMetadata()`. It is available in [this branch](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/lazy-metadata). The resulting squid took 10 minutes for the initial sync, then 50 minutes more to retrieve metadata at least once for every token.
+Full implementation requires changes to the schema, replacement of `completeTokens()` with `updateTokensWithOutdatedMetadata()` and rewrites of `createTokens()` and `selectivelyUpdateMetadata()`. It is available in [this branch](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/lazy-metadata) (link out of date). The resulting squid took 10 minutes for the initial sync, then 50 minutes more to retrieve metadata at least once for every token (figures out of date).
 
 ## Extra: Using Multicall for metadata exploration
 
-In part 3 of this tutorial we [explored metadata URIs](/tutorials/bayc/step-three-adding-external-data/#exploring-token-metadata) by running `tokenURI()` directly on the BAYC token contract. This process took several hours. Replacing the exploration code with its [multicall]-based equivalent, we can reduce that time to about 17 minutes. Starting with the code [as it was at the end of part two](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/6f41cba76b9d90d12638a17d64093dbeb19d00ec), get `src/abi/multicall.ts` by running
+In part 3 of this tutorial we [explored metadata URIs](/tutorials/bayc/step-three-adding-external-data/#exploring-token-metadata) by running `tokenURI()` directly on the BAYC token contract. This process took several hours. Replacing the exploration code with its [multicall]-based equivalent, we can reduce that time to about 17 minutes (figure out of date). Starting with the code [as it was at the end of part two](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/6f41cba76b9d90d12638a17d64093dbeb19d00ec) (link out of date), get `src/abi/multicall.ts` by running
+
+[//]: # (!!!! Update URL)
+
 ```bash
 npx squid-evm-typegen --multicall src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#bayc
 ```
-then supply a RPC endpoint to the processor and add the code for batch URI retrieval to the batch handler:
-```diff title=src/processor.ts
- let processor = new EvmBatchProcessor()
-     .setDataSource({
-         archive: lookupArchive('eth-mainnet'),
-+        chain: 'https://rpc.ankr.com/eth',
-     })
-
-# ...
-
+then add the code for batch URI retrieval to the batch handler:
+```diff title=src/main.ts
 +import { BigNumber } from 'ethers'
 +import { Multicall } from './abi/multicall'
 
