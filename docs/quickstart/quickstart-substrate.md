@@ -6,6 +6,8 @@ description: A simple squid for Substrate indexing transfers
 
 # Quickstart: Substrate chains
 
+[//]: # (!!!! Rework when ArrowSquid for Substrate is released)
+
 The `substrate` squid template indexes transfers on the Kusama network. It is intended to be a stepping stone for building a custom squid for any Substrate-based chain. 
 
 ## Pre-requisites
@@ -13,7 +15,7 @@ The `substrate` squid template indexes transfers on the Kusama network. It is in
 Before getting to work on your very first squid, verify that you have installed the following software: 
 
 - Node v16.x or newer
-- [Squid CLI](/squid-cli/installation) v2.1.0 or newer
+- [Squid CLI](/squid-cli/installation)
 
 Please note:
 - The squid template is **not** compatible with `yarn`. Use `npm` instead.

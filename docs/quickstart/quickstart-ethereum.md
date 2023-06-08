@@ -6,14 +6,12 @@ description: Minimal squid for EVM chains
 
 # Quickstart: EVM chains
 
-The `evm` squid template indexes transactions to the "black hole" address `0x0000000000000000000000000000000000000000`, persists its data into a Postgres database and serves it over a GraphQL API. It is intended to be a starter project for building a custom squid indexing logs and transactions data on Ethereum and other EVM chains.
+The `evm` squid template indexes transactions to the "black hole" address `0x0000000000000000000000000000000000000000`, persists their data into a Postgres database and serves it over a GraphQL API. It is intended to be a starter project for building custom squids indexing data from Ethereum and other EVM chains.
 
 ## Pre-requisites
 
-Before getting to work on your very first squid, verify that you have installed the following:
-
 - Node v16.x or newer
-- [Squid CLI](/squid-cli/installation) v2.1.0 or newer
+- [Squid CLI](/squid-cli/installation)
 - Docker
 
 :::info
@@ -45,8 +43,7 @@ npm ci
 
 ## Step 3: Set the network
 
-Inspect `src/processor.ts` and set the EVM network of interest. Consult the [processor configuration page](/evm-indexing/configuration) 
-for the list of supported networks and configuration options.
+Inspect `src/processor.ts` and set the EVM network of interest. Consult the [supported networks](/evm-indexing/supported-networks) and [processor configuration](/evm-indexing/configuration) pages.
 
 ## Step 4: Launch Postgres and detach
 
@@ -67,14 +64,11 @@ It outputs simple aggregations of the burned ETH and batch-inserts the tx data i
 
 ## Step 6: Start the GraphQL server
 
-This should be run in a separate terminal window:
+Run the API server in a separate terminal window, then visit the [GraphiQL console](http://localhost:4350/graphql):
 ```bash
 sqd serve
-# in yet another window
-sqd open http://localhost:4350/graphql
 ```
-
-This starts a GraphQL API console auto-serving the `Burn` entity data we are uploading to Postgres. For example, one can explore the top-10 historical burns:
+The console auto-serves the `Burn` entity data we are uploading to Postgres. For example, one can explore the top-10 historical burns:
 
 ```graphql
 query MyQuery {
@@ -94,9 +88,9 @@ query MyQuery {
 
 ## What's next?
 
-- [Migrate](/migrate/migrate-subgraph) the existing subgraphs to Subsquid
+- [Migrate](/migrate/migrate-subgraph) your existing subgraphs to Subsquid
 - Define your own [data schema](/basics/schema-file)
-- Explore examples of squids for EVM networks, from [simple transfer indexing to DEX analytics](/examples)
+- Explore examples of squids for EVM networks, from [simple transfer indexing to DEX analytics](/examples/evm)
 - Dive deeper into [`EvmBatchProcessor`](/evm-indexing)
 - Explore how to enhance the GraphQL API with [custom SQL, caching and limits](/graphql-api)
 - [Deploy](/deploy-squid) the squid to the Aquarium hosted service
