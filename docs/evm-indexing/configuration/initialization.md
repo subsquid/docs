@@ -46,6 +46,8 @@ Archives use the [debug API](https://geth.ethereum.org/docs/interacting-with-get
 
 **`useDebugApiForStateDiffs(yes?: boolean | undefined)`**: Use the debug API to get state diffs. **WARNING:** this will significantly increase the amount of data retrieved from the RPC endpoint. Expect download rates in the megabytes per second range.
 
+[//]: # (???? Check the validity of the traffic claim on release)
+
 **`useTraceApi(yes?: boolean | undefined)`**: Use the trace API to retrieve traces.
 
 ## Less common settings

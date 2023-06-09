@@ -14,7 +14,9 @@ description: >-
 ```ts
 import { Store, TypeormDatabase } from '@subsquid/typeorm-store'
 
-processor.run(new TypeormDatabase(), async ctx => {
+const dbOptions = {} // see Constructor options
+
+processor.run(new TypeormDatabase(dbOptions), async ctx => {
   // ...  
   await ctx.store.save([new FooEntity({ id: '1'}), new FooEntity({ id: '2'})])
 })
@@ -22,8 +24,17 @@ processor.run(new TypeormDatabase(), async ctx => {
 
 In the snippet above, `ctx.store` passed to the handlers will be of type `Store`.
 
+## Constructor options
 
-## Batch methods
+The behavior of `TypeormDatabase` and the derived `Store` objects can be tuned by setting the following fields of the database class constructor arguments:
+* `stateSchema: string`: the name of the [database schema](https://www.postgresql.org/docs/current/sql-createschema.html) that the processor uses to persist its status (currently just the highest reached block number). Useful for making sure that each processor uses its own state schema when running multiple processors against the same database (e.g. in a multichain setting). Default: `'squid_processor'`.
+* `isolationLevel: 'SERIALIZABLE' | 'READ COMMITTED' | 'REPEATABLE READ'`: sets the [transaction isolation level](https://www.postgresql.org/docs/current/transaction-iso.html) of processor transactions. Default: `'SERIALIZABLE'`.
+* `supportHotBlocks: boolean`: controls the support for hot blocks. Necessary in all squids that must be able to handle short-lived [blockchain forks](https://en.wikipedia.org/wiki/Fork_(blockchain)). That includes all squids that index chain data in near-real time using RPC endpoints. Default: `true`.
+* `projectDir: string`: the folder where `TypeormDatabase` will look for the TypeORM model definition (at `lib/model`) and for migrations (at `db/migrations`). Default: `process.cwd()`.
+
+## `Store` interface
+
+### Batch methods
 
 **`save(e: E | E[])`** 
 
@@ -49,10 +60,9 @@ Deletes a given entity or entities from the database. Accepts either an object o
 await ctx.store.remove(User, ['Alice', 'Bob'])
 ```
 
-## TypeORM methods
+### TypeORM methods
 
 For details see [TypeORM EntityManager reference](https://typeorm.io/entity-manager-api).
-
 
 **`get`**
 
@@ -141,7 +151,7 @@ Throws if nothing is found.
 const timber = await ctx.store.findOneByOrFail(User, { firstName: "Timber" })
 ```
 
-## Find Operators
+### Find Operators
 
 `find()` and `findXXX()` methods support the following operators:
 
@@ -160,13 +170,13 @@ const timber = await ctx.store.findOneByOrFail(User, { firstName: "Timber" })
 
 See the details and examples in the [TypeORM `FindOption` docs](https://typeorm.io/find-options#advanced-options).
 
-### Example 
+#### Example
 
 ```ts
 let accounts = await ctx.store.findBy(Account, {id: In([...accountIds])})
 ```
 
-## Joining relations
+### Joining relations
 
 To load an entity with relations, use `relations` field on the `find` options and specify which relations should be joined:
 
