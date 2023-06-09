@@ -6,17 +6,19 @@ description: >-
 sidebar_position: 25
 ---
 
-# Save indexed data in CSV files, locally
+# Save indexed data to local CSV files
 
 ## Objective
 
-This tutorial describes how to use Subsquid's indexing framework for saving processed blockchain data to CSV files, locally. The intent is to show how Subsquid SDK can be used for data analytics prototyping.
+This tutorial describes how to use the Subsquid indexing framework for saving processed blockchain data to local CSV files. The intent is to show how Subsquid SDK can be used for data analytics prototyping.
 
 File-based data formats like CSV are convenient for data analysis, especially in the early prototyping stages. This convenience motivated Subsquid Team to develop some extensions to allow saving processed data to file-based storage.
 
 We chose MATIC transactions on Ethereum mainnet for this example. This selection provides enough data to highlight the performance of the Subsquid framework and is interesting from a data analysis standpoint.
 
-An article about this demo project [has been published on Medium](https://link.medium.com/1NPC1S2czxb). The project source code can be found [in this repository on GitHub](https://github.com/RaekwonIII/local-csv-indexing).
+An article about this demo project [has been published on Medium](https://link.medium.com/1NPC1S2czxb). The project source code can be found [in this repository on GitHub](https://github.com/RaekwonIII/local-csv-indexing) (link out of date).
+
+[//]: # (!!!! Update all github URLs)
 
 ## Pre-requisites
 
@@ -34,9 +36,9 @@ sqd init local-csv-indexing -t evm
 Here, `local-csv-indexing` is the name of the project, and can be changed to anything else. The `-t evm` option specifies that the [`evm` template](https://github.com/subsquid-labs/squid-evm-template) should be used as a starting point.
 
 :::info
-**Note:** The template actually has more than what we need for this project. Unnecessary packages have been removed in the tutorial repository. You can grab [`package.json`](https://github.com/RaekwonIII/local-csv-indexing/blob/main/package.json) from there to do the same.
+**Note:** The template actually has more than what we need for this project. Unnecessary packages have been removed in the tutorial repository. You can grab [`package.json`](https://github.com/RaekwonIII/local-csv-indexing/blob/main/package.json) (link out of date) from there to do the same.
 
-Files-wise, `docker-compose.yml`, `schema.graphql` and `squid.yaml` were removed. `commands.json`, the list of local `sqd` scripts, has been significantly shortened ([here is the updated version](https://github.com/RaekwonIII/local-csv-indexing/blob/main/commands.json)).
+Files-wise, `docker-compose.yml`, `schema.graphql` and `squid.yaml` were removed. `commands.json`, the list of local `sqd` scripts, has been significantly shortened ([here is the updated version](https://github.com/RaekwonIII/local-csv-indexing/blob/main/commands.json) (link out of date)).
 :::
 
 ### ERC-20 token ABI
@@ -66,7 +68,7 @@ For writing local CSVs we will need the `file-store-csv` package:
 npm i @subsquid/file-store-csv
 ```
 :::info
-Packages are also available for [writing to parquet files](https://www.npmjs.com/package/@subsquid/file-store-parquet) and for [uploading to S3-compatible cloud services](https://www.npmjs.com/package/@subsquid/file-store-s3).
+Packages are also available for [writing to parquet files](/basics/store/file-store/parquet-table) and for [uploading to S3-compatible cloud services](/basics/store/file-store/s3-dest).
 :::
 
 Next, let's create a new file at `src/tables.ts`. This is where it's possible to provide filenames for the CSV files, as well as configure their data structure, in much the same way as if they were a database table (the class name is no coincidence):
@@ -77,12 +79,12 @@ import {Table, Column, Types} from '@subsquid/file-store-csv'
 export const Transfers = new Table(
   'transfers.csv',
   {
-    blockNumber: Column(Types.Integer()),
-    timestamp: Column(Types.Timestamp()),
+    blockNumber: Column(Types.Numeric()),
+    timestamp: Column(Types.DateTime()),
     contractAddress: Column(Types.String()),
     from: Column(Types.String()),
     to: Column(Types.String()),
-    amount: Column(Types.Decimal()),
+    amount: Column(Types.Numeric()),
   },
   {
     header: false,
@@ -109,8 +111,9 @@ export const db = new Database({
 :::info
 Note the `chunkSizeMb` and `syncIntervalBlocks` option. `file-store-csv` chunks its output into multiple files, and these options are used to control that. A new chunk (that is, a new folder with a new CSV file in it) will be written when either
 1. the amount of data stored in the processor buffer exceeds `chunkSizeMb`, or
-2. the blockchain head is reached in the sync process, or
-3. a multiple of `syncIntervalBlocks` blocks has been processed since the blockchain head was first reached.
+2. there is some data to the buffer and the blockchain head is reached in the sync process, or
+3. there is some data in the buffer and more than `syncIntervalBlocks` blocks has been processed since the last write.
+See [this section](/basics/store/file-store/overview/#filesystem-syncs-and-dataset-partitioning) for details.
 :::
 
 ### Data indexing
@@ -119,21 +122,16 @@ All the indexing logic is defined in `src/processor.ts`, so let's open it and ed
 
 ```typescript
 export const contractAddress =
-  "0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0".toLowerCase();
+  '0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0'.toLowerCase();
 
 const processor = new EvmBatchProcessor()
   .setDataSource({
-    archive: lookupArchive("eth-mainnet"),
-    chain: process.env.RPC_ENDPOINT,
+    archive: lookupArchive('eth-mainnet'),
+    chain: process.env.RPC_ETH_HTTP,
   })
-  .addLog(contractAddress, {
-    filter: [[events.Transfer.topic]],
-    data: {
-      evmLog: {
-        topics: true,
-        data: true,
-      },
-    } as const,
+  .addLog({
+    address: [contractAddress],
+    topic0: [events.Transfer.topic]
   });
 ```
 
@@ -149,28 +147,27 @@ RPC_ENDPOINT="https://rpc.ankr.com/eth"
 ```
 :::
 
-Let's then define the logic to process a batch of EVM log data, and save it to CSV files.
+Let's define the logic to process a batch of EVM log data, and save it to CSV files.
 
-A double loop is necessary to explore all the blocks in each batch, and the items in each block. In the innermost loop, it's necessary to check that the items are actually EVM logs (this favors TypeScript typings, as [different kind of items have access to different fields](/evm-indexing/evm-processor/#overview-and-the-data-model)), that they have been generated by the right address and that they have the right topic signature.
+A double loop is necessary to explore all the blocks in each batch and the logs in each block. The processor provides no guarantees that it won't provide any data not matching the filters, so it's necessary to check that the logs have been generated by the right address and that they have the right topic signature.
 
-It's then possible to decode the event and prepare an object with the right data structure, which is then written to the `Transfers` CSV file.
+It's then possible to decode the events and prepare objects with the right data structure, which are then written to the `Transfers` CSV file.
 Here is a short summary of the logic:
 
 ```typescript
 processor.run(db, async (ctx) => {
-  let decimals = 18;
+  let decimals = 18
   for (let block of ctx.blocks) {
-    for (let item of block.items) {
-      if (item.address !== contractAddress) continue;
-      if (item.kind !== "evmLog") continue;
-      if (item.evmLog.topics[0] !== events.Transfer.topic) continue;
+    for (let log of block.logs) {
+      if (log.address !== contractAddress) continue;
+      if (log.topic0 !== events.Transfer.topic) continue;
 
-      const { from, to, value } = events.Transfer.decode(item.evmLog);
+      const { from, to, value } = events.Transfer.decode(log);
 
       ctx.store.Transfers.write(({
         blockNumber: block.header.height,
         timestamp: new Date(block.header.timestamp),
-        contractAddress: item.address,
+        contractAddress: log.address,
         from: from.toLowerCase(),
         to: to.toLowerCase(),
         amount: BigDecimal(value.toBigInt(), decimals).toNumber(),
@@ -181,12 +178,14 @@ processor.run(db, async (ctx) => {
 ```
 
 :::info
-The file in the GitHub repository is slightly different, as there's some added logic to obtain the number of decimals for the token. For that, the processor [interacts with the smart contract deployed on chain](/evm-indexing/query-state). This is where the `RPC_ENDPOINT` variable is being used.
+The file in the GitHub repository is slightly different, as there's some added logic to obtain the number of decimals for the token. For that, the processor [interacts with the smart contract deployed on chain](/evm-indexing/query-state).
 :::
+
+[//]: # (!!!! Consider dropping the contract state query use here)
 
 ### Launch the project
 
-To launch the project, simply open a terminal and run this command:
+To launch the project, run:
 
 ```bash
 sqd process
@@ -200,6 +199,8 @@ If you want to learn how to analyze this data using Python and Pandas, refer to 
 
 ## Conclusions
 
-The purpose of this project was to demonstrate how to use Subsquid's indexing framework for data analytics prototyping: the indexer was able to ingest all this data, process it, and dump it to local CSV files in roughly 20 minutes. The simple Python script in the project's repository shows how to read multiple CSV files, and perform some data analysis with Pandas.
+[//]: # (!!!! Update the benchmark figure)
+
+The purpose of this project was to demonstrate how to use Subsquid's indexing framework for data analytics prototyping: the indexer was able to ingest all this data, process it, and dump it to local CSV files in roughly 20 minutes (figure out of date). The simple Python script in the project's repository shows how to read multiple CSV files, and perform some data analysis with Pandas.
 
 Subsquid Team seeks feedback on this new tool. If you want to share any thoughts or have any suggestions, feel free to reach out to us at [the SquidDevs Telegram channel](https://t.me/HydraDevs).
