@@ -8,6 +8,8 @@ sidebar_position: 50
 
 # Frontier EVM-indexing Squid
 
+[//]: # (!!!! Update when Substrate ArrowSquid is released)
+
 ## Objective
 
 The goal of this tutorial is to guide you through creating a simple blockchain indexer ("squid") using Squid SDK. The squid will be indexing the data from two contracts ([AstarDegens](https://blockscout.com/astar/address/0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a) and [AstarCats](https://blockscout.com/astar/address/0x8b5d62f396Ca3C6cF19803234685e693733f9779)) deployed on the [Astar network](https://astar.network/). The objective will be to track ownership and transfers of all NFTs issued by these contracts.

@@ -7,6 +7,8 @@ sidebar_position: 60
 ---
 # ink! contract indexing
 
+[//]: # (!!!! Update when Substrate ArrowSquid is released)
+
 ## Objective
 
 This tutorial starts with the [`substrate` squid template](https://github.com/subsquid-labs/squid-wasm-template) and goes through all the necessary changes to index the events of a WASM contract developed with [ink!](https://www.parity.io/blog/ink-3-0-paritys-rust-based-language-gets-a-major-update). This approach is taken to illustrate the development process. If you want to start indexing ASAP, consider using the WASM/ink! [squid generation tool](/basics/squid-gen/) or starting with the [`ink` template](https://github.com/subsquid/squid-wasm-template) that contains the final code of this tutorial:
