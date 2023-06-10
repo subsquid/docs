@@ -1,26 +1,28 @@
 ---
 id: parquet-file-store
-title: Index to local parquet files
+title: Index to Parquet files
 description: >-
   Storing data in files for analysis
 sidebar_position: 26
 ---
 
-# Save indexed data in local parquet files
+# Save indexed data in Parquet files
 
 ## Objective
 
-This tutorial describes how to use the Subsquid indexing framework to save the processed blockchain data to local [parquet files](https://parquet.apache.org/) instead of a database. The intent is to show how Subsquid SDK can be used for data analytics, this time with focus on tools suitable for larger datasets. 
+This tutorial describes how to use the Subsquid indexing framework to save the processed blockchain data to [Parquet files](https://parquet.apache.org/) instead of a database. The intent is to show how Subsquid SDK can be used for data analytics, this time with focus on tools suitable for larger datasets.
 
-File-based data formats like [CSV](/tutorials/index-to-local-csv-files) are convenient for data analysis, especially in the early prototyping stages. On the other hand, when analyzing very large datasets, it's common to use distributed systems such as Hadoop or Spark, and the workers in a cluster usually "divide and conquer" multiple files during the import process. CSV format severely limits the available design choices when doing this.
+File-based data formats like [CSV](/tutorials/index-to-local-csv-files) are convenient for data analysis, especially in the early prototyping stages. However, when working with large datasets the ability to read data files partially is a common requirement. This is rarely possible with CSV.
 
-In contrast, the Parquet format is designed to make data accessible in chunks, allowing efficient read/write operations without processing the entire file. To better serve data analysts' needs, the Subsquid Team developed a library to allow the storage of processed data in this file format.
+In contrast, the Parquet format is designed for efficient read/write operations without processing the entire file. To better serve data analysts' needs, the Subsquid Team developed a library for storing indexer data in this format.
 
-The subject of this project is the Uniswap V3 smart contract, namely the data from its pools and positions held by investors. The choice of the project's subject fell on Uniswap because the protocol generates a very large amount of information, and ultimately, this helps to better show how to leverage a more performance-oriented format.
+The subject of this tutorial is the Uniswap DApp, namely the data from its pool contracts and positions held by investors. Uniswap was chosen because it generates a very large amount of information, and ultimately this helps to better show how to leverage a more performance-oriented format.
 
-An article about this demo project [has been published on Medium](https://link.medium.com/7gU0BrLbDxb). The project source code can be found [in this repository on GitHub](https://github.com/subsquid-labs/squid-parquet-storage).
+An article about this demo project [has been published on Medium](https://link.medium.com/7gU0BrLbDxb). The project source code can be found [in this repository on GitHub](https://github.com/subsquid-labs/squid-parquet-storage) (link out of date).
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/subsquid-labs/squid-parquet-storage)
+[//]: # (!!!! Update all github URLs)
+[//]: # (!!!! Update all outdated benchmark figures "figure/figures out of date")
+[//]: # (!!!! Restore the Gitpod button https://gitpod.io/button/open-in-gitpod.svghttps://gitpod.io#https://github.com/subsquid-labs/squid-parquet-storage)
 
 ## Pre-requisites
 
@@ -29,7 +31,7 @@ An article about this demo project [has been published on Medium](https://link.m
 
 ## Setup
 
-Let's start by creating a new blockchain indexer, or "squid" in Subsquid terminology. In a terminal, launch this command:
+Let's start by creating a new blockchain indexer, or a "squid" in Subsquid terminology. In a terminal, launch this command:
 
 ```bash
 sqd init local-parquet-indexing -t evm
@@ -38,9 +40,9 @@ sqd init local-parquet-indexing -t evm
 Here, `local-parquet-indexing` is the name of the project, and can be changed to anything else. The `-t evm` option specifies that the [`evm` template](https://github.com/subsquid-labs/squid-evm-template) should be used as a starting point.
 
 :::info
-**Note:** The template actually has more than what we need for this project. Unnecessary packages have been removed in the tutorial repository. You can grab [`package.json`](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/package.json) from there to do the same.
+**Note:** The template actually has more than what we need for this project. Unnecessary packages have been removed in the tutorial repository. You can grab [`package.json`](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/package.json) (link out of date) from there to do the same.
 
-Files-wise, `docker-compose.yml`, `schema.graphql` and `squid.yaml` were removed. `commands.json`, the list of local `sqd` scripts, has been significantly shortened ([here is the updated version](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/commands.json)).
+Files-wise, `docker-compose.yml`, `schema.graphql` and `squid.yaml` were removed. `commands.json`, the list of local `sqd` scripts, has been significantly shortened ([here is the updated version](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/commands.json) (link out of date)).
 :::
 
 Finally, make sure to install the dependencies:
@@ -51,9 +53,7 @@ npm i
 
 ### ERC-20 token ABI
 
-Because the project is not as trivial as indexing the transfers of a single token, some sections will be more complex and most of the code will be explained, rather than directly listed.
-
-This section about Application Binary Interfaces is no exception since this project indexes data from three kinds of Uniswap contracts, one of which is a factory that deploys new contracts. Additionally, it uses a Multicall contract.
+Due to the size of this project most of the code will be explained rather than directly listed. The code of this section is no exception since this project indexes data from three kinds of Uniswap contracts, one of which is a factory that deploys new contracts. Additionally, it uses a Multicall contract.
 
 For this project, you will need:
 
@@ -68,19 +68,19 @@ For this project, you will need:
 :::
 
 :::info
-**Note:** for the pool ABI, you can inspect the internal transactions of one of the [Create Pool transactions of the Factory](https://etherscan.io/tx/0xd9e0fc1d737479e940d9807a535c75a31a2c8458792e2c66e2cc33f19f88e546#internal), and look at the destination address, which will be the pool itself.
+**Note:** you can find a pool and its ABI by inspecting the internal calls of one of the [Create Pool transactions of the Factory contract](https://etherscan.io/tx/0xd9e0fc1d737479e940d9807a535c75a31a2c8458792e2c66e2cc33f19f88e546#internal).
 :::
 
-This means you'll need to generate TypeScript code for them, with multiple commands.
+Generate TypeScript code for them:
 
 ```bash
 sqd typegen 0x1f98431c8ad98523631ae4a59f267346ea31f984#factory
 sqd typegen 0xc36442b4a4522e871399cd717abdd847ab11fe88#NonfungiblePositionManager
 sqd typegen 0x390a4d096ba2cc450e73b3113f562be949127ceb#pool
 ```
-This should have created a few files in the `src/abi` folder for you. No need to do anything special about the `ERC20*.json` ABIs, since all files located at `./abi` are processed every time `sqd typegen` is called. The command also automatically generates a Typescript ABI for the Multicall contract due to the `--multicall` flag being specified by its entry in `commands.json`.
+This should create a few files in the `src/abi` folder for you. No need to do anything special about the `ERC20*.json` ABIs, since all files located at `./abi` are processed every time `sqd typegen` is called. The command also automatically generates a Typescript ABI for the Multicall contract due to the `--multicall` flag being specified by its entry in `commands.json`.
 
-### CSV, Tables and Databases
+### Tables and Databases
 
 The `@subsquid/file-store` library defines the `Table` and `Database` classes.
 
@@ -88,16 +88,16 @@ The `Database` class gets its name from the interface that was originally develo
 
 To summarize, `Table` instances are used to define data files along with their schemas and hold file-specific settings. `Database` facilitates the interactions with the processor, coordinates writing to the files and maintains any state that facilitates that process (configuration, cloud connections and so on).
 
-There are two main differences with the [CSV tutorial](/tutorials/index-to-local-csv-files.md) and the first one is that for this project we will be using a `Table` implementation from `@subsquid/file-store-parquet`. Let's install it:
+There are two main differences from the [CSV tutorial](/tutorials/index-to-local-csv-files.md) and the first one is that for this project we will be using a `Table` implementation from `@subsquid/file-store-parquet`. Let's install it:
 
 ```bash
 npm i @subsquid/file-store-parquet
 ```
 The other one is that this project is more involved and is, in fact, using ten different tables instead of one.
 
-It's advisable to define these tables in a separate file. The original project has them under `src/tables.ts`. The syntax is pretty much the same as for the CSV tables, except now the `Table`, `Column`, and `Types` classes are imported from the `@subsquid/file-store-parquet` library. A special note to the new `Compression` class, which, as the name implies, configures the parquet file's compression on a per-column or file-wide basis.
+It's advisable to define these tables in a separate file. The original project has them under `src/tables.ts`. The syntax is pretty much the same as for the CSV tables, except now the `Table`, `Column`, and `Types` classes are imported from the `@subsquid/file-store-parquet` library and the set of available types is different. We will also configure the parquet file compression using the new `Compression` class.
 
-Here's an example:
+Here's a snippet:
 
 ```typescript
 import {Table, Column, Compression, Types} from '@subsquid/file-store-parquet'
@@ -202,6 +202,7 @@ The orchestration of the indexing logic is defined in the file named `src/proces
 
 ```typescript
 import {EvmBatchProcessor} from '@subsquid/evm-processor'
+import {lookupArchive} from '@subsquid/archive-registry'
 import * as positionsAbi from './abi/NonfungiblePositionManager'
 import * as factoryAbi from './abi/factory'
 import * as poolAbi from './abi/pool'
@@ -214,49 +215,29 @@ import {processPositions} from './mappings/positions'
 let processor = new EvmBatchProcessor()
     .setBlockRange({from: 12369621})
     .setDataSource({
-        archive: 'https://eth.archive.subsquid.io',
+        archive: lookupArchive('eth-mainnet'),
         chain: process.env.ETH_CHAIN_NODE,
     })
-    .addLog(FACTORY_ADDRESS, {
-        filter: [[factoryAbi.events.PoolCreated.topic]],
-        data: {
-            evmLog: {
-                topics: true,
-                data: true,
-            },
-        } as const,
+    .addLog({
+        address: [FACTORY_ADDRESS],
+        topic0: [factoryAbi.events.PoolCreated.topic]
     })
-    .addLog([], {
-        filter: [
-            [
-                poolAbi.events.Burn.topic,
-                poolAbi.events.Mint.topic,
-                poolAbi.events.Initialize.topic,
-                poolAbi.events.Swap.topic,
-            ],
-        ],
-        data: {
-            evmLog: {
-                topics: true,
-                data: true,
-            },
-        } as const,
+    .addLog({
+        topic0: [
+            poolAbi.events.Burn.topic,
+            poolAbi.events.Mint.topic,
+            poolAbi.events.Initialize.topic,
+            poolAbi.events.Swap.topic,
+        ]
     })
-    .addLog(POSITIONS_ADDRESS, {
-        filter: [
-            [
-                positionsAbi.events.IncreaseLiquidity.topic,
-                positionsAbi.events.DecreaseLiquidity.topic,
-                positionsAbi.events.Collect.topic,
-                positionsAbi.events.Transfer.topic,
-            ],
-        ],
-        data: {
-            evmLog: {
-                topics: true,
-                data: true,
-            },
-        } as const,
+    .addLog({
+        address: [POSITIONS_ADDRESS],
+        topic0: [
+            positionsAbi.events.IncreaseLiquidity.topic,
+            positionsAbi.events.DecreaseLiquidity.topic,
+            positionsAbi.events.Collect.topic,
+            positionsAbi.events.Transfer.topic,
+        ]
     })
 
 processor.run(db, async (ctx) => {
@@ -270,7 +251,7 @@ Here's a brief explanation of the code above:
 
 * The `EvmBatchProcessor` class is instantiated and set to connect to the Ethereum archive, as well as a blockchain node, requesting data after a certain block (**make sure to add a node URL to `ETH_CHAIN_NODE` variable in the `.env` file**)
     
-* It is also configured to request data for EVM logs generated by the Factory and Positions smart contracts, filtering for certain events (`PoolCreated` and `IncreaseLiquidity`, `DecreaseLiquidity`, `Collect`, `Transfer`, respectively)
+* It is also configured to request data for EVM logs generated by the Factory and Positions smart contracts, filtering for certain events (`PoolCreated` and `IncreaseLiquidity`, `DecreaseLiquidity`, `Collect`, `Transfer`, respectively).
     
 * Processor is configured to also request EVM logs from **any address** with topic0 matching one of the signatures of the following Pool smart contract events: `Burn`, `Mint`, `Initialize`, `Swap`. This will guarantee that events generated by all Pool contracts are captured regardless of when the contracts were deployed.
     
@@ -278,25 +259,23 @@ Here's a brief explanation of the code above:
 
 For a brief explanation of what [`processFactory`](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/src/mappings/factory.ts), [`processPools`](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/src/mappings/pools.ts) and [`processPositions`](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/src/mappings/positions.ts) do, let's take the `processPositions` functions as an example:
 
-* it needs to "unbundle" the batch of items received
+* it needs to "unbundle" the batch of logs received
 
-* for each item found it checks that it belongs to one of the pool addresses generated by the factory
+* for each EVM log found it checks that it belongs to one of the pool addresses generated by the factory
 
-* verifies that it's an EVM log
+* compares the log's topic0 against the topics of the Events of the position NFT contract
 
-* compares the EVM log topic0 against the topics of the Events of the position NFT contract
-
-* uses the corresponding Event TypeScript class to decode the EVM log
+* uses the corresponding Event TypeScript class to decode the log
 
 * writes the decoded information to the corresponding table (parquet file)
 
-To better understand how data is transformed, and how the other functions are defined as well, it's advised to [browse the repository](https://github.com/subsquid-labs/squid-parquet-storage/tree/main/src/mappings) and inspect the code. Be sure to check the [`utils`](https://github.com/subsquid-labs/squid-parquet-storage/tree/main/src/utils) folder as well, as there are some auxiliary files and functions used in the mapping logic.
+To better understand how data is transformed, and how the other functions are defined as well, it's advised to [browse the repository](https://github.com/subsquid-labs/squid-parquet-storage/tree/main/src/mappings) (link out of date) and inspect the code. Be sure to check the [`utils`](https://github.com/subsquid-labs/squid-parquet-storage/tree/main/src/utils) (link out of date) folder as well, as there are some auxiliary files and functions used in the mapping logic.
 
 ### Launch the project
 
 When the logic is fully implemented, to launch the project and start indexing, open a terminal and run these two commands:
 
-```javascript
+```bash
 sqd build
 sqd process
 ```
@@ -304,7 +283,7 @@ sqd process
 The indexer should be able to catch up with the Ethereum blockchain, and **reach the chain's head in a very short time**. 
 
 :::info
-Bear in mind that this may vary a lot, depending on the Ethereum node used ([Ankr public node](https://rpc.ankr.com/eth) in our case) and on your hardware, as well as the connection, or physical distance from the Ethereum node. It took ~45 minutes while testing for this article. A test on a connection with a much higher latency and the same configuration finished indexing in 5 hours.
+Bear in mind that this may vary a lot, depending on the Ethereum node used ([Ankr public node](https://rpc.ankr.com/eth) in our case) and on your hardware, as well as the connection, or physical distance from the Ethereum node. It took ~45 minutes while testing for this article. A test on a connection with a much higher latency and the same configuration finished indexing in 5 hours (figures out of date).
 :::
 
 The process will generate a series of sub-folders in the `data` folder, labelled after the block ranges where the data is coming from, and in each one of these folders there should be one `*.parquet` file for each of the *tables* we defined.
@@ -317,13 +296,9 @@ If you want to learn how to analyze this data using Python and Pandas, refer to 
 
 ## Conclusions
 
-The purpose of this tutorial was to demonstrate how to use the Subsquid indexing framework for data analytics. In contrast to CSV files, Parquet is a binary file format and can only be read with the proper tools. Python and Pandas are among these tools, and they are part of the average Data Analyst’s toolbox.
+The purpose of this tutorial was to demonstrate how to use the Subsquid indexing framework for data analytics on larger datasets. The parquet data format is one of the most successful tools used in this setting, supported by the most common data analysis libraries such as Pandas and Pyarrow. We tested the performance of our parquet format tools on Uniswap, indexing the data from its pools and positions held by investors.
 
-Each one of the two has its pros and cons, and they have different uses, so Subsquid wants to guarantee access to both, and let Data Analysts choose which format to use for their projects.
-
-To justify the use of Parquet, and test the performance, Uniswap V3 smart contracts were chosen as the subject of this project, indexing the data from its pools and positions held by investors.
-
-The project described here was able to index the entirety of Uniswap Pool events, across all the pools created by the Factory contract, as well as the Positions held by investors, in less than an hour (~45 minutes)
+The project described here was able to index the entirety of Uniswap Pool events, across all the pools created by the Factory contract, as well as the Positions held by investors, in less than an hour (~45 minutes) (figure out of date).
 
 :::info
 **Note:** Indexing time may vary, depending on factors, such as the Ethereum node used ([Ankr public node](https://rpc.ankr.com/eth) in our case), on the hardware, and quality of the connection.
