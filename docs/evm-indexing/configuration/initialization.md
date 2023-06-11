@@ -16,7 +16,7 @@ The method documentation is also available inline and can be accessed via sugges
 If contract address(-es) supplied to `EvmBatchProcessor` are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/evm-indexing/context-interfaces) for data filtration, and all contract addresses in batch context data are **always** in flat lower case.
 :::
 
-The following setters configure the global settings of `EvmBatchProcessor`. Some of them are required. They return the modified instance and can be chained.
+The following setters configure the global settings of `EvmBatchProcessor`. They return the modified instance and can be chained.
 
 **`setDataSource({archive: string, chain?: string | undefined})` (required)**: Sets the blockchain data source. The argument must have one or both of the following properties:
 
@@ -24,15 +24,34 @@ The following setters configure the global settings of `EvmBatchProcessor`. Some
 
   If omitted, the processor will do all the data ingestion over the RPC endpoint.
 
-+ `chain?`: A JSON-RPC endpoint for the network of interest. HTTPS and WSS endpoints are supported. Required in most cases, or more precisely when
++ `chain?`: A JSON-RPC endpoint for the network of interest. May be specified as an URL string or as an object (see below). HTTPS and WSS endpoints are supported. Required in most cases, or more precisely when
   * the squid has to follow the chain with latency below about half a day, or
   * the processor has to make [contract state queries](/evm-indexing/query-state).
 
-  If omitted, the processor will stop syncing once it reaches the highest block available at the Archive. If you need this behavior but also need an RPC for use in [state queries](/evm-indexing/query-state), use the `useArchiveOnly()` setter described below.
+  Specifying `chain` as an object allows for fine-tuning the connection. The object is typed as follows:
+  ```ts
+  {
+    url: string
+
+    // max number of concurrent connections, default 10
+    capacity?: number
+
+    // default 100
+    maxBatchCallSize?: number
+
+    // requests per second, default is no limit
+    rateLimit?: number
+
+    // in milliseconds, default 30_000
+    requestTimeout?: number
+  }
+  ```
+
+  If `chain` is not set, the processor will stop syncing once it reaches the highest block available at the Archive. If you need this behavior but also need an RPC for use in [state queries](/evm-indexing/query-state), use the `useArchiveOnly()` setter described below.
 
 [//]: # (???? update the latency figure once the dust settles)
 
-**`setFinalityConfirmation(nBlocks: number)` (required)**: Sets the number of blocks after which the processor will consider the consensus data final. Use a value appropriate for your network. For example, for Ethereum mainnet a widely cited value is 15 minutes/75 blocks. This setting only affects RPC ingestion.
+**`setFinalityConfirmation(nBlocks: number)`**: Sets the number of blocks after which the processor will consider the consensus data final. Use a value appropriate for your network. For example, for Ethereum mainnet a widely cited value is 15 minutes/75 blocks. **Required for RPC ingestion** (i.e. whenever a `chain` was supplied to `setDataSource()`, but `useArchiveOnly()` was not called or was unset).
 
 **`setBlockRange({from: number, to?: number | undefined})`**: Limits the range of blocks to be processed. When the upper bound is specified, processor will terminate with exit code 0 once it reaches it.
 
@@ -48,7 +67,7 @@ Archives use the [debug API](https://geth.ethereum.org/docs/interacting-with-get
 
 [//]: # (???? Check the validity of the traffic claim on release)
 
-**`useTraceApi(yes?: boolean | undefined)`**: Use the trace API to retrieve traces.
+**`preferTraceApi(yes?: boolean | undefined)`**: Use the trace API to retrieve traces. Useful when requesting traces without state diffs: under these condition the processor will use the `trace_block()` method when ingesting trace data, and it is a very cheap call on many node providers.
 
 ## Less common settings
 

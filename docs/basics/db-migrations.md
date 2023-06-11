@@ -12,7 +12,7 @@ Database migrations and setup scripts must be located in the reserved folder `db
 The Squid SDK offers first-class support for [TypeORM-based database migrations](https://typeorm.io/migrations) with the `squid-typeorm-migration(1)` tool.
 The tool auto-generates the schema migrations from the TypeORM entities created by [codegen](/basics/schema-file) so that custom migration scripts are rarely needed.
 
-Most use cases of the tool are covered by the pre-defined `sqd` commands that wrap around `squid-typeorm-migration`. From `sqd --help`:
+Most use cases of the tool are covered by `sqd` commands defined in `commands.json` of most templates that wrap around `squid-typeorm-migration`:
 
 ```bash
 sqd migration:apply    Apply the DB migrations
@@ -34,19 +34,16 @@ In most cases the simplest way to update the schema is to drop the database and 
 
 **1. Update `schema.graphql`**
 
-**2. Regenerate the TypeORM entity classes and build the squid with**
+**2. Regenerate the TypeORM entity classes**
 ```bash
-# generate entites from the schema file
+# generate entites code from the schema file
 sqd codegen
-sqd build
 ```
 
-**3. Recreate the database and remove the old migrations**
+**3. Recreate the database**
 ```bash
 # drop the database
 sqd down
-# wipe out old migrations
-sqd migration:clean
 # start a blank database
 sqd up
 ```
@@ -54,15 +51,17 @@ Note that without dropping the database the next step will generate a migration 
 
 **4. Create the new database migration**
 ```bash
-# generate new scripts in db/migrations
+# builds the code,
+# removes the old migrations and
+# generates new scripts in db/migrations
 sqd migration:generate
 ```
 
-**5. Apply the database migration**
+**5. (optional) Apply the database migration**
 ```bash
-# apply the migrations
 sqd migration:apply
 ```
+If you skip this step the migrations will be applied automatially when you start the processor with `sqd process`.
 
 ## Updating a deployed squid schema
 
@@ -72,20 +71,20 @@ In some rare cases it is possible to update the schema without dropping the data
 
 For example, [add an index](/basics/schema-file/indexes-and-constraints)
 
-**2. Regenerate the model classes **
+**2. Regenerate the model classes and build the code**
 
 ```bash
 sqd codegen
 sqd build
 ```
 
-**3. Create new database migration**
+**3. Create a new database migration**
 
 Make sure the local database is running.
 
 ```bash
 sqd up
-sqd migration:generate
+npx squid-typeorm-migration generate
 ```
 
 **4. Apply the database migration**

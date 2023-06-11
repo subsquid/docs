@@ -87,7 +87,9 @@ When `pageSize` is less than `rowGroupSize` times the number of columns, the lat
 
 ## Example
 
-This saves ERC20 `Transfer` events captured by the processor to a Parquet file. All columns except for `from` are `GZIP`ped. Row groups are set to be roughly 30000 bytes in size each. Each row group contains roughly ten ~1000 bytes-long pages per column. Full squid code is available in [this repo](https://github.com/subsquid-labs/file-store-parquet-example).
+This saves ERC20 `Transfer` events captured by the processor to a Parquet file. All columns except for `from` are `GZIP`ped. Row groups are set to be roughly 30000 bytes in size each. Each row group contains roughly ten ~1000 bytes-long pages per column. Full squid code is available in [this repo](https://github.com/subsquid-labs/file-store-parquet-example) (link out of date).
+
+[//]: # (!!!! Update the github URL)
 
 ```typescript
 import {Database} from '@subsquid/file-store'

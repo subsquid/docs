@@ -47,11 +47,7 @@ sqd up
 
 Database schema changes (including initialization) are applied through migration files located at `db/migrations`. Generate migrations as follows:
 ```bash
-# remove the old migrations
-sqd migration:clean
-# compile the squid code, notably the TypeORM model classes
-sqd build
-# generate the new schema migrations at db/migrations
+# compiles the code, removes the old migrations and replaces them with new ones
 sqd migration:generate
 ```
 
@@ -59,11 +55,10 @@ Consult [database migrations](/basics/db-migrations) for more details.
 
 ### 4. Define the squid processor and the data handlers
 
-A squid processor is a node.js process that fetches historical on-chain data, performs arbitrary transformations and saves the result into the target database schema defined above. By convention, the processor entry point is `src/processor.ts`.
+A squid processor is a node.js process that fetches historical on-chain data, performs arbitrary transformations and saves the result into the target database schema defined above. By convention, the processor entry point is `src/main.ts` and the main processor object is defined at `src/processor.ts`.
 
 - [`EvmBatchProcessor`](/evm-indexing) (imported from `@subsquid/evm-processor`) is used for EVM chains
 - [`SubstrateBatchProcessor`](/substrate-indexing) (imported from `@subsquid/substrate-processor`) is used for Substrate-based chains
-
 
 
 ### 5. Initialize a suitable processor instance 
@@ -74,25 +69,24 @@ Configure the processor by defining:
 - data to be extracted from the Archive
 
 **Example:**
-```ts
-const processor = new EvmBatchProcessor()
+```ts title=src/processor.ts
+export const processor = new EvmBatchProcessor()
   .setDataSource({
-    archive: 'https://eth.archive.subsquid.io',
+    archive: lookupArchive('eth-mainnet'),
+    chain: 'https://eth-rpc.gateway.pokt.network'
   })
-  .addTransaction([
-    '0x0000000000000000000000000000000000000000'
-  ], {
-    range: {
-      from: 6_000_000
-    },
-    data: {
-      transaction: {
-        from: true,
-        input: true,
-        to: true
-      }
+  .setFinalityConfirmation(75)
+  .addTransaction({
+    address: ['0x0000000000000000000000000000000000000000'],
+    range: {from: 6_000_000}
+  })
+  .setFields({
+    transaction: {
+      from: true,
+      input: true,
+      to: true
     }
-  });
+  })
 ```
 
 See [EvmBatchProcessor configuration](/evm-indexing/configuration) and [SubstrateBatchProcessor configuration](/substrate-indexing/configuration) for details.
@@ -111,38 +105,39 @@ Squid SDK embraces the [batch-based programming model](/basics/batch-processing)
 - For `SubstrateBatchProcessor`, see the [`BatchContext` for Substrate](/substrate-indexing/context-interfaces)
 
 **Example:**
-```ts
+```ts title=src/main.ts
 processor.run(new TypeormDatabase(), async (ctx) => {
-  const entities: Map<string, FooEntity> = new Map();
+  const entities: Map<string, FooEntity> = new Map()
   // process a batch of data 
-  for (const c of ctx.blocks) {
-    // the data is packed into blocks, 
-    // each block contains only the requested items
-    for (const irem of c.items) {
-      if(e.kind === 'evmLog') {
+  for (let block of ctx.blocks) {
+    // The data is packed into blocks.
+    // Each block contains the requested items.
+    // It may also contain some items that were not requested,
+    // so the data must be filtered in the batch handler.
+    for (let log of block.logs) {
+      if (log.address === CONTRACT_ADDRESS && log.topic0 === fooEventTopic) {
         // decode, extract and transform the evm log data
-        const { baz, bar, id } = extractLogData(e.evmLog)
+        const { baz, bar, id } = extractLogData(log)
         entities.set(id, new FooEntity({
           id,
           baz,
           bar
-        })) 
+        }))
       }
-      if (e.kind === 'transaction') {
-        // decode tx data if requested
-      }
+    }
+    for (let txn of block.transactions) {
+      // filter and decode txn data if requested
     }
   }
   // upsert data to the target db in single batch
   await ctx.store.save([...entities.values()])
-});
+})
 ```
 
 For an end-to-end walkthrough, see
 
 - [`EvmBatchProcessor` in action](/evm-indexing/batch-processor-in-action)
 - [`SubstrateBatchProcessor` in action](/substrate-indexing/batch-processor-in-action)
-
 
 ### 8. Run the squid services
 

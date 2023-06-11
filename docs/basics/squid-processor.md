@@ -6,19 +6,19 @@ description: Data ingestion and transformation
 
 # Squid Processor
 
-The processor service is a background node.js process responsible for data ingestion, transformation and data persisting into the target database. By convention, the processor code is located in `src/processor.ts`. It is run as 
+The processor service is a background node.js process responsible for data ingestion, transformation and data persisting into the target database. By convention, the processor entry point is at `src/main.ts`. It is run as
 ```bash
-node lib/processor.js
+node lib/main.js
 ```
 
 For local runs, one normally additionally exports environment variables from `.env` using `dotenv`:
 ```bash
-node -r dotenv/config lib/processor.js
+node -r dotenv/config lib/main.js
 ```
 
 ## Processor choice
 
-The Squid SDK currently offers specialized processor classes for EVM (`EvmBatchProcessor`) and Substrate networks (`SubstrateBatchProcessor`). More networks will be supported in the future.
+The Squid SDK currently offers specialized processor classes for EVM (`EvmBatchProcessor`) and Substrate networks (`SubstrateBatchProcessor`). More networks will be supported in the future. By convention, the processor object is defined at `src/processor.ts`.
 
 ![Processor choice based on the network](</img/network-choice.png>)
 
@@ -33,13 +33,13 @@ A processor instance should be configured to define the block range to be indexe
 
 ## `processor.run()`
 
-The actual data indexing is done by the `run()` method called on a processor instance. The method has the following signature:
+The actual data indexing is done by the `run()` method called on a processor instance (typically at `src/main.ts`). The method has the following signature:
 
 ```ts
 run<Store>(db: Database<Store>, batchHander: (ctx: BatchContext<Store, Item>) => Promise<void>): void
 ```
 
-The `db` argument defines the target data source for the processor, and `batchHandler` is an `async` `void` function defining the data transformation and persistence logic.
+The `db` argument defines the target data sink, and `batchHandler` is an `async` `void` function defining the data transformation and persistence logic.
 
 The `Context` and `Store` interfaces are explained in the next sections.
 

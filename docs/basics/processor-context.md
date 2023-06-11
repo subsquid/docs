@@ -1,14 +1,14 @@
 ---
 sidebar_position: 41
-title: BatchContext interface
+title: DataHandlerContext interface
 description: Processor Context API 
 ---
 
 # Processor Context
 
-`BatchContext` is a generic interface defined as follows: 
+`DataHandlerContext` is a generic interface defined as follows: 
 ```ts
-export interface BatchContext<Store, Item> {
+export interface DataHandlerContext<Store, F extends FieldSelection> {
     /**
      * access to the chain and the metadata
      * @internal
@@ -20,19 +20,23 @@ export interface BatchContext<Store, Item> {
      */
     store: Store
     /**
-     * Next batch of items to be processed, grouped into blocks
+     * A batch of data items to be processed, grouped into blocks
      */
-    blocks: BatchBlock<Item>[]
+    blocks: BlockData<F>[]
     /**
      * Signals that the processor has reached the chain head.
-     *
      * The head block is always included in `.blocks`.
      */
     isHead: boolean
 }
 ```
 
-Note that the `Item` type is inferred from the processor type and configuration. `Store` type is inferred from the `Database` instance passed into the `run()` method.
+The `F` type is the type of the argument of the `.setFields()` processor configuration method argument. `Store` type is inferred from the `Database` instance passed into the `run()` method.
+:::info
+At the moment `DataHandlerInterface` context is only used by the EVM processor; Substrate processor relies on its older [`BatchContext` equivalent](/firesquid/basics/processor-context). This will change upon the ArrowSquid for Substrate release.
+:::
+
+[//]: # (!!!! Remove the notice once ArrowSquid for Substrate is released)
 
 ## `ctx._chain`
 
@@ -40,29 +44,35 @@ Internal handle for direct access to the underlying chain state via RPC calls. R
 
 ## `ctx.store`
 
-Interface for the target data sink. See [Store Interface](/basics/store).
+Interface for the target data sink. See [Persisting data](/basics/store).
 
 ## `ctx.log` 
 
-The native logger handle. See [logging](/basics/logging).
+The native logger handle. See [Logging](/basics/logging).
 
 ## `ctx.blocks`
 
-The on-chain data items (event logs and transaction call records) are grouped into blocks and canonically ordered by how the data is recorded on-chain. The shape of item objects is determined by the processor configuration done via the `.addXXX()` methods. 
+The on-chain data items are grouped into blocks, with each block containing a header and an iterable for every supported data item type (event log, transaction, trace etc). Depending on the data item type, the items in the iterables can be canonically ordered by how the data is recorded on-chain. The shape of item objects is determined by the processor configuration done via the `.setFields()` method.
 
-An idiomatic use of the context API is to iterate first over blocks and then over items for each block:
+An idiomatic use of the context API is to iterate first over blocks and then over each iterable of each block:
 
 ```ts
 processor.run(new TypeormDatabase(), async (ctx) => {
-    for (const block of ctx.blocks) {
-      for (const item of c.items) {
-        //        
-      }
+  for (let block of ctx.blocks) {
+    for (let log of block.logs) {
+      // filter and process logs
     }
-});
+    for (let txn of block.transactions) {
+      // filter and process transactions
+    }
+    // iterate over, filter and process any other data items
+  }
+})
 ```
+Note that the processor does not guarantee that no data not matching its filters will get into iterables, only that the data matching the filters will. Hence, the data must be filtered in the batch handler before processing.
+
 The canonical ordering of `ctx.blocks` enables efficient in-memory data processing. For example, multiple updates of the same entity can be compressed into a single database transaction.
 
 ## `ctx.isHead`
 
-Set to `true` if the processor has reached the chain head. The last block `ctx.blocks` is then the current chain tip.
+Is `true` if the processor has reached the chain head. The last block `ctx.blocks` is then the current chain tip.

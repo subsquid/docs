@@ -12,16 +12,22 @@ A custom implementation of the `Database` interface is a recommended solution fo
 In order to implement a custom adapter to a data sink, it suffices to implement the `Database` interface:
 
 ```ts
-export interface Database<S> {
-    // initialize the connection and run migrations 
-    connect(): Promise<number>
-    // run handlers for blocks in the range `[from, to]` in a single transaction
-    // cb is the callback passed to processor.run()
-    transact(from: number, to: number, cb: (store: S) => Promise<void>): Promise<void>
-    // update and persist the processor status to `height`
-    advance(height: number): Promise<void>
+export type Database<S> = FinalDatabase<S> | HotDatabase<S>
+
+export interface FinalDatabase<S> {
+    supportsHotBlocks?: false
+    connect(): Promise<HashAndHeight>
+    transact(info: FinalTxInfo, cb: (store: S) => Promise<void>): Promise<void>
+}
+
+export interface HotDatabase<S> {
+    supportsHotBlocks: true
+    connect(): Promise<HotDatabaseState>
+    transact(info: FinalTxInfo, cb: (store: S) => Promise<void>): Promise<void>
+    transactHot(info: HotTxInfo, cb: (store: S, block: HashAndHeight) => Promise<void>): Promise<void>
 }
 ```
+Consult [this file](https://github.com/subsquid/squid-sdk/blob/master/util/util-internal-processor-tools/src/database.ts) for details.
 
 The interface only defines how the processor advances with the indexing and connects to the data sink. The following is left as implementation details:
 - persisting the indexing status

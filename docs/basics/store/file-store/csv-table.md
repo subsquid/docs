@@ -90,7 +90,9 @@ export let dialects = {
 
 ## Example
 
-This saves ERC20 `Transfer` events captured by the processor to TSV (tab-separated values) files. Full squid code is available in [this repo](https://github.com/subsquid-labs/file-store-csv-example).
+This saves ERC20 `Transfer` events captured by the processor to TSV (tab-separated values) files. Full squid code is available in [this repo](https://github.com/subsquid-labs/file-store-csv-example) (link out of date).
+
+[//]: # (!!!! Update the github URL)
 
 ```typescript
 import {Database} from '@subsquid/file-store'

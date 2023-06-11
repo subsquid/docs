@@ -12,50 +12,58 @@ While the set of handler subscriptions is static and defined at the processor cr
 
 Let's consider how it works in a DEX example, with a contract emitting `PoolCreated` log when a new pool contract is created by the main contract. Full code is available in the [examples repo](https://github.com/subsquid-labs/factory-example).
 
-```typescript
-let processor = new EvmBatchProcessor()
+[//]: # (!!!! Update the archive and chain specs on release)
+
+```typescript title=src/processor.ts
+export const processor = new EvmBatchProcessor()
     .setDataSource({
-        archive: 'https://eth.archive.subsquid.io',
+        archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
+        chain: 'https://rpc.ankr.com/eth',
     })
-    // subscribe to events emitted by the FACTORY address
-    .addLog(FACTORY_ADDRESS, {
-        filter: [[factoryAbi.events.PoolCreated.topic]],
-        // we need the topic and the data
-        data: {
-            evmLog: {
-                topics: true,
-                data: true,
-            },
-        } as const,
+    .setBlockRange({
+        from: 12_369_621,
     })
-    // subsrcibe to all Swap events, regardless of the address
-    .addLog([], {
-        filter: [[poolAbi.events.Swap.topic]],
-        data: {
-            // request the log and the tx hash data
-            // for indexing
-            evmLog: {
-                topics: true,
-                data: true,
-            },
-            transaction: {
-                hash: true,
-            },
-        } as const,
+    .setFields({
+        log: {
+            topics: true,
+            data: true,
+        },
+        transaction: {
+            hash: true,
+        },
     })
+    .addLog({
+        address: [FACTORY_ADDRESS],
+        topic0: [factoryAbi.events.PoolCreated.topic],
+    })
+    .addLog({
+        topic0: [poolAbi.events.Swap.topic],
+        transaction: true,
+    })
+```
+
+```typescript title=src/main.ts
+let factoryPools: Set<string>
 
 processor.run(new TypeormDatabase(), async (ctx) => {
-    for (let block of ctx.blocks) {
-        for (let item of block.items) {
-            if (item.kind !== 'evmLog') continue
+    if (!factoryPools) {
+        factoryPools = await ctx.store.findBy(Pool, {}).then((q) => new Set(q.map((i) => i.id)))
+    }
 
-            if (item.address === FACTORY_ADDRESS) {
-                // update the list of pool contracts
-            } else if (factoryPools.has(item.address)) {
-               //  handle the swap event for the known pool
+    let pools: PoolData[] = []
+    let swaps: SwapEvent[] = []
+
+    for (let block of ctx.blocks) {
+        for (let log of block.logs) {
+            if (log.address === FACTORY_ADDRESS) {
+                pools.push(getPoolData(ctx, log))
+            } else if (factoryPools.has(log.address)) {
+                swaps.push(getSwap(ctx, log))
             }
         }
     }
 
+    await createPools(ctx, pools)
+    await processSwaps(ctx, swaps)
 })
 ```

@@ -7,6 +7,8 @@ sidebar_position: 40
 
 # Simple Substrate squid
 
+[//]: # (!!!! Update when Substrate ArrowSquid is released)
+
 ## Objective
 
 The goal of this tutorial is to guide you through creating a simple blockchain indexer ("squid") using Squid SDK. In this example we will query the [Crust storage network](https://crust.network). Our objective will be to observe which files have been added and deleted from the network. Additionally, our squid will be able to tell us the groups joined and the storage orders placed by a given account.

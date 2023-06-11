@@ -16,14 +16,13 @@ For example, one can enrich the indexed transaction with historical price data u
 processor.run(new TypeormDatabase(), async (ctx) => {
   const burns: Burn[] = []
   for (let c of ctx.blocks) {
-    for (let i of c.items) {
-      assert(i.kind == 'transaction')
+    for (let txn of c.transactions) {
       burns.push(new Burn({
-        id: formatID(c.header.height, i.transaction.hash),
+        id: formatID(c.header.height, txn.hash),
         block: c.header.height,
-        address: i.transaction.from,
-        value: i.transaction.value,
-        txHash: i.transaction.hash,
+        address: txn.from,
+        value: txn.value,
+        txHash: txn.hash,
         price: await getETHPriceByDate(c.header.timestamp)
       }))
     }
@@ -32,19 +31,22 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 async function getETHPriceByDate(timestamp: number): Promise<bigint> {
   const formatted = moment(new Date(timestamp).toISOString()).format("DD-MM-yyyy")
-  const res = await 
-    axios.get(
-        `https://api.coingecko.com/api/v3/coins/ethereum/history?date=${formatted}&localization=false`
-    )
+  const res = await axios.get(
+    `https://api.coingecko.com/api/v3/coins/ethereum/history?date=${formatted}&localization=false`
+  )
   return res.data.market_data.current_price.usd
 }
 ```
 
 ## IPFS fetching
 
-For reliable indexing of content stored on IPFS (e.g. NFT metadata) we recommend fetching from dedicated IPFS gateways, e.g. provided by [Filebase](https://docs.filebase.com/ipfs/ipfs-gateways). 
+For reliable indexing of content stored on IPFS (e.g. NFT metadata) we recommend fetching from dedicated IPFS gateways, e.g. provided by [Filebase](https://docs.filebase.com/ipfs/ipfs-gateways).
 
-For a more elaborate example of with IPFS gateway and external API calls, inspect the [BAYC NFT indexing squid](https://github.com/subsquid-labs/ipfs-example).
+[//]: # (!!!! Filebase is not suitable for general-purpose IPFS fetching, replace)
+
+For a more elaborate example of with IPFS gateway and external API calls, inspect the [BAYC NFT indexing squid](https://github.com/subsquid-labs/ipfs-example) (link out of date).
+
+[//]: # (!!!! Update the github URL)
 
 ### Example
 
@@ -62,9 +64,8 @@ export const api = Axios.create({
   httpsAgent: new https.Agent({ keepAlive: true }),
 })
 
-
 export const fetchMetadata = async (
-  ctx: BlockHandlerContext<Store>,
+  ctx: DataHandlerHandlerContext<Store, typeof fieldSelection>,
   cid: string
 ): Promise<any | null> => {
   try {
@@ -81,16 +82,14 @@ export const fetchMetadata = async (
   return null
 }
 
-
 processor.run(new TypeormDatabase(), async (ctx) => {
   for (let c of ctx.blocks) {
-    for (let i of c.items) {
+    for (let log of c.logs) {
       // track and decode NFT events to get CID
       // use fetchMetadata() to fetch metadata
     }
   }
 })
-
 ```
 
 

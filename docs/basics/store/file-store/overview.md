@@ -17,7 +17,7 @@ The core component used for storing squid data to files is the `Database` class 
 
 #### Example
 
-Save all ERC20 `Transfer` events retrieved by [EVM processor](/evm-indexing) in `transfers.csv` files:
+Save ERC20 `Transfer` events retrieved by [EVM processor](/evm-indexing) in `transfers.csv` files:
 
 ```typescript
 import {EvmBatchProcessor} from '@subsquid/evm-processor'
@@ -41,15 +41,15 @@ const dbOptions = {
 
 processor.run(new Database(dbOptions), async (ctx) => {
   for (let c of ctx.blocks) {
-    for (let i of c.items) {
-      if (i.kind==='evmLog') {
+    for (let log of c.logs) {
+      if (/* the log item is a Transfer we're interested in */) {
         let { from, to, value } =
-          erc20abi.events.Transfer.decode(i.evmLog);
+          erc20abi.events.Transfer.decode(log)
         ctx.store.TransfersTable.write({
           from,
           to,
           value: value.toBigInt()
-        });
+        })
       }
     }
   }
@@ -127,22 +127,24 @@ This approach keeps the number of files at a reasonable level while ensuring tha
 If `syncIntervalBlocks` is kept at the default value and the data rate is low, the resulting dataset may end up never catching up to the chain in a practical sense. Indeed, in extreme cases the processor _may end up writing no data at all_. For example, all the aforementioned `LiquidationCall` events fit into a CSV file less than 20 Mbytes in size. With the default values of `syncIntervalBlocks` and `chunkSizeMb` the buffer size never reaches the threshold value and no data is written to the filesystem.
 :::
 
-By default, `Database` maintains a record of the syncing progress in the `status.txt` file. When the processor with a `Database` instance starts, it calls the `onConnect()` function that reads the highest reached block from `status.txt` on the target filesystem. If the file does not exist, the function returns -1. The syncing resumes starting at the next block (zeroth or genesis block if `status.txt` does not exist).
+By default, `Database` maintains a record of the syncing progress in the `status.txt` file. When the processor with a `Database` instance starts, it calls the `onStateRead()` function that reads the highest reached block from `status.txt` on the target filesystem. If the file does not exist, the function returns -1. The syncing resumes starting at the next block (zeroth or genesis block if `status.txt` does not exist).
 
 Syncing status record is updated every time a new partition is written to the dataset: the processor calls `onFlush()` which overwrites `status.txt` with the new highest reached block.
 
 As a result, the integrity of the data set is guaranteed given the blockchain history up to the point recorded in `status.txt`.
 
-The functions `onConnect()` and `onFlush()` can be overridden using the **`hooks`** constructor argument field. To do that, set that field to
+The functions `onStateRead()` and `onStateUpdate()` can be overridden using the **`hooks`** constructor argument field. To do that, set that field to
 ```typescript
 DatabaseHooks<Dest> {
-  onConnect(dest: Dest): Promise<number>
-  onFlush(dest: Dest, range: {from: number, to: number}, isHead: boolean): Promise<void>
+  onStateRead(dest: Dest): Promise<HashAndHeight | undefined>
+  onStateUpdate(dest: Dest, info: HashAndHeight): Promise<void>
 }
 ```
 Parameters:
 * **dest**: the `Dest` object used by `Database`. Use it to access the filesystem.
-* **range**: the range of blocks covered by the current dataset partition.
-* **isHead**: true if the blockchain head has been reached.
+* **info**: a `{height: number, hash: string}` object.
 
-An example of using **`hooks`** can be found [here](https://github.com/subsquid/squid-file-store/blob/master/test/src/processor.ts#L35).
+Overriding these functions can be useful for transferring some processor state between batches reliably. A basic example of using **`hooks`** can be found [here](https://github.com/subsquid/squid-file-store/blob/fcc8a63dc2deb8c3f843aa525f806ff9cdf778fb/test/src/main.ts#L36).
+
+[//]: # (???? Ask Eldar which hash is in HashAndHeight)
+[//]: # (!!!! Provide a better example of using hooks when it becomes available)

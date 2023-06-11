@@ -26,7 +26,9 @@ Writing to Amazon S3-compatible file storage services such as [AWS](https://aws.
 
 ## Example
 
-This saves the processor data in the `transfers-data` folder of the bucket defined by the `S3_BUCKET_NAME` environment variable at the [Filebase](https://filebase.com) service. The service only has one region and one endpoint, and here they are hardcoded to reduce the number of required envirionment variables and illustrate how connection parameters can be supplied programmatically. Full squid code is available in [this repo](https://github.com/subsquid-labs/file-store-s3-example).
+This saves the processor data in the `transfers-data` folder of the bucket defined by the `S3_BUCKET_NAME` environment variable at the [Filebase](https://filebase.com) service. The service only has one region and one endpoint, and here they are hardcoded to reduce the number of required envirionment variables and illustrate how connection parameters can be supplied programmatically. Full squid code is available in [this repo](https://github.com/subsquid-labs/file-store-s3-example) (link out of date).
+
+[//]: # (!!!! Update the github URL)
 
 ```typescript
 import {Database} from '@subsquid/file-store'
