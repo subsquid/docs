@@ -11,7 +11,8 @@ A squid is expected to follow the folder structure conventions listed below.
 - `/db` -- **(Required)** The designated folder with the [database migrations](/basics/db-migrations).
 - `/lib` -- The output folder for the compiled squid code.
 - `/src` -- **(Required)** The source folder for the squid processor.
-   + `/src/processor.ts` -- The entry point of the squid processor ([EVM](/evm-indexing) or [Substrate](/substrate-indexing)).
+   + `/src/main.ts` -- The entry point of the squid processor process. Typically contains a `processor.run()` call.
+   + `/src/processor.ts` -- Processor object ([EVM](/evm-indexing) or [Substrate](/substrate-indexing)) definition and configuration.
    + `/src/model/generated` -- The folder for the TypeORM entities generated from `schema.graphql`.
    + `/src/model` -- The module exporting the entity classes.
    + `/src/server-extension/resolvers` -- An (optional) folder for [user-defined GraphQL resolvers](/graphql-api/custom-resolvers).
@@ -26,8 +27,8 @@ A squid is expected to follow the folder structure conventions listed below.
 - `typegen.json` -- (optional) The config file for `squid-substrate-typegen`. Ignored by Aquarium.
 - `Makefile` -- (optional) Script definitions for `Make`. Ignored by Aquarium.
 - `tsconfig.json`, `package-lock.json`, `package.json` -- **(Required)** The `npm` and `tsc` configs.
-- `archive` -- An (optional) folder for running a local Archive. Ignored by Aquarium.
+- `/archive` -- An (optional) folder for running a local Archive. Ignored by Aquarium.
 
-The templates also defines the following auxiliary scripts (optional):
+The templates also define the following auxiliary scripts (optional):
 - `build` to build the squid.
 - `update` to update the squid packages to the latest version.
