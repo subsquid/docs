@@ -1,7 +1,7 @@
 `sqd explorer`
 ==========
 
-Visual explorer of deployed squids and addons
+Visual explorer of deployed squids
 
 Left pane: List of deployed squids.
 Right pane: details of the selected squid. Navigate by pressing the corresponding number (e.g. `1` for Summary).
