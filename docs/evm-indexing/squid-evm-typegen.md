@@ -78,7 +78,7 @@ const CONTRACT_ADDRESS = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'.toLowerCas
 
 const processor = new EvmBatchProcessor()
   .setDataSource({
-    archive: 'https://eth.archive.subsquid.io',
+    archive: lookupArchive('eth-mainnet'),
   })
   .addLog({
     address: [CONTRACT_ADDRESS],
