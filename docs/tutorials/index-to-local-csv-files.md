@@ -127,8 +127,9 @@ export const contractAddress =
 const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: lookupArchive('eth-mainnet'),
-    chain: process.env.RPC_ETH_HTTP,
+    chain: process.env.RPC_ENDPOINT,
   })
+  .setFinalityConfirmation(75)
   .addLog({
     address: [contractAddress],
     topic0: [events.Transfer.topic]
