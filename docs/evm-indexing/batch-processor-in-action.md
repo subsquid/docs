@@ -7,7 +7,9 @@ title: Processor in action
 
 # `EvmBatchProcessor` in action
 
-An end-to-end idiomatic usage of `EvmBatchProcessor` can be inspected in the [gravatar-template repository](https://github.com/subsquid/gravatar-squid) and also learned from more elaborate [examples](/examples).
+[//]: # (!!!! Update examples and their URLs)
+
+An end-to-end idiomatic usage of `EvmBatchProcessor` can be inspected in the [gravatar-template repository](https://github.com/subsquid/gravatar-squid) (link out of date) and also learned from more elaborate [examples](/examples/evm).
 
 In order to illustrate the concepts covered thus far, here we highlight the key steps, put together a processor configuration and a data handling definition.
 
@@ -38,30 +40,27 @@ See [Configuration section](/evm-indexing/configuration) for more details.
 const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: lookupArchive('eth-mainnet'),
+    chain: 'https://eth-rpc.gateway.pokt.network'
   })
+  .setFinalityConfirmation(75)
   .setBlockRange({ from: 6175243 })
   // fetch logs emitted by '0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'
   // matching either `NewGravatar` or `UpdatedGravatar`
-  .addLog('0x2E645469f354BB4F5c8a05B3b30A929361cf77eC', {
-    filter: [[
+  .addLog({
+    address: ['0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'],
+    topic0: [
       events.NewGravatar.topic,
       events.UpdatedGravatar.topic,
-    ]],
-    data: {
-      evmLog: {
-        topics: true,
-        data: true,
-      },
-    } as const,
-  });
+    ]
+  })
 ```
 
 ## 4. Iterate over the batch items and group events
 
 The following code snippet illustrates a typical data transformation in a batch. The strategy is to
 
-- Iterate over `ctx.blocks` and `block.items`
-- Decode each item using a suitable facade class
+- Iterate over `ctx.blocks` and `block.logs`
+- Decode each log using a suitable facade class
 - Enrich and transform the data 
 - Upsert arrays of entities in batches using `ctx.save()`
 
@@ -71,17 +70,12 @@ The `processor.run()` method the looks as follows:
 processor.run(new TypeormDatabase(), async (ctx) => {
   // storing the new/updated entities in
   // an in-memory identity map
-  const gravatars: Map<string, Gravatar> = new Map();
+  const gravatars: Map<string, Gravatar> = new Map()
   // iterate over the data batch stored in ctx.blocks
   for (const c of ctx.blocks) {
-    for (const e of c.items) {
-      // the batch will contain a mixture of 'evmLog'
-      // items and parent 'transaction' items
-      if(e.kind !== 'evmLog') {
-        continue
-      }
-      // decode the item data
-      const { id, owner, displayName, imageUrl } = extractData(e.evmLog)
+    for (const log of c.logs) {
+      // decode the log data
+      const { id, owner, displayName, imageUrl } = extractData(log)
       // transform and normalize to match the target entity (Gravatar)
       gravatars.set(id.toHexString(), new Gravatar({
         id: id.toHexString(),
