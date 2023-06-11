@@ -6,8 +6,29 @@ sidebar_position: 110
 
 Common gotchas developing in deploying squids. 
 
+### `Error: data out-of-bounds` `ethers` errors on EVM
+
+Make sure you filter the data in your batch handler before parsing it. The processor only guarantees that the data that matches its filters gets into batches, not that the non-matching data does not. Typically each filter in the [processor configuration](/evm-indexing/configuration) should be matched in the batch handler, e.g.
+```ts
+//...
+processor.addLog({
+  address: [CONTRACT_ADDR]
+}) // <- the config
+// ...
+processor.run(new TypeormDatabase(), async (ctx) => {
+  for (let block of ctx.blocks) {
+    for (let log of block.logs) {
+      if (log.address === CONTRACT_ADDR) {// <- the filter matching the config
+        // process the filtered event logs
+      }
+    }
+  }
+})
+```
+
 ### My squid is stuck in "Building", "Deploying" or "Starting" state
-- Run with `API_DEBUG=true` as explained in the [Squid deploy page](/deploy-squid/#option-2-explicitly-set-the-source-url)
+
+- Run with `SQD_DEBUG=*` as explained on the [Logging](/basics/logging/#overriding-the-log-level) page
 - Update the squid CLI to the latest version with
 ```bash
 npm update -g @subsquid/cli
@@ -18,8 +39,6 @@ npm run update
 ```
 - Check that the squid adheres to the expected [structure](/basics/squid-structure)
 - Make sure you can [build and run Docker images locally](/deploy-squid/self-hosting)
-- Make sure the squid source URL follows the format `https://github.com/my-account/my-squid-repo.git#my-branch`
-- If the squid is deployed from a private repository, make sure you provide an [access key](/deploy-squid/#option-2-explicitly-set-the-source-url)
 
 ### `Validation error` when releasing a squid
 
@@ -38,7 +57,6 @@ All operations with `ctx.store` are asynchronous. Make sure you `await` on all `
 ### `RpcError: Client error: UnknownBlock: State already discarded for BlockId::Hash` when running an Archive
 
 This error indicates that the node to which the Archive is connected prunes the state. Make sure you are connected to a full archival node
-
 
 ### `QueryFailedError: invalid byte sequence for encoding "UTF8": 0x00`
 
@@ -61,7 +79,7 @@ Get in contact with the [Squid Squad](https://t.me/SquidDevs) and request extra 
 
 Get in contact with the [Squid Squad](https://t.me/SquidDevs) to get a Premium tier.
 
-### How do I know which events and extrinsics I need for the handlers?
+### How do I know which events and extrinsics I need on Substrate?
 
 This part depends on the runtime business logic of the chain. The primary and the most reliable source of information is thus the Rust sources for the pallets used by the chain.
 
@@ -75,8 +93,11 @@ A batch processor receives a list of items grouped into blocks. In order to add 
 processor.run(new TypeormDatabase(), async (ctx) => {
   for (let c of ctx.blocks) {
     // pre-block hook logic here
-    for (let i of c.items) {
+    for (let log of c.logs) {
     }
+    for (let txn of c.transactions) {
+    }
+    // ...processing of any other data items...
     // post-block logic here
   }
 })
