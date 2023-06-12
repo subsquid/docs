@@ -78,7 +78,7 @@ services:
       - DB_NAME=squid
       - DB_PORT=5432
       - DB_HOST=db
-      - DB_PASSWORD=postgres
+      - DB_PASS=postgres
       - GQL_PORT=4350
     ports:
       # GraphQL endpoint at port 4350
@@ -92,7 +92,7 @@ services:
       - DB_NAME=squid
       - DB_PORT=5432
       - DB_HOST=db
-      - DB_PASSWORD=postgres
+      - DB_PASS=postgres
     ports:
       # prometheus metrics exposed at port 3000
       - "3000:3000"
