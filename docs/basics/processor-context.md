@@ -33,7 +33,7 @@ export interface DataHandlerContext<Store, F extends FieldSelection> {
 
 The `F` type is the type of the argument of the `.setFields()` processor configuration method argument. `Store` type is inferred from the `Database` instance passed into the `run()` method.
 :::info
-At the moment `DataHandlerInterface` context is only used by the EVM processor; Substrate processor relies on its older [`BatchContext` equivalent](/firesquid/basics/processor-context). This will change upon the ArrowSquid for Substrate release.
+At the moment `DataHandlerContext` interface is only used by the EVM processor; Substrate processor relies on its older [`BatchContext` equivalent](/firesquid/basics/processor-context). This will change upon the ArrowSquid for Substrate release.
 :::
 
 [//]: # (!!!! Remove the notice once ArrowSquid for Substrate is released)

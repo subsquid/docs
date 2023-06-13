@@ -219,7 +219,7 @@ Finally, update the batch handler to use the new [batch context](/arrowsquid/evm
    
    // ...
 
-   processor.run(db, async (newCtx: BatchHandlerContext<Store, any>) => {
+   processor.run(db, async (newCtx: DataHandlerContext<Store, any>) => {
      let ctx = transformContext(newCtx)
      // the rest of the batch handler should work unchanged
    })
