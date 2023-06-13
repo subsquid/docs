@@ -29,16 +29,16 @@ Explicit Archive endpoints:
 const processor = new EvmBatchProcessor()
   .setDataSource({
      chain: 'https://rpc.ankr.com/eth', // RPC endpoint
-     archive: 'https://eth.archive.subsquid.io'
+     archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
   })
 ```
-Registry lookup:
+Registry lookup (since `@subsquid/archive-registry` version `3.x`):
 ```typescript
 import { lookupArchive } from '@subsquid/archive-registry'
 
 const processor = new EvmBatchProcessor()
   .setDataSource({
-     // resolved to 'https://moonriver-evm.archive.subsquid.io'
-     archive: lookupArchive('moonriver', {type: 'EVM'}) 
+     // resolved to 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
+     archive: lookupArchive('eth-mainnet')
    })
 ```
