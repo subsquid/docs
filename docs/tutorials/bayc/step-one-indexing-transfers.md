@@ -130,7 +130,7 @@ The full code can be found at [this commit](https://github.com/abernatskiy/tmp-b
 
 ## Extending and persisting the data
 
-`TypeormDatabase` requires us to define a TypeORM data model to actually send the data to the database. In Subsquid, the same data model is also used by the GraphQL server to generate the API schema. To avoid any potential discrepancies, processor and GraphQL server rely on a shared data model description defined at `schema.graphql` in a GraphQL schema dialect fully documented [here](/schema-file/).
+`TypeormDatabase` requires us to define a TypeORM data model to actually send the data to the database. In Subsquid, the same data model is also used by the GraphQL server to generate the API schema. To avoid any potential discrepancies, processor and GraphQL server rely on a shared data model description defined at `schema.graphql` in a GraphQL schema dialect fully documented [here](/basics/schema-file/).
 
 TypeORM code is generated from `schema.graphql` with the [`squid-typeorm-codegen`](/basics/schema-file/#typeorm-codegen) tool and must be regenerated every time the schema is changed. This is usually accompanied by regenerating the [database migrations](/basics/db-migrations/) and recreating the database itself. The migrations are applied before every run of the processor, ensuring that whenever any TypeORM code within the processor attempts to access the database, the database is in a state that allows it to succeed.
 
