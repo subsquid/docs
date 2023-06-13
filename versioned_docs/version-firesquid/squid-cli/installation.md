@@ -17,14 +17,7 @@ To install Squid CLI, follow the steps below.
 
 ## 0. Install and setup Squid CLI
 
-First, install the latest version of Subsquid CLI.
-The recommended way for macOS and Linux is to use Homebrew:
-```bash
-brew tap subsquid/cli
-brew install sqd
-```
-
-Otherwise, install as a global `npm` package:
+Install `@subsquid/cli` as a global `npm` package:
 ```bash
 npm i -g @subsquid/cli@latest
 ```
