@@ -12,26 +12,34 @@ description: Built-in caching RPC endpoints
 This is an experimental feature only available to premium users. If you want to try it out please contact us at [the SquidDevs Telegram channel](https://t.me/HydraDevs).
 :::
 
-Since the Arrowsquid release, Aquarium provides a built-in caching RPC proxy service. Currently it is a premium feature, with plans to make a subset of calls available to free tier users.
+Since the Arrowsquid release, Aquarium provides a built-in caching RPC proxy service. Currently, it is a premium feature, with plans to make a subset of calls available to free tier users.
 
 ## Available networks
 
 | network:protocol                     |
 |:------------------------------------:|
-| `eth:http`                           |
-| `eth-sepolia:http`                   |
-| `eth-goerli:http`                    |
-| `moonbeam:http`                      |
-| `moonriver:http`                     |
-| `moonbase-alpha:http`                |
-| `polygon:http`                       |
-| `optimism:http`                      |
-| `bsc:http`                           |
-| `bsc-testnet:http`                   |
-| `fantom:http`                        |
-
-## Manifest configuration
-
+| `eth:http`                           | 
+| `eth-sepolia:http`                   |          
+|  `eth-goerli:http`                |
+|  `moonbeam:http`                  |
+|  `moonriver:http`                 |
+|  `moonbase-alpha:http`            |
+|  `arbitrum-one:http`              |
+|  `arbitrum-goerli:http`           |
+|  `arbitrum-nova:http`             |
+|  `polygon:http`                   |
+|  `polygon-testnet:http`           |
+|  `base-goerli:http`               |
+|  `astar:http`                     |
+|  `shiden:http`                    |
+|  `shibuya:http`                   |
+|  `optimism:http`                  |
+|  `optimism-goerli:http`           |
+|  `bsc:http`                       |
+|  `bsc-testnet:http`               |
+|  `fantom:http`                    |
+|  `fantom-testnet:http`            |
+  
 Enable the RPC add-on like this:
 ```yaml
 deploy:
