@@ -36,11 +36,14 @@ A processor instance should be configured to define the block range to be indexe
 The actual data indexing is done by the `run()` method called on a processor instance (typically at `src/main.ts`). The method has the following signature:
 
 ```ts
-run<Store>(db: Database<Store>, batchHander: (ctx: BatchContext<Store, Item>) => Promise<void>): void
+run<Store>(
+  db: Database<Store>,
+  batchHander: (ctx: DataHandlerContext<Store, F extends FieldSelection>) => Promise<void>
+): void
 ```
 
 The `db` argument defines the target data sink, and `batchHandler` is an `async` `void` function defining the data transformation and persistence logic.
 
-The `Context` and `Store` interfaces are explained in the next sections.
+The `DataHandlerContext`, `Store` and `FieldSelection` interfaces are explained in the next sections.
 
 To jump straight to examples, see [EVM Processor in action](/evm-indexing/batch-processor-in-action) and [Substrate Processor in action](/substrate-indexing/batch-processor-in-action).

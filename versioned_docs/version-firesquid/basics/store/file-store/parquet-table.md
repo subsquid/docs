@@ -47,6 +47,10 @@ Column types can be obtained by making the function calls listed below from the 
 | `Types.JSON<T extends {[k: string]: any}>()` | JSON object of type `T`   | `BYTE_ARRAY`   | `Object` of type `T`                                      |
 | `Types.BSON<T extends {[k: string]: any}>()` | BSON object of type `T`   | `BYTE_ARRAY`   | `Object` of type `T`                                      |
 
+:::info
+The widest decimals that [PyArrow](https://arrow.apache.org/docs/python/index.html) can read are `Types.Decimal(76)`.
+:::
+
 The following column options are available:
 ```typescript
 ColumnOptions {
@@ -87,7 +91,9 @@ When `pageSize` is less than `rowGroupSize` times the number of columns, the lat
 
 ## Example
 
-This saves ERC20 `Transfer` events captured by the processor to a Parquet file. All columns except for `from` are `GZIP`ped. Row groups are set to be roughly 30000 bytes in size each. Each row group contains roughly ten ~1000 bytes-long pages per column. Full squid code is available in [this repo](https://github.com/subsquid-labs/file-store-parquet-example).
+This saves ERC20 `Transfer` events captured by the processor to a Parquet file. All columns except for `from` are `GZIP`ped. Row groups are set to be roughly 30000 bytes in size each. Each row group contains roughly ten ~1000 bytes-long pages per column. Full squid code is available in [this repo](https://github.com/subsquid-labs/file-store-parquet-example) (link out of date).
+
+[//]: # (!!!! Update the github URL)
 
 ```typescript
 import {Database} from '@subsquid/file-store'

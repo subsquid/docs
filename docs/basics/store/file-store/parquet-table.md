@@ -47,6 +47,10 @@ Column types can be obtained by making the function calls listed below from the 
 | `Types.JSON<T extends {[k: string]: any}>()` | JSON object of type `T`   | `BYTE_ARRAY`   | `Object` of type `T`                                      |
 | `Types.BSON<T extends {[k: string]: any}>()` | BSON object of type `T`   | `BYTE_ARRAY`   | `Object` of type `T`                                      |
 
+:::info
+The widest decimals that [PyArrow](https://arrow.apache.org/docs/python/index.html) can read are `Types.Decimal(76)`.
+:::
+
 The following column options are available:
 ```typescript
 ColumnOptions {

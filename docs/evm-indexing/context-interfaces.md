@@ -4,7 +4,7 @@ description: >-
   DataHandlerContext interfaces for EVM
 ---
 
-# BatchContext for EVM
+# DataHandlerContext for EVM
 
 **Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
 
