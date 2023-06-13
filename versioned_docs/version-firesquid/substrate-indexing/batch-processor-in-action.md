@@ -121,7 +121,7 @@ function getTransfers(ctx: Ctx): TransferData[] {
 
 ## 3. Run the processor and store the transformed data into the target database
 
-The snippet below assumes that we are using `TypeormDatabase` and that the database schema together with the model entity types has already been prepared. Consult [/basics/schema-file] for more details.
+The snippet below assumes that we are using `TypeormDatabase` and that the database schema together with the model entity types has already been prepared. Consult the [Schema file](/basics/schema-file) section for more details.
 
 
 ```ts
