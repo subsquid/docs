@@ -25,8 +25,8 @@ Processor data subscription methods guarantee that all data mathing their filter
 }
 ```
 The filters here are:
-+ `address`: the set of addresses of contracts emitting the logs. Leave undefined or set to `[]` to subscribe to events from the whole network.
-+ `topic0`: the set of values of `topic0`.
++ `address`: the set of addresses of contracts emitting the logs. Omit it or set to `undefined` to subscribe to events from any address.
++ `topic0`: the set of values of `topic0`. Omit it to subscribe to any event.
 + `range`: the range of blocks where the logs should be looked for.
 
 [//]: # (!!!! Update when the filter set stabilizes)
