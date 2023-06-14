@@ -1,5 +1,5 @@
 ---
-sidebar_position: 13
+sidebar_position: 60
 title: Monitoring
 description: Prometheus endpoints for squid services
 ---
