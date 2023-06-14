@@ -30,8 +30,8 @@ Processor data subscription methods guarantee that all data mathing their filter
 [//]: # (!!!! re-check the interface upon the release)
 
 The filters here are
-+ `from` and `to`: the sets of addresses of tx senders and receivers.
-+ `sighash`: [first four bytes](https://ethereum.org/en/developers/docs/transactions/#the-data-field) of the Keccak hash (SHA3) of the canonical representation of the function signature.
++ `from` and `to`: the sets of addresses of tx senders and receivers. Omit it or set to `undefined` to subscribe to transactions from/to any address.
++ `sighash`: [first four bytes](https://ethereum.org/en/developers/docs/transactions/#the-data-field) of the Keccak hash (SHA3) of the canonical representation of the function signature. Omit it or set to `undefined` to subscribe to any transaction.
 + `range`: the range of blocks where the transactions should be looked for.
 
 Enabling the `stateDiffs`, `traces` and/or `logs` flags will cause the processor to retrieve [state diffs](/arrowsquid/evm-indexing/configuration/state-diffs/), [traces](/arrowsquid/evm-indexing/configuration/traces/) and/or event logs that occured as a result of each selected transaction. The data will be added to the appropriate iterables within the [block data](/arrowsquid/evm-indexing/context-interfaces/#blockdata).
