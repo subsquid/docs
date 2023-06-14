@@ -1,7 +1,7 @@
 `sqd explorer`
 ==========
 
-Visual explorer of deployed squids and addons
+Visual explorer of deployed squids
 
 Left pane: List of deployed squids.
 Right pane: details of the selected squid. Navigate by pressing the corresponding number (e.g. `1` for Summary).
@@ -11,6 +11,8 @@ Right pane: details of the selected squid. Navigate by pressing the correspondin
 2) Logs
 
 3) DB access details
+
+This command requires specifying an [organization](/deploy-squid/organizations) with the `-o/--org` flag when invoked by accounts with more than one organization. Aquarium users with just one organization can omit this flag.
 
 ![Squid SDK](</img/sqd-explorer-snap.png>)
 

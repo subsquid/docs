@@ -1,5 +1,5 @@
 ---
-sidebar_position: 30
+sidebar_position: 100
 title: Migrate from v0
 description: Migrate to manifest-based deployments 
 ---
