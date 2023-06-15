@@ -21,7 +21,7 @@ description: >-
 
 [//]: # (!!!! remove /arrowsquid from links)
 
-Every field selector is a collection of boolean fields, typically (with a notable exception of [trace field selectors](#traces)) mapping one-to-one to the [fields of data items within the batch context](/arrowsquid/evm-indexing/context-interfaces/#data-item-types). Defining a field of a field selector of a given type and setting it to true will cause the processor to populate the corresponding field of all data items of that type. Here is a definition of a processor that requests `gas` and `value` fields for [transactions](/arrowsquid/evm-indexing/context-interfaces/#transaction):
+Every field selector is a collection of boolean fields, typically (with a notable exception of [trace field selectors](#traces)) mapping one-to-one to the [fields of data items within the batch context](/evm-indexing/context-interfaces/#data-item-types). Defining a field of a field selector of a given type and setting it to true will cause the processor to populate the corresponding field of all data items of that type. Here is a definition of a processor that requests `gas` and `value` fields for [transactions](/evm-indexing/context-interfaces/#transaction):
 ```ts
 let processor = new EvmBatchProcessor()
   .setFields({
@@ -42,7 +42,7 @@ processor
     // some transaction filters
   })
 ```
-As a result, `gas` and `value` fields would be available both within the transaction items of the `transactions` iterable of [block data](/arrowsquid/evm-indexing/context-interfaces/#blockdata) and within the transaction items that provide parent transaction information for the logs:
+As a result, `gas` and `value` fields would be available both within the transaction items of the `transactions` iterable of [block data](/evm-indexing/context-interfaces/#blockdata) and within the transaction items that provide parent transaction information for the logs:
 ```ts
 processor.run(db, async ctx => {
   for (let block of ctx.blocks) {
@@ -83,7 +83,7 @@ processor.run(db, async ctx => {
 Most IDEs support smart suggestions to show the possible field selectors. For VS Code, press `Ctrl+Space`.
 :::
 
-Here we list all valid fields of the field selectors. Unless otherwise mentioned, they map to the eponymous fields of the batch context data items and are disabled by default. Consult the [Data item types](/arrowsquid/evm-indexing/context-interfaces/#data-item-types) section of the batch context interface page to get the primitive type of each field.
+Here we list all valid fields of the field selectors. Unless otherwise mentioned, they map to the eponymous fields of the batch context data items and are disabled by default. Consult the [Data item types](/evm-indexing/context-interfaces/#data-item-types) section of the batch context interface page to get the primitive type of each field.
 
 [//]: # (!!!! update with final defaults and capabilities)
 
@@ -139,7 +139,7 @@ Here we list all valid fields of the field selectors. Unless otherwise mentioned
 
 ### Traces
 
-Field selection for [trace data items](/arrowsquid/evm-indexing/context-interfaces/#trace) is somewhat more involved because its fixed fields `action` and `result` may contain different fields depending on the value of the `type` field.
+Field selection for [trace data items](/evm-indexing/context-interfaces/#trace) is somewhat more involved because its fixed fields `action` and `result` may contain different fields depending on the value of the `type` field.
 
 ```ts
 {
