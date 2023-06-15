@@ -18,7 +18,7 @@ processor.run<Store>(
 The batch handler is an async void function. It repeatedly receives batches of archive data stored in `ctx.blocks`, transforms them and persists the results to the target database using the `ctx.store` interface.
 
 Here, `F` and `Store` are inferred from the `EvmBatchProcessor` method calls:
- * `F` is the type of the argument of the [`setFields()`](/dead) processor configuration call and the argument of the `EvmBatchProcessor` generic:
+ * `F` is the type of the argument of the [`setFields()`](/evm-indexing/configuration/data-selection) processor configuration call and the argument of the `EvmBatchProcessor` generic:
    ```ts
     export class EvmBatchProcessor<F extends FieldSelection = {}> {
       ...
@@ -63,12 +63,12 @@ export type BlockData<F extends FieldSelection = {}> = {
 
 `BlockData.header` contains the block header data. The rest of the fields are iterables containing various blockchain data:
  - `transactions` and `logs` are ordered in the same way as they are within blocks;
- - [`stateDiffs`](/dead) follow the order of transactions that gave rise to them;
+ - [`stateDiffs`](/evm-indexing/configuration/state-diffs) follow the order of transactions that gave rise to them;
  - `traces` are ordered in a deterministic but otherwise unspecified way.
 
 ## Data item types
 
-All data item types are generics depending on the field selection type, `F extends FieldSelection`. Some of their fields are fixed and some can be added or removed via [`setFields()`](/dead). Removing unnecessary fields will improve sync performance, as the data for these fields will not be fetched.
+All data item types are generics depending on the field selection type, `F extends FieldSelection`. Some of their fields are fixed and some can be added or removed via [`setFields()`](/evm-indexing/configuration/state-diffs). Removing unnecessary fields will improve sync performance, as the data for these fields will not be fetched.
 
 ### `Log`
 
@@ -308,6 +308,6 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 })
 ```
 
-One can experiment with the [`setFields()`](/dead) and see how the output changes.
+One can experiment with the [`setFields()`](/evm-indexing/configuration/state-diffs) and see how the output changes.
 
 For more elaborate examples, check [EVM Examples](/examples).
