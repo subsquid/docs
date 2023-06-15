@@ -12,7 +12,7 @@ Each squid has a canonical production endpoint URL of the form
 https://squid.subsquid.io/<squid name>/graphql
 ```
 
-To alias a squid version to the production endpoint, use [`sqd prod`](/squid-cli/prod):
+To alias a squid version to the production endpoint, use [`sqd prod`](/firesquid/squid-cli/prod):
 ```bash
 sqd prod <squid name>@<version>
 ```

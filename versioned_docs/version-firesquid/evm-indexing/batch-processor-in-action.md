@@ -7,13 +7,13 @@ title: Processor in action
 
 # `EvmBatchProcessor` in action
 
-An end-to-end idiomatic usage of `EvmBatchProcessor` can be inspected in the [gravatar-template repository](https://github.com/subsquid/gravatar-squid) and also learned from more elaborate [examples](/examples).
+An end-to-end idiomatic usage of `EvmBatchProcessor` can be inspected in the [gravatar-template repository](https://github.com/subsquid/gravatar-squid) and also learned from more elaborate [examples](/firesquid/examples).
 
 In order to illustrate the concepts covered thus far, here we highlight the key steps, put together a processor configuration and a data handling definition.
 
 ## 1. Model the target schema and generate entity classes
 
-Create or edit `schema.graphql` to define the target entities and relations. Consult [the schema reference](/basics/schema-file).
+Create or edit `schema.graphql` to define the target entities and relations. Consult [the schema reference](/firesquid/basics/schema-file).
 
 Update the entity classes, start a fresh database and regenerate migrations:
 ```bash
@@ -25,14 +25,14 @@ sqd migration:generate
 
 ## 2. Generate Typescript ABI modules
 
-Use [`evm-typegen`](/evm-indexing/squid-evm-typegen) to generate the facade classes, for example like this:
+Use [`evm-typegen`](/firesquid/evm-indexing/squid-evm-typegen) to generate the facade classes, for example like this:
 ```bash
 npx squid-evm-typegen src/abi 0x2E645469f354BB4F5c8a05B3b30A929361cf77eC#Gravity --clean
 ```
 
 ## 3. Configuration
 
-See [Configuration section](/evm-indexing/configuration) for more details.
+See [Configuration section](/firesquid/evm-indexing/configuration) for more details.
 
 ```ts
 const processor = new EvmBatchProcessor()

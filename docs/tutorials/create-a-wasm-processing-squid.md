@@ -127,7 +127,9 @@ The generated `src/abi/erc20.ts` module defines interfaces to represent WASM dat
 
 Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/substrate-indexing). Its instances connect to chain-specific [Subsquid archives](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-`SubstrateBatchProcessor`s [exposes methods](/substrate-indexing/configuration) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor allows one to subscribe for such events emitted by a specific contract. The events can then be processed by calling the `.run()` function that starts generating requests to the Archive for [*batches*](/basics/batch-processing) of data.
+`SubstrateBatchProcessor`s [exposes methods](/firesquid/substrate-indexing/configuration) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor allows one to subscribe for such events emitted by a specific contract. The events can then be processed by calling the `.run()` function that starts generating requests to the Archive for [*batches*](/basics/batch-processing) of data.
+
+[//]: # (!!!! Update the link above once ArrowSquid for Substrate is released)
 
 Every time a batch is returned by the Archive, it will trigger the callback function, or *batch handler* (passed to `.run()` as second argument). It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 

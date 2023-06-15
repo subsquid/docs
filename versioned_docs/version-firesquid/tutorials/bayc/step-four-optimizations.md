@@ -7,13 +7,13 @@ sidebar_position: 40
 
 # Step 4: Optimization
 
-This is the fourth part of the tutorial where we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers, and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database, and serves it over a GraphQL API. In the first three parts ([1](/tutorials/bayc/step-one-indexing-transfers), [2](/tutorials/bayc/step-two-deriving-owners-and-tokens), [3](/tutorials/bayc/step-three-adding-external-data)), we created a squid that does all the above but performs many IO operations sequentially, resulting in a long sync time. In this part, we discuss strategies for mitigating that shortcoming. We also discuss an alternative metadata fetching strategy that reduces redundant fetches and handles the changes in metadata of "cold" (i.e., not involved in any transfers) tokens more effectively.
+This is the fourth part of the tutorial where we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers, and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database, and serves it over a GraphQL API. In the first three parts ([1](/firesquid/tutorials/bayc/step-one-indexing-transfers), [2](/tutorials/bayc/step-two-deriving-owners-and-tokens), [3](/tutorials/bayc/step-three-adding-external-data)), we created a squid that does all the above but performs many IO operations sequentially, resulting in a long sync time. In this part, we discuss strategies for mitigating that shortcoming. We also discuss an alternative metadata fetching strategy that reduces redundant fetches and handles the changes in metadata of "cold" (i.e., not involved in any transfers) tokens more effectively.
 
-Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the third part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/20206c337d443e3cb96133f527cc9fac2a8f1d2a)).
+Pre-requisites: Node.js, [Subsquid CLI](/firesquid/squid-cli/installation), Docker, a project folder with the code from the third part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/20206c337d443e3cb96133f527cc9fac2a8f1d2a)).
 
 ## Using Multicall for aggregating state queries
 
-We begin by introducing [batch processing](/basics/batch-processing/) wherever possible, and our first step is to replace individual contract state queries with [batch calls](/evm-indexing/query-state/#batch-state-queries) to a [MakerDAO multicall contract](https://github.com/mds1/multicall). Retrieve the multicall contract ABI by re-running `squid-evm-typegen` with `--multicall` option:
+We begin by introducing [batch processing](/firesquid/basics/batch-processing/) wherever possible, and our first step is to replace individual contract state queries with [batch calls](/evm-indexing/query-state/#batch-state-queries) to a [MakerDAO multicall contract](https://github.com/mds1/multicall). Retrieve the multicall contract ABI by re-running `squid-evm-typegen` with `--multicall` option:
 ```bash
 npx squid-evm-typegen --multicall src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#bayc
 ```
@@ -187,7 +187,7 @@ Full implementation requires changes to the schema, replacement of `completeToke
 
 ## Extra: Using Multicall for metadata exploration
 
-In part 3 of this tutorial we [explored metadata URIs](/tutorials/bayc/step-three-adding-external-data/#exploring-token-metadata) by running `tokenURI()` directly on the BAYC token contract. This process took several hours. Replacing the exploration code with its [multicall]-based equivalent, we can reduce that time to about 17 minutes. Starting with the code [as it was at the end of part two](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/6f41cba76b9d90d12638a17d64093dbeb19d00ec), get `src/abi/multicall.ts` by running
+In part 3 of this tutorial we [explored metadata URIs](/firesquid/tutorials/bayc/step-three-adding-external-data/#exploring-token-metadata) by running `tokenURI()` directly on the BAYC token contract. This process took several hours. Replacing the exploration code with its [multicall]-based equivalent, we can reduce that time to about 17 minutes. Starting with the code [as it was at the end of part two](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/6f41cba76b9d90d12638a17d64093dbeb19d00ec), get `src/abi/multicall.ts` by running
 ```bash
 npx squid-evm-typegen --multicall src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#bayc
 ```

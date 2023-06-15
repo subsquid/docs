@@ -10,9 +10,9 @@ sidebar_position: 20
 
 ## Objective
 
-This tutorial starts with the standard `evm` template of [`sqd init`](/squid-cli/init) and turns it into a squid indexing the [Exosama NFT](https://exosama.com/) [contract](https://etherscan.io/address/0xac5c7493036de60e63eb81c5e9a440b42f47ebf5) deployed on Ethereum. The squid stores its data in a Postgres database and makes it available via a GraphQL API.
+This tutorial starts with the standard `evm` template of [`sqd init`](/firesquid/squid-cli/init) and turns it into a squid indexing the [Exosama NFT](https://exosama.com/) [contract](https://etherscan.io/address/0xac5c7493036de60e63eb81c5e9a440b42f47ebf5) deployed on Ethereum. The squid stores its data in a Postgres database and makes it available via a GraphQL API.
 
-The goal is to index the contract NFTs, historical transfers and current owners. The tutorial applies to other EVM chains (Polygon, Binance Smart Chain, Arbitrum, etc). To switch to a different chain simply set its corresponding [Archive](/archives/overview/) as a data source during [processor configuration](/evm-indexing/configuration).
+The goal is to index the contract NFTs, historical transfers and current owners. The tutorial applies to other EVM chains (Polygon, Binance Smart Chain, Arbitrum, etc). To switch to a different chain simply set its corresponding [Archive](/firesquid/archives/overview/) as a data source during [processor configuration](/evm-indexing/configuration).
 
 To look at the end result, inspect the code and play around, clone the [repo](https://github.com/subsquid/subsquid-ethereum-tutorial-example) or open Gitpod:
 
@@ -21,8 +21,8 @@ To look at the end result, inspect the code and play around, clone the [repo](ht
 ## Pre-requisites
 
 - Familiarity with Git 
-- A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js and Docker
-- [Squid CLI](/squid-cli/installation)
+- A properly set up [development environment](/firesquid/tutorials/development-environment-set-up) consisting of Node.js and Docker
+- [Squid CLI](/firesquid/squid-cli/installation)
 
 :::info
 This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands. 
@@ -30,7 +30,7 @@ This tutorial uses custom scripts defined in `commands.json`. The scripts are au
 
 ## Scaffold using `sqd init`
 
-We begin by retrieving the [`evm` template](https://github.com/subsquid/squid-evm-template) with [`sqd init`](/squid-cli/init) and installing the dependencies:
+We begin by retrieving the [`evm` template](https://github.com/subsquid/squid-evm-template) with [`sqd init`](/firesquid/squid-cli/init) and installing the dependencies:
 
 ```bash
 sqd init evm-tutorial --template evm
@@ -87,10 +87,10 @@ type Transfer @entity {
 }
 ```
 
-It's worth noting a few things in this [schema definition](/basics/schema-file):
+It's worth noting a few things in this [schema definition](/firesquid/basics/schema-file):
 
 * **`@entity`**: Signals that this type will be translated into an ORM model that is going to be persisted in the database.
-* **`@derivedFrom`**: Signals that the field will not be persisted in the database. Instead, it will be [derived from](/basics/schema-file/entity-relations) the entity relations.
+* **`@derivedFrom`**: Signals that the field will not be persisted in the database. Instead, it will be [derived from](/firesquid/basics/schema-file/entity-relations) the entity relations.
 * **type references** (e.g. `from: Owner`): When used on entity types, they establish a relation between two entities.
 * **`@index`**: Signals that the field should be indexed by the database. Very useful for increasing the performance on fields queried often.
 
@@ -173,9 +173,9 @@ export async function getOrCreateContractEntity(store: Store): Promise<Contract>
 
 ## Define the logic to handle and save Events & Function calls
 
-Subsquid SDK provides users with the [`EvmBatchProcessor` class](/evm-indexing). Its instances connect to a [Subsquid archive](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Subsquid SDK provides users with the [`EvmBatchProcessor` class](/firesquid/evm-indexing). Its instances connect to a [Subsquid archive](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-The processor exposes methods to "subscribe" to EVM logs or smart contract function calls. These methods [configure the processor](/evm-indexing/configuration) to retrieve a subset of archive data, by specifying things like addresses of contracts, signatures of public functions or topics of event of interest. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for *batches* of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
+The processor exposes methods to "subscribe" to EVM logs or smart contract function calls. These methods [configure the processor](/firesquid/evm-indexing/configuration) to retrieve a subset of archive data, by specifying things like addresses of contracts, signatures of public functions or topics of event of interest. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for *batches* of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
 
 It is in this callback function that all the mapping logic is expressed. This is where event and function decoding should be implemented, and where the code to save processed data on the database should be defined.
 
@@ -415,11 +415,11 @@ transfersData.map(t => [EXOSAMA_NFT_CONTRACT, [BigNumber.from(t.tokenId)]] as [s
 tells that it should be called with a single argument `tokenId` for each entity in the `transfersData` array.
 The last argument `100` corresponds to the page size, meaning that `tryAggreagate` splits the incoming array of calls to be executed into chunks of size `100`. If the page size is too large, the RPC node may time out or bounce the request.
 
-For more details on see the Multicall section of the [`evm-typegen` page](/evm-indexing/squid-evm-typegen)
+For more details on see the Multicall section of the [`evm-typegen` page](/firesquid/evm-indexing/squid-evm-typegen)
 :::
 
 :::warning
-This code expects to find an URL of a working Ethereum RPC endpoint in the `RPC_ENDPOINT` environment variable. Set it in the `.env` file and in [Aquarium secrets](/deploy-squid/env-variables) if and when you deploy your squid there. Free endpoints for testing can be found at [Ethereumnodes](https://ethereumnodes.com/); for production, we recommend using private endpoints.
+This code expects to find an URL of a working Ethereum RPC endpoint in the `RPC_ENDPOINT` environment variable. Set it in the `.env` file and in [Aquarium secrets](/firesquid/deploy-squid/env-variables) if and when you deploy your squid there. Free endpoints for testing can be found at [Ethereumnodes](https://ethereumnodes.com/); for production, we recommend using private endpoints.
 :::
 
 We used the [lodash library](https://lodash.com) to simplify the processor code. Install it as follows:

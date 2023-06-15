@@ -7,13 +7,13 @@ sidebar_position: 20
 
 # Step 2: Deriving owners and tokens
 
-This is the second part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers, and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database, and serves it over a GraphQL API. In the [first part](/tutorials/bayc/step-one-indexing-transfers), we created a simple squid that scraped Transfer events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d). Here, we go a step further and derive separate entities for the NFTs and their owners from the transfers. The new entities will reference the corresponding `Transfer` entities. It will be automatically translated into primary key-foreign key references in the new database schema, and enable efficient cross-entity GraphQL queries. 
+This is the second part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers, and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database, and serves it over a GraphQL API. In the [first part](/firesquid/tutorials/bayc/step-one-indexing-transfers), we created a simple squid that scraped Transfer events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d). Here, we go a step further and derive separate entities for the NFTs and their owners from the transfers. The new entities will reference the corresponding `Transfer` entities. It will be automatically translated into primary key-foreign key references in the new database schema, and enable efficient cross-entity GraphQL queries. 
 
-Prerequisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the first part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/d99cd9b3f6921c7f591e5817d54025a388925a08)).
+Prerequisites: Node.js, [Subsquid CLI](/firesquid/squid-cli/installation), Docker, a project folder with the code from the first part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/d99cd9b3f6921c7f591e5817d54025a388925a08)).
 
 ## Writing `schema.graphql`
 
-Start the process by adding new [entities](/basics/schema-file/entities/) to the `schema.graphql` file::
+Start the process by adding new [entities](/firesquid/basics/schema-file/entities/) to the `schema.graphql` file::
 ```graphql
 # any unique string can be used as id
 type Owner @entity {
@@ -25,7 +25,7 @@ type Token @entity {
     tokenId: Int!
 }
 ```
-Next, add [entity relations](/basics/schema-file/entity-relations/). Let us begin with adding a simple relation linking tokens to their owners:
+Next, add [entity relations](/firesquid/basics/schema-file/entity-relations/). Let us begin with adding a simple relation linking tokens to their owners:
 ```diff
  type Token @entity {
      id: ID! # string form of tokenId
@@ -65,7 +65,7 @@ Introduce more entity relations by replacing the `from,` `to`, and `tokenId` fie
  }
 ```
 
-Lastly, include the virtual (i.e., not mapped to a column in the database schema) [reverse lookup fields](/basics/schema-file/entity-relations/):
+Lastly, include the virtual (i.e., not mapped to a column in the database schema) [reverse lookup fields](/firesquid/basics/schema-file/entity-relations/):
 
 ```diff
  type Owner @entity {
@@ -99,7 +99,7 @@ Note how the entities we define form an acyclic dependency graph:
 
 As a consequence, the creation of entity instances must proceed in a [particular order](https://en.wikipedia.org/wiki/Topological_sorting). Squids usually use small graphs like this one, and in these the order can be easily found manually (e.g. `Owner`s then `Token`s then `Transfer`s in this case). We will assume that it can be hardcoded by the programmer.
 
-Further, at each step we will [process the data for the whole batch](/basics/batch-processing/) instead of handling the items individually. This is crucial for achieving a good syncing performance.
+Further, at each step we will [process the data for the whole batch](/firesquid/basics/batch-processing/) instead of handling the items individually. This is crucial for achieving a good syncing performance.
 
 With all that in mind, let's create a batch processor that generates and persists all of our entities:
 
@@ -232,7 +232,7 @@ Full code can be found at [this commit](https://github.com/abernatskiy/tmp-bayc-
 
 To test it, start the processor and the GraphQL server by running `sqd process` and `sqd serve` in separate terminals. Then, visit the [GraphiQL playground](http://localhost:4350/graphql):
 
-![BAYC GraphiQL at step two](</img/bayc-playground-step-two.png>)
+![BAYC GraphiQL at step two](./bayc-playground-step-two.png)
 
 The new entities should be displayed in the query schema.
 

@@ -6,10 +6,8 @@ description: >-
 
 # EVM logs
 
-**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
-
 :::warning
-Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/arrowsquid/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
+Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
 :::
 
 **`addLog(options)`**: Subscribe to events/EVM log data. The `options` object has the following structure:
@@ -31,7 +29,7 @@ The filters here are:
 
 [//]: # (!!!! Update when the filter set stabilizes)
 
-Enabling the `transaction` flag will cause the processor to retrieve all parent transactions and add them to the `transactions` iterable within the [block data](/arrowsquid/evm-indexing/context-interfaces/#blockdata).
+Enabling the `transaction` flag will cause the processor to retrieve all parent transactions and add them to the `transactions` iterable within the [block data](/evm-indexing/context-interfaces/#blockdata).
 
 Note that logs can also be requested by the [`addTransaction()`](../transactions) method as related data.
 

@@ -6,8 +6,6 @@ description: Built-in caching RPC endpoints
 
 # RPC proxy
 
-**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
-
 :::warning
 This is an experimental feature only available to premium users. If you want to try it out please contact us at [the SquidDevs Telegram channel](https://t.me/HydraDevs).
 :::

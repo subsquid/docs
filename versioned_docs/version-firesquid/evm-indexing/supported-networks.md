@@ -7,7 +7,7 @@ title: Supported networks
 
 # Supported EVM networks
 
-The table below lists the public EVM Archive endpoints to be used with the [`setDataSource()`](/evm-indexing/configuration) `EvmBatchProcessor` configuration method.
+The table below lists the public EVM Archive endpoints to be used with the [`setDataSource()`](/firesquid/evm-indexing/configuration) `EvmBatchProcessor` configuration method.
 
 | Network                 |  Endpoint lookup command                    |        Archive endpoint                            |  
 |:-----------------------:|:-------------------------:|:--------------------------------------------------:|
@@ -41,7 +41,7 @@ The table below lists the public EVM Archive endpoints to be used with the [`set
 | Mantle testnet          | `lookupArchive('mantle-testnet')`          | `https://mantle-testnet.archive.subsquid.io`       |
 | Exosama Network         | `lookupArchive('exosama')`                 |`https://exosama.archive.subsquid.io`               |
  
-(*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate archive](/archives/substrate)
+(*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate archive](/firesquid/archives/substrate)
 
 
 ### Examples 

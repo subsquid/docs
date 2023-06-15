@@ -10,12 +10,12 @@ Batch data processing model employed by Squid SDK relies on the following princi
 
 - Minimize the number of database hits by grouping multiple single-row transactions into multi-row batch transactions.
 - Transform the data in memory using vectorized operators.
-- Use the [MakerDAO `Multicall` contract](/evm-indexing/query-state/#batch-state-queries) to batch EVM state queries.
-- Use [`XXX.getMany()`](/substrate-indexing/storage-state-calls) to batch Substrate state queries.
+- Use the [MakerDAO `Multicall` contract](/firesquid/evm-indexing/query-state/#batch-state-queries) to batch EVM state queries.
+- Use [`XXX.getMany()`](/firesquid/substrate-indexing/storage-state-calls) to batch Substrate state queries.
 
 In practice, batching is a more flexible (compared to handler parallelization) way to speed up the inherently sequential indexing of on-chain transactions and logs. 
 
-To illustrate, assume the processor must infer the current state of an on-chain record. It is configured to listen to the two on-chain events, `Create` and `Update`, that are emitted once the record is created or updated. The [data batch](/basics/processor-context/#ctxblocks) received by the processor is then an array of event items, i.e.
+To illustrate, assume the processor must infer the current state of an on-chain record. It is configured to listen to the two on-chain events, `Create` and `Update`, that are emitted once the record is created or updated. The [data batch](/firesquid/basics/processor-context/#ctxblocks) received by the processor is then an array of event items, i.e.
 ```ts
 [
     Create({id: 1, name: 'Alice'}), 
@@ -35,7 +35,7 @@ Let's see the batch processing principles in action.
 
 ## Patterns
 
-An idiomatic use of [`processor.run()`](/basics/squid-processor) is as follows:
+An idiomatic use of [`processor.run()`](/firesquid/basics/squid-processor) is as follows:
 
 ```ts
 processor.run(new TypeormDatabase(), async (ctx) => {
@@ -137,7 +137,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 ## Migrate from handlers
 
-Batch-based processing can be used as a drop-in replacement for the handler based mappings employed by e.g. subgraphs. While the handler-based processing is significantly slower due to excessive database lookups and writes, it may be a good intermediary step while [migrating an existing subgraph to Squid SDK](/migrate/migrate-subgraph/).
+Batch-based processing can be used as a drop-in replacement for the handler based mappings employed by e.g. subgraphs. While the handler-based processing is significantly slower due to excessive database lookups and writes, it may be a good intermediary step while [migrating an existing subgraph to Squid SDK](/firesquid/migrate/migrate-subgraph/).
 
 One can simply re-use the existing handlers while looping over the `ctx` items:
 

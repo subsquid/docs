@@ -13,7 +13,7 @@ The `abi` template generates a ready-to-use squid from an EVM contract ABI. The 
 Before getting to work on your very first squid, verify that you have installed the following software: 
 
 - Node v16.x or newer
-- [Squid CLI](/squid-cli/installation) v2.1.0 or newer
+- [Squid CLI](/firesquid/squid-cli/installation) v2.1.0 or newer
 - Docker
 
 :::info
@@ -26,7 +26,7 @@ Please note:
 ## Step 1: Scaffold from a template 
 
 Come up with a new memorable name for your squid and scaffold from [squid-abi-template](https://github.com/subsquid/squid-abi-template)
-using [`sqd init`](/squid-cli/init):
+using [`sqd init`](/firesquid/squid-cli/init):
 
 ```bash
 sqd init my-awesome-squid --template abi
@@ -37,7 +37,7 @@ npm ci
 
 ##  Step 2: Generate the squid
 
-- Consult the [EVM configuration page](/evm-indexing/configuration) and choose an archive endpoint from the list of supported EVM networks.
+- Consult the [EVM configuration page](/firesquid/evm-indexing/configuration) and choose an archive endpoint from the list of supported EVM networks.
 - Prepare the contract ABI and save it into the `assets` folder, e.g. as `assets/abi.json`.
 
 :::info
@@ -72,7 +72,7 @@ sqd generate \
 ```
 
 :::info
-Squid generation tools can also be [configured with YAML files](/basics/squid-gen/). This mode unlocks advanced features such as working with multiple contracts and saving the squid data to file-based datasets.
+Squid generation tools can also be [configured with YAML files](/firesquid/basics/squid-gen/). This mode unlocks advanced features such as working with multiple contracts and saving the squid data to file-based datasets.
 :::
 
 ## Step 3: Launch Postgres in a detached Docker container
@@ -120,10 +120,10 @@ query MyQuery {
 
 ## What's next?
 
-- [Deploy the squid to the Aquarium hosted service](/deploy-squid)
-- [Migrate your existing subgraphs to Subsquid](/migrate/migrate-subgraph)
-- [Explore examples of squids for EVM networks, from simple transfer indexing to DEX analytics](/examples/#evm-processor)
-- [Develop a custom EVM squid from scratch](/quickstart/quickstart-ethereum)
-- [Define your own data schema](/basics/schema-file)
-- [Deeper dive into `EvmBatchProcessor`](/evm-indexing)
-- [Explore how to enhance the GraphQL API with custom SQL, caching and limits](/graphql-api)
+- [Deploy the squid to the Aquarium hosted service](/firesquid/deploy-squid)
+- [Migrate your existing subgraphs to Subsquid](/firesquid/migrate/migrate-subgraph)
+- [Explore examples of squids for EVM networks, from simple transfer indexing to DEX analytics](/firesquid/examples/#evm-processor)
+- [Develop a custom EVM squid from scratch](/firesquid/quickstart/quickstart-ethereum)
+- [Define your own data schema](/firesquid/basics/schema-file)
+- [Deeper dive into `EvmBatchProcessor`](/firesquid/evm-indexing)
+- [Explore how to enhance the GraphQL API with custom SQL, caching and limits](/firesquid/graphql-api)

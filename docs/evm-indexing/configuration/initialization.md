@@ -6,8 +6,6 @@ description: >-
 
 # Initialization
 
-**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
-
 :::info
 The method documentation is also available inline and can be accessed via suggestions in most IDEs.
 :::

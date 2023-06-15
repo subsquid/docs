@@ -5,7 +5,7 @@ description: Native logger of Squid SDK
 
 # Logging
 
-A [`Logger`](https://github.com/subsquid/squid/tree/master/util/logger) interface is injected into the [handler context](/basics/processor-context) with `ctx.log`. It is bound to the namespace `sqd:processor:mapping`. The context logger is a recommended way of logging for squid processors.
+A [`Logger`](https://github.com/subsquid/squid/tree/master/util/logger) interface is injected into the [handler context](/firesquid/basics/processor-context) with `ctx.log`. It is bound to the namespace `sqd:processor:mapping`. The context logger is a recommended way of logging for squid processors.
 
 `Logger` exposes the following logging levels, in order of increasing severity:
 
@@ -54,4 +54,4 @@ Processor logs can be inspected once the squid is deployed to Aquarium:
 sqd logs <name>@<version> -f --level <level>
 ```
 
-See [CLI Reference](/squid-cli/logs) or `sqd logs --help` for a full list of log options supported by Aquarium.
+See [CLI Reference](/firesquid/squid-cli/logs) or `sqd logs --help` for a full list of log options supported by Aquarium.

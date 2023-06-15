@@ -11,16 +11,16 @@ The method documentation is also available inline and can be accessed via sugges
 :::
 
 :::info
-If contract address(es) supplied to `EvmBatchProcessor` are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/substrate-indexing/context-interfaces) for item filtration, and all contract addresses in the items are **always** in flat lower case.
+If contract address(es) supplied to `EvmBatchProcessor` are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/firesquid/substrate-indexing/context-interfaces) for item filtration, and all contract addresses in the items are **always** in flat lower case.
 :::
 
-This section describes additional options available for Substrate chains with the Frontier EVM pallet like Astar. We recommend using [squid-frontier-evm-template](https://github.com/subsquid-labs/squid-frontier-evm-template) as a starting point. For a step-by-step instruction, check out the [Frontier EVM squid tutorial](/tutorials/create-an-evm-processing-squid).
+This section describes additional options available for Substrate chains with the Frontier EVM pallet like Astar. We recommend using [squid-frontier-evm-template](https://github.com/subsquid-labs/squid-frontier-evm-template) as a starting point. For a step-by-step instruction, check out the [Frontier EVM squid tutorial](/firesquid/tutorials/create-an-evm-processing-squid).
 
 This page describes the tools for handling EVM contracts and additional options available for `SubstrateBatchProcessor`.
 
 ## Squid EVM typegen
 
-[`squid-evm-typegen`](/evm-indexing/squid-evm-typegen) tool is used to generate Typescript modules for convenient interaction with EVM contracts. Each such module is generated from a JSON ABI read from a local file or from an Etherscan-like API. When local JSON ABI files are placed at the `abi` folder, the modules can be generated with an `sqd` shortcut:
+[`squid-evm-typegen`](/firesquid/evm-indexing/squid-evm-typegen) tool is used to generate Typescript modules for convenient interaction with EVM contracts. Each such module is generated from a JSON ABI read from a local file or from an Etherscan-like API. When local JSON ABI files are placed at the `abi` folder, the modules can be generated with an `sqd` shortcut:
 ```bash
 sqd typegen
 ```
@@ -45,7 +45,7 @@ These modules provide:
    }
   }
   ```
-* Classes for querying the contract state - see the [Access contract state](/substrate-indexing/evm-support/#access-the-contract-state) section.
+* Classes for querying the contract state - see the [Access contract state](/firesquid/substrate-indexing/evm-support/#access-the-contract-state) section.
 
 ## Subscribe to EVM events
 
@@ -64,7 +64,7 @@ const processor = new SubstrateBatchProcessor()
     filter: [[erc721.events.Transfer.topic]],
   });
 ```
-The `options` argument has the same format as for [`addEvent`](/substrate-indexing/configuration/#events), supports the same [data selectors](/substrate-indexing/configuration/#event-data-selector) and additionally a topic filter:
+The `options` argument has the same format as for [`addEvent`](/firesquid/substrate-indexing/configuration/#events), supports the same [data selectors](/substrate-indexing/configuration/#event-data-selector) and additionally a topic filter:
 
 ```typescript
 {
@@ -73,13 +73,13 @@ The `options` argument has the same format as for [`addEvent`](/substrate-indexi
   data?: {} // same as the data selector for `addEvent` 
 }
 ```
-For details on the topic filter, check out the [EVM logs section of the EVM processor configuration page](/evm-indexing/configuration/evm-logs) and examples within.
+For details on the topic filter, check out the [EVM logs section of the EVM processor configuration page](/firesquid/evm-indexing/configuration/evm-logs) and examples within.
 
 ## Subscribe to EVM transactions
 
 **`addEthereumTransaction(contractAddress: string | string[], options?: {data?, range?, sighash?})`**: A `SubstrateBatchProcessor` configuration setter that subscribes it to `Ethereum.transact()` calls. `Ethereum.Executed` event will be loaded for each `Ethereum.transact` call from the result set. 
 
-Filtering by contract address(es), function [4-byte signature hash](https://www.4byte.directory) (`sighash`) and block range are supported. `data` selection options are similar to those of [`addCall()`](/substrate-indexing/configuration/#call-data-selector).
+Filtering by contract address(es), function [4-byte signature hash](https://www.4byte.directory) (`sighash`) and block range are supported. `data` selection options are similar to those of [`addCall()`](/firesquid/substrate-indexing/configuration/#call-data-selector).
 
 Note that by default both successful and failed transactions are fetched. Further, there's a difference between the success of a Substrate call and the internal EVM transaction. The transaction may fail even if the enclosing Substrate call has succeeded.
 
@@ -144,7 +144,7 @@ processor.run(new TypeormDatabase(), async ctx => {
 
 ## Access contract state
 
-EVM contract state is accessed using the [typegen-](/substrate-indexing/evm-support/#squid-evm-typegen)generated `Contract` class that takes the handler context and the contract address as constructor arguments. The state is always accessed at the context block height unless explicitly defined in the constructor.
+EVM contract state is accessed using the [typegen-](/firesquid/substrate-indexing/evm-support/#squid-evm-typegen)generated `Contract` class that takes the handler context and the contract address as constructor arguments. The state is always accessed at the context block height unless explicitly defined in the constructor.
 ```typescript title="src/abi/erc721.ts"
 export class Contract extends ContractBase {
   //...
@@ -174,7 +174,7 @@ processor.run(new TypeormDatabase(), async ctx => {
 })
 ```
 
-For more information on EVM Typegen, see this [dedicated page](/evm-indexing/squid-evm-typegen).
+For more information on EVM Typegen, see this [dedicated page](/firesquid/evm-indexing/squid-evm-typegen).
 
 ## Factory contracts
 

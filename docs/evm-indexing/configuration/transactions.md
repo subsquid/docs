@@ -6,10 +6,8 @@ description: >-
 
 # EVM transactions 
 
-**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
-
 :::warning
-Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/arrowsquid/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
+Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
 :::
 
 **`addTransaction(options)`**: Subscribe to transactions data. The `options` object has the following structure:
@@ -34,7 +32,7 @@ The filters here are
 + `sighash`: [first four bytes](https://ethereum.org/en/developers/docs/transactions/#the-data-field) of the Keccak hash (SHA3) of the canonical representation of the function signature. Omit it or set to `undefined` to subscribe to any transaction.
 + `range`: the range of blocks where the transactions should be looked for.
 
-Enabling the `stateDiffs`, `traces` and/or `logs` flags will cause the processor to retrieve [state diffs](/arrowsquid/evm-indexing/configuration/state-diffs/), [traces](/arrowsquid/evm-indexing/configuration/traces/) and/or event logs that occured as a result of each selected transaction. The data will be added to the appropriate iterables within the [block data](/arrowsquid/evm-indexing/context-interfaces/#blockdata).
+Enabling the `stateDiffs`, `traces` and/or `logs` flags will cause the processor to retrieve [state diffs](/evm-indexing/configuration/state-diffs/), [traces](/evm-indexing/configuration/traces/) and/or event logs that occured as a result of each selected transaction. The data will be added to the appropriate iterables within the [block data](/evm-indexing/context-interfaces/#blockdata).
 
 Note that transactions can also be requested by [`addLog()`](../evm-logs), [`addStateDiff()`](../state-diffs) and [`addTrace()`](../traces) as related data.
 

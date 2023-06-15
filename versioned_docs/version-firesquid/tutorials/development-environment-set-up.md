@@ -22,7 +22,7 @@ node --version
 
 ### Subsquid CLI
 
-Follow [these instructions](/squid-cli/installation).
+Follow [these instructions](/firesquid/squid-cli/installation).
 
 ### Docker
 

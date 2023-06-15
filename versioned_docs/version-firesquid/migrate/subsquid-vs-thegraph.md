@@ -39,7 +39,7 @@ description: Comparison of Subsquid and The Graph
 
 ## Architecture difference
 
-![Subsquid vs The Graph](</img/thegraph-vs-subsquid.png>)
+![Subsquid vs The Graph](./thegraph-vs-subsquid.png)
 
 By design, The Graph indexing node is a black-box that executes subgraphs compiled into WASM. The data is sourced directly from the archival node and local IPFS, and the processed data is stored in a built-in Postgres database. The data stored in the database is considered to be "sealed", so that no external process can modify or read the data except through the GraphQL interface. 
 

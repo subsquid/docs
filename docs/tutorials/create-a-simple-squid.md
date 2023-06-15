@@ -148,8 +148,10 @@ sqd typegen
 You should see the generated Typescript wrappers at [`src/types/events.ts`](https://github.com/subsquid/squid-crust-example/blob/main/src/types/events.ts).
 
 :::info
-Full documentation of `squid-substrate-typegen` and related tools is available [here](/substrate-indexing/squid-substrate-typegen). There also a [mini-guide](/troubleshooting/#where-do-i-get-a-type-bundle-for-my-chain) on how to obtain type bundles for Substrate chains without relying on Subsquid tools.
+Full documentation of `squid-substrate-typegen` and related tools is available [here](/firesquid/substrate-indexing/squid-substrate-typegen). There also a [mini-guide](/troubleshooting/#where-do-i-get-a-type-bundle-for-my-chain) on how to obtain type bundles for Substrate chains without relying on Subsquid tools.
 :::
+
+[//]: # (!!!! Update the link above once ArrowSquid for Substrate is released)
 
 ## Define and bind event handlers
 
@@ -164,7 +166,9 @@ import {Account, WorkReport, JoinGroup, StorageOrder} from './model'
 import {MarketFileSuccessEvent, SworkJoinGroupSuccessEvent, SworkWorksReportSuccessEvent} from './types/events'
 ```
 
-Next, we need to [customize the processor](/substrate-indexing/configuration) by setting the correct Archive as a data source and specifying the events we would like to index:
+Next, we need to [customize the processor](/firesquid/substrate-indexing/configuration) by setting the correct Archive as a data source and specifying the events we would like to index:
+
+[//]: # (!!!! Update the link above once ArrowSquid for Substrate is released)
 
 ```typescript
 const processor = new SubstrateBatchProcessor()
@@ -182,8 +186,10 @@ const processor = new SubstrateBatchProcessor()
 ```
 
 :::info
-Note the `addEvent` calls here. In the first two cases we requested `extrinsic` and `call` fields from the processor. In the third call to the method, we requested unfiltered information on the `Swork.WorksReportSuccess` event by omitting the [`data?` optional argument](/substrate-indexing/configuration/#event-data-selector).
+Note the `addEvent` calls here. In the first two cases we requested `extrinsic` and `call` fields from the processor. In the third call to the method, we requested unfiltered information on the `Swork.WorksReportSuccess` event by omitting the [`data?` optional argument](/firesquid/substrate-indexing/configuration/#event-data-selector).
 :::
+
+[//]: # (!!!! Update the link above once ArrowSquid for Substrate is released)
 
 `Item` and `Ctx` types defined in the template are still useful, so we are going to keep them. Let's skip for now the `process.run()` call - we are going to come back to it in a second - and scroll down to the `getTransfers` function. In the template repository this function loops through the items contained in the context, extracts the events data and stores it in a list of objects.
 

@@ -7,15 +7,15 @@ sidebar_position: 30
 
 # Step 3: Adding external data
 
-This is the third part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database and serves it over a GraphQL API. In the first two parts of the tutorial ([1](/tutorials/bayc/step-one-indexing-transfers), [2](/tutorials/bayc/step-two-deriving-owners-and-tokens)) we created a squid that scraped `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d) and derived some information on tokens and their owners from that data. In this part we enrich token data with information obtained from contract state calls, IPFS and regular HTTP URLs.
+This is the third part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database and serves it over a GraphQL API. In the first two parts of the tutorial ([1](/firesquid/tutorials/bayc/step-one-indexing-transfers), [2](/tutorials/bayc/step-two-deriving-owners-and-tokens)) we created a squid that scraped `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d) and derived some information on tokens and their owners from that data. In this part we enrich token data with information obtained from contract state calls, IPFS and regular HTTP URLs.
 
-Prerequisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the second part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/6f41cba76b9d90d12638a17d64093dbeb19d00ec)).
+Prerequisites: Node.js, [Subsquid CLI](/firesquid/squid-cli/installation), Docker, a project folder with the code from the second part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/6f41cba76b9d90d12638a17d64093dbeb19d00ec)).
 
 ## Exploring token metadata
 
 Now that we have a record for each BAYC NFT. Let's explore how we can retrieve more data for each token.
 
-[EIP-721](https://eips.ethereum.org/EIPS/eip-721) suggests that token metadata contracts may make token data available in a JSON referred to by the output of the `tokenURI()` contract function. Upon examining `src/abi/bayc.ts`, we find that the BAYC token contract implements this function. Also, the public ABI has no obvious contract methods that may set token URI or events that may be emitted on its change. In other words, it appears that the only way to retrieve this data is by [querying the contract state](/evm-indexing/query-state/).
+[EIP-721](https://eips.ethereum.org/EIPS/eip-721) suggests that token metadata contracts may make token data available in a JSON referred to by the output of the `tokenURI()` contract function. Upon examining `src/abi/bayc.ts`, we find that the BAYC token contract implements this function. Also, the public ABI has no obvious contract methods that may set token URI or events that may be emitted on its change. In other words, it appears that the only way to retrieve this data is by [querying the contract state](/firesquid/evm-indexing/query-state/).
 
 We prepare for this by supplying a RPC endpoint of an archive Ethereum node on processor initialization:
 ```diff title=src/processor.ts
@@ -122,7 +122,7 @@ We will save both `image` and `attributes` metadata fields and the metadata URI 
 +    value: String!
 +}
 ```
-Here, `Attribute` is a [non-entity type](/basics/schema-file/unions-and-typed-json/#typed-json) that we use to type the `attributes` field.
+Here, `Attribute` is a [non-entity type](/firesquid/basics/schema-file/unions-and-typed-json/#typed-json) that we use to type the `attributes` field.
 
 Once `schema.graphql` is updated, we regenerate the TypeORM data model code::
 
@@ -158,7 +158,7 @@ interface PartialToken {
 }
 ```
 
-Here, `PartialToken` stores the incomplete `Token` information obtained purely from blockchain events and function calls, before any [state queries](/evm-indexing/query-state/) or enrichment with [external data](/basics/external-api/). 
+Here, `PartialToken` stores the incomplete `Token` information obtained purely from blockchain events and function calls, before any [state queries](/firesquid/evm-indexing/query-state/) or enrichment with [external data](/basics/external-api/). 
 The function `completeTokens()` is responsible for filling `Token` fields that are missing in `PartialToken`s. This involves IO operations, so both the function and its caller `createTokens()` have to be asynchronous. The functions also require a batch context for state queries and logging. We modify the `createTokens()` call in the batch handler to accommodate these changes:
 ```diff
  processor.run(new TypeormDatabase(), async (ctx) => {
@@ -269,4 +269,4 @@ It runs much slower than before, requiring about three hours to get through the 
 
 Nevertheless, the squid is already fully capable of scraping token metadata and serving it over GraphQL. Verify that by running `sqd serve` and visiting the [local GraphiQL playground](http://localhost:4350/graphql). It is now possible to retrieve image URLs and attributes for each token:
 
-![BAYC GraphiQL at step three](</img/bayc-playground-step-three.png>)
+![BAYC GraphiQL at step three](./bayc-playground-step-three.png)

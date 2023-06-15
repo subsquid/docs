@@ -25,7 +25,9 @@ The Squid SDK currently offers specialized processor classes for EVM (`EvmBatchP
 Navigate to a dedicated section for each processor class:
 
 - [`EvmBatchProcessor`](/evm-indexing)
-- [`SubstrateBatchProcessor`](/substrate-indexing)
+- [`SubstrateBatchProcessor`](/firesquid/substrate-indexing)
+
+[//]: # (!!!! Remove the /firesquid reference above once ArrowSquid for Substrate is released)
 
 ## Configuration
 
@@ -46,4 +48,6 @@ The `db` argument defines the target data sink, and `batchHandler` is an `async`
 
 The `DataHandlerContext`, `Store` and `FieldSelection` interfaces are explained in the next sections.
 
-To jump straight to examples, see [EVM Processor in action](/evm-indexing/batch-processor-in-action) and [Substrate Processor in action](/substrate-indexing/batch-processor-in-action).
+To jump straight to examples, see [EVM Processor in action](/evm-indexing/batch-processor-in-action) and [Substrate Processor in action](/firesquid/substrate-indexing/batch-processor-in-action).
+
+[//]: # (!!!! Remove the /firesquid reference above once ArrowSquid for Substrate is released)

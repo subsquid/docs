@@ -13,7 +13,7 @@ The `evm` squid template indexes transactions to the "black hole" address `0x000
 Before getting to work on your very first squid, verify that you have installed the following:
 
 - Node v16.x or newer
-- [Squid CLI](/squid-cli/installation) v2.1.0 or newer
+- [Squid CLI](/firesquid/squid-cli/installation) v2.1.0 or newer
 - Docker
 
 :::info
@@ -26,7 +26,7 @@ Please note:
 ## Step 1: Scaffold from a template
 
 Come up with a new memorable name for your squid and scaffold from [`squid-evm-template`](https://github.com/subsquid/squid-evm-template)
-using [`sqd init`](/squid-cli/init):
+using [`sqd init`](/firesquid/squid-cli/init):
 
 ```bash
 sqd init my-awesome-squid --template evm
@@ -45,7 +45,7 @@ npm ci
 
 ## Step 3: Set the network
 
-Inspect `src/processor.ts` and set the EVM network of interest. Consult the [processor configuration page](/evm-indexing/configuration) 
+Inspect `src/processor.ts` and set the EVM network of interest. Consult the [processor configuration page](/firesquid/evm-indexing/configuration) 
 for the list of supported networks and configuration options.
 
 ## Step 4: Launch Postgres and detach
@@ -56,7 +56,7 @@ sqd up
 
 ## Step 5: Inspect and run the processor
 
-The squid fetches, aggregates and persists burn transactions in the `processor.run()` method. The `Burn` entity is defined in `schema.graphql`, and the TypeORM model class used by this template was generated with `sqd codegen`. You can learn more about this in the [squid development](/basics/squid-development) section.
+The squid fetches, aggregates and persists burn transactions in the `processor.run()` method. The `Burn` entity is defined in `schema.graphql`, and the TypeORM model class used by this template was generated with `sqd codegen`. You can learn more about this in the [squid development](/firesquid/basics/squid-development) section.
  
 Let's run the processor:
 ```bash
@@ -90,13 +90,13 @@ query MyQuery {
 
 ## Step 7: Customize
 
-[Hack](/basics/schema-file) the schema file `schema.graphql` and the [processor](/evm-indexing) `src/processor.ts` to index the data your way!
+[Hack](/firesquid/basics/schema-file) the schema file `schema.graphql` and the [processor](/evm-indexing) `src/processor.ts` to index the data your way!
 
 ## What's next?
 
-- [Migrate](/migrate/migrate-subgraph) the existing subgraphs to Subsquid
-- Define your own [data schema](/basics/schema-file)
-- Explore examples of squids for EVM networks, from [simple transfer indexing to DEX analytics](/examples)
-- Dive deeper into [`EvmBatchProcessor`](/evm-indexing)
-- Explore how to enhance the GraphQL API with [custom SQL, caching and limits](/graphql-api)
-- [Deploy](/deploy-squid) the squid to the Aquarium hosted service
+- [Migrate](/firesquid/migrate/migrate-subgraph) the existing subgraphs to Subsquid
+- Define your own [data schema](/firesquid/basics/schema-file)
+- Explore examples of squids for EVM networks, from [simple transfer indexing to DEX analytics](/firesquid/examples)
+- Dive deeper into [`EvmBatchProcessor`](/firesquid/evm-indexing)
+- Explore how to enhance the GraphQL API with [custom SQL, caching and limits](/firesquid/graphql-api)
+- [Deploy](/firesquid/deploy-squid) the squid to the Aquarium hosted service

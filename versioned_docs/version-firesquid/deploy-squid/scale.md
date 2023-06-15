@@ -6,7 +6,7 @@ description: Scale the squid with the deployment manifest
 
 # Scale the deployment
 
-The `scale:` section of the [deployment manifest](/deploy-squid/deploy-manifest) allows allocating additional computing resources for the squid addons and services. This option is only available for Premium Aquarium accounts. To apply for a Premium account, fill the [form](https://luvp4va64ru.typeform.com/to/QrRF66q5).
+The `scale:` section of the [deployment manifest](/firesquid/deploy-squid/deploy-manifest) allows allocating additional computing resources for the squid addons and services. This option is only available for Premium Aquarium accounts. To apply for a Premium account, fill the [form](https://luvp4va64ru.typeform.com/to/QrRF66q5).
 
 The manifest supports the following scaling options:
 
@@ -21,7 +21,7 @@ We recommend setting `dedicated: true` for squids running in production.
 
 ### `postgres:`
 
-See [Postgres addon](/deploy-squid/pg-addon) for details.
+See [Postgres addon](/firesquid/deploy-squid/pg-addon) for details.
 
 ## `services:`
 

@@ -13,7 +13,7 @@ The `substrate` squid template indexes transfers on the Kusama network. It is in
 Before getting to work on your very first squid, verify that you have installed the following software: 
 
 - Node v16.x or newer
-- [Squid CLI](/squid-cli/installation) v2.1.0 or newer
+- [Squid CLI](/firesquid/squid-cli/installation) v2.1.0 or newer
 
 Please note:
 - The squid template is **not** compatible with `yarn`. Use `npm` instead.
@@ -21,7 +21,7 @@ Please note:
 ## Step 1: Scaffold from a template
 
 Come up with a new memorable name for your squid. Choose the template matching your network and 
-scaffold using [`sqd init`](/squid-cli/init).
+scaffold using [`sqd init`](/firesquid/squid-cli/init).
 
 - For indexing native events emitted by Substrate-based chains, use `substrate` 
 - For indexing Frontier EVM contracts on Astar and Shiden use `frontier-evm`
@@ -78,16 +78,16 @@ query MyQuery {
 
 ## Step 6: Customize
 
-[Hack](/basics/schema-file) the schema file `schema.graphql` and the [processor](/substrate-indexing) `src/processor.ts` to index the data your way. Choose any supported network using the `lookupArchive()` method of [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) or [run one locally](/archives/).
+[Hack](/firesquid/basics/schema-file) the schema file `schema.graphql` and the [processor](/firesquid/substrate-indexing) `src/processor.ts` to index the data your way. Choose any supported network using the `lookupArchive()` method of [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) or [run one locally](/firesquid/archives).
 
 ## What's next?
 
-- Explore more [examples](/examples/#substrate-processor) of squids for substrate chains
-- Define the [data schema](/basics/schema-file) and customize the API
-- Explore how to use [typegen](/substrate-indexing/squid-substrate-typegen) for type-safe on-chain data access
-- Explore how to efficiently transform the on-chain [data in batches](/substrate-indexing)
-- Explore native support for [Frontier EVM](/substrate-indexing/evm-support) on Astar and Shiden
-- Explore native support for [ink! contracts](/substrate-indexing/wasm-support)
-- Explore native support for [Gear contracts](/substrate-indexing/gear-support)
-- Explore native support for [Acala EVM+ contracts](/substrate-indexing/acala-evm-support)
-- [Deploy](/deploy-squid) the squid to the Aquarium hosted service
+- Explore more [examples](/firesquid/examples/#substrate-processor) of squids for substrate chains
+- Define the [data schema](/firesquid/basics/schema-file) and customize the API
+- Explore how to use [typegen](/firesquid/substrate-indexing/squid-substrate-typegen) for type-safe on-chain data access
+- Explore how to efficiently transform the on-chain [data in batches](/firesquid/substrate-indexing)
+- Explore native support for [Frontier EVM](/firesquid/substrate-indexing/evm-support) on Astar and Shiden
+- Explore native support for [ink! contracts](/firesquid/substrate-indexing/wasm-support)
+- Explore native support for [Gear contracts](/firesquid/substrate-indexing/gear-support)
+- Explore native support for [Acala EVM+ contracts](/firesquid/substrate-indexing/acala-evm-support)
+- [Deploy](/firesquid/deploy-squid) the squid to the Aquarium hosted service

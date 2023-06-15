@@ -29,7 +29,7 @@ query {
   }
 }
 ```
-or, using a [newer](/graphql-api/overview/#supported-queries) and [more advanced](/query-squid/paginate-query-results) `{entityName}sConnection` query
+or, using a [newer](/firesquid/graphql-api/overview/#supported-queries) and [more advanced](/query-squid/paginate-query-results) `{entityName}sConnection` query
 
 ```graphql
 query {

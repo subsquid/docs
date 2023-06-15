@@ -7,8 +7,6 @@ description: >-
 
 # Dynamic Uniswap pools
 
-**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
-
 [The squid](https://github.com/subsquid-labs/factory-example) indexes [Uniswap v3](https://etherscan.io/address/0x1f98431c8ad98523631ae4a59f267346ea31f984) swaps on Ethereum Mainnet. The squid listens to the `PoolCreated` events to dynamically update the set of trading pools using the [factory contract](/evm-indexing/factory-contracts/) pattern.
 
 ## Prerequisites

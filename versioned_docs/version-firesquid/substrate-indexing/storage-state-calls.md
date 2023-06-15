@@ -9,7 +9,7 @@ title: State queries
 
 It is sometimes impossible to extract the required data with only event and call data without querying the runtime state.
 The context exposes a lightweight gRPC client to the chain node accessible via `ctx._chain`. 
-It exposes low-level methods for accessing the storage. However, the recommended way to query the storage is by generating type-safe access classes with [Substrate typegen](/substrate-indexing/squid-substrate-typegen). 
+It exposes low-level methods for accessing the storage. However, the recommended way to query the storage is by generating type-safe access classes with [Substrate typegen](/firesquid/substrate-indexing/squid-substrate-typegen). 
 
 To enable the gRPC client, **one must provide a `chain` data source to the processor**:
 
@@ -22,7 +22,7 @@ const processor = new SubstrateBatchProcessor()
 ```
 
 :::tip
-We recommend using private endpoints for better performance and stability of your squids. The standard approach is to keep the endpoint URL in an environment variable and set it via [secrets](/deploy-squid/env-variables#secrets) when deploying to Aquarium.
+We recommend using private endpoints for better performance and stability of your squids. The standard approach is to keep the endpoint URL in an environment variable and set it via [secrets](/firesquid/deploy-squid/env-variables#secrets) when deploying to Aquarium.
 :::
 
 ## Type-safe storage access with typegen
@@ -33,7 +33,7 @@ Note that the generated getters **always query the historical blockchain state a
 
 To generate storage classes with typegen:
 
-* Set the `specVersions` to an archive endpoint URL. Use [archive registry](/archives/overview/#archive-registry) to get an up-to-date list of public archives.
+* Set the `specVersions` to an archive endpoint URL. Use [archive registry](/firesquid/archives/overview/#archive-registry) to get an up-to-date list of public archives.
 * List fully qualified names of the storage items at the `storage` section of the typegen config. The format is `${PalleteName}.${KeyName}`.
 * Rerun the typegen with
 
@@ -102,7 +102,7 @@ The generated access interface provides methods for accessing:
 
 ## Access Storage items
 
-As previously mentioned, storage items are always retrieved at the "current" block height of [`BatchContext`](/substrate-indexing/context-interfaces), the first argument of the storage class constructor. The height is determined by the block hash taken from the second constructor argument of type `{hash: string}`, typically a block header.
+As previously mentioned, storage items are always retrieved at the "current" block height of [`BatchContext`](/firesquid/substrate-indexing/context-interfaces), the first argument of the storage class constructor. The height is determined by the block hash taken from the second constructor argument of type `{hash: string}`, typically a block header.
 
 ### Example
 

@@ -37,15 +37,15 @@ const config = {
       ({
         docs: {
           routeBasePath: '/',
-          lastVersion: 'firesquid',
+          lastVersion: 'current',
           versions: {
             current: {
               label: 'ArrowSquid',
-              path: '/arrowsquid'
+              path: '/'
             },
             firesquid: {
               label: 'FireSquid',
-              path: '/'
+              path: '/firesquid'
             }
           },
           sidebarPath: require.resolve('./sidebars.js'),

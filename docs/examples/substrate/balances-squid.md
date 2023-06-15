@@ -7,7 +7,9 @@ description: >-
 
 # Multichain balance tracking squid
 
-This [complex squid](https://github.com/subsquid-labs/balances-squid) illustrates the usage of [`SubstrateBatchProcessor`](/substrate-indexing), [storage calls](/substrate-indexing/storage-state-calls) and [custom resolvers](/graphql-api/custom-resolvers). 
+This [complex squid](https://github.com/subsquid-labs/balances-squid) illustrates the usage of [`SubstrateBatchProcessor`](/firesquid/substrate-indexing), [storage calls](/firesquid/substrate-indexing/storage-state-calls) and [custom resolvers](/graphql-api/custom-resolvers). 
+
+[//]: # (!!!! Remove the /firesquid references above once ArrowSquid for Substrate is released)
 
 :::warning
 The squid uses Makefile for local commands, a solution that is currently deprecated in favor of [`sqd` commands](/squid-cli). Please keep that in mind.

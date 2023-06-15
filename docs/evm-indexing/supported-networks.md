@@ -7,12 +7,9 @@ title: Supported networks
 
 # Supported EVM networks
 
-**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
-
 [//]: # (!!!! keep the list updated, remove the notice below once it is final)
-[//]: # (!!!! remove the /arrowsquid prefix from links)
 
-The table below lists the currently available public EVM ArrowSquid/v2 Archive endpoints to be used with the [`setDataSource()`](/arrowsquid/evm-indexing/configuration/initialization) `EvmBatchProcessor` configuration method. For v1/FireSquid Archives consult [this page](/evm-indexing/supported-networks).
+The table below lists the currently available public EVM ArrowSquid/v2 Archive endpoints to be used with the [`setDataSource()`](/evm-indexing/configuration/initialization) `EvmBatchProcessor` configuration method. For v1/FireSquid Archives consult [this page](/evm-indexing/supported-networks).
 
 | Network                 |  Endpoint lookup command  |        Archive endpoint                            |
 |:-----------------------:|:-------------------------:|:--------------------------------------------------:|

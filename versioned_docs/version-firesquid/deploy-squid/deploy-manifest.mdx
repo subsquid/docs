@@ -6,7 +6,7 @@ description: A reference for the squid deployment manifest
 
 # Deployment manifest
 
-The deployment manifest is named `squid.yaml` by convention. The manifest defines how the squid should be built, customized and scaled during the deployment to Aquarium. It is used together with [`sqd deploy`](/squid-cli/deploy) to deploy or update an existing squid version.
+The deployment manifest is named `squid.yaml` by convention. The manifest defines how the squid should be built, customized and scaled during the deployment to Aquarium. It is used together with [`sqd deploy`](/firesquid/squid-cli/deploy) to deploy or update an existing squid version.
 
 With the introduction of the deployment manifest the addons (`postgres`) and the API services (`api`) become optional. This allows flexible deployment configuration for analytic use-cases (e.g. transform and write to s3 or BigQuery).
  
@@ -24,7 +24,7 @@ The manifest header defines the squid metadata
 ## `build:`
 
 Specifies the way the squid is built into a docker image. Only an empty `build:` section is supported, and the squid must adhere
-to the default [folder structure](/basics/squid-structure).
+to the default [folder structure](/firesquid/basics/squid-structure).
 
 In particular, the following files and folders **must** be present in the root folder of the squid:
 
@@ -37,7 +37,7 @@ In particular, the following files and folders **must** be present in the root f
 The `db` and `assets` folders are added to the build context if present in the squid folder.
 
 Under the hood, Aquarium builds a Docker image and runs a docker container for each service (`api`, `processor`, `migrate`) using the same image. 
-See [Troubleshooting](/deploy-squid/troubleshooting/#local-build) for instructions on how to build and run the Docker image locally.
+See [Troubleshooting](/firesquid/deploy-squid/troubleshooting/#local-build) for instructions on how to build and run the Docker image locally.
 Even though the squid services (`api`, `processor`, `migrate`) use the same single container image, the exec command is different and can is defined by the `deploy:` section as explained below.
 
 ## `deploy:`
@@ -54,7 +54,7 @@ A list of addon services to be deployed along the squid services.
 
 - **`postgres:`**
 
-See [Postgres addon](/deploy-squid/pg-addon) for details.
+See [Postgres addon](/firesquid/deploy-squid/pg-addon) for details.
 
 ### `migrate:`
 
@@ -87,7 +87,7 @@ The processor service of the squid.
 
 ## `scale:`
 
-See the [Scale the deployment](/deploy-squid/scale) section.
+See the [Scale the deployment](/firesquid/deploy-squid/scale) section.
 
 ## Examples
 

@@ -6,13 +6,9 @@ description: >-
 
 # Traces
 
-**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.** 
-
 :::warning
-Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/arrowsquid/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
+Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
 :::
-
-[//]: # (!!!! Remove the /arrowsquid prefixes once the release becomes stable)
 
 **`addTrace(options)`**: Subscribe to [call execution traces](https://docs.alchemy.com/reference/debug-tracecall). This allows for tracking internal calls. The `options` object has the following structure:
 ```typescript
@@ -42,7 +38,7 @@ The filters here are:
 
 [//]: # (!!!! Update when the filter set stabilizes)
 
-Enabling the  `transaction` flag will cause the processor to retrieve transactions that the traces belong to. Enabling `subtraces` will cause the processor to retrieve the downstream traces in addition to those that matched the filters. These extra data items will be added to the appropriate iterables within the [block data](/arrowsquid/evm-indexing/context-interfaces/#blockdata).
+Enabling the  `transaction` flag will cause the processor to retrieve transactions that the traces belong to. Enabling `subtraces` will cause the processor to retrieve the downstream traces in addition to those that matched the filters. These extra data items will be added to the appropriate iterables within the [block data](/evm-indexing/context-interfaces/#blockdata).
 
 Note that traces can also be requested by the [`addTransaction()`](../transactions) method as related data.
 

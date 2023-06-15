@@ -25,8 +25,8 @@ processor.setDataSource({
 })
 ```
 Argument properties:
-+ `archive`: An archive endpoint providing the data for the selected network. Use [Archive registry](/archives/overview/#archive-registry) to obtain exhaustive, up-to-date information on archives maintained by Subsquid. The registry also provides a `lookupArchive` function that maps archive aliases to endpoint URLs, like this: `archive: lookupArchive('polkadot')`.
-+ `chain?`: A JSON-RPC endpoint for the network of interest. Required if the processor has to make [contract state queries](/substrate-indexing/storage-state-calls). For squids indexing only event and/or transaction data it can be omitted. HTTPS and WSS endpoints are supported.
++ `archive`: An archive endpoint providing the data for the selected network. Use [Archive registry](/firesquid/archives/overview/#archive-registry) to obtain exhaustive, up-to-date information on archives maintained by Subsquid. The registry also provides a `lookupArchive` function that maps archive aliases to endpoint URLs, like this: `archive: lookupArchive('polkadot')`.
++ `chain?`: A JSON-RPC endpoint for the network of interest. Required if the processor has to make [contract state queries](/firesquid/substrate-indexing/storage-state-calls). For squids indexing only event and/or transaction data it can be omitted. HTTPS and WSS endpoints are supported.
 
 ## Events
 
@@ -41,11 +41,11 @@ The `options?` argument has the following structure:
   data?: EventDataRequest | undefined
 }
 ```
-See the [Event data selector section](/substrate-indexing/configuration/#event-data-selector) for more details on the `data` field.
+See the [Event data selector section](/firesquid/substrate-indexing/configuration/#event-data-selector) for more details on the `data` field.
 
 ## Calls
 
-**`addCall(name: string, options?)`**: Subscribe to a specific runtime call (even if wrapped into a `system.sudo` or `util.batch` extrinsic). Use `*` for the name to subscribe to each and every call. The name must follow the convention `${Pallet}.${call_name}`. The pallet name is normally capitalized, and the call name is in the snake_case format, as in `Balances.transfer_keep_alive`. By default, both successful and failed calls are fetched and passed to the [handler context](/substrate-indexing/context-interfaces). Use the `call.success` data selector and later check `item.call.success` within the batch handler, if so needed.
+**`addCall(name: string, options?)`**: Subscribe to a specific runtime call (even if wrapped into a `system.sudo` or `util.batch` extrinsic). Use `*` for the name to subscribe to each and every call. The name must follow the convention `${Pallet}.${call_name}`. The pallet name is normally capitalized, and the call name is in the snake_case format, as in `Balances.transfer_keep_alive`. By default, both successful and failed calls are fetched and passed to the [handler context](/firesquid/substrate-indexing/context-interfaces). Use the `call.success` data selector and later check `item.call.success` within the batch handler, if so needed.
 
 The `options?` argument has the following structure.
 ```ts
@@ -58,24 +58,24 @@ The `options?` argument has the following structure.
 }
 ```
 
-See the [Call data selector section](/substrate-indexing/configuration/#call-data-selector) for more details on the `data` field.
+See the [Call data selector section](/firesquid/substrate-indexing/configuration/#call-data-selector) for more details on the `data` field.
 
 ## Specialized setters
 
 **`addEvmLog()`**  
 **`addEthereumTransaction()`**  
-Subscribe to Frontier EVM transactions and event logs. See [EVM Support](/substrate-indexing/evm-support).
+Subscribe to Frontier EVM transactions and event logs. See [EVM Support](/firesquid/substrate-indexing/evm-support).
 
 **`addContractsContractEmitted()`**  
-Subscribe to events emitted by a WASM contract. See [WASM Support](/substrate-indexing/wasm-support).
+Subscribe to events emitted by a WASM contract. See [WASM Support](/firesquid/substrate-indexing/wasm-support).
 
 **`addGearMessageEnqueued()`**
 **`addGearUserMessageSent()`**
-Subscribe to messages emitted by a Gear program. See [Gear Support](/substrate-indexing/gear-support).
+Subscribe to messages emitted by a Gear program. See [Gear Support](/firesquid/substrate-indexing/gear-support).
 
 **`addAcalaEvmExecuted()`**
 **`addAcalaEvmExecutedFailed()`**
-Subscribe to EVM logs emitted by an Acala EVM+ contract. See [Acala Support](/substrate-indexing/acala-evm-support).
+Subscribe to EVM logs emitted by an Acala EVM+ contract. See [Acala Support](/firesquid/substrate-indexing/acala-evm-support).
 
 ## Less common setters
 
@@ -106,7 +106,7 @@ processor.setTypesBundle('typesBundle.json')
 
 :::info
 Most IDEs support smart suggestions to show the possible data selectors. For VS Code, press `Ctrl+Space`:
-![selector auto-complete](</img/autocomplete-selectors.png>)
+![selector auto-complete](./autocomplete-selectors.png)
 :::info
 
 Methods `addEvent()`, `addEvmLog()`, `addContractsContractEmitted()`, `addGearMessageEnqueued()`, `addAcalaEvmExecuted()` accept data selectors of the following shape for `options.data`:
@@ -161,7 +161,7 @@ interface ExtrinsicRequest {
 }
 ```
 
-Setting a primitive field to `true` indicates that the corresponding property will be requested from the archive and present in the corresponding [context item](/substrate-indexing/context-interfaces). Setting any of the composite fields to `true` indicates that a default full set of fields is fetched, e.g. 
+Setting a primitive field to `true` indicates that the corresponding property will be requested from the archive and present in the corresponding [context item](/firesquid/substrate-indexing/context-interfaces). Setting any of the composite fields to `true` indicates that a default full set of fields is fetched, e.g. 
 ``ts
 {
   data: { 
@@ -222,7 +222,7 @@ interface ExtrinsicRequest {
 }
 ```
 
-Setting a primitive field to `true` indicates that the corresponding property will be requested from the archive and present in the corresponding [context item](/substrate-indexing/context-interfaces). Setting any of the composite fields to `true` indicates that a default full set of fields is fetched.
+Setting a primitive field to `true` indicates that the corresponding property will be requested from the archive and present in the corresponding [context item](/firesquid/substrate-indexing/context-interfaces). Setting any of the composite fields to `true` indicates that a default full set of fields is fetched.
 
 #### Example
 

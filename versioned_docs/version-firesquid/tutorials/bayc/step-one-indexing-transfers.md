@@ -9,7 +9,7 @@ sidebar_position: 10
 
 In this step-by-step tutorial we will build a squid that gets data about [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), indexes the NFT metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database and serves it over a GraphQL API. Here we do the first step: build a squid that indexes only the `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).
 
-Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker.
+Pre-requisites: Node.js, [Subsquid CLI](/firesquid/squid-cli/installation), Docker.
 
 ## Starting with a template
 
@@ -23,7 +23,7 @@ The resulting code can be found at [this commit](https://github.com/abernatskiy/
 
 ## Interfacing with the contract ABI
 
-First, we inspect which data is available for indexing. For EVM contracts, the metadata descrbing the shape of the smart contract logs, transactions and contract state methods is distributed as [Application Binary Interfaces](https://www.alchemy.com/overviews/what-is-an-abi-of-a-smart-contract-examples-and-usage) (ABIs) files. For many popular contracts the ABI files are published on Etherscan (as in the case of the BAYC NFT contracts). Subsquid provides a [tool](/evm-indexing/squid-evm-typegen/) for retrieving contract ABIs from Etherscan-like APIs and generating the boilerplate for retrieving and decoding the data. For the contract of interest, this can be done with
+First, we inspect which data is available for indexing. For EVM contracts, the metadata descrbing the shape of the smart contract logs, transactions and contract state methods is distributed as [Application Binary Interfaces](https://www.alchemy.com/overviews/what-is-an-abi-of-a-smart-contract-examples-and-usage) (ABIs) files. For many popular contracts the ABI files are published on Etherscan (as in the case of the BAYC NFT contracts). Subsquid provides a [tool](/firesquid/evm-indexing/squid-evm-typegen/) for retrieving contract ABIs from Etherscan-like APIs and generating the boilerplate for retrieving and decoding the data. For the contract of interest, this can be done with
 ```bash
 npx squid-evm-typegen src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#bayc
 ```
@@ -42,7 +42,7 @@ Reading about [elsewhere](https://eips.ethereum.org/EIPS/eip-721) we learn that 
 
 ## Configuring the data filters
 
-A "squid processor" is the Node.js process and the [object that powers it](/evm-indexing/evm-processor/) that are responsible for retrieving filtered blockchain data from a specialized data lake (an [archive](/archives)), transforming it and saving the result to a destination of choice. To configure the processor (object) to retrieve the `Transfer` events of the BAYC token contract, we initialize it like this:
+A "squid processor" is the Node.js process and the [object that powers it](/firesquid/evm-indexing/evm-processor/) that are responsible for retrieving filtered blockchain data from a specialized data lake (an [archive](/archives)), transforming it and saving the result to a destination of choice. To configure the processor (object) to retrieve the `Transfer` events of the BAYC token contract, we initialize it like this:
 ```typescript
 import * as bayc from './abi/bayc'
 
@@ -69,24 +69,24 @@ let processor = new EvmBatchProcessor()
     })
 ```
 Here,
-* `'eth-mainnet'` is the alias for the public archive that Subsquid maintains for Ethereum mainnet. Check out `npx squid-archive-registry` for a list of public archives for all supported networks or explore the [archives documentation](/archives/) to find out how to host your own archive.
+* `'eth-mainnet'` is the alias for the public archive that Subsquid maintains for Ethereum mainnet. Check out `npx squid-archive-registry` for a list of public archives for all supported networks or explore the [archives documentation](/firesquid/archives/) to find out how to host your own archive.
 * `12_287_507` is the block at which the BAYC token contract was deployed. Can be found on the [contract's Etherscan page](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).
 * `[[bayc.events.Transfer.topic]]` is a filter that tells the processor to retrieve all event logs with [topic[0]](https://docs.soliditylang.org/en/v0.8.19/abi-spec.html#abi-events) matching the hash of the full signature of the `Transfer` event. The hash is taken from the previously generated Typescript ABI.
-* The `data` field of the [`addLog`](/evm-indexing/configuration/evm-logs/) options object specifies the exact data we need on every event to be retrieved. We are requesting topics and data for the event logs. Event log data is always supplemented by function call data on their parent transactions; we are requesting transaction hashes for that part.
+* The `data` field of the [`addLog`](/firesquid/evm-indexing/configuration/evm-logs/) options object specifies the exact data we need on every event to be retrieved. We are requesting topics and data for the event logs. Event log data is always supplemented by function call data on their parent transactions; we are requesting transaction hashes for that part.
 
-See the [Configuration](/evm-indexing/configuration/) for more options.
+See the [Configuration](/firesquid/evm-indexing/configuration/) for more options.
 
 ## Decoding the event data
 
-The other part of processor configuration is the callback function used to process batches of the filtered data, the [batch handler](/basics/squid-processor/#processorrun). It is typically defined at the `processor.run()` call at `src/processor.ts`, like this:
+The other part of processor configuration is the callback function used to process batches of the filtered data, the [batch handler](/firesquid/basics/squid-processor/#processorrun). It is typically defined at the `processor.run()` call at `src/processor.ts`, like this:
 ```typescript
 processor.run(db, async (ctx) => {
     // data transformation and persistence code here
 });
 ```
 Here,
-* `db` is a [`Database` implementation](/basics/store/store-interface/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/basics/store/typeorm-store/) object here.
-* `ctx` is a [batch context](/evm-indexing/context-interfaces/) object that exposes a batch of data retrieved from the archive (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
+* `db` is a [`Database` implementation](/firesquid/basics/store/store-interface/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/basics/store/typeorm-store/) object here.
+* `ctx` is a [batch context](/firesquid/evm-indexing/context-interfaces/) object that exposes a batch of data retrieved from the archive (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
 
 Batch handler is where the raw on-chain data from the archive is decoded, transformed and persisted to the to target store. This is the part we'll be concerned with for the rest of the tutorial.
 
@@ -119,11 +119,11 @@ The full code can be found at [this commit](https://github.com/abernatskiy/tmp-b
 
 ## Extending and persisting the data
 
-`TypeormDatabase` requires us to define a TypeORM data model to actually send the data to the database. In Subsquid, the same data model is also used by the GraphQL server to generate the API schema. To avoid any potential discrepancies, processor and GraphQL server rely on a shared data model description defined at `schema.graphql` in a GraphQL schema dialect fully documented [here](/basics/schema-file/).
+`TypeormDatabase` requires us to define a TypeORM data model to actually send the data to the database. In Subsquid, the same data model is also used by the GraphQL server to generate the API schema. To avoid any potential discrepancies, processor and GraphQL server rely on a shared data model description defined at `schema.graphql` in a GraphQL schema dialect fully documented [here](/firesquid/basics/schema-file/).
 
-TypeORM code is generated from `schema.graphql` with the [`squid-typeorm-codegen`](/basics/schema-file/#typeorm-codegen) tool and must be regenerated every time the schema is changed. This is usually accompanied by regenerating the [database migrations](/basics/db-migrations/) and recreating the database itself. The migrations are applied before every run of the processor, ensuring that whenever any TypeORM code within the processor attempts to access the database, the database is in a state that allows it to succeed.
+TypeORM code is generated from `schema.graphql` with the [`squid-typeorm-codegen`](/firesquid/basics/schema-file/#typeorm-codegen) tool and must be regenerated every time the schema is changed. This is usually accompanied by regenerating the [database migrations](/basics/db-migrations/) and recreating the database itself. The migrations are applied before every run of the processor, ensuring that whenever any TypeORM code within the processor attempts to access the database, the database is in a state that allows it to succeed.
 
-The main unit of data in `schema.graphql` is [entity](/basics/schema-file/entities/). These map onto [TypeORM entites](https://typeorm.io/entities) that in turn map onto database tables. We define one for `Transfer` events by replacing the file contents with
+The main unit of data in `schema.graphql` is [entity](/firesquid/basics/schema-file/entities/). These map onto [TypeORM entites](https://typeorm.io/entities) that in turn map onto database tables. We define one for `Transfer` events by replacing the file contents with
 ```graphql title=schema.graphql
 type Transfer @entity {
     id: ID!
@@ -140,14 +140,14 @@ Here,
 * `@index` decorators tell the codegen tool that the corresponding database columns should be indexed.
 * Extra fields `timestamp` and `blockNumber` are added to make the resulting GraphQL API more convenient. We will fill them using the block metadata available in `ctx`.
 
-Once we're done editing the schema, we regenerate the TypeORM code, recreate the database and regenerate the migrations. We use [`sqd`](/squid-cli/) commands for convenience:
+Once we're done editing the schema, we regenerate the TypeORM code, recreate the database and regenerate the migrations. We use [`sqd`](/firesquid/squid-cli/) commands for convenience:
 ```bash
 sqd codegen
 sqd down
 sqd up
 sqd migration:generate
 ```
-The generated code is in `src/model`. We can now import a `Transfer` entity class from there and use it to perform [various operations](/basics/store/typeorm-store/) on the corresponding database table. Let us rewrite our batch handler to save the parsed `Transfer` events data to the database:
+The generated code is in `src/model`. We can now import a `Transfer` entity class from there and use it to perform [various operations](/firesquid/basics/store/typeorm-store/) on the corresponding database table. Let us rewrite our batch handler to save the parsed `Transfer` events data to the database:
 ```typescript
 processor.run(new TypeormDatabase(), async (ctx) => {
     let transfers: Transfer[] = []
@@ -175,7 +175,7 @@ Note a few things here:
 * A unique event log ID is available at `item.evmLog.id` - no need to generate your own!
 * `tokenId` returned from the decoder is an `ethers.BigNumber`, so it has to be explicitly converted to `number`. The conversion is valid only because we know that BAYC NFT IDs run from 0 to 9999; in most cases we would use `BigInt` for the entity field type and convert with `tokenId.toBigInt()`.
 * `block.header` contains block metadata that we use to fill the extra fields.
-* Accumulating the `Transfer` entity instances before using `ctx.store.insert()` on the whole array of them in the end allows us to get away with just one database transaction per batch. This is [crucial for achieving a good syncing performance](/basics/batch-processing/).
+* Accumulating the `Transfer` entity instances before using `ctx.store.insert()` on the whole array of them in the end allows us to get away with just one database transaction per batch. This is [crucial for achieving a good syncing performance](/firesquid/basics/batch-processing/).
 
 At this point we have a squid that indexes the data on BAYC token transfers and is capable of serving it over a GraphQL API. Full code is available at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/d99cd9b3f6921c7f591e5817d54025a388925a08). Test it by running
 ```bash
@@ -187,4 +187,4 @@ sqd serve
 ```
 in a separate terminal. If all is well, a GraphiQL playground should become available at [localhost:4350/graphql](http://localhost:4350/graphql):
 
-![BAYC GraphiQL at step one](</img/bayc-playground-step-one.png>)
+![BAYC GraphiQL at step one](./bayc-playground-step-one.png)

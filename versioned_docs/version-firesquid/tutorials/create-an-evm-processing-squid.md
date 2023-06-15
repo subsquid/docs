@@ -17,8 +17,8 @@ A somewhat outdated version of the final result can be browsed [here](https://gi
 ## Pre-requisites
 
 - Familiarity with Git 
-- A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js and Docker
-- [Squid CLI](/squid-cli/installation)
+- A properly set up [development environment](/firesquid/tutorials/development-environment-set-up) consisting of Node.js and Docker
+- [Squid CLI](/firesquid/squid-cli/installation)
 
 :::info
 This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands.
@@ -26,7 +26,7 @@ This tutorial uses custom scripts defined in `commands.json`. The scripts are au
 
 ## Scaffold using `sqd init`
 
-We will start with the [`frontier-evm` squid template](https://github.com/subsquid-labs/squid-frontier-evm-template/) available through [`sqd init`](/squid-cli/init). It is built to index EVM smart contracts deployed on Astar/Shiden, but it is also capable of indexing Substrate events. To retrieve the template and install the dependencies, run
+We will start with the [`frontier-evm` squid template](https://github.com/subsquid-labs/squid-frontier-evm-template/) available through [`sqd init`](/firesquid/squid-cli/init). It is built to index EVM smart contracts deployed on Astar/Shiden, but it is also capable of indexing Substrate events. To retrieve the template and install the dependencies, run
 
 ```bash
 sqd init astar-evm-tutorial --template frontier-evm
@@ -36,7 +36,7 @@ npm ci
 
 ## Define Entity Schema
 
-Next, we ensure that the data [schema](/basics/schema-file) of the squid defines [entities](/basics/schema-file/entities) that we would like to track. We are interested in:
+Next, we ensure that the data [schema](/firesquid/basics/schema-file) of the squid defines [entities](/basics/schema-file/entities) that we would like to track. We are interested in:
 
 * Token transfers
 * Ownership of tokens
@@ -78,10 +78,10 @@ type Transfer @entity {
 }
 ```
 
-It's worth noting a couple of things in this [schema definition](/basics/schema-file):
+It's worth noting a couple of things in this [schema definition](/firesquid/basics/schema-file):
 
 * **`@entity`**: Signals that this type will be translated into an ORM model that is going to be persisted in the database.
-* **`@derivedFrom`**: Signals that the field will not be persisted in the database. Instead, it will be [derived from](/basics/schema-file/entity-relations) the entity relations.
+* **`@derivedFrom`**: Signals that the field will not be persisted in the database. Instead, it will be [derived from](/firesquid/basics/schema-file/entity-relations) the entity relations.
 * **type references** (e.g. `from: Owner`): When used on entity types, they establish a relation between two entities.
 
 TypeScript entity classes have to be regenerated whenever the schema is changed, and to do that we use the `squid-typeorm-codegen` tool. The pre-packaged `commands.json` already comes with a `codegen` shortcut, so we can invoke it with `sqd`:
@@ -93,9 +93,9 @@ The (re)generated entity classes can then be browsed at `src/model/generated`.
 
 ## ABI Definition and Wrapper
 
-Subsquid maintains [tools](/substrate-indexing/squid-substrate-typegen) for automated generation of TypeScript classes for handling Substrate data sources (events, extrinsics, storage items). Possible runtime upgrades are automatically detected and accounted for.
+Subsquid maintains [tools](/firesquid/substrate-indexing/squid-substrate-typegen) for automated generation of TypeScript classes for handling Substrate data sources (events, extrinsics, storage items). Possible runtime upgrades are automatically detected and accounted for.
 
-Similar functionality is available for EVM indexing through the [`squid-evm-typegen`](/evm-indexing/squid-evm-typegen) tool. It generates TypeScript modules for handling EVM logs and transactions based on a [JSON ABI](https://docs.ethers.io/v5/api/utils/abi/) of the contract.
+Similar functionality is available for EVM indexing through the [`squid-evm-typegen`](/firesquid/evm-indexing/squid-evm-typegen) tool. It generates TypeScript modules for handling EVM logs and transactions based on a [JSON ABI](https://docs.ethers.io/v5/api/utils/abi/) of the contract.
 
 For our squid we will need such a module for the [ERC-721](https://eips.ethereum.org/EIPS/eip-721)-compliant part of the contracts' interfaces. Once again, the template repository already includes it, but it is still important to explain what needs to be done in case one wants to index a different type of contract.
 
@@ -107,9 +107,9 @@ The results will be stored at `src/abi`. One module will be generated for each A
 
 ## Define and Bind Event Handler(s)
 
-Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/substrate-indexing). Its instances connect to chain-specific [Subsquid archives](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/firesquid/substrate-indexing). Its instances connect to chain-specific [Subsquid archives](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-`SubstrateBatchProcessor`s [exposes methods](/substrate-indexing/configuration) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items or, for EVM, logs and transactions. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for [*batches*](/basics/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
+`SubstrateBatchProcessor`s [exposes methods](/firesquid/substrate-indexing/configuration) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items or, for EVM, logs and transactions. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for [*batches*](/basics/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
 
 It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 
@@ -118,7 +118,7 @@ It is in this callback function that all the mapping logic is expressed. This is
 Before we begin defining the mapping logic of the squid, we are going to rewrite the `src/contracts.ts` utility module for managing the involved EVM contracts. It will export:
 
 * Addresses of [astarDegens](https://blockscout.com/astar/address/0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a) and [astarCats](https://blockscout.com/astar/address/0x8b5d62f396Ca3C6cF19803234685e693733f9779) contracts.
-* A `Map` from the contract addresses to constructor arguments of the `Contract` [entity](/basics/schema-file/entities). The arguments are hardcoded.
+* A `Map` from the contract addresses to constructor arguments of the `Contract` [entity](/firesquid/basics/schema-file/entities). The arguments are hardcoded.
 * A function that will create and save an instance of the `Contract` entity to the database, if one does not exist already. Either the already existing or the created entity instance will be returned on the first time the function is called on a given address. It will also be cached and on subsequent calls the cached version will be returned.
 
 Here are the full file contents:
@@ -359,11 +359,11 @@ Pay close attention to the line with the `const tokenId` definition, because thi
 :::
 
 :::info
-It is also worth pointing out that the `contract.tokenURI` call is accessing the **state** of the contract via a chain RPC endpoint. This is slowing down the indexing a little bit, but this data is only available this way. You'll find more information on accessing state in the [dedicated section of our docs](/substrate-indexing/evm-support#access-the-contract-state).
+It is also worth pointing out that the `contract.tokenURI` call is accessing the **state** of the contract via a chain RPC endpoint. This is slowing down the indexing a little bit, but this data is only available this way. You'll find more information on accessing state in the [dedicated section of our docs](/firesquid/substrate-indexing/evm-support#access-the-contract-state).
 :::
 
 :::warning
-This code expects to find an URL of a working Astar RPC endpoint in the `RPC_ENDPOINT` environment variable. Set it in the `.env` file and in [Aquarium secrets](/deploy-squid/env-variables) if and when you deploy your squid there. We tested the code using a public endpoint available at `wss://astar.public.blastapi.io`; for production, we recommend using private endpoints.
+This code expects to find an URL of a working Astar RPC endpoint in the `RPC_ENDPOINT` environment variable. Set it in the `.env` file and in [Aquarium secrets](/firesquid/deploy-squid/env-variables) if and when you deploy your squid there. We tested the code using a public endpoint available at `wss://astar.public.blastapi.io`; for production, we recommend using private endpoints.
 :::
 
 ## Launch and Set Up the Database

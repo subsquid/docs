@@ -134,7 +134,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 ### Batching contract state calls using the Multicall contract
 
 Use the `--multicall` flag to generate the `Multicall` facade class for the [MakerDAO Multicall contract](https://github.com/makerdao/multicall). 
-See [Batch state queries](/evm-indexing/query-state/#batch-state-queries) for more context.
+See [Batch state queries](/firesquid/evm-indexing/query-state/#batch-state-queries) for more context.
 
 The `Multicall` facade exposes the method
 ```ts
