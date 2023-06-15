@@ -10,7 +10,7 @@ description: Enable caching for faster queries
 
 The GraphQL API server provided by `@subsquid/graphql-server` supports caching via additional flags. It is done on a per-query basis. The whole response is cached for a specified amount of time (`maxAge`).
 
-To enable caching when deploying to Aquarium, add the caching flags to `cmd` sections of the [deployment manifest](/deploy-squid/deploy-manifest/#deploy). Aquarium currently supports only in-memory cache, with Redis-based cache to be supported in the near future.
+To enable caching when deploying to Aquarium, add the caching flags to `cmd` sections of the [deployment manifest](/firesquid/deploy-squid/deploy-manifest/#deploy). Aquarium currently supports only in-memory cache, with Redis-based cache to be supported in the near future.
 For example, the snippet below will deploy a GraphQL API server with a `100Mb` in-memory cache and invalidation time of `5` seconds:
 
 

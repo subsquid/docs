@@ -18,8 +18,8 @@ We expect that experienced software developers should be able to complete this t
 ## Pre-requisites
 
 - Familiarity with Git 
-- A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js and Docker
-- [Squid CLI](/squid-cli/installation)
+- A properly set up [development environment](/firesquid/tutorials/development-environment-set-up) consisting of Node.js and Docker
+- [Squid CLI](/firesquid/squid-cli/installation)
 
 :::info
 This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands.
@@ -27,7 +27,7 @@ This tutorial uses custom scripts defined in `commands.json`. The scripts are au
 
 ## Scaffold with `sqd init`
 
-Use [`sqd init`](/squid-cli/init) and come up with some unique name for your squid. This tutorial will index data on Crust, a Substrate-based network, so use the `substrate` template:
+Use [`sqd init`](/firesquid/squid-cli/init) and come up with some unique name for your squid. This tutorial will index data on Crust, a Substrate-based network, so use the `substrate` template:
 
 ```sh
 sqd init substrate-crust-tutorial --template substrate
@@ -36,7 +36,7 @@ cd substrate-crust-tutorial
 
 ### Run the project
 
-Now you can follow the [quickstart](/quickstart/quickstart-substrate) guide to get the project up and running. Here is a summary:
+Now you can follow the [quickstart](/firesquid/quickstart/quickstart-substrate) guide to get the project up and running. Here is a summary:
 
 ```bash
 npm ci
@@ -51,7 +51,7 @@ After this test, shut down both processes with Ctrl-C and proceed.
 
 ## Define the schema and generate entity classes
 
-Next, we make changes to the data [schema](/basics/schema-file) of the squid and define [entities](/basics/schema-file/entities) that we would like to track. As stated above, we are interested in:
+Next, we make changes to the data [schema](/firesquid/basics/schema-file) of the squid and define [entities](/basics/schema-file/entities) that we would like to track. As stated above, we are interested in:
 
 * Files added to and deleted from the chain;
 * Active accounts;
@@ -100,10 +100,10 @@ type StorageOrder @entity {
 }
 ```
 
-Notice that the `Account` entity is almost completely [derived](/basics/schema-file/entity-relations/). It is there to tie the other three entities together.
+Notice that the `Account` entity is almost completely [derived](/firesquid/basics/schema-file/entity-relations/). It is there to tie the other three entities together.
 
 :::info
-Refer to [this article](/troubleshooting#how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers) if you are unsure which events and extrinsics to use for the handlers in your project.
+Refer to [this article](/firesquid/troubleshooting#how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers) if you are unsure which events and extrinsics to use for the handlers in your project.
 :::
 
 To finalize this step, run the `codegen` tool:
@@ -116,7 +116,7 @@ This will automatically generate TypeScript entity classes for our schema. They 
 
 ## Generate TypeScript wrappers for events
 
-The newest version of [Archives](/archives/overview) stores the chain metadata information. The `squid-substrate-typegen` tool is able to leverage this stored metadata. To leverage that functionality, point the `specVersion` field of the `typegen.json` configuration file to an endpoint URL of the chain Archive. You can also set this variable to a local path to a type bundle JSON/JSONL if you happen to have it.
+The newest version of [Archives](/firesquid/archives/overview) stores the chain metadata information. The `squid-substrate-typegen` tool is able to leverage this stored metadata. To leverage that functionality, point the `specVersion` field of the `typegen.json` configuration file to an endpoint URL of the chain Archive. You can also set this variable to a local path to a type bundle JSON/JSONL if you happen to have it.
 
 The tool also requires listing `events` and `calls` that have to be scraped off the blockchain in order to get the squid's target data. Finding them may require some research. In our case we only need events:
 
@@ -146,12 +146,12 @@ sqd typegen
 You should see the generated Typescript wrappers at [`src/types/events.ts`](https://github.com/subsquid/squid-crust-example/blob/main/src/types/events.ts).
 
 :::info
-Full documentation of `squid-substrate-typegen` and related tools is available [here](/substrate-indexing/squid-substrate-typegen). There also a [mini-guide](/troubleshooting/#where-do-i-get-a-type-bundle-for-my-chain) on how to obtain type bundles for Substrate chains without relying on Subsquid tools.
+Full documentation of `squid-substrate-typegen` and related tools is available [here](/firesquid/substrate-indexing/squid-substrate-typegen). There also a [mini-guide](/troubleshooting/#where-do-i-get-a-type-bundle-for-my-chain) on how to obtain type bundles for Substrate chains without relying on Subsquid tools.
 :::
 
 ## Define and bind event handlers
 
-After having obtained wrappers for events that account for the metadata changes across different runtime versions, it's finally time to define handlers for these events and attach them to our [Processor](/substrate-indexing). This is done in the `src/processor.ts` file of the project folder.
+After having obtained wrappers for events that account for the metadata changes across different runtime versions, it's finally time to define handlers for these events and attach them to our [Processor](/firesquid/substrate-indexing). This is done in the `src/processor.ts` file of the project folder.
 
 We will ultimately end up replacing the code in this file almost entirely, leaving only a few useful pieces. However, we are going to take a step-by-step approach, showing where essential changes have to be made. The final result will be visible at the end of this section.
 
@@ -162,7 +162,7 @@ import {Account, WorkReport, JoinGroup, StorageOrder} from './model'
 import {MarketFileSuccessEvent, SworkJoinGroupSuccessEvent, SworkWorksReportSuccessEvent} from './types/events'
 ```
 
-Next, we need to [customize the processor](/substrate-indexing/configuration) by setting the correct Archive as a data source and specifying the events we would like to index:
+Next, we need to [customize the processor](/firesquid/substrate-indexing/configuration) by setting the correct Archive as a data source and specifying the events we would like to index:
 
 ```typescript
 const processor = new SubstrateBatchProcessor()
@@ -180,7 +180,7 @@ const processor = new SubstrateBatchProcessor()
 ```
 
 :::info
-Note the `addEvent` calls here. In the first two cases we requested `extrinsic` and `call` fields from the processor. In the third call to the method, we requested unfiltered information on the `Swork.WorksReportSuccess` event by omitting the [`data?` optional argument](/substrate-indexing/configuration/#event-data-selector).
+Note the `addEvent` calls here. In the first two cases we requested `extrinsic` and `call` fields from the processor. In the third call to the method, we requested unfiltered information on the `Swork.WorksReportSuccess` event by omitting the [`data?` optional argument](/firesquid/substrate-indexing/configuration/#event-data-selector).
 :::
 
 `Item` and `Ctx` types defined in the template are still useful, so we are going to keep them. Let's skip for now the `process.run()` call - we are going to come back to it in a second - and scroll down to the `getTransfers` function. In the template repository this function loops through the items contained in the context, extracts the events data and stores it in a list of objects.
@@ -335,7 +335,7 @@ You can take a look at [the final version of `src/processor.ts`](https://github.
 
 ## Apply changes to the database
 
-Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping) provided by [TypeORM](https://typeorm.io). Previously we changed the data schema at `schema.graphql` and reflected these changes in our Typescript code using `sqd codegen`. Here, we [apply the corresponding changes to the database itself](/basics/db-migrations).
+Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping) provided by [TypeORM](https://typeorm.io). Previously we changed the data schema at `schema.graphql` and reflected these changes in our Typescript code using `sqd codegen`. Here, we [apply the corresponding changes to the database itself](/firesquid/basics/db-migrations).
 
 We begin by making sure that the database is at blank state:
 ```bash

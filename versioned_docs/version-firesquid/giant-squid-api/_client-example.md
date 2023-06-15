@@ -29,7 +29,7 @@ In this guide we are going to take a look at an example that does exactly this. 
 
 This is the address of a nominator, and it is in the format known as "Any network". As such, it is possible to search it in [Polkadot's Subscan](https://polkadot.subscan.io/account/YFbLqqwvegzXpE65mGAPSxe2VQaL2u8ApuDT7KMWTSND8Hk), for example, and it will be evident that the address reported in the result is different.
 
-![pos.dog account on Polkadot's Subscan](/img/.gitbook/assets/image.png)
+![pos.dog account on Polkadot's Subscan](/firesquid/img/.gitbook/assets/image.png)
 
 This is because it gets encoded with Polkadot's own codec. If we were to search it on [Kusama's Subscan](https://kusama.subscan.io/account/YFbLqqwvegzXpE65mGAPSxe2VQaL2u8ApuDT7KMWTSND8Hk) we'd still be able to find it, but the reported address is different:
 

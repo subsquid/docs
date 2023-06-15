@@ -6,11 +6,11 @@ description: Basics, public Archives, Archive registry
 
 # Squid Archives
 
-Archive is a specialized data lake for on-chain data, optimized for batch data access. The Archive API is meant to be used as a data source for Squid SDK [processors](/basics/squid-processor). 
+Archive is a specialized data lake for on-chain data, optimized for batch data access. The Archive API is meant to be used as a data source for Squid SDK [processors](/firesquid/basics/squid-processor). 
 
 Compared to data access using a conventional chain node RPC, an Archive allows one to access data at near zero cost, in a more granular fashion and from multiple blocks at once, thanks to its rich batching and filtering capabilities.
 
-Subsquid Labs GmbH maintains public Archives for most [EVM](/evm-indexing) and [Substrate](/substrate-indexing) chains. Until Archive services are replaced by a decentralized and permissionless Subsquid Network, access to the Archives is free of charge.  
+Subsquid Labs GmbH maintains public Archives for most [EVM](/firesquid/evm-indexing) and [Substrate](/substrate-indexing) chains. Until Archive services are replaced by a decentralized and permissionless Subsquid Network, access to the Archives is free of charge.  
 
 If you are a network developer and would like to see your chain supported by Subsquid, please fill a [form](https://forms.gle/ioVNFiPjZgvUNunY9) or contact us in [SquidDevs Telegram chat](https://t.me/HydraDevs).
 
@@ -52,5 +52,5 @@ const processor = new EVMBatchProcessor()
 ## Running a self-hosted Archive
 
 To run a self-hosted Archive, follow these instructions:
-- [EVM Archives](/archives/evm/self-hosted)
-- [Substrate Archives](/archives/substrate/self-hosted)
+- [EVM Archives](/firesquid/archives/evm/self-hosted)
+- [Substrate Archives](/firesquid/archives/substrate/self-hosted)

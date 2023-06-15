@@ -128,7 +128,7 @@ Here is a full list of fields for items with `item.kind==='evmLog'`.
 }
 ```
 
-Note that to make the properties of `item.evmLog` and `item.transaction` available, one has to specify the corresponding [data selectors](/evm-indexing/configuration/data-selectors) in the [`addLog()`](/evm-indexing/configuration/evm-logs) configuration method.
+Note that to make the properties of `item.evmLog` and `item.transaction` available, one has to specify the corresponding [data selectors](/firesquid/evm-indexing/configuration/data-selectors) in the [`addLog()`](/evm-indexing/configuration/evm-logs) configuration method.
 
 ### `transaction` items
 
@@ -160,7 +160,7 @@ Here is a full list of fields for items with `item.kind==='transaction'`.
 }
 ```
 
-Note that to make the properties of `item.transaction` available, one has to specify the corresponding [data selectors](/evm-indexing/configuration/data-selectors) in the [`addTransaction()`](/evm-indexing/configuration/transactions) configuration method.
+Note that to make the properties of `item.transaction` available, one has to specify the corresponding [data selectors](/firesquid/evm-indexing/configuration/data-selectors) in the [`addTransaction()`](/evm-indexing/configuration/transactions) configuration method.
 
 ### `Store`
 
@@ -169,13 +169,13 @@ A concrete `ctx.store` instance is derived at runtime from the `run()` method ar
 ```ts
 processor.run<Store>(db: Database<Store>, batchHandler: (ctx: BatchContext<Store>) => Promise<void>)
 ``` 
-For Postgres-compatible `Database`s, `ctx.store` has a TypeORM [EntityManager](https://typeorm.io/entity-manager-api)-like [interface](/basics/store/typeorm-store) extended with additional support for batch updates. The interface may differ for other `Database` implementations, including the experimental `@subsquid/file-store` package.
+For Postgres-compatible `Database`s, `ctx.store` has a TypeORM [EntityManager](https://typeorm.io/entity-manager-api)-like [interface](/firesquid/basics/store/typeorm-store) extended with additional support for batch updates. The interface may differ for other `Database` implementations, including the experimental `@subsquid/file-store` package.
 
-See [Processor Store](/basics/store) for details.
+See [Processor Store](/firesquid/basics/store) for details.
 
 ### `Logger`
 
-The `log` field is a dedicated `Logger` instance. See [Logging](/basics/logging) for more details.
+The `log` field is a dedicated `Logger` instance. See [Logging](/firesquid/basics/logging) for more details.
 
 ## Example
 
@@ -214,6 +214,6 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 });
 ```
 
-One can experiment with the [data selectors](/evm-indexing/configuration/data-selectors) and see how the output changes.
+One can experiment with the [data selectors](/firesquid/evm-indexing/configuration/data-selectors) and see how the output changes.
 
-For more elaborate examples, check the [Gravatar squid](https://github.com/subsquid/squid-evm-template/tree/gravatar-squid) and [EVM Examples](/examples).
+For more elaborate examples, check the [Gravatar squid](https://github.com/subsquid/squid-evm-template/tree/gravatar-squid) and [EVM Examples](/firesquid/examples).

@@ -17,7 +17,7 @@ This way, it's possible to start developing a squid ETL or API in the same local
 ## Pre-requisites
 
 - Either one of [Ganache](https://trufflesuite.com/ganache/) or [Hardhat](https://hardhat.org/)
-- [Subsquid CLI](/squid-cli/installation)
+- [Subsquid CLI](/firesquid/squid-cli/installation)
 - Docker
 
 ## Setup
@@ -241,7 +241,7 @@ docker compose -f docker-compose.archive.yml up -d
 
 Now you can poke your smart contract however you please, and index events or transactions with Subsquid's SDK. Use the **contract's ABI** ([here](#3-sample-contract) or [here](#1-truffle-project-sample-contract)) and contract **address** ([here](#5-deploy-the-contract) and [here](#3-deploy-smart-contract)) from previous steps.
 
-To develop your squid ETL, indexing events of your smart contract, please head over to the [dedicated tutorial](/tutorials/create-an-ethereum-processing-squid). Just be mindful that the data source of the processor class needs to be set to the local endpoints:
+To develop your squid ETL, indexing events of your smart contract, please head over to the [dedicated tutorial](/firesquid/tutorials/create-an-ethereum-processing-squid). Just be mindful that the data source of the processor class needs to be set to the local endpoints:
 
 ```typescript
 // ...

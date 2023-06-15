@@ -21,7 +21,7 @@ and
 SubstrateBatchProcessor.addGearUserMessageSent(programId: string, options?: {data?, range?})
 ```
 
-The methods above subscribe to the events [`Gear.MessageEnqueued`](https://wiki.gear-tech.io/docs/api/events/#messageenqueued) and [`Gear.UserMessageSent`](https://wiki.gear-tech.io/docs/api/events/#usermessagesent) emitted by the specified Gear program. The data selections options are the same as for the [`addEvent()`](/substrate-indexing/configuration/#events) processor method.
+The methods above subscribe to the events [`Gear.MessageEnqueued`](https://wiki.gear-tech.io/docs/api/events/#messageenqueued) and [`Gear.UserMessageSent`](https://wiki.gear-tech.io/docs/api/events/#usermessagesent) emitted by the specified Gear program. The data selections options are the same as for the [`addEvent()`](/firesquid/substrate-indexing/configuration/#events) processor method.
 
 The processor can also subscribe to any other event with `addEvent()` and filter by program ID in the batch handler, if so necessary. 
 

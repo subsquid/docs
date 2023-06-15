@@ -7,13 +7,13 @@ description: >-
 
 # Dynamic Uniswap pools
 
-[The squid](https://github.com/subsquid-labs/factory-example) indexes [Uniswap v3](https://etherscan.io/address/0x1f98431c8ad98523631ae4a59f267346ea31f984) swaps on Ethereum Mainnet. The squid listens to the `PoolCreated` events to dynamically update the set of trading pools using the [factory contract](/evm-indexing/factory-contracts/) pattern.
+[The squid](https://github.com/subsquid-labs/factory-example) indexes [Uniswap v3](https://etherscan.io/address/0x1f98431c8ad98523631ae4a59f267346ea31f984) swaps on Ethereum Mainnet. The squid listens to the `PoolCreated` events to dynamically update the set of trading pools using the [factory contract](/firesquid/evm-indexing/factory-contracts/) pattern.
 
 ## Prerequisites
 
 - Node v16.x
 - Docker
-- [Squid CLI](/squid-cli/installation)
+- [Squid CLI](/firesquid/squid-cli/installation)
 
 ## Running 
 

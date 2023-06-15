@@ -10,7 +10,7 @@ Database migrations and setup scripts must be located in the reserved folder `db
 ## TypeORM migrations
 
 The Squid SDK offers first-class support for [TypeORM-based database migrations](https://typeorm.io/migrations) with the `squid-typeorm-migration(1)` tool.
-The tool auto-generates the schema migrations from the TypeORM entities created by [codegen](/basics/schema-file) so that custom migration scripts are rarely needed.
+The tool auto-generates the schema migrations from the TypeORM entities created by [codegen](/firesquid/basics/schema-file) so that custom migration scripts are rarely needed.
 
 Most use cases of the tool are covered by the pre-defined `sqd` commands that wrap around `squid-typeorm-migration`. From `sqd --help`:
 
@@ -70,7 +70,7 @@ In some rare cases it is possible to update the schema without dropping the data
 
 **1. Update `schema.graphql` ** 
 
-For example, [add an index](/basics/schema-file/indexes-and-constraints)
+For example, [add an index](/firesquid/basics/schema-file/indexes-and-constraints)
 
 **2. Regenerate the model classes **
 
@@ -98,12 +98,12 @@ sqd migration:apply
 
 **5. Update the squid in Aquairum**
 
-If the squid is deployed to Aquarium, [update the deployed version](/squid-cli/deploy).
+If the squid is deployed to Aquarium, [update the deployed version](/firesquid/squid-cli/deploy).
 
 ## Aquarium deployment
 
-By default, the TypeORM migrations are automatically applied by Aquarium with the command `npx squid-typeorm-migration apply` before the squid services are started. For custom behavior, one can override the migration script using the optional `migrate:` section of [squid.yaml](/deploy-squid/deploy-manifest#deploy).
+By default, the TypeORM migrations are automatically applied by Aquarium with the command `npx squid-typeorm-migration apply` before the squid services are started. For custom behavior, one can override the migration script using the optional `migrate:` section of [squid.yaml](/firesquid/deploy-squid/deploy-manifest#deploy).
 
 :::info
-To force Aquarium to reset the database and start with a blank state after a schema change, use the `--hard-reset` flag of [sqd deploy](/squid-cli/deploy).
+To force Aquarium to reset the database and start with a blank state after a schema change, use the `--hard-reset` flag of [sqd deploy](/firesquid/squid-cli/deploy).
 :::

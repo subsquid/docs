@@ -8,7 +8,7 @@ description: Common gotchas deploying a squid
 
 Below are the most common deployment issues:
 
-- Unexpected folder structure. See [the squid structure](/basics/squid-structure) for details.
+- Unexpected folder structure. See [the squid structure](/firesquid/basics/squid-structure) for details.
 - Docker build failures. Build a Docker images locally (see below) to troubleshoot.
 - Database migration failures. Troubleshoot by executing the DB migration locally with a locally built image (see below).
 - Outdated Squid SDK packages. Update to the latest SDK lib versions with `npm run update`.
@@ -16,7 +16,7 @@ Below are the most common deployment issues:
 
 ## Local Docker build
 
-To make a dry run locally, create a local `Dockerfile` as described on the [self-hosting](/deploy-squid/self-hosting) page.
+To make a dry run locally, create a local `Dockerfile` as described on the [self-hosting](/firesquid/deploy-squid/self-hosting) page.
 
 Then build an image locally with 
 ```bash

@@ -24,7 +24,7 @@ We recommend using a [Cockroach DB](https://www.cockroachlabs.com/docs/cockroach
 - `-c`, `--endpoint-capacity` (optional, `default: 5`. It should follow the endpoint) capacity. The max number of pending requests for the endpoint/
 - `--types-bundle`, A path to a local JSON file with substrate type definitions (applicable only to old pre-v14 metadata substrate chains). Types for most chains are already built in, so this option is rarely used. Note that the types bundle format is [slightly different](https://github.com/subsquid/squid/tree/master/substrate/substrate-metadata/src/old/definitions) from that of `polkadot.js`.
 - `--output` A path to a local file or a Postgres-compatible connection string
-- `--start-block` (optional) The block height to start. Note that in order to index the runtime metadata and make the archive compatible with [`@subsquid/substrate-typegen`](/substrate-indexing/squid-substrate-typegen) one must start from the genesis block. 
+- `--start-block` (optional) The block height to start. Note that in order to index the runtime metadata and make the archive compatible with [`@subsquid/substrate-typegen`](/firesquid/substrate-indexing/squid-substrate-typegen) one must start from the genesis block. 
 - `--write-batch-size` (optional) The number of blocks to write in a single transaction (applies only to Postgres)
 - `--prom-port` (optional) Port number for the built-in Prometheus metrics server
 
@@ -53,7 +53,7 @@ We recommend using a [Cockroach DB](https://www.cockroachlabs.com/docs/cockroach
 
 **Queries:**
 
-The GraphQL API is fully documented [here](/archives/substrate/batch-api). Here is a short list of exposed queries:
+The GraphQL API is fully documented [here](/firesquid/archives/substrate/batch-api). Here is a short list of exposed queries:
 
 - `batch` -- return an aggregated batch of block, event, call and extrinsic data matching the requested filters and data selectors
 - `metadata` -- list all metadata updates up to the current block
@@ -62,7 +62,7 @@ The GraphQL API is fully documented [here](/archives/substrate/batch-api). Here 
 
 ## Substrate Explorer
 
-`substrate-explorer` provided a human friendly GraphQL API on top of the database populated by `substrate-ingester`. See [Explorer API](/archives/substrate/archives-explorer-api) for more details on the schema.
+`substrate-explorer` provided a human friendly GraphQL API on top of the database populated by `substrate-ingester`. See [Explorer API](/firesquid/archives/substrate/archives-explorer-api) for more details on the schema.
 
 **Environment variables:**
 

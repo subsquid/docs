@@ -12,7 +12,7 @@ sidebar_position: 26
 
 This tutorial describes how to use the Subsquid indexing framework to save the processed blockchain data to local [parquet files](https://parquet.apache.org/) instead of a database. The intent is to show how Subsquid SDK can be used for data analytics, this time with focus on tools suitable for larger datasets. 
 
-File-based data formats like [CSV](/tutorials/index-to-local-csv-files) are convenient for data analysis, especially in the early prototyping stages. On the other hand, when analyzing very large datasets, it's common to use distributed systems such as Hadoop or Spark, and the workers in a cluster usually "divide and conquer" multiple files during the import process. CSV format severely limits the available design choices when doing this.
+File-based data formats like [CSV](/firesquid/tutorials/index-to-local-csv-files) are convenient for data analysis, especially in the early prototyping stages. On the other hand, when analyzing very large datasets, it's common to use distributed systems such as Hadoop or Spark, and the workers in a cluster usually "divide and conquer" multiple files during the import process. CSV format severely limits the available design choices when doing this.
 
 In contrast, the Parquet format is designed to make data accessible in chunks, allowing efficient read/write operations without processing the entire file. To better serve data analysts' needs, the Subsquid Team developed a library to allow the storage of processed data in this file format.
 
@@ -24,7 +24,7 @@ An article about this demo project [has been published on Medium](https://link.m
 
 ## Pre-requisites
 
-- [Subsquid CLI](/squid-cli/installation)
+- [Subsquid CLI](/firesquid/squid-cli/installation)
 - (optional) Python
 
 ## Setup
@@ -84,11 +84,11 @@ This should have created a few files in the `src/abi` folder for you. No need to
 
 The `@subsquid/file-store` library defines the `Table` and `Database` classes.
 
-The `Database` class gets its name from the interface that was originally developed to [access an actual database](/basics/store/typeorm-store). Here, the interface is [used without modification](/basics/store/custom-database) in a class designed to access a filesystem. `Table`s play a similar role to that of tables of an actual database: they represent collections of rows, all of which share same set of fields/columns. Each such data structure requires one or more data files to store it in both CSV and Parquet, hence the mapping of `Table`s to files.
+The `Database` class gets its name from the interface that was originally developed to [access an actual database](/firesquid/basics/store/typeorm-store). Here, the interface is [used without modification](/basics/store/custom-database) in a class designed to access a filesystem. `Table`s play a similar role to that of tables of an actual database: they represent collections of rows, all of which share same set of fields/columns. Each such data structure requires one or more data files to store it in both CSV and Parquet, hence the mapping of `Table`s to files.
 
 To summarize, `Table` instances are used to define data files along with their schemas and hold file-specific settings. `Database` facilitates the interactions with the processor, coordinates writing to the files and maintains any state that facilitates that process (configuration, cloud connections and so on).
 
-There are two main differences with the [CSV tutorial](/tutorials/index-to-local-csv-files.md) and the first one is that for this project we will be using a `Table` implementation from `@subsquid/file-store-parquet`. Let's install it:
+There are two main differences with the [CSV tutorial](/firesquid/tutorials/index-to-local-csv-files) and the first one is that for this project we will be using a `Table` implementation from `@subsquid/file-store-parquet`. Let's install it:
 
 ```bash
 npm i @subsquid/file-store-parquet

@@ -6,7 +6,7 @@ description: API for batch access
 
 # Batch API
 
-The Archive Batch API is a single GraphQL endpoint served by the `substrate-gateway` service. The list of public endpoints for major Substrate chains is available from the [Archive registry](/archives/overview/#archive-registry). Visit `https://graphql-console.subsquid.io/?graphql_api=<your_endpoint_url>` for a live playground and GraphQL introspection.
+The Archive Batch API is a single GraphQL endpoint served by the `substrate-gateway` service. The list of public endpoints for major Substrate chains is available from the [Archive registry](/firesquid/archives/overview/#archive-registry). Visit `https://graphql-console.subsquid.io/?graphql_api=<your_endpoint_url>` for a live playground and GraphQL introspection.
 
 ## Batch query
 

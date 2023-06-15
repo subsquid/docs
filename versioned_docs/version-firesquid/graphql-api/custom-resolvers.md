@@ -33,7 +33,7 @@ export class CountResolver {
 }
 ```
 
-This example is designed to work with the `evm` template: just grab a test squid as described [here](/quickstart/quickstart-ethereum/), write the example code to `src/server-extension/resolver.ts` and observe the `totalBurns` selection appear in the [GraphiQL playground](http://localhost:4350/graphql).
+This example is designed to work with the `evm` template: just grab a test squid as described [here](/firesquid/quickstart/quickstart-ethereum/), write the example code to `src/server-extension/resolver.ts` and observe the `totalBurns` selection appear in the [GraphiQL playground](http://localhost:4350/graphql).
 
 #### Custom SQL query
 

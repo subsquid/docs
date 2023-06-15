@@ -6,9 +6,9 @@ description: >-
 
 # Union type resolution
 
-Use cases for [Union types](/basics/schema-file/unions-and-typed-json) have been discussed in the [schema reference](/basics/schema-file). Here, we discuss how to query union types.
+Use cases for [Union types](/firesquid/basics/schema-file/unions-and-typed-json) have been discussed in the [schema reference](/basics/schema-file). Here, we discuss how to query union types.
 
-Let's take this modified schema from the [Substrate tutorial](/tutorials/create-a-simple-squid):
+Let's take this modified schema from the [Substrate tutorial](/firesquid/tutorials/create-a-simple-squid):
 
 ```graphql title="schema.graphql"
 type Account @entity {

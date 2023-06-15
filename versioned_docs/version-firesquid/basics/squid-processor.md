@@ -24,8 +24,8 @@ The Squid SDK currently offers specialized processor classes for EVM (`EvmBatchP
 
 Navigate to a dedicated section for each processor class:
 
-- [`EvmBatchProcessor`](/evm-indexing)
-- [`SubstrateBatchProcessor`](/substrate-indexing)
+- [`EvmBatchProcessor`](/firesquid/evm-indexing)
+- [`SubstrateBatchProcessor`](/firesquid/substrate-indexing)
 
 ## Configuration
 
@@ -43,4 +43,4 @@ The `db` argument defines the target data source for the processor, and `batchHa
 
 The `Context` and `Store` interfaces are explained in the next sections.
 
-To jump straight to examples, see [EVM Processor in action](/evm-indexing/batch-processor-in-action) and [Substrate Processor in action](/substrate-indexing/batch-processor-in-action).
+To jump straight to examples, see [EVM Processor in action](/firesquid/evm-indexing/batch-processor-in-action) and [Substrate Processor in action](/substrate-indexing/batch-processor-in-action).

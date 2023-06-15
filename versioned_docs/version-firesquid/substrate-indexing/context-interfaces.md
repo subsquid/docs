@@ -107,7 +107,7 @@ export interface SubstrateBlock {
 
 ### `event` items
 
-This is the full shape of the items with `item.kind == 'event'`. The actual set of fields corresponds to the [event data selector](/substrate-indexing/configuration#event-data-selector) specified by the `addEvent()`, `addEvmLog()` and similar event-based [processor config methods](/substrate-indexing/configuration):
+This is the full shape of the items with `item.kind == 'event'`. The actual set of fields corresponds to the [event data selector](/firesquid/substrate-indexing/configuration#event-data-selector) specified by the `addEvent()`, `addEvmLog()` and similar event-based [processor config methods](/substrate-indexing/configuration):
 
 ```ts
 interface EventItem {
@@ -175,7 +175,7 @@ interface SubstrateCall {
 
 ### `call` items
 
-This is the full shape of the items with `item.kind == 'call'`. The actual set of fields corresponds to the [call data selector](/substrate-indexing/configuration#call-data-selector) specified by the [`addCall()`](/substrate-indexing/configuration) processor config method.
+This is the full shape of the items with `item.kind == 'call'`. The actual set of fields corresponds to the [call data selector](/firesquid/substrate-indexing/configuration#call-data-selector) specified by the [`addCall()`](/substrate-indexing/configuration) processor config method.
 
 ```ts
 interface CallItem {
@@ -186,7 +186,7 @@ interface CallItem {
   extrinsic?: Partial<SubstrateExtrinsic>
 }
 ```
-See the [`event` items](/substrate-indexing/context-interfaces/#event-items) section for definitions of `SubstrateCall` and `SubstrateExtrinsic`.
+See the [`event` items](/firesquid/substrate-indexing/context-interfaces/#event-items) section for definitions of `SubstrateCall` and `SubstrateExtrinsic`.
 
 ### `Store`
 
@@ -195,13 +195,13 @@ A concrete `ctx.store` instance is derived at runtime from the run argument via
 ```ts
 processor.run<Store>(db: Database<Store>, batchHandler: (ctx: BatchContext<Store>) => Promise<void>)
 ``` 
-For Postgres-compatible `Database`s, `ctx.store` has a TypeORM [EntityManager](https://typeorm.io/entity-manager-api)-like [interface](/basics/store/typeorm-store) extended with additional support for batch updates. The interface may differ for other `Database` implementations, including the experimental `@subsquid/file-store` package.
+For Postgres-compatible `Database`s, `ctx.store` has a TypeORM [EntityManager](https://typeorm.io/entity-manager-api)-like [interface](/firesquid/basics/store/typeorm-store) extended with additional support for batch updates. The interface may differ for other `Database` implementations, including the experimental `@subsquid/file-store` package.
 
-See [Processor Store](/basics/store) for details.
+See [Processor Store](/firesquid/basics/store) for details.
 
 ### `Logger`
 
-The `log` field is a dedicated `Logger` instance. See [Logging](/basics/logging) for more details.
+The `log` field is a dedicated `Logger` instance. See [Logging](/firesquid/basics/logging) for more details.
 
 ## Minimal Example
 
@@ -229,4 +229,4 @@ processor.run(new TypeormDatabase(), async ctx => {
 })
 ```
 
-For more elaborate examples, check [Batch processor in action](/substrate-indexing/batch-processor-in-action) and the [Examples](/examples) page.
+For more elaborate examples, check [Batch processor in action](/firesquid/substrate-indexing/batch-processor-in-action) and the [Examples](/examples) page.

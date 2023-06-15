@@ -9,7 +9,7 @@ sidebar_position: 60
 
 ## Objective
 
-This tutorial starts with the [`substrate` squid template](https://github.com/subsquid-labs/squid-wasm-template) and goes through all the necessary changes to index the events of a WASM contract developed with [ink!](https://www.parity.io/blog/ink-3-0-paritys-rust-based-language-gets-a-major-update). This approach is taken to illustrate the development process. If you want to start indexing ASAP, consider using the WASM/ink! [squid generation tool](/basics/squid-gen/) or starting with the [`ink` template](https://github.com/subsquid/squid-wasm-template) that contains the final code of this tutorial:
+This tutorial starts with the [`substrate` squid template](https://github.com/subsquid-labs/squid-wasm-template) and goes through all the necessary changes to index the events of a WASM contract developed with [ink!](https://www.parity.io/blog/ink-3-0-paritys-rust-based-language-gets-a-major-update). This approach is taken to illustrate the development process. If you want to start indexing ASAP, consider using the WASM/ink! [squid generation tool](/firesquid/basics/squid-gen/) or starting with the [`ink` template](https://github.com/subsquid/squid-wasm-template) that contains the final code of this tutorial:
 ```bash
 sqd init <your squid name here> --template ink
 ```
@@ -31,8 +31,8 @@ This tutorial uses custom scripts defined in `commands.json`. The scripts are au
 ## Pre-requisites
 
 - Familiarity with Git
-- A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js and Docker
-- [Squid CLI](/squid-cli/installation)
+- A properly set up [development environment](/firesquid/tutorials/development-environment-set-up) consisting of Node.js and Docker
+- [Squid CLI](/firesquid/squid-cli/installation)
 
 ## Run the template
 
@@ -63,7 +63,7 @@ We track:
 * Wallet balances
 * Token transfers
 
-Our [schema definition](/basics/schema-file) for modelling this data is straightforward:
+Our [schema definition](/firesquid/basics/schema-file) for modelling this data is straightforward:
 
 ```graphql
 # schema.graphql
@@ -84,7 +84,7 @@ type Transfer @entity {
  
 ```
 Note:
-* a one-to-many [relation](/basics/schema-file/entity-relations) between `Owner` and `Transfer`;
+* a one-to-many [relation](/firesquid/basics/schema-file/entity-relations) between `Owner` and `Transfer`;
 * `@index` decorators for properties that we want to be able to filter the data by.
 
 Next, we generate `TypeORM` entity classes from the schema with the `squid-typeorm-codegen` tool. There is a handy `sqd` script for that:
@@ -94,7 +94,7 @@ sqd codegen
 ```
 The generated entity classes can be found under `src/model/generated`.
 
-Finally, we create [database migrations](/basics/db-migrations) to match the changed schema. We restore the database to a clean state, then replace any existing migrations with the new one:
+Finally, we create [database migrations](/firesquid/basics/db-migrations) to match the changed schema. We restore the database to a clean state, then replace any existing migrations with the new one:
 ```bash
 sqd down
 sqd up
@@ -123,9 +123,9 @@ The generated `src/abi/erc20.ts` module defines interfaces to represent WASM dat
 
 ## Define and Bind the Batch Handler
 
-Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/substrate-indexing). Its instances connect to chain-specific [Subsquid archives](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/firesquid/substrate-indexing). Its instances connect to chain-specific [Subsquid archives](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-`SubstrateBatchProcessor`s [exposes methods](/substrate-indexing/configuration) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor allows one to subscribe for such events emitted by a specific contract. The events can then be processed by calling the `.run()` function that starts generating requests to the Archive for [*batches*](/basics/batch-processing) of data.
+`SubstrateBatchProcessor`s [exposes methods](/firesquid/substrate-indexing/configuration) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor allows one to subscribe for such events emitted by a specific contract. The events can then be processed by calling the `.run()` function that starts generating requests to the Archive for [*batches*](/basics/batch-processing) of data.
 
 Every time a batch is returned by the Archive, it will trigger the callback function, or *batch handler* (passed to `.run()` as second argument). It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 
