@@ -15,13 +15,11 @@ Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker.
 
 Begin by retrieving the `evm` template and installing the dependencies:
 ```bash
-sqd init bayc-squid -t evm
-cd bayc-squid
+sqd init my-bayc-squid -t evm
+cd my-bayc-squid
 npm i
 ```
-The resulting code can be found at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/4dc090bad00618dec3309baf90bd1a9f864f32cd) (out of date).
-
-[//]: # (!!!! Update the final code)
+The resulting code can be found at [this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/4ad7bdfed0771aa6b6e9cf0368ac7f15f09cd629).
 
 ## Interfacing with the contract ABI
 
@@ -35,7 +33,7 @@ Checking out the generated `src/abi/bayc.ts` file we see all events and contract
 ```typescript
 export const events = {
     ...
-    Transfer: new LogEvent<([from: string, to: string, tokenId: ethers.BigNumber] & {from: string, to: string, tokenId: ethers.BigNumber})>(
+    Transfer: new LogEvent<([from: string, to: string, tokenId: bigint] & {from: string, to: string, tokenId: bigint})>(
         abi, '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
     ),
 }
@@ -46,15 +44,10 @@ Reading about [elsewhere](https://eips.ethereum.org/EIPS/eip-721) we learn that 
 
 A "squid processor" is the Node.js process and the [object that powers it](/evm-indexing/evm-processor/) that are responsible for retrieving filtered blockchain data from a specialized data lake (an [archive](/archives)), transforming it and saving the result to a destination of choice. To configure the processor (object) to retrieve the `Transfer` events of the BAYC token contract, we initialize it like this:
 ```typescript title=src/processor.ts
+// ...
 import * as bayc from './abi/bayc'
 
 export const CONTRACT_ADDRESS = '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
-
-const fieldSelection = {
-    log: {
-        transactionHash: true
-    }
-} as const
 
 export const processor = new EvmBatchProcessor()
     .setDataSource({
@@ -69,7 +62,12 @@ export const processor = new EvmBatchProcessor()
         address: [CONTRACT_ADDRESS],
         topic0: [bayc.events.Transfer.topic]
     })
-    .setFields(fieldSection)
+    .setFields({
+        log: {
+            transactionHash: true
+        }
+    })
+// ...
 ```
 
 [//]: # (!!!! Reconsider using a public RPC endpoint here)
@@ -90,7 +88,7 @@ The other part of processor configuration is the callback function used to proce
 ```typescript
 processor.run(db, async (ctx) => {
     // data transformation and persistence code here
-});
+})
 ```
 Here,
 * `db` is a [`Database` implementation](/basics/store/store-interface/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/basics/store/typeorm-store/) object here.
@@ -100,6 +98,10 @@ Batch handler is where the raw on-chain data from the archive is decoded, transf
 
 We begin by defining a batch handler decoding the `Transfer` event:
 ```typescript title=src/main.ts
+import {TypeormDatabase} from '@subsquid/typeorm-store'
+import {processor, CONTRACT_ADDRESS} from './processor'
+import * as bayc from './abi/bayc'
+
 processor.run(new TypeormDatabase(), async (ctx) => {
     for (let block of ctx.blocks) {
         for (let log of block.logs) {
@@ -124,9 +126,7 @@ and you should see lots of lines like these in the output:
 03:56:02 INFO  sqd:processor Parsed a Transfer of token 6326 from 0x0000000000000000000000000000000000000000 to 0xb136c6A1Eb83d0b4B8e4574F28e622A57F8EF01A
 03:56:02 INFO  sqd:processor Parsed a Transfer of token 4407 from 0x082C99d47E020a00C95460D50a83338d509A0e3a to 0x5cf0E6da6Ec2bd7165edcD52D3d31f2528dCf007
 ```
-The full code can be found at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/be0ebfadff4be69f4d2f6a68418274b87adb707e) (out of date).
-
-[//]: # (!!!! Update the final code)
+The full code can be found at [this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/b7ccfc06b283a885878cddcb18483c4bf571e97c).
 
 ## Extending and persisting the data
 
@@ -138,7 +138,7 @@ The main unit of data in `schema.graphql` is [entity](/basics/schema-file/entiti
 ```graphql title=schema.graphql
 type Transfer @entity {
     id: ID!
-    tokenId: Int! @index
+    tokenId: BigInt! @index
     from: String! @index
     to: String! @index
     timestamp: DateTime!
@@ -160,6 +160,11 @@ sqd migration:generate
 ```
 The generated code is in `src/model`. We can now import a `Transfer` entity class from there and use it to perform [various operations](/basics/store/typeorm-store/) on the corresponding database table. Let us rewrite our batch handler to save the parsed `Transfer` events data to the database:
 ```typescript title=src/main.ts
+import {TypeormDatabase} from '@subsquid/typeorm-store'
+import {processor, CONTRACT_ADDRESS} from './processor'
+import * as bayc from './abi/bayc'
+import {Transfer} from './model'
+
 processor.run(new TypeormDatabase(), async (ctx) => {
     let transfers: Transfer[] = []
 
@@ -169,7 +174,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
                 let {from, to, tokenId} = bayc.events.Transfer.decode(log)
                 transfers.push(new Transfer({
                     id: log.id,
-                    tokenId: tokenId.toNumber(),
+                    tokenId,
                     from,
                     to,
                     timestamp: new Date(block.header.timestamp),
@@ -189,7 +194,7 @@ Note a few things here:
 * `block.header` contains block metadata that we use to fill the extra fields.
 * Accumulating the `Transfer` entity instances before using `ctx.store.insert()` on the whole array of them in the end allows us to get away with just one database transaction per batch. This is [crucial for achieving a good syncing performance](/basics/batch-processing/).
 
-At this point we have a squid that indexes the data on BAYC token transfers and is capable of serving it over a GraphQL API. Full code is available at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/d99cd9b3f6921c7f591e5817d54025a388925a08). Test it by running
+At this point we have a squid that indexes the data on BAYC token transfers and is capable of serving it over a GraphQL API. Full code is available at [this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/aeb6268168385cc605ce04fe09d0159f708efe47). Test it by running
 ```bash
 sqd process
 ```
@@ -199,4 +204,4 @@ sqd serve
 ```
 in a separate terminal. If all is well, a GraphiQL playground should become available at [localhost:4350/graphql](http://localhost:4350/graphql):
 
-![BAYC GraphiQL at step one](</img/bayc-playground-step-one.png>)
+![BAYC GraphiQL at step one](./bayc-playground-step-one.png)

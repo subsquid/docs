@@ -53,19 +53,19 @@ Generate the squid with
 ```bash
 sqd generate \
 --address <address> \
---abi <path to contract ABI> \
+--abi <path to contract ABI> \ # optional
 --archive <network archive alias or endpoint URL> \
 --event '*' \
 --function '*' \
 --from <starting block>
 ```
+The tool will attempt to grab the ABI from Etherscan API if `--abi` is omitted. Other compatible APIs can be used; for example, BSC contracts' ABIs can be retreved from BscScan with `--etherscan-api https://api.bscscan.com/`.
 
 ### Example
 
 ```bash
 sqd generate \
 --address 0x6B175474E89094C44Da98b954EedeAC495271d0F \
---abi abi/erc20.json \
 --archive eth-mainnet \
 --event '*' \
 --function '*' \
@@ -103,8 +103,6 @@ In a separate terminal window, run
 
 ```bash
 sqd serve
-# in yet another window
-sqd open http://localhost:4350/graphql
 ```
 
 This starts a GraphQL server serving the indexed events and transactions from the local database. The GraphQL playground is available at [`http://localhost:4350/graphql`](http://localhost:4350/graphql). Open it in a browser and run sample queries by applying filters and data selections in the panel to the left.
