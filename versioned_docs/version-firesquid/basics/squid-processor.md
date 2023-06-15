@@ -20,7 +20,7 @@ node -r dotenv/config lib/processor.js
 
 The Squid SDK currently offers specialized processor classes for EVM (`EvmBatchProcessor`) and Substrate networks (`SubstrateBatchProcessor`). More networks will be supported in the future.
 
-![Processor choice based on the network](</img/network-choice.png>)
+![Processor choice based on the network](./network-choice.png)
 
 Navigate to a dedicated section for each processor class:
 

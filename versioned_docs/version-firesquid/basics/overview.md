@@ -26,19 +26,19 @@ Squid SDK indexing projects (or simply **squids**) are [Extract-Transform-Load-Q
 
 Squids can be run locally, on-premises or deployed to the [Aquarium hosted service](/firesquid/deploy-squid). 
 
-![Subsquid ecosystem](</img/subsquid-ecosystem.png>)
+![Subsquid ecosystem](./subsquid-ecosystem.png)
 
 ## Squid SDK
 
 Squid SDK is a set of tools and libraries to efficiently query the Archive data, transform, enrich and persist into the target store. Squid SDK projects are called **squids**.
 
-![Squid SDK](</img/archive-and-sdk.png>)
+![Squid SDK](./archive-and-sdk.png)
 
 Squids have a certain structure and are supposed to be developed as regular node.js packages. Use [`sqd init`](/firesquid/squid-cli/init) command to scaffold a new squid project from a suitable template.
 
 A squid project consists of a long-running `processor` service fetching and transforming the data from an archive and an optional `api` service presenting the transformed data with a GraphQL API generated from `schema.graphql`. 
 
-![Squid](</img/squid-diagram.png>)
+![Squid](./squid-diagram.png)
 
 The [Squid SDK](https://github.com/subsquid/squid-sdk) offers an extensive set of tools for developing squids:
 

@@ -106,7 +106,7 @@ processor.setTypesBundle('typesBundle.json')
 
 :::info
 Most IDEs support smart suggestions to show the possible data selectors. For VS Code, press `Ctrl+Space`:
-![selector auto-complete](</img/autocomplete-selectors.png>)
+![selector auto-complete](./autocomplete-selectors.png)
 :::info
 
 Methods `addEvent()`, `addEvmLog()`, `addContractsContractEmitted()`, `addGearMessageEnqueued()`, `addAcalaEvmExecuted()` accept data selectors of the following shape for `options.data`:

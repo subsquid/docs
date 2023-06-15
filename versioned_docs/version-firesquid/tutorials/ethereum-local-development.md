@@ -134,15 +134,15 @@ You should find the contract's ABI at the location: `build/contracts/MetaCoin.js
 
 Launch the Ganache tool and select the *New Workspace (Ethereum)* option.
 
-![Create workspace](</img/ganache-create-workspace.png>)
+![Create workspace](./ganache-create-workspace.png)
 
 Next, provide a name for the workspace and link the Truffle project we just created to it. To do that, click **Add project** and select the `truffle-config.js` file in the project root folder. Finally, select the `Server` tab at the top.
 
-![Provide name](</img/ganache-create-workspace-1.png>)
+![Provide name](./ganache-create-workspace-1.png)
 
 In this window, change the server configuration to the exact values reported in this image.
 
-![Server configuration](</img/ganache-create-workspace-2.png>)
+![Server configuration](./ganache-create-workspace-2.png)
 
 :::info
 **Note:** It is not mandatory to change `PORT NUMBER` or `NETWORK ID`, but they are set to the same value as Hardhat, so the rest of the Tutorial will look the same.

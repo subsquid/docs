@@ -192,7 +192,7 @@ To launch the project, simply open a terminal and run this command:
 sqd process
 ```
 And in a few minutes, a few sub-folders (whose names are the block ranges where the data is coming from) should be created under the `data` directory, each containing a `transfer.csv` file.
-![multiple folders containing CSV files](</img/csv-files.png>)
+![multiple folders containing CSV files](./csv-files.png)
 
 ### Data analysis with Python
 

@@ -25,7 +25,7 @@ Results of the ETL process can be stored in any Postgres-compatible database. Su
 
 A typical processor looks as below:
 
-![Batch processor context](</img/batch-context.png>)
+![Batch processor context](./batch-context.png)
 
 ## What's next?
 

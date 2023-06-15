@@ -309,7 +309,7 @@ Bear in mind that this may vary a lot, depending on the Ethereum node used ([Ank
 
 The process will generate a series of sub-folders in the `data` folder, labelled after the block ranges where the data is coming from, and in each one of these folders there should be one `*.parquet` file for each of the *tables* we defined.
 
-![multiple folders containing CSV files](</img/parquet-files.png>)
+![multiple folders containing CSV files](./parquet-files.png)
 
 ### Data analysis with Python
 
