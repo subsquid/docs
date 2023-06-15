@@ -13,7 +13,9 @@ Batch data processing model employed by Squid SDK relies on the following princi
 - Minimize the number of database hits by grouping multiple single-row transactions into multi-row batch transactions.
 - Transform the data in memory using vectorized operators.
 - Use the [MakerDAO `Multicall` contract](/evm-indexing/query-state/#batch-state-queries) to batch EVM state queries.
-- Use [`XXX.getMany()`](/substrate-indexing/storage-state-calls) to batch Substrate state queries.
+- Use [`XXX.getMany()`](/firesquid/substrate-indexing/storage-state-calls) to batch Substrate state queries.
+
+[//]: # (!!!! Remove the /firesquid reference above once ArrowSquid for Substrate is released)
 
 In practice, batching is a more flexible (compared to handler parallelization) way to speed up the inherently sequential indexing of on-chain transactions and logs. 
 

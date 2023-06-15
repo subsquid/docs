@@ -78,7 +78,7 @@ query MyQuery {
 
 ## Step 6: Customize
 
-[Hack](/firesquid/basics/schema-file) the schema file `schema.graphql` and the [processor](/substrate-indexing) `src/processor.ts` to index the data your way. Choose any supported network using the `lookupArchive()` method of [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) or [run one locally](/archives/).
+[Hack](/firesquid/basics/schema-file) the schema file `schema.graphql` and the [processor](/firesquid/substrate-indexing) `src/processor.ts` to index the data your way. Choose any supported network using the `lookupArchive()` method of [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) or [run one locally](/firesquid/archives).
 
 ## What's next?
 

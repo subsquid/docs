@@ -35,5 +35,5 @@ Results of the ETL process can be stored in any [Postgres-compatible database](/
 
 - Move forward to the [`EvmBatchProcessor` configuration page](../configuration)
 - Explore the [migration guide](/migrate/migrate-subgraph/) and create a squid from a subgraph within minutes
-- Follow the [tutorial](/tutorials/create-an-ethereum-processing-squid/) to build an Ethereum-indexing squid step by step
+- Follow the [tutorial](/tutorials/bayc/) to build an Ethereum-indexing squid step by step
 - Check the [examples](/examples)

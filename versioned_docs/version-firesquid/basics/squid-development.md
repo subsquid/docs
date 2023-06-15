@@ -11,7 +11,7 @@ Below is a general outline of the squid development steps.
 ### 0. Prerequisites
 
 - Get familiar with squids and Archives by reading the [Overview](/firesquid/basics/overview)
-- Follow through the [Quickstart](/firesquid/quickstart) and scaffold a new squid project using [sqd init](/squid-cli/init) and a suitable template.
+- Follow through the [Quickstart](/firesquid/quickstart) and scaffold a new squid project using [sqd init](/firesquid/squid-cli/init) and a suitable template.
 
 ### 1. Model the data with a schema file
 
@@ -95,7 +95,7 @@ const processor = new EvmBatchProcessor()
   });
 ```
 
-See [EvmBatchProcessor configuration](/firesquid/evm-indexing/configuration) and [SubstrateBatchProcessor configuration](/substrate-indexing/configuration) for details.
+See [EvmBatchProcessor configuration](/firesquid/evm-indexing/configuration) and [SubstrateBatchProcessor configuration](/firesquid/substrate-indexing/configuration) for details.
 
 ### 6. Generate Typescript facade classes to decode the obtained on-chain data
 
@@ -105,7 +105,7 @@ See [EvmBatchProcessor configuration](/firesquid/evm-indexing/configuration) and
 
 ### 7. Define the processor batch handler for the `processor.run()` call
 
-Squid SDK embraces the [batch-based programming model](/firesquid/basics/batch-processing). Within a running processor, the `.run()` method repeatedly applies a user-supplied batch handler function to the batches of data retrieved from an Archive. The method takes two arguments: a [store adaptor](/basics/store) for connecting to the database of choice and an `async` batch handler function. The only argument of the batch handler is a [context object](/basics/processor-context) that contains the batch data, some useful metadata and a store adapter reference. Its interface slightly varies depending on the processor flavor:
+Squid SDK embraces the [batch-based programming model](/firesquid/basics/batch-processing). Within a running processor, the `.run()` method repeatedly applies a user-supplied batch handler function to the batches of data retrieved from an Archive. The method takes two arguments: a [store adaptor](/firesquid/basics/store) for connecting to the database of choice and an `async` batch handler function. The only argument of the batch handler is a [context object](/basics/processor-context) that contains the batch data, some useful metadata and a store adapter reference. Its interface slightly varies depending on the processor flavor:
 
 - For `EvmBatchProcessor`, see [`BatchContext` for EVM](/firesquid/evm-indexing/context-interfaces)
 - For `SubstrateBatchProcessor`, see the [`BatchContext` for Substrate](/firesquid/substrate-indexing/context-interfaces)
@@ -164,4 +164,4 @@ Follow the [Deploy Squid](/firesquid/deploy-squid) section.
 ## What's next?
 
 - Learn from the [Squids examples](/firesquid/examples)
-- Get familiar with the typegen tools for [EVM](/firesquid/evm-indexing/squid-evm-typegen) or [Substrate](/substrate-indexing/squid-substrate-typegen)
+- Get familiar with the typegen tools for [EVM](/firesquid/evm-indexing/squid-evm-typegen) or [Substrate](/firesquid/substrate-indexing/squid-substrate-typegen)

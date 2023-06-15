@@ -15,7 +15,7 @@ This section applies to squids indexing EVM chains. Subsquid supports all major 
 
 ## Overview and the data model
 
-A squid processor is a Node.js process that fetches historical on-chain data from an [Archive](/firesquid/archives), performs arbitrary transformations and saves the result. By convention, the processor entry point is `src/processor.ts`. `EvmBatchProcessor` is the central class that handles EVM data extraction, transformation and persistence. A single [batch handler](/basics/batch-processing) function supplied to `EvmBatchProcessor.run()` is responsible for transforming data from multiple events and transactions in a single in-memory batch.
+A squid processor is a Node.js process that fetches historical on-chain data from an [Archive](/firesquid/archives), performs arbitrary transformations and saves the result. By convention, the processor entry point is `src/processor.ts`. `EvmBatchProcessor` is the central class that handles EVM data extraction, transformation and persistence. A single [batch handler](/firesquid/basics/batch-processing) function supplied to `EvmBatchProcessor.run()` is responsible for transforming data from multiple events and transactions in a single in-memory batch.
 
 A batch can be thought of a simplified execution trace of the EVM runtime. It consists of `evmLog` and `transaction` items. The list of items that get into the batch is determined by the filters defined by the `EvmBatchProcessor` [configuration](/firesquid/evm-indexing/configuration). Configuration is set by calling the `addLog()` and `addTransaction()` methods. The items in the batch are canonically ordered. Any event log item placed in a batch will always be immediately followed by an item for the transaction that emitted the event.
 

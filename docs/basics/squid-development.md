@@ -58,8 +58,9 @@ Consult [database migrations](/basics/db-migrations) for more details.
 A squid processor is a node.js process that fetches historical on-chain data, performs arbitrary transformations and saves the result into the target database schema defined above. By convention, the processor entry point is `src/main.ts` and the main processor object is defined at `src/processor.ts`.
 
 - [`EvmBatchProcessor`](/evm-indexing) (imported from `@subsquid/evm-processor`) is used for EVM chains
-- [`SubstrateBatchProcessor`](/substrate-indexing) (imported from `@subsquid/substrate-processor`) is used for Substrate-based chains
+- [`SubstrateBatchProcessor`](/firesquid/substrate-indexing) (imported from `@subsquid/substrate-processor`) is used for Substrate-based chains
 
+[//]: # (!!!! Remove the /firesquid reference above once ArrowSquid for Substrate is released)
 
 ### 5. Initialize a suitable processor instance 
 
@@ -141,7 +142,9 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 For an end-to-end walkthrough, see
 
 - [`EvmBatchProcessor` in action](/evm-indexing/batch-processor-in-action)
-- [`SubstrateBatchProcessor` in action](/substrate-indexing/batch-processor-in-action)
+- [`SubstrateBatchProcessor` in action](/firesquid/substrate-indexing/batch-processor-in-action)
+
+[//]: # (!!!! Remove the /firesquid reference above once ArrowSquid for Substrate is released)
 
 ### 8. Run the squid services
 

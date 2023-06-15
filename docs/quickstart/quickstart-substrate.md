@@ -80,18 +80,20 @@ query MyQuery {
 
 ## Step 6: Customize
 
-[Hack](/basics/schema-file) the schema file `schema.graphql` and the [processor](/substrate-indexing) `src/processor.ts` to index the data your way. Choose any supported network using the `lookupArchive()` method of [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) or [run one locally](/archives/).
+[Hack](/basics/schema-file) the schema file `schema.graphql` and the [processor](/firesquid/substrate-indexing) `src/processor.ts` to index the data your way. Choose any supported network using the `lookupArchive()` method of [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) or [run one locally](/archives/).
+
+[//]: # (!!!! Remove the /firesquid reference above once ArrowSquid for Substrate is released)
 
 ## What's next?
 
 - Explore more [examples](/examples/#substrate-processor) of squids for substrate chains
 - Define the [data schema](/basics/schema-file) and customize the API
 - Explore how to use [typegen](/firesquid/substrate-indexing/squid-substrate-typegen) for type-safe on-chain data access
-- Explore how to efficiently transform the on-chain [data in batches](/substrate-indexing)
-- Explore native support for [Frontier EVM](/substrate-indexing/evm-support) on Astar and Shiden
-- Explore native support for [ink! contracts](/substrate-indexing/wasm-support)
-- Explore native support for [Gear contracts](/substrate-indexing/gear-support)
-- Explore native support for [Acala EVM+ contracts](/substrate-indexing/acala-evm-support)
+- Explore how to efficiently transform the on-chain [data in batches](/firesquid/substrate-indexing)
+- Explore native support for [Frontier EVM](/firesquid/substrate-indexing/evm-support) on Astar and Shiden
+- Explore native support for [ink! contracts](/firesquid/substrate-indexing/wasm-support)
+- Explore native support for [Gear contracts](/firesquid/substrate-indexing/gear-support)
+- Explore native support for [Acala EVM+ contracts](/firesquid/substrate-indexing/acala-evm-support)
 - [Deploy](/deploy-squid) the squid to the Aquarium hosted service
 
-[//]: # (!!!! Update the link above once ArrowSquid for Substrate is released)
+[//]: # (!!!! Update the links above once ArrowSquid for Substrate is released)

@@ -27,7 +27,7 @@ type Token @entity {
     tokenId: Int!
 }
 ```
-Next, add [entity relations](/basics/schema-file/entity-relation). Let us begin with adding a simple relation linking tokens to their owners:
+Next, add [entity relations](/basics/schema-file/entity-relations). Let us begin with adding a simple relation linking tokens to their owners:
 ```diff
  type Token @entity {
      id: ID! # string form of tokenId

@@ -43,4 +43,4 @@ The `db` argument defines the target data source for the processor, and `batchHa
 
 The `Context` and `Store` interfaces are explained in the next sections.
 
-To jump straight to examples, see [EVM Processor in action](/firesquid/evm-indexing/batch-processor-in-action) and [Substrate Processor in action](/substrate-indexing/batch-processor-in-action).
+To jump straight to examples, see [EVM Processor in action](/firesquid/evm-indexing/batch-processor-in-action) and [Substrate Processor in action](/firesquid/substrate-indexing/batch-processor-in-action).
