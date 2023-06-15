@@ -18,11 +18,11 @@ This section applies to squids indexing EVM chains. See the [supported networks]
 
 A squid processor is a Node.js process that fetches historical on-chain data from an [Archive](/archives) and/or a chain node RPC endpoint, performs arbitrary transformations and saves the result. `EvmBatchProcessor` is the central class that handles EVM data extraction, transformation and persistence. By convention, the processor entry point is `src/main.ts`; it is started by calling `EvmBatchProcessor.run()` there. A single [batch handler](/basics/batch-processing) function supplied to that method is responsible for transforming data from multiple blocks in a single in-memory batch.
 
-[//]: # (???? Update with the final processor capabilities)
-
 A batch provides iterables to access all items requested in [processor configuration](../configuration), which may include logs, transactions, traces and contract [state diffs](../configuration/state-diffs/); see the [batch context page](../context-interfaces/) for details. Further, the processor can extract additional data by querying the [historical chain state](../query-state) and indeed any [external API](https://github.com/subsquid/squid-external-api-example).
 
-Starting with the [ArrowSquid](/dead) release, the processor can ingest data either from an [Archive](/archives) or directly from an RPC endpoint. If both an Archive and an RPC endpoint are provided, the processor will use the Archive until it reaches the highest block available there, then index the few remaining blocks using the RPC endpoint. This allows squids to combine low sync times with near real-time chain data access. It is, however, possible to use either just the Archive (e.g. for analytics) or just the RPC endpoint (e.g. for [local development](/tutorials/ethereum-local-development)).
+Starting with the ArrowSquid release, the processor can ingest data either from an [Archive](/archives) or directly from an RPC endpoint. If both an Archive and an RPC endpoint are provided, the processor will use the Archive until it reaches the highest block available there, then index the few remaining blocks using the RPC endpoint. This allows squids to combine low sync times with near real-time chain data access. It is, however, possible to use either just the Archive (e.g. for analytics) or just the RPC endpoint (e.g. for [local development](/tutorials/ethereum-local-development)).
+
+[//]: # (!!!! Add a reference to a page explaining the ArrowSquid release above)
 
 Results of the ETL process can be stored in any [Postgres-compatible database](/basics/store/typeorm-store/) or in [filesystem-based datasets](/basics/store/file-store/) in CSV and [Parquet](https://parquet.apache.org) formats.
 
