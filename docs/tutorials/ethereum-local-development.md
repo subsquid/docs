@@ -8,8 +8,6 @@ sidebar_position: 30
 
 # Run squids with Ganache or Hardhat
 
-**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
-
 ## Objective
 
 Here we show how it is possible to index an Ethereum development node running locally. This is useful for those who want to start developing a squid ETL or API in a local environment without waiting for the contract to be deployed to a testnet.

@@ -6,10 +6,6 @@ description: Step-by-step guide to the ArrowSquid update
 
 # Migrate to ArrowSquid
 
-[//]: # (!!!! remove /arrowsquid from links)
-
-**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
-
 This is a EVM guide. Substrate guide will be released later.
 
 [//]: # (!!!! add the substrate guide link)
@@ -27,7 +23,7 @@ Another major feature introduced by ArrowSquid is the support for transaction ex
 - Observe smart contract state changes even if they are caused by internal transactions
 - Track smart contract creation and destruction
 
-The `EvmBatchProcessor` configuration and data selection interfaces has been simplified and the way in which the data is fetched from archives has been made more efficient. See [release notes](/dead) for a full list of changes.
+The `EvmBatchProcessor` configuration and data selection interfaces has been simplified and the way in which the data is fetched from archives has been made more efficient.
 
 End-to-end ArrowSquid examples can be found [in the SDK repo](https://github.com/subsquid/squid-sdk/tree/master/test/eth-usdc-transfers) and in the [EVM examples](/examples/evm) section.
 

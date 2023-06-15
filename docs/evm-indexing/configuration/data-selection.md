@@ -6,8 +6,6 @@ description: >-
 
 # Data selection
 
-**Disclaimer: This page has been (re)written for ArrowSquid, but it is still work in progress. It may contain broken links and memos left by the documentation developers.**
-
 **`setFields(options)`**: Set the fields to be retrieved for data items of each supported type. The `options` object has the following structure:
 ```ts
 {
