@@ -33,7 +33,7 @@ const urlList = [
     },
     {
         "from": "/develop-a-squid/typegen/squid-substrate-typegen",
-        "to": "/substrate-indexing/squid-substrate-typegen"
+        "to": "/firesquid/substrate-indexing/squid-substrate-typegen"
     },
     {
         "from": "/develop-a-squid/typegen/squid-evm-typegen",
@@ -53,7 +53,7 @@ const urlList = [
     },
     {
         "from": "/substrate-indexing/data-handlers",
-        "to": "/substrate-indexing/context-interfaces"
+        "to": "/firesquid/substrate-indexing/context-interfaces"
     },
     {
         "from": "/substrate-indexing/store-interface",
@@ -61,7 +61,7 @@ const urlList = [
     },
     {
         "from": "/substrate-indexing/data-subscriptions",
-        "to": "/substrate-indexing/configuration"
+        "to": "/firesquid/substrate-indexing/configuration"
     },
     {
         "from": "/archives/archive-registry",
@@ -86,6 +86,18 @@ const urlList = [
     {
         "from": "/run-squid/run-in-production",
         "to": "/deploy-squid/self-hosting"
+    },
+    {
+        "from": "/substrate-indexing/squid-substrate-typegen",
+        "to": "/firesquid/substrate-indexing/squid-substrate-typegen"
+    },
+    {
+        "from": "/substrate-indexing/context-interfaces",
+        "to": "/firesquid/substrate-indexing/context-interfaces"
+    },
+    {
+        "from": "/substrate-indexing/configuration",
+        "to": "/firesquid/substrate-indexing/configuration"
     }
 ]
 
