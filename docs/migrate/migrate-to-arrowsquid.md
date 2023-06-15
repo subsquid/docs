@@ -10,7 +10,7 @@ This is a EVM guide. Substrate guide will be released later.
 
 [//]: # (!!!! add the substrate guide link)
 
-ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`. Both packages are currently are in beta and are published with the `@next` tag. Once fully stabilized, the packages will be released to general availability with the `@latest` tag. ArrowSquid is not compatible with the FireSquid archive endpoints, and the new `v2` archives are currently released only for a limited set of networks (see the [Supported EVM networks](/evm-indexing/supported-networks/) page).
+ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`. ArrowSquid is not compatible with the FireSquid archive endpoints, and the new `v2` archives are currently released only for a limited set of networks (see the [Supported EVM networks](/evm-indexing/supported-networks/) page).
 
 [//]: # (!!!! add a link to the archives page below)
 
