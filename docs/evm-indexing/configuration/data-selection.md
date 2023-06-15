@@ -17,8 +17,6 @@ description: >-
 }
 ```
 
-[//]: # (!!!! remove /arrowsquid from links)
-
 Every field selector is a collection of boolean fields, typically (with a notable exception of [trace field selectors](#traces)) mapping one-to-one to the [fields of data items within the batch context](/evm-indexing/context-interfaces/#data-item-types). Defining a field of a field selector of a given type and setting it to true will cause the processor to populate the corresponding field of all data items of that type. Here is a definition of a processor that requests `gas` and `value` fields for [transactions](/evm-indexing/context-interfaces/#transaction):
 ```ts
 let processor = new EvmBatchProcessor()

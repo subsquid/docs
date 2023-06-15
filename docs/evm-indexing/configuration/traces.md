@@ -10,8 +10,6 @@ description: >-
 Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
 :::
 
-[//]: # (!!!! Remove the /arrowsquid prefixes once the release becomes stable)
-
 **`addTrace(options)`**: Subscribe to [call execution traces](https://docs.alchemy.com/reference/debug-tracecall). This allows for tracking internal calls. The `options` object has the following structure:
 ```typescript
 {

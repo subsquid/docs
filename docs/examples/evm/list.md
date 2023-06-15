@@ -20,4 +20,3 @@ Browse a dedicated repository with [EVM squid examples](https://github.com/subsq
 and a few others.
 
 [//]: # (!!!! Benchmark squids were cut out. Add them back in if and when they are migrated)
-[//]: # (!!!! Remove the /arrowsquid prefix througout)

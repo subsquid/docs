@@ -12,8 +12,6 @@ Processor data subscription methods guarantee that all data mathing their filter
 
 [//]: # (???? Consider replacing the coinsbench link with something else. The article is good, but I'm not sure it's a good idea to use it here.)
 
-[//]: # (!!!! Remove the /arrowsquid prefixes once the release becomes stable)
-
 **`addStateDiff(options)`**: Subscribe to changes in the [contract storage](https://coinsbench.com/solidity-layout-and-access-of-storage-variables-simply-explained-1ce964d7c738). This allows for tracking the contract state changes that are difficult to infer from events or transactions, such as the changes that take into account the output of internal calls. The `options` object has the following structure:
 ```typescript
 {
