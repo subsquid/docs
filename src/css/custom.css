@@ -676,3 +676,7 @@ code, kbd, samp, pre {
     font-size: inherit;
     vertical-align: baseline;
 }
+
+.hidden {
+    display: none !important;
+}
