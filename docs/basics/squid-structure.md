@@ -16,7 +16,7 @@ A squid is expected to follow the folder structure conventions listed below.
    + `/src/model/generated` -- The folder for the TypeORM entities generated from `schema.graphql`.
    + `/src/model` -- The module exporting the entity classes.
    + `/src/server-extension/resolvers` -- An (optional) folder for [user-defined GraphQL resolvers](/graphql-api/custom-resolvers).
-   + `/src/types` -- An (optional) output folder for typescript definitions of the Substrate data generated with [`squid-substrate-typegen`](/substrate-indexing/squid-substrate-typegen).
+   + `/src/types` -- An (optional) output folder for typescript definitions of the Substrate data generated with [`squid-substrate-typegen`](/firesquid/substrate-indexing/squid-substrate-typegen).
    + `/src/abi` -- An (optional) output folder for the [EVM typegen](/evm-indexing/squid-evm-typegen) and [WASM typegen](https://github.com/subsquid/squid-sdk/tree/master/substrate/ink-typegen) tools that generate type definitions and the decoding boilerplate.
 - `/assets` -- (optional) A designated folder for custom user-provided files (e.g. static data files to seed the squid processor with).
 - `/abi` -- (optional) A designated folder for JSON ABI files used as input by the [EVM typegen](/evm-indexing/squid-evm-typegen) when it's called via `sqd typegen`.
@@ -32,3 +32,5 @@ A squid is expected to follow the folder structure conventions listed below.
 The templates also define the following auxiliary scripts (optional):
 - `build` to build the squid.
 - `update` to update the squid packages to the latest version.
+
+[//]: # (!!!! Update the /firesquid link above once ArrowSquid for Substrate is released)

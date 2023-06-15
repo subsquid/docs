@@ -89,12 +89,14 @@ export const processor = new EvmBatchProcessor()
   })
 ```
 
-See [EvmBatchProcessor configuration](/evm-indexing/configuration) and [SubstrateBatchProcessor configuration](/substrate-indexing/configuration) for details.
+See [EvmBatchProcessor configuration](/evm-indexing/configuration) and [SubstrateBatchProcessor configuration](/firesquid/substrate-indexing/configuration) for details.
+
+[//]: # (!!!! Update the link above once ArrowSquid for Substrate is released)
 
 ### 6. Generate Typescript facade classes to decode the obtained on-chain data
 
 - For EVM data, use [`evm-typegen`](/evm-indexing/squid-evm-typegen)
-- For Substrate data, use [`substrate-typegen`](/substrate-indexing/squid-substrate-typegen)
+- For Substrate data, use [`substrate-typegen`](/firesquid/substrate-indexing/squid-substrate-typegen)
 - For ink! smart contract data, use [`ink-typegen`](https://github.com/subsquid/squid-sdk/tree/master/substrate/ink-typegen)
 
 ### 7. Define the processor batch handler for the `processor.run()` call
@@ -102,7 +104,9 @@ See [EvmBatchProcessor configuration](/evm-indexing/configuration) and [Substrat
 Squid SDK embraces the [batch-based programming model](/basics/batch-processing). Within a running processor, the `.run()` method repeatedly applies a user-supplied batch handler function to the batches of data retrieved from an Archive. The method takes two arguments: a [store adaptor](/basics/store) for connecting to the database of choice and an `async` batch handler function. The only argument of the batch handler is a [context object](/basics/processor-context) that contains the batch data, some useful metadata and a store adapter reference. Its interface slightly varies depending on the processor flavor:
 
 - For `EvmBatchProcessor`, see [`DataHandlerContext` for EVM](/evm-indexing/context-interfaces)
-- For `SubstrateBatchProcessor`, see the [`BatchContext` for Substrate](/substrate-indexing/context-interfaces)
+- For `SubstrateBatchProcessor`, see the [`BatchContext` for Substrate](/firesquid/substrate-indexing/context-interfaces)
+
+[//]: # (!!!! Update the link above once ArrowSquid for Substrate is released)
 
 **Example:**
 ```ts title=src/main.ts
@@ -159,4 +163,6 @@ Follow the [Deploy Squid](/deploy-squid) section.
 ## What's next?
 
 - Learn from the [Squids examples](/examples)
-- Get familiar with the typegen tools for [EVM](/evm-indexing/squid-evm-typegen) or [Substrate](/substrate-indexing/squid-substrate-typegen)
+- Get familiar with the typegen tools for [EVM](/evm-indexing/squid-evm-typegen) or [Substrate](/firesquid/substrate-indexing/squid-substrate-typegen)
+
+[//]: # (!!!! Update the /firesquid links above once ArrowSquid for Substrate is released)
