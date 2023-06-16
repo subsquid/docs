@@ -7,11 +7,9 @@ sidebar_position: 20
 
 # Step 2: Deriving owners and tokens
 
-This is the second part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers, and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database, and serves it over a GraphQL API. In the [first part](/tutorials/bayc/step-one-indexing-transfers) we created a simple squid that scraped Transfer events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d). Here, we go a step further and derive separate entities for the NFTs and their owners from the transfers. The new entities will reference the corresponding `Transfer` entities. It will be automatically translated into primary key-foreign key references in the new database schema, and enable efficient cross-entity GraphQL queries. 
+This is the second part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers, and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores all the data in a database, and serves it over a GraphQL API. In the [first part](../step-one-indexing-transfers) we created a simple squid that scraped Transfer events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d). Here, we go a step further and derive separate entities for the NFTs and their owners from the transfers. The new entities will reference the corresponding `Transfer` entities. It will be automatically translated into primary key-foreign key references in the new database schema, and enable efficient cross-entity GraphQL queries. 
 
-Prerequisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the first part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/d99cd9b3f6921c7f591e5817d54025a388925a08) (link out of date)).
-
-[//]: # (!!!! Update the link to the part one code)
+Prerequisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the first part ([this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/aeb6268168385cc605ce04fe09d0159f708efe47)).
 
 ## Writing `schema.graphql`
 
@@ -24,14 +22,14 @@ type Owner @entity {
 
 type Token @entity {
     id: ID! # string form of tokenId
-    tokenId: Int!
+    tokenId: BigInt!
 }
 ```
 Next, add [entity relations](/basics/schema-file/entity-relations). Let us begin with adding a simple relation linking tokens to their owners:
 ```diff
  type Token @entity {
      id: ID! # string form of tokenId
-     tokenId: Int!
+     tokenId: BigInt!
 +    owner: Owner!
  }
 ```
@@ -55,7 +53,7 @@ Introduce more entity relations by replacing the `from`, `to` and `tokenId` fiel
 ```diff
  type Transfer @entity {
      id: ID!
--    tokenId: Int! @index
+-    tokenId: BigInt! @index
 -    from: String! @index
 -    to: String! @index
 +    token: Token!
@@ -77,22 +75,20 @@ Lastly, include the virtual (i.e., not mapped to a column in the database schema
 
  type Token @entity {
      id: ID! # string form of tokenId
-     tokenId: Int!
+     tokenId: BigInt!
 +    transfers: [Transfer!]! @derivedFrom(field: "token")
  }
 ```
 
 This addition doesn't create any new database columns, but it makes the `ownedTokens` and `transfers` fields accessible through GraphQL and Typeorm.
 
-[//]: # (!!!! Update the link below upon the release)
-
-You can find the final version of schema.graphql [here](https://github.com/abernatskiy/tmp-bayc-squid-2/blob/f5928da72ef3a70ef9c0d3d9a215536e2eec0ebc/schema.graphql). Once you're finished, regenerate the Typeorm entity code with the following command:
+You can find the final version of schema.graphql [here](https://github.com/subsquid-labs/bayc-squid-1/blob/6a148b1345f6c26acc2678e10b60aadcd4bbbcee/schema.graphql). Once you're finished, regenerate the Typeorm entity code with the following command:
 
 ```bash
 sqd codegen
 ```
 
-We also need to regenerate the database migrations to match the new schema. However, we'll postpone this step for now, as it requires recompiling the squid code, which is not possible until we fix the creation of all entities.
+We also need to regenerate the database migrations to match the new schema. However, we'll postpone this step for now: it requires recompiling the squid code and it is not possible until we fix the entity creation code.
 
 ## Creating the entities
 
@@ -108,6 +104,8 @@ Further, at each step we will [process the data for the whole batch](/basics/bat
 With all that in mind, let's create a batch processor that generates and persists all of our entities:
 
 ```typescript title=src/main.ts
+import {Owner, Token} from './model'
+
 processor.run(new TypeormDatabase(), async (ctx) => {
     let rawTransfers: RawTransfer[] = getRawTransfers(ctx)
 
@@ -124,7 +122,7 @@ where
 ```typescript
 interface RawTransfer {
     id: string
-    tokenId: number
+    tokenId: bigint
     from: string
     to: string
     timestamp: Date
@@ -134,6 +132,8 @@ interface RawTransfer {
 ```
 is an interface very similar to that of the `Transfer` entity as it was at the beginning of this part of the tutorial. This allows us to reuse most of the code of the old batch handler in `getRawTransfers()`:
 ```typescript title=src/main.ts
+import {Context} from './processor'
+
 function getRawTransfers(ctx: Context): RawTransfer[] {
     let transfers: RawTransfer[] = []
 
@@ -143,7 +143,7 @@ function getRawTransfers(ctx: Context): RawTransfer[] {
                 let {from, to, tokenId} = bayc.events.Transfer.decode(log)
                 transfers.push({
                     id: log.id,
-                    tokenId: tokenId.toNumber(),
+                    tokenId,
                     from,
                     to,
                     timestamp: new Date(block.header.timestamp),
@@ -157,17 +157,6 @@ function getRawTransfers(ctx: Context): RawTransfer[] {
     return transfers
 }
 ```
-In this case, we used the Context type for the `ctx` variable. Let's define it:
-
-```typescript title=src/processor.ts
-import { TypeormDatabase, Store } from '@subsquid/typeorm-store'
-import { EvmBatchProcessor, DataHandlerContext } from '@subsquid/evm-processor'
-
-// ...
-
-type Context = DataHandlerContext<Store, typeof fieldSelection>
-```
-
 The next step involves creating `Owner` entity instances. We will need these to create both `Tokens` and `Transfers`. In both scenarios, we'll have the IDs of the owners (i.e., their addresses) prepared. To simplify future lookups, we choose to return the `Owner` instances as a `Map<string, Owner>`:
 
 ```typescript title=src/main.ts
@@ -234,9 +223,7 @@ sqd down
 sqd up
 sqd migration:generate
 ```
-[//]: # (!!!! Update the link)
-
-Full code can be found at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/6f41cba76b9d90d12638a17d64093dbeb19d00ec) (out of date).
+Full code can be found at [this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/3568f70b7ac1802fbbf80079e435a3348b0d3a62).
 
 To test it, start the processor and the GraphQL server by running `sqd process` and `sqd serve` in separate terminals. Then, visit the [GraphiQL playground](http://localhost:4350/graphql):
 
