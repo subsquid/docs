@@ -4,7 +4,13 @@ sidebar_position: 110
 
 # Troubleshooting
 
-Common gotchas developing in deploying squids. 
+Common gotchas occuring while developing and deploying squids.
+
+### `Secrets outdated. Please restart the squid` notification in Aquarium
+
+This occurs when you have a squid deployed, then create, remove or change some [environment variables](/squid-cli/secrets) of [relevance](/deploy-squid/organizations). Squids must be restarted manually for such changes to have effect. Navigate to the squid version page (e.g. by clicking on the warning sign) and click restart. The restart will not touch the database, so unless your new secret values cause the squid to crash this procedure should be quick and easy.
+
+![Secrets outdated](</img/secrets-outdated.png>)
 
 ### `Error: data out-of-bounds` `ethers` errors on EVM
 

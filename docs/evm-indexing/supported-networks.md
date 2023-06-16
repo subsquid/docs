@@ -11,11 +11,11 @@ title: Supported networks
 
 The table below lists the currently available public EVM ArrowSquid/v2 Archive endpoints to be used with the [`setDataSource()`](/evm-indexing/configuration/initialization) `EvmBatchProcessor` configuration method. For v1/FireSquid Archives consult [this page](/evm-indexing/supported-networks).
 
-| Network                 |  Endpoint lookup command  |        Archive endpoint                            |
-|:-----------------------:|:-------------------------:|:--------------------------------------------------:|
-| Ethereum Mainnet        | n/a                       | `https://v2.archive.subsquid.io/network/ethereum-mainnet` |
-| Binance Chain           | n/a                       | `https://v2.archive.subsquid.io/network/binance-mainnet`  |
-| Moonbeam EVM    (*)     | n/a                       | `https://v2.archive.subsquid.io/network/moonbeam-mainnet` |
+| Network                 |  Endpoint lookup command                     |        Archive endpoint                                   |
+|:-----------------------:|:--------------------------------------------:|:---------------------------------------------------------:|
+| Ethereum Mainnet        | `lookupArchive('eth-mainnet')`               | `https://v2.archive.subsquid.io/network/ethereum-mainnet` |
+| Binance Chain           | `lookupArchive('binance')`                   | `https://v2.archive.subsquid.io/network/binance-mainnet`  |
+| Moonbeam EVM    (*)     | `lookupArchive('moonbeam',` `{type: 'EVM'})` | `https://v2.archive.subsquid.io/network/moonbeam-mainnet` |
  
 (*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate archive](/archives/substrate)
 
