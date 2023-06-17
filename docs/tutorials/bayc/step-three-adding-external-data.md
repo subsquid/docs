@@ -264,4 +264,4 @@ It runs much slower than before, requiring about three hours to get through the 
 
 Nevertheless, the squid is already fully capable of scraping token metadata and serving it over GraphQL. Verify that by running `sqd serve` and visiting the [local GraphiQL playground](http://localhost:4350/graphql). It is now possible to retrieve image URLs and attributes for each token:
 
-![BAYC GraphiQL at step three](</img/bayc-playground-step-three.png>)
+![BAYC GraphiQL at step three](./bayc-playground-step-three.png)
