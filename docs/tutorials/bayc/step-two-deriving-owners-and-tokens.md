@@ -227,7 +227,7 @@ Full code can be found at [this commit](https://github.com/subsquid-labs/bayc-sq
 
 To test it, start the processor and the GraphQL server by running `sqd process` and `sqd serve` in separate terminals. Then, visit the [GraphiQL playground](http://localhost:4350/graphql):
 
-![BAYC GraphiQL at step two](</img/bayc-playground-step-two.png>)
+![BAYC GraphiQL at step two](./bayc-playground-step-two.png)
 
 The new entities should be displayed in the query schema.
 
