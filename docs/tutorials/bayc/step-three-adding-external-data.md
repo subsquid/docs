@@ -7,11 +7,10 @@ sidebar_position: 30
 
 # Step 3: Adding external data
 
-This is the third part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database and serves it over a GraphQL API. In the first two parts of the tutorial ([1](/tutorials/bayc/step-one-indexing-transfers), [2](/tutorials/bayc/step-two-deriving-owners-and-tokens)) we created a squid that scraped `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d) and derived some information on tokens and their owners from that data. In this part we enrich token data with information obtained from contract state calls, IPFS and regular HTTP URLs.
+This is the third part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores all the data in a database and serves it over a GraphQL API. In the first two parts of the tutorial ([1](../step-one-indexing-transfers), [2](../step-two-deriving-owners-and-tokens)) we created a squid that scraped `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d) and derived some information on tokens and their owners from that data. In this part we enrich token data with information obtained from contract state calls, IPFS and regular HTTP URLs.
 
-Prerequisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the second part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/6f41cba76b9d90d12638a17d64093dbeb19d00ec) (link out of date)).
+Prerequisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the second part ([this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/3568f70b7ac1802fbbf80079e435a3348b0d3a62)).
 
-[//]: # (!!!! Update the link to the part one code)
 [//]: # (???? Find all benchmarks marked with "figure out of date"/"figures out of date" and update them)
 
 ## Exploring token metadata
@@ -20,23 +19,21 @@ Now that we have a record for each BAYC NFT, let's explore how we can retrieve m
 
 [EIP-721](https://eips.ethereum.org/EIPS/eip-721) suggests that token metadata contracts may make token data available in a JSON referred to by the output of the `tokenURI()` contract function. Upon examining `src/abi/bayc.ts`, we find that the BAYC token contract implements this function. Also, the public ABI has no obvious contract methods that may set token URI or events that may be emitted on its change. In other words, it appears that the only way to retrieve this data is by [querying the contract state](/evm-indexing/query-state/).
 
-This requires a RPC endpoint of an archive Ethereum node. We already [added one](/tutorials/bayc/step-one-indexing-transfers/#configuring-the-data-filters) to the processor configuration in the first part of the tutorial so we will not have to do it here.
+This requires a RPC endpoint of an archive Ethereum node, but we do not need to add one here: processor will reuse the endpoint we [supplied in part one](../step-one-indexing-transfers/#configuring-the-data-filters) of the tutorial for use in [RPC ingestion](/evm-indexing/evm-processor/#rpc-ingestion).
 
-The next step is to prepare for retrieving and parsing the metadata proper. For this, we need to understand the protocols used in the URIs and the structure of the metadata JSONs. To learn that, we need to retrieve and inspect some URIs ahead of the main squid sync. The most straightforward way to achieve this is by adding the following to the batch handler:
-```diff
-+import { BigNumber } from 'ethers'
-+
+The next step is to prepare for retrieving and parsing the metadata proper. For this, we need to understand the protocols used in the URIs and the structure of metadata JSONs. To learn that, we retrieve and inspect some URIs ahead of the main squid sync. The most straightforward way to achieve this is by adding the following to the batch handler:
+```diff title=src/main.ts
 processor.run(new TypeormDatabase(), async (ctx) => {
      let tokens: Map<string, Token> = createTokens(rawTransfers, owners)
      let transfers: Transfer[] = createTransfers(rawTransfers, owners, tokens)
-
++
 +    let lastBatchBlockHeader = ctx.blocks[ctx.blocks.length-1].header
 +    let contract = new bayc.Contract(ctx, lastBatchBlockHeader, CONTRACT_ADDRESS)
 +    for (let t of tokens.values()) {
-+        const uri = await contract.tokenURI(BigNumber.from(t.tokenId))
++        const uri = await contract.tokenURI(t.tokenId)
 +        ctx.log.info(`Token ${t.id} has metadata at "${uri}"`)
 +    }
-+
+
      await ctx.store.upsert([...owners.values()])
      await ctx.store.upsert([...tokens.values()])
      await ctx.store.insert(transfers)
@@ -89,11 +86,11 @@ Once finished, roll back the exploratory code:
 processor.run(new TypeormDatabase(), async (ctx) => {
      let tokens: Map<string, Token> = createTokens(rawTransfers, owners)
      let transfers: Transfer[] = createTransfers(rawTransfers, owners, tokens)
-
+-
 -    let lastBatchBlockHeader = ctx.blocks[ctx.blocks.length-1].header
 -    let contract = new bayc.Contract(ctx, lastBatchBlockHeader, CONTRACT_ADDRESS)
 -    for (let t of tokens.values()) {
--        const uri = await contract.tokenURI(BigNumber.from(t.tokenId))
+-        const uri = await contract.tokenURI(t.tokenId)
 -        ctx.log.info(`Token ${t.id} has metadata at "${uri}"`)
 -    }
 ```
@@ -149,7 +146,7 @@ async function createTokens(
 
 interface PartialToken {
     id: string
-    tokenId: number
+    tokenId: bigint
     owner: Owner
 }
 ```
@@ -179,7 +176,7 @@ async function completeTokens(
     let contract = new bayc.Contract(ctx, lastBatchBlockHeader, CONTRACT_ADDRESS)
 
     for (let [id, ptoken] of partialTokens) {
-        let uri = await contract.tokenURI(BigNumber.from(ptoken.tokenId))
+        let uri = await contract.tokenURI(ptoken.tokenId)
         ctx.log.info(`Retrieved metadata URI ${uri}`)
         let metadata: TokenMetadata | undefined = await fetchTokenMetadata(ctx, uri)
         tokens.set(id, new Token({
@@ -245,17 +242,13 @@ const client = axios.create({
     },
 })
 ```
-We move all the code related to metadata retrieval to a separate module `src/metadata.ts`. Examine its full contents [here](https://github.com/abernatskiy/tmp-bayc-squid-2/blob/d98676253419e845e2e6c131a8ec9f7bcabe775f/src/metadata.ts) (link out of date).
+We move all the code related to metadata retrieval to a separate module `src/metadata.ts`. Examine its full contents [here](https://github.com/subsquid-labs/bayc-squid-1/blob/5dbdb1997fb7259f737f5119c96ace3428d1ec54/src/metadata.ts).
 
-[//]: # (!!!! Update URL)
-
-Then all that is left is to import the relevant parts in `src/processor.ts`:
-```diff title=src/processor.ts
-+import { TokenMetadata, fetchTokenMetadata } from './metadata'
+Then all that is left is to import the relevant parts in `src/main.ts`:
+```diff title=src/main.ts
++import {TokenMetadata, fetchTokenMetadata} from './metadata'
 ```
-and we are done with the processor code for this part of the tutorial. Full squid code at this point is available at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/d98676253419e845e2e6c131a8ec9f7bcabe775f).
-
-[//]: # (!!!! Update URL)
+and we are done with the processor code for this part of the tutorial. Full squid code at this point is available at [this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/5dbdb1997fb7259f737f5119c96ace3428d1ec54).
 
 Recreate the database and refresh the migrations with
 ```bash
