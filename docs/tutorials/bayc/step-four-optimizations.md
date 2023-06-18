@@ -7,11 +7,10 @@ sidebar_position: 40
 
 # Step 4: Optimization
 
-This is the fourth part of the tutorial where we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers, and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores it in a database, and serves it over a GraphQL API. In the first three parts ([1](/tutorials/bayc/step-one-indexing-transfers), [2](/tutorials/bayc/step-two-deriving-owners-and-tokens), [3](/tutorials/bayc/step-three-adding-external-data)), we created a squid that does all the above but performs many IO operations sequentially, resulting in a long sync time. In this part, we discuss strategies for mitigating that shortcoming. We also discuss an alternative metadata fetching strategy that reduces redundant fetches and handles the changes in metadata of "cold" (i.e., not involved in any transfers) tokens more effectively.
+This is the fourth part of the tutorial where we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers, and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores all the data in a database, and serves it over a GraphQL API. In the first three parts ([1](../step-one-indexing-transfers), [2](../step-two-deriving-owners-and-tokens), [3](../step-three-adding-external-data)), we created a squid that does all the above but performs many IO operations sequentially, resulting in a long sync time. In this part, we discuss strategies for mitigating that shortcoming. We also discuss an alternative metadata fetching strategy that reduces redundant fetches and handles the changes in metadata of "cold" (i.e., not involved in any transfers) tokens more effectively.
 
-Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the third part ([this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/20206c337d443e3cb96133f527cc9fac2a8f1d2a) (link out of date)).
+Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the third part ([this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/5dbdb1997fb7259f737f5119c96ace3428d1ec54)).
 
-[//]: # (!!!! Update URL)
 [//]: # (???? Find all benchmarks marked with "figure out of date"/"figures out of date" and update them)
 
 ## Using Multicall for aggregating state queries
@@ -22,7 +21,7 @@ npx squid-evm-typegen --multicall src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936
 ```
 This adds a Typescript ABI interface at `src/abi/multicall.ts`. Let us use it in a rewrite of `completeTokens()`:
 ```typescript title=src/main.ts
-import { Multicall } from './abi/multicall'
+import {Multicall} from './abi/multicall'
 
 const MULTICALL_ADDRESS = '0x5ba1e12693dc8f9c48aad8770482f4739beed696'
 const MULTICALL_BATCH_SIZE = 100
@@ -45,7 +44,7 @@ async function completeTokens(
     let tokenURIs = await contract.aggregate(
         bayc.functions.tokenURI,
         CONTRACT_ADDRESS,
-        partialTokens.map(t => [BigNumber.from(t.tokenId)]),
+        partialTokens.map(t => [t.tokenId]),
         MULTICALL_BATCH_SIZE // paginating to avoid RPC timeouts
     )
 
@@ -203,8 +202,7 @@ npx squid-evm-typegen --multicall src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936
 ```
 then add the code for batch URI retrieval to the batch handler:
 ```diff title=src/main.ts
-+import { BigNumber } from 'ethers'
-+import { Multicall } from './abi/multicall'
++import {Multicall} from './abi/multicall'
 
 +const MULTICALL_ADDRESS = '0x5ba1e12693dc8f9c48aad8770482f4739beed696'
 +const MUTLTICALL_BATCH_SIZE = 100
@@ -218,7 +216,7 @@ then add the code for batch URI retrieval to the batch handler:
 +    let tokenURIs = await contract.aggregate(
 +        bayc.functions.tokenURI,
 +        CONTRACT_ADDRESS,
-+        [...tokens.values()].map(t => [BigNumber.from(t.tokenId)]),
++        [...tokens.values()].map(t => [t.tokenId]),
 +        MUTLTICALL_BATCH_SIZE
 +    )
 +    for (let uri of tokenURIs) {
