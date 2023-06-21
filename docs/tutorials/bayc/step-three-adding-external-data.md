@@ -242,13 +242,13 @@ const client = axios.create({
     },
 })
 ```
-We move all the code related to metadata retrieval to a separate module `src/metadata.ts`. Examine its full contents [here](https://github.com/subsquid-labs/bayc-squid-1/blob/5dbdb1997fb7259f737f5119c96ace3428d1ec54/src/metadata.ts).
+We move all the code related to metadata retrieval to a separate module `src/metadata.ts`. Examine its full contents [here](https://github.com/subsquid-labs/bayc-squid-1/blob/ab5f094ae34e8822dfb912f6e6116df2cfa800b5/src/metadata.ts).
 
 Then all that is left is to import the relevant parts in `src/main.ts`:
 ```diff title=src/main.ts
 +import {TokenMetadata, fetchTokenMetadata} from './metadata'
 ```
-and we are done with the processor code for this part of the tutorial. Full squid code at this point is available at [this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/5dbdb1997fb7259f737f5119c96ace3428d1ec54).
+and we are done with the processor code for this part of the tutorial. Full squid code at this point is available at [this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/ab5f094ae34e8822dfb912f6e6116df2cfa800b5).
 
 Recreate the database and refresh the migrations with
 ```bash
