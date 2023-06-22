@@ -92,6 +92,10 @@ const urlList = [
         "to": "/firesquid/substrate-indexing/squid-substrate-typegen"
     },
     {
+        "from": "/substrate-indexing/storage-state-calls",
+        "to": "/firesquid/substrate-indexing/storage-state-calls"
+    },
+    {
         "from": "/substrate-indexing/context-interfaces",
         "to": "/firesquid/substrate-indexing/context-interfaces"
     },
