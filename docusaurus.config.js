@@ -110,7 +110,7 @@ const config = {
       indexName: 'subsquid',
 
       // Optional: see doc section below
-      contextualSearch: false,
+      contextualSearch: true,
 
       // Optional: Algolia search parameters
       searchParameters: {},
