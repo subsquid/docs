@@ -10,30 +10,29 @@ description: >-
 Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
 :::
 
-**`addLog(options)`**: Subscribe to events/EVM log data. The `options` object has the following structure:
+**`addLog(options)`**: Get event logs emitted by some _or all_ contracts in the network. `options` has the following structure:
 ```typescript
 {
   // filters
   address?: string[]
   topic0?: string[]
+  topic1?: string[]
+  topic2?: string[]
+  topic3?: string[]
   range?: {from: number, to?: number}
 
   // related data retrieval
   transaction?: boolean
 }
 ```
-The filters here are:
-+ `address`: the set of addresses of contracts emitting the logs. Omit it or set to `undefined` to subscribe to events from any address.
-+ `topic0`: the set of values of `topic0`. Omit it or set to `undefined` to subscribe to any event.
-+ `range`: the range of blocks where the logs should be looked for.
+Filters:
++ `address`: the set of addresses of contracts emitting the logs. Omit to subscribe to events from all contracts in the network.
++ `topicN`: the set of values of topicN.
++ `range`: the range of blocks to consider.
 
-[//]: # (!!!! Update when the filter set stabilizes)
-
-Enabling the `transaction` flag will cause the processor to retrieve all parent transactions and add them to the `transactions` iterable within the [block data](/evm-indexing/context-interfaces/#blockdata).
+With `transaction = true` the processor will retrieve all parent transactions and add them to the `transactions` iterable within the [block data](/evm-indexing/context-interfaces/#blockdata). Additionally it will expose them via the `.transaction` field of each log item.
 
 Note that logs can also be requested by the [`addTransaction()`](../transactions) method as related data.
-
-[//]: # (???? Check whether the final version adds the logs to the items, too)
 
 Selection of the exact data to be retrieved for each log and its optional parent transaction is done with the `setFields()` method documented on the [Data selection](../data-selection) page. Some examples are available below.
 
@@ -41,12 +40,10 @@ Selection of the exact data to be retrieved for each log and its optional parent
 
 Fetch `NewGravatar(uint256,address,string,string)` and `UpdateGravatar(uint256,address,string,string)` event logs emitted by `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC`. For each log, fetch topic set, log data. Fetch parent transactions with their inputs.
 
-[//]: # (!!!! change the archive URL back once archive-registry has arrowsquid archives)
-
 ```ts
 const processor = new EvmBatchProcessor()
   .setDataSource({
-    archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
+    archive: lookupArchive('eth-mainnet'),
     chain: 'https://eth-rpc.gateway.pokt.network'
   })
   .setFinalityConfirmation(75)
