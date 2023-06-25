@@ -16,7 +16,7 @@ If contract address(-es) supplied to `EvmBatchProcessor` are stored in any wide-
 
 The following setters configure the global settings of `EvmBatchProcessor`. They return the modified instance and can be chained.
 
-**`setDataSource({archive: string, chain?: string | undefined})` (required)**: Sets the blockchain data source. The argument must have one or both of the following properties:
+**`setDataSource({archive?: string | undefined, chain?: string | undefined})` (required)**: Sets the blockchain data source. An archive, a RPC endpoint or both can be specified.
 
 + `archive`: An archive endpoint providing the data for the selected network. See [supported networks](/evm-indexing/supported-networks) for a list of endpoints for public EVM Archives and a usage example. The endpoints are also published to the [Archive registry](/archives/overview/#archive-registry) and exposed with the `lookupArchive` function of `@subsquid/archive-regitry` package.
 
