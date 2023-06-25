@@ -10,7 +10,9 @@ description: >-
 Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
 :::
 
-**`addLog(options)`**: Get event logs emitted by some _or all_ contracts in the network. `options` has the following structure:
+#### `addLog(options)` {#add-log}
+
+Get event logs emitted by some _or all_ contracts in the network. `options` has the following structure:
 ```typescript
 {
   // filters

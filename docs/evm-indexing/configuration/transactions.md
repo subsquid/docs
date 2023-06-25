@@ -10,7 +10,9 @@ description: >-
 Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
 :::
 
-**`addTransaction(options)`**: Get some _or all_ transactions on the network. `options` has the following structure:
+#### `addTransaction(options)` {#add-transaction}
+
+Get some _or all_ transactions on the network. `options` has the following structure:
 ```typescript
 {
   // filters

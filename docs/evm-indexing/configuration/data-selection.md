@@ -6,7 +6,9 @@ description: >-
 
 # Data selection
 
-**`setFields(options)`**: Set the fields to be retrieved for data items of each supported type. The `options` object has the following structure:
+#### `setFields(options)` {#set-fields}
+
+Set the fields to be retrieved for data items of each supported type. The `options` object has the following structure:
 ```ts
 {
   log?:         // field selector for logs
