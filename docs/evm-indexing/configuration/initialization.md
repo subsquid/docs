@@ -1,10 +1,11 @@
 ---
 sidebar_position: 10
+title: General settings
 description: >-
-  Set the source Archive and the block range
+  Data sourcing and metrics
 ---
 
-# Initialization
+# General settings
 
 :::info
 The method documentation is also available inline and can be accessed via suggestions in most IDEs.
@@ -55,6 +56,10 @@ Explicitly disables data ingestion from an RPC endpoint. Use this if you are mak
 
 Sets the RPC poll interval in milliseconds. Default: 1000.
 
+#### `includeAllBlocks(range?: Range | undefined)` {#include-all-blocks}
+
+By default, processor will fetch only blocks which contain requested items. This method modifies such behavior to fetch all chain blocks. Optionally a `Range` (`{from: number, to?: number | undefined}`) of blocks can be specified for which the setting should be effective.
+
 ## RPC ingestion of traces and state diffs
 
 Archives use the [debug API](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-debug) to get [traces](../traces) and the [trace API](https://openethereum.github.io/JSONRPC-trace-module) to extract [state diffs](../state-diffs). The default behavior of the processor during RPC ingestion is the same, but it can be overridden.
@@ -69,12 +74,8 @@ Use the debug API to get state diffs. **WARNING:** this will significantly incre
 
 Use the trace API to retrieve traces. Useful when requesting traces without state diffs: under these condition the processor will use the `trace_block()` method when ingesting trace data, and it is a very cheap call on many node providers.
 
-## Less common settings
+## Miscellaneous
 
 #### `setPrometheusPort(port: string | number)` {#set-prometheus-port}
 
 Sets the port for a built-in prometheus metrics server. By default, the value of PROMETHEUS_PORT environment variable is used. When it is not set, processor will pick an ephemeral port.
-
-#### `includeAllBlocks(range?: Range | undefined)` {#include-all-blocks}
-
-By default, processor will fetch only blocks which contain requested items. This method modifies such behavior to fetch all chain blocks. Optionally a `Range` (`{from: number, to?: number | undefined}`) of blocks can be specified for which the setting should be effective.

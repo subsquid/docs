@@ -1,12 +1,12 @@
 {
     "position": 35,
-    "label": "Configuration",
+    "label": "Setup",
     "collapsible": true,
     "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
       "slug": "/evm-indexing/configuration",
-      "title": "Configure EvmBatchProcessor: block range, filters, data selectors"
+      "title": "Set up a EvmBatchProcessor: block range, filters, data selectors"
     }
 }

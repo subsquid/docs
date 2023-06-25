@@ -1,7 +1,7 @@
 ---
 sidebar_position: 60
 description: >-
-  Fine-tuning the data request with setFields()
+  Fine-tuning data requests with setFields()
 ---
 
 # Data selection

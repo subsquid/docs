@@ -1,7 +1,7 @@
 ---
 sidebar_position: 50
 description: >-
-  Retrieve execution traces
+  Retrieve execution traces with addTrace()
 ---
 
 # Traces
