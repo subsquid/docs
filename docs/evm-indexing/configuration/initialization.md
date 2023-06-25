@@ -16,40 +16,28 @@ If contract address(-es) supplied to `EvmBatchProcessor` are stored in any wide-
 
 The following setters configure the global settings of `EvmBatchProcessor`. They return the modified instance and can be chained.
 
-#### `setDataSource({archive?: string | undefined, chain?: string | undefined})` {#set-data-source}
+#### `setDataSource(ds: ArchiveDataSource | ChainDataSource | MixedDataSource)` {#set-data-source}
 
-**(Required)** Sets the blockchain data source. An archive, a RPC endpoint or both must be specified.
+**(Required)** Sets the blockchain data source. Squids can source data in three ways:
 
-+ `archive`: An archive endpoint providing the data for the selected network. See [supported networks](/evm-indexing/supported-networks) for a list of endpoints for public EVM Archives and a usage example. The endpoints are also published to the [Archive registry](/archives/overview/#archive-registry) and exposed with the `lookupArchive` function of `@subsquid/archive-regitry` package.
+1. When the data source is an `ArchiveDataSource = {archive: string}`, the processor will obtain data _only_ from an [archive](/archives). This allows retrieving vast amounts of data rapidly and eliminates the need for a node RPC endpoint, but introduces a network latency typically in thousands of blocks. Public EVM archive endpoints are listed on the [supported networks](/evm-indexing/supported-networks) page and published to the [`@subsquid/archive-registry`](/archives/overview/#archive-registry) package, which exposes them with the `lookupArchive()` function.
 
-  If omitted, the processor will do all the data ingestion over the RPC endpoint.
+  A processor with an `ArchiveDataSource` cannot use [contract state queries](/evm-indexing/query-state). If you want to operate your squid in this regime but require state queries, use a `MixedDataSource` with the [`useArchiveOnly()`](#use-archive-only) setter.
 
-+ `chain?`: A JSON-RPC endpoint for the network of interest. May be specified as an URL string or as an object (see below). HTTPS and WSS endpoints are supported. Required in most cases, or more precisely when
-  * the squid has to follow the chain with latency below about half a day, or
-  * the processor has to make [contract state queries](/evm-indexing/query-state).
+2. When the data source is a `ChainDataSource = {chain: ChainRpc}`, the processor will obtain data _only_ from a node RPC endpoint. This mode of operation is slow, but requires no archive and has almost [no chain latency](/basics/unfinalized-blocks). It can be used with EVM networks not listed on the [supported networks](/evm-indexing/supported-networks) page and with [local development nodes](/tutorials/ethereum-local-development).
 
-  Specifying `chain` as an object allows for fine-tuning the connection. The object is typed as follows:
+  The node RPC endpoint can be specified as a string URL or as an object:
   ```ts
-  {
-    url: string
-
-    // max number of concurrent connections, default 10
-    capacity?: number
-
-    // default 100
-    maxBatchCallSize?: number
-
-    // requests per second, default is no limit
-    rateLimit?: number
-
-    // in milliseconds, default 30_000
-    requestTimeout?: number
+  type ChainRpc = string | {
+    url: string // http, https, ws and wss are supported
+    capacity?: number // num of concurrent connections, default 10
+    maxBatchCallSize?: number // default 100
+    rateLimit?: number // requests per second, default is no limit
+    requestTimeout?: number // in milliseconds, default 30_000
   }
   ```
 
-  If `chain` is not set, the processor will stop syncing once it reaches the highest block available at the Archive. If you need this behavior but also need an RPC for use in [state queries](/evm-indexing/query-state), use the `useArchiveOnly()` setter described below.
-
-[//]: # (???? update the latency figure once the dust settles)
+3. **(Recommended)** When the data source is a `MixedDataSource = {archive: string, chain: ChainRpc}`, the processor will obtain as much data as is currently available from an archive, then switch to ingesting from the RPC endpoint. This combines the good syncing performance of the archive-only approach with the low network latency of the RPC-powered approach.
 
 #### `setFinalityConfirmation(nBlocks: number)` {#set-finality-confirmation}
 
