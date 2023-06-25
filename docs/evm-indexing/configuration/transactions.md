@@ -10,7 +10,7 @@ description: >-
 Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
 :::
 
-**`addTransaction(options)`**: Subscribe to transactions data. The `options` object has the following structure:
+**`addTransaction(options)`**: Get some _or all_ transactions on the network. `options` has the following structure:
 ```typescript
 {
   // filters
@@ -25,18 +25,14 @@ Processor data subscription methods guarantee that all data mathing their filter
   traces?: boolean
 }
 ```
-[//]: # (!!!! re-check the interface upon the release)
-
-The filters here are
-+ `from` and `to`: the sets of addresses of tx senders and receivers. Omit it or set to `undefined` to subscribe to transactions from/to any address.
-+ `sighash`: [first four bytes](https://ethereum.org/en/developers/docs/transactions/#the-data-field) of the Keccak hash (SHA3) of the canonical representation of the function signature. Omit it or set to `undefined` to subscribe to any transaction.
-+ `range`: the range of blocks where the transactions should be looked for.
+Filters:
++ `from` and `to`: the sets of addresses of tx senders and receivers. Omit to subscribe to transactions from/to any address.
++ `sighash`: [first four bytes](https://ethereum.org/en/developers/docs/transactions/#the-data-field) of the Keccak hash (SHA3) of the canonical representation of the function signature. Omit to subscribe to any transaction.
++ `range`: the range of blocks to consider.
 
 Enabling the `stateDiffs`, `traces` and/or `logs` flags will cause the processor to retrieve [state diffs](/evm-indexing/configuration/state-diffs/), [traces](/evm-indexing/configuration/traces/) and/or event logs that occured as a result of each selected transaction. The data will be added to the appropriate iterables within the [block data](/evm-indexing/context-interfaces/#blockdata).
 
 Note that transactions can also be requested by [`addLog()`](../evm-logs), [`addStateDiff()`](../state-diffs) and [`addTrace()`](../traces) as related data.
-
-[//]: # (!!!! check in the final version whether it also adds the data to the items)
 
 Selection of the exact data to be retrieved for each transaction and the optional related data items is done with the `setFields()` method documented on the [Data selection](../data-selection) page. Some examples are available below.
 
@@ -86,17 +82,14 @@ processor
   })
 ```
 
-4) Mine all transactions to and from Vitalik Buterin's address [`vitalik.eth`](https://etherscan.io/address/vitalik.eth). Fetch the involved addresses, ETH value and hash for each transaction. Get traces with the [default fields](../../context-interfaces/#trace) for outgoing transactions.
-
-[//]: # (!!!! replace the archive URL once archive-registry carries Arrowsquid archives)
-[//]: # (???? which traces are these - "execution" or "debug"?)
+4) Mine all transactions to and from Vitalik Buterin's address [`vitalik.eth`](https://etherscan.io/address/vitalik.eth). Fetch the involved addresses, ETH value and hash for each transaction. Get execution traces with the [default fields](../../context-interfaces/#trace) for outgoing transactions.
 
 ```ts
 const VITALIK_ETH = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'.toLowerCase()
 
 const processor = new EvmBatchProcessor()
   .setDataSource({
-    archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
+    archive: lookupArchive('eth-mainnet'),
     chain: 'https://eth-rpc.gateway.pokt.network'
   })
   .setFinalityConfirmation(75)
