@@ -29,8 +29,8 @@ Subscribe to changes in the [contract storage](https://coinsbench.com/solidity-l
 ```
 The filters here are:
 + `address`: the set of addresses of contracts to track. Leave undefined or set to `[]` to subscribe to state changes of all contracts from the whole network.
-+ `key`: the set of storage keys that should be tracked. Regular hexadecimal contract storage keys and [special keys](/evm-indexing/context-interfaces/#statediff) (`'balance'`, `'code'`, `'nonce'`) are allowed. Leave undefined or set to `[]` to subscribe to all state changes.
-+ `kind`: the set of diff kinds that should be tracked. Refer to the [`StateDiff` section](/evm-indexing/context-interfaces/#statediff) of data items documentation for an explanation of the meaning of the permitted values.
++ `key`: the set of storage keys that should be tracked. Regular hexadecimal contract storage keys and [special keys](/evm-indexing/configuration/data-selection/#state-diffs) (`'balance'`, `'code'`, `'nonce'`) are allowed. Leave undefined or set to `[]` to subscribe to all state changes.
++ `kind`: the set of diff kinds that should be tracked. Refer to the [`StateDiff` section](/evm-indexing/configuration/data-selection/#state-diffs) of data items documentation for an explanation of the meaning of the permitted values.
 + `range`: the range of blocks within which the storage changes should be tracked.
 
 Enabling the `transaction` flag will cause the processor to retrieve the transaction that gave rise to each state change and add it to the [`transactions` iterable of block data](/evm-indexing/context-interfaces/#blockdata).

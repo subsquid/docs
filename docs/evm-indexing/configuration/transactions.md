@@ -84,7 +84,7 @@ processor
   })
 ```
 
-4) Mine all transactions to and from Vitalik Buterin's address [`vitalik.eth`](https://etherscan.io/address/vitalik.eth). Fetch the involved addresses, ETH value and hash for each transaction. Get execution traces with the [default fields](../../context-interfaces/#trace) for outgoing transactions.
+4) Mine all transactions to and from Vitalik Buterin's address [`vitalik.eth`](https://etherscan.io/address/vitalik.eth). Fetch the involved addresses, ETH value and hash for each transaction. Get execution traces with the [default fields](../data-selection/#transactions) for outgoing transactions.
 
 ```ts
 const VITALIK_ETH = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'.toLowerCase()
