@@ -10,7 +10,9 @@ Each deployed squid version exposes Prometheus metrics for external monitoring w
 
 ## Processor metrics
 
-The processor metrics are available at `https://squid.subsquid.io/${name}/v/v${version}/processor/metrics`. It is also exposed for the [production alias](/deploy-squid/promote-to-production) at `https://squid.subsquid.io/${name}/processor/metrics`.
+The processor metrics are available at `https://squid.subsquid.io/${name}/v/v${version}/processors/${processor}/metrics`. It is also exposed for the [production alias](/deploy-squid/promote-to-production) at `https://squid.subsquid.io/${name}/processors/${processor}/metrics`.
+
+ ${processor}` here is the processor name; it defaults to `processor` unless specified.
 
 The metrics are documented inline and include: 
 - `sqd_processor_last_block`. The last processed block.
