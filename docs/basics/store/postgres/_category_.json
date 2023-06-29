@@ -1,0 +1,12 @@
+{
+    "position": 15,
+    "label": "Saving to database",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/basics/store/postgres",
+      "title": "Tools for saving squid data to PostgreSQL-compatible databases"
+    }
+}
