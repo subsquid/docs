@@ -7,6 +7,6 @@
     "link": {
       "type": "generated-index",
       "slug": "/basics/store",
-      "title": "Persisting data"
+      "title": "Supported data sinks for squid processors"
     }
 }
