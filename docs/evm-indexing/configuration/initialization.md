@@ -12,7 +12,7 @@ The method documentation is also available inline and can be accessed via sugges
 :::
 
 :::info
-If contract address(-es) supplied to `EvmBatchProcessor` are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/evm-indexing/context-interfaces) for data filtration, and all contract addresses in batch context data are **always** in flat lower case.
+If contract address(-es) supplied to `EvmBatchProcessor` are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/basics/squid-processor/#processorrun) for data filtration, and all contract addresses in batch context data are **always** in flat lower case.
 :::
 
 The following setters configure the global settings of `EvmBatchProcessor`. They return the modified instance and can be chained.

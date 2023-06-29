@@ -7,7 +7,7 @@ description: >-
 # EVM logs
 
 :::warning
-Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
+Processor data subscription methods guarantee that all data matching their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces). As such, it is important to always filter the data within the batch handler.
 :::
 
 #### `addLog(options)` {#add-log}
@@ -32,7 +32,7 @@ Filters:
 + `topicN`: the set of values of topicN.
 + `range`: the range of blocks to consider.
 
-With `transaction = true` the processor will retrieve all parent transactions and add them to the `transactions` iterable within the [block data](/evm-indexing/context-interfaces/#blockdata). Additionally it will expose them via the `.transaction` field of each log item.
+With `transaction = true` the processor will retrieve all parent transactions and add them to the `transactions` iterable within the [block data](/evm-indexing/context-interfaces). Additionally it will expose them via the `.transaction` field of each log item.
 
 Note that logs can also be requested by the [`addTransaction()`](../transactions) method as related data.
 
