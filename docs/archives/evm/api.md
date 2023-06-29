@@ -35,11 +35,11 @@ This page describes the API of Subsquid EVM Archives.
 - **fromBlock**: Block number to start from (inclusive).
 - **toBlock**: (optional) Block number to end on (inclusive). If this is not given, the query will go on for a fixed amount of time or until it reaches the height of the archive.
 - **includeAllBlocks**: (optional) If true, the archive will include blocks that contain no data selected by data requests into its response.
-- **fields**: (optional) A selector of data fields to retrieve.
-- **logs**: (optional) A list of log requests.
-- **transactions**: (optional) A list of transaction requests.
-- **traces**: (optional) A list of traces requests
-- **stateDiffs**: (optional) A list of state diffs requests.
+- **fields**: (optional) A [selector](#data-fields-selector) of data fields to retrieve. Common for all data items.
+- **logs**: (optional) A list of [log requests](#logs).
+- **transactions**: (optional) A list of [transaction requests](#transactions).
+- **traces**: (optional) A list of [traces requests](#traces).
+- **stateDiffs**: (optional) A list of [state diffs requests](#state-diffs).
 
 <details>
 
