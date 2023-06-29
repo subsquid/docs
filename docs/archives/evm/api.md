@@ -33,11 +33,13 @@ This page describes the API of Subsquid EVM Archives.
 ##### Query Fields
 
 - **fromBlock**: Block number to start from (inclusive).
-- **toBlock**: Block number to end on (inclusive) (optional). If this is not given, the query will go on for a fixed amount of time or until it reaches the height of the archive.
-- **logs.address**: Array of addresses to query for. A log will be included in the response if the log's address matches any of the addresses given in the query. (null or empty array means any address).
-- **log.topics**: Array of arrays of topics. Outer array has an element for each topic an EVM log can have. Each inner array represents possible matching values for a topic. For example topics[2] is an array of possible values that should match the log's third topic or the log won't be included in the response. Empty arrays match everything.
-- **transactions.from** and **transactions.to**: Array of addresses that should match the transaction's `to` field or the transaction's `from`. If none of these match, the transaction won't be included in the response. If both are null or empty array, any address will pass.
-- **transactions.sighash**: Array of values that should match first four bytes of the transaction input. null or empty array means any value will pass.
+- **toBlock**: (optional) Block number to end on (inclusive). If this is not given, the query will go on for a fixed amount of time or until it reaches the height of the archive.
+- **includeAllBlocks**: (optional) If true, the archive will include blocks that contain no data selected by data requests into its response.
+- **fields**: (optional) A selector of data fields to retrieve.
+- **logs**: (optional) A list of log requests.
+- **transactions**: (optional) A list of transaction requests.
+- **traces**: (optional) A list of traces requests
+- **stateDiffs**: (optional) A list of state diffs requests.
 
 <details>
 
@@ -48,142 +50,28 @@ This page describes the API of Subsquid EVM Archives.
 
 ```json
 {
-  "fromBlock": 14495889,
-  "toBlock": 14495889,
   "logs": [
     {
       "address": [
-        "0x3883f5e181fccaF8410FA61e12b59BAd963fb645"
+        "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
       ],
-      "topics": [
-        [
-          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
-        ]
+      "topic0": [
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
       ],
-      "fieldSelection": {
-        "block": {
-          "parentHash": true,
-          "sha3Uncles": true,
-          "miner": true,
-          "stateRoot": true,
-          "transactionsRoot": true,
-          "receiptsRoot": true,
-          "logsBloom": true,
-          "difficulty": true,
-          "number": true,
-          "gasLimit": true,
-          "gasUsed": true,
-          "timestamp": true,
-          "extraData": true,
-          "mixHash": true,
-          "nonce": true,
-          "totalDifficulty": true,
-          "baseFeePerGas": true,
-          "size": true,
-          "hash": true
-        },
-        "transaction": {
-          "type": true,
-          "nonce": true,
-          "to": true,
-          "gas": true,
-          "value": true,
-          "input": true,
-          "maxPriorityFeePerGas": true,
-          "maxFeePerGas": true,
-          "yParity": true,
-          "chainId": true,
-          "v": true,
-          "r": true,
-          "s": true,
-          "from": true,
-          "blockHash": true,
-          "blockNumber": true,
-          "index": true,
-          "gasPrice": true,
-          "hash": true,
-          "status": true
-        },
-        "log": {
-          "address": true,
-          "blockHash": true,
-          "blockNumber": true,
-          "data": true,
-          "index": true,
-          "removed": true,
-          "topics": true,
-          "transactionHash": true,
-          "transactionIndex": true
-        }
-      }
+      "transaction": true
     }
   ],
-  "transactions": [
-    {
-      "address": [
-        "0x3883f5e181fccaf8410fa61e12b59bad963fb645"
-      ],
-      "sighash": [
-        "0xa9059cbb"
-      ],
-      "fieldSelection": {
-        "block": {
-          "parentHash": true,
-          "sha3Uncles": true,
-          "miner": true,
-          "stateRoot": true,
-          "transactionsRoot": true,
-          "receiptsRoot": true,
-          "logsBloom": true,
-          "difficulty": true,
-          "number": true,
-          "gasLimit": true,
-          "gasUsed": true,
-          "timestamp": true,
-          "extraData": true,
-          "mixHash": true,
-          "nonce": true,
-          "totalDifficulty": true,
-          "baseFeePerGas": true,
-          "size": true,
-          "hash": true
-        },
-        "transaction": {
-          "type": true,
-          "nonce": true,
-          "to": true,
-          "gas": true,
-          "value": true,
-          "input": true,
-          "maxPriorityFeePerGas": true,
-          "maxFeePerGas": true,
-          "yParity": true,
-          "chainId": true,
-          "v": true,
-          "r": true,
-          "s": true,
-          "from": true,
-          "blockHash": true,
-          "blockNumber": true,
-          "index": true,
-          "gasPrice": true,
-          "hash": true,
-          "status": true
-        },
-        "log": {
-          "address": true,
-          "blockHash": true,
-          "blockNumber": true,
-          "data": true,
-          "index": true,
-          "removed": true,
-          "topics": true,
-          "transactionHash": true,
-          "transactionIndex": true
-        }
-      }
+  "fields": {
+    "block": {
+      "gasUsed": true
+    },
+    "log": {
+      "topics": true,
+      "data": true
     }
-  ]
+  },
+  "fromBlock": 16000000,
+  "toBlock": 16000000
 }
 ```
 
@@ -197,78 +85,192 @@ This page describes the API of Subsquid EVM Archives.
 </summary>
 
 ```json
-{
-  "data": [
-    [
+[
+  {
+    "header": {
+      "number": 16000000,
+      "hash": "0x3dc4ef568ae2635db1419c5fec55c4a9322c05302ae527cd40bff380c1d465dd",
+      "parentHash": "0x6f377dc6bd1f3e38b9ceb8c946a88c13211fa3f084622df3ee5cfcd98cc6bb16",
+      "gasUsed": "0x121cdff"
+    },
+    "transactions": [
       {
-        "block": {
-          "parentHash": "0x455864413159d92478ad496a627533ce6fdd83d6ed47528b8790b96135325d64",
-          "sha3Uncles": "0x9098605a7fc9c4c70622f6458f168b9acb302e6f84d02235670b49e263a3bd13",
-          "miner": "0xea674fdde714fd979de3edf0f56aa9716b898ec8",
-          "stateRoot": "0xfb8b174c4e118d95ff5097014ed1d60c8b49094b541b1e9e4e16198963ddbdf6",
-          "transactionsRoot": "0xb8eebad6f727be7afa3d6812ff2c05adb1e3053ac15bfb6acdd0265c8ffd2cce",
-          "receiptsRoot": "0x4fa02eab7297cfbadd39d3e47cdf52f85159f4b9719621c2ec6a9b608638a482",
-          "logsBloom": "0xb43fd1cee1dfdf4b7cbef44ced7f9ebe70c8e7ddfe764cb84ba96beb352ff49d751f196fd0b87fcf3d3e5a2241f56f714a1280c30be3ed27ef7f9f7bf0b7aa7d94de4fe8ea476fea6f7364ed917bd3e3af3f7a1ec3d4f910fee067a6cabffb7f7eaadbe70e5e8a6ec4ecf6f8959b7adbec62fdbc8513855c66ea15fbacca1b64517c8f94e766be97b4fefdd8a5952ef45ae56ffbc9cad78948b32ddf6ed4b83333fdee65b97d6897fe9fe8f9ed583c4c4a90e2cbe9d5bb9f2375932c77bddd77bf08ffa3df263f777de5228103bff47b8d6df97fa79fce9b0c7a3fea0f43e73f143c388f5d732b9cb9e5fe889bd04ff31b4b84e1ffe407d222ffce85f8567aeb",
-          "difficulty": "0x2e878564548bfa",
-          "number": 14495889,
-          "gasLimit": "0x01ca35ef",
-          "gasUsed": "0x01c9e9fe",
-          "timestamp": "0x6246042d",
-          "extraData": "0x617369612d65617374322d3134",
-          "mixHash": "0xbfcdb3683cbefbfe178e0334acf34005cd20dc06440f311cd9270236b6dea952",
-          "nonce": "17265704492997010732",
-          "totalDifficulty": "0x0991caa08ff39c6e95a4",
-          "baseFeePerGas": "0x0c97b03dcf",
-          "size": "0x023860",
-          "hash": "0x344fc5e67555bfb42f759be7ee372fad30bcbebf780cbfb901f546683ed22517"
-        },
-        "transactions": [
-          {
-            "type": 2,
-            "nonce": "6",
-            "to": "0x3883f5e181fccaf8410fa61e12b59bad963fb645",
-            "gas": "0xd3bb",
-            "value": "0x00",
-            "input": "0xa9059cbb000000000000000000000000254d3f04543145f3a991b61675ca0bb353f669c90000000000000000000000000000000000000000000000008ac7230489e80000",
-            "maxPriorityFeePerGas": "0x4a817c80",
-            "maxFeePerGas": "0x0cff79e223",
-            "chainId": 1,
-            "v": "0",
-            "r": "0xbd768420f1c173f6942d201b83bc7aedef90d4b9947598a2e931525560b722ed",
-            "s": "0x78387f73fd4b6cd006eaf8deeda0857234e29740c06e01221460c7118daef348",
-            "from": "0x5bf2f6612dfc3d0d1e0c6799534228b41369d39e",
-            "blockHash": "0x344fc5e67555bfb42f759be7ee372fad30bcbebf780cbfb901f546683ed22517",
-            "blockNumber": 14495889,
-            "index": 299,
-            "gasPrice": "0x0ce231ba4f",
-            "hash": "0x8f45965dd61dc189b94306b0f13cc3338374f687d527c64c1f19c994b39ae3b2"
-          }
+        "transactionIndex": 0
+      },
+      {
+        "transactionIndex": 124
+      },
+      {
+        "transactionIndex": 131
+      },
+      {
+        "transactionIndex": 140
+      },
+      {
+        "transactionIndex": 188
+      },
+      {
+        "transactionIndex": 205
+      }
+    ],
+    "logs": [
+      {
+        "logIndex": 0,
+        "transactionIndex": 0,
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000ffec0067f5a79cff07527f63d83dd5462ccf8ba4",
+          "0x000000000000000000000000e47872c80e3af63bd237b82c065e441fa75c4dea"
         ],
-        "logs": [
-          {
-            "address": "0x3883f5e181fccaf8410fa61e12b59bad963fb645",
-            "blockHash": "0x344fc5e67555bfb42f759be7ee372fad30bcbebf780cbfb901f546683ed22517",
-            "blockNumber": 14495889,
-            "data": "0x0000000000000000000000000000000000000000000000008ac7230489e80000",
-            "index": 379,
-            "removed": false,
-            "topics": [
-              "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-              "0x0000000000000000000000005bf2f6612dfc3d0d1e0c6799534228b41369d39e",
-              "0x000000000000000000000000254d3f04543145f3a991b61675ca0bb353f669c9"
-            ],
-            "transactionHash": "0x8f45965dd61dc189b94306b0f13cc3338374f687d527c64c1f19c994b39ae3b2",
-            "transactionIndex": 299
-          }
-        ]
+        "data": "0x0000000000000000000000000000000000000000000000000000000007270e00"
+      },
+      {
+        "logIndex": 30,
+        "transactionIndex": 124,
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000f42ed7184f3bdd07b0456952f67695683afd9044",
+          "0x0000000000000000000000009bbcfc016adcc21d8f86b30cda5e9f100ff9f108"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000032430d8b"
+      },
+      {
+        "logIndex": 34,
+        "transactionIndex": 131,
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x0000000000000000000000001d76271fb3d5a61184ba00052caa636e666d11ec",
+          "0x00000000000000000000000074de5d4fcbf63e00296fd95d33236b9794016631"
+        ],
+        "data": "0x000000000000000000000000000000000000000000000000000000000fa56ea0"
+      },
+      {
+        "logIndex": 35,
+        "transactionIndex": 131,
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x00000000000000000000000074de5d4fcbf63e00296fd95d33236b9794016631",
+          "0x000000000000000000000000af0b0000f0210d0f421f0009c72406703b50506b"
+        ],
+        "data": "0x000000000000000000000000000000000000000000000000000000000fa56ea0"
+      },
+      {
+        "logIndex": 58,
+        "transactionIndex": 140,
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x00000000000000000000000048c04ed5691981c42154c6167398f95e8f38a7ff",
+          "0x000000000000000000000000f41d156a9bbc1fa6172a50002060cbc757035385"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000026273075"
+      },
+      {
+        "logIndex": 230,
+        "transactionIndex": 188,
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000ba12222222228d8ba445958a75a0704d566bf2c8",
+          "0x00000000000000000000000053222470cdcfb8081c0e3a50fd106f0d69e63f20"
+        ],
+        "data": "0x00000000000000000000000000000000000000000000000000000002536916b7"
+      },
+      {
+        "logIndex": 232,
+        "transactionIndex": 188,
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x00000000000000000000000053222470cdcfb8081c0e3a50fd106f0d69e63f20",
+          "0x00000000000000000000000088e6a0c2ddd26feeb64f039a2c41296fcb3f5640"
+        ],
+        "data": "0x00000000000000000000000000000000000000000000000000000002536916b7"
+      },
+      {
+        "logIndex": 372,
+        "transactionIndex": 205,
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x0000000000000000000000001116898dda4015ed8ddefb84b6e8bc24528af2d8",
+          "0x0000000000000000000000002796317b0ff8538f253012862c06787adfb8ceb6"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000018307e19"
+      },
+      {
+        "logIndex": 374,
+        "transactionIndex": 205,
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x0000000000000000000000002796317b0ff8538f253012862c06787adfb8ceb6",
+          "0x000000000000000000000000735b75559ebb9cd7fed7cec2372b16c3871d2031"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000018307e19"
       }
     ]
-  ],
-  "archiveHeight": 16577057,
-  "nextBlock": 14495890,
-  "totalTime": 220
-}
+  }
+]
 ```
 </details>
 
 </details>
+
+## Data requests
+
+### Logs
+
+```ts
+{
+  address: string[],
+  topic0: string[],
+  topic1: string[],
+  topic2: string[],
+  topic3: string[],
+  transaction: boolean
+}
+```
+A log will be included in the response if it matches all the requests. An empty or `null` request matches any log. See [EVM logs](/evm-indexing/configuration/evm-logs) for a detailed description of data request fields.
+
+### Transactions
+
+```ts
+{
+  from: string[],
+  to: string[],
+  sighash: string[],
+  logs: boolean,
+  traces: boolean,
+  stateDiffs: boolean
+}
+```
+A transaction will be included in the response if it matches all the requests. An empty or `null` request matches any transaction. See [EVM transactions](/evm-indexing/configuration/transactions) for a detailed description of data request fields.
+
+### Traces
+
+```ts
+{
+  type: string[],
+  createFrom: string[],
+  callFrom: string[],
+  callTo: string[],
+  callSighash: string[],
+  suicideRefundAddress: string[],
+  rewardAuthor: string[]
+  transaction: boolean,
+  subtraces: boolean
+}
+```
+A trace will be included in the response if it matches all the requests. An empty or `null` request matches any trace. See [Traces](/evm-indexing/configuration/traces) for a detailed description of data request fields.
+
+### State diffs
+
+```ts
+{
+  address: string[],
+  key: string[],
+  kind: string[],
+  transaction: bool
+}
+```
+A state diff will be included in the response if it matches all the requests. An empty or `null` request matches any state diff. See [Storage state diffs](/evm-indexing/configuration/state-diffs) for a detailed description of data request fields.
+
+## Data fields selector
+
+A JSON selector of fields for the returned data items. Documented in the [Field selectors](/evm-indexing/configuration/data-selection/#field-selectors) section.
