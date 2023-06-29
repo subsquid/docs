@@ -1,5 +1,5 @@
 ---
-sidebar_position: 49
+sidebar_position: 80
 description: Use external APIs and IPFS from a squid
 ---
 

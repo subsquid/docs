@@ -1,5 +1,5 @@
 ---
-sidebar_position: 50
+sidebar_position: 90
 description: Native logger of Squid SDK
 ---
 

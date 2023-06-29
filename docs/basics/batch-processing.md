@@ -1,5 +1,5 @@
 ---
-sidebar_position: 43
+sidebar_position: 60
 title: Batch processing
 description: Batch-based data transformation model 
 ---

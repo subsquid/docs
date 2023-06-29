@@ -1,5 +1,5 @@
 ---
-sidebar_position: 45
+sidebar_position: 70
 title: Indexing unfinalized blocks
 description: Handling network consensus in squids
 ---

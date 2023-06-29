@@ -1,5 +1,5 @@
 ---
-sidebar_position: 60
+sidebar_position: 100
 title: Squid generation tools
 description: Tools that generate squids from ABIs
 ---
