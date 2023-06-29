@@ -7,7 +7,7 @@ description: >-
 # EVM transactions 
 
 :::warning
-Processor data subscription methods guarantee that all data matching their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces). As such, it is important to always filter the data within the batch handler.
+Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces). As such, it is important to always filter the data within the batch handler.
 :::
 
 #### `addTransaction(options)` {#add-transaction}
@@ -15,7 +15,7 @@ Processor data subscription methods guarantee that all data matching their filte
 Get some _or all_ transactions on the network. `options` has the following structure:
 ```typescript
 {
-  // filters
+  // data requests
   from?: string[]
   to?: string[]
   sighash?: string[]
@@ -27,7 +27,7 @@ Get some _or all_ transactions on the network. `options` has the following struc
   traces?: boolean
 }
 ```
-Filters:
+Data requests:
 + `from` and `to`: the sets of addresses of tx senders and receivers. Omit to subscribe to transactions from/to any address.
 + `sighash`: [first four bytes](https://ethereum.org/en/developers/docs/transactions/#the-data-field) of the Keccak hash (SHA3) of the canonical representation of the function signature. Omit to subscribe to any transaction.
 + `range`: the range of blocks to consider.

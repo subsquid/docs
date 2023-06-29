@@ -7,7 +7,7 @@ description: >-
 # EVM logs
 
 :::warning
-Processor data subscription methods guarantee that all data matching their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces). As such, it is important to always filter the data within the batch handler.
+Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces). As such, it is important to always filter the data within the batch handler.
 :::
 
 #### `addLog(options)` {#add-log}
@@ -15,7 +15,7 @@ Processor data subscription methods guarantee that all data matching their filte
 Get event logs emitted by some _or all_ contracts in the network. `options` has the following structure:
 ```typescript
 {
-  // filters
+  // data requests
   address?: string[]
   topic0?: string[]
   topic1?: string[]
@@ -27,7 +27,7 @@ Get event logs emitted by some _or all_ contracts in the network. `options` has 
   transaction?: boolean
 }
 ```
-Filters:
+Data requests:
 + `address`: the set of addresses of contracts emitting the logs. Omit to subscribe to events from all contracts in the network.
 + `topicN`: the set of values of topicN.
 + `range`: the range of blocks to consider.

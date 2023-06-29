@@ -33,11 +33,11 @@ Same fields will be available for all data items of any given type, including ne
 ```ts
 processor
   .addLog({
-    // some log filters
+    // some log data requests
     transaction: true
   })
   .addTransaction({
-    // some transaction filters
+    // some transaction data requests
   })
 ```
 As a result, `gas` and `value` fields would be available both within the transaction items of the `transactions` iterable of [block data](/evm-indexing/context-interfaces) and within the transaction items that provide parent transaction information for the logs:
@@ -63,7 +63,7 @@ let processor = new EvmBatchProcessor()
     }
   })
   .addTransaction({
-    // some transaction filters
+    // some transaction data requests
   })
 
 processor.run(db, async ctx => {
@@ -333,7 +333,7 @@ const processor = new EvmBatchProcessor()
 
 processor.run(new TypeormDatabase(), async (ctx) => {
   // Simply output all the items in the batch.
-  // It is guaranteed to have all the data matching the filters,
+  // It is guaranteed to have all the data matching the data requests,
   // but not guaranteed to not have any other data.
   ctx.log.info(ctx.blocks, "Got blocks")
 })
