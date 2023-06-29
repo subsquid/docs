@@ -14,7 +14,7 @@ With the introduction of the deployment manifest the addons (`postgres`) and the
 
 The manifest header defines the squid metadata
 
-| Field                    |      Archive endpoint                         |  
+| Field                    |      Description                         |
 |:-----------------------:|:---------------------------------------------:|
 | `manifestVersion`        | Only `subsquid.io/v0.1` is currently supported     |
 | `name` | A globally unique squid name. Can only contain lowercase Latin letters (`a-z`) and a dash (`-`). | 
@@ -68,12 +68,13 @@ See [Postgres addon](/deploy-squid/pg-addon) for details.
 
 ### `processor:`
 
-The processor service of the squid. 
+A processor service or a list of processor services of the squid.
 
-| Name        | Description                                           | Type          | Default value         |         Optional   | 
-|:-----------:|:-----------------------------------------------------:|:-------------:|----------------------:|:------------------:|
-| `cmd`       | Processor exec command passed to the squid container  |  `string[]`   |                       |   **Required**     |
-| `env`       | A key-value list of env variables to be set           |  `{k:v}[]`    |   []                |      Optional              |
+| Name        | Description                                           | Type          | Default value         |         Optional                            |
+|:-----------:|:-----------------------------------------------------:|:-------------:|----------------------:|:-------------------------------------------:|
+| `cmd`       | Processor exec command passed to the squid container  |  `string[]`   |                       |   **Required**                              |
+| `name`      | Processor name                                        |  `string[]`   |                       |   **Required** with more than one processor |
+| `env`       | A key-value list of env variables to be set           |  `{k:v}[]`    |   []                  |   Optional                                  |
 
 ### `api:`
 
