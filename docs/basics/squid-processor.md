@@ -6,7 +6,7 @@ description: Data ingestion and transformation
 
 # Squid Processor
 
-The processor service is a background node.js process responsible for data ingestion, transformation and data persisting into the target database. By convention, the processor entry point is at `src/main.ts`. It is run as
+The processor service is a background Node.js process responsible for data ingestion, transformation and data persisting into the target database. By convention, the processor entry point is at `src/main.ts`. It is run as
 ```bash
 node lib/main.js
 ```
@@ -28,28 +28,26 @@ Navigate to a dedicated section for each processor class:
 - [`EvmBatchProcessor`](/evm-indexing)
 - [`SubstrateBatchProcessor`](/firesquid/substrate-indexing)
 
-[//]: # (!!!! Remove the /firesquid reference above once ArrowSquid for Substrate is released)
+[//]: # (!!!! Remove the /firesquid reference above once ArrowSquid for Substrate is released, _everywhere_)
 
 ## Configuration
 
-A processor instance should be configured to define the block range to be indexed, and the selectors of data to be fetched from the archive. See the configuration pages of the corresponding sections.
+A processor instance should be configured ([EVM](/evm-indexing/configuration), [Substrate](/firesquid/substrate-indexing/configuration)) to define the block range to be indexed, and the selectors of data to be fetched from the archive and/or a node RPC endpoint.
 
 ## `processor.run()`
 
-The actual data indexing is done by the `run()` method called on a processor instance (typically at `src/main.ts`). The method has the following signature:
+The actual data processing is done by the `run()` method called on a processor instance (typically at `src/main.ts`). The method has the following signature:
 
 ```ts
 run<Store>(
   db: Database<Store>,
-  batchHander: (ctx: DataHandlerContext<Store, F extends FieldSelection>) => Promise<void>
+  batchHander: (context: DataHandlerContext<Store, F extends FieldSelection>) => Promise<void>
 ): void
 ```
 
-The `db` parameter defines the target data sink, and `batchHandler` is an `async` `void` function defining the data transformation and persistence logic. Its sole parameter, `ctx`, is called batch context. It is explained in the next section.
+The `db` parameter defines the target [data sink](/basics/store), and `batchHandler` is an `async` `void` function defining the data transformation and persistence logic. It repeatedly receives batches of archive data stored in `context.blocks`, transforms them and persists the results to the target database using the `context.store` interface (more on `context` in the next section).
 
 To jump straight to examples, see [EVM Processor in action](/evm-indexing/batch-processor-in-action) and [Substrate Processor in action](/firesquid/substrate-indexing/batch-processor-in-action).
-
-[//]: # (!!!! Remove the /firesquid reference above once ArrowSquid for Substrate is released)
 
 ## Batch context
 
@@ -70,6 +68,7 @@ At the moment `DataHandlerContext` interface is only used by the EVM processor; 
 :::
 
 [//]: # (!!!! Remove the notice once ArrowSquid for Substrate is released)
+[//]: # (!!!! Add substrate data selection link once ArrowSquid for Substrate is released)
 
 #### `ctx._chain`
 
@@ -85,7 +84,11 @@ Interface for the target data sink. See [Persisting data](/basics/store).
 
 #### `ctx.blocks`
 
-The on-chain data items are grouped into blocks, with each block containing a header and iterables for all supported data item types (event log, transaction, trace etc). Depending on the data item type, items within the iterables can be canonically ordered by how the data is recorded on-chain. The shape of item objects is determined by the processor configuration done via the `.setFields()` method.
+The on-chain data items are grouped into blocks, with each block containing a header and iterables for all supported data item types (event log, transaction, trace etc). Batch context _always_ contains at least one block.
+
+The set of iterables depends on the processor type (docs for [EVM](/evm-indexing/context-interfaces)). Depending on the data item type, items within the iterables can be canonically ordered by how the data is recorded on-chain (e.g. transactions are ordered but traces are not). The shape of item objects is determined by the processor configuration done via the `.setFields()` method.
+
+[//]: # (!!!! add a substrate link once it's available)
 
 An idiomatic use of the context API is to iterate first over blocks and then over each iterable of each block:
 
@@ -103,8 +106,6 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 })
 ```
 The canonical ordering of `ctx.blocks` enables efficient in-memory data processing. For example, multiple updates of the same entity can be compressed into a single database transaction.
-
-Batch context _always_ contains at least one block.
 
 Please be aware that the processor cannot ensure that data not meeting its filters will be excluded from iterables. It only guarantees the inclusion of data that matches the filters. Therefore, it is necessary to filter the data in the batch handler prior to processing.
 
