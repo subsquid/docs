@@ -6,7 +6,7 @@
     "className": "red",
     "link": {
       "type": "generated-index",
-      "slug": "/basics/schema-file",
-      "title": "In database-powered squids, schema file defines the database schema, entity classes and the core GraphQL API"
+      "slug": "/basics/store/postgres/schema-file",
+      "title": "Schema file defines the database schema, entity classes and the core GraphQL API"
     }
 }

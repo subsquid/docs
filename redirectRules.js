@@ -21,11 +21,11 @@ const urlList = [
     },
     {
         "from": "/develop-a-squid/schema-file",
-        "to": "/basics/schema-file"
+        "to": "/basics/store/postgres/schema-file"
     },
     {
         "from": "/schema-file",
-        "to": "/basics/schema-file"
+        "to": "/basics/store/postgres/schema-file"
     },
     {
         "from": "/develop-a-squid/graphql-api",
@@ -102,6 +102,42 @@ const urlList = [
     {
         "from": "/substrate-indexing/configuration",
         "to": "/firesquid/substrate-indexing/configuration"
+    },
+    {
+        "from": "/basics/store/typeorm-store",
+        "to": "/basics/store/postgres/typeorm-store"
+    },
+    {
+        "from": "/basics/schema-file",
+        "to": "/basics/store/postgres/schema-file"
+    },
+    {
+        "from": "/basics/schema-file/intro",
+        "to": "/basics/store/postgres/schema-file/intro"
+    },
+    {
+        "from": "/basics/schema-file/entities",
+        "to": "/basics/store/postgres/schema-file/entities"
+    },
+    {
+        "from": "/basics/schema-file/indexes-and-constraints",
+        "to": "/basics/store/postgres/schema-file/indexes-and-constraints"
+    },
+    {
+        "from": "/basics/schema-file/entity-relations",
+        "to": "/basics/store/postgres/schema-file/entity-relations"
+    },
+    {
+        "from": "/basics/schema-file/unions-and-typed-json",
+        "to": "/basics/store/postgres/schema-file/unions-and-typed-json"
+    },
+    {
+        "from": "/basics/schema-file/interfaces",
+        "to": "/basics/store/postgres/schema-file/interfaces"
+    },
+    {
+        "from": "/basics/db-migrations",
+        "to": "/basics/store/postgres/db-migrations"
     }
 ]
 
