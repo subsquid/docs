@@ -12,23 +12,83 @@ The EVM Archive API is currently in beta. Breaking changes may be introduced in 
 
 This page describes the API of Subsquid EVM Archives.
 
+Since the ArrowSquid release, Subsquid archives do load balancing. The main archive URL now points at a _router_ that provides URLs of _workers_ that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
+
+1. Retrieve the archive height from the router with `GET ${archiveURL}/height`.
+2. Query the archive for an URL of a worker that has the data for the first block of the relevant range with `GET ${archiveURL}/${firstBlock}/worker`.
+3. Retrieve the data from the worker with `POST /`, making sure to set the `"fromBlock"` query field to `${firstBlock}`.
+4. Exclude the received blocks from the relevant range by setting `firstBlock` to the value of `header.number` of the last received block.
+5. Repeat steps 2-4 until all the required data is retrieved.
+
+Implementation example:
+
+<details>
+
+<summary>In Python</summary>
+
+```python
+def get_text(url: str) -> str:
+    res = requests.get(url)
+    res.raise_for_status()
+    return res.text
+
+
+def dump(
+    archive_url: str,
+    query: Query,
+    first_block: int,
+    last_block: int
+) -> None:
+    assert 0 <= first_block <= last_block
+    query = dict(query)  # copy query to mess with it later
+
+    archived_height = int(get_text(f'{archive_url}/height'))
+    next_block = first_block
+    last_block = min(last_block, archived_height)
+
+    while next_block <= last_block:
+        worker_url = get_text(f'{archive_url}/{next_block}/worker')
+
+        query['fromBlock'] = next_block
+        query['toBlock'] = last_block
+        res = requests.post(worker_url, json=query)
+        res.raise_for_status()
+        blocks = res.json()
+
+        last_processed_block = blocks[-1]['header']['number']
+        next_block = last_processed_block + 1
+        for block in blocks:
+            print(json.dumps(block))
+```
+Full code [here](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a7d).
+
+</details>
+
+## Router API
+
 <details>
 
 <summary><code>GET</code> <code><b>/height</b></code> <code>(get height of the archive)</code></summary>
 
-##### Example Response
-
-```json
-{
-  "height": 16576911
-}
-```
+**Example response:** `16576911`.
 
 </details>
 
 <details>
 
-<summary><code>POST</code> <code><b>/query</b></code> <code>(query logs and transactions)</code></summary>
+<summary><code>GET</code> <code><b>$&#123;firstBlock&#125;/worker</b></code> <code>(get a suitable worker URL)</code></summary>
+
+The returned worker will be capable of processing `POST /query` requests in which the `"fromBlock"` field is equal to `${firstBlock}`.
+
+**Example response:** `https://v2.archive.subsquid.io/worker/1/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0`.
+
+</details>
+
+## Worker API
+
+<details>
+
+<summary><code>POST</code> <code><b>/</b></code> <code>(query logs and transactions)</code></summary>
 
 ##### Query Fields
 
