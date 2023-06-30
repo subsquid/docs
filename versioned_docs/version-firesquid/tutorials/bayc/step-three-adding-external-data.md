@@ -200,7 +200,7 @@ URI retrieval here is similar to what we did in the exploration step: we create 
 
 ## Retrieving external resources
 
-In the `fetchTokenMetadata()` implementation we first classify the URIs depending on the protocol. For IPFS links we replace `'ipfs://'` with an address of an IPFS gateway, then retrieve the metadata from all links using a regular HTTPS client. Here for the demonstration purposes we use the public [ipfs.io](https://ipfs.io) gateway, which is slow and prone to dropping requests due to rate-limiting. For production squids we recommend using a dedicated gateway, e.g. from [Filebase](https://docs.filebase.com/ipfs/about-ipfs/ipfs-gateways).
+In the `fetchTokenMetadata()` implementation we first classify the URIs depending on the protocol. For IPFS links we replace `'ipfs://'` with an address of an IPFS gateway, then retrieve the metadata from all links using a regular HTTPS client. Here for the demonstration purposes we use the public [ipfs.io](https://ipfs.io) gateway, which is slow and prone to dropping requests due to rate-limiting. For production squids we recommend using a dedicated gateway, e.g. from [Cloudflare](https://www.cloudflare.com/web3/).
 
 ```typescript
 export async function fetchTokenMetadata(

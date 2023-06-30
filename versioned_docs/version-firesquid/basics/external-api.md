@@ -42,7 +42,7 @@ async function getETHPriceByDate(timestamp: number): Promise<bigint> {
 
 ## IPFS fetching
 
-For reliable indexing of content stored on IPFS (e.g. NFT metadata) we recommend fetching from dedicated IPFS gateways, e.g. provided by [Filebase](https://docs.filebase.com/ipfs/ipfs-gateways). 
+For reliable indexing of content stored on IPFS (e.g. NFT metadata) we recommend fetching from dedicated IPFS gateways, e.g. provided by [Cloudflare](https://www.cloudflare.com/web3/). 
 
 For a more elaborate example of with IPFS gateway and external API calls, inspect the [BAYC NFT indexing squid](https://github.com/subsquid-labs/ipfs-example).
 
@@ -50,7 +50,7 @@ For a more elaborate example of with IPFS gateway and external API calls, inspec
 
 ```typescript
 // FIXME: replace with a dedicated gateway
-export const BASE_URL = 'https://ipfs.filebase.io/ipfs'
+export const BASE_URL = 'https://cloudflare-ipfs.com/ipfs/'
 
 export const api = Axios.create({
   baseURL: BASE_URL,
