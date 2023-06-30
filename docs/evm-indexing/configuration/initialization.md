@@ -21,11 +21,13 @@ The following setters configure the global settings of `EvmBatchProcessor`. They
 
 **(Required)** Sets the blockchain data source. Squids can source data in three ways:
 
-1. When the data source is an `ArchiveDataSource = {archive: string}`, the processor will obtain data _only_ from an [archive](/archives). This allows retrieving vast amounts of data rapidly and eliminates the need for a node RPC endpoint, but introduces a network latency typically in thousands of blocks. Public EVM archive endpoints are listed on the [supported networks](/evm-indexing/supported-networks) page and published to the [`@subsquid/archive-registry`](/archives/overview/#archive-registry) package, which exposes them with the `lookupArchive()` function.
+- **(Recommended)** When the data source is a `MixedDataSource = {archive: string, chain: ChainRpc}`, the processor will obtain as much data as is currently available from an archive, then switch to ingesting from the RPC endpoint. This combines the good syncing performance of the archive-only approach with the low network latency of the RPC-powered approach.
+
+- When the data source is an `ArchiveDataSource = {archive: string}`, the processor will obtain data _only_ from an [archive](/archives). This allows retrieving vast amounts of data rapidly and eliminates the need for a node RPC endpoint, but introduces a network latency typically in thousands of blocks. Public EVM archive endpoints are listed on the [supported networks](/evm-indexing/supported-networks) page and published to the [`@subsquid/archive-registry`](/archives/overview/#archive-registry) package, which exposes them with the `lookupArchive()` function.
 
   A processor with an `ArchiveDataSource` cannot use [contract state queries](/evm-indexing/query-state). If you want to operate your squid in this regime but require state queries, use a `MixedDataSource` with the [`useArchiveOnly()`](#use-archive-only) setter.
 
-2. When the data source is a `ChainDataSource = {chain: ChainRpc}`, the processor will obtain data _only_ from a node RPC endpoint. This mode of operation is slow, but requires no archive and has almost [no chain latency](/basics/unfinalized-blocks). It can be used with EVM networks not listed on the [supported networks](/evm-indexing/supported-networks) page and with [local development nodes](/tutorials/ethereum-local-development).
+- When the data source is a `ChainDataSource = {chain: ChainRpc}`, the processor will obtain data _only_ from a node RPC endpoint. This mode of operation is slow, but requires no archive and has almost [no chain latency](/basics/unfinalized-blocks). It can be used with EVM networks not listed on the [supported networks](/evm-indexing/supported-networks) page and with [local development nodes](/tutorials/ethereum-local-development).
 
   The node RPC endpoint can be specified as a string URL or as an object:
   ```ts
@@ -37,8 +39,6 @@ The following setters configure the global settings of `EvmBatchProcessor`. They
     requestTimeout?: number // in milliseconds, default 30_000
   }
   ```
-
-3. **(Recommended)** When the data source is a `MixedDataSource = {archive: string, chain: ChainRpc}`, the processor will obtain as much data as is currently available from an archive, then switch to ingesting from the RPC endpoint. This combines the good syncing performance of the archive-only approach with the low network latency of the RPC-powered approach.
 
 #### `setFinalityConfirmation(nBlocks: number)` {#set-finality-confirmation}
 
