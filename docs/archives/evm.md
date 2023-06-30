@@ -12,8 +12,8 @@ The EVM Archive API is currently in beta. Breaking changes may be introduced in 
 
 Since the ArrowSquid release, Subsquid archives do load balancing. The main archive URL now points at a _router_ that provides URLs of _workers_ that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
 
-1. Retrieve the archive height from the router with `GET ${archiveURL}/height`.
-2. Query the archive for an URL of a worker that has the data for the first block of the relevant range with `GET ${archiveURL}/${firstBlock}/worker`.
+1. Retrieve the archive height from the router with `GET /height`.
+2. Query the archive for an URL of a worker that has the data for the first block of the relevant range with `GET /${firstBlock}/worker`.
 3. Retrieve the data from the worker with `POST /`, making sure to set the `"fromBlock"` query field to `${firstBlock}`.
 4. Exclude the received blocks from the relevant range by setting `firstBlock` to the value of `header.number` of the last received block.
 5. Repeat steps 2-4 until all the required data is retrieved.
