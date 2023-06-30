@@ -1,10 +1,10 @@
 ---
 sidebar_position: 20
-title: Batch API
-description: API for batch access
+title: EVM Archive API
+description: Archive API for batch access
 ---
 
-# Batch API
+# EVM Archive API
 
 :::warning
 The EVM Archive API is currently in beta. Breaking changes may be introduced in the future releases.

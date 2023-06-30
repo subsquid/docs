@@ -49,7 +49,7 @@ At this point your squid is ready. You can run it on your own infrastructure or 
 
 A valid config for the `squid-gen config` is a YAML file with the following sections:
 
-* **archive** is an alias or an endpoint URL of an [Archive](/archives/overview/). Find an appropriate public archive at the [Supported networks](/evm-indexing/supported-networks/) page or in [Archive Registry](/archives/overview/#archive-registry). Alternatively, self-host a private Archive ([EVM](/archives/evm/self-hosted/)/[WASM](/archives/substrate/self-hosted/)).
+* **archive** is an alias or an endpoint URL of an [Archive](/archives/overview/). Find an appropriate public archive at the [Supported networks](/evm-indexing/supported-networks/) page or in [Archive Registry](/archives/overview/#archive-registry).
 
 * **target** section describes how the scraped data should be stored. Set
    ```yaml
