@@ -10,8 +10,6 @@ description: Archive API for batch access
 The EVM Archive API is currently in beta. Breaking changes may be introduced in the future releases.
 :::
 
-This page describes the API of Subsquid EVM Archives.
-
 Since the ArrowSquid release, Subsquid archives do load balancing. The main archive URL now points at a _router_ that provides URLs of _workers_ that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
 
 1. Retrieve the archive height from the router with `GET ${archiveURL}/height`.
