@@ -41,7 +41,7 @@ To generate storage classes with typegen:
 sqd typegen
 ```
 
-Here's an example of `typegen.json` for generating an access class for `Balances.Reserves`:
+Here's an example of `typegen.json` for generating an access class for `Balances.Account`:
 
 ```json title=typegen.json
 {
