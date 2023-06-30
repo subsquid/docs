@@ -6,6 +6,17 @@ sidebar_position: 110
 
 Common gotchas occuring while developing and deploying squids.
 
+### `QueryFailedError: relation does not exist`
+
+Often occurs after changing [schema](/basics/store/postgres/schema-file) and forgetting to regenerate the [database migrations](/basics/store/postgres/db-migrations). Try
+```bash
+sqd codegen
+sqd build
+sqd down
+sqd up
+sqd migration:generate
+```
+
 ### `Secrets outdated. Please restart the squid` notification in Aquarium
 
 This occurs when you have a squid deployed, then create, remove or change some [environment variables](/squid-cli/secrets) of [relevance](/deploy-squid/organizations). Squids must be restarted manually for such changes to have effect. Navigate to the squid version page (e.g. by clicking on the warning sign) and click restart. The restart will not touch the database, so unless your new secret values cause the squid to crash this procedure should be quick and easy.
@@ -31,6 +42,16 @@ processor.run(new TypeormDatabase(), async (ctx) => {
   }
 })
 ```
+
+### `BAD_DATA` when using a Multicall contract
+
+This error can occur for a variety of reasons, but one common cause is choosing a Multicall deployment that is newer than the oldest blocks that have to be indexed. When [batch state queries](/evm-indexing/query-state/#batch-state-queries) are performed on historical chain state older than the Multicall deployment, EVM detects that and refuses to run.
+
+Solutions:
+1. Use an older Multicall deployment.
+2. Delay your chain state queries until a later block.
+
+These issues are explored in [Part 4 of the BAYC tutorial](/tutorials/bayc/step-four-optimizations).
 
 ### My squid is stuck in "Building", "Deploying" or "Starting" state
 

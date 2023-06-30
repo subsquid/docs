@@ -50,8 +50,6 @@ Selection of the exact data to be retrieved for each trace item is done with the
 
 ## Examples
 
-[//]: # (???? Example: Was `vitalik.eth` ever rewarded for authoring a block?)
-
 ### Exploring internal calls of a given transaction
 
 For a [`mint` call to Uniswap V3 Positions NFT](https://etherscan.io/tx/0xf178718219151463aa773deaf7d9367b8408e35a624550af975e089ca6e015ca).
@@ -98,3 +96,44 @@ processor.run(new TypeormDatabase(), async ctx => {
   involvedContracts.forEach(c => { console.log(c) })
 })
 ```
+
+### Grabbing addresses of all contracts ever created on Ethereum
+
+Full code is available in [this branch](https://github.com/subsquid-labs/grab-all-contracts/tree/ascetic). WARNING: will contain addresses of some contracts that failed to deploy.
+
+```ts
+import {EvmBatchProcessor} from '@subsquid/evm-processor'
+import {TypeormDatabase} from '@subsquid/typeorm-store'
+import {CreatedContract} from './model'
+import {lookupArchive} from '@subsquid/archive-registry'
+
+const processor = new EvmBatchProcessor()
+  .setDataSource({
+    archive: lookupArchive('eth-mainnet'),
+  })
+  .setFields({
+    trace: {
+      createResultAddress: true,
+    },
+  })
+  .addTrace({
+    type: ['create'],
+    transaction: true,
+  })
+
+processor.run(new TypeormDatabase({supportHotBlocks: false}), async (ctx) => {
+  const contracts: Map<string, CreatedContract> = new Map()
+  const addresses: Set<string> = new Set()
+  for (let c of ctx.blocks) {
+    for (let trc of c.traces) {
+      if (trc.type === 'create' &&
+          trc.result?.address != null &&
+          trc.transaction?.hash !== undefined) {
+        contracts.set(trc.result.address, new CreatedContract({id: trc.result.address}))
+      }
+    }
+  }
+  await ctx.store.upsert([...contracts.values()])
+})
+```
+Currently there is no convenient way to check whether a trace had effect on the chain state, but this feature will be added in future releases.

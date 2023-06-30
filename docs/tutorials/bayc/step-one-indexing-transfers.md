@@ -52,7 +52,7 @@ export const CONTRACT_ADDRESS = '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
 export const processor = new EvmBatchProcessor()
     .setDataSource({
         archive: lookupArchive('eth-mainnet'),
-        chain: 'https://eth-rpc.gateway.pokt.network'
+        chain: 'https://rpc.ankr.com/eth'
     })
     .setFinalityConfirmation(75)
     .setBlockRange({
@@ -74,7 +74,7 @@ export const processor = new EvmBatchProcessor()
 
 Here,
 * `'eth-mainnet'` is the alias for the public archive that Subsquid maintains for Ethereum mainnet. Check out `npx squid-archive-registry` for a list of public archives for all supported networks or explore the [archives documentation](/archives/) to find out how to host your own archive.
-* `'https://eth-rpc.gateway.pokt.network'` is a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within the archive. Please use a private endpoint or Aquarium's [RPC proxy service](/deploy-squid/rpc-proxy) in production.
+* `'https://rpc.ankr.com/eth'` is a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within the archive. Please use a private endpoint or Aquarium's [RPC proxy service](/deploy-squid/rpc-proxy) in production.
 * `setFinalityConfirmation(75)` call instructs the processor to consider blocks final after 75 confirmations when ingesting data from an RPC endpoint.
 * `12_287_507` is the block at which the BAYC token contract was deployed. Can be found on the [contract's Etherscan page](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).
 * The argument of [`addLog()`](/evm-indexing/configuration/evm-logs) is a set of filters that tells the processor to retrieve all event logs emitted by the BAYC contract with topic0 matching the hash of the full signature of the `Transfer` event. The hash is taken from the previously generated Typescript ABI.
