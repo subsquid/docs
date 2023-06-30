@@ -1,19 +1,21 @@
 ---
 sidebar_position: 50
 description: >-
-  Retrieve execution traces
+  Retrieve execution traces with addTrace()
 ---
 
 # Traces
 
 :::warning
-Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
+Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces). As such, it is important to always filter the data within the batch handler.
 :::
 
-**`addTrace(options)`**: Subscribe to [call execution traces](https://docs.alchemy.com/reference/debug-tracecall). This allows for tracking internal calls. The `options` object has the following structure:
+#### `addTrace(options)` {#add-trace}
+
+Subscribe to [call execution traces](https://docs.alchemy.com/reference/debug-tracecall). This allows for tracking internal calls. The `options` object has the following structure:
 ```typescript
 {
-  // filters
+  // data requests
   callTo?: string[]
   callSighash?: string[]
   createFrom?: string[]
@@ -27,7 +29,7 @@ Processor data subscription methods guarantee that all data mathing their filter
   subtraces?: boolean
 }
 ```
-The filters here are:
+The data requests here are:
 + `type`: get traces of types from this set. Allowed types are `'create' | 'call' | 'suicide' | 'reward'`.
 + `callTo`: get `call` traces *to* the addresses in this set.
 + `callSighash`: get `call` traces with signature hashes in this set.
@@ -36,9 +38,9 @@ The filters here are:
 + `suicideRefundAddress`: get `suicide` traces where refund addresses in this set.
 + `range`: get traces from transactions from this range of blocks.
 
-[//]: # (!!!! Update when the filter set stabilizes)
+[//]: # (!!!! Update when the data requests set stabilizes)
 
-Enabling the  `transaction` flag will cause the processor to retrieve transactions that the traces belong to. Enabling `subtraces` will cause the processor to retrieve the downstream traces in addition to those that matched the filters. These extra data items will be added to the appropriate iterables within the [block data](/evm-indexing/context-interfaces/#blockdata).
+Enabling the  `transaction` flag will cause the processor to retrieve transactions that the traces belong to. Enabling `subtraces` will cause the processor to retrieve the downstream traces in addition to those that matched the data requests. These extra data items will be added to the appropriate iterables within the [block data](/evm-indexing/context-interfaces).
 
 Note that traces can also be requested by the [`addTransaction()`](../transactions) method as related data.
 

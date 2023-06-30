@@ -7,15 +7,17 @@ description: >-
 # Storage state diffs
 
 :::warning
-Processor data subscription methods guarantee that all data mathing their filters will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces/#blockdata). As such, it is important to always filter the data within the batch handler.
+Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces). As such, it is important to always filter the data within the batch handler.
 :::
 
 [//]: # (???? Consider replacing the coinsbench link with something else. The article is good, but I'm not sure it's a good idea to use it here.)
 
-**`addStateDiff(options)`**: Subscribe to changes in the [contract storage](https://coinsbench.com/solidity-layout-and-access-of-storage-variables-simply-explained-1ce964d7c738). This allows for tracking the contract state changes that are difficult to infer from events or transactions, such as the changes that take into account the output of internal calls. The `options` object has the following structure:
+#### `addStateDiff(options)` {#add-state-diff}
+
+Subscribe to changes in the [contract storage](https://coinsbench.com/solidity-layout-and-access-of-storage-variables-simply-explained-1ce964d7c738). This allows for tracking the contract state changes that are difficult to infer from events or transactions, such as the changes that take into account the output of internal calls. `options` has the following structure:
 ```typescript
 {
-  // filters
+  // data requests
   address?: string[]
   key?: string[]
   kind?: ('=' | '+' | '*' | '-')[]
@@ -25,15 +27,13 @@ Processor data subscription methods guarantee that all data mathing their filter
   transaction?: boolean
 }
 ```
-The filters here are:
+The data requests here are:
 + `address`: the set of addresses of contracts to track. Leave undefined or set to `[]` to subscribe to state changes of all contracts from the whole network.
-+ `key`: the set of storage keys that should be tracked. Regular hexadecimal contract storage keys and [special keys](/evm-indexing/context-interfaces/#statediff) (`'balance'`, `'code'`, `'nonce'`) are allowed. Leave undefined or set to `[]` to subscribe to all state changes.
-+ `kind`: the set of diff kinds that should be tracked. Refer to the [`StateDiff` section](/evm-indexing/context-interfaces/#statediff) of data items documentation for an explanation of the meaning of the permitted values.
++ `key`: the set of storage keys that should be tracked. Regular hexadecimal contract storage keys and [special keys](/evm-indexing/configuration/data-selection/#state-diffs) (`'balance'`, `'code'`, `'nonce'`) are allowed. Leave undefined or set to `[]` to subscribe to all state changes.
++ `kind`: the set of diff kinds that should be tracked. Refer to the [`StateDiff` section](/evm-indexing/configuration/data-selection/#state-diffs) of data items documentation for an explanation of the meaning of the permitted values.
 + `range`: the range of blocks within which the storage changes should be tracked.
 
-[//]: # (!!!! Update when the filter set stabilizes)
-
-Enabling the `transaction` flag will cause the processor to retrieve the transaction that gave rise to each state change and add it to the [`transactions` iterable of block data](/evm-indexing/context-interfaces/#blockdata).
+Enabling the `transaction` flag will cause the processor to retrieve the transaction that gave rise to each state change and add it to the [`transactions` iterable of block data](/evm-indexing/context-interfaces).
 
 Note that state diffs can also be requested by the [`addTransaction()`](../transactions) method as related data.
 

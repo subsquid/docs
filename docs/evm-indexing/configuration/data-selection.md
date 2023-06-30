@@ -1,12 +1,14 @@
 ---
 sidebar_position: 60
 description: >-
-  Fine-tuning the data request with setFields()
+  Fine-tuning data requests with setFields()
 ---
 
 # Data selection
 
-**`setFields(options)`**: Set the fields to be retrieved for data items of each supported type. The `options` object has the following structure:
+#### `setFields(options)` {#set-fields}
+
+Set the fields to be retrieved for data items of each supported type. The `options` object has the following structure:
 ```ts
 {
   log?:         // field selector for logs
@@ -17,7 +19,7 @@ description: >-
 }
 ```
 
-Every field selector is a collection of boolean fields, typically (with a notable exception of [trace field selectors](#traces)) mapping one-to-one to the [fields of data items within the batch context](/evm-indexing/context-interfaces/#data-item-types). Defining a field of a field selector of a given type and setting it to true will cause the processor to populate the corresponding field of all data items of that type. Here is a definition of a processor that requests `gas` and `value` fields for [transactions](/evm-indexing/context-interfaces/#transaction):
+Every field selector is a collection of boolean fields, typically (with a notable exception of [trace field selectors](#traces)) mapping one-to-one to the fields of data items within the batch context [iterables](/evm-indexing/context-interfaces). Defining a field of a field selector of a given type and setting it to true will cause the processor to populate the corresponding field of all data items of that type. Here is a definition of a processor that requests `gas` and `value` fields for transactions:
 ```ts
 let processor = new EvmBatchProcessor()
   .setFields({
@@ -31,14 +33,14 @@ Same fields will be available for all data items of any given type, including ne
 ```ts
 processor
   .addLog({
-    // some log filters
+    // some log data requests
     transaction: true
   })
   .addTransaction({
-    // some transaction filters
+    // some transaction data requests
   })
 ```
-As a result, `gas` and `value` fields would be available both within the transaction items of the `transactions` iterable of [block data](/evm-indexing/context-interfaces/#blockdata) and within the transaction items that provide parent transaction information for the logs:
+As a result, `gas` and `value` fields would be available both within the transaction items of the `transactions` iterable of [block data](/evm-indexing/context-interfaces) and within the transaction items that provide parent transaction information for the logs:
 ```ts
 processor.run(db, async ctx => {
   for (let block of ctx.blocks) {
@@ -61,7 +63,7 @@ let processor = new EvmBatchProcessor()
     }
   })
   .addTransaction({
-    // some transaction filters
+    // some transaction data requests
   })
 
 processor.run(db, async ctx => {
@@ -72,129 +74,210 @@ processor.run(db, async ctx => {
   }
 })
 ```
+Disabling unused fields will improve sync performance, as the disabled fields will not be fetched from the archive.
 
-## Field selectors
+## Data item types and field selectors
 
 :::info
 Most IDEs support smart suggestions to show the possible field selectors. For VS Code, press `Ctrl+Space`.
 :::
 
-Here we list all valid fields of the field selectors. Unless otherwise mentioned, they map to the eponymous fields of the batch context data items and are disabled by default. Consult the [Data item types](/evm-indexing/context-interfaces/#data-item-types) section of the batch context interface page to get the primitive type of each field.
+Here we describe the data item types as functions of the field selectors. Unless otherwise mentioned, each data item type field maps to the eponymous field of its corresponding field selector. Item fields are divided into three categories:
+* Fields that are added independently of the `setFields()` call. These are either fixed or depend on the related data retrieval flags (e.g. `transaction` for logs).
+* Fields that can be disabled by `setFields()`. E.g. a `topics` field will be fetched for logs by default, but can be disabled by setting `topics: false` within the `log` field selector.
+* Fields that can be requested by `setFields()`. E.g. a `transactionHash` field will only be available in logs if the `log` field selector sets `transactionHash: true`.
 
 [//]: # (!!!! update with final defaults and capabilities)
 
 ### Logs
 
+`Log` data items may have the following fields:
 ```ts
-{
-  address // enabled by default
-  data    // enabled by default
-  topics  // enabled by default
-  transactionHash
+Log {
+  // independent of field selectors
+  id: string
+  logIndex: number
+  transactionIndex: number
+  block: BlockHeader
+  transaction?: Transaction
+
+  // can be disabled with field selectors
+  address: string
+  data: string
+  topics: string[]
+
+  // can be requested with field selectors
+  transactionHash: string
 }
 ```
+See the [block headers section](#block-headers) for the definition of `BlockHeader` and the [transactions section](#transactions) for the definition of `Transaction`.
 
 ### Transactions
 
+`Transaction` data items may have the following fields:
 ```ts
-{
-  from // enabled by default
-  to   // enabled by default
-  hash // enabled by default
-  gas
-  gasPrice
-  maxFeePerGas
-  maxPriorityFeePerGas
-  input
-  nonce
-  value
-  v
-  r
-  s
-  yParity
-  chainId
-  gasUsed
-  cumulativeGasUsed
-  effectiveGasPrice
-  contractAddress
-  type
-  status
-  sighash
+Transaction {
+  // independent of field selectors
+  id: string
+  transactionIndex: number
+  block: BlockHeader
+
+  // can be disabled with field selectors
+  from: string
+  to?: string
+  hash: string
+
+  // can be requested with field selectors
+  gas: bigint
+  gasPrice: bigint
+  maxFeePerGas?: bigint
+  maxPriorityFeePerGas?: bigint
+  input: string
+  nonce: number
+  value: bigint
+  v?: bigint
+  r?: string
+  s?: string
+  yParity?: number
+  chainId?: number
+  gasUsed?: bigint
+  cumulativeGasUsed?: bigint
+  effectiveGasPrice?: bigint
+  contractAddress?: string
+  type?: number
+  status?: number
+  sighash: string
 }
 ```
+See the [block headers section](#block-headers) for the definition of `BlockHeader`.
 
 ### State diffs
 
+`StateDiff` data items may have the following fields:
 ```ts
-{
-  kind // enabled by default
-  prev // enabled by default
-  next // enabled by default
+StateDiff {
+  // independent of field selectors
+  transactionIndex: number
+  block: BlockHeader
+  transaction?: Transaction
+  address: string
+  key: 'balance' | 'code' | 'nonce' | string
+
+  // can be disabled with field selectors
+  kind: '=' | '+' | '*' | '-'
+  prev?: string | null
+  next?: string | null
 }
 ```
+The meaning of the `kind` field values is as follows:
+ - `'='`: no change has occured;
+ - `'+'`: a value was added;
+ - `'*'`: a value was changed;
+ - `'-'`: a value was removed.
+
+The values of the `key` field are regular hexadecimal contract storage key strings or one of the special keys `'balance' | 'code' | 'nonce'` denoting ETH balance, contract code and nonce value associated with the state diff.
+
+See the [block headers section](#block-headers) for the definition of `BlockHeader` and the [transactions section](#transactions) for the definition of `Transaction`.
 
 ### Traces
 
-Field selection for [trace data items](/evm-indexing/context-interfaces/#trace) is somewhat more involved because its fixed fields `action` and `result` may contain different fields depending on the value of the `type` field.
+Field selection for trace data items is somewhat more involved because its fixed fields `action` and `result` may contain different fields depending on the value of the `type` field. The retrieval of each one of these subfields is configured independently. For example, to ensure that all traces of `'call'` type contain the `.action.gas` field, the processor must be configured as follows:
+```ts
+processor.setFields({
+  trace: {
+    callGas: true
+  }
+})
+```
+The full `Trace` type with all its possible (sub)fields looks like this:
+
+[//]: # (???? extra attention to any interface changes here)
 
 ```ts
-{
-  error // enabled by default
-  subtraces
+Trace {
+  // independent of field selectors
+  transactionIndex: number
+  block: BlockHeader
+  transaction?: Transaction
+  traceAddress: number[]
+  type: 'create' | 'call' | 'suicide' | 'reward'
+  subtraces: number
 
-  // selectors for .action and .result subfields
+  // can be disabled with field selectors
+  error: string | null
 
-  // for when .type==='create'
-  createFrom  // enables .action.from
-  createValue // .action.value
-  createGas   // .action.gas
-  createInit  // .action.init
-  createResultGasUsed // .result.gasUsed
-  createResultCode    // .result.code
-  createResultAddress // .result.address
-
-  // for when .type==='call'
-  callFrom    // .action.from
-  callTo      // .action.to
-  callValue   // .action.value
-  callGas     // .action.gas
-  callSighash // .action.sighash
-  callInput   // .action.input
-  callResultGasUsed // .result.gasUsed
-  callResultOutput  // .result.output
-
-  // for when .type==='suicide'
-  suicideAddress       // .action.address
-  suicideRefundAddress // .action.refundAddress
-  suicideBalance       // .action.balance
-
-  // for when .type==='reward'
-  rewardAuthor // .action.author
-  rewardValue  // .action.value
-  rewardType   // .action.type
+  // can be requested with field selectors
+  // if (type==='create')
+  action: {
+                  // request the subfields with
+    from: string  // createFrom: true
+    value: bigint // createValue: true
+    gas: bigint   // createGas: true
+    init: string  // createInit: true
+  }
+  result?: {
+    gasUsed: bigint  // createResultGasUsed: true
+    code: string     // createResultCode: true
+    address?: string // createResultAddress: true
+  }
+  // if (type==='call')
+  action: {
+    from: string    // callFrom: true
+    to: string      // callTo: true
+    value: bigint   // callValue: true
+    gas: bigint     // callGas: true
+    sighash: string // callSighash: true
+    input: string   // callInput: true
+  }
+  result?: {
+    gasUsed: bigint // callResultGasUsed: true
+    output: string  // callResultOutput: true
+  }
+  // if (type==='suicide')
+  action: {
+    address: string        // suicideAddress: true
+    refundAddress: string  // suicideRefundAddress: true
+    balance: bigint        // suicideBalance: true
+  }
+  // if (type==='reward')
+  action: {
+    author: string // rewardAuthor: true
+    value: bigint  // rewardValue: true
+    type: string   // rewardType: true
+  }
 }
 ```
 
 ### Block headers
 
+`BlockHeader` data items may have the following fields:
 ```ts
-{
-  timestamp // enabled by default
-  nonce
-  sha3Uncles
-  logsBloom
-  transactionsRoot
-  stateRoot
-  receiptsRoot
-  mixHash
-  miner
-  difficulty
-  totalDifficulty
-  extraData
-  size
-  gasLimit
-  gasUsed
-  baseFeePerGas
+BlockHeader{
+  // independent of field selectors
+  hash: string
+  height: number
+  id: string
+  parentHash: string
+
+  // can be disabled with field selectors
+  timestamp: number
+
+  // can be requested with field selectors
+  nonce?: string
+  sha3Uncles: string
+  logsBloom: string
+  transactionsRoot: string
+  stateRoot: string
+  receiptsRoot: string
+  mixHash?: string
+  miner: string
+  difficulty?: bigint
+  totalDifficulty?: bigint
+  extraData: string
+  size: bigint
+  gasLimit: bigint
+  gasUsed: bigint
+  baseFeePerGas?: bigint
 }
 ```
 
@@ -250,7 +333,7 @@ const processor = new EvmBatchProcessor()
 
 processor.run(new TypeormDatabase(), async (ctx) => {
   // Simply output all the items in the batch.
-  // It is guaranteed to have all the data matching the filters,
+  // It is guaranteed to have all the data matching the data requests,
   // but not guaranteed to not have any other data.
   ctx.log.info(ctx.blocks, "Got blocks")
 })

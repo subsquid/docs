@@ -92,7 +92,7 @@ processor.run(db, async (ctx) => {
 ```
 Here,
 * `db` is a [`Database` implementation](/basics/store/store-interface/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/basics/store/typeorm-store/) object here.
-* `ctx` is a [batch context](/evm-indexing/context-interfaces/) object that exposes a batch of data retrieved from an archive or a RPC endpoint (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
+* `ctx` is a [batch context](/basics/squid-processor/#batch-context) object that exposes a batch of data retrieved from an archive or a RPC endpoint (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
 
 Batch handler is where the raw on-chain data from the archive is decoded, transformed and persisted. This is the part we'll be concerned with for the rest of the tutorial.
 

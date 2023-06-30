@@ -1,5 +1,5 @@
 ---
-sidebar_position: 43
+sidebar_position: 60
 title: Batch processing
 description: Batch-based data transformation model 
 ---
@@ -19,7 +19,7 @@ Batch data processing model employed by Squid SDK relies on the following princi
 
 In practice, batching is a more flexible (compared to handler parallelization) way to speed up the inherently sequential indexing of on-chain transactions and logs. 
 
-To illustrate, assume the processor must infer the current state of an on-chain record. It is configured to listen to the two on-chain events, `Create` and `Update`, that are emitted once the record is created or updated. The [data batch](/basics/processor-context/#ctxblocks) received by the processor is then an array of event items, i.e.
+To illustrate, assume the processor must infer the current state of an on-chain record. It is configured to listen to the two on-chain events, `Create` and `Update`, that are emitted once the record is created or updated. The [data batch](/basics/squid-processor/#ctxblocks) received by the processor is then an array of event items, i.e.
 ```ts
 [
     Create({id: 1, name: 'Alice'}), 

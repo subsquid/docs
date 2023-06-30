@@ -1,5 +1,5 @@
 ---
-sidebar_position: 10
+sidebar_position: 20
 title: Development flow
 description: Development flow for building squids
 ---
@@ -102,7 +102,7 @@ See [EvmBatchProcessor configuration](/evm-indexing/configuration) and [Substrat
 
 ### 7. Define the processor batch handler for the `processor.run()` call
 
-Squid SDK embraces the [batch-based programming model](/basics/batch-processing). Within a running processor, the `.run()` method repeatedly applies a user-supplied batch handler function to the batches of data retrieved from an Archive. The method takes two arguments: a [store adaptor](/basics/store) for connecting to the database of choice and an `async` batch handler function. The only argument of the batch handler is a [context object](/basics/processor-context) that contains the batch data, some useful metadata and a store adapter reference. Its interface slightly varies depending on the processor flavor:
+Squid SDK embraces the [batch-based programming model](/basics/batch-processing). Within a running processor, the `.run()` method repeatedly applies a user-supplied batch handler function to the batches of data retrieved from an Archive. The method takes two arguments: a [store adaptor](/basics/store) for connecting to the database of choice and an `async` batch handler function. The only argument of the batch handler is a [context object](/basics/squid-processor/#batch-context) that contains the batch data, some useful metadata and a store adapter reference. Its interface slightly varies depending on the processor flavor:
 
 - For `EvmBatchProcessor`, see [`DataHandlerContext` for EVM](/evm-indexing/context-interfaces)
 - For `SubstrateBatchProcessor`, see the [`BatchContext` for Substrate](/firesquid/substrate-indexing/context-interfaces)

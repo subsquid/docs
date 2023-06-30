@@ -1,5 +1,5 @@
 ---
-sidebar_position: 30
+sidebar_position: 50
 description: Define db migrations and init scripts
 ---
 
