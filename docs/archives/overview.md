@@ -49,8 +49,8 @@ const processor = new EVMBatchProcessor()
 })
 ```
 
-## Running a self-hosted Archive
+## On self-hosted archives
 
-To run a self-hosted Archive, follow these instructions:
-- [EVM Archives](/archives/evm/self-hosted)
-- [Substrate Archives](/archives/substrate/self-hosted)
+Starting with the ArrowSquid release and until Subsquid network is launched we are pausing the support of self-hosted archives. If you maintain a production network or a stable testnet and need a public archive please let us know at the [SquidDevs Telegram chat](https://t.me/HydraDevs).
+
+For smaller networks (including temporary testnets and any development networks) consider using the [RPC ingestion](/evm-indexing/evm-processor/#rpc-ingestion) feature. One of these use cases is described in our [local development tutorial](/tutorials/ethereum-local-development).
