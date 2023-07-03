@@ -9,6 +9,8 @@ description: >-
 
 [The squid](https://github.com/subsquid-labs/multichain-transfers-example) indexes ERC20 Transfer events emitted by USDC contracts on Ethereum mainnet and BSC. Events data is written to a shared database table and served over a common GraphQL API.
 
+The Ethereum processor is located in `src/eth` and similarly the Binance Chain processor can be found in `src/bsc`. The scripts file `commands.json` was updated with the commands `process:eth` and `process:bsc` to run the processors. 
+
 ## Prerequisites
 
 - Node v16.x
