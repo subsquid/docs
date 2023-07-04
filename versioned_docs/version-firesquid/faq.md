@@ -6,7 +6,7 @@ sidebar_position: 130
 
 ### What is the Premium plan?
 
-The access to Archives is free. Aquarium offers a free and a premium plans. The Premium plan is currently available by invite via the [form](https://luvp4va64ru.typeform.com/to/QrRF66q5). When released to the public, Premium will be based on the fixed subscription fee + pay-as-you-go model. Details will be announced in the official Subsquid channels.
+The access to Archives is free. Aquarium offers a free and a premium plans. The Premium plan is currently available by invite via the [form](https://docs.google.com/forms/d/e/1FAIpQLSchqvWxRhlw7yfBlfiudizLJI9hEfeCEuaSlk3wOcwB1HQf6g/viewform?usp=sf_link). When released to the public, Premium will be based on the fixed subscription fee + pay-as-you-go model. Details will be announced in the official Subsquid channels.
 
 ### Do you have a roadmap ?
 
