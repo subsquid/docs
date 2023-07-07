@@ -13,12 +13,15 @@ The table below lists the currently available public EVM ArrowSquid/v2 Archive e
 
 | Network                 |  Endpoint lookup command                      |        Archive endpoint                                    |
 |:-----------------------:|:---------------------------------------------:|:----------------------------------------------------------:|
+| Arbitrum One            | `lookupArchive('arbitrum')`                   | `https://v2.archive.subsquid.io/network/arbitrum-one`      |
 | Arbitrum Goerli         | `lookupArchive('arbitrum-goerli')`            | `https://v2.archive.subsquid.io/network/arbitrum-goerli`   |
+| Arbitrum Nova           | `lookupArchive('arbitrum-nova')`              | `https://v2.archive.subsquid.io/network/arbitrum-nova`     |
 | Binance Smart Chain     | `lookupArchive('binance')`                    | `https://v2.archive.subsquid.io/network/binance-mainnet`   |
 | Ethereum Mainnet        | `lookupArchive('eth-mainnet')`                | `https://v2.archive.subsquid.io/network/ethereum-mainnet`  |
 | Moonbeam EVM    (*)     | `lookupArchive('moonbeam',` `{type: 'EVM'})`  | `https://v2.archive.subsquid.io/network/moonbeam-mainnet`  |
 | Moonriver EVM   (*)     | `lookupArchive('moonriver',` `{type: 'EVM'})` | `https://v2.archive.subsquid.io/network/moonriver-mainnet` |
 | Sepolia                 | `lookupArchive('sepolia')`                    | `https://v2.archive.subsquid.io/network/ethereum-sepolia`  |
+| Shibuya Testnet         | `lookupArchive('shibuya-testnet')`            | `https://v2.archive.subsquid.io/network/shibuya-testnet`   |
  
 (*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate archive](/archives/substrate)
 
