@@ -7,17 +7,32 @@ sidebar_class_name: hidden
 Notes:
 * I would not get into RPC ingestion here, but we can change that.
 
-### Get all transactions on Binance Smart Chain
+### A wallet app on Binance Smart Chain
 
-* easy
 * very wide scope example
 
 ```ts
-export const processor = new EvmBatchProcessor()
+const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: lookupArchive('binance'),
   })
   .addTransaction({})
+
+const wallets: Set<string> = loadWallets()
+// wallets.size can be very large (10-100k and beyond)
+
+processor.run(new TypeormDatabase(), async (ctx) => {
+  for (let block of ctx.blocks) {
+    for (let txn of block.transactions) {
+      if (wallets.has(txn.from)) {
+        // process a txn initiated by the wallet
+      }
+      if (txn.to && wallets.has(txn.to)) {
+        // process a txn directed to the wallet
+      }
+    }
+  }
+})
 ```
 
 ### Get all USDC `Transfer` events on Ethereum
