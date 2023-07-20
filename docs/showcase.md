@@ -7,7 +7,7 @@ sidebar_class_name: hidden
 Notes:
 * I would not get into RPC ingestion here, but we can change that.
 
-### A wallet app on Binance Smart Chain
+### Analyze txs of a large number of BSC wallets
 
 * very wide scope example
 
