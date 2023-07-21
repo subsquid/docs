@@ -6,18 +6,18 @@ description: Migrate a subgraph to Subsquid
 
 # Migrate from The Graph
 
-This guide walks through the steps to migrate a subgraph to Subsquid. In what follows we will convert the [Gravatar](https://github.com/graphprotocol/example-subgraph) subgraph into a squid and run it locally. Impatient readers may clone the squid from the [repo](https://github.com/subsquid/gravatar-squid) and run it by following the instructions in README:
+This guide walks through the steps to migrate a subgraph to Subsquid. In what follows we will convert the [Gravatar](https://github.com/graphprotocol/example-subgraph) subgraph into a squid and run it locally. Impatient readers may clone the squid from the [repo](https://github.com/subsquid-labs/gravatar-squid) and run it by following the instructions in README:
 
 ```bash
-git clone https://github.com/subsquid/gravatar-squid.git
+git clone https://github.com/subsquid-labs/gravatar-squid.git
 ```
 
-`EvmBatchProcessor` provided by the Squid SDK defines a single handler that indexes EVM logs and transaction data in batches of heterogeneous items.  It differs from the programming model of subgraph mappings, that define a separate data handler for each EVM log topic to be indexed. Due to significantly less frequent database hits (once per batch compared to once per log) the batch-based handling model shows up to a 10x increase in the indexing speed. 
+`EvmBatchProcessor` provided by the Squid SDK defines a single handler that indexes EVM logs and transaction data in batches. It differs from the programming model of subgraph mappings that defines a separate data handler for each EVM log topic to be indexed. Due to significantly less frequent database hits (once per batch compared to once per log) the batch-based handling model shows up to a 10x increase in the indexing speed.
 
-At the same time, the concepts of the [schema file](/basics/schema-file), [code generation from the schema file](https://github.com/subsquid/squid/tree/master/typeorm-codegen) and [an auto-generated GraphQL API](/graphql-api) should be familiar for subgraph developers. In most cases the schema file of a subgraph can be imported into a squid as is. 
+At the same time, concepts of the [schema file](/basics/store/postgres/schema-file), [code generation from the schema file](/basics/store/postgres/schema-file/intro/#typeorm-codegen) and [auto-generated GraphQL API](/graphql-api) should be familiar to subgraph developers. In most cases the schema file of a subgraph can be imported into a squid as is. 
 
 There are some known limitations:
-- Many-to-Many entity relations (should be [modelled explicitly](/basics/schema-file/entity-relations/#many-to-many-relations) as two many-to-one relations)
+- Many-to-Many entity relations should be [modeled explicitly](/basics/store/postgres/schema-file/entity-relations/#many-to-many-relations) as two many-to-one relations
 
 On top of the features provided by subgraphs, the Squid SDK and the Aquarium cloud service offers extra flexibility in developing tailored APIs and ETLs for on-chain data:
 
@@ -27,24 +27,28 @@ On top of the features provided by subgraphs, the Squid SDK and the Aquarium clo
 - [Extension of the GraphQL API](/graphql-api/custom-resolvers) with arbitrary SQL
 - [Secret environment variables](/deploy-squid/env-variables), allowing to seamlessly use private third-party JSON-RPC endpoints and integrate with external APIs
 - [API versioning and aliasing](/deploy-squid/promote-to-production)
-- [API Caching](/graphql-api/caching)  
+- [API caching](/graphql-api/caching)
 
 For a full feature set comparison, see [Subsquid vs The Graph](/migrate/subsquid-vs-thegraph).
 
 ## Squid setup 
 
-### 1. Clone template
+### 1. Install Squid CLI
 
-To begin with, clone the "minimal" Ethereum squid template from the [squid-evm-template repo](https://github.com/subsquid/squid-evm-template):
+Instructions [here](/squid-cli/installation).
+
+### 2. Fetch the template
+
+Create a squid from the minimalistic [`evm` template](https://github.com/subsquid-labs/squid-evm-template):
 
 ```bash
-git clone https://github.com/subsquid/squid-evm-template.git
+sqd init my-new-squid -t evm
 cd squid-evm-template
 ```
 
-### 2. Copy the schema file and generate entities
+### 3. Copy the schema file and generate entities
 
-The minimal template already contains a dummy `schema.graphql` file. We replace it with the subgraph's schema as is:
+The minimal template already contains a dummy `schema.graphql` file. We replace it with the subgraph schema as is:
 
 ```gql file=schema.graphl
 type Gravatar @entity {
@@ -55,81 +59,74 @@ type Gravatar @entity {
 }
 ```
 
-Next, we generate the entities from the schema and build the squid using the [`squid-typeorm-codegen(1)`](https://github.com/subsquid/squid/tree/master/typeorm-codegen) tool of the Squid SDK:
+Next, we generate the entities from the schema using the [`squid-typeorm-codegen`](/basics/store/postgres/schema-file/intro/#typeorm-codegen) tool of the Squid SDK, then build the squid:
 ```bash
 sqd codegen
 sqd build
 ```
 
-After that, start the local database and generate the migrations from the generated entities using the [`squid-typeorm-migration(1)`](https://github.com/subsquid/squid/tree/master/typeorm-migration) tool provided by the Squid SDK:
+After that, start the local database and generate migrations from the generated entities using the [`squid-typeorm-migration`](/basics/store/postgres/db-migrations) tool:
 ```bash
 sqd up
 sqd migration:generate
 ```
 A database migration file for creating a table for `Gravatar` will appear in `db/migrations`. The migration will be automatically applied once we start the squid processor.
 
-### Generate typings from ABI
+### 4. Generate typings from ABI
 
-The following command runs the `evm-typegen` tool fetches the contract ABI by the address and generates type-safe access classes in `src/abi`:
+The following command runs the [`evm-typegen` tool](/evm-indexing/squid-evm-typegen) that fetches the contract ABI by the address and generates type-safe access classes in `src/abi`:
 ```bash
 npx squid-evm-typegen src/abi 0x2E645469f354BB4F5c8a05B3b30A929361cf77eC#Gravity --clean
 ```
 
-A boilerplate code for decoding EVM logs and the contract access classes will be generated in `src/abi/Gravity.ts`. In particular, the file contains the topic definitions used at the next step.  For more details about the EVM typegen tool, read a [dedicated doc page](/evm-indexing/squid-evm-typegen).
+Boilerplate code for decoding EVM logs and contract access classes will be generated at `src/abi/Gravity.ts`. In particular, the file contains topic definitions used in the next step.
 
-### Subscribe to EVM logs
+### 5. Subscribe to EVM logs
 
-The core of the indexing logic is implemented in `src/processor.ts`. This is where we define which EVM logs (events) our squid will process and define the batch handler for them. The squid processor is configured directly by the code, unlike subgraphs which require the handlers and events to be defined in the manifest file.
+Subscriptions to EVM data, including [logs](/evm-indexing/configuration/evm-logs), are performed at the [processor object](/basics/squid-processor) definition customarily located at `src/processor.ts`. The processor is configured directly by the code, unlike subgraphs which require handlers and events to be defined in the manifest file.
 
 ```ts file=src/processor.ts
-// genereated by evm-typegen 
-// the event object contains typings for all events defined in the ABI
-import { events } from "./abi/Gravity";
+import { EvmBatchProcessor} from '@subsquid/evm-processor'
 
-const processor = new EvmBatchProcessor()
+// generated by the evm-typegen tool
+// the events object contains typings for all events defined in the ABI
+import { events } from './abi/Gravity'
+
+// the registry of Subsquid-maintained public archives
+import { lookupArchive } from '@subsquid/archive-registry'
+
+export const GRAVATAR_CONTRACT = '0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'.toLowerCase()
+
+export const processor = new EvmBatchProcessor()
   .setDataSource({
-    // uncomment and set RPC_ENDPOINT to enable contract state queries. 
-    // Both https and wss endpoints are supported. 
-    // chain: process.env.RPC_ENDPOINT,
-
-    // Change the Archive endpoints for run the squid 
-    // against the other  EVM networks:
-    // Polygon: https://polygon.archive.subsquid.io
-    // Goerli: https://goerli.archive.subsquid.io
-    archive: 'https://eth.archive.subsquid.io',
+    // change the alias to run against other EVM networks, e.g.
+    // lookupArchive('polygon')
+    // lookupArchive('binance')
+    archive: lookupArchive('eth-mainnet'),
+    chain: 'https://rpc.ankr.com/eth'
   })
   .setBlockRange({ from: 6175243 })
-  // fetch only logs emitted by the specified contract,
-  // and that match the specified topic filter
-  .addLog('0x2E645469f354BB4F5c8a05B3b30A929361cf77eC', {
-    filter: [[
+  .setFinalityConfirmation(75)
+  .addLog({
+    address: [ GRAVATAR_CONTRACT ],
+    topic0: [
       events.NewGravatar.topic,
       events.UpdatedGravatar.topic,
-   ]],
-    data: {
-        // define the log fields to be fetched from the archive
-        evmLog: {
-            topics: true,
-            data: true,
-        },
-    } as const,
-});
+    ],
+  })
 ```
 
-In the snippet above we tell the squid processor to fetch logs emitted by the contract `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC` that match of the specified topics. Note that the topic filter is a double array as required by the [selector specification](https://docs.ethers.io/v5/api/utils/abi/interface/#Interface--selectors). The configuration also specifies that the indexing should start from block `6175243` onwards (when the contract was deployed).
+In the snippet above we tell the squid processor to fetch logs emitted by the contract `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC` with topic0 within a specified list. The configuration also states that indexing should start from block `6175243`, the height at which the contract was deployed.
 
-To index smart contract data deployed to other EVM chains like Polygon or Binance Smart Chain, simply change the `archive` endpoint. For the list of the supported networks and the configuration details, see [here](/evm-indexing/configuration).
+Check out the [EVM indexing](/evm-indexing) section for the list of supported networks and configuration details.
 
-### Transform and save the data
+### 6. Transform and save the data
 
-The processor currently doesn't do much and simply outputs the data it fetches from the archive.
+Now we migrate the subgraph handlers that transform the event data into `Gravatar` objects. Instead of saving or updating gravatars one by one, `EvmBatchProcessor` receives an ordered batch of event items it is subscribed to. In our case we have only two kinds of logs -- emitted on gravatar creations and updates.
 
-Now we migrate the subgraph handlers that transform the event data into `Gravatar` objects. Instead of saving or updating gravatars one by one, `EvmBatchProcessor` receives an ordered batch of event items it is subscribed to (which can be inspected by the output). The batch typically consists of a mix of event and transaction data. In our case we have only two logs -- emitted when a gravatar is created and updated.
-
-We start with an auxiliary function that extracts and normalizes the event data from the logs using the helper classes generated by `evm-codegen` from the ABI.
-
-```ts
-function extractData(evmLog: any): { id: ethers.BigNumber, owner: string, displayName: string, imageUrl: string} {
+The entry point for transform code is `src/main.ts`. We start by appending an auxiliary data normalization function to the end of that file:
+```ts title=src/main.ts
+function extractData(evmLog: any): { id: bigint, owner: string, displayName: string, imageUrl: string} {
   if (evmLog.topics[0] === events.NewGravatar.topic) {
     return events.NewGravatar.decode(evmLog)
   }
@@ -140,51 +137,54 @@ function extractData(evmLog: any): { id: ethers.BigNumber, owner: string, displa
 }
 ```
 
-Next, we proceed with a batch handler collecting the updates from a single batch of EVM logs. Each item in `ctx.blocks` is either a `UpdateGravatar` event or a `NewGravatar` event, as was configured in the previous step. We extract the data in a unified way using `extractData` defined above. To convert a `0x...` string into a byte array we use `decodeHex` provided by the [Squid SDK](https://github.com/subsquid/squid/tree/master/util).
+Next, we make a [batch handler](/basics/squid-processor/#processorrun) collecting the updates from a single batch of EVM logs. To convert a `0x...` string into a byte array we use the `decodeHex` utility from Subsquid SDK.
 
-```ts
-processor.run(new TypeormDatabase(), async (ctx) => {
-    const gravatars: Map<string, Gravatar> = new Map();
-    for (const c of ctx.blocks) {
-      for (const e of c.items) {
-        // e.kind may be 'evmLog' or 'transaction'
-        if(e.kind !== "evmLog") {
-          continue
-        }
-        const { id, owner, displayName, imageUrl } = extractData(e.evmLog)
-        gravatars.set(id.toHexString(), new Gravatar({
-          id: id.toHexString(),
-          owner: decodeHex(owner),
-          displayName,
-          imageUrl
-        })) 
-      }
+```ts title=src/main.ts
+import { TypeormDatabase } from '@subsquid/typeorm-store'
+import { decodeHex } from '@subsquid/evm-processor'
+import { events } from './abi/Gravity'
+import { Gravatar } from './model'
+import { processor, GRAVATAR_CONTRACT } from './processor'
+
+processor.run(new TypeormDatabase({supportHotBlocks: true}), async (ctx) => {
+  const gravatars: Map<string, Gravatar> = new Map()
+  for (const c of ctx.blocks) {
+    for (const e of c.logs) {
+      if (!(e.address === GRAVATAR_CONTRACT &&
+            (e.topics[0] === events.NewGravatar.topic ||
+             e.topics[0] === events.UpdatedGravatar.topic))) continue
+      const { id, owner, displayName, imageUrl } = extractData(e)
+      let idString = '0x' + id.toString(16)
+      gravatars.set(idString, new Gravatar({
+        id: idString,
+        owner: decodeHex(owner),
+        displayName,
+        imageUrl
+      }))
     }
-    await ctx.store.save([...gravatars.values()])
-});
+  }
+  await ctx.store.upsert([...gravatars.values()])
+})
 ```
+The implementation is straightforward -- the newly created and/or updated gravatars are tracked by an in-memory map. The values are persisted in a single batch upsert once all items are processed.
 
-The implementation is straightforward -- the newly created and/or updated gravatars are tracked by an in-memory map. The values are persisted in a single batch upsert via `cts.store.save(...)` once all items are processed.
-
-### Run the processor and GraphQL API
+### 7. Run the processor and GraphQL API
 
 To start the indexing, run
 ```bash
-npm run build
-make process
+sqd process
 ```
 The processor will output the sync progress and the ETA to reach the chain head. After it reaches the head it will continue indexing new blocks until stopped.
 
 To start an API server (at port `4350` by default) with a GraphQL schema auto-generated from the schema file, run in a new terminal window
 ```bash
-npx squid-graphql-server
+sqd serve
 ```
-and inspect the auto-generated GraphQL API using an interactive playground at `http://localhost:4350/graphql` 
-
+and inspect the auto-generated GraphQL API using an interactive playground at [http://localhost:4350/graphql](http://localhost:4350/graphql).
 
 ## What's Next?
 
-- Have a closer look at the `EvmBatchProcessor` batch-oriented [programming model](/evm-indexing)
+- Have a closer look at [`EvmBatchProcessor`](/evm-indexing)
 - Learn how to [deploy a squid to the Aquarium hosted service](/deploy-squid) for free
 - Learn how to [index and query the contract state](/evm-indexing/query-state)
-- Inspect a more complex [Uniswap V3 squid](https://github.com/subsquid/uniswap-squid) which tracks Uniswap V3 trading data. It was migrated from the [Uniswap V3 subgraph](https://github.com/Uniswap/v3-subgraph). It takes only a few hours to sync from scratch on a local machine.
+- Inspect a more complex [Uniswap V3 squid](https://github.com/subsquid-labs/uniswap-squid) which tracks Uniswap V3 trading data. It was migrated from the [Uniswap V3 subgraph](https://github.com/Uniswap/v3-subgraph). It takes only a few hours to sync from scratch on a local machine.
