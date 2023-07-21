@@ -24,7 +24,7 @@ Since the ArrowSquid release, the Squid SDK has the option to ingest unfinalized
 
 Add `--subscription` flag to the `serve` command defined in `commands.json`. See [Subscriptions](/graphql-api/subscriptions) for details.
 
-### Where do squid processors keep their state between batches?
+### How do squids keep track of their sync progress?
 
 Depends on the data sink used. Squid processors that use [`TypeormDatabase`](/basics/store/postgres) keep their state in a [schema](https://www.postgresql.org/docs/current/sql-createschema.html), not in a table. By default the schema is called `squid_processor` (name must be overridden in [multiprocessor squids](/basics/multichain)). You can view it with
 ```sql
