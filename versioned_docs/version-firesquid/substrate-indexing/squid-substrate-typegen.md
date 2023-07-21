@@ -28,6 +28,11 @@ Within the substrate-based templates there is also an `sqd` shorthand command fo
 sqd typegen
 ```
 
+If necessary, multiple config files can be supplied:
+```bash
+npx squid-substrate-typegen typegen0.json typegen1.json ...
+```
+
 The `typegen.json` config file has the following structure:
 ```json
 {
