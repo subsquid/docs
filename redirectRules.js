@@ -138,6 +138,10 @@ const urlList = [
     {
         "from": "/basics/db-migrations",
         "to": "/basics/store/postgres/db-migrations"
+    },
+    {
+        "from": "/squid-cli/redeploy",
+        "to": "/squid-cli/restart"
     }
 ]
 
