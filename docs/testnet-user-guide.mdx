@@ -1,0 +1,107 @@
+---
+sidebar_class_name: hidden
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Testnet user guide
+
+This tutorial should help new Subsquid testnet users get their first squids up and running.
+
+## Installing dependencies
+
+```mdx-code-block
+<Tabs>
+<TabItem value="windows" label="Windows">
+```
+1. Install [Docker for Windows](https://docs.docker.com/desktop/install/windows-install/).
+2. Install NodeJS LTS using the [official installer](https://nodejs.org/en/download).
+3. Install [Git for Windows](https://git-scm.com/download/win).
+
+In all installs it is OK to leave all the options at their default values. You will need a terminal to complete this tutorial - [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) bash is the preferred option.
+```mdx-code-block
+</TabItem>
+<TabItem value="mac" label="Mac">
+```
+1. Install [Docker for Mac](https://docs.docker.com/desktop/install/mac-install/).
+2. Install NodeJS LTS using the [official installer](https://nodejs.org/en/download).
+3. Install Git using the [installer](https://sourceforge.net/projects/git-osx-installer/) or by [other means](https://git-scm.com/download/mac).
+```mdx-code-block
+</TabItem>
+<TabItem value="linux" label="Linux" default>
+```
+Install NodeJS (v16 or newer), Git and Docker using your distro's package manager.
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+## Installing Subsquid CLI
+
+Open a terminal and run
+```bash
+npm install --global @subsquid/cli
+```
+This adds the [`sqd` command](/squid-cli).
+
+### Running a simple squid
+
+Think of a good, globally unique name for your new squid. Now open a terminal and run the following commands to create the squid from the `evm` template and enter its folder:
+```bash
+sqd init my-awesome-squid -t evm
+cd my-awesome-squid
+```
+Replace `my-awesome-squid` with the name you chose for your squid. If a squid with that name already exists, the first command will throw an error; if that happens simply think of another name and repeat the commands.
+
+The template squid uses a PostgreSQL database. Start a Docker container that runs it with
+```bash
+sqd up
+```
+Prepare the squid for running by installing dependencies, building the source code and creating all the necessary database tables:
+```bash
+npm ci
+sqd build
+sqd migration:apply
+```
+Start your squid with
+```bash
+sqd run .
+```
+The command should output lines like these:
+```
+[api] 09:56:02 WARN  sqd:graphql-server enabling dumb in-memory cache (size: 100mb, ttl: 1000ms, max-age: 1000ms)
+[api] 09:56:02 INFO  sqd:graphql-server listening on port 4350
+[processor] 09:56:04 INFO  sqd:processor processing blocks from 6000000
+[processor] 09:56:05 INFO  sqd:processor using archive data source
+[processor] 09:56:05 INFO  sqd:processor prometheus metrics are served at port 33097
+[processor] 09:56:08 INFO  sqd:processor:mapping Burned 59865654 Gwei from 6000000 to 6016939
+[processor] 09:56:08 INFO  sqd:processor 6016939 / 17743832, rate: 5506 blocks/sec, mapping: 304 blocks/sec, 182 items/sec, eta: 36m
+```
+When done, stop the squid with Ctrl-C, then stop and remove the database container with
+```bash
+sqd down
+```
+
+### Running a multiprocessor squid
+
+Redo the previous section using the `multichain` squid template instead of `evm`. This change will only affect the first two commands:
+```bash
+sqd init my-awesome-multichain-squid -t multichain
+cd my-awesome-multichain-squid
+```
+Here, `my-awesome-multichain-squid` is a placeholder for the name you should choose for your awesome multiprocessor squid.
+
+The rest of the commands do not need to be changed. An output of a healthy multichain template squid looks like this:
+```
+[api] 10:05:05 WARN  sqd:graphql-server enabling dumb in-memory cache (size: 100mb, ttl: 1000ms, max-age: 1000ms)
+[api] 10:05:05 INFO  sqd:graphql-server listening on port 4350
+[bsc-processor] 10:05:07 INFO  sqd:processor processing blocks from 27000000
+[eth-processor] 10:05:07 INFO  sqd:processor processing blocks from 16000000
+[bsc-processor] 10:05:08 INFO  sqd:processor using archive data source
+[bsc-processor] 10:05:08 INFO  sqd:processor prometheus metrics are served at port 44305
+[eth-processor] 10:05:08 INFO  sqd:processor using archive data source
+[eth-processor] 10:05:08 INFO  sqd:processor prometheus metrics are served at port 39751
+[eth-processor] 10:05:10 INFO  sqd:processor 16003899 / 17743832, rate: 1482 blocks/sec, mapping: 616 blocks/sec, 1154 items/sec, eta: 20m
+[bsc-processor] 10:05:11 INFO  sqd:processor 27002719 / 30168778, rate: 787 blocks/sec, mapping: 542 blocks/sec, 1041 items/sec, eta: 1h 8m
+```
