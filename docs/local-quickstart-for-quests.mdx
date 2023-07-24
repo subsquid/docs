@@ -5,9 +5,9 @@ sidebar_class_name: hidden
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Testnet user guide
+# Running squids locally (quest edition)
 
-This tutorial should help new Subsquid testnet users get their first squids up and running.
+This tutorial should help new Subsquid testnet users get their first squids up and running locally.
 
 ## Installing dependencies
 
@@ -28,11 +28,54 @@ In all installs it is OK to leave all the options at their default values. You w
 1. Install [Docker for Mac](https://docs.docker.com/desktop/install/mac-install/).
 2. Install NodeJS LTS using the [official installer](https://nodejs.org/en/download).
 3. Install Git using the [installer](https://sourceforge.net/projects/git-osx-installer/) or by [other means](https://git-scm.com/download/mac).
+
+Make a folder for global installations of NodeJS packages using an unprivileged account, for example by running
+```bash
+mkdir ~/global-node-packages
+```
+then configure NodeJS to use it
+```bash
+npm config set prefix ~/global-node-packages
+```
+Make sure that any executables globally installed by NodeJS are in `PATH`. That allows running them from any terminal.
+
+Open the `~/.bash_profile` file in a text editor and add the following line at the end:
+```
+export PATH="${HOME}/global-node-packages/bin:$PATH"
+```
+Re-open the terminal to apply the changes.
+
 ```mdx-code-block
 </TabItem>
 <TabItem value="linux" label="Linux">
 ```
 Install NodeJS (v16 or newer), Git and Docker using your distro's package manager.
+
+Make a folder for global installations of NodeJS packages using an unprivileged account, for example by running
+```bash
+mkdir ~/global-node-packages
+```
+then configure NodeJS to use it
+```bash
+npm config set prefix ~/global-node-packages
+```
+
+Make a folder for global installations of NodeJS packages using an unprivileged account, for example by running
+```bash
+mkdir ~/global-node-packages
+```
+then configure NodeJS to use it
+```bash
+npm config set prefix ~/global-node-packages
+```
+Make sure that any executables globally installed by NodeJS are in `PATH`. That allows running them from any terminal.
+
+Open the `~/.bashrc` file in a text editor and add the following line at the end:
+```
+export PATH="${HOME}/global-node-packages/bin:$PATH"
+```
+Re-open the terminal to apply the changes.
+
 ```mdx-code-block
 </TabItem>
 </Tabs>
@@ -44,7 +87,14 @@ Open a terminal and run
 ```bash
 npm install --global @subsquid/cli
 ```
-This adds the [`sqd` command](/squid-cli).
+This adds the [`sqd` command](/squid-cli). Verify that the installation was successful by running
+```bash
+sqd --version
+```
+The response should look similar to this:
+```
+@subsquid/cli/2.4.3 linux-x64 node-v20.4.0
+```
 
 ### Running a simple squid
 

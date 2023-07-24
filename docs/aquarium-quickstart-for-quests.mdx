@@ -1,0 +1,146 @@
+---
+sidebar_class_name: hidden
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Running squids in Aquarium (quest edition)
+
+This tutorial should help new Subsquid testnet users get their first squids up and running in [Aquarium](https://app.subsquid.io/).
+
+## Installing dependencies
+
+```mdx-code-block
+<Tabs>
+<TabItem value="windows" label="Windows" default>
+```
+1. Install NodeJS LTS using the [official installer](https://nodejs.org/en/download).
+2. Install [Git for Windows](https://git-scm.com/download/win).
+
+In all installs it is OK to leave all the options at their default values. You will need a terminal to complete this tutorial - [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) bash is the preferred option.
+```mdx-code-block
+</TabItem>
+<TabItem value="mac" label="Mac">
+```
+1. Install NodeJS LTS using the [official installer](https://nodejs.org/en/download).
+2. Install Git using the [installer](https://sourceforge.net/projects/git-osx-installer/) or by [other means](https://git-scm.com/download/mac).
+
+Make a folder for global installations of NodeJS packages using an unprivileged account, for example by running
+```bash
+mkdir ~/global-node-packages
+```
+then configure NodeJS to use it
+```bash
+npm config set prefix ~/global-node-packages
+```
+Make sure that any executables globally installed by NodeJS are in `PATH`. That allows running them from any terminal.
+
+Open the `~/.bash_profile` file in a text editor and add the following line at the end:
+```
+export PATH="${HOME}/global-node-packages/bin:$PATH"
+```
+Re-open the terminal to apply the changes.
+
+```mdx-code-block
+</TabItem>
+<TabItem value="linux" label="Linux">
+```
+Install NodeJS (v16 or newer), Git and Docker using your distro's package manager.
+
+Make a folder for global installations of NodeJS packages using an unprivileged account, for example by running
+```bash
+mkdir ~/global-node-packages
+```
+then configure NodeJS to use it
+```bash
+npm config set prefix ~/global-node-packages
+```
+
+Make a folder for global installations of NodeJS packages using an unprivileged account, for example by running
+```bash
+mkdir ~/global-node-packages
+```
+then configure NodeJS to use it
+```bash
+npm config set prefix ~/global-node-packages
+```
+Make sure that any executables globally installed by NodeJS are in `PATH`. That allows running them from any terminal.
+
+Open the `~/.bashrc` file in a text editor and add the following line at the end:
+```
+export PATH="${HOME}/global-node-packages/bin:$PATH"
+```
+Re-open the terminal to apply the changes.
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+## Installing Subsquid CLI
+
+Open a terminal and run
+```bash
+npm install --global @subsquid/cli
+```
+This adds the [`sqd` command](/squid-cli). Verify that the installation was successful by running
+```bash
+sqd --version
+```
+The response should look similar to this:
+```
+@subsquid/cli/2.4.3 linux-x64 node-v20.4.0
+```
+When done, register at the [Aquarium](https://app.subsquid.io/) and visit the [deployment key page](https://app.subsquid.io/profile/deployment-key) to get the command that authenticates your copy of `sqd` with the cloud service. It should look like this:
+
+```bash
+sqd auth -k sqd_3151552dd520ea7bfb7c
+```
+Run it.
+
+### Deploying a simple squid
+
+Think of a good, globally unique name for your new squid. Now open a terminal and run the following commands to create the squid from the `evm` template and enter its folder:
+```bash
+sqd init my-awesome-squid -t evm
+cd my-awesome-squid
+```
+Replace `my-awesome-squid` with the name you chose for your squid. If a squid with that name already exists, the first command will throw an error; if that happens simply think of another name and repeat the commands.
+
+Deploy your squid with
+```bash
+sqd deploy .
+```
+The command will pack up the squid, upload it to Aquarium for buidling and ultimately deploy it to the cloud service. You will know that the deployment was successful once you see lines like these streamed from your squid running in Aquarium:
+```
+api 2023-07-24T16:19:23.123Z INFO sqd:graphql-server listening on port 8080
+processor 2023-07-24T16:19:28.059Z INFO sqd:processor processing blocks from 6000000
+processor 2023-07-24T16:19:29.020Z INFO sqd:processor using archive data source
+processor 2023-07-24T16:19:29.024Z INFO sqd:processor prometheus metrics are served at port 3000
+processor 2023-07-24T16:19:31.542Z INFO sqd:processor:mapping Burned 115602345 Gwei from 6000000 to 6027779
+processor 2023-07-24T16:19:31.719Z INFO sqd:processor 6027779 / 17762844, rate: 10606 blocks/sec, mapping: 135 blocks/sec, 77 items/sec, eta: 19m
+```
+
+### Running a multiprocessor squid
+
+Redo the previous section using the `multichain` squid template instead of `evm`. This change will only affect the first two commands:
+```bash
+sqd init my-awesome-multichain-squid -t multichain
+cd my-awesome-multichain-squid
+```
+Here, `my-awesome-multichain-squid` is a placeholder for the name you should choose for your awesome multiprocessor squid.
+
+The rest of the commands do not need to be changed. An output of a healthy multichain template squid looks like this:
+```
+api 2023-07-24T16:23:23.519Z INFO sqd:graphql-server listening on port 8080
+bsc-processor 2023-07-24T16:23:28.858Z INFO sqd:processor processing blocks from 27000000
+bsc-processor 2023-07-24T16:23:29.830Z INFO sqd:processor using archive data source
+bsc-processor 2023-07-24T16:23:29.836Z INFO sqd:processor prometheus metrics are served at port 3000
+bsc-processor 2023-07-24T16:23:33.735Z INFO sqd:processor 27002719 / 30246635, rate: 697 blocks/sec, mapping: 77 blocks/sec, 147 items/sec, eta: 1h 18m
+eth-processor 2023-07-24T16:23:34.762Z INFO sqd:processor processing blocks from 16000000
+eth-processor 2023-07-24T16:23:35.925Z INFO sqd:processor using archive data source
+eth-processor 2023-07-24T16:23:35.930Z INFO sqd:processor prometheus metrics are served at port 3000
+bsc-processor 2023-07-24T16:23:38.737Z INFO sqd:processor 27008419 / 30246635, rate: 1108 blocks/sec, mapping: 95 blocks/sec, 184 items/sec, eta: 49m
+eth-processor 2023-07-24T16:23:38.926Z INFO sqd:processor 16003899 / 17762844, rate: 1300 blocks/sec, mapping: 80 blocks/sec, 149 items/sec, eta: 23m
+```
