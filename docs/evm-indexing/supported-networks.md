@@ -16,6 +16,7 @@ The table below lists the currently available public EVM ArrowSquid/v2 Archive e
 | Arbitrum One (**)                | `lookupArchive('arbitrum')`                   | `https://v2.archive.subsquid.io/network/arbitrum-one`      |
 | Arbitrum Goerli                  | `lookupArchive('arbitrum-goerli')`            | `https://v2.archive.subsquid.io/network/arbitrum-goerli`   |
 | Arbitrum Nova                    | `lookupArchive('arbitrum-nova')`              | `https://v2.archive.subsquid.io/network/arbitrum-nova`     |
+| Astar   (*)                      | `lookupArchive('astar',` `{type: 'EVM'})`     | `https://v2.archive.subsquid.io/network/astar-mainnet`     |
 | Avalanche (**)                   | `lookupArchive('avalanche')`                  | `https://v2.archive.subsquid.io/network/avalanche-mainnet` |
 | Avalanche Testnet (**)           | `lookupArchive('avalanche-testnet')`          | `https://v2.archive.subsquid.io/network/avalanche-testnet` |
 | Binance Smart Chain              | `lookupArchive('binance')`                    | `https://v2.archive.subsquid.io/network/binance-mainnet`   |
@@ -30,6 +31,7 @@ The table below lists the currently available public EVM ArrowSquid/v2 Archive e
 | Shibuya Testnet (**)             | `lookupArchive('shibuya-testnet')`            | `https://v2.archive.subsquid.io/network/shibuya-testnet`   |
  
 (*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate archive](/archives/substrate)
+
 (**) Available without the support for [traces](/evm-indexing/configuration/traces).
 
 ### Examples 
