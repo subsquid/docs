@@ -11,7 +11,7 @@ description: >-
 Giant Squid Explorer is an open-source project. You can find source code [here](https://github.com/subsquid-labs/giant-squid-explorer)
 :::
 
-Explorer part of The Giant Squid API provides tooling for searching and filtering raw on-chain items such as Blocks, Events, Calls, and Extrinsics. There are a lot of different filters available for developers, so they can find the exact items that they want.
+Explorer part of the Giant Squid API provides tooling for searching and filtering raw on-chain items such as Blocks, Events, Calls, and Extrinsics.
 
 :::info
 Full list of supported chains you can find on statuses [page](/giant-squid-api/statuses).

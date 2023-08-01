@@ -8,21 +8,27 @@ description: Giant Squid API overview
 ## Intro
 Giant Squid is a set of open-source GraphQL APIs built with Squid SDK and maintained by Subsquid Labs. The APIs cover the most commonly used data for Pokadot, Kusama and a growing list major parachains and is used by explorers (such as [Calamar](https://calamar.app)) and wallets (e.g. SubWallet). For support and feature requests, join the [SquidDevs channel](https://t.me/HydraDevs) or [Discord](https://discord.com/invite/subsquid).
 
-The Giant Squid currently consists of two families of endpoints outlined below. The API endpoints for each network and the current status are available at the [Status page](/giant-squid-api/statuses).
+The Giant Squid currently consists of three families of endpoints outlined below. The API endpoints for each network and the current status are available at the [Status page](/giant-squid-api/statuses).
 
-- [Explorer API](/giant-squid-api/gs-explorer). The endpoint URLs follow the convention `https://squid.subsquid.io/gs-explorer-${network}/graphql`. Support queries on:
+- [Explorer API](/giant-squid-api/gs-explorer). The endpoint URLs follow the convention `https://squid.subsquid.io/gs-explorer-${network}/graphql`. Supports queries on:
     - Blocks
     - Events
     - Extrinsics
     - Calls
 
-- [Statistics API](/giant-squid-api/gs-stats). The endpoint URLs follow the convention `https://squid.subsquid.io/gs-stats-${network}/graphql`. Support queries on:
+- [Statistics API](/giant-squid-api/gs-stats). The endpoint URLs follow the convention `https://squid.subsquid.io/gs-stats-${network}/graphql`. Supports queries on:
    - Validator/Collator data
    - Account balances
    - Staking statistics
    - Nomination pools statistics
    - Transfers statistics
    - Extrinsic statistics
+
+- [Main API](/giant-squid-api/gs-main). The endpoint URLs follow the convention `https://squid.subsquid.io/gs-main-${network}/graphql`. Supports queries on:
+    - Accounts
+    - Transfers
+    - Staking rewards
+    - Identities
 
 ## Roadmap
 | Est. date | GS family | Features | Description 
