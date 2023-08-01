@@ -161,8 +161,9 @@ export default function Home(): JSX.Element {
             <div className="relative border border-border-color-base--default rounded-lg p-6 mb-8">
                 <h4 className="mb-4 body--m">How much does Subsquid cost?</h4>
                 <p className="text-fg-base--muted font-light">
-                    The Subsquid SDK is open source, and access to public Archives maintained by Subsquid Labs is free of charge. Following our TGE and mainnet launch, the price of Archive queries will be determined by an open market.
-                    The basic plan for deploying squids to the Aquarium is free and always will be, with some premium features to be introduced in the future.
+                    The Squid SDK is open source. Data access to the Subsquid Network (and Archives) is free as it is incentivized by the networks. 
+                    Aquarium offers a basic free plan for development and a Premium plan for production use-cases. The Premium plan supports scaling and
+                    includes a package of reliable RPC request. The Premium plan pricing is pay-as-you-go and is calculated based on the consumed computing resources.
                 </p>
             </div>
 
