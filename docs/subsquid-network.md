@@ -3,7 +3,7 @@ sidebar_position: 112
 title: Subsquid network
 ---
 
-# Subsquid Network FAQ
+# Subsquid Network FAQ v1
 
 ### What is Subsquid Network?
 
@@ -27,7 +27,7 @@ Subsquid's decentralized data lake can be used for indexing blockchain data, pow
 
 Yes! Subsquid is production-ready and reliable for your dApp. It has been effectively used in over 500 use cases across ecosystems, proving its trustworthiness and utility within the Web3 developer community.
 
-### What are the hardware requirements to run a worker node? 
+### What are the hardware requirements to run a worker node?
 
 To run a single worker you will need:
 
@@ -38,14 +38,14 @@ To run a single worker you will need:
 - 100_000 tSQD tokens
 - Some AGOR (Arbitrum Goerli)
 
-A single account can register multiple workers.
+There are two options to run the worker:
 
-There are two options two run the worker:
-
-using Docker
-from sources
+* using Docker
+* from sources
 
 Please refer to this [wiki](https://github.com/subsquid/subsquid-network-contracts/wiki/Mirovia-worker-instructions#requirements) for further instructions. 
+
+A single account can register multiple workers.
 
 ### How do I deploy a simple squid indexer?
 
@@ -53,7 +53,7 @@ Start your first squid indexer in 5 minutes! Learn more [here](https://docs.subs
 
 ### What is a Subsquid Archive?
 
-Archive is a specialized data lake for on-chain data, optimized for batch data access. The Archive API is meant to be used as a data source for Squid SDK processors. All the Archives together, with the network of worker nodes, forms the Subsquid Decentralized Data Lake
+Archive is a specialized data lake for on-chain data, optimized for batch data access. The Archive API is meant to be used as a data source for Squid SDK processors. All the Archives together, with the network of worker nodes, form the Subsquid Decentralized Data Lake.
 
 ### What chains are currently supported by Subsquid’s decentralized data lake and SDK?
 
@@ -87,9 +87,7 @@ The data indexed by the Subsquid Network is stored in persistent storage. During
 
 ### What is the difference between Subsquid Network and the Graph Network?
 
-In short, The Graph's indexing node functions as a black-box, processing data from archival nodes into a secure, isolated Postgres database, accessible only via GraphQL. In contrast, Subsquid uses a transparent, modular architecture that separates data extraction from presentation, allowing for adaptable data targets and increased flexibility for both online and offline applications. 
-
-Learn more about the differences and see a full feature matrix [here](https://docs.subsquid.io/migrate/subsquid-vs-thegraph/).
+Learn about the differences and see a full feature matrix [here](https://docs.subsquid.io/migrate/subsquid-vs-thegraph/).
 
 ### How does the Subsquid Network make blockchain data accessible for free? Are there costs involved?
 
@@ -99,4 +97,4 @@ Of course, we can’t make the cost of hosting indexers or GraphQL free-of-charg
 
 ### How does Subsquid ensure the security and privacy of the data accessed through the network?
 
-Subsquid Network employs validators who listen to the logs of the executed queries and resubmit them to validate the response. There's also an arbitration process to handle any discrepancies. However, specific measures related to privacy are not mentioned in the text.
+Subsquid Network employs validators who listen to the logs of the executed queries and resubmit them to validate the response. There's also an arbitration process to handle any discrepancies.
