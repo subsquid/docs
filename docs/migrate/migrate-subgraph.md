@@ -64,6 +64,7 @@ Next, we generate the entities from the schema using the [`squid-typeorm-codegen
 sqd codegen
 sqd build
 ```
+This command is equivalent to running `yarn codegen` in subgraph.
 
 After that, start the local database and generate migrations from the generated entities using the [`squid-typeorm-migration`](/basics/store/postgres/db-migrations) tool:
 ```bash
@@ -74,16 +75,20 @@ A database migration file for creating a table for `Gravatar` will appear in `db
 
 ### 4. Generate typings from ABI
 
-The following command runs the [`evm-typegen` tool](/evm-indexing/squid-evm-typegen) that fetches the contract ABI by the address and generates type-safe access classes in `src/abi`:
+Copy `./abis/Gravity.json` from the subgraph project and paste it to `./abi` folder in the subsquid project.
+To generate the typings, run:
+```bash
+sqd typegen
+```
+Alternatively, similar to `graph add <address> [<subgraph-manifest default: "./subgraph.yaml">]` command, to generate typings, run:
 ```bash
 npx squid-evm-typegen src/abi 0x2E645469f354BB4F5c8a05B3b30A929361cf77eC#Gravity --clean
 ```
-
-Boilerplate code for decoding EVM logs and contract access classes will be generated at `src/abi/Gravity.ts`. In particular, the file contains topic definitions used in the next step.
+This command runs the `evm-typegen` tool that fetches the contract ABI by the address and generates type-safe access classes in `src/abi/Gravity.ts`. The generated boilerplate code will be used to decode EVM logs and directly query the contract. It also contains topic definitions used in the next step.
 
 ### 5. Subscribe to EVM logs
 
-Subscriptions to EVM data, including [logs](/evm-indexing/configuration/evm-logs), are performed at the [processor object](/basics/squid-processor) definition customarily located at `src/processor.ts`. The processor is configured directly by the code, unlike subgraphs which require handlers and events to be defined in the manifest file.
+While in The Graph data source is defined in the manifest file `subgraph.yaml`, in Subsquid subscriptions to EVM data, including logs, are performed at the processor object definition customarily located at `src/processor.ts`. The processor is configured directly by the code, unlike subgraphs which require handlers and events to be defined in the manifest file.
 
 ```ts file=src/processor.ts
 import { EvmBatchProcessor} from '@subsquid/evm-processor'
@@ -120,9 +125,43 @@ In the snippet above we tell the squid processor to fetch logs emitted by the co
 
 Check out the [EVM indexing](/evm-indexing) section for the list of supported networks and configuration details.
 
+The above snippet is eqivalent to the following `subgraph.yaml`:
+
+```yaml file=subgraph.yaml
+specVersion: 0.0.4
+description: Gravatar for Ethereum
+repository: https://github.com/graphprotocol/example-subgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Gravity
+    network: mainnet
+    source:
+      address: '0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'
+      abi: Gravity
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Gravatar
+      abis:
+        - name: Gravity
+          file: ./abis/Gravity.json
+      eventHandlers:
+        - event: NewGravatar(uint256,address,string,string)
+          handler: handleNewGravatar
+        - event: UpdatedGravatar(uint256,address,string,string)
+          handler: handleUpdatedGravatar
+      file: ./src/mapping.ts
+```
+
 ### 6. Transform and save the data
 
-Now we migrate the subgraph handlers that transform the event data into `Gravatar` objects. Instead of saving or updating gravatars one by one, `EvmBatchProcessor` receives an ordered batch of event items it is subscribed to. In our case we have only two kinds of logs -- emitted on gravatar creations and updates.
+In Subgraph data is saved in the `mapping.ts` file. The mapping function will receive an `ethereum.Block` as its only argument. In Subsquid, we set up the processor in `processor.ts` and save the data in the `main.ts`.
+
+We migrate the subgraph handlers that transform the event data into `Gravatar` objects. Instead of saving or updating gravatars one by one, `EvmBatchProcessor` receives an ordered batch of event items it is subscribed to. In our case we have only two kinds of logs -- emitted on gravatar creations and updates.
 
 The entry point for transform code is `src/main.ts`. We start by appending an auxiliary data normalization function to the end of that file:
 ```ts title=src/main.ts
