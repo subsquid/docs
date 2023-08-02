@@ -98,47 +98,49 @@ The response should look similar to this:
 
 ### Running a simple squid
 
-Think of a good, globally unique name for your new squid. Now open a terminal and run the following commands to create the squid from the `evm` template and enter its folder:
-```bash
-sqd init my-awesome-squid -t evm
-cd my-awesome-squid
-```
-Replace `my-awesome-squid` with the name you chose for your squid. If a squid with that name already exists, the first command will throw an error; if that happens simply think of another name and repeat the commands.
+1. Think of a good, globally unique name for your new squid. Now open a terminal and run the following commands to create the squid and enter its folder:
+   ```bash
+   sqd init my-awesome-squid -t https://github.com/subsquid-labs/quest-single-chain-squid-0
+   cd my-awesome-squid
+   ```
+   Replace `my-awesome-squid` with the name you chose for your squid. If a squid with that name already exists, the first command will throw an error; if that happens simply think of another name and repeat the commands.
 
-The template squid uses a PostgreSQL database. Start a Docker container that runs it with
-```bash
-sqd up
-```
-Prepare the squid for running by installing dependencies, building the source code and creating all the necessary database tables:
-```bash
-npm ci
-sqd build
-sqd migration:apply
-```
-Start your squid with
-```bash
-sqd run .
-```
-The command should output lines like these:
-```
-[api] 09:56:02 WARN  sqd:graphql-server enabling dumb in-memory cache (size: 100mb, ttl: 1000ms, max-age: 1000ms)
-[api] 09:56:02 INFO  sqd:graphql-server listening on port 4350
-[processor] 09:56:04 INFO  sqd:processor processing blocks from 6000000
-[processor] 09:56:05 INFO  sqd:processor using archive data source
-[processor] 09:56:05 INFO  sqd:processor prometheus metrics are served at port 33097
-[processor] 09:56:08 INFO  sqd:processor:mapping Burned 59865654 Gwei from 6000000 to 6016939
-[processor] 09:56:08 INFO  sqd:processor 6016939 / 17743832, rate: 5506 blocks/sec, mapping: 304 blocks/sec, 182 items/sec, eta: 36m
-```
-When done, stop the squid with Ctrl-C, then stop and remove the database container with
-```bash
-sqd down
-```
+2. Download your squid deployment key and save it at the squid folder as a `./key` file. The file will be used by the query gateway container.
+
+3. The template squid uses a PostgreSQL database and a query gateway. Start Docker containers that run these with
+   ```bash
+   sqd up
+   ```
+4. Prepare the squid for running by installing dependencies, building the source code and creating all the necessary database tables:
+   ```bash
+   npm ci
+   sqd build
+   sqd migration:apply
+   ```
+5. Start your squid with
+   ```bash
+   sqd run .
+   ```
+   The command should output lines like these:
+   ```
+   [api] 09:56:02 WARN  sqd:graphql-server enabling dumb in-memory cache (size: 100mb, ttl: 1000ms, max-age: 1000ms)
+   [api] 09:56:02 INFO  sqd:graphql-server listening on port 4350
+   [processor] 09:56:04 INFO  sqd:processor processing blocks from 6000000
+   [processor] 09:56:05 INFO  sqd:processor using archive data source
+   [processor] 09:56:05 INFO  sqd:processor prometheus metrics are served at port 33097
+   [processor] 09:56:08 INFO  sqd:processor:mapping Burned 59865654 Gwei from 6000000 to 6016939
+   [processor] 09:56:08 INFO  sqd:processor 6016939 / 17743832, rate: 5506 blocks/sec, mapping: 304 blocks/sec, 182 items/sec, eta: 36m
+   ```
+   The squid should sync in 10-15 minutes. When it's done, stop it with Ctrl-C, then stop and remove the auxiliary containers with
+   ```bash
+   sqd down
+   ```
 
 ### Running a multiprocessor squid
 
-Redo the previous section using the `multichain` squid template instead of `evm`. This change will only affect the first two commands:
+Redo the previous section using a special multichain squid template prepared for the quest. This change will only affect the first two commands:
 ```bash
-sqd init my-awesome-multichain-squid -t multichain
+sqd init my-awesome-multichain-squid -t https://github.com/subsquid-labs/quest-multi-chain-squid-0
 cd my-awesome-multichain-squid
 ```
 Here, `my-awesome-multichain-squid` is a placeholder for the name you should choose for your awesome multiprocessor squid.
@@ -156,3 +158,4 @@ The rest of the commands do not need to be changed. An output of a healthy multi
 [eth-processor] 10:05:10 INFO  sqd:processor 16003899 / 17743832, rate: 1482 blocks/sec, mapping: 616 blocks/sec, 1154 items/sec, eta: 20m
 [bsc-processor] 10:05:11 INFO  sqd:processor 27002719 / 30168778, rate: 787 blocks/sec, mapping: 542 blocks/sec, 1041 items/sec, eta: 1h 8m
 ```
+You need to wait for both processors to sync to complete the quest. The ETA is 25-40 minutes.
