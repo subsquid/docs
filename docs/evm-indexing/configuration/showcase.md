@@ -1,15 +1,13 @@
 ---
-sidebar_class_name: hidden
+sidebar_position: 100
+title: Config showcase
+description: >-
+  Code snippets requesting a variety of data
 ---
 
 # Processor capabilities showcase
 
-Notes:
-* I would not get into RPC ingestion here, but we can change that.
-
-### Analyze txs of a large number of BSC wallets
-
-* very wide scope example
+<details><summary>Analyze txs of a large number of BSC wallets</summary>
 
 ```ts
 const processor = new EvmBatchProcessor()
@@ -35,10 +33,9 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 })
 ```
 
-### Get all USDC `Transfer` events on Ethereum
+</details>
 
-* easy
-* logs retrieval by address & topic0
+<details><summary>Get all USDC Transfer events on Ethereum</summary>
 
 ```ts
 const USDC_CONTRACT_ADDRESS = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
@@ -59,10 +56,9 @@ export const processor = new EvmBatchProcessor()
   })
 ```
 
-### Get all token and NFT `Transfer`s to vitalik.eth
+</details>
 
-* easy
-* logs retrieval by topic2
+<details><summary>Get all token and NFT Transfers to vitalik.eth</summary>
 
 ```ts
 const VITALIK_ETH_TOPIC = '0x000000000000000000000000d8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
@@ -81,13 +77,11 @@ export const processor = new EvmBatchProcessor()
   })
 ```
 
-### Get all calls to AAVE lending pool and all events they caused
+</details>
 
-Including events emitted by other contracts. Get value involved in each call.
+<details><summary>Get all calls to AAVE lending pool and all events they caused</summary>
 
-* easy
-* txs retrieval by destination
-* related logs retrieval
+Including events emitted by other contracts. Get ETH value involved in each call.
 
 ```ts
 const AAVE_CONTRACT = '0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9'
@@ -110,10 +104,9 @@ export const processor = new EvmBatchProcessor()
   })
 ``` 
 
-### Get all ERC20 `Mint` events on Ethereum and measure gas spent on the parent txs
+</details>
 
-* easy
-* wide-scoped event retrieval
+<details><summary>Get all ERC20 Mint events on Ethereum and measure gas spent on the parent txs</summary>
 
 ```ts
 export const processor = new EvmBatchProcessor()
@@ -131,7 +124,9 @@ export const processor = new EvmBatchProcessor()
   })
 ``` 
 
-### Capture a DEX (Pancakeswap) pair creation and `Swap` events
+</details>
+
+<details><summary>Capture a DEX (Pancakeswap) pair creation and Swap events</summary>
 
 ```ts
 const FACTORY_ADDRESSES = [
@@ -156,7 +151,9 @@ export const processor = new EvmBatchProcessor()
   })
 ```
 
-### Get all call traces to BAYC, fetching state diffs
+</details>
+
+<details><summary>Get all call traces to BAYC, fetching state diffs</summary>
 
 Call traces will expose any internal calls to BAYC by other contracts.
 
@@ -179,7 +176,9 @@ export const processor = new EvmBatchProcessor()
   })
 ```
 
-### Scrape all NFT contract deploymens from Ethereum, get their `Transfer` events
+</details>
+
+<details><summary>Scrape all NFT contract deploymens from Ethereum, get their Transfer events</summary>
 
 All contract creations are scraped; they will be checked for ERC721 compliance in the batch handler. All ERC721 `Transfer` events are scraped so that they can be filtered and binned by the contract in the batch handler.
 
@@ -201,3 +200,5 @@ export const processor = new EvmBatchProcessor()
     },
   })
 ```
+
+</details>
