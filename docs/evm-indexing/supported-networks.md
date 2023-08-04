@@ -19,12 +19,17 @@ The table below lists the currently available public EVM ArrowSquid/v2 Archive e
 | Astar   (*)                      | `lookupArchive('astar',` `{type: 'EVM'})`     | `https://v2.archive.subsquid.io/network/astar-mainnet`     |
 | Avalanche (**)                   | `lookupArchive('avalanche')`                  | `https://v2.archive.subsquid.io/network/avalanche-mainnet` |
 | Avalanche Testnet (**)           | `lookupArchive('avalanche-testnet')`          | `https://v2.archive.subsquid.io/network/avalanche-testnet` |
+| Base                             | `lookupArchive('base-mainnet')`               | `https://v2.archive.subsquid.io/network/base-mainnet`      |
 | Binance Smart Chain              | `lookupArchive('binance')`                    | `https://v2.archive.subsquid.io/network/binance-mainnet`   |
 | Binance Smart Chain Testnet (**) | `lookupArchive('binance-testnet')`            | `https://v2.archive.subsquid.io/network/binance-testnet`   |
 | Ethereum Mainnet                 | `lookupArchive('eth-mainnet')`                | `https://v2.archive.subsquid.io/network/ethereum-mainnet`  |
+| Fantom Mainnet  (**)             | `lookupArchive('fantom-mainnet')`             | `https://v2.archive.subsquid.io/network/fantom-mainnet`    |
+| Fantom Testnet (**)              | `lookupArchive('fantom-testnet')`             | `https://v2.archive.subsquid.io/network/fantom-testnet`    |
 | Moonbeam EVM    (*)              | `lookupArchive('moonbeam',` `{type: 'EVM'})`  | `https://v2.archive.subsquid.io/network/moonbeam-mainnet`  |
 | Moonriver EVM   (*)              | `lookupArchive('moonriver',` `{type: 'EVM'})` | `https://v2.archive.subsquid.io/network/moonriver-mainnet` |
 | Moonsama EVM   (*) (**)          | `lookupArchive('moonsama',` `{type: 'EVM'})`  | `https://v2.archive.subsquid.io/network/moonsama`          |
+| Optimism                         | `lookupArchive('optmism-mainnet')`            | `https://v2.archive.subsquid.io/network/optimism-mainnet`  |
+| Optimism Goerli                  | `lookupArchive('optmism-goerli')`             | `https://v2.archive.subsquid.io/network/optimism-goerli`   |
 | Polygon (**)                     | `lookupArchive('polygon')`                    | `https://v2.archive.subsquid.io/network/polygon-mainnet`   |
 | Polygon Mumbai (**)              | `lookupArchive('polygon-mumbai')`             | `https://v2.archive.subsquid.io/network/polygon-testnet`   |
 | Sepolia                          | `lookupArchive('sepolia')`                    | `https://v2.archive.subsquid.io/network/ethereum-sepolia`  |
