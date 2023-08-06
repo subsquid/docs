@@ -71,10 +71,17 @@ export default function Home(): JSX.Element {
         <span className="h3">Highlights</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2 guide-cards">
+          {/*
           <GuideCard
             path="/quickstart/quickstart-ethereum/"
             color={'bg-role--success'}
             description="Blazing fast batch indexing of logs and txs for major EVM chains">Index EVM data
+          </GuideCard>
+          */}
+          <GuideCard
+            path="/evm-indexing/configuration/showcase"
+            color={'bg-role--success'}
+            description="Collection of snippets showing what kind of data can be requested">EVM data requests showcase
           </GuideCard>
           <GuideCard
             path="/basics/external-api"
