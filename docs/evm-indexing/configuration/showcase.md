@@ -106,15 +106,19 @@ export const processor = new EvmBatchProcessor()
 
 </details>
 
-<details><summary>Get all ERC20 Mint events on Ethereum and measure gas spent on the parent txs</summary>
+<details><summary>Get all ERC20 token mints on Ethereum and measure gas spent on the parent txs</summary>
+
+[Full squid here](https://github.com/subsquid-labs/showcase04-all-erc20-mints).
 
 ```ts
 export const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: lookupArchive('eth-mainnet'),
   })
+  // ERC20 token mints emit Transfer events originating from 0x0
   .addLog({
-    topic0: [erc20.events.Mint.topic],
+    topic0: [erc20.events.Transfer.topic],
+    topic1: ['0x0000000000000000000000000000000000000000000000000000000000000000'],
     transaction: true,
   })
   .setFields({
@@ -126,12 +130,14 @@ export const processor = new EvmBatchProcessor()
 
 </details>
 
-<details><summary>Capture a DEX (Pancakeswap) pair creation and Swap events</summary>
+<details><summary>Capture DEX (Pancakeswap) pair creation and Swap events</summary>
+
+[Full squid here](https://github.com/subsquid-labs/showcase05-dex-pair-creation-and-swaps).
 
 ```ts
-const FACTORY_ADDRESSES = [
-  '0xBCfCcbde45cE874adCB698cC183deBcF17952812',
-  '0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73',
+export const FACTORY_ADDRESSES = [
+  '0xbcfccbde45ce874adcb698cc183debcf17952812',
+  '0xca143ce32fe78f1f7019d7d551a6402fc5350c73',
 ]
 
 const PAIR_CREATED_TOPIC = '0x0d3648bd0f6ba80134a33ba9275ac585d9d315f0ad8355cddefde31afa28d0e9'
@@ -149,13 +155,18 @@ export const processor = new EvmBatchProcessor()
   .addLog({
     topic0: [SWAP_TOPIC],
   })
+  .setFields({
+    log: {
+      transactionHash: true,
+    },
+  })
 ```
 
 </details>
 
-<details><summary>Get all call traces to BAYC, fetching state diffs</summary>
+<details><summary>Get all call traces to BAYC, fetch state diffs</summary>
 
-Call traces will expose any internal calls to BAYC by other contracts.
+Call traces will expose any internal calls to BAYC by other contracts. [Full squid here](https://github.com/subsquid-labs/showcase06-all-bayc-call-traces).
 
 ```ts
 const BAYC_ADDRESS = '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
@@ -167,20 +178,27 @@ export const processor = new EvmBatchProcessor()
   .setBlockRange({ from: 12_287_507 })
   .addTrace({
     type: ['call'],
-    callTo: ['0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'],
+    callTo: [BAYC_ADDRESS],
     transaction: true,
   })
   .addStateDiff({
-    address: ['0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'],
+    address: [BAYC_ADDRESS],
     transaction: true,
   })
+  .setFields({
+    trace: {
+      callTo: true,
+      callFrom: true,
+      callSighash: true,
+    },
+ })
 ```
 
 </details>
 
-<details><summary>Scrape all NFT contract deploymens from Ethereum, get their Transfer events</summary>
+<details><summary>Scrape all NFT contract deployments on Ethereum, get their Transfer events</summary>
 
-All contract creations are scraped; they will be checked for ERC721 compliance in the batch handler. All ERC721 `Transfer` events are scraped so that they can be filtered and binned by the contract in the batch handler.
+All contract creations are scraped; they will be checked for ERC721 compliance in the batch handler. All ERC721 `Transfer` events are scraped so that they can be filtered and binned by the contract in the batch handler. [Full squid here](https://github.com/subsquid-labs/showcase07-grab-all-nft-transfers).
 
 ```ts
 export const processor = new EvmBatchProcessor()
@@ -189,6 +207,7 @@ export const processor = new EvmBatchProcessor()
   })
   .addTrace({
     type: ['create'],
+    transaction: true,
   })
   .addLog({
     topic0: [erc721.events.Transfer.topic],
