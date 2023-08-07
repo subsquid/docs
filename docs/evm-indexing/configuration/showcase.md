@@ -9,15 +9,19 @@ description: >-
 
 <details><summary>Analyze txs of a large number of BSC wallets</summary>
 
-```ts
-const processor = new EvmBatchProcessor()
+[Full squid here](https://github.com/subsquid-labs/showcase00-analyzing-a-large-number-of-wallets).
+
+```ts title=src/processor.ts
+export const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: lookupArchive('binance'),
   })
   .addTransaction({})
+```
 
+```ts title=src/main.ts
 const wallets: Set<string> = loadWallets()
-// wallets.size can be very large (10-100k and beyond)
+// wallets.size can be very large (tested at 1.4M)
 
 processor.run(new TypeormDatabase(), async (ctx) => {
   for (let block of ctx.blocks) {
@@ -35,19 +39,23 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 </details>
 
-<details><summary>Get all USDC Transfer events on Ethereum</summary>
+<details><summary>Get all USDC Transfer events on Ethereum, keep up with network updates in real time</summary>
+
+Real time data is fetched from a chain node RPC; a Database object with hot blocks support is required to store it (see [this page](https://docs.subsquid.io/basics/unfinalized-blocks/) for more details). [Full squid here](https://github.com/subsquid-labs/showcase01-all-usdc-transfers).
 
 ```ts
-const USDC_CONTRACT_ADDRESS = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+export const USDC_CONTRACT_ADDRESS = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
 
 export const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: lookupArchive('eth-mainnet'),
+    chain: 'https://rpc.ankr.com/eth',
   })
+  .setFinalityConfirmation(75)
   .addLog({
     range: {from: 6_082_465},
     address: [USDC_CONTRACT_ADDRESS],
-    topic0: [erc20.events.Transfer.topic],
+    topic0: [usdcAbi.events.Transfer.topic],
   })
   .setFields({
     log: {
@@ -58,22 +66,20 @@ export const processor = new EvmBatchProcessor()
 
 </details>
 
-<details><summary>Get all token and NFT Transfers to vitalik.eth</summary>
+<details><summary>Get all Transfers to vitalik.eth</summary>
+
+All `Transfer(address,address,uint256)` will be captured, including ERC20 and ERC721 transfers and possibly events with the same signature made with other protocols. [Full squid here](https://github.com/subsquid-labs/showcase02-all-transfers-to-a-wallet).
 
 ```ts
-const VITALIK_ETH_TOPIC = '0x000000000000000000000000d8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+export const VITALIK_ETH_TOPIC = '0x000000000000000000000000d8da6bf26964af9d7eed9e03e53415d37aa96045'
 
 export const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: lookupArchive('eth-mainnet'),
   })
   .addLog({
-    topic0: [erc20.events.Transfer.topic],
-    topic2: [VITALIK_ETH],
-  })
-  .addLog({
-    topic0: [erc721.events.Transfer.topic],
-    topic2: [VITALIK_ETH],
+    topic0: [erc20abi.events.Transfer.topic],
+    topic2: [VITALIK_ETH_TOPIC],
   })
 ```
 
@@ -83,20 +89,24 @@ export const processor = new EvmBatchProcessor()
 
 Including events emitted by other contracts. Get ETH value involved in each call.
 
+[Full squid here](https://github.com/subsquid-labs/showcase03-all-events-caused-by-contract-calls/).
+
 ```ts
-const AAVE_CONTRACT = '0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9'
+export const AAVE_CONTRACT = '0x7d2768de32b0b80b7a3454c06bdac94a69ddc7a9'
 
 export const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: lookupArchive('eth-mainnet'),
   })
+  .setBlockRange({ from: 11_362_579 })
   .addTransaction({
     to: [AAVE_CONTRACT],
-    logs: true
+    logs: true,
   })
   .setFields({
     transaction: {
       value: true,
+      sighash: true,
     },
     log: {
       transactionHash: true,
@@ -106,19 +116,17 @@ export const processor = new EvmBatchProcessor()
 
 </details>
 
-<details><summary>Get all ERC20 token mints on Ethereum and measure gas spent on the parent txs</summary>
+<details><summary>Get all Mint(address,address,uint256) events on Ethereum, measure gas spent on calls</summary>
 
-[Full squid here](https://github.com/subsquid-labs/showcase04-all-erc20-mints).
+[Full squid here](https://github.com/subsquid-labs/showcase04-all-mint-events).
 
 ```ts
 export const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: lookupArchive('eth-mainnet'),
   })
-  // ERC20 token mints emit Transfer events originating from 0x0
   .addLog({
-    topic0: [erc20.events.Transfer.topic],
-    topic1: ['0x0000000000000000000000000000000000000000000000000000000000000000'],
+    topic0: [usdcAbi.events.Mint.topic],
     transaction: true,
   })
   .setFields({
