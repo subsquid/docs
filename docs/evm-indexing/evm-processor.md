@@ -7,10 +7,6 @@ description: >-
 
 # EVM Processor
 
-:::warning
-The EVM Archive API and `EvmBatchProcessor` are currently in beta. Breaking changes may be introduced in the future releases of the Squid SDK.
-:::
-
 This section applies to squids indexing EVM chains. See the [supported networks](/evm-indexing/supported-networks) page for a full list.
 [//]: # (!!!! Subsquid supports all major EVM chains, including Ethereum, Polygon, BSC and many others.)
 
@@ -38,4 +34,4 @@ Starting with the ArrowSquid release, the processor can ingest data either from 
 - Move forward to the [`EvmBatchProcessor` configuration page](../configuration)
 - Explore the [migration guide](/migrate/migrate-subgraph/) and create a squid from a subgraph within minutes
 - Follow the [tutorial](/tutorials/bayc/) to build an Ethereum-indexing squid step by step
-- Check the [examples](/examples)
+- Check ready-to-use [snippets](/evm-indexing/configuration/showcase) and [examples](/examples) 

@@ -5,9 +5,11 @@ description: >-
   Code snippets requesting a variety of data
 ---
 
-# Processor capabilities showcase
+# Squid SDK showcase
 
-<details><summary>Analyze txs of a large number of BSC wallets</summary>
+The snippets below show how to configure [`EvmBatchProcessor`](/evm-indexing/evm-processor) and use Squid SDK to build a custom indexer for various use-cases. Each snippet comes with a link to a repository with full sources, and can be used [as a template](/squid-cli/init/#sqd-init-name).
+
+<details><summary>Bulk-index Binance Chain transactions for a large number wallets</summary>
 
 [Full squid here](https://github.com/subsquid-labs/showcase00-analyzing-a-large-number-of-wallets).
 
@@ -39,7 +41,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 </details>
 
-<details><summary>Get all USDC Transfer events on Ethereum, keep up with network updates in real time</summary>
+<details><summary>Index all USDC Transfer events on Ethereum with real time updates</summary>
 
 Real time data is fetched from a chain node RPC; a Database object with hot blocks support is required to store it (see [this page](https://docs.subsquid.io/basics/unfinalized-blocks/) for more details). [Full squid here](https://github.com/subsquid-labs/showcase01-all-usdc-transfers).
 
@@ -66,7 +68,7 @@ export const processor = new EvmBatchProcessor()
 
 </details>
 
-<details><summary>Get all Transfers to vitalik.eth</summary>
+<details><summary>Index all Transfers to vitalik.eth</summary>
 
 All `Transfer(address,address,uint256)` will be captured, including ERC20 and ERC721 transfers and possibly events with the same signature made with other protocols. [Full squid here](https://github.com/subsquid-labs/showcase02-all-transfers-to-a-wallet).
 
@@ -116,7 +118,7 @@ export const processor = new EvmBatchProcessor()
 
 </details>
 
-<details><summary>Get all Mint(address,address,uint256) events on Ethereum, measure gas spent on calls</summary>
+<details><summary>Index all Mint(address,address,uint256) event logs on Ethereum, extract the gas fees</summary>
 
 [Full squid here](https://github.com/subsquid-labs/showcase04-all-mint-events).
 
@@ -138,7 +140,7 @@ export const processor = new EvmBatchProcessor()
 
 </details>
 
-<details><summary>Capture DEX (Pancakeswap) pair creation and Swap events</summary>
+<details><summary>Index all Pancakeswap trading pairs and Swap logs</summary>
 
 [Full squid here](https://github.com/subsquid-labs/showcase05-dex-pair-creation-and-swaps).
 
@@ -172,7 +174,7 @@ export const processor = new EvmBatchProcessor()
 
 </details>
 
-<details><summary>Get all call traces to BAYC, fetch state diffs</summary>
+<details><summary>Index all call traces and historical state changes of the BAYC NFT contract</summary>
 
 Call traces will expose any internal calls to BAYC by other contracts. [Full squid here](https://github.com/subsquid-labs/showcase06-all-bayc-call-traces).
 
@@ -204,7 +206,7 @@ export const processor = new EvmBatchProcessor()
 
 </details>
 
-<details><summary>Scrape all NFT contract deployments on Ethereum, get their Transfer events</summary>
+<details><summary>Scrape all NFT contract deployments on Ethereum, index Transfers</summary>
 
 All contract creations are scraped; they will be checked for ERC721 compliance in the batch handler. All ERC721 `Transfer` events are scraped so that they can be filtered and binned by the contract in the batch handler. [Full squid here](https://github.com/subsquid-labs/showcase07-grab-all-nft-transfers).
 
