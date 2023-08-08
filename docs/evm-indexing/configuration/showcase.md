@@ -9,7 +9,7 @@ description: >-
 
 The snippets below show how to configure [`EvmBatchProcessor`](/evm-indexing/evm-processor) and use Squid SDK to build a custom indexer for various use-cases. Each snippet comes with a link to a repository with full sources, and can be used [as a template](/squid-cli/init/#sqd-init-name).
 
-<details><summary>Bulk-index Binance Chain transactions for a large number wallets</summary>
+<details><summary>Bulk-index Binance Chain transactions for a large number of wallets</summary>
 
 [Full squid here](https://github.com/subsquid-labs/showcase00-analyzing-a-large-number-of-wallets).
 
