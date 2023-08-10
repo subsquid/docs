@@ -81,3 +81,17 @@ export class MyResolver {
 Some great examples of `@subsquid/graphql-server`-based custom resolvers can be spotted in the wild in the [Rubick repo](https://github.com/kodadot/rubick/tree/main/src/server-extension/resolvers) by [KodaDot](https://github.com/kodadot).
 
 For more examples of resolvers, see [TypeGraphQL examples repo](https://github.com/MichalLytek/type-graphql/tree/master/examples).
+
+## Logging
+
+To keep logging consistent across the entire GraphQL server, use `@subsquid/logger`:
+
+```ts
+import {createLogger} from '@subsquid/logger'
+
+// using a custom namespace ':my-resolver' for resolver logs
+const LOG = createLogger('sqd:graphql-server:my-resolver')
+LOG.info('created a dedicated logger for my-resolver')
+```
+
+`LOG` here is a [logger object](/basics/logging) identical to `ctx.log` interface-wise.

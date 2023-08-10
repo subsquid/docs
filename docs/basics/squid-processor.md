@@ -45,7 +45,7 @@ run<Store>(
 ): void
 ```
 
-The `db` parameter defines the target [data sink](/basics/store), and `batchHandler` is an `async` `void` function defining the data transformation and persistence logic. It repeatedly receives batches of archive data stored in `context.blocks`, transforms them and persists the results to the target database using the `context.store` interface (more on `context` in the next section).
+The `db` parameter defines the target [data sink](/store), and `batchHandler` is an `async` `void` function defining the data transformation and persistence logic. It repeatedly receives batches of archive data stored in `context.blocks`, transforms them and persists the results to the target database using the `context.store` interface (more on `context` in the next section).
 
 To jump straight to examples, see [EVM Processor in action](/evm-indexing/batch-processor-in-action) and [Substrate Processor in action](/firesquid/substrate-indexing/batch-processor-in-action).
 
@@ -80,7 +80,7 @@ The native logger handle. See [Logging](/basics/logging).
 
 #### `ctx.store`
 
-Interface for the target data sink. See [Persisting data](/basics/store).
+Interface for the target data sink. See [Persisting data](/store).
 
 #### `ctx.blocks`
 

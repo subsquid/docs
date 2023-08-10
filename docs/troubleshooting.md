@@ -8,7 +8,7 @@ Common gotchas occuring while developing and deploying squids.
 
 ### `QueryFailedError: relation does not exist`
 
-Often occurs after changing [schema](/basics/store/postgres/schema-file) and forgetting to regenerate the [database migrations](/basics/store/postgres/db-migrations). Try
+Often occurs after changing [schema](/store/postgres/schema-file) and forgetting to regenerate the [database migrations](/store/postgres/db-migrations). Try
 ```bash
 sqd codegen
 sqd build

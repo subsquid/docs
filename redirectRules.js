@@ -21,11 +21,11 @@ const urlList = [
     },
     {
         "from": "/develop-a-squid/schema-file",
-        "to": "/basics/store/postgres/schema-file"
+        "to": "/store/postgres/schema-file"
     },
     {
         "from": "/schema-file",
-        "to": "/basics/store/postgres/schema-file"
+        "to": "/store/postgres/schema-file"
     },
     {
         "from": "/develop-a-squid/graphql-api",
@@ -49,7 +49,7 @@ const urlList = [
     },
     {
         "from": "/evm-indexing/store-interface",
-        "to": "/basics/store"
+        "to": "/store"
     },
     {
         "from": "/substrate-indexing/data-handlers",
@@ -57,7 +57,7 @@ const urlList = [
     },
     {
         "from": "/substrate-indexing/store-interface",
-        "to": "/basics/store"
+        "to": "/store"
     },
     {
         "from": "/substrate-indexing/data-subscriptions",
@@ -105,39 +105,115 @@ const urlList = [
     },
     {
         "from": "/basics/store/typeorm-store",
-        "to": "/basics/store/postgres/typeorm-store"
+        "to": "/store/postgres/typeorm-store"
     },
     {
         "from": "/basics/schema-file",
-        "to": "/basics/store/postgres/schema-file"
+        "to": "/store/postgres/schema-file"
     },
     {
         "from": "/basics/schema-file/intro",
-        "to": "/basics/store/postgres/schema-file/intro"
+        "to": "/store/postgres/schema-file/intro"
     },
     {
         "from": "/basics/schema-file/entities",
-        "to": "/basics/store/postgres/schema-file/entities"
+        "to": "/store/postgres/schema-file/entities"
     },
     {
         "from": "/basics/schema-file/indexes-and-constraints",
-        "to": "/basics/store/postgres/schema-file/indexes-and-constraints"
+        "to": "/store/postgres/schema-file/indexes-and-constraints"
     },
     {
         "from": "/basics/schema-file/entity-relations",
-        "to": "/basics/store/postgres/schema-file/entity-relations"
+        "to": "/store/postgres/schema-file/entity-relations"
     },
     {
         "from": "/basics/schema-file/unions-and-typed-json",
-        "to": "/basics/store/postgres/schema-file/unions-and-typed-json"
+        "to": "/store/postgres/schema-file/unions-and-typed-json"
     },
     {
         "from": "/basics/schema-file/interfaces",
-        "to": "/basics/store/postgres/schema-file/interfaces"
+        "to": "/store/postgres/schema-file/interfaces"
     },
     {
         "from": "/basics/db-migrations",
-        "to": "/basics/store/postgres/db-migrations"
+        "to": "/store/postgres/db-migrations"
+    },
+    {
+        "from": "/basics/store",
+        "to": "/store"
+    },
+    {
+        "from": "/basics/store/store-interface",
+        "to": "/store/store-interface"
+    },
+    {
+        "from": "/basics/store/postgres",
+        "to": "/store/postgres"
+    },
+    {
+        "from": "/basics/store/postgres/typeorm-store",
+        "to": "/store/postgres/typeorm-store"
+    },
+    {
+        "from": "/basics/store/postgres/schema-file",
+        "to": "/store/postgres/schema-file"
+    },
+    {
+        "from": "/basics/store/postgres/schema-file/intro",
+        "to": "/store/postgres/schema-file/intro"
+    },
+    {
+        "from": "/basics/store/postgres/schema-file/entities",
+        "to": "/store/postgres/schema-file/entities"
+    },
+    {
+        "from": "/basics/store/postgres/schema-file/indexes-and-constraints",
+        "to": "/store/postgres/schema-file/indexes-and-constraints"
+    },
+    {
+        "from": "/basics/store/postgres/schema-file/entity-relations",
+        "to": "/store/postgres/schema-file/entity-relations"
+    },
+    {
+        "from": "/basics/store/postgres/schema-file/unions-and-typed-json",
+        "to": "/store/postgres/schema-file/unions-and-typed-json"
+    },
+    {
+        "from": "/basics/store/postgres/schema-file/interfaces",
+        "to": "/store/postgres/schema-file/interfaces"
+    },
+    {
+        "from": "/basics/store/postgres/db-migrations",
+        "to": "/store/postgres/db-migrations"
+    },
+    {
+        "from": "/basics/store/file-store",
+        "to": "/store/file-store"
+    },
+    {
+        "from": "/basics/store/file-store/overview",
+        "to": "/store/file-store/overview"
+    },
+    {
+        "from": "/basics/store/file-store/csv-table",
+        "to": "/store/file-store/csv-table"
+    },
+    {
+        "from": "/basics/store/file-store/parquet-table",
+        "to": "/store/file-store/parquet-table"
+    },
+    {
+        "from": "/basics/store/file-store/json-table",
+        "to": "/store/file-store/json-table"
+    },
+    {
+        "from": "/basics/store/file-store/s3-dest",
+        "to": "/store/file-store/s3-dest"
+    },
+    {
+        "from": "/basics/store/custom-database",
+        "to": "/store/custom-database"
     },
     {
         "from": "/squid-cli/redeploy",

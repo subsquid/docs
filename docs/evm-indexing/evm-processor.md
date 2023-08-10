@@ -16,7 +16,7 @@ A squid processor is a Node.js process that fetches historical on-chain data fro
 
 A batch provides iterables to access all items requested in [processor configuration](../configuration), which may include logs, transactions, traces and contract [state diffs](../configuration/state-diffs/); see the [batch context](/basics/squid-processor/#batch-context) and [block data](../context-interfaces/) pages for details. Further, the processor can extract additional data by querying the [historical chain state](../query-state) and indeed any [external API](https://github.com/subsquid/squid-external-api-example).
 
-Results of the ETL process can be stored in any [Postgres-compatible database](/basics/store/typeorm-store/) or in [filesystem-based datasets](/basics/store/file-store/) in CSV and [Parquet](https://parquet.apache.org) formats.
+Results of the ETL process can be stored in any [Postgres-compatible database](/store/postgres/typeorm-store/) or in [filesystem-based datasets](/store/file-store/) in CSV and [Parquet](https://parquet.apache.org) formats.
 
 [//]: # (???? The illustration needs updating)
 

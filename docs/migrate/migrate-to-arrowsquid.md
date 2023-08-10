@@ -36,7 +36,7 @@ Update all packages affected by the update:
 npm i @subsquid/evm-processor@next
 npm i @subsquid/typeorm-store@next
 ```
-If your squid uses [`file-store`](/basics/store/file-store), please update any related packages to the `@next` version, too.
+If your squid uses [`file-store`](/store/file-store), please update any related packages to the `@next` version, too.
 
 ## Step 2
 

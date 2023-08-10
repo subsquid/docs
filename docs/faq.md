@@ -26,7 +26,7 @@ Add `--subscription` flag to the `serve` command defined in `commands.json`. See
 
 ### How do squids keep track of their sync progress?
 
-Depends on the data sink used. Squid processors that use [`TypeormDatabase`](/basics/store/postgres) keep their state in a [schema](https://www.postgresql.org/docs/current/sql-createschema.html), not in a table. By default the schema is called `squid_processor` (name must be overridden in [multiprocessor squids](/basics/multichain)). You can view it with
+Depends on the data sink used. Squid processors that use [`TypeormDatabase`](/store/postgres) keep their state in a [schema](https://www.postgresql.org/docs/current/sql-createschema.html), not in a table. By default the schema is called `squid_processor` (name must be overridden in [multiprocessor squids](/basics/multichain)). You can view it with
 ```sql
 select * from squid_processor.status;
 ```
@@ -36,4 +36,4 @@ drop schema squid_processor cascade;
 ```
 to reset the processor status.
 
-Squids that store their data in [file-based datasets](/basics/store/file-store) store their status in `status.txt` by default. This can be overridden by defining custom [database hooks](/basics/store/file-store/overview/#filesystem-syncs-and-dataset-partitioning).
+Squids that store their data in [file-based datasets](/store/file-store) store their status in `status.txt` by default. This can be overridden by defining custom [database hooks](/store/file-store/overview/#filesystem-syncs-and-dataset-partitioning).
