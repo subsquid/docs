@@ -14,10 +14,10 @@ git clone https://github.com/subsquid-labs/gravatar-squid.git
 
 `EvmBatchProcessor` provided by the Squid SDK defines a single handler that indexes EVM logs and transaction data in batches. It differs from the programming model of subgraph mappings that defines a separate data handler for each EVM log topic to be indexed. Due to significantly less frequent database hits (once per batch compared to once per log) the batch-based handling model shows up to a 10x increase in the indexing speed.
 
-At the same time, concepts of the [schema file](/basics/store/postgres/schema-file), [code generation from the schema file](/basics/store/postgres/schema-file/intro/#typeorm-codegen) and [auto-generated GraphQL API](/graphql-api) should be familiar to subgraph developers. In most cases the schema file of a subgraph can be imported into a squid as is. 
+At the same time, concepts of the [schema file](/store/postgres/schema-file), [code generation from the schema file](/store/postgres/schema-file/intro/#typeorm-codegen) and [auto-generated GraphQL API](/graphql-api) should be familiar to subgraph developers. In most cases the schema file of a subgraph can be imported into a squid as is. 
 
 There are some known limitations:
-- Many-to-Many entity relations should be [modeled explicitly](/basics/store/postgres/schema-file/entity-relations/#many-to-many-relations) as two many-to-one relations
+- Many-to-Many entity relations should be [modeled explicitly](/store/postgres/schema-file/entity-relations/#many-to-many-relations) as two many-to-one relations
 
 On top of the features provided by subgraphs, the Squid SDK and the Aquarium cloud service offers extra flexibility in developing tailored APIs and ETLs for on-chain data:
 
@@ -59,14 +59,14 @@ type Gravatar @entity {
 }
 ```
 
-Next, we generate the entities from the schema using the [`squid-typeorm-codegen`](/basics/store/postgres/schema-file/intro/#typeorm-codegen) tool of the Squid SDK, then build the squid:
+Next, we generate the entities from the schema using the [`squid-typeorm-codegen`](/store/postgres/schema-file/intro/#typeorm-codegen) tool of the Squid SDK, then build the squid:
 ```bash
 sqd codegen
 sqd build
 ```
 This command is equivalent to running `yarn codegen` in subgraph.
 
-After that, start the local database and generate migrations from the generated entities using the [`squid-typeorm-migration`](/basics/store/postgres/db-migrations) tool:
+After that, start the local database and generate migrations from the generated entities using the [`squid-typeorm-migration`](/store/postgres/db-migrations) tool:
 ```bash
 sqd up
 sqd migration:generate
