@@ -6,7 +6,7 @@
     "className": "red",
     "link": {
       "type": "generated-index",
-      "slug": "/basics/store/postgres",
+      "slug": "/store/postgres",
       "title": "Tools for saving squid data to PostgreSQL-compatible databases"
     }
 }

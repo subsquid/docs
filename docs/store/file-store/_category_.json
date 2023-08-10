@@ -6,7 +6,7 @@
     "className": "red",
     "link": {
       "type": "generated-index",
-      "slug": "/basics/store/file-store",
+      "slug": "/store/file-store",
       "title": "Tools for saving squid data to file-based datasets locally or on S3"
     }
 }
