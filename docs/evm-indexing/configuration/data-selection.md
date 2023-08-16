@@ -149,6 +149,8 @@ Transaction {
   sighash: string
 }
 ```
+`status` field contains the value returned by [`eth_getTransactionReceipt`](https://docs.alchemy.com/reference/eth-gettransactionreceipt): `1` for successful transactions, `0` for failed ones and `undefined` for chains and block ranges not compliant with the post-Byzantinum hard fork EVM specification (e.g. 0-4,369,999 on Ethereum).
+
 See the [block headers section](#block-headers) for the definition of `BlockHeader`.
 
 ### State diffs
