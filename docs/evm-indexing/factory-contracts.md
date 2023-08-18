@@ -113,7 +113,7 @@ export const processor = new EvmBatchProcessor()
   })
   .addLog({
     range: {
-      from: preloadedHeight + 1,
+      from: preloadHeight + 1,
     },
     topic0: [poolAbi.events.Swap.topic],
     transaction: true,
