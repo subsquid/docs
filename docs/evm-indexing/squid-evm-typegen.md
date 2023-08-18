@@ -18,7 +18,7 @@ The tool takes a JSON ABIs as an input. Those can be specified in three ways:
    ```bash
    npx squid-evm-typegen src/abi erc20.json
    ```
-   If you use this option, you can also place your JSON ABIs to the `abi` folder and run.
+   If you use this option, you can also place your JSON ABIs to the `abi` folder and run
    ```bash
    sqd typegen
    ```
@@ -29,6 +29,10 @@ The tool takes a JSON ABIs as an input. Those can be specified in three ways:
    ```bash
    npx squid-evm-typegen src/abi 0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413
    ```
+
+:::info
+Please check if your contract is a proxy when using this method. If it is, consult [this page](/evm-indexing/proxy-contracts) for guidance.
+:::
 
 3. as an arbitrary URL:
 
