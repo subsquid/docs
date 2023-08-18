@@ -2,7 +2,7 @@
 sidebar_class_name: hidden
 ---
 
-### Rules
+# Rules
 
 **Subsquid Testnet App Rules & Motivation**
 
