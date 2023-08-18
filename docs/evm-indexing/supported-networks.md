@@ -27,6 +27,7 @@ The table below lists the currently available public EVM ArrowSquid/v2 Archive e
 | Ethereum Goerli                  | `lookupArchive('eth-goerli')`                 | `https://v2.archive.subsquid.io/network/ethereum-goerli`       |
 | Fantom Mainnet  (**)             | `lookupArchive('fantom')`                     | `https://v2.archive.subsquid.io/network/fantom-mainnet`        |
 | Fantom Testnet (**)              | `lookupArchive('fantom-testnet')`             | `https://v2.archive.subsquid.io/network/fantom-testnet`        |
+| Moonbase EVM    (*) (**)         | `lookupArchive('moonbase',` `{type: 'EVM'})`  | `https://v2.archive.subsquid.io/network/moonbase-testnet`      |
 | Moonbeam EVM    (*) (**)         | `lookupArchive('moonbeam',` `{type: 'EVM'})`  | `https://v2.archive.subsquid.io/network/moonbeam-mainnet`      |
 | Moonriver EVM   (*) (**)         | `lookupArchive('moonriver',` `{type: 'EVM'})` | `https://v2.archive.subsquid.io/network/moonriver-mainnet`     |
 | Moonsama EVM   (*) (**)          | `lookupArchive('moonsama',` `{type: 'EVM'})`  | `https://v2.archive.subsquid.io/network/moonsama`              |
