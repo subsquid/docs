@@ -46,7 +46,7 @@ npm ci
 - Prepare the contract ABI and save it into the `abi` folder, e.g. as `abi/usdc.json`.
 
 :::info
-For public contracts the ABI can be fetched automatically using an Etherscan-like API. To do so omit the `--abi` flag or, if your contract is a proxy, supply its address via `--proxy` and the address of the implentation via `--address`. For a full list of supported CLI options visit the [squid-gen page](/basics/squid-gen) or examine
+For public contracts the ABI can be fetched automatically using an Etherscan-like API. To do so omit the `--abi` flag or, if your contract is a proxy, supply its address via `--proxy` and the address of the implentation via `--address`. For a full list of supported CLI options see
 ```sh
 sqd generate --help
 ```
