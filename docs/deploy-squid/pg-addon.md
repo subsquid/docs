@@ -6,7 +6,7 @@ description: Provision and scale postgress for a squid
 
 # Postgres addon
 
-To provision a postgres instance, add the `addons.postgres:` section to the deployment manifest. The addon deploys a Postgres 14 instance and injects the `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_PORT` environment variables to the `api` and `processor` squid services.
+To provision a postgres instance, add the `addons.postgres:` section to the deployment manifest. The addon deploys a Postgres 14 instance and injects the `DB_NAME`, `DB_USER`, `DB_PASS`, `DB_PORT` environment variables to the `api` and `processor` squid services.
 
 ## Config options
 
