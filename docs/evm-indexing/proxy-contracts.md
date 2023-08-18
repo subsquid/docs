@@ -64,10 +64,9 @@ A few scenarios are possible when indexing a proxy contract:
    export const processor = new EvmBatchProcessor()
      .addLog({
        address: ['0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'],
-       topic0: [fiatToken.events.Mint.topic],
-     })
-     .addLog({
-       address: ['0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'],
-       topic0: [usdcProxy.events.Upgraded.topic],
+       topic0: [
+         fiatToken.events.Mint.topic,
+         usdcProxy.events.Upgraded.topic,
+       ],
      })
    ```
