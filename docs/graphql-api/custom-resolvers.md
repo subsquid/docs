@@ -107,3 +107,9 @@ LOG.info('created a dedicated logger for my-resolver')
 ```
 
 `LOG` here is a [logger object](/basics/logging) identical to `ctx.log` interface-wise.
+
+## Troubleshooting
+
+#### `Reflect.getMetadata is not a function`
+
+Add `import 'reflect-metadata'` on top of your custom resolver module and install the package if necessary.
