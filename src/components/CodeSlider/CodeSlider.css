@@ -5,9 +5,9 @@
 
 .code-slider__pre {
     text-wrap: inherit;
-    overflow: hidden;
     transition: height .3s linear, background-color .2s linear;
     height: auto;
+    overflow: auto;
 }
 
 .code-slider__pre pre {
@@ -15,19 +15,36 @@
     padding: 0 !important;
     background: none !important;
     max-width: 432px;
+    height: 100%;
+    overflow: visible !important
 }
 
 .code-slider__pre pre code {
     text-wrap: inherit !important;
     font-size: 14px;
+    height: 100%;
+    overflow: visible !important
 }
+
+@media (max-width: 833px) {
+    .code-slider__pre pre code, .code-slider__pre pre {
+        text-wrap: nowrap !important;
+    }
+}
+
 
 .code-slider__pre pre code span {
     font-size: 14px;
 }
 
 .code-slider__pre.code-slider__pre--over {
-    height: 142px;
+    min-height: 142px;
+}
+
+@media (max-width: 833px) {
+    .code-slider__pre.code-slider__pre--over {
+        min-height: 180px;
+    }
 }
 
 .code-slider__caption p {

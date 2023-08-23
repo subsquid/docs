@@ -4,12 +4,14 @@ import {useColorMode} from '@docusaurus/theme-common';
 import "./CodeSlider.css"
 import 'swiper/css';
 import {Swiper, SwiperSlide} from 'swiper/react';
-import {Pagination, Navigation} from "swiper/modules";
+import {Pagination, Navigation, Autoplay} from "swiper/modules";
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {vs, stackoverflowDark} from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import Link from "@docusaurus/Link";
 
 const ChevronSvg = <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <path d="M3.5 6.25L7 9.75L10.5 6.25" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3.5 6.25L7 9.75L10.5 6.25" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+          strokeLinejoin="round"/>
 </svg>;
 
 const ChevronLeftSvg = <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -21,15 +23,18 @@ const ChevronRightSvg = <svg width="24" height="24" viewBox="0 0 24 24" fill="no
 </svg>;
 
 export function CodeSlider(props: any) {
-    const {isDarkTheme} = useColorMode()
-    const [style, setStyle] = useState(isDarkTheme ? stackoverflowDark : vs)
+    const {colorMode} = useColorMode()
+    const [style, setStyle] = useState(vs)
 
     useEffect(() => {
-        console.log(isDarkTheme)
-        setTimeout(() => {
-            setStyle(isDarkTheme ? stackoverflowDark : vs)
-        }, 100)
-    }, [isDarkTheme])
+        const isDark: boolean = colorMode === 'dark'
+
+        if (isDark) {
+            setStyle(stackoverflowDark)
+        } else {
+            setStyle(vs)
+        }
+    })
 
     const [slides, setSlides] = useState(props.slides || [
         {
@@ -55,6 +60,8 @@ export function CodeSlider(props: any) {
                 '    }\n' +
                 '  }\n' +
                 '})',
+            codeCollapse: '.setDataSource({ archive: lookupArchive(\'binance\') })\n.addTransaction({})\n// ...\nif (wallets.has(txn.from)) { /* ... */ }\nif (wallets.has(txn.to)) { /* ... */ }',
+            link: "https://github.com/subsquid-labs/showcase00-analyzing-a-large-number-of-wallets"
         },
         {
             title: "USDC Transfers in real time",
@@ -76,8 +83,10 @@ export function CodeSlider(props: any) {
                 '      transactionHash: true,\n' +
                 '    },\n' +
                 '  })',
+            codeCollapse: '.addLog({\n   address: [USDC_CONTRACT_ADDRESS],\n   topic0: [usdcAbi.events.Transfer.topic],\n})\n',
             caption: <>Real time data is fetched from a chain node RPC; a Database object with hot blocks support is
                 required to store it (see <a href="#">this page</a> for more details</>,
+            link: "https://github.com/subsquid-labs/showcase01-all-usdc-transfers"
         },
         {
             title: "All Transfers to vitalik.eth",
@@ -91,8 +100,13 @@ export function CodeSlider(props: any) {
                 '    topic0: [erc20abi.events.Transfer.topic],\n' +
                 '    topic2: [VITALIK_ETH_TOPIC],\n' +
                 '  })',
+            codeCollapse: '.addLog({\n' +
+                '   topic0: [erc20abi.events.Transfer.topic],\n' +
+                '   topic2: [VITALIK_ETH_TOPIC],\n' +
+                '})\n',
             caption: <>All <b>Transfer(address,address,uint256)</b> will be captured, including ERC20 and ERC721
                 transfers and possibly events with the same signature made with other protocols.</>,
+            link: "https://github.com/subsquid-labs/showcase02-all-transfers-to-a-wallet"
         },
         {
             title: "Calls to AAVE Pool and all events they caused",
@@ -115,7 +129,12 @@ export function CodeSlider(props: any) {
                 '      transactionHash: true,\n' +
                 '    },\n' +
                 '  })',
+            codeCollapse: '.addTransaction({\n' +
+                '   to: [AAVE_CONTRACT],\n' +
+                '   logs: true,\n' +
+                '})\n',
             caption: <>Including events emitted by other contracts. Get ETH value involved in each call.</>,
+            link: "https://github.com/subsquid-labs/showcase03-all-events-caused-by-contract-calls/"
         },
         {
             title: "All Mint events emitted anywhere on a chain",
@@ -132,6 +151,11 @@ export function CodeSlider(props: any) {
                 '      gasUsed: true,\n' +
                 '    }\n' +
                 '  })',
+            codeCollapse: '.addLog({\n' +
+                '   topic0: [usdcAbi.events.Mint.topic],\n' +
+                '   transaction: true,\n' +
+                '})\n',
+            link: "https://github.com/subsquid-labs/showcase04-all-mint-events"
         },
         {
             title: "DEX trading pairs and Swap events",
@@ -158,6 +182,12 @@ export function CodeSlider(props: any) {
                 '      transactionHash: true,\n' +
                 '    },\n' +
                 '  })',
+            codeCollapse: '.addLog({\n' +
+                ' address: FACTORY_ADDRESSES,\n' +
+                ' topic0: [PAIR_CREATED_TOPIC],\n' +
+                ' })\n' +
+                ' .addLog({ topic0: [SWAP_TOPIC] })',
+            link: "https://github.com/subsquid-labs/showcase05-dex-pair-creation-and-swaps"
         },
         {
             title: "All calls to contract functions, including internal",
@@ -183,11 +213,17 @@ export function CodeSlider(props: any) {
                 '      callSighash: true,\n' +
                 '    },\n' +
                 ' })',
+            codeCollapse: '.addTrace({\n' +
+                ' type: [\'call\'],\n' +
+                ' callTo: [BAYC_ADDRESS],\n' +
+                ' })\n' +
+                ' .addStateDiff({ address: [BAYC_ADDRESS] })',
             caption: <>Call traces will expose any internal calls to BAYC by other contracts. Also retrieves all changes
                 to contract storage state.</>,
+            link: "https://github.com/subsquid-labs/showcase06-all-bayc-call-traces"
         },
         {
-            title: "All calls to contract functions, including internal",
+            title: "All NFT contract deployments and Transfers chain-wide",
             code: 'export const processor = new EvmBatchProcessor()\n' +
                 '  .setDataSource({\n' +
                 '    archive: lookupArchive(\'eth-mainnet\'),\n' +
@@ -205,55 +241,69 @@ export function CodeSlider(props: any) {
                 '      createResultAddress: true,\n' +
                 '    },\n' +
                 '  })',
+            codeCollapse: '.addTrace({\n' +
+                ' type: [\'create\'],\n' +
+                ' })\n' +
+                ' .addLog({ topic0: [erc721.events.Transfer.topic] })\n',
             caption: <>All contract creations are scraped; they will be checked for ERC721 compliance in the batch
                 handler. All ERC721 <b>Transfer</b> events are scraped so that they can be filtered and binned by the
                 contract in the batch handler.</>,
+            link: "https://github.com/subsquid-labs/showcase07-grab-all-nft-transfers"
         },
     ]);
     const [isExpanded, setIsExpanded] = useState(false);
     const [swiper, setSwiper] = useState(142);
-    const [preHeight, setPreHeight] = useState();
     const codeRef = useRef(null)
     const paginationRef = useRef(null)
     const nextRef = useRef(null)
     const prevRef = useRef(null)
+    const linkRef = useRef(null)
 
     const handleClickExpand = () => {
         setIsExpanded(!isExpanded)
 
-        if (!isExpanded) {
-            setPreHeight(codeRef.current.scrollHeight + 46)
-        } else {
-            setPreHeight(142)
-        }
-
         setTimeout(() => {
-            swiper.updateAutoHeight(300)
+            swiper.updateAutoHeight(200)
         }, 100)
     }
 
     return <>
         <div className={clsx('code-slider bg-bg-base--subtle p-5 rounded-lg')}>
             <Swiper
-                modules={[Pagination, Navigation]}
+                onSlideChange={(s) => {
+                    linkRef.current.setAttribute('href', s.slides[s.activeIndex].getAttribute('data-link') || "#")
+                }}
+                modules={[Pagination, Navigation, Autoplay]}
                 spaceBetween={20}
                 navigation={{
                     enabled: true,
                     nextEl: nextRef.current,
                     prevEl: prevRef.current
                 }}
+                loop={true}
+                breakpoints={{
+                    0: {
+                        allowTouchMove: false
+                    },
+                    833: {
+                        allowTouchMove: true
+                    }
+                }}
+                autoplay={{delay: 5000, pauseOnMouseEnter: true, disableOnInteraction: true}}
                 pagination={{clickable: true, el: paginationRef.current}}
                 autoHeight={true} onSwiper={setSwiper}>
-                {slides.map((slide, index) => <SwiperSlide key={index}>
+                {slides.map((slide, index) => <SwiperSlide data-link={slide.link} key={index}>
                     <h3 className={clsx('body--m mb-4')}>{slide.title}</h3>
 
                     <div ref={codeRef}
                          className={clsx('bg-bg-base--default p-4 rounded-sm fs-14 font-normal font-mono-roboto code-slider__pre', {
                              'code-slider__pre--over': !isExpanded
                          })}>
-                        <SyntaxHighlighter language="typescript" style={style}>
-                            {slide.code}
-                        </SyntaxHighlighter>
+
+                        {isExpanded
+                            ? <SyntaxHighlighter language="typescript" style={style} children={slide.code}/>
+                            : <SyntaxHighlighter language="typescript" style={style} children={slide.codeCollapse}/>
+                        }
                     </div>
 
                     {slide.caption ?
@@ -261,19 +311,21 @@ export function CodeSlider(props: any) {
                             <p>{slide.caption}</p></div> : undefined}
                 </SwiperSlide>)}
             </Swiper>
-            <div className={clsx('flex mt-5 justify-between items-center')}>
+            <div className={clsx('w-full flex mt-5 justify-between items-center md:flex-row flex-col-reverse')}>
                 <div className={clsx('flex items-center gap-3')}>
                     <button ref={prevRef}>{ChevronLeftSvg}</button>
                     <div className="code-slider__pagination" ref={paginationRef}></div>
                     <button ref={nextRef}>{ChevronRightSvg}</button>
                 </div>
 
-                <div className={clsx('flex items-center gap-3')}>
+                <div className={clsx('flex items-center gap-3 sm:gap-7 md:gap-3 mb-4 md:mb-0')}>
                     <div
-                        className={clsx('flex items-center gap-3 code-slider__stage', {'code-slider__stage--visible': isExpanded})}>
-                        <a href="#" className={clsx('text-fg-role--accent-02')}>Full squid</a>
+                        className={clsx('flex items-center gap-3 sm:gap-7 md:gap-3 code-slider__stage', {'code-slider__stage--visible': isExpanded || window.innerWidth <= 833})}>
+                        <a ref={linkRef} href={slides[0].link} target="_blank"
+                           className={clsx('text-fg-role--accent-02')}>Full squid</a>
                         <span className="code-slider__line"></span>
-                        <a href="#" className={clsx('text-fg-role--accent-02')}>Showcase</a>
+                        <Link to="/evm-indexing/configuration/showcase/"
+                              className={clsx('text-fg-role--accent-02')}>Showcase</Link>
                         <span className="code-slider__line"></span>
                     </div>
 
