@@ -257,7 +257,7 @@ export function CodeSlider(props: any) {
         } else {
             setStyle(vs)
         }
-    }, [])
+    })
 
 
     const handleClickExpand = () => {
