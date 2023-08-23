@@ -2,6 +2,7 @@ import React from 'react';
 import { GuideCard } from '@site/src/components/guide-card';
 import { TutorialCard } from '@site/src/components/tutorial-card';
 import {CodeSlider} from "@site/src/components/CodeSlider/CodeSlider";
+import CodeSlidesData from "../../_mock/code-slider-data";
 
 export default function Home(): JSX.Element {
 
@@ -29,7 +30,7 @@ export default function Home(): JSX.Element {
 
         <div className="flex flex-col gap-6 max-w-[640px] items-start self-start mb-14 pt-2">
             <span className="h3 flex items-center gap-4">Examples of data requests</span>
-            <CodeSlider/>
+            <CodeSlider slides={CodeSlidesData}/>
         </div>
 
       {/*
