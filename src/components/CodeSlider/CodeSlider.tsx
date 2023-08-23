@@ -26,16 +26,6 @@ export function CodeSlider(props: any) {
     const {colorMode} = useColorMode()
     const [style, setStyle] = useState(vs)
 
-    useEffect(() => {
-        const isDark: boolean = colorMode === 'dark'
-
-        if (isDark) {
-            setStyle(stackoverflowDark)
-        } else {
-            setStyle(vs)
-        }
-    })
-
     const [slides, setSlides] = useState(props.slides || [
         {
             title: "Transactions to and from a set of 1.4M wallets",
@@ -252,12 +242,23 @@ export function CodeSlider(props: any) {
         },
     ]);
     const [isExpanded, setIsExpanded] = useState(false);
-    const [swiper, setSwiper] = useState(142);
+    const [swiper, setSwiper] = useState(null);
     const codeRef = useRef(null)
     const paginationRef = useRef(null)
     const nextRef = useRef(null)
     const prevRef = useRef(null)
     const linkRef = useRef(null)
+
+    useEffect(() => {
+        const isDark: boolean = colorMode === 'dark'
+
+        if (isDark) {
+            setStyle(stackoverflowDark)
+        } else {
+            setStyle(vs)
+        }
+    }, [])
+
 
     const handleClickExpand = () => {
         setIsExpanded(!isExpanded)
@@ -271,10 +272,10 @@ export function CodeSlider(props: any) {
     return <>
         <div className={clsx('code-slider bg-bg-base--subtle p-5 rounded-lg')}>
             <Swiper
+                modules={[Pagination, Navigation, Autoplay]}
                 onSlideChange={(s) => {
                     linkRef.current.setAttribute('href', s.slides[s.activeIndex].getAttribute('data-link') || "#")
-                }} // @ts-ignore
-                modules={[Pagination, Navigation, Autoplay]}
+                }}
                 spaceBetween={20}
                 navigation={{
                     enabled: true,
@@ -314,14 +315,14 @@ export function CodeSlider(props: any) {
             </Swiper>
             <div className={clsx('w-full flex mt-5 justify-between items-center md:flex-row flex-col-reverse')}>
                 <div className={clsx('flex items-center gap-3')}>
-                    <button ref={prevRef}>{ChevronLeftSvg}</button>
+                    <button className="code-slider__arrow" ref={prevRef}>{ChevronLeftSvg}</button>
                     <div className="code-slider__pagination" ref={paginationRef}></div>
-                    <button ref={nextRef}>{ChevronRightSvg}</button>
+                    <button className="code-slider__arrow" ref={nextRef}>{ChevronRightSvg}</button>
                 </div>
 
                 <div className={clsx('flex items-center gap-3 sm:gap-7 md:gap-3 mb-4 md:mb-0')}>
                     <div
-                        className={clsx('flex items-center gap-3 sm:gap-7 md:gap-3 code-slider__stage', {'code-slider__stage--visible': isExpanded || window.innerWidth <= 833})}>
+                        className={clsx('flex items-center gap-3 sm:gap-7 md:gap-3 code-slider__stage', {'code-slider__stage--visible': isExpanded})}>
                         <a ref={linkRef} href={slides[0].link} target="_blank"
                            className={clsx('text-fg-role--accent-02')}>Full squid</a>
                         <span className="code-slider__line"></span>

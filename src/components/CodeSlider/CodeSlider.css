@@ -108,6 +108,28 @@
     visibility: visible;
 }
 
+@media (max-width: 833px) {
+    .code-slider__stage {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .code-slider__arrow {
+        position: relative;
+    }
+
+    .code-slider__arrow:after {
+        position: absolute;
+        content: "";
+        width: 200%;
+        height: 200%;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+    }
+}
+
+
 .code-slider__pagination {
     display: flex;
     align-items: center;
