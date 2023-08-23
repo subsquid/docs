@@ -75,7 +75,7 @@ export function CodeSlider(props: any) {
                 '  })',
             codeCollapse: '.addLog({\n   address: [USDC_CONTRACT_ADDRESS],\n   topic0: [usdcAbi.events.Transfer.topic],\n})\n',
             caption: <>Real time data is fetched from a chain node RPC; a Database object with hot blocks support is
-                required to store it (see <a href="#">this page</a> for more details</>,
+                required to store it (see <a href="#">this page</a> for more details).</>,
             link: "https://github.com/subsquid-labs/showcase01-all-usdc-transfers"
         },
         {
@@ -173,17 +173,18 @@ export function CodeSlider(props: any) {
                 '    },\n' +
                 '  })',
             codeCollapse: '.addLog({\n' +
-                ' address: FACTORY_ADDRESSES,\n' +
-                ' topic0: [PAIR_CREATED_TOPIC],\n' +
-                ' })\n' +
-                ' .addLog({ topic0: [SWAP_TOPIC] })',
+                '   address: FACTORY_ADDRESSES,\n' +
+                '   topic0: [PAIR_CREATED_TOPIC],\n' +
+                '})\n' +
+                '.addLog({ topic0: [SWAP_TOPIC] })',
             link: "https://github.com/subsquid-labs/showcase05-dex-pair-creation-and-swaps"
         },
         {
             title: "All calls to contract functions, including internal",
             code: 'const BAYC_ADDRESS = \'0xbc4ca0eda7647a8ab7c2061c2e118 a18a936f13d\'\n' +
                 '\n' +
-                'export const processor = new EvmBatchProcessor()  .setDataSource({\n' +
+                'export const processor = new EvmBatchProcessor()\n' +
+                '  .setDataSource({\n' +
                 '    archive: lookupArchive(\'eth-mainnet\'),\n' +
                 '  })\n' +
                 '  .setBlockRange({ from: 12_287_507 })\n' +
@@ -204,10 +205,10 @@ export function CodeSlider(props: any) {
                 '    },\n' +
                 ' })',
             codeCollapse: '.addTrace({\n' +
-                ' type: [\'call\'],\n' +
-                ' callTo: [BAYC_ADDRESS],\n' +
-                ' })\n' +
-                ' .addStateDiff({ address: [BAYC_ADDRESS] })',
+                '   type: [\'call\'],\n' +
+                '   callTo: [BAYC_ADDRESS],\n' +
+                '})\n' +
+                '.addStateDiff({ address: [BAYC_ADDRESS] })',
             caption: <>Call traces will expose any internal calls to BAYC by other contracts. Also retrieves all changes
                 to contract storage state.</>,
             link: "https://github.com/subsquid-labs/showcase06-all-bayc-call-traces"
@@ -232,9 +233,9 @@ export function CodeSlider(props: any) {
                 '    },\n' +
                 '  })',
             codeCollapse: '.addTrace({\n' +
-                ' type: [\'create\'],\n' +
-                ' })\n' +
-                ' .addLog({ topic0: [erc721.events.Transfer.topic] })\n',
+                '   type: [\'create\'],\n' +
+                '   })\n' +
+                '.addLog({ topic0: [erc721.events.Transfer.topic] })\n',
             caption: <>All contract creations are scraped; they will be checked for ERC721 compliance in the batch
                 handler. All ERC721 <b>Transfer</b> events are scraped so that they can be filtered and binned by the
                 contract in the batch handler.</>,

@@ -21,9 +21,9 @@ export default function Home(): JSX.Element {
         <a
           className="x-button min-w-[140px] bg-bg-base--contrast text-fg-base--contrast"
               href="/basics/overview">Overview</a>
-        <a
-          className="x-button min-w-[140px] bg-bg-base--contrast text-fg-base--contrast"
-              href="/evm-indexing/configuration/showcase">Showcase</a>
+        {/*<a*/}
+        {/*  className="x-button min-w-[140px] bg-bg-base--contrast text-fg-base--contrast"*/}
+        {/*      href="/evm-indexing/configuration/showcase">Showcase</a>*/}
         </div>
       </div>
 
