@@ -59,7 +59,7 @@
 .code-slider__line {
     width: 1px;
     height: 16px;
-    background: var(--light-body, #1C1E21);
+    background: var(--ifm-navbar-link-color, #1C1E21);
 }
 
 .code-slider__collapse {
@@ -96,7 +96,7 @@
 .swiper-pagination-bullet {
     width: 8px;
     height: 8px;
-    background-color: #aaaaaa;
+    background-color: var(--fg-role--pagination);
     display: table;
     border-radius: 50%;
     transition: background-color .3s;
@@ -106,5 +106,5 @@
 }
 
 .swiper-pagination-bullet.swiper-pagination-bullet-active {
-    background-color: var(--light-body, #1C1E21);;
+    background: var(--fg-role--pagination-active);
 }

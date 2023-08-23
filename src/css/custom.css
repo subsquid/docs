@@ -111,6 +111,8 @@
     --quide-card-bg-hover: transperent;
     --quide-card-shadow-hover: 0px 0px 4px rgba(67, 65, 65, 0.15);
     --ifm-list-item-margin: 0.5rem;
+    --fg-role--pagination: #aaaaaa;
+    --fg-role--pagination-active: #1C1E21;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -180,6 +182,9 @@
 
     --quide-card-bg-hover: #242428;
     --quide-card-shadow-hover: 0px 0px 12px rgba(67, 65, 65, 0.3), 0px 0px 4px rgba(67, 65, 65, 0.15)
+
+    --fg-role--pagination: #cecece;
+    --fg-role--pagination-active: #ffffff;
 }
 
 

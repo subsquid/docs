@@ -1,25 +1,28 @@
 import clsx from 'clsx';
 import React, {useRef, useState} from 'react';
+import {useColorMode} from '@docusaurus/theme-common';
 import "./CodeSlider.css"
 import 'swiper/css';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Pagination, Navigation} from "swiper/modules";
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import {vs} from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import {vs, stackoverflowDark} from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
 const ChevronSvg = <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-    <path d="M3.5 6.25L7 9.75L10.5 6.25" stroke="#1C1E21" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3.5 6.25L7 9.75L10.5 6.25" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 </svg>;
 
 const ChevronLeftSvg = <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <path d="M15 18L9 12L15 6" stroke="#1C1E21" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 </svg>;
 
 const ChevronRightSvg = <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <path d="M9 18L15 12L9 6" stroke="#1C1E21" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 </svg>;
 
 export function CodeSlider(props: any) {
+    const {isDarkTheme} = useColorMode()
+
     const [slides, setSlides] = useState(props.slides || [
         {
             title: "Transactions to and from a set of 1.4M wallets",
@@ -65,7 +68,8 @@ export function CodeSlider(props: any) {
                 '      transactionHash: true,\n' +
                 '    },\n' +
                 '  })',
-            caption: <>Real time data is fetched from a chain node RPC; a Database object with hot blocks support is required to store it (see <a href="#">this page</a> for more details</>,
+            caption: <>Real time data is fetched from a chain node RPC; a Database object with hot blocks support is
+                required to store it (see <a href="#">this page</a> for more details</>,
         },
         {
             title: "All Transfers to vitalik.eth",
@@ -79,7 +83,8 @@ export function CodeSlider(props: any) {
                 '    topic0: [erc20abi.events.Transfer.topic],\n' +
                 '    topic2: [VITALIK_ETH_TOPIC],\n' +
                 '  })',
-            caption: <>All <b>Transfer(address,address,uint256)</b> will be captured, including ERC20 and ERC721 transfers and possibly events with the same signature made with other protocols.</>,
+            caption: <>All <b>Transfer(address,address,uint256)</b> will be captured, including ERC20 and ERC721
+                transfers and possibly events with the same signature made with other protocols.</>,
         },
         {
             title: "Calls to AAVE Pool and all events they caused",
@@ -170,7 +175,8 @@ export function CodeSlider(props: any) {
                 '      callSighash: true,\n' +
                 '    },\n' +
                 ' })',
-            caption: <>Call traces will expose any internal calls to BAYC by other contracts. Also retrieves all changes to contract storage state.</>,
+            caption: <>Call traces will expose any internal calls to BAYC by other contracts. Also retrieves all changes
+                to contract storage state.</>,
         },
         {
             title: "All calls to contract functions, including internal",
@@ -191,7 +197,9 @@ export function CodeSlider(props: any) {
                 '      createResultAddress: true,\n' +
                 '    },\n' +
                 '  })',
-            caption: <>All contract creations are scraped; they will be checked for ERC721 compliance in the batch handler. All ERC721 <b>Transfer</b> events are scraped so that they can be filtered and binned by the contract in the batch handler.</>,
+            caption: <>All contract creations are scraped; they will be checked for ERC721 compliance in the batch
+                handler. All ERC721 <b>Transfer</b> events are scraped so that they can be filtered and binned by the
+                contract in the batch handler.</>,
         },
     ]);
     const [isExpanded, setIsExpanded] = useState(false);
@@ -235,7 +243,7 @@ export function CodeSlider(props: any) {
                          className={clsx('bg-bg-base--default p-4 rounded-sm fs-14 font-normal font-mono-roboto code-slider__pre', {
                              'code-slider__pre--over': !isExpanded
                          })}>
-                        <SyntaxHighlighter language="typescript" style={vs}>
+                        <SyntaxHighlighter language="typescript" style={isDarkTheme ? stackoverflowDark : vs}>
                             {slide.code}
                         </SyntaxHighlighter>
                     </div>
