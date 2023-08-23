@@ -7,7 +7,7 @@
     text-wrap: inherit;
     transition: height .3s linear, background-color .2s linear;
     height: auto;
-    overflow: hidden; !important;
+    overflow: hidden !important;
 }
 
 .code-slider__pre pre {
@@ -16,14 +16,14 @@
     background: none !important;
     max-width: 432px;
     height: 100%;
-    overflow: visible !important
+    overflow: visible !important;
 }
 
 .code-slider__pre pre code {
     text-wrap: inherit !important;
     font-size: 14px;
     height: 100%;
-    overflow: visible !important
+    overflow: visible !important;
 }
 
 @media (max-width: 833px) {
