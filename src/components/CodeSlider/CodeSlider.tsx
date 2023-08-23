@@ -26,7 +26,9 @@ export function CodeSlider(props: any) {
 
     useEffect(() => {
         console.log(isDarkTheme)
-        setStyle(isDarkTheme ? stackoverflowDark : vs)
+        setTimeout(() => {
+            setStyle(isDarkTheme ? stackoverflowDark : vs)
+        }, 100)
     }, [isDarkTheme])
 
     const [slides, setSlides] = useState(props.slides || [

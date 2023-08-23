@@ -6,7 +6,7 @@
 .code-slider__pre {
     text-wrap: inherit;
     overflow: hidden;
-    transition: .3s linear;
+    transition: height .3s linear, background-color .2s linear;
     height: auto;
 }
 
@@ -40,7 +40,7 @@
 .code-slider__caption {
     height: 0;
     overflow: hidden;
-    transition: .3s;
+    transition: height .3s;
 }
 
 .code-slider__caption.code-slider__caption--expand {
