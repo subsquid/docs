@@ -284,14 +284,7 @@ export function CodeSlider(props: any) {
                     prevEl: prevRef.current
                 }}
                 loop={true}
-                breakpoints={{
-                    0: {
-                        allowTouchMove: false
-                    },
-                    833: {
-                        allowTouchMove: true
-                    }
-                }}
+                allowTouchMove={false}
                 autoplay={{delay: 5000, pauseOnMouseEnter: true, disableOnInteraction: true}}
                 pagination={{clickable: true, el: paginationRef.current}}
                 autoHeight={true} onSwiper={setSwiper}>
