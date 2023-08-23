@@ -86,7 +86,8 @@ export function CodeSlider(props: any) {
                 'export const processor = new EvmBatchProcessor()\n' +
                 '  .setDataSource({\n' +
                 '    archive: lookupArchive(\'eth-mainnet\'),\n' +
-                '  })  .addLog({\n' +
+                '  })\n' +
+                '  .addLog({\n' +
                 '    topic0: [erc20abi.events.Transfer.topic],\n' +
                 '    topic2: [VITALIK_ETH_TOPIC],\n' +
                 '  })',
@@ -234,7 +235,7 @@ export function CodeSlider(props: any) {
                 '  })',
             codeCollapse: '.addTrace({\n' +
                 '   type: [\'create\'],\n' +
-                '   })\n' +
+                '})\n' +
                 '.addLog({ topic0: [erc721.events.Transfer.topic] })\n',
             caption: <>All contract creations are scraped; they will be checked for ERC721 compliance in the batch
                 handler. All ERC721 <b>Transfer</b> events are scraped so that they can be filtered and binned by the
