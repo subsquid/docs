@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useColorMode} from '@docusaurus/theme-common';
 import "./CodeSlider.css"
 import 'swiper/css';
@@ -22,6 +22,11 @@ const ChevronRightSvg = <svg width="24" height="24" viewBox="0 0 24 24" fill="no
 
 export function CodeSlider(props: any) {
     const {isDarkTheme} = useColorMode()
+    const [style, setStyle] = useState(isDarkTheme ? stackoverflowDark : vs)
+
+    useEffect(() => {
+        setStyle(isDarkTheme ? stackoverflowDark : vs)
+    }, [isDarkTheme])
 
     const [slides, setSlides] = useState(props.slides || [
         {
@@ -243,7 +248,7 @@ export function CodeSlider(props: any) {
                          className={clsx('bg-bg-base--default p-4 rounded-sm fs-14 font-normal font-mono-roboto code-slider__pre', {
                              'code-slider__pre--over': !isExpanded
                          })}>
-                        <SyntaxHighlighter language="typescript" style={isDarkTheme ? stackoverflowDark : vs}>
+                        <SyntaxHighlighter language="typescript" style={style}>
                             {slide.code}
                         </SyntaxHighlighter>
                     </div>
