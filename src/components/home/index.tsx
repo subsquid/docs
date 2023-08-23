@@ -20,7 +20,7 @@ export default function Home(): JSX.Element {
           className="x-button min-w-[140px] bg-bg-base--contrast text-fg-base--contrast"
           href="/quickstart">Quickstart</a>
         <a
-          className="x-button min-w-[140px] bg-bg-base--contrast text-fg-base--contrast"
+          className="x-button min-w-[140px] border-bg-base--contrast text-fg-base--default"
               href="/basics/overview">Overview</a>
         {/*<a*/}
         {/*  className="x-button min-w-[140px] bg-bg-base--contrast text-fg-base--contrast"*/}

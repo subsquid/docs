@@ -571,8 +571,19 @@ ul, ol {
     font-weight: 450;
 }
 
+.x-button.border-bg-base--contrast {
+    border-color: var(--bg-base--contrast);
+    color: var(--bg-base--contrast);
+    font-weight: 450;
+}
+
 .x-button.bg-bg-base--contrast:hover {
     background-color: var(--border-color-base--contrast);
+}
+
+.x-button.border-bg-base--contrast:hover {
+    border-color: var(--border-color-base--contrast);
+    color: var(--border-color-base--contrast);
 }
 
 .x-button--small {
