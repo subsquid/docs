@@ -263,6 +263,7 @@ export function CodeSlider(props: any) {
         setIsExpanded(!isExpanded)
 
         setTimeout(() => {
+            // @ts-ignore
             swiper.updateAutoHeight(200)
         }, 100)
     }
@@ -272,7 +273,7 @@ export function CodeSlider(props: any) {
             <Swiper
                 onSlideChange={(s) => {
                     linkRef.current.setAttribute('href', s.slides[s.activeIndex].getAttribute('data-link') || "#")
-                }}
+                }} // @ts-ignore
                 modules={[Pagination, Navigation, Autoplay]}
                 spaceBetween={20}
                 navigation={{

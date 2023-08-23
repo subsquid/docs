@@ -7,7 +7,7 @@
     text-wrap: inherit;
     transition: height .3s linear, background-color .2s linear;
     height: auto;
-    overflow: auto;
+    overflow: hidden; !important;
 }
 
 .code-slider__pre pre {
@@ -29,6 +29,10 @@
 @media (max-width: 833px) {
     .code-slider__pre pre code, .code-slider__pre pre {
         text-wrap: nowrap !important;
+    }
+
+    .code-slider__pre {
+        overflow: auto !important;
     }
 }
 
