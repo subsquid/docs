@@ -1,6 +1,7 @@
 import React from 'react';
 import { GuideCard } from '@site/src/components/guide-card';
 import { TutorialCard } from '@site/src/components/tutorial-card';
+import {CodeSlider} from "@site/src/components/CodeSlider/CodeSlider";
 
 export default function Home(): JSX.Element {
 
@@ -25,6 +26,11 @@ export default function Home(): JSX.Element {
               href="/evm-indexing/configuration/showcase">Showcase</a>
         </div>
       </div>
+
+        <div className="flex flex-col gap-6 max-w-[640px] items-start self-start mb-14 pt-2">
+            <span className="h3 flex items-center gap-4">Examples of data requests</span>
+            <CodeSlider/>
+        </div>
 
       {/*
       <section className="flex flex-col gap-12 mb-16">

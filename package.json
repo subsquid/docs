@@ -29,6 +29,8 @@
     "react": "^17.0.2",
     "react-collapsed": "^3.3.2",
     "react-dom": "^17.0.2",
+    "react-syntax-highlighter": "^15.5.0",
+    "swiper": "^10.2.0",
     "tailwindcss": "^3.1.3"
   },
   "devDependencies": {
@@ -36,6 +38,7 @@
     "@docusaurus/types": "^2.3.1",
     "@tsconfig/docusaurus": "^1.0.5",
     "@types/react": "^18.0.14",
+    "@types/react-syntax-highlighter": "^15.5.7",
     "path-browserify": "^1.0.1",
     "stream-http": "^3.2.0",
     "typescript": "^4.6.4"

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleAPIs.com/css2?family=Inter:wght@400;600;700&amp;display=swap');
 @import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
 @import url('https://fonts.cdnfonts.com/css/circular-std');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -18,6 +19,10 @@
     src: local('Circular Std'),
     url('/static/fonts/Circular/CircularAir-Light.ttf') format('truetype');
     font-weight: 300;
+}
+
+.font-mono-roboto {
+    font-family: "Roboto Mono", monospace;
 }
 
 
@@ -333,7 +338,7 @@ body p, body span {
     font-size: inherit;
     line-height: inherit;
     letter-spacing: inherit;
-    
+
     color: var(--fg-role--active);
 }
 
@@ -679,4 +684,9 @@ code, kbd, samp, pre {
 
 .hidden {
     display: none !important;
+}
+
+.fs-14 {
+    font-size: 14px;
+    line-height: 160%;
 }
