@@ -26,10 +26,10 @@ In all installs it is OK to leave all the options at their default values. You w
 <TabItem value="mac" label="Mac">
 ```
 1. Install [Docker for Mac](https://docs.docker.com/desktop/install/mac-install/).
-2. Install NodeJS LTS using the [official installer](https://nodejs.org/en/download).
-3. Install Git using the [installer](https://sourceforge.net/projects/git-osx-installer/) or by [other means](https://git-scm.com/download/mac).
+2. Install Git using the [installer](https://sourceforge.net/projects/git-osx-installer/) or by [other means](https://git-scm.com/download/mac).
+3. Install NodeJS LTS using the [official installer](https://nodejs.org/en/download).
 
-Make a folder for global installations of NodeJS packages using an unprivileged account, for example by running
+We recommend configuring NodeJS to install global packages to a folder owned by an unprivileged accout. Create the folder by running
 ```bash
 mkdir ~/global-node-packages
 ```
@@ -37,9 +37,7 @@ then configure NodeJS to use it
 ```bash
 npm config set prefix ~/global-node-packages
 ```
-Make sure that any executables globally installed by NodeJS are in `PATH`. That allows running them from any terminal.
-
-Open the `~/.bash_profile` file in a text editor and add the following line at the end:
+Make sure that any executables globally installed by NodeJS are in `PATH`. That allows running them from any terminal. Open the `~/.bash_profile` file in a text editor and add the following line at the end:
 ```
 export PATH="${HOME}/global-node-packages/bin:$PATH"
 ```
@@ -51,7 +49,7 @@ Re-open the terminal to apply the changes.
 ```
 Install NodeJS (v16 or newer), Git and Docker using your distro's package manager.
 
-Make a folder for global installations of NodeJS packages using an unprivileged account, for example by running
+We recommend configuring NodeJS to install global packages to a folder owned by an unprivileged accout. Create the folder by running
 ```bash
 mkdir ~/global-node-packages
 ```
@@ -59,18 +57,7 @@ then configure NodeJS to use it
 ```bash
 npm config set prefix ~/global-node-packages
 ```
-
-Make a folder for global installations of NodeJS packages using an unprivileged account, for example by running
-```bash
-mkdir ~/global-node-packages
-```
-then configure NodeJS to use it
-```bash
-npm config set prefix ~/global-node-packages
-```
-Make sure that any executables globally installed by NodeJS are in `PATH`. That allows running them from any terminal.
-
-Open the `~/.bashrc` file in a text editor and add the following line at the end:
+Make sure that any executables globally installed by NodeJS are in `PATH`. That allows running them from any terminal. Open the `~/.bashrc` file in a text editor and add the following line at the end:
 ```
 export PATH="${HOME}/global-node-packages/bin:$PATH"
 ```
