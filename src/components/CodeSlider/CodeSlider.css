@@ -1,6 +1,7 @@
 .code-slider {
-    max-width: 580px;
+    max-width: 640px;
     width: 100%;
+    position: relative;
 }
 
 .code-slider__pre {
@@ -16,6 +17,17 @@
     background: none !important;
     height: 100%;
     overflow: visible !important;
+}
+
+.code-slider__nav {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 10;
+}
+
+.code-slider__title {
+    padding-right: 70px;
 }
 
 .code-slider__pre pre code {

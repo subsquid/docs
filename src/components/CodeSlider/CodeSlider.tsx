@@ -57,6 +57,11 @@ export function CodeSlider(props: any) {
 
     return <>
         <div className={clsx('code-slider bg-bg-base--subtle p-5 rounded-lg')}>
+            <div className={clsx('flex items-center gap-3 code-slider__nav')}>
+                <button className="code-slider__arrow" ref={prevRef}>{ChevronLeftSvg}</button>
+                <button className="code-slider__arrow" ref={nextRef}>{ChevronRightSvg}</button>
+            </div>
+
             <Swiper
                 modules={[Pagination, Navigation, Autoplay]}
                 onSlideChange={(s) => {
@@ -74,7 +79,7 @@ export function CodeSlider(props: any) {
                 pagination={{clickable: true, el: paginationRef.current}}
                 autoHeight={true} onSwiper={setSwiper}>
                 {slides.map((slide, index) => <SwiperSlide data-link={slide.link} key={index}>
-                    <h3 className={clsx('body--m mb-4')}>{slide.title}</h3>
+                    <h3 className={clsx('body--m mb-4 code-slider__title')}>{slide.title}</h3>
 
                     <div ref={codeRef}
                          className={clsx('bg-bg-base--default p-4 rounded-sm fs-14 font-normal font-mono-roboto code-slider__pre', {
@@ -94,9 +99,7 @@ export function CodeSlider(props: any) {
             </Swiper>
             <div className={clsx('w-full flex mt-5 justify-between items-center md:flex-row flex-col-reverse')}>
                 <div className={clsx('flex items-center gap-3')}>
-                    <button className="code-slider__arrow" ref={prevRef}>{ChevronLeftSvg}</button>
                     <div className="code-slider__pagination" ref={paginationRef}></div>
-                    <button className="code-slider__arrow" ref={nextRef}>{ChevronRightSvg}</button>
                 </div>
 
                 <div className={clsx('flex items-center gap-3 sm:gap-7 md:gap-3 mb-4 md:mb-0')}>
