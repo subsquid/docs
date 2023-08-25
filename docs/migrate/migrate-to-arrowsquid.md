@@ -148,6 +148,18 @@ See the [Data selection](/evm-indexing/configuration/data-selection) page for fu
 
 Replace the old calls to `addLog()` and `addTransaction()` with calls using the [new signatures](/evm-indexing/configuration).
 
+:::warning
+The meaning of passing `[]` as a set of parameter values has been changed in the ArrowSquid release: now it _selects no data_. Pass `undefined` for a wildcard selection:
+```typescript
+.addLog({address: []}) // selects no logs
+.addLog({}) // selects all logs
+```
+```typescript
+.addTransaction({from: []}) // selects no transactions
+.addTransaction({}) // selects all transactions
+```
+:::
+
 Old data selectors will be erased during the process. Make sure to request the appropriate data with the boolean flags (`transaction` for `addLog()` and `logs` for `addTransaction()`) while doing that.
 
 For example, a processor originally initialized like this:

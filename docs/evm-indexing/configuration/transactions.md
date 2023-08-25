@@ -10,6 +10,14 @@ description: >-
 Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces). As such, it is important to always filter the data within the batch handler.
 :::
 
+:::warning
+The meaning of passing `[]` as a set of parameter values has been changed in the ArrowSquid release: now it _selects no data_. Some data might still arrive (see above), but that's not guaranteed. Pass `undefined` for a wildcard selection:
+```typescript
+.addTransaction({from: []}) // selects no transactions
+.addTransaction({}) // selects all transactions
+```
+:::
+
 #### `addTransaction(options)` {#add-transaction}
 
 Get some _or all_ transactions on the network. `options` has the following structure:
