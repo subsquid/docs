@@ -10,6 +10,14 @@ description: >-
 Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces). As such, it is important to always filter the data within the batch handler.
 :::
 
+:::warning
+The meaning of passing `[]` as a set of parameter values has been changed in the ArrowSquid release: now it _selects no data_. Some data might still arrive (see above), but that's not guaranteed. Pass `undefined` for a wildcard selection:
+```typescript
+.addStateDiff({address: []}) // selects no state diffs
+.addStateDiff({}) // selects all state diffs
+```
+:::
+
 [//]: # (???? Consider replacing the coinsbench link with something else. The article is good, but I'm not sure it's a good idea to use it here.)
 
 #### `addStateDiff(options)` {#add-state-diff}

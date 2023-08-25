@@ -94,10 +94,10 @@ The returned worker will be capable of processing `POST /query` requests in whic
 - **toBlock**: (optional) Block number to end on (inclusive). If this is not given, the query will go on for a fixed amount of time or until it reaches the height of the archive.
 - **includeAllBlocks**: (optional) If true, the archive will include blocks that contain no data selected by data requests into its response.
 - **fields**: (optional) A [selector](#data-fields-selector) of data fields to retrieve. Common for all data items.
-- **logs**: (optional) A list of [log requests](#logs).
-- **transactions**: (optional) A list of [transaction requests](#transactions).
-- **traces**: (optional) A list of [traces requests](#traces).
-- **stateDiffs**: (optional) A list of [state diffs requests](#state-diffs).
+- **logs**: (optional) A list of [log requests](#logs). An empty list requests no data.
+- **transactions**: (optional) A list of [transaction requests](#transactions). An empty list requests no data.
+- **traces**: (optional) A list of [traces requests](#traces). An empty list requests no data.
+- **stateDiffs**: (optional) A list of [state diffs requests](#state-diffs). An empty list requests no data.
 
 <details>
 
