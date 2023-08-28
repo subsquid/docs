@@ -53,7 +53,7 @@ After this test, shut down both processes with Ctrl-C and proceed.
 
 ## Define the schema and generate entity classes
 
-Next, we make changes to the data [schema](/basics/schema-file) of the squid and define [entities](/basics/schema-file/entities) that we would like to track. As stated above, we are interested in:
+Next, we make changes to the data [schema](/store/postgres/schema-file) of the squid and define [entities](/store/postgres/schema-file/entities) that we would like to track. As stated above, we are interested in:
 
 * Files added to and deleted from the chain;
 * Active accounts;
@@ -102,7 +102,7 @@ type StorageOrder @entity {
 }
 ```
 
-Notice that the `Account` entity is almost completely [derived](/basics/schema-file/entity-relations/). It is there to tie the other three entities together.
+Notice that the `Account` entity is almost completely [derived](/store/postgres/schema-file/entity-relations/). It is there to tie the other three entities together.
 
 :::info
 Refer to [this article](/troubleshooting#how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers) if you are unsure which events and extrinsics to use for the handlers in your project.
@@ -343,7 +343,7 @@ You can take a look at [the final version of `src/processor.ts`](https://github.
 
 ## Apply changes to the database
 
-Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping) provided by [TypeORM](https://typeorm.io). Previously we changed the data schema at `schema.graphql` and reflected these changes in our Typescript code using `sqd codegen`. Here, we [apply the corresponding changes to the database itself](/basics/db-migrations).
+Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping) provided by [TypeORM](https://typeorm.io). Previously we changed the data schema at `schema.graphql` and reflected these changes in our Typescript code using `sqd codegen`. Here, we [apply the corresponding changes to the database itself](/store/postgres/db-migrations).
 
 We begin by making sure that the database is at blank state:
 ```bash

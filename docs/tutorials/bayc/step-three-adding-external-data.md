@@ -115,7 +115,7 @@ We will save both `image` and `attributes` metadata fields and the metadata URI 
 +    value: String!
 +}
 ```
-Here, `Attribute` is a [non-entity type](/basics/schema-file/unions-and-typed-json/#typed-json) that we use to type the `attributes` field.
+Here, `Attribute` is a [non-entity type](/store/postgres/schema-file/unions-and-typed-json/#typed-json) that we use to type the `attributes` field.
 
 Once `schema.graphql` is updated, we regenerate the TypeORM data model code::
 

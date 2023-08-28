@@ -10,7 +10,7 @@ Database migrations and setup scripts must be located in the reserved folder `db
 ## TypeORM migrations
 
 The Squid SDK offers first-class support for [TypeORM-based database migrations](https://typeorm.io/migrations) with the `squid-typeorm-migration(1)` tool.
-The tool auto-generates the schema migrations from the TypeORM entities created by [codegen](/basics/schema-file) so that custom migration scripts are rarely needed.
+The tool auto-generates the schema migrations from the TypeORM entities created by [codegen](/store/postgres/schema-file) so that custom migration scripts are rarely needed.
 
 Most use cases of the tool are covered by `sqd` commands defined in `commands.json` of most templates that wrap around `squid-typeorm-migration`:
 
@@ -69,7 +69,7 @@ In some rare cases it is possible to update the schema without dropping the data
 
 **1. Update `schema.graphql` ** 
 
-For example, [add an index](/basics/schema-file/indexes-and-constraints)
+For example, [add an index](/store/postgres/schema-file/indexes-and-constraints)
 
 **2. Regenerate the model classes and build the code**
 

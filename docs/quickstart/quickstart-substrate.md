@@ -80,14 +80,14 @@ query MyQuery {
 
 ## Step 6: Customize
 
-[Hack](/basics/schema-file) the schema file `schema.graphql` and the [processor](/firesquid/substrate-indexing) `src/processor.ts` to index the data your way. Choose any supported network using the `lookupArchive()` method of [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) or [run one locally](/archives/).
+[Hack](/store/postgres/schema-file) the schema file `schema.graphql` and the [processor](/firesquid/substrate-indexing) `src/processor.ts` to index the data your way. Choose any supported network using the `lookupArchive()` method of [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) or [run one locally](/archives/).
 
 [//]: # (!!!! Remove the /firesquid reference above once ArrowSquid for Substrate is released)
 
 ## What's next?
 
 - Explore more [examples](/examples/#substrate-processor) of squids for substrate chains
-- Define the [data schema](/basics/schema-file) and customize the API
+- Define the [data schema](/store/postgres/schema-file) and customize the API
 - Explore how to use [typegen](/firesquid/substrate-indexing/squid-substrate-typegen) for type-safe on-chain data access
 - Explore how to efficiently transform the on-chain [data in batches](/firesquid/substrate-indexing)
 - Explore native support for [Frontier EVM](/firesquid/substrate-indexing/evm-support) on Astar and Shiden

@@ -15,7 +15,7 @@ In order to illustrate the concepts covered thus far, here we highlight the key 
 
 ## 1. Model the target schema and generate entity classes
 
-Create or edit `schema.graphql` to define the target entities and relations. Consult [the schema reference](/basics/schema-file).
+Create or edit `schema.graphql` to define the target entities and relations. Consult [the schema reference](/store/postgres/schema-file).
 
 Update the entity classes, start a fresh database and regenerate migrations:
 ```bash

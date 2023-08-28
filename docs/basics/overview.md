@@ -45,7 +45,7 @@ A squid project consists of a long-running `processor` service fetching and tran
 The [Squid SDK](https://github.com/subsquid/squid-sdk) offers an extensive set of tools for developing squids:
 
 - Core classes for the `processor` service: [`EvmBatchProcessor`](/evm-indexing) for EVM chains and [`SubstrateBatchProcessor`](/substrate-indexing) for Substrate-based chains.
-- The `sqd-typeorm-codegen` tool for generating TypeORM entities from `schema.graphql`. See [schema file and codegen](/basics/schema-file).
+- The `sqd-typeorm-codegen` tool for generating TypeORM entities from `schema.graphql`. See [schema file and codegen](/store/postgres/schema-file).
 - Tools for generating type-safe facade classes for decoding on-chain data. See [typegen](/glossary/#typegen).
 - [`graphql-server`](https://github.com/subsquid/squid/tree/master/graphql-server) is the backend for the GraphQL API served by the `api` service. The GraphQL schema is auto-generated from `schema.graphql`. The resulting API loosely follows the [OpenCRUD](https://www.opencrud.org/) standard and supports the most common query filters and selectors out-of-the box. See the [GraphQL API section](/graphql-api) for more details and configuration options.
 

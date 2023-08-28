@@ -38,7 +38,7 @@ npm ci
 
 ## Define Entity Schema
 
-Next, we ensure that the data [schema](/basics/schema-file) of the squid defines [entities](/basics/schema-file/entities) that we would like to track. We are interested in:
+Next, we ensure that the data [schema](/store/postgres/schema-file) of the squid defines [entities](/store/postgres/schema-file/entities) that we would like to track. We are interested in:
 
 * Token transfers
 * Ownership of tokens
@@ -80,10 +80,10 @@ type Transfer @entity {
 }
 ```
 
-It's worth noting a couple of things in this [schema definition](/basics/schema-file):
+It's worth noting a couple of things in this [schema definition](/store/postgres/schema-file):
 
 * **`@entity`**: Signals that this type will be translated into an ORM model that is going to be persisted in the database.
-* **`@derivedFrom`**: Signals that the field will not be persisted in the database. Instead, it will be [derived from](/basics/schema-file/entity-relations) the entity relations.
+* **`@derivedFrom`**: Signals that the field will not be persisted in the database. Instead, it will be [derived from](/store/postgres/schema-file/entity-relations) the entity relations.
 * **type references** (e.g. `from: Owner`): When used on entity types, they establish a relation between two entities.
 
 TypeScript entity classes have to be regenerated whenever the schema is changed, and to do that we use the `squid-typeorm-codegen` tool. The pre-packaged `commands.json` already comes with a `codegen` shortcut, so we can invoke it with `sqd`:
@@ -122,7 +122,7 @@ It is in this callback function that all the mapping logic is expressed. This is
 Before we begin defining the mapping logic of the squid, we are going to rewrite the `src/contracts.ts` utility module for managing the involved EVM contracts. It will export:
 
 * Addresses of [astarDegens](https://blockscout.com/astar/address/0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a) and [astarCats](https://blockscout.com/astar/address/0x8b5d62f396Ca3C6cF19803234685e693733f9779) contracts.
-* A `Map` from the contract addresses to constructor arguments of the `Contract` [entity](/basics/schema-file/entities). The arguments are hardcoded.
+* A `Map` from the contract addresses to constructor arguments of the `Contract` [entity](/store/postgres/schema-file/entities). The arguments are hardcoded.
 * A function that will create and save an instance of the `Contract` entity to the database, if one does not exist already. Either the already existing or the created entity instance will be returned on the first time the function is called on a given address. It will also be cached and on subsequent calls the cached version will be returned.
 
 Here are the full file contents:

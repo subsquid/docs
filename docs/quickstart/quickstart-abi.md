@@ -126,6 +126,6 @@ query MyQuery {
 - [Migrate your existing subgraphs to Subsquid](/migrate/migrate-subgraph)
 - [Explore examples of squids for EVM networks, from simple transfer indexing to DEX analytics](/examples/evm)
 - [Develop a custom EVM squid from scratch](/quickstart/quickstart-ethereum)
-- [Define your own data schema](/basics/schema-file)
+- [Define your own data schema](/store/postgres/schema-file)
 - [Deeper dive into `EvmBatchProcessor`](/evm-indexing)
 - [Explore how to enhance the GraphQL API with custom SQL, caching and limits](/graphql-api)

@@ -75,7 +75,7 @@ Since both the squid and version name become part of the squid API endpoint URL,
 ### `driverError: error: relation "..." does not exist` in the processor logs
 
 It is likely that the generated migrations in the `db/migrations` folder are outdated and do not match the schema file.
-Recreate the migrations from scratch as detailed in [this page](/basics/db-migrations/#updating-after-schema-changes)
+Recreate the migrations from scratch as detailed in [this page](/store/postgres/db-migrations/#updating-after-schema-changes)
 
 ### `Query runner already released. Cannot run queries anymore` in the processor logs
 
@@ -91,7 +91,7 @@ PostgreSQL doesn't support storing `NULL (\0x00)` characters in text fields. Usu
 
 ### API queries are too slow
 
-- Make sure all the necessary fields are [indexed](/basics/schema-file/indexes-and-constraints/)
+- Make sure all the necessary fields are [indexed](/store/postgres/schema-file/indexes-and-constraints/)
 - Annotate the schema and [set reasonable limits](/graphql-api/dos-protection/) for the incoming queries to protect against DoS attacks
 
 ### `response might exceed the size limit`
