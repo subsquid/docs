@@ -68,7 +68,7 @@ We allign with the [SLAs of the Google Cloud Platform](https://cloud.google.com/
 | 90.00% - < 95.00%       | 25%         |
 | < 90.00%          | 100%       |
 
-Note, that the SLA applies only to the provisioning the Aquarium services (API availability, provisioning of compute resources) and DO NOT apply to client code. In particular, if a squid is stuck due to a runtime upgrade, a bug in the runtime upgrade or upstream Archive/RPC issues, the SLA discounts do not apply. Similarly, the client is responsible for provisioning compute profiles adequate to the expected traffic. 
+Note, that the SLA applies only to the provisioning the Aquarium services (API availability, provisioning of compute resources) and DO NOT apply to client code. In particular, if a squid is stuck due to a bug or an upstream Archive/RPC issue, the SLA discounts don't apply. Similarly, the client is responsible for provisioning compute profiles adequate to the expected traffic. 
 
 For Enterprise plan customers, individual SLA terms may be negotiated. 
 
