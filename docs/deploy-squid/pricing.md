@@ -89,7 +89,7 @@ Runs 24/7 (720 hours a month).
 | Compute total  |  `$0.16`    | `$115.2` |
 | Storage      |          | `$25` |
 | Premium subscription       |      | `$40` |
-| Rebate       |      | `-$40` |
+| Credits       |      | `-$40` |
 | **Total**       |      | **`$140.2`** |
 
 
@@ -103,7 +103,7 @@ A squid writing parquet files to an external s3 bucket. No database or API is pr
 |-----------------|-----------------|-----------------|
 | Compute total  |  `$0.04`    | `$28.8` |
 | Premium subscription       |      | `$40` |
-| Rebate       |      | `-$28.8` |
+| Credits       |      | `-$28.8` |
 | **Total**       |      | **`$40`** |
 
 
@@ -119,7 +119,7 @@ A squid writing parquet files to an external s3 bucket. No database or API is pr
 | Compute total   |  `$0.53`    | `$381.6` |
 | Storage      |          | `$250` |
 | Premium subscription       |      | `$40` |
-| Rebate       |      | `-$40` |
+| Credits       |      | `-$40` |
 | **Total**       |      | **`$631.6`** |
 
 
@@ -133,7 +133,7 @@ A squid writing parquet files to an external s3 bucket. No database or API is pr
 | Compute total  | `0.02`    | `$15` |
 | Storage      |          | `$25` |
 | Premium subscription       |      | `$40` |
-| Rebate       |      | `-$40` |
+| Credits       |      | `-$40` |
 | **Total**       |      | **`$40`** |
 
 ## Transition to the Paid Plans
