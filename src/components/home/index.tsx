@@ -191,11 +191,13 @@ export default function Home(): JSX.Element {
                 <h4 className="mb-4 body--m">What is Aquarium?</h4>
                 <p className="text-fg-base--muted font-light">
                     <a
-                        href="https://app.subsquid.io/aquarium/"
+                        href="https://app.subsquid.io/"
                         target="_blank"
                         className="link">Aquarium</a> is a cloud service for hosting squids. This service is managed by Subsquid Labs.
                     &nbsp;
-                    <a href="/deploy-squid/squid-cli" className="link">Subsquid's CLI</a> provides a convenient way to deploy squids to the Aquarium and manage them once they are hosted.
+                    <a href="/squid-cli" className="link">Subsquid's CLI</a> provides a convenient way to
+                    &nbsp;
+                    <a href="/deploy-squid/quickstart" className="link">deploy squids</a> to the Aquarium and manage them once they are hosted.
                 </p>
             </div>
 
