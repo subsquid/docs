@@ -49,7 +49,7 @@ At this point your squid is ready. You can run it on your own infrastructure or 
 
 A valid config for the `squid-gen config` is a YAML file with the following sections:
 
-* **archive** is an alias or an endpoint URL of an [Archive](/firesquid/archives/overview/). Find an appropriate public archive at the [Supported networks](/evm-indexing/supported-networks/) page or in [Archive Registry](/archives/overview/#archive-registry). Alternatively, self-host a private Archive ([EVM](/firesquid/archives/evm/self-hosted/)/[WASM](/firesquid/archives/substrate/self-hosted/)).
+* **archive** is an alias or an endpoint URL of an [Archive](/firesquid/archives/overview/). Find an appropriate public archive at the [Supported networks](/firesquid/evm-indexing/supported-networks/) page or in [Archive Registry](/firesquid/archives/overview/#archive-registry). Alternatively, self-host a private Archive ([EVM](/firesquid/archives/evm/self-hosted/)/[WASM](/firesquid/archives/substrate/self-hosted/)).
 
 * **target** section describes how the scraped data should be stored. Set
    ```yaml
@@ -71,11 +71,11 @@ A valid config for the `squid-gen config` is a YAML file with the following sect
 
 ## `file-store` targets
 
-Currently the only [file-based data target type](/firesquid/basics/store/file-store/) supported by `squid-gen` packages is [`parquet`](/basics/store/file-store/parquet-table/). When used, it requires that the `path` field is also set alongside `type`. A `path` can be a local path or an URL pointing to a folder within a bucket on an S3-compatible cloud service.
+Currently the only [file-based data target type](/firesquid/basics/store/file-store/) supported by `squid-gen` packages is [`parquet`](/firesquid/basics/store/file-store/parquet-table/). When used, it requires that the `path` field is also set alongside `type`. A `path` can be a local path or an URL pointing to a folder within a bucket on an S3-compatible cloud service.
 
 Support for `file-store` is in alpha stage. Known caveats:
 
-* If a S3 URL is used, then the S3 region, endpoint and user credentials will be [taken from the default environment variables](/firesquid/basics/store/file-store/s3-dest/). Fill your `.env` file and/or set your [Aquarium secrets](/deploy-squid/env-variables/) accordingly.
+* If a S3 URL is used, then the S3 region, endpoint and user credentials will be [taken from the default environment variables](/firesquid/basics/store/file-store/s3-dest/). Fill your `.env` file and/or set your [Aquarium secrets](/firesquid/deploy-squid/env-variables/) accordingly.
 
 * Unlike their PostgreSQL-powered equivalents, the squids that use `file-store` may not write their data often. You may have to configure the `chunkSizeMb` and `syncIntervalBlocks` parameters of the `Database` class manually to strike an acceptable balance between the lag of the indexed data and the number of files in the resulting dataset. See [Filesystem store overview](/firesquid/basics/store/file-store/overview/) for details.
 

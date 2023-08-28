@@ -12,7 +12,7 @@ sidebar_position: 20
 
 This tutorial starts with the standard `evm` template of [`sqd init`](/firesquid/squid-cli/init) and turns it into a squid indexing the [Exosama NFT](https://exosama.com/) [contract](https://etherscan.io/address/0xac5c7493036de60e63eb81c5e9a440b42f47ebf5) deployed on Ethereum. The squid stores its data in a Postgres database and makes it available via a GraphQL API.
 
-The goal is to index the contract NFTs, historical transfers and current owners. The tutorial applies to other EVM chains (Polygon, Binance Smart Chain, Arbitrum, etc). To switch to a different chain simply set its corresponding [Archive](/firesquid/archives/overview/) as a data source during [processor configuration](/evm-indexing/configuration).
+The goal is to index the contract NFTs, historical transfers and current owners. The tutorial applies to other EVM chains (Polygon, Binance Smart Chain, Arbitrum, etc). To switch to a different chain simply set its corresponding [Archive](/firesquid/archives/overview/) as a data source during [processor configuration](/firesquid/evm-indexing/configuration).
 
 To look at the end result, inspect the code and play around, clone the [repo](https://github.com/subsquid/subsquid-ethereum-tutorial-example) or open Gitpod:
 
@@ -173,7 +173,7 @@ export async function getOrCreateContractEntity(store: Store): Promise<Contract>
 
 ## Define the logic to handle and save Events & Function calls
 
-Subsquid SDK provides users with the [`EvmBatchProcessor` class](/firesquid/evm-indexing). Its instances connect to a [Subsquid archive](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Subsquid SDK provides users with the [`EvmBatchProcessor` class](/firesquid/evm-indexing). Its instances connect to a [Subsquid archive](/firesquid/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
 The processor exposes methods to "subscribe" to EVM logs or smart contract function calls. These methods [configure the processor](/firesquid/evm-indexing/configuration) to retrieve a subset of archive data, by specifying things like addresses of contracts, signatures of public functions or topics of event of interest. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for *batches* of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
 

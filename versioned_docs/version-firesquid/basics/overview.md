@@ -42,7 +42,7 @@ A squid project consists of a long-running `processor` service fetching and tran
 
 The [Squid SDK](https://github.com/subsquid/squid-sdk) offers an extensive set of tools for developing squids:
 
-- Core classes for the `processor` service: [`EvmBatchProcessor`](/firesquid/evm-indexing) for EVM chains and [`SubstrateBatchProcessor`](/substrate-indexing) for Substrate-based chains.
+- Core classes for the `processor` service: [`EvmBatchProcessor`](/firesquid/evm-indexing) for EVM chains and [`SubstrateBatchProcessor`](/firesquid/substrate-indexing) for Substrate-based chains.
 - The `sqd-typeorm-codegen` tool for generating TypeORM entities from `schema.graphql`. See [schema file and codegen](/firesquid/basics/schema-file).
 - Tools for generating type-safe facade classes for decoding on-chain data. See [typegen](/firesquid/glossary/#typegen).
 - [`graphql-server`](https://github.com/subsquid/squid/tree/master/graphql-server) is the backend for the GraphQL API served by the `api` service. The GraphQL schema is auto-generated from `schema.graphql`. The resulting API loosely follows the [OpenCRUD](https://www.opencrud.org/) standard and supports the most common query filters and selectors out-of-the box. See the [GraphQL API section](/firesquid/graphql-api) for more details and configuration options.
@@ -51,12 +51,12 @@ The [Squid SDK](https://github.com/subsquid/squid-sdk) offers an extensive set o
 
 ## Aquarium Hosted Service
 
-Squids can be deployed to the Subsquid cloud service, called the [Aquarium](https://app.subsquid.io), free of charge. The deployment of the squid services to the Aquarium (see below) is managed by the [`squid.yaml` manifest](/firesquid/deploy-squid/deploy-manifest). Go to the [Deploy Squid](/deploy-squid) section for more information.
+Squids can be deployed to the Subsquid cloud service, called the [Aquarium](https://app.subsquid.io), free of charge. The deployment of the squid services to the Aquarium (see below) is managed by the [`squid.yaml` manifest](/firesquid/deploy-squid/deploy-manifest). Go to the [Deploy Squid](/firesquid/deploy-squid) section for more information.
 
 ## What's next?
 
 - Follow the [Quickstart](/firesquid/quickstart) to build your first squid
 - Explore [Examples](/firesquid/examples)
 - Learn how to [migrate from The Graph](/firesquid/migrate/migrate-subgraph)
-- Dive deeper into [EVM Indexing](/firesquid/evm-indexing) and [Substrate Indexing](/substrate-indexing)
+- Dive deeper into [EVM Indexing](/firesquid/evm-indexing) and [Substrate Indexing](/firesquid/substrate-indexing)
 - Explore the [GraphQL API options](/firesquid/graphql-api) including custom extensions, caching and DoS protection in production

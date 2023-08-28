@@ -107,7 +107,7 @@ export interface SubstrateBlock {
 
 ### `event` items
 
-This is the full shape of the items with `item.kind == 'event'`. The actual set of fields corresponds to the [event data selector](/firesquid/substrate-indexing/configuration#event-data-selector) specified by the `addEvent()`, `addEvmLog()` and similar event-based [processor config methods](/substrate-indexing/configuration):
+This is the full shape of the items with `item.kind == 'event'`. The actual set of fields corresponds to the [event data selector](/firesquid/substrate-indexing/configuration#event-data-selector) specified by the `addEvent()`, `addEvmLog()` and similar event-based [processor config methods](/firesquid/substrate-indexing/configuration):
 
 ```ts
 interface EventItem {
@@ -175,7 +175,7 @@ interface SubstrateCall {
 
 ### `call` items
 
-This is the full shape of the items with `item.kind == 'call'`. The actual set of fields corresponds to the [call data selector](/firesquid/substrate-indexing/configuration#call-data-selector) specified by the [`addCall()`](/substrate-indexing/configuration) processor config method.
+This is the full shape of the items with `item.kind == 'call'`. The actual set of fields corresponds to the [call data selector](/firesquid/substrate-indexing/configuration#call-data-selector) specified by the [`addCall()`](/firesquid/substrate-indexing/configuration) processor config method.
 
 ```ts
 interface CallItem {
@@ -229,4 +229,4 @@ processor.run(new TypeormDatabase(), async ctx => {
 })
 ```
 
-For more elaborate examples, check [Batch processor in action](/firesquid/substrate-indexing/batch-processor-in-action) and the [Examples](/examples) page.
+For more elaborate examples, check [Batch processor in action](/firesquid/substrate-indexing/batch-processor-in-action) and the [Examples](/firesquid/examples) page.

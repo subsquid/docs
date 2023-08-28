@@ -8,7 +8,7 @@ description: Inspect the deployment logs
 
 **Since `@subsquid/cli@2.0.0`**
 
-Aquarium automatically collects the squid logs emitted by the processor, API server and the database pods. For more details on how to use the built-in logger in the squid processor, logging namespaces and severity flags (via environment variables `SQD_DEBUG`, `SQD_TRACE`, `SQD_INFO`), see the [Logging](/firesquid/basics/logging) page. The environment variables can be passed to the squids during the deployment to the Aquarium, see [Environment Variables](/deploy-squid/env-variables/#environment-variables-1) for details.
+Aquarium automatically collects the squid logs emitted by the processor, API server and the database pods. For more details on how to use the built-in logger in the squid processor, logging namespaces and severity flags (via environment variables `SQD_DEBUG`, `SQD_TRACE`, `SQD_INFO`), see the [Logging](/firesquid/basics/logging) page. The environment variables can be passed to the squids during the deployment to the Aquarium, see [Environment Variables](/firesquid/deploy-squid/env-variables/#environment-variables-1) for details.
 
 
 To inspect and follow the squid logs from all the squid services, use [`sqd logs`](/firesquid/squid-cli/logs):

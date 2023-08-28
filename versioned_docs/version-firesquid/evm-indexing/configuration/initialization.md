@@ -22,7 +22,7 @@ The following setters configure the global settings of `EvmBatchProcessor`. They
 
 
 Argument properties:
-+ `archive`: An archive endpoint providing the data for the selected network. See [supported networks](/firesquid/evm-indexing/supported-networks) for a list of endpoints for public EVM Archives and a usage example. The endpoints are also published to the [Archive registry](/archives/overview/#archive-registry) and exposed with `lookupArchive` function of `@subsquid/archive-regitry` package.
++ `archive`: An archive endpoint providing the data for the selected network. See [supported networks](/firesquid/evm-indexing/supported-networks) for a list of endpoints for public EVM Archives and a usage example. The endpoints are also published to the [Archive registry](/firesquid/archives/overview/#archive-registry) and exposed with `lookupArchive` function of `@subsquid/archive-regitry` package.
 
 + `chain?`: A JSON-RPC endpoint for the network of interest. Required if the processor has to make [contract state queries](/firesquid/evm-indexing/query-state). For squids indexing only event and/or transaction data it can be omitted. HTTPS and WSS endpoints are supported.
 

@@ -11,7 +11,7 @@ description: |-
 
 Aquarium supports adding environment variables to the squid deployments. There are two kinds: **secrets** and **environment variables**. The crucial difference is that the secrets are injected to all squids, while environments variables are set only to a specific version deployment. Environment variables are stored in plain text so **all the sensitive input (e.g. API keys) must be set as a secret**.
 
-Secrets are set using the special command [`sqd secrets`](/firesquid/squid-cli/secrets), while environment variables are set in the [deployment manifest](/deploy-squid/deploy-manifest).
+Secrets are set using the special command [`sqd secrets`](/firesquid/squid-cli/secrets), while environment variables are set in the [deployment manifest](/firesquid/deploy-squid/deploy-manifest).
 
 ## Secrets 
 

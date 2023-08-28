@@ -44,4 +44,4 @@ query {
 }
 
 ```
-Note that the [newer](/firesquid/graphql-api/overview/#supported-queries) and [more advanced](/query-squid/paginate-query-results) `{entityName}sConnection` queries support exactly the same format of the `where` argument as the older `{entityName}s` queries used in the examples provided here.
+Note that the [newer](/firesquid/graphql-api/overview/#supported-queries) and [more advanced](/firesquid/query-squid/paginate-query-results) `{entityName}sConnection` queries support exactly the same format of the `where` argument as the older `{entityName}s` queries used in the examples provided here.

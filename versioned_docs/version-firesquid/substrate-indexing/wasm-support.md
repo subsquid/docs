@@ -9,7 +9,7 @@ title: ink! contracts support
 
 This section describes additional options available for indexing [ink!-based WASM contracts](https://use.ink), supported by chains with a `Contracts` pallet. At the moment of writing, AlephZero, Shibuya (Astar testnet), Shiden (Kusama parachain) and Astar (Polkadot parachain) are the most popular chains for deploying ink! contracts.
 
-[Generate an ink! indexing squid automatically](/firesquid/basics/squid-gen/), follow the [WASM squid tutorial](/tutorials/create-a-wasm-processing-squid) for a step-by-step instruction or check out the [squid-wasm-template](https://github.com/subsquid-labs/squid-wasm-template) reference project.
+[Generate an ink! indexing squid automatically](/firesquid/basics/squid-gen/), follow the [WASM squid tutorial](/firesquid/tutorials/create-a-wasm-processing-squid) for a step-by-step instruction or check out the [squid-wasm-template](https://github.com/subsquid-labs/squid-wasm-template) reference project.
 
 ## Processor options
 

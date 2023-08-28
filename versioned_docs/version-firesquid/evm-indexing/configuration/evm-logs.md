@@ -10,7 +10,7 @@ description: >-
 
 The optional `options?` argument defines:
 + filters by block range and topic, and
-+ [data selectors](/firesquid/evm-indexing/configuration/data-selectors) to specify the data provided by the corresponding [item](/evm-indexing/context-interfaces):
++ [data selectors](/firesquid/evm-indexing/configuration/data-selectors) to specify the data provided by the corresponding [item](/firesquid/evm-indexing/context-interfaces):
 
 ```typescript
 {

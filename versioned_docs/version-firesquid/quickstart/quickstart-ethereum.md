@@ -90,7 +90,7 @@ query MyQuery {
 
 ## Step 7: Customize
 
-[Hack](/firesquid/basics/schema-file) the schema file `schema.graphql` and the [processor](/evm-indexing) `src/processor.ts` to index the data your way!
+[Hack](/firesquid/basics/schema-file) the schema file `schema.graphql` and the [processor](/firesquid/evm-indexing) `src/processor.ts` to index the data your way!
 
 ## What's next?
 
