@@ -39,6 +39,10 @@ sqd deploy .
 
 For a full list of available deploy options, inspect [`sqd deploy` help](/squid-cli/deploy).
 
+:::warning
+By default your squid will be deployed as _collocated_. Collocated squids are intended for development and prototyping only. They share resources with each other and may have stability issues. For production we strongly recommend to [deploy your squids as dedicated](/deploy-squid/scale/#dedicated) instead.
+:::
+
 ## 2. Monitor Squid logs
 
 Once the squid is deployed, the GraphQL endpoint is available straight away. Normally one should wait until the squid has processed all historical blocks and is fully in sync.
