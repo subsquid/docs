@@ -43,6 +43,8 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 })
 ```
 
+Another common source of this error is faulty RPC endpoints. If your EVM processor crashes during RPC ingestion on a log with `'0x'` in its data field, try switching to another RPC provider or, if you are developing locally, to another Ethereum network emulator.
+
 ### `BAD_DATA` when using a Multicall contract
 
 This error can occur for a variety of reasons, but one common cause is choosing a Multicall deployment that is newer than the oldest blocks that have to be indexed. When [batch state queries](/evm-indexing/query-state/#batch-state-queries) are performed on historical chain state older than the Multicall deployment, EVM detects that and refuses to run.
