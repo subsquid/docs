@@ -6,10 +6,6 @@ description: Built-in caching RPC endpoints
 
 # RPC proxy
 
-:::warning
-This is an experimental feature only available to premium users. If you want to try it out please contact us at [the SquidDevs Telegram channel](https://t.me/HydraDevs).
-:::
-
 Since the Arrowsquid release, Aquarium provides a built-in caching RPC proxy service. Currently, it is a premium feature, with plans to make a subset of calls available to free tier users.
 
 ## Available networks
