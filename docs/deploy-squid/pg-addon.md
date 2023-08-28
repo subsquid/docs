@@ -15,13 +15,14 @@ The addon supports additional PG config options:
 | Name                                 | Description                                                            | Type      | Default value  | Optional   |  
 |:------------------------------------:|:----------------------------------------------------------------------:|:---------:|:--------------:|:----------:|
 | `config.statement_timeout`           | Max execution time after which any query is forcefully aborted, ms     |  `number` | `60000`        |   Optional     |
-| `config.log_min_duration_statement`  | Log queries executing longer than the given threshold, ms              |  `number` |`5000`          |   Optional     |
-
+| `config.` `log_min_duration_statement`  | Log queries executing longer than the given threshold, ms              |  `number` |`5000`          |   Optional     |
+| `config.` `max_pred_locks_per_transaction` | See [Lock Management](https://www.postgresql.org/docs/15/runtime-config-locks.html#GUC-MAX-PRED-LOCKS-PER-TRANSACTION) | `number` | `64` | Optional |
+| `config.max_locks_per_transaction` | See [Lock Management](https://www.postgresql.org/docs/15/runtime-config-locks.html#GUC-MAX-LOCKS-PER-TRANSACTION) | `number` | `64` | Optional |
 
 ## Direct access
 
 :::warning
-Direct access is only avalilable for squids deployed with `squid.yaml`. For migrating from the old v0 flow, refer to the [migration page](/deploy-squid/migration).np
+Direct access is only avalilable for squids deployed with `squid.yaml`. For migrating from the old v0 flow, refer to the [migration page](/deploy-squid/migration).
 :::
 
 Aquarium enables direct read access to the deployed PG instances. Launch the [squid explorer](/squid-cli/explorer) with
