@@ -136,6 +136,12 @@ A squid writing parquet files to an external s3 bucket. No database or API is pr
 | Rebate       |      | `-$40` |
 | **Total**       |      | **`$40`** |
 
+## Transition to the Paid Plans
+
+The transition to the paid plans will take place in September 2023 to enable smooth onboarding. 
+The existing Aquarium users will be able to see the usage and the provisional billing for September, with a full rebate of the total invoice. 
+The grace period ends on October 1st, 2023 with the payment rails enabled in the Aquairum app.
+
 ## FAQ
 
 **Q**: What happens if I am on a free plan now and have more than one squid?
