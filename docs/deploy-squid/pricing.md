@@ -8,17 +8,16 @@ description: Aquarium service plans
 
 The Aquarium hosted service offers a forever-free development plan. For production-ready squids, one should use the Premium or an individual Enterprise plan.
 
-- The dev free plan includes:
+- The Dev plan is always fee and includes:
   -  One collocated squid (API + processor + Postgres)
   -  10GB of database storage
   -  500k monthly RPC requests
   -  Community support
-- The premium plan costs `40$/mo` and enables:
-  - Configurable dedicated squids
+- The Premium plan enables:
+  - Pay-as-you-go dedicated squids (configures using the deployment manifest)
   - Pay-as-you-go collocated squids
-  - 2M RPC requests monthly
+  - 2M RPC requests monthly + pay-as-you-go on top
   - Direct support in a personal Telegram chat
-  - `$40` in credits 
 - The Enterprise plan includes individual SLAs and discounts. [Book a demo](https://calendly.com/d/yzj-48g-bf7/subsquid-demo) to get a personal quote.
 
 ## Pricing
@@ -57,7 +56,7 @@ It is not possible to additionally configure a collocated squid except for the s
 
 ### RPC requests
 
-The premium plan already includes a generous package of 2M requests per month. Above that, it is `$5/1M` requests. 
+The premium plan already includes a package of 2M requests per month. Above that, it is `$5/1M` requests. 
 
 ## SLAs
 
@@ -88,8 +87,6 @@ Runs 24/7 (720 hours a month).
 |-----------------|-----------------|-----------------|
 | Compute total  |  `$0.16`    | `$115.2` |
 | Storage      |          | `$25` |
-| Premium subscription       |      | `$40` |
-| Credits       |      | `-$40` |
 | **Total**       |      | **`$140.2`** |
 
 
@@ -102,9 +99,7 @@ A squid writing parquet files to an external s3 bucket. No database or API is pr
 | Service | `$/hr` | `$/mo`          |
 |-----------------|-----------------|-----------------|
 | Compute total  |  `$0.04`    | `$28.8` |
-| Premium subscription       |      | `$40` |
-| Credits       |      | `-$28.8` |
-| **Total**       |      | **`$40`** |
+| **Total**       |      | **`$28.8`** |
 
 
 ### Large production squid
@@ -118,8 +113,6 @@ A squid writing parquet files to an external s3 bucket. No database or API is pr
 |-----------------|-----------------|-----------------|
 | Compute total   |  `$0.53`    | `$381.6` |
 | Storage      |          | `$250` |
-| Premium subscription       |      | `$40` |
-| Credits       |      | `-$40` |
 | **Total**       |      | **`$631.6`** |
 
 
@@ -132,8 +125,6 @@ A squid writing parquet files to an external s3 bucket. No database or API is pr
 |-----------------|-----------------|-----------------|
 | Compute total  | `0.02`    | `$15` |
 | Storage      |          | `$25` |
-| Premium subscription       |      | `$40` |
-| Credits       |      | `-$40` |
 | **Total**       |      | **`$40`** |
 
 ## Transition to the Paid Plans
