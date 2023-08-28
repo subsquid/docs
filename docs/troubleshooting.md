@@ -43,6 +43,8 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 })
 ```
 
+Another common source of this error is faulty RPC endpoints. If your EVM processor crashes during RPC ingestion on a log with `'0x'` in its data field, try switching to another RPC provider or, if you are developing locally, to another Ethereum network emulator.
+
 ### `BAD_DATA` when using a Multicall contract
 
 This error can occur for a variety of reasons, but one common cause is choosing a Multicall deployment that is newer than the oldest blocks that have to be indexed. When [batch state queries](/evm-indexing/query-state/#batch-state-queries) are performed on historical chain state older than the Multicall deployment, EVM detects that and refuses to run.
@@ -75,7 +77,7 @@ Since both the squid and version name become part of the squid API endpoint URL,
 ### `driverError: error: relation "..." does not exist` in the processor logs
 
 It is likely that the generated migrations in the `db/migrations` folder are outdated and do not match the schema file.
-Recreate the migrations from scratch as detailed in [this page](/basics/db-migrations/#updating-after-schema-changes)
+Recreate the migrations from scratch as detailed in [this page](/store/postgres/db-migrations/#updating-after-schema-changes)
 
 ### `Query runner already released. Cannot run queries anymore` in the processor logs
 
@@ -91,7 +93,7 @@ PostgreSQL doesn't support storing `NULL (\0x00)` characters in text fields. Usu
 
 ### API queries are too slow
 
-- Make sure all the necessary fields are [indexed](/basics/schema-file/indexes-and-constraints/)
+- Make sure all the necessary fields are [indexed](/store/postgres/schema-file/indexes-and-constraints/)
 - Annotate the schema and [set reasonable limits](/graphql-api/dos-protection/) for the incoming queries to protect against DoS attacks
 
 ### `response might exceed the size limit`

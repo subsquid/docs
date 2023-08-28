@@ -14,7 +14,7 @@ git clone https://github.com/subsquid/gravatar-squid.git
 
 `EvmBatchProcessor` provided by the Squid SDK defines a single handler that indexes EVM logs and transaction data in batches of heterogeneous items.  It differs from the programming model of subgraph mappings, that define a separate data handler for each EVM log topic to be indexed. Due to significantly less frequent database hits (once per batch compared to once per log) the batch-based handling model shows up to a 10x increase in the indexing speed. 
 
-At the same time, the concepts of the [schema file](/firesquid/basics/schema-file), [code generation from the schema file](https://github.com/subsquid/squid/tree/master/typeorm-codegen) and [an auto-generated GraphQL API](/graphql-api) should be familiar for subgraph developers. In most cases the schema file of a subgraph can be imported into a squid as is. 
+At the same time, the concepts of the [schema file](/firesquid/basics/schema-file), [code generation from the schema file](https://github.com/subsquid/squid/tree/master/typeorm-codegen) and [an auto-generated GraphQL API](/firesquid/graphql-api) should be familiar for subgraph developers. In most cases the schema file of a subgraph can be imported into a squid as is. 
 
 There are some known limitations:
 - Many-to-Many entity relations (should be [modelled explicitly](/firesquid/basics/schema-file/entity-relations/#many-to-many-relations) as two many-to-one relations)

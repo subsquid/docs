@@ -51,6 +51,6 @@ or navigate to the squid page in Aquarium. See the [logging page](/firesquid/dep
 ## What's next?
 
 - Learn how to [scale](/firesquid/deploy-squid/deploy-manifest/#scale) the squid by requesting more resources
-- See how to [update](/firesquid/squid-cli/deploy) and [kill](/squid-cli/rm) the deployed squid versions
+- See how to [update](/firesquid/squid-cli/deploy) and [kill](/firesquid/squid-cli/rm) the deployed squid versions
 - See [Secrets and Env variables](/firesquid/deploy-squid/env-variables) to add secrets and environment variables to a squid deployment.
 - See the supported options for [`squid logs`](/firesquid/squid-cli/logs) such as filtering and log following.

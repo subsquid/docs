@@ -48,7 +48,7 @@ deploy:
 
 ## 2. (Optional) Add secrets and env variables
 
-If the squid expects additional environment variables to be set by the Aquarium via [secrets](/firesquid/deploy-squid/env-variables/#secrets) or at the [deployment time](/deploy-squid/env-variables/#environment-variables-1) add them in the `deploy` section:
+If the squid expects additional environment variables to be set by the Aquarium via [secrets](/firesquid/deploy-squid/env-variables/#secrets) or at the [deployment time](/firesquid/deploy-squid/env-variables/#environment-variables-1) add them in the `deploy` section:
 
 ```yml
 #...
@@ -60,7 +60,7 @@ deploy:
 
 ## 3. (Optional) Revise `cmd`
 
-You may want to add additional flags to `api.cmd`, e.g. to enable [caching](/firesquid/graphql-api/caching) or [enforce query limits](/graphql-api/dos-protection).
+You may want to add additional flags to `api.cmd`, e.g. to enable [caching](/firesquid/graphql-api/caching) or [enforce query limits](/firesquid/graphql-api/dos-protection).
 
 ## 4. (Optional) Add `scale:` options
 

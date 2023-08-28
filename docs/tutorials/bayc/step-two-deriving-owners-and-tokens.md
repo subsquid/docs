@@ -13,7 +13,7 @@ Prerequisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a proje
 
 ## Writing `schema.graphql`
 
-Start the process by adding new [entities](/basics/schema-file/entities) to the `schema.graphql` file:
+Start the process by adding new [entities](/store/postgres/schema-file/entities) to the `schema.graphql` file:
 ```graphql
 # any unique string can be used as id
 type Owner @entity {
@@ -25,7 +25,7 @@ type Token @entity {
     tokenId: BigInt!
 }
 ```
-Next, add [entity relations](/basics/schema-file/entity-relations). Let us begin with adding a simple relation linking tokens to their owners:
+Next, add [entity relations](/store/postgres/schema-file/entity-relations). Let us begin with adding a simple relation linking tokens to their owners:
 ```diff
  type Token @entity {
      id: ID! # string form of tokenId
@@ -65,7 +65,7 @@ Introduce more entity relations by replacing the `from`, `to` and `tokenId` fiel
  }
 ```
 
-Lastly, include the virtual (i.e., not mapped to a column in the database schema) [reverse lookup fields](/basics/schema-file/entity-relations):
+Lastly, include the virtual (i.e., not mapped to a column in the database schema) [reverse lookup fields](/store/postgres/schema-file/entity-relations):
 
 ```diff
  type Owner @entity {

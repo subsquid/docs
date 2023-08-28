@@ -90,7 +90,7 @@ export const Transfers = new Table(
 )
 ```
 
-Let's create another file next, this time named `src/db.ts`, to configure the data abstraction layer. Here we export an instance of the [`Database` class](/firesquid/basics/store/custom-database) implementation from the `file-store` package (a dependency of `file-store-csv`). We will use this instance in much the same way as we would use a [`TypeormDatabase`](/basics/store/typeorm-store) instance in a PostgreSQL-based squid.
+Let's create another file next, this time named `src/db.ts`, to configure the data abstraction layer. Here we export an instance of the [`Database` class](/firesquid/basics/store/custom-database) implementation from the `file-store` package (a dependency of `file-store-csv`). We will use this instance in much the same way as we would use a [`TypeormDatabase`](/firesquid/basics/store/typeorm-store) instance in a PostgreSQL-based squid.
 
 ```typescript
 import {Database, LocalDest, Store} from '@subsquid/file-store'

@@ -21,7 +21,7 @@ Start the development by defining the data schema in `schema.graphql` in the squ
 - indexes to be created in the database
 - the schema of the auto-generated GraphQL API
 
-A full reference of the `schema.graphql` dialect is available in the [schema file section](/basics/schema-file).
+A full reference of the `schema.graphql` dialect is available in the [schema file section](/store/postgres/schema-file).
 
 ### 2. Generate TypeORM classes
 
@@ -51,7 +51,7 @@ Database schema changes (including initialization) are applied through migration
 sqd migration:generate
 ```
 
-Consult [database migrations](/basics/db-migrations) for more details.
+Consult [database migrations](/store/postgres/db-migrations) for more details.
 
 ### 4. Define the squid processor and the data handlers
 

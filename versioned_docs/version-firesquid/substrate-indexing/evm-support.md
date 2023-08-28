@@ -64,7 +64,7 @@ const processor = new SubstrateBatchProcessor()
     filter: [[erc721.events.Transfer.topic]],
   });
 ```
-The `options` argument has the same format as for [`addEvent`](/firesquid/substrate-indexing/configuration/#events), supports the same [data selectors](/substrate-indexing/configuration/#event-data-selector) and additionally a topic filter:
+The `options` argument has the same format as for [`addEvent`](/firesquid/substrate-indexing/configuration/#events), supports the same [data selectors](/firesquid/substrate-indexing/configuration/#event-data-selector) and additionally a topic filter:
 
 ```typescript
 {

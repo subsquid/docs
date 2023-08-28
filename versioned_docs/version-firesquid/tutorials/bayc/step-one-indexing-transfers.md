@@ -42,7 +42,7 @@ Reading about [elsewhere](https://eips.ethereum.org/EIPS/eip-721) we learn that 
 
 ## Configuring the data filters
 
-A "squid processor" is the Node.js process and the [object that powers it](/firesquid/evm-indexing/evm-processor/) that are responsible for retrieving filtered blockchain data from a specialized data lake (an [archive](/archives)), transforming it and saving the result to a destination of choice. To configure the processor (object) to retrieve the `Transfer` events of the BAYC token contract, we initialize it like this:
+A "squid processor" is the Node.js process and the [object that powers it](/firesquid/evm-indexing/evm-processor/) that are responsible for retrieving filtered blockchain data from a specialized data lake (an [archive](/firesquid/archives)), transforming it and saving the result to a destination of choice. To configure the processor (object) to retrieve the `Transfer` events of the BAYC token contract, we initialize it like this:
 ```typescript
 import * as bayc from './abi/bayc'
 
@@ -85,7 +85,7 @@ processor.run(db, async (ctx) => {
 });
 ```
 Here,
-* `db` is a [`Database` implementation](/firesquid/basics/store/store-interface/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/basics/store/typeorm-store/) object here.
+* `db` is a [`Database` implementation](/firesquid/basics/store/store-interface/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/firesquid/basics/store/typeorm-store/) object here.
 * `ctx` is a [batch context](/firesquid/evm-indexing/context-interfaces/) object that exposes a batch of data retrieved from the archive (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
 
 Batch handler is where the raw on-chain data from the archive is decoded, transformed and persisted to the to target store. This is the part we'll be concerned with for the rest of the tutorial.
@@ -121,7 +121,7 @@ The full code can be found at [this commit](https://github.com/abernatskiy/tmp-b
 
 `TypeormDatabase` requires us to define a TypeORM data model to actually send the data to the database. In Subsquid, the same data model is also used by the GraphQL server to generate the API schema. To avoid any potential discrepancies, processor and GraphQL server rely on a shared data model description defined at `schema.graphql` in a GraphQL schema dialect fully documented [here](/firesquid/basics/schema-file/).
 
-TypeORM code is generated from `schema.graphql` with the [`squid-typeorm-codegen`](/firesquid/basics/schema-file/#typeorm-codegen) tool and must be regenerated every time the schema is changed. This is usually accompanied by regenerating the [database migrations](/basics/db-migrations/) and recreating the database itself. The migrations are applied before every run of the processor, ensuring that whenever any TypeORM code within the processor attempts to access the database, the database is in a state that allows it to succeed.
+TypeORM code is generated from `schema.graphql` with the [`squid-typeorm-codegen`](/firesquid/basics/schema-file/#typeorm-codegen) tool and must be regenerated every time the schema is changed. This is usually accompanied by regenerating the [database migrations](/firesquid/basics/db-migrations/) and recreating the database itself. The migrations are applied before every run of the processor, ensuring that whenever any TypeORM code within the processor attempts to access the database, the database is in a state that allows it to succeed.
 
 The main unit of data in `schema.graphql` is [entity](/firesquid/basics/schema-file/entities/). These map onto [TypeORM entites](https://typeorm.io/entities) that in turn map onto database tables. We define one for `Transfer` events by replacing the file contents with
 ```graphql title=schema.graphql

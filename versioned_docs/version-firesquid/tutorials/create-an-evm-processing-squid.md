@@ -36,7 +36,7 @@ npm ci
 
 ## Define Entity Schema
 
-Next, we ensure that the data [schema](/firesquid/basics/schema-file) of the squid defines [entities](/basics/schema-file/entities) that we would like to track. We are interested in:
+Next, we ensure that the data [schema](/firesquid/basics/schema-file) of the squid defines [entities](/firesquid/basics/schema-file/entities) that we would like to track. We are interested in:
 
 * Token transfers
 * Ownership of tokens
@@ -107,9 +107,9 @@ The results will be stored at `src/abi`. One module will be generated for each A
 
 ## Define and Bind Event Handler(s)
 
-Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/firesquid/substrate-indexing). Its instances connect to chain-specific [Subsquid archives](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/firesquid/substrate-indexing). Its instances connect to chain-specific [Subsquid archives](/firesquid/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-`SubstrateBatchProcessor`s [exposes methods](/firesquid/substrate-indexing/configuration) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items or, for EVM, logs and transactions. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for [*batches*](/basics/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
+`SubstrateBatchProcessor`s [exposes methods](/firesquid/substrate-indexing/configuration) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items or, for EVM, logs and transactions. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for [*batches*](/firesquid/basics/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
 
 It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 

@@ -48,6 +48,8 @@ Sets the number of blocks after which the processor will consider the consensus 
 
 Limits the range of blocks to be processed. When the upper bound is specified, processor will terminate with exit code 0 once it reaches it.
 
+Note that block ranges can also be specified separately for each data request. This method sets global bounds for all block ranges in the configuration.
+
 #### `useArchiveOnly(yes?: boolean | undefined)` {#use-archive-only}
 
 Explicitly disables data ingestion from an RPC endpoint. Use this if you are making an Archive-only squid that also needs to [query contract state](/evm-indexing/query-state).

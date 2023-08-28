@@ -128,7 +128,7 @@ Here is a full list of fields for items with `item.kind==='evmLog'`.
 }
 ```
 
-Note that to make the properties of `item.evmLog` and `item.transaction` available, one has to specify the corresponding [data selectors](/firesquid/evm-indexing/configuration/data-selectors) in the [`addLog()`](/evm-indexing/configuration/evm-logs) configuration method.
+Note that to make the properties of `item.evmLog` and `item.transaction` available, one has to specify the corresponding [data selectors](/firesquid/evm-indexing/configuration/data-selectors) in the [`addLog()`](/firesquid/evm-indexing/configuration/evm-logs) configuration method.
 
 ### `transaction` items
 
@@ -160,7 +160,7 @@ Here is a full list of fields for items with `item.kind==='transaction'`.
 }
 ```
 
-Note that to make the properties of `item.transaction` available, one has to specify the corresponding [data selectors](/firesquid/evm-indexing/configuration/data-selectors) in the [`addTransaction()`](/evm-indexing/configuration/transactions) configuration method.
+Note that to make the properties of `item.transaction` available, one has to specify the corresponding [data selectors](/firesquid/evm-indexing/configuration/data-selectors) in the [`addTransaction()`](/firesquid/evm-indexing/configuration/transactions) configuration method.
 
 ### `Store`
 

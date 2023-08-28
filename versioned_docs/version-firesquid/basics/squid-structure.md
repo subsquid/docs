@@ -11,7 +11,7 @@ A squid is expected to follow the folder structure conventions listed below.
 - `/db` -- **(Required)** The designated folder with the [database migrations](/firesquid/basics/db-migrations).
 - `/lib` -- The output folder for the compiled squid code.
 - `/src` -- **(Required)** The source folder for the squid processor.
-   + `/src/processor.ts` -- The entry point of the squid processor ([EVM](/firesquid/evm-indexing) or [Substrate](/substrate-indexing)).
+   + `/src/processor.ts` -- The entry point of the squid processor ([EVM](/firesquid/evm-indexing) or [Substrate](/firesquid/substrate-indexing)).
    + `/src/model/generated` -- The folder for the TypeORM entities generated from `schema.graphql`.
    + `/src/model` -- The module exporting the entity classes.
    + `/src/server-extension/resolvers` -- An (optional) folder for [user-defined GraphQL resolvers](/firesquid/graphql-api/custom-resolvers).

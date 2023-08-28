@@ -65,7 +65,7 @@ We track:
 * Wallet balances
 * Token transfers
 
-Our [schema definition](/basics/schema-file) for modelling this data is straightforward:
+Our [schema definition](/store/postgres/schema-file) for modelling this data is straightforward:
 
 ```graphql
 # schema.graphql
@@ -86,7 +86,7 @@ type Transfer @entity {
  
 ```
 Note:
-* a one-to-many [relation](/basics/schema-file/entity-relations) between `Owner` and `Transfer`;
+* a one-to-many [relation](/store/postgres/schema-file/entity-relations) between `Owner` and `Transfer`;
 * `@index` decorators for properties that we want to be able to filter the data by.
 
 Next, we generate `TypeORM` entity classes from the schema with the `squid-typeorm-codegen` tool. There is a handy `sqd` script for that:
@@ -96,7 +96,7 @@ sqd codegen
 ```
 The generated entity classes can be found under `src/model/generated`.
 
-Finally, we create [database migrations](/basics/db-migrations) to match the changed schema. We restore the database to a clean state, then replace any existing migrations with the new one:
+Finally, we create [database migrations](/store/postgres/db-migrations) to match the changed schema. We restore the database to a clean state, then replace any existing migrations with the new one:
 ```bash
 sqd down
 sqd up

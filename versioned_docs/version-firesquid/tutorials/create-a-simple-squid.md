@@ -51,7 +51,7 @@ After this test, shut down both processes with Ctrl-C and proceed.
 
 ## Define the schema and generate entity classes
 
-Next, we make changes to the data [schema](/firesquid/basics/schema-file) of the squid and define [entities](/basics/schema-file/entities) that we would like to track. As stated above, we are interested in:
+Next, we make changes to the data [schema](/firesquid/basics/schema-file) of the squid and define [entities](/firesquid/basics/schema-file/entities) that we would like to track. As stated above, we are interested in:
 
 * Files added to and deleted from the chain;
 * Active accounts;
@@ -146,7 +146,7 @@ sqd typegen
 You should see the generated Typescript wrappers at [`src/types/events.ts`](https://github.com/subsquid/squid-crust-example/blob/main/src/types/events.ts).
 
 :::info
-Full documentation of `squid-substrate-typegen` and related tools is available [here](/firesquid/substrate-indexing/squid-substrate-typegen). There also a [mini-guide](/troubleshooting/#where-do-i-get-a-type-bundle-for-my-chain) on how to obtain type bundles for Substrate chains without relying on Subsquid tools.
+Full documentation of `squid-substrate-typegen` and related tools is available [here](/firesquid/substrate-indexing/squid-substrate-typegen). There also a [mini-guide](/firesquid/troubleshooting/#where-do-i-get-a-type-bundle-for-my-chain) on how to obtain type bundles for Substrate chains without relying on Subsquid tools.
 :::
 
 ## Define and bind event handlers

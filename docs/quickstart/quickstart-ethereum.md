@@ -84,12 +84,12 @@ query MyQuery {
 
 ## Step 7: Customize
 
-[Hack](/basics/schema-file) the schema file `schema.graphql` and the [processor](/evm-indexing) `src/processor.ts` to index the data your way!
+[Hack](/store/postgres/schema-file) the schema file `schema.graphql` and the [processor](/evm-indexing) `src/processor.ts` to index the data your way!
 
 ## What's next?
 
 - [Migrate](/migrate/migrate-subgraph) your existing subgraphs to Subsquid
-- Define your own [data schema](/basics/schema-file)
+- Define your own [data schema](/store/postgres/schema-file)
 - Explore examples of squids for EVM networks, from [simple transfer indexing to DEX analytics](/examples/evm)
 - Dive deeper into [`EvmBatchProcessor`](/evm-indexing)
 - Explore how to enhance the GraphQL API with [custom SQL, caching and limits](/graphql-api)

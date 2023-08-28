@@ -28,11 +28,11 @@ The details of the supported OpenReader queries can be found in a separate secti
 - the squid last processed block is available with `squidStatus { height }` query 
 - a "get one by ID" query with the name `{entityName}ById` for each [entity](/firesquid/basics/schema-file/entities) defined in the schema file
 - a "get one" query for [`@unique` fields](/firesquid/basics/schema-file/indexes-and-constraints), with the name `{entityName}ByUniqueInput`
-- Entity queries named `{entityName}sConnection`. Each query supports rich filtering support, including [field-level filters](/firesquid/query-squid/queries), composite [`AND` and `OR` filters](/query-squid/and-or-filters), [nested queries](/query-squid/nested-field-queries), [cross-relation queries](/query-squid/cross-relation-field-queries) and [Relay-compatible](https://relay.dev/graphql/connections.htm) cursor-based [pagination](/query-squid/paginate-query-results).
+- Entity queries named `{entityName}sConnection`. Each query supports rich filtering support, including [field-level filters](/firesquid/query-squid/queries), composite [`AND` and `OR` filters](/firesquid/query-squid/and-or-filters), [nested queries](/firesquid/query-squid/nested-field-queries), [cross-relation queries](/firesquid/query-squid/cross-relation-field-queries) and [Relay-compatible](https://relay.dev/graphql/connections.htm) cursor-based [pagination](/firesquid/query-squid/paginate-query-results).
 - [Subsriptions](/firesquid/graphql-api/subscriptions) via live queries
 - (Deprecated in favor of Relay connections) Lookup queries with the name `{entityName}s`. 
 
-[Union and typed JSON types](/firesquid/basics/schema-file/unions-and-typed-json) are mapped into [GraphQL Union Types](https://graphql.org/learn/schema/#union-types) with a [proper type resolution](/query-squid/resolve-union-types-interfaces) with `__typename`.
+[Union and typed JSON types](/firesquid/basics/schema-file/unions-and-typed-json) are mapped into [GraphQL Union Types](https://graphql.org/learn/schema/#union-types) with a [proper type resolution](/firesquid/query-squid/resolve-union-types-interfaces) with `__typename`.
 
 ## Built-in custom scalar types
 
