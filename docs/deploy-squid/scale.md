@@ -29,7 +29,7 @@ See [Postgres addon](/deploy-squid/pg-addon) for details.
 
 | Name        | Description  | Type      |Default value  | Optional   |  
 |:-----------:|:------------:|:---------:|:--------------:|:----------:|
-| `profile`  | Log queries executing longer than the given threshold, ms              |  `small` \| `medium` \| `large` |`small`          |   Optional     |
+| `profile`  | Allocated resources profile              |  `small` \| `medium` \| `large` |`small`          |   Optional     |
 | `replicas`  | The number of gateway replicas. The API requests are distributed between the replicas in the round-robin fashion        | Number    |  `1`          |   Optional     |
 
 The profile specifications for API service replicas are as follows:
@@ -44,7 +44,7 @@ The profile specifications for API service replicas are as follows:
 
 | Name        | Description  | Type      |Default value  | Optional   |  
 |:-----------:|:------------:|:---------:|:--------------:|:----------:|
-| `profile`  | Log queries executing longer than the given threshold, ms              |  `small` \| `medium` \| `large` |`small`          |   Optional     |
+| `profile`  | Allocated resources profile      |  `small` \| `medium` \| `large` |`small`          |   Optional     |
 
 The profile specifications for a processor service are as follows:
 
