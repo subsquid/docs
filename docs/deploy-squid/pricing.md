@@ -6,19 +6,21 @@ description: Aquarium service plans
 
 # Aquarium Pricing
 
-The Aquarium hosted service has a forever-free development plan. To enable production-ready squids, one should use Premium or Enterprise plan.
+The Aquarium hosted service offers a forever-free development plan. For production-ready squids, one should use the Premium or Enterprise plan.
 
-- The forever-free plan includes: 
+- The dev free plan includes: 
   -  a one collocated squid (API + processor + Postgres)
   -  10GB database storage 
   -  500k montly RPC requests
   -  Community support
-- The premium plan costs `40$/mo` and enables
+
+- The premium plan costs `40$/mo` and enables:
   - Configurable dedicated squids 
   - Pay-as-you-go collocated squids
   - 2M RPC requests monthly
   - Direct support in a personal TG chat
   - `$40` monthly rebate (i.e. the subscription fee is deducted from the finall bill) 
+
 - The Enterprise plan includes individual SLAs and discounts to the premium plan. [Book a demo](https://calendly.com/d/yzj-48g-bf7/subsquid-demo) to get a personal quote.
 
 ## Pricing 
@@ -92,7 +94,21 @@ Runs 24/7 (720 hours a month).
 | **Total**       |      | **`$140.2`** |
 
 
-### Large production squid:
+### Processor-only squid
+
+A squid writing parquet files to an external s3 bucket. No database or API is privisioned.
+
+- 1x processor (small)
+
+| Service | `$/hr` | `$/mo`          |
+|-----------------|-----------------|-----------------|
+| Compute total  |  `$0.04`    | `$28.8` |
+| Premium subscription       |      | `$40` |
+| Rebate       |      | `-$28.8` |
+| **Total**       |      | **`$40`** |
+
+
+### Large production squid
 
 - 2x API service (medium)
 - 1x processor (small)
