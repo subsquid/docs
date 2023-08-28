@@ -1,6 +1,6 @@
 ---
 sidebar_position: 99
-title: Pricing
+title: Aquarium Pricing
 description: Aquarium service plans 
 ---
 
@@ -32,7 +32,7 @@ The databse storage is billed as `0.5$/mo` per Gigabyte, bot both dedicated and 
 
 ### Compute for dedicated squids
 
-Dedicated squids has separate [compute profiles](https://docs.subsquid.io/deploy-squid/scale/#services) the postgres database and the API/processor services:
+Dedicated squids has separate [compute profiles](/deploy-squid/scale/#services) the postgres database and the API/processor services:
 
 ### API/Process
 
@@ -49,7 +49,7 @@ Dedicated squids has separate [compute profiles](https://docs.subsquid.io/deploy
 
 ### Collocated (development) squids
 
-Collocated squids share the compute resources and thus their performance is NOT guaranteed. We do not recommend using
+Collocated squids share compute resources and thus their performance is NOT guaranteed. We do not recommend using
 collocated squids in production, but it's a good fit for development and testing.
 Compute is billed at a flat rate of `$0.02/hr` (`~$15/mo`) per the collocated squid (API + processor + DB). 
 It is not possible to additionally configure a collocated squid except for the storage.
@@ -68,7 +68,7 @@ We allign with the [SLAs of the Google Cloud Platform](https://cloud.google.com/
 | 90.00% - < 95.00%       | 25%         |
 | < 90.00%          | 100%       |
 
-Note, that the SLA applies only to the provisioning the Aquarium services (API availability, provisioning of compute resources) and DO NOT apply to client code. In particular, if a squid is stuck due to a runtime upgrade, a bug in the runtime upgrade or upstream Archive/RPC issues, the SLA discounts does not apply. Similarly, the client is responsible for provisioning the compute profiles adequate to the expected traffic. 
+Note, that the SLA applies only to the provisioning the Aquarium services (API availability, provisioning of compute resources) and DO NOT apply to client code. In particular, if a squid is stuck due to a runtime upgrade, a bug in the runtime upgrade or upstream Archive/RPC issues, the SLA discounts do not apply. Similarly, the client is responsible for provisioning compute profiles adequate to the expected traffic. 
 
 For Enterprise plan customers, individual SLA terms may be negotiated. 
 
@@ -123,13 +123,13 @@ Runs 24/7 (720 hours a month).
 
 ## FAQ
 
-**Q**: What happens if I am on a free plan now, and more then a single squid?
+**Q**: What happens if I am on a free plan now, and more than a single squid?
 
 **A**: Only a single collocated squid is included in the free plan. Please apply for Premium or some of your squids will be at risk of hibernation.
 
 **Q**: What is the difference between collocated and dedicated squids? Why are collocated squids much cheaper?
 
-**A**: Collocated squids share the compute resources which means that it may be unresponsive if the neighbour squid is under high load. 
+**A**: Collocated squids share compute resources which means that it may be unresponsive if the neighbour squid is under high load. 
 While we do our best to ensure the resources are shared fairly, we strongly recommend dedicated services for production use
 
 **Q**: I deployed my squid yesterday, will it be billed for the whole month ?
@@ -138,9 +138,9 @@ While we do our best to ensure the resources are shared fairly, we strongly reco
 
 **Q**: How do I configure the profiles for my squid? 
 
-**A**: Use the [manifest-based deployments](https://docs.subsquid.io/deploy-squid/deploy-manifest/) and [the profile reference](https://docs.subsquid.io/deploy-squid/scale/)
+**A**: Use the [manifest-based deployments](/deploy-squid/deploy-manifest/) and [the profile reference](/deploy-squid/scale/)
 
 **Q**: How can I use the provided RPC package? How do I set the rate limits for it?
  
-**A**: Please look at the [RPC proxy docs](https://docs.subsquid.io/deploy-squid/rpc-proxy/)
+**A**: Please look at the [RPC proxy docs](/deploy-squid/rpc-proxy/)
 
