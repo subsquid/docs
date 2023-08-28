@@ -14,7 +14,7 @@ The Aquarium hosted service offers a forever-free development plan. For producti
   -  500k monthly RPC requests
   -  Community support
 - The Premium plan enables:
-  - Pay-as-you-go dedicated squids (configures using the deployment manifest)
+  - Pay-as-you-go dedicated squids 
   - Pay-as-you-go collocated squids
   - 2M RPC requests monthly + pay-as-you-go on top
   - Direct support in a personal Telegram chat
