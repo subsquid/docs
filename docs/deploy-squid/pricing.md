@@ -18,7 +18,7 @@ The Aquarium hosted service offers a forever-free development plan. For producti
   - Pay-as-you-go collocated squids
   - 2M RPC requests monthly
   - Direct support in a personal Telegram chat
-  - `$40` monthly rebate (i.e. the subscription fee is deducted from the final bill)
+  - `$40` in credits 
 - The Enterprise plan includes individual SLAs and discounts. [Book a demo](https://calendly.com/d/yzj-48g-bf7/subsquid-demo) to get a personal quote.
 
 ## Pricing
