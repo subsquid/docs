@@ -20,7 +20,7 @@ The Aquarium hosted service offers a forever-free development plan. For producti
   - Direct support in a personal Telegram chat
 - The Enterprise plan includes individual SLAs and discounts. [Book a demo](https://calendly.com/d/yzj-48g-bf7/subsquid-demo) to get a personal quote.
 
-## Pricing
+## Pay-as-you-go prices
 
 The pricing is based solely on the resources consumed by the squid, as the archive data is provided free of charge. 
 The total squid price is the total of compute and database storage resources.
