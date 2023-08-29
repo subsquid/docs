@@ -4,21 +4,23 @@ title: Aquarium Pricing
 description: Aquarium service plans 
 ---
 
-# Aquarium Pricing
+# Aquarium Tiers
 
-The Aquarium hosted service offers a forever-free development plan. For production-ready squids, one should use the Premium or an individual Enterprise plan.
+The Aquarium hosted service offers three tiers: Free (Development) tier, Premium Pay-as-you-go and the Enterpriese tier. For production-ready squids, one should upgrade to the Premium tier or to an individual Enterprise deal. 
 
-- The Dev plan is always fee and includes:
+- The Develpment tier includes free of charge:
   -  One collocated squid (API + processor + Postgres)
   -  10GB of database storage
   -  500k monthly RPC requests
   -  Community support
-- The Premium plan enables:
-  - Pay-as-you-go dedicated squids 
-  - Pay-as-you-go collocated squids
+- The Premium Pay-as-you-go tier enables:
+  - Unlimited number of pay-as-you-go dedicated squids 
+  - Unlimited number of pay-as-you-go collocated squids
   - 2M RPC requests monthly + pay-as-you-go on top
   - Direct support in a personal Telegram chat
 - The Enterprise plan includes individual SLAs and discounts. [Book a demo](https://calendly.com/d/yzj-48g-bf7/subsquid-demo) to get a personal quote.
+
+Switching between the tiers is free of charge. 
 
 ## Pay-as-you-go prices
 
