@@ -93,11 +93,11 @@ For the multiprocessor case:
 ### `api:`
 
 **Optional** The GraphQL API service of the squid. Automatically provisions a publicly available endpoint `https://squid.subsquid.io/{name}/v/v{version}/graphql` and binds it to the server.
-| Name        | Description                                                             | Type          | Default value         |         Optional   |
+
+| Name        | Description                                                             | Type          | Default value         | Optional           |
 |:-----------:|:-----------------------------------------------------------------------:|:-------------:|----------------------:|:------------------:|
 | `cmd`       | GraphQL API server exec command passed to the squid container. The server must be listening at port `GRAPHQL_SERVER_PORT`. |  `string[]` |    |   **Required**     |
-| `env`       | A key-value list of env variables to be set                             |  `{k:v}[]`    |  []                 |   Optional                |
-
+| `env`       | A key-value list of env variables to be set                             |  `{k:v}[]`    |  []                   |   Optional         |
 
 ## `scale:`
 
