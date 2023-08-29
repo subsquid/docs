@@ -6,7 +6,7 @@ description: Aquarium service plans
 
 # Aquarium Tiers
 
-The Aquarium hosted service offers three tiers: Free (Development) tier, Premium Pay-as-you-go and the Enterpriese tier. For production-ready squids, one should upgrade to the Premium tier or to an individual Enterprise deal. 
+The Aquarium hosted service offers three tiers: Free (Development) tier, Premium Pay-as-you-go and the Enterprise tier. For production-ready squids, one should upgrade to the Premium tier or to an individual Enterprise deal. 
 
 - The Develpment tier includes free of charge:
   -  One collocated squid (API + processor + Postgres)
