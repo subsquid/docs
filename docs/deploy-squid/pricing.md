@@ -21,6 +21,7 @@ The Aquarium hosted service offers three tiers: Free (Development) tier, Premium
 - The Enterprise plan includes individual SLAs and discounts. [Book a demo](https://calendly.com/d/yzj-48g-bf7/subsquid-demo) to get a personal quote.
 
 Switching between the tiers is free of charge. 
+Data egress is not billed.
 
 ## Pay-as-you-go prices
 
