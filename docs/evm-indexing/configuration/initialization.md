@@ -39,6 +39,7 @@ The following setters configure the global settings of `EvmBatchProcessor`. They
     requestTimeout?: number // in milliseconds, default 30_000
   }
   ```
+  Setting `maxBatchCallSize` to `1` disables batching completely.
 
 #### `setFinalityConfirmation(nBlocks: number)` {#set-finality-confirmation}
 
