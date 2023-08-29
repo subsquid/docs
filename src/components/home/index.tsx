@@ -174,8 +174,8 @@ export default function Home(): JSX.Element {
                 <h4 className="mb-4 body--m">How much does Subsquid cost?</h4>
                 <p className="text-fg-base--muted font-light">
                     The Squid SDK is open source. Data access to the Subsquid Network (and Archives) is free as it is incentivized by the networks, thus 
-                    for self-hosted or locally run squids the Subsquid services are free of charge. 
-                    For managed squids, check the <a href="/deploy-squid/pricing">Aquarium pricing page</a>, which includes free and Premium plans. 
+                    for self-hosted or locally ran squids Subsquid services are free of charge. 
+                    For managed squids we offer free and Premium plans. See <a href="/deploy-squid/pricing">Aquarium Pricing</a>. 
                 </p>
             </div>
 
