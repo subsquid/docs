@@ -16,7 +16,7 @@ The Aquarium hosted service offers three tiers: Free (Development) tier, Premium
 - The Premium Pay-as-you-go tier enables:
   - Unlimited number of pay-as-you-go dedicated squids 
   - Unlimited number of pay-as-you-go collocated squids
-  - 2M RPC requests monthly + pay-as-you-go on top
+  - free 2M RPC requests monthly + just `$2/1M` afterwards
   - Direct support in a personal Telegram chat
 - The Enterprise plan includes individual SLAs and discounts. [Book a demo](https://calendly.com/d/yzj-48g-bf7/subsquid-demo) to get a personal quote.
 
@@ -59,7 +59,7 @@ It is not possible to additionally configure a collocated squid except for the s
 
 ### RPC requests
 
-The premium plan already includes a package of 2M requests per month. Above that, it is `$5/1M` requests. 
+The premium plan already includes a package of 2M requests per month. Above that, it is `$2/1M` requests. 
 
 ## SLAs
 
