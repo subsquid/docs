@@ -26,7 +26,7 @@ In all installs it is OK to leave all the options at their default values. You w
 1. Install NodeJS LTS using the [official installer](https://nodejs.org/en/download).
 2. Install Git using the [installer](https://sourceforge.net/projects/git-osx-installer/) or by [other means](https://git-scm.com/download/mac).
 
-Make a folder for global installations of NodeJS packages using an unprivileged account, for example by running
+We recommend configuring NodeJS to install global packages to a folder owned by an unprivileged accout. Create the folder by running
 ```bash
 mkdir ~/global-node-packages
 ```
@@ -34,12 +34,15 @@ then configure NodeJS to use it
 ```bash
 npm config set prefix ~/global-node-packages
 ```
-Make sure that any executables globally installed by NodeJS are in `PATH`. That allows running them from any terminal.
-
-Open the `~/.bash_profile` file in a text editor and add the following line at the end:
+Make sure that the folder `~/global-node-packages/bin` is in `PATH`. That allows running globally installed NodeJS executables from any terminal. Here is a one-liner that detects your shell and takes care of setting `PATH`:
+```
+CURSHELL=`ps -hp $$ | awk '{print $5}'`; case `basename $CURSHELL` in 'bash') DEST="$HOME/.bash_profile";; 'zsh') DEST="$HOME/.zshenv";; esac; echo 'export PATH="${HOME}/global-node-packages/bin:$PATH"' >> "$DEST"
+```
+Alternatively you can add the following line to `~/.zshenv` (if you are using zsh) or `~/.bash_profile` (if you are using bash) manually:
 ```
 export PATH="${HOME}/global-node-packages/bin:$PATH"
 ```
+
 Re-open the terminal to apply the changes.
 
 ```mdx-code-block
@@ -48,7 +51,7 @@ Re-open the terminal to apply the changes.
 ```
 Install NodeJS (v16 or newer), Git and Docker using your distro's package manager.
 
-Make a folder for global installations of NodeJS packages using an unprivileged account, for example by running
+We recommend configuring NodeJS to install global packages to a folder owned by an unprivileged accout. Create the folder by running
 ```bash
 mkdir ~/global-node-packages
 ```
@@ -56,18 +59,8 @@ then configure NodeJS to use it
 ```bash
 npm config set prefix ~/global-node-packages
 ```
-
-Make a folder for global installations of NodeJS packages using an unprivileged account, for example by running
-```bash
-mkdir ~/global-node-packages
-```
-then configure NodeJS to use it
-```bash
-npm config set prefix ~/global-node-packages
-```
-Make sure that any executables globally installed by NodeJS are in `PATH`. That allows running them from any terminal.
-
-Open the `~/.bashrc` file in a text editor and add the following line at the end:
+Make sure that any executables globally installed by NodeJS are in `PATH`. That allows running them from any terminal. Open the `~/.bashrc` file in a text editor and add the following line
+at the end:
 ```
 export PATH="${HOME}/global-node-packages/bin:$PATH"
 ```
