@@ -284,7 +284,7 @@ The returned worker will be capable of processing `POST /query` requests in whic
   transaction: boolean
 }
 ```
-A log will be included in the response if it matches all the requests. An empty array matches no logs; omitted or `undefined` request matches any log. See [EVM logs](/evm-indexing/configuration/evm-logs) for a detailed description of data request fields.
+A log will be included in the response if it matches all the requests. An empty array matches no logs; omitted or `null` request matches any log. See [EVM logs](/evm-indexing/configuration/evm-logs) for a detailed description of data request fields.
 
 ### Transactions
 
@@ -298,7 +298,7 @@ A log will be included in the response if it matches all the requests. An empty 
   stateDiffs: boolean
 }
 ```
-A transaction will be included in the response if it matches all the requests. An empty array matches no transactions; omitted or `undefined` request matches any transaction. See [EVM transactions](/evm-indexing/configuration/transactions) for a detailed description of data request fields.
+A transaction will be included in the response if it matches all the requests. An empty array matches no transactions; omitted or `null` request matches any transaction. See [EVM transactions](/evm-indexing/configuration/transactions) for a detailed description of data request fields.
 
 ### Traces
 
@@ -315,7 +315,7 @@ A transaction will be included in the response if it matches all the requests. A
   subtraces: boolean
 }
 ```
-A trace will be included in the response if it matches all the requests. An empty array matches no traces; omitted or `undefined` request matches any trace. See [Traces](/evm-indexing/configuration/traces) for a detailed description of data request fields.
+A trace will be included in the response if it matches all the requests. An empty array matches no traces; omitted or `null` request matches any trace. See [Traces](/evm-indexing/configuration/traces) for a detailed description of data request fields.
 
 ### State diffs
 
