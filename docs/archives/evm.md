@@ -298,7 +298,7 @@ A log will be included in the response if it matches all the requests. An empty 
   stateDiffs: boolean
 }
 ```
-A transaction will be included in the response if it matches all the requests. An empty or `null` request matches any transaction. See [EVM transactions](/evm-indexing/configuration/transactions) for a detailed description of data request fields.
+A transaction will be included in the response if it matches all the requests. An empty array always returns an empty array. See [EVM transactions](/evm-indexing/configuration/transactions) for a detailed description of data request fields.
 
 ### Traces
 
