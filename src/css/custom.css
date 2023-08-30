@@ -1,6 +1,7 @@
 @import url('https://fonts.googleAPIs.com/css2?family=Inter:wght@400;600;700&amp;display=swap');
 @import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
 @import url('https://fonts.cdnfonts.com/css/circular-std');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -18,6 +19,10 @@
     src: local('Circular Std'),
     url('/static/fonts/Circular/CircularAir-Light.ttf') format('truetype');
     font-weight: 300;
+}
+
+.font-mono-roboto {
+    font-family: "Roboto Mono", monospace;
 }
 
 
@@ -106,6 +111,8 @@
     --quide-card-bg-hover: transperent;
     --quide-card-shadow-hover: 0px 0px 4px rgba(67, 65, 65, 0.15);
     --ifm-list-item-margin: 0.5rem;
+    --fg-role--pagination: #aaaaaa;
+    --fg-role--pagination-active: #1C1E21;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -175,6 +182,9 @@
 
     --quide-card-bg-hover: #242428;
     --quide-card-shadow-hover: 0px 0px 12px rgba(67, 65, 65, 0.3), 0px 0px 4px rgba(67, 65, 65, 0.15)
+
+    --fg-role--pagination: #cecece;
+    --fg-role--pagination-active: #ffffff;
 }
 
 
@@ -333,7 +343,7 @@ body p, body span {
     font-size: inherit;
     line-height: inherit;
     letter-spacing: inherit;
-    
+
     color: var(--fg-role--active);
 }
 
@@ -561,8 +571,19 @@ ul, ol {
     font-weight: 450;
 }
 
+.x-button.border-bg-base--contrast {
+    border-color: var(--bg-base--contrast);
+    color: var(--bg-base--contrast);
+    font-weight: 450;
+}
+
 .x-button.bg-bg-base--contrast:hover {
     background-color: var(--border-color-base--contrast);
+}
+
+.x-button.border-bg-base--contrast:hover {
+    border-color: var(--border-color-base--contrast);
+    color: var(--border-color-base--contrast);
 }
 
 .x-button--small {
@@ -679,4 +700,9 @@ code, kbd, samp, pre {
 
 .hidden {
     display: none !important;
+}
+
+.fs-14 {
+    font-size: 14px;
+    line-height: 160%;
 }
