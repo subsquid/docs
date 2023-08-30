@@ -226,4 +226,4 @@ and inspect the auto-generated GraphQL API using an interactive playground at [h
 - Have a closer look at [`EvmBatchProcessor`](/evm-indexing)
 - Learn how to [deploy a squid to the Aquarium hosted service](/deploy-squid) for free
 - Learn how to [index and query the contract state](/evm-indexing/query-state)
-- Inspect a more complex [Uniswap V3 squid](https://github.com/subsquid-labs/uniswap-squid) which tracks Uniswap V3 trading data. It was migrated from the [Uniswap V3 subgraph](https://github.com/Uniswap/v3-subgraph). It takes only a few hours to sync from scratch on a local machine.
+- Inspect a more complex [Uniswap V3 squid](https://github.com/dariaag/uniswap-squid-arrow) which tracks Uniswap V3 trading data. It was migrated from the [Uniswap V3 subgraph](https://github.com/Uniswap/v3-subgraph). It takes only a few hours to sync from scratch on a local machine.
