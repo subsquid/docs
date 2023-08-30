@@ -37,9 +37,9 @@ then configure NodeJS to use it
 ```bash
 npm config set prefix ~/global-node-packages
 ```
-Make sure that any executables globally installed by NodeJS are in `PATH`. That allows running them from any terminal. Open the `~/.bash_profile` file in a text editor and add the following line at the end:
+Make sure that the folder `~/global-node-packages/bin` is in `PATH`. That allows running globally installed NodeJS executables from any terminal. Here is a one-liner that detects your shell and takes care of setting `PATH`:
 ```
-export PATH="${HOME}/global-node-packages/bin:$PATH"
+CURSHELL=`ps -hp $$ | awk '{print $5}'`; case `basename $CURSHELL` in 'bash') DEST="$HOME/.bash_profile";; 'zsh') DEST="$HOME/.zshenv";; esac; echo 'export PATH="${HOME}/global-node-packages/bin:$PATH"' >> "$DEST"
 ```
 Re-open the terminal to apply the changes.
 
