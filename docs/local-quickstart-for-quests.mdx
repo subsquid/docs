@@ -41,6 +41,11 @@ Make sure that the folder `~/global-node-packages/bin` is in `PATH`. That allows
 ```
 CURSHELL=`ps -hp $$ | awk '{print $5}'`; case `basename $CURSHELL` in 'bash') DEST="$HOME/.bash_profile";; 'zsh') DEST="$HOME/.zshenv";; esac; echo 'export PATH="${HOME}/global-node-packages/bin:$PATH"' >> "$DEST"
 ```
+Alternatively you can add the following line to `~/.zshenv` (if you are using zsh) or `~/.bash_profile` (if you are using bash) manually:
+```
+export PATH="${HOME}/global-node-packages/bin:$PATH"
+```
+
 Re-open the terminal to apply the changes.
 
 ```mdx-code-block
