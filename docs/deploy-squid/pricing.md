@@ -50,6 +50,14 @@ API and processor are configured and billed separately. For example, running a s
 - `medium`: `0.16$/hr`
 - `large`: `0.33$/hr`
 
+### Hibernated squids
+
+For hibernated squids only the storage costs are charged. 
+
+### Multi-processor squids
+
+For multi-processor squids each processor is charged separately according to the compute profile.
+
 ### Collocated (development) squids
 
 Collocated squids share compute resources and thus their performance is NOT guaranteed. We do not recommend using
@@ -88,6 +96,9 @@ Runs 24/7 (720 hours a month).
 
 | Service | `$/hr` | `$/mo`          |
 |-----------------|-----------------|-----------------|
+| API  |  `$0.04`    |   |
+| Processor  |  `$0.04`    |  |
+| Database    | `$0.08`     |     |
 | Compute total  |  `$0.16`    | `$115.2` |
 | Storage      |          | `$25` |
 | **Total**       |      | **`$140.2`** |
@@ -101,6 +112,7 @@ A squid writing parquet files to an external s3 bucket. No database or API is pr
 
 | Service | `$/hr` | `$/mo`          |
 |-----------------|-----------------|-----------------|
+| Processor  |  `$0.04`    |    |
 | Compute total  |  `$0.04`    | `$28.8` |
 | **Total**       |      | **`$28.8`** |
 
@@ -114,6 +126,9 @@ A squid writing parquet files to an external s3 bucket. No database or API is pr
 
 | Service | `$/hr` | `$/mo`          |
 |-----------------|-----------------|-----------------|
+| 2xAPI  |  `$0.16`    |   |
+| Processor  |  `$0.4`    |  |
+| Database    | `$0.33`     |     |
 | Compute total   |  `$0.53`    | `$381.6` |
 | Storage      |          | `$250` |
 | **Total**       |      | **`$631.6`** |
