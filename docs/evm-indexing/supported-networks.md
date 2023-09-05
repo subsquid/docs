@@ -31,6 +31,7 @@ The table below lists the currently available public EVM ArrowSquid/v2 Archive e
 | Moonbeam EVM    (*) (**)         | `lookupArchive('moonbeam',` `{type: 'EVM'})`  | `https://v2.archive.subsquid.io/network/moonbeam-mainnet`      |
 | Moonriver EVM   (*) (**)         | `lookupArchive('moonriver',` `{type: 'EVM'})` | `https://v2.archive.subsquid.io/network/moonriver-mainnet`     |
 | Moonsama EVM   (*) (**)          | `lookupArchive('moonsama',` `{type: 'EVM'})`  | `https://v2.archive.subsquid.io/network/moonsama`              |
+| Neon EVM (**)                    | `lookupArchive('neon-mainnet')`               | `https://v2.archive.subsquid.io/network/neon-mainnet`          |
 | Optimism                         | `lookupArchive('optimism-mainnet')`           | `https://v2.archive.subsquid.io/network/optimism-mainnet`      |
 | Optimism Goerli                  | `lookupArchive('optimism-goerli')`            | `https://v2.archive.subsquid.io/network/optimism-goerli`       |
 | Polygon (**)                     | `lookupArchive('polygon')`                    | `https://v2.archive.subsquid.io/network/polygon-mainnet`       |
