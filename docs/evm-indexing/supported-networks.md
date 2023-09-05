@@ -39,6 +39,8 @@ The table below lists the currently available public EVM ArrowSquid/v2 Archive e
 | Polygon zkEVM Testnet (**)       | `lookupArchive('polygon-zkevm-testnet')`      | `https://v2.archive.subsquid.io/network/polygon-zkevm-testnet` |
 | Sepolia                          | `lookupArchive('sepolia')`                    | `https://v2.archive.subsquid.io/network/ethereum-sepolia`      |
 | Shibuya Testnet (**)             | `lookupArchive('shibuya-testnet')`            | `https://v2.archive.subsquid.io/network/shibuya-testnet`       |
+| Shiden (*)                       | `lookupArchive('shiden-mainnet')`             | `https://v2.archive.subsquid.io/network/shiden-mainnet`        |
+
  
 (*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate archive](/archives/substrate)
 
