@@ -105,7 +105,7 @@ const config = {
       appId: '39MDW9KQHD',
 
       // Public API key: it is safe to commit it
-      apiKey: 'ab3ada75abec35a245193df3de026285',
+      apiKey: 'f16aec2cb7c62cfd322b20dd9e142c5c',
 
       indexName: 'subsquid',
 
