@@ -1,5 +1,5 @@
 ---
-sidebar_position: 36
+sidebar_position: 10
 title: ArrowSquid for Substrate
 description: Roadmap and stop-gap solution
 ---
