@@ -29,7 +29,7 @@ for (const arch of registry.archivesRegistrySubstrate().archives) {
 		else if (prov.release === 'ArrowSquid') {
 			try {
 				let url = registry.lookupArchive(network, {release: 'ArrowSquid'})
-				arrowSquidCommand = `\`lookupArchive('${network},\` \`{release: 'ArrowSquid'})\``
+				arrowSquidCommand = `\`lookupArchive('${network}',\` \`{release: 'ArrowSquid'})\``
 			}
 			catch (error) {
 				if (error.message === `There are multiple networks with name ${network}. Provide network type to disambiguate.`) {
