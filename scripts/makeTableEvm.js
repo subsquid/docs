@@ -46,8 +46,8 @@ Promise.all(rows.map(({network, command, url}) => {
 			return {
 				network,
 				command,
-				stateDiffs: caps.stateDiffs===null ? '?' : (caps.stateDiffs ? 'Y' : ' '),
-				traces: caps.traces===null ? '?' : (caps.traces ? 'Y' : ' ')
+				stateDiffs: caps.stateDiffs===null ? '?' : (caps.stateDiffs ? '✓' : ' '),
+				traces: caps.traces===null ? '?' : (caps.traces ? '✓' : ' ')
 			}
 		})
 }))
