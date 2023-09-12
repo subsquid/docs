@@ -34,4 +34,4 @@ Starting with the ArrowSquid release, the processor can ingest data either from 
 - Move forward to the [`EvmBatchProcessor` configuration page](../configuration)
 - Explore the [migration guide](/migrate/migrate-subgraph/) and create a squid from a subgraph within minutes
 - Follow the [tutorial](/tutorials/bayc/) to build an Ethereum-indexing squid step by step
-- Check ready-to-use [snippets](/evm-indexing/configuration/showcase) and [examples](/examples)
+- Check ready-to-use [snippets](/evm-indexing/configuration/showcase) and [examples](/examples/evm)
