@@ -1,14 +1,12 @@
 ---
 sidebar_position: 3
-title: Migrate to ArrowSquid
-description: Step-by-step guide to the ArrowSquid update
+title: ArrowSquid for EVM
+description: A step-by-step migration guide for EVM
 ---
 
-# Migrate to ArrowSquid
+# Migrate to ArrowSquid (EVM)
 
-This is a EVM guide. Substrate guide will be released later.
-
-[//]: # (!!!! add the substrate guide link)
+This is a EVM guide. Substrate guide is available [here](/migrate/migrate-to-arrowsquid-on-substrate).
 
 ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`. ArrowSquid is not compatible with the FireSquid archive endpoints, and the new `v2` archives are currently released only for a limited set of networks (see the [Supported EVM networks](/evm-indexing/supported-networks/) page).
 
