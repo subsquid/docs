@@ -97,7 +97,7 @@ The response should look similar to this:
    ```
    Replace `my-awesome-squid` with the name you chose for your squid. If a squid with that name already exists, the first command will throw an error; if that happens simply think of another name and repeat the commands.
 
-2. Download your squid deployment key and save it at the squid folder as a `./key` file. The file will be used by the query gateway container.
+2. Download your squid deployment key and save it to the `./query-gateway/keys` subfolder of the squid folder. The file will be used by the query gateway container.
 
 3. The template squid uses a PostgreSQL database and a query gateway. Start Docker containers that run these with
    ```bash
