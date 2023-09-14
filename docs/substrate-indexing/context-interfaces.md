@@ -60,6 +60,6 @@ processor.run(new TypeormDatabase(), async ctx => {
 })
 ```
 
-One can experiment with the [`setFields()`](/evm-indexing/configuration/data-selection) argument and see how the output changes.
+One can experiment with the [`setFields()`](../setup/field-selection) argument and see how the output changes.
 
 [//]: # (!!!! For more elaborate examples, check examples and batch processor in action)
