@@ -53,7 +53,7 @@ By default, processor will fetch only blocks which contain requested items. This
 
 Sets a [types bundle](https://substrate.stackexchange.com/a/1231/4655).
 
-Types bundle is only required for blocks which have metadata version below 14 and only if we don't have built-in support for the chain in question.
+Types bundle is only required for historical blocks which have metadata version below 14 and only if we don't have built-in support for the chain in question. Most chains listed in the [polkadot.js app](https://polkadot.js.org/apps/#/explorer) are supported.
 
 Subsquid project has its own types bundle format, however, most of polkadotjs types bundles will work as well.
 
