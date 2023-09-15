@@ -60,7 +60,9 @@ Selection of the exact data to be retrieved for each log and its optional parent
 }
 ```
 
-The name must follow the convention `${Pallet}.${call_name}`. The pallet name is normally capitalized, and the call name is in the snake_case format, as in `Balances.transfer_keep_alive`. By default, both successful and failed calls are fetched. Select the `call.success` field and later check it within the batch handler if you need to disambiguate.
+The name must follow the convention `${Pallet}.${call_name}`. The pallet name is normally capitalized, and the call name is in the snake_case format, as in `Balances.transfer_keep_alive`.
+
+By default, both successful and failed calls are fetched. Select the `call.success` field and later check it within the batch handler if you need to disambiguate.
 
 You may also request the data related to the calls:
 - with `events = true` the processor will retrieve all the events that the call emitted and add them to the `events` iterable within the [block data](../context-interfaces);
