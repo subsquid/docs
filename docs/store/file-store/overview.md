@@ -115,8 +115,7 @@ These synchronous methods add rows of data to an in-memory buffer and perform no
 As the indexing proceeds, the processor continues to append new data to the in-memory buffer of `Database`. At the end of each batch the tool decides whether to write a new dataset partition. A partition is written when either
 
 * the amount of data stored in the buffer exceeds **`chunkSizeMb`** (20 MBytes by default) _across all tables_, or
-* **(1)** **`syncIntervalBlocks`** is finite (default - infinite), **(2)** the blockchain head is reached and **(3)** there is at least one row of data in the buffer, or
-* **(1)** **`syncIntervalBlocks`** is finite, **(2)** at least **`syncIntervalBlocks`** blocks has been processed since the last write and **(3)** there is at least one row of data in the buffer.
+* **(1)** **`syncIntervalBlocks`** is finite (default - infinite), **(2)** the blockchain head is reached and **(3)** there is at least one row of data in the buffer
 
 This approach keeps the number of files at a reasonable level while ensuring that the dataset is kept up-to-date, and it does that for both high and low rates of processor data:
 
