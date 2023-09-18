@@ -35,6 +35,10 @@ type ChainRpc = string | {
 ```
 Setting `maxBatchCallSize` to `1` disables batching completely.
 
+:::tip
+We recommend using private endpoints for better performance and stability of your squids. For Aquarium deployments you can use the [RPC proxy](/deploy-squid/rpc-proxy). If you use an external private RPC, keep the endpoint URL in an environment variable and set it via [secrets](/deploy-squid/env-variables#secrets).
+:::
+
 #### `setBlockRange({from: number, to?: number | undefined})` {#set-block-range}
 
 Limits the range of blocks to be processed. When the upper bound is specified, processor will terminate with exit code 0 once it reaches it.
