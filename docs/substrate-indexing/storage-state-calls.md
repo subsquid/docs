@@ -7,6 +7,10 @@ title: State queries
 
 # Storage calls and state queries
 
+:::warning
+Interface of typegen-generated classes, including the storage access classes, is under active development and will likely change before the final ArrowSquid release.
+:::
+
 It is sometimes impossible to extract the required data with only event and call data without querying the runtime state.
 The context exposes a lightweight gRPC client to the chain node accessible via `ctx._chain`. 
 It exposes low-level methods for accessing the storage. However, the recommended way to query the storage is with type-safe access classes generated with [Substrate typegen](../squid-substrate-typegen). 
