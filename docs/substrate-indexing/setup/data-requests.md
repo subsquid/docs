@@ -85,7 +85,3 @@ Subscribe to events emitted by a WASM contract. See [WASM Support](../../special
 **`addGearMessageEnqueued()`**
 **`addGearUserMessageSent()`**
 Subscribe to messages emitted by a Gear program. See [Gear Support](../../specialized/gear).
-
-**`addAcalaEvmExecuted()`**
-**`addAcalaEvmExecutedFailed()`**
-Subscribe to EVM logs emitted by an Acala EVM+ contract. See [Acala Support](../../specialized/acala-evm).
