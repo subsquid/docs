@@ -64,6 +64,22 @@ const urlList = [
         "to": "/substrate-indexing/setup"
     },
     {
+        "from": "/substrate-indexing/configuration",
+        "to": "/substrate-indexing/setup"
+    },
+    {
+        "from": "/substrate-indexing/evm-support",
+        "to": "/substrate-indexing/specialized/evm"
+    },
+    {
+        "from": "/substrate-indexing/wasm-support",
+        "to": "/substrate-indexing/specialized/wasm"
+    },
+    {
+        "from": "/substrate-indexing/gear-support",
+        "to": "/substrate-indexing/specialized/gear"
+    },
+    {
         "from": "/archives/archive-registry",
         "to": "/archives/overview"
     },
