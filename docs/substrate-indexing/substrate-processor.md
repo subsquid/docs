@@ -27,14 +27,14 @@ and only require EVM data, consider using [EVM processor](/evm-indexing).
 
 A squid processor is a Node.js process that fetches historical on-chain data from an [Archive](/archives) and/or a chain node RPC endpoint, performs arbitrary transformations and saves the result. `SubstrateBatchProcessor` is the central class that handles Substrate data extraction, transformation and persistence. By convention, the processor entry point is `src/main.ts`; it is started by calling `SubstrateBatchProcessor.run()` there. A single [batch handler](/basics/batch-processing) function supplied to that method is responsible for transforming data from multiple blocks in a single in-memory batch.
 
-A batch provides iterables to access all items requested in [processor configuration](../configuration), which may include
+A batch provides iterables to access all items requested in [processor configuration](../setup), which may include
 
 - Events, corresponding to matching [Substrate runtime events](https://docs.substrate.io/main-docs/build/events-errors/).
 - Calls, corresponding to matching calls executed by the Substrate runtime.
 
 See the [batch context](/basics/squid-processor/#batch-context) and [block data](../context-interfaces/) pages for details. 
 
-Additional support is available for log items produced by the [Frontier EVM pallet](https://paritytech.github.io/frontier/frame/evm.html) (see [EVM support](../evm-support)), the [Contracts pallet](https://crates.parity.io/pallet_contracts/index.html) (see [ink! support](../wasm-support)) and the [Gear Messages pallet](../gear-support). Further, processor can extract additional data by querying the [historical runtime state](/firesquid/substrate-indexing/storage-state-calls) and indeed any [external API](/basics/external-api).
+Additional support is available for log items produced by the [Frontier EVM pallet](https://paritytech.github.io/frontier/frame/evm.html) (see [EVM support](../specialized/evm)), the [Contracts pallet](https://crates.parity.io/pallet_contracts/index.html) (see [ink! support](../specialized/wasm)) and the [Gear Messages pallet](../specialized/gear). Further, processor can extract additional data by querying the [historical runtime state](/firesquid/substrate-indexing/storage-state-calls) and indeed any [external API](/basics/external-api).
 
 Results of the ETL process can be stored in any [Postgres-compatible database](/store/postgres/typeorm-store/) or in [filesystem-based datasets](/store/file-store/) in CSV and [Parquet](https://parquet.apache.org) formats.
 
@@ -44,6 +44,6 @@ Starting with the ArrowSquid release, the processor can ingest data either from 
 
 ## What's next?
 
-- Move forward to the [`SubstrateBatchProcessor` configuration page](../configuration)
+- Move forward to the [`SubstrateBatchProcessor` configuration page](../setup)
 - Follow the [tutorial](/tutorials/create-a-simple-squid) to build a squid indexing the Crust parachain step by step
 - Taka a look at the [examples](/examples/substrate)

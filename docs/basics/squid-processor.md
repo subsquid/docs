@@ -32,7 +32,7 @@ Navigate to a dedicated section for each processor class:
 
 ## Configuration
 
-A processor instance should be configured ([EVM](/evm-indexing/configuration), [Substrate](/substrate-indexing/configuration)) to define the block range to be indexed, and the selectors of data to be fetched from the archive and/or a node RPC endpoint.
+A processor instance should be configured ([EVM](/evm-indexing/configuration), [Substrate](/substrate-indexing/setup)) to define the block range to be indexed, and the selectors of data to be fetched from the archive and/or a node RPC endpoint.
 
 ## `processor.run()`
 
@@ -62,7 +62,7 @@ export interface DataHandlerContext<Store, F extends FieldSelection> {
 }
 ```
 
-Here, `F` is the type of the argument of the `setFields()` ([EVM](/evm-indexing/configuration/data-selection), [Substrate](/substrate-indexing/configuration/data-selection)) processor configuration method. `Store` type is inferred from the `Database` instance passed into the `run()` method.
+Here, `F` is the type of the argument of the `setFields()` ([EVM](/evm-indexing/configuration/data-selection), [Substrate](/substrate-indexing/setup/field-selection)) processor configuration method. `Store` type is inferred from the `Database` instance passed into the `run()` method.
 
 #### `ctx._chain`
 

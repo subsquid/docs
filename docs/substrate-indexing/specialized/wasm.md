@@ -30,7 +30,7 @@ This section describes additional options available for indexing [ink!-based WAS
 Contract addresses must be specified as hex strings, so make sure to decode them if yours are encoded with ss58.
 
 You can also retrieve related data:
-- with `call = true` the processor will retrieve the parent call and add it to the `calls` iterable within the [block data](../context-interfaces);
+- with `call = true` the processor will retrieve the parent call and add it to the `calls` iterable within the [block data](../../context-interfaces);
 - with `stack = true` it will do that with all calls in the entire call stack;
 - with `extrinsic = true` it will add the parent extrinsic to the `extrinsics` block data iterable.
 
