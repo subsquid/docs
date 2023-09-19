@@ -7,7 +7,7 @@ description: >-
 
 # General settings
 
-:::info
+:::tip
 The method documentation is also available inline and can be accessed via suggestions in most IDEs.
 :::
 

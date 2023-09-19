@@ -76,7 +76,7 @@ Disabling unused fields will improve sync performance, as the disabled fields wi
 
 ## Data item types and field selectors
 
-:::info
+:::tip
 Most IDEs support smart suggestions to show the possible data selectors. For VS Code, press `Ctrl+Space`:
 ![selector auto-complete](./autocomplete-selectors.png)
 :::
