@@ -26,13 +26,13 @@ The Squid SDK currently offers specialized processor classes for EVM (`EvmBatchP
 Navigate to a dedicated section for each processor class:
 
 - [`EvmBatchProcessor`](/evm-indexing)
-- [`SubstrateBatchProcessor`](/firesquid/substrate-indexing)
+- [`SubstrateBatchProcessor`](/substrate-indexing)
 
 [//]: # (!!!! Remove the /firesquid reference above once ArrowSquid for Substrate is released, _everywhere_)
 
 ## Configuration
 
-A processor instance should be configured ([EVM](/evm-indexing/configuration), [Substrate](/firesquid/substrate-indexing/configuration)) to define the block range to be indexed, and the selectors of data to be fetched from the archive and/or a node RPC endpoint.
+A processor instance should be configured ([EVM](/evm-indexing/configuration), [Substrate](/substrate-indexing/setup)) to define the block range to be indexed, and the selectors of data to be fetched from the archive and/or a node RPC endpoint.
 
 ## `processor.run()`
 
@@ -47,7 +47,7 @@ run<Store>(
 
 The `db` parameter defines the target [data sink](/store), and `batchHandler` is an `async` `void` function defining the data transformation and persistence logic. It repeatedly receives batches of archive data stored in `context.blocks`, transforms them and persists the results to the target database using the `context.store` interface (more on `context` in the next section).
 
-To jump straight to examples, see [EVM Processor in action](/evm-indexing/batch-processor-in-action) and [Substrate Processor in action](/firesquid/substrate-indexing/batch-processor-in-action).
+To jump straight to examples, see [EVM Processor in action](/evm-indexing/batch-processor-in-action) and [Substrate Processor in action](/substrate-indexing/batch-processor-in-action).
 
 ## Batch context
 
@@ -62,13 +62,7 @@ export interface DataHandlerContext<Store, F extends FieldSelection> {
 }
 ```
 
-Here, `F` is the type of the argument of the `setFields()` ([EVM](/evm-indexing/configuration/data-selection)) processor configuration method. `Store` type is inferred from the `Database` instance passed into the `run()` method.
-:::info
-At the moment `DataHandlerContext` interface is only used by the EVM processor; Substrate processor relies on its older [`BatchContext` equivalent](/firesquid/basics/processor-context). This will change upon the ArrowSquid for Substrate release.
-:::
-
-[//]: # (!!!! Remove the notice once ArrowSquid for Substrate is released)
-[//]: # (!!!! Add substrate data selection link once ArrowSquid for Substrate is released)
+Here, `F` is the type of the argument of the `setFields()` ([EVM](/evm-indexing/configuration/data-selection), [Substrate](/substrate-indexing/setup/field-selection)) processor configuration method. `Store` type is inferred from the `Database` instance passed into the `run()` method.
 
 #### `ctx._chain`
 

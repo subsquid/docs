@@ -53,7 +53,7 @@ const urlList = [
     },
     {
         "from": "/substrate-indexing/data-handlers",
-        "to": "/firesquid/substrate-indexing/context-interfaces"
+        "to": "/substrate-indexing/context-interfaces"
     },
     {
         "from": "/substrate-indexing/store-interface",
@@ -61,7 +61,23 @@ const urlList = [
     },
     {
         "from": "/substrate-indexing/data-subscriptions",
-        "to": "/firesquid/substrate-indexing/configuration"
+        "to": "/substrate-indexing/setup"
+    },
+    {
+        "from": "/substrate-indexing/configuration",
+        "to": "/substrate-indexing/setup"
+    },
+    {
+        "from": "/substrate-indexing/evm-support",
+        "to": "/substrate-indexing/specialized/evm"
+    },
+    {
+        "from": "/substrate-indexing/wasm-support",
+        "to": "/substrate-indexing/specialized/wasm"
+    },
+    {
+        "from": "/substrate-indexing/gear-support",
+        "to": "/substrate-indexing/specialized/gear"
     },
     {
         "from": "/archives/archive-registry",
@@ -86,22 +102,6 @@ const urlList = [
     {
         "from": "/run-squid/run-in-production",
         "to": "/deploy-squid/self-hosting"
-    },
-    {
-        "from": "/substrate-indexing/squid-substrate-typegen",
-        "to": "/firesquid/substrate-indexing/squid-substrate-typegen"
-    },
-    {
-        "from": "/substrate-indexing/storage-state-calls",
-        "to": "/firesquid/substrate-indexing/storage-state-calls"
-    },
-    {
-        "from": "/substrate-indexing/context-interfaces",
-        "to": "/firesquid/substrate-indexing/context-interfaces"
-    },
-    {
-        "from": "/substrate-indexing/configuration",
-        "to": "/firesquid/substrate-indexing/configuration"
     },
     {
         "from": "/basics/store/typeorm-store",

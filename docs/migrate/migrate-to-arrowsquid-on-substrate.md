@@ -38,7 +38,7 @@ We recommend that you also have `@subsquid/archive-registry` installed. If your 
 
 ## Step 2
 
-Replace the old archive URL or lookup command with a [`v2` archive lookup for your network](/substrate-indexing/supported-networks) within the `setDataSource` configuration call. If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor. For Aleph Zero your edit might look like this:
+Replace the old archive URL or lookup command with a [`v2` archive lookup for your network](/substrate-indexing/supported-networks) within the `setDataSource()` configuration call. If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor. For Aleph Zero your edit might look like this:
 ```diff
  processor
    .setDataSource({
@@ -57,13 +57,13 @@ Your squid will work with just an RPC endpoint, but it will sync significantly s
 
 Next, we have to account for the changes in signatures of the data requesting processor methods
 
-- `addEvent()`,
-- `addCall()`,
-- `addEvmLog()`,
-- `addEthereumTransaction()`,
-- `addContractsContractEmitted()`,
-- `addGearMessageEnqueued()`,
-- `addGearUserMessageSent()`,
+- [`addEvent()`](/substrate-indexing/setup/data-requests/#events),
+- [`addCall()`](/substrate-indexing/setup/data-requests/#calls),
+- [`addEvmLog()`](/substrate-indexing/specialized/evm/#subscribe-to-evm-events),
+- [`addEthereumTransaction()`](/substrate-indexing/specialized/evm/#subscribe-to-evm-transactions),
+- [`addContractsContractEmitted()`](/substrate-indexing/specialized/wasm/#processor-options),
+- [`addGearMessageEnqueued()`](/substrate-indexing/specialized/gear/#addgearmessageenqueued),
+- [`addGearUserMessageSent()`](/substrate-indexing/specialized/gear/#addgearusermessagesent),
 - `addAcalaEvmExecuted()`,
 - `addAcalaEvmExecutedFailed()`.
 
@@ -71,15 +71,13 @@ Previously, each call of these methods supplied its own fine-grained data fields
 
 Begin migrating to the new interface by finding all calls to these methods and combining all the data selectors into processor-wide `event`, `call` and `extrinsic` data selectors that request all fields previously requested by individual selectors. Note that `call.args` and `event.args` are now requested by default and can be omitted. When done, add a call to `setFields()` supplying it with the new field selectors.
 
+The new field selector format is fully documented on the [Field selection](/substrate-indexing/setup/field-selection) page.
+
 :::info
 Blanket field selections like `{data: {event: {extrinsic: true}}}` are not supported in ArrowSquid Beta. If you used one of these, please find out which exact fields you use in the batch handler and specifically request them..
 :::
 
 [//]: # (!!!! Should they be reintroduced?)
-
-Documentation on the new field selectors is not yet available. Please use IDE suggestions and/or the [source code](https://github.com/subsquid/squid-sdk/blob/master/substrate/substrate-processor/src/interfaces/data.ts) in the meantime.
-
-[//]: # (Add link to the data selection page here once it is done)
 
 For example, suppose the processor was initialized with the following three calls:
 
@@ -146,9 +144,9 @@ There are two old field requests that have no direct equivalent in the new inter
 
 <details><summary>call.parent</summary>
 
-It is currently impossible to request just the parent call. Work around by requesting full call stack by setting `stack: true` in the event-requesting configuration calls.
+It is currently impossible to request just the parent call. Work around by requesting the full call stack with `stack: true` in the call-requesting configuration calls, then using `.parentCall` property or `getParentCall()` method of `Call` data items to get parent calls.
 
-[//]: # (!!!! Make sure this is actually the case)
+[//]: # (!!!! Update if the parent call retrieval flag is reintroduced)
 
 </details>
 
@@ -174,9 +172,14 @@ The meaning of passing `[]` as a set of parameter values has been changed in the
 
 Old data selectors will be erased during the process. Make sure to request the appropriate related data with the boolean flags (`call` for event-requesting methods, `events` for call-requesting methods and `extrinsic`, `stack` for both).
 
-Documentation on the new method signatures is not yet available. Please use IDE suggestions and/or the source code ([definition](https://github.com/subsquid/squid-sdk/blob/0007dc6f0da93ef074ee8dd4117aa29148e3e2c5/substrate/substrate-processor/src/processor.ts#L93), [types](https://github.com/subsquid/squid-sdk/blob/master/substrate/substrate-processor/src/interfaces/data-request.ts)) in the meantime.
-
-[//]: # (!!!! Add links to the docs as they become available)
+Interfaces of the data selectors are documented on their respective pages:
+- [`addEvent()`](/substrate-indexing/setup/data-requests/#events),
+- [`addCall()`](/substrate-indexing/setup/data-requests/#calls),
+- [`addEvmLog()`](/substrate-indexing/specialized/evm/#subscribe-to-evm-events),
+- [`addEthereumTransaction()`](/substrate-indexing/specialized/evm/#subscribe-to-evm-transactions),
+- [`addContractsContractEmitted()`](/substrate-indexing/specialized/wasm/#processor-options),
+- [`addGearMessageEnqueued()`](/substrate-indexing/specialized/gear/#addgearmessageenqueued),
+- [`addGearUserMessageSent()`](/substrate-indexing/specialized/gear/#addgearusermessagesent).
 
 Here is a fully updated initialization code for the example processor from step 3:
 ```typescript
@@ -236,15 +239,20 @@ Finally, update the batch handler to use the new [batch context](/basics/squid-p
 
 ## Step 6
 
-A big update to `@subsquid/substrate-typegen` is coming. Unfortunately not all infra required is here yet, so this step is postponed.
+:::warning
+Interfaces of classes generated by the new `@subsquid/substrate-typegen` are currently experimental and _will_ change in the future. If you want to migrate to a stable version, postpone this step; otherwise, feel free to try our latest alpha as described below.
+:::
 
-[//]: # ( Update your events/calls decoding code. The big change here is that now decoders generated by `@subsquid/substrate-typegen` return `bigint` where `ethers.BigNumber` was used before. Regenerate all TypeScript ABI wrappers as described in the EVM typegen section, then find all places where `ethers.BigNumber`s returned by old decoders were handled in your code and rewrite it to use `bigint`s. )
-
-[//]: # (!!!! Add the reference to the typegen page once its done)
+If you used an Archive URL as `"specVersions"` at `typegen.json`, replace it with an URL of our new metadata service, e.g. like this
+```diff title=typegen.json
+-  "specVersions": "https://kusama.archive.subsquid.io/graphql",
++  "specVersions": "https://v2.archive.subsquid.io/metadata/kusama",
+```
+Regenerate all wrapper classes with `sqd typegen` or `npx squid-substrate-typegen typegen.json`, then follow the [Substrate typegen documentation page](/substrate-indexing/squid-substrate-typegen) to update your data decoding code. If you used any storage calls, consult [this documentation page](/substrate-indexing/storage-state-calls) for guidance.
 
 ## Step 7
 
-Iteratively reconcile any type errors arising when building your squid (e.g. with `sqd build`). In case you're using `tranformContext.ts` you may find the types it exports helpful. If you need to specify the field selection generic argument explicitly, get it as a `typeof` of the `setFields` argument value:
+Iteratively reconcile any type errors arising when building your squid (e.g. with `sqd build`). If you need to specify the field selection generic argument explicitly, get it as a `typeof` of the `setFields` argument value:
 
 ```ts
 import {Block} from '@subsquid/substrate-processor'
