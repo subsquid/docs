@@ -8,7 +8,7 @@ title: State queries
 # Storage calls and state queries
 
 :::warning
-Interface of typegen-generated classes, including the storage access classes, is under active development and will likely change before the final ArrowSquid release.
+Interface of typegen-generated classes, including the storage access classes, is under active development and will likely change in near future.
 :::
 
 It is sometimes impossible to extract the required data with only event and call data without querying the runtime state.

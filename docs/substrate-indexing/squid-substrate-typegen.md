@@ -6,7 +6,7 @@ description: Type-safe Substrate data handling
 # Substrate typegen
 
 :::warning
-Interface of typegen-generated classes is under active development and will likely change before the final ArrowSquid release.
+Interface of typegen-generated classes is under active development and _will_ change in near future.
 :::
 
 ## Installation
