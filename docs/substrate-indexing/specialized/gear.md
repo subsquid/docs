@@ -12,9 +12,9 @@ Use `lookupArchive('gear-testnet')` to connect to an Archive for Gear testnet. A
 
 Indexing [Gear Network](https://wiki.gear-tech.io/) programs is supported with the following specialized processor configuration setters: 
 
-#### `SubstrateBatchProcessor.addGearMessageEnqueued(options)`
+#### `SubstrateBatchProcessor.addGearMessageEnqueued(options)` {#addgearmessageenqueued}
 
-#### `SubstrateBatchProcessor.addGearUserMessageSent(options)`
+#### `SubstrateBatchProcessor.addGearUserMessageSent(options)` {#addgearusermessagesent}
 
 Structure of `options` is identical for both methods:
 ```ts
