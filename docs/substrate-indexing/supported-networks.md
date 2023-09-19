@@ -7,7 +7,7 @@ title: Supported networks
 
 # Supported Substrate networks
 
-The table below lists the currently available public Substrate endpoints to be used with the [`setDataSource()`](/evm-indexing/configuration/initialization) `EvmBatchProcessor` configuration method.
+The table below lists the currently available public Substrate endpoints to be used with the [`setDataSource()`](../setup/general/#set-data-source) `SubstrateBatchProcessor` configuration method.
 
 | Network             | FireSquid lookup command                            | ArrowSquid lookup command                                                    |
 |:-------------------:|:---------------------------------------------------:|:----------------------------------------------------------------------------:|
@@ -100,7 +100,7 @@ The table below lists the currently available public Substrate endpoints to be u
 ```typescript
 import { lookupArchive } from '@subsquid/archive-registry'
 
-const processor = new EvmBatchProcessor()
+const processor = new SubstrateBatchProcessor()
   .setDataSource({
      chain: 'https://api.phala.network/rpc',
      // resolved to 'https://v2.archive.subsquid.io/network/phala'
