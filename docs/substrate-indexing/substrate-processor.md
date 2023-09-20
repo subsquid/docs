@@ -34,7 +34,7 @@ A batch provides iterables to access all items requested in [processor configura
 
 See the [batch context](/basics/squid-processor/#batch-context) and [block data](../context-interfaces/) pages for details. 
 
-Additional support is available for log items produced by the [Frontier EVM pallet](https://paritytech.github.io/frontier/frame/evm.html) (see [EVM support](../specialized/evm)), the [Contracts pallet](https://crates.parity.io/pallet_contracts/index.html) (see [ink! support](../specialized/wasm)) and the [Gear Messages pallet](../specialized/gear). Further, processor can extract additional data by querying the [historical runtime state](/firesquid/substrate-indexing/storage-state-calls) and indeed any [external API](/basics/external-api).
+Additional support is available for log items produced by the [Frontier EVM pallet](https://paritytech.github.io/frontier/frame/evm.html) (see [EVM support](../specialized/evm)), the [Contracts pallet](https://crates.parity.io/pallet_contracts/index.html) (see [ink! support](../specialized/wasm)) and the [Gear Messages pallet](../specialized/gear). Further, processor can extract additional data by querying the [historical runtime state](/substrate-indexing/storage-state-calls) and indeed any [external API](/basics/external-api).
 
 Results of the ETL process can be stored in any [Postgres-compatible database](/store/postgres/typeorm-store/) or in [filesystem-based datasets](/store/file-store/) in CSV and [Parquet](https://parquet.apache.org) formats.
 

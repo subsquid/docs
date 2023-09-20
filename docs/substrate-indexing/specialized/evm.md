@@ -198,7 +198,7 @@ processor.run(new TypeormDatabase(), async ctx => {
 This section is out of date. It will be updated once the API of typegen-generated classes stabilizes
 :::
 
-EVM contract state is accessed using the [typegen-](/firesquid/substrate-indexing/evm-support/#squid-evm-typegen)generated `Contract` class that takes the handler context and the contract address as constructor arguments. The state is always accessed at the context block height unless explicitly defined in the constructor.
+EVM contract state is accessed using the [typegen-](#squid-evm-typegen)generated `Contract` class that takes the handler context and the contract address as constructor arguments. The state is always accessed at the context block height unless explicitly defined in the constructor.
 ```typescript title="src/abi/erc721.ts"
 export class Contract extends ContractBase {
   //...
@@ -228,7 +228,7 @@ processor.run(new TypeormDatabase(), async ctx => {
 })
 ```
 
-For more information on EVM Typegen, see this [dedicated page](/firesquid/evm-indexing/squid-evm-typegen).
+For more information on EVM Typegen, see this [dedicated page](/evm-indexing/squid-evm-typegen).
 
 ## Factory contracts
 

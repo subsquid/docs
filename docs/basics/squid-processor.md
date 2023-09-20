@@ -28,8 +28,6 @@ Navigate to a dedicated section for each processor class:
 - [`EvmBatchProcessor`](/evm-indexing)
 - [`SubstrateBatchProcessor`](/substrate-indexing)
 
-[//]: # (!!!! Remove the /firesquid reference above once ArrowSquid for Substrate is released, _everywhere_)
-
 ## Configuration
 
 A processor instance should be configured ([EVM](/evm-indexing/configuration), [Substrate](/substrate-indexing/setup)) to define the block range to be indexed, and the selectors of data to be fetched from the archive and/or a node RPC endpoint.

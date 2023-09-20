@@ -6,16 +6,8 @@ description: >-
 
 # Traces
 
-:::warning
-Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/evm-indexing/context-interfaces). As such, it is important to always filter the data within the batch handler.
-:::
-
-:::warning
-The meaning of passing `[]` as a set of parameter values has been changed in the ArrowSquid release: now it _selects no data_. Some data might still arrive (see above), but that's not guaranteed. Pass `undefined` for a wildcard selection:
-```typescript
-.addTrace({type: []}) // selects no traces
-.addTrace({}) // selects all traces
-```
+:::info
+Check out the [Caveats](../caveats) page to avoid common `EvmBatchProcessor` configuration issues.
 :::
 
 #### `addTrace(options)` {#add-trace}
@@ -62,8 +54,6 @@ Selection of the exact data to be retrieved for each trace item is done with the
 
 For a [`mint` call to Uniswap V3 Positions NFT](https://etherscan.io/tx/0xf178718219151463aa773deaf7d9367b8408e35a624550af975e089ca6e015ca).
 
-[//]: # (!!!! replace the archive URL once ArrowSquid is released to archive-registry, consider setting the chain RPC to something else)
-
 ```ts
 import {EvmBatchProcessor} from '@subsquid/evm-processor'
 import {TypeormDatabase} from '@subsquid/typeorm-store'
@@ -74,7 +64,7 @@ const METHOD_SIGHASH = '0x88316456' // mint
 
 const processor = new EvmBatchProcessor()
   .setDataSource({
-    archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
+    archive: lookupArchive('eth-mainnet'),
     chain: 'https://rpc.ankr.com/eth'
   })
   .setFinalityConfirmation(75)

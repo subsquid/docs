@@ -58,9 +58,7 @@ Consult [database migrations](/store/postgres/db-migrations) for more details.
 A squid processor is a node.js process that fetches historical on-chain data, performs arbitrary transformations and saves the result into the target database schema defined above. By convention, the processor entry point is `src/main.ts` and the main processor object is defined at `src/processor.ts`.
 
 - [`EvmBatchProcessor`](/evm-indexing) (imported from `@subsquid/evm-processor`) is used for EVM chains
-- [`SubstrateBatchProcessor`](/firesquid/substrate-indexing) (imported from `@subsquid/substrate-processor`) is used for Substrate-based chains
-
-[//]: # (!!!! Remove the /firesquid reference above once ArrowSquid for Substrate is released)
+- [`SubstrateBatchProcessor`](/substrate-indexing) (imported from `@subsquid/substrate-processor`) is used for Substrate-based chains
 
 ### 5. Initialize a suitable processor instance 
 
@@ -90,24 +88,20 @@ export const processor = new EvmBatchProcessor()
   })
 ```
 
-See [EvmBatchProcessor configuration](/evm-indexing/configuration) and [SubstrateBatchProcessor configuration](/firesquid/substrate-indexing/configuration) for details.
-
-[//]: # (!!!! Update the link above once ArrowSquid for Substrate is released)
+See [EvmBatchProcessor configuration](/evm-indexing/configuration) and [SubstrateBatchProcessor configuration](/substrate-indexing/setup) for details.
 
 ### 6. Generate Typescript facade classes to decode the obtained on-chain data
 
 - For EVM data, use [`evm-typegen`](/evm-indexing/squid-evm-typegen)
-- For Substrate data, use [`substrate-typegen`](/firesquid/substrate-indexing/squid-substrate-typegen)
+- For Substrate data, use [`substrate-typegen`](/substrate-indexing/squid-substrate-typegen)
 - For ink! smart contract data, use [`ink-typegen`](https://github.com/subsquid/squid-sdk/tree/master/substrate/ink-typegen)
 
 ### 7. Define the processor batch handler for the `processor.run()` call
 
-Squid SDK embraces the [batch-based programming model](/basics/batch-processing). Within a running processor, the `.run()` method repeatedly applies a user-supplied batch handler function to the batches of data retrieved from an Archive. The method takes two arguments: a [store adaptor](/store) for connecting to the database of choice and an `async` batch handler function. The only argument of the batch handler is a [context object](/basics/squid-processor/#batch-context) that contains the batch data, some useful metadata and a store adapter reference. Its interface slightly varies depending on the processor flavor:
+Squid SDK embraces the [batch-based programming model](/basics/batch-processing). Within a running processor, the `.run()` method repeatedly applies a user-supplied batch handler function to the batches of data retrieved from an Archive. The method takes two arguments: a [store adaptor](/store) for connecting to the database of choice and an `async` batch handler function. The only argument of the batch handler is a [context object](/basics/squid-processor/#batch-context) that contains the batch data, some useful metadata and a store adapter reference. Batch data comes as an array of `BlockData` objects whose interface depends on the processor flavor:
 
-- For `EvmBatchProcessor`, see [`DataHandlerContext` for EVM](/evm-indexing/context-interfaces)
-- For `SubstrateBatchProcessor`, see the [`BatchContext` for Substrate](/firesquid/substrate-indexing/context-interfaces)
-
-[//]: # (!!!! Update the link above once ArrowSquid for Substrate is released)
+- For `EvmBatchProcessor`, see [Block data for EVM](/evm-indexing/context-interfaces)
+- For `SubstrateBatchProcessor`, see the [Block data for Substrate](/substrate-indexing/context-interfaces)
 
 **Example:**
 ```ts title=src/main.ts
@@ -142,9 +136,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 For an end-to-end walkthrough, see
 
 - [`EvmBatchProcessor` in action](/evm-indexing/batch-processor-in-action)
-- [`SubstrateBatchProcessor` in action](/firesquid/substrate-indexing/batch-processor-in-action)
-
-[//]: # (!!!! Remove the /firesquid reference above once ArrowSquid for Substrate is released)
+- [`SubstrateBatchProcessor` in action](/substrate-indexing/batch-processor-in-action)
 
 ### 8. Run the squid services
 
@@ -166,6 +158,4 @@ Follow the [Deploy Squid](/deploy-squid) section.
 ## What's next?
 
 - Learn from the [Squids examples](/examples)
-- Get familiar with the typegen tools for [EVM](/evm-indexing/squid-evm-typegen) or [Substrate](/firesquid/substrate-indexing/squid-substrate-typegen)
-
-[//]: # (!!!! Update the /firesquid links above once ArrowSquid for Substrate is released)
+- Get familiar with the typegen tools for [EVM](/evm-indexing/squid-evm-typegen) or [Substrate](/substrate-indexing/squid-substrate-typegen)

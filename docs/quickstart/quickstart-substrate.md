@@ -28,7 +28,6 @@ scaffold using [`sqd init`](/squid-cli/init).
 - For indexing native events emitted by Substrate-based chains, use `substrate` 
 - For indexing Frontier EVM contracts on Astar and Shiden use `frontier-evm`
 - For indexing ink! smart contracts, use `ink`
-- For indexing EVM+ contracts on Karura or Acala, use `acala`
 
 For example:
 
@@ -51,7 +50,7 @@ sqd up
 
 ## Step 4: Create the database schema and run the processor
 
-The squid we have just built ingests pre-indexed data from a Kusama Archive. This data is then transformed, as defined by the data handler supplied to the `processor.run()` call in `src/processor.ts`.
+The squid we have just built ingests pre-indexed data from a Kusama Archive. This data is then transformed, as defined by the data handler supplied to the `processor.run()` call in `src/main.ts`.
  
 This command will keep the console busy until manually terminated:
 
@@ -80,20 +79,15 @@ query MyQuery {
 
 ## Step 6: Customize
 
-[Hack](/store/postgres/schema-file) the schema file `schema.graphql` and the [processor](/substrate-indexing) `src/processor.ts` to index the data your way. Choose any supported network using the `lookupArchive()` method of [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) or [run one locally](/archives/).
-
-[//]: # (!!!! Remove the /firesquid reference above once ArrowSquid for Substrate is released)
+[Hack](/store/postgres/schema-file) the schema file `schema.graphql` and the [processor](/basics/squid-processor) to index the data your way. Pick an Archive for your network at the [Supported networks](/substrate-indexing/supported-networks) page.
 
 ## What's next?
 
-- Explore more [examples](/examples/#substrate-processor) of squids for substrate chains
+- Explore more [examples](/examples/substrate) of squids for substrate chains
 - Define the [data schema](/store/postgres/schema-file) and customize the API
 - Explore how to use [typegen](/substrate-indexing/squid-substrate-typegen) for type-safe on-chain data access
 - Explore how to efficiently transform the on-chain [data in batches](/basics/batch-processing)
 - Explore native support for [Frontier EVM](/substrate-indexing/specialized/evm) on Astar and Shiden
 - Explore native support for [ink! contracts](/substrate-indexing/specialized/wasm)
 - Explore native support for [Gear contracts](/substrate-indexing/specialized/gear)
-- Explore native support for [Acala EVM+ contracts](/firesquid/substrate-indexing/acala-evm-support)
 - [Deploy](/deploy-squid) the squid to the Aquarium hosted service
-
-[//]: # (!!!! Update the links above once ArrowSquid for Substrate is released)

@@ -4,7 +4,7 @@ description: >-
   Fine-tuning data requests with setFields()
 ---
 
-# Data selection
+# Field selection
 
 #### `setFields(options)` {#set-fields}
 
@@ -78,7 +78,7 @@ Disabling unused fields will improve sync performance, as the disabled fields wi
 
 ## Data item types and field selectors
 
-:::info
+:::tip
 Most IDEs support smart suggestions to show the possible field selectors. For VS Code, press `Ctrl+Space`.
 :::
 
@@ -285,8 +285,6 @@ BlockHeader{
 
 ## A complete example
 
-[//]: # (!!!! revert to lookupArchive once it's available for arrowsquid)
-
 ```ts
 import {EvmBatchProcessor} from '@subsquid/evm-processor'
 import * as gravatarAbi from './abi/gravatar'
@@ -298,7 +296,7 @@ const gravatarTokenContract = '0xac5c7493036de60e63eb81c5e9a440b42f47ebf5'
 
 const processor = new EvmBatchProcessor()
   .setDataSource({
-    archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
+    archive: lookupArchive('eth-mainnet'),
     chain: 'https://eth-rpc.gateway.pokt.network'
   })
   .setFinalityConfirmation(75)

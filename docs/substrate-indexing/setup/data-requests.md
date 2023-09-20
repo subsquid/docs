@@ -6,16 +6,8 @@ description: >-
 
 # Data requests
 
-:::warning
-Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](../../context-interfaces). As such, it is important to always filter the data within the batch handler.
-:::
-
-:::warning
-The meaning of passing `[]` as a set of parameter values has been changed in the ArrowSquid release: now it _selects no data_. Some data might still arrive (see above), but that's not guaranteed. Pass `undefined` for a wildcard selection:
-```typescript
-.addEvent({name: []}) // selects no events
-.addEvent({}) // selects all events
-```
+:::info
+Check out the [Caveats](#caveats) section to avoid common mistakes.
 :::
 
 ## Events
@@ -85,3 +77,35 @@ Subscribe to events emitted by a WASM contract. See [WASM Support](../../special
 **`addGearMessageEnqueued()`**
 **`addGearUserMessageSent()`**
 Subscribe to messages emitted by a Gear program. See [Gear Support](../../specialized/gear).
+
+## Caveats
+
+- Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](../../context-interfaces). As such, it is important to always filter the data within the batch handler. For example, a processor config like this
+  ```ts title=src/procesor.ts
+  export const processor = new SubstrateBatchProcessor()
+    .addEvent({
+      name: ['Balances.Transfer']
+    })
+    // the rest of the configuration
+  ```
+  should always be matched with
+  ```ts title=src/main.ts
+  processor.run(database, async ctx => {
+    // ...
+    for (let block of ctx.blocks) {
+      for (let event of block.events) {
+        if (event.name==='Balances.Transfer') { // <- this filter
+          // process Balances.Transfer
+        }
+      }
+    }
+    // ...
+  })
+  ```
+  _even if no other events were requested_.
+
+- The meaning of passing `[]` as a set of parameter values has been changed in the ArrowSquid release: now it _selects no data_. Some data might still arrive (see above), but that's not guaranteed. Pass `undefined` for a wildcard selection:
+  ```typescript
+  .addEvent({name: []}) // selects no events
+  .addEvent({}) // selects all events
+  ```
