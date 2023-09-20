@@ -53,8 +53,6 @@ Your squid will work with just an RPC endpoint, but it will sync significantly s
 
 ## Step 3
 
-[//]: # (!!!! Add links to the method doc pages as they arrive)
-
 Next, we have to account for the changes in signatures of the data requesting processor methods
 
 - [`addEvent()`](/substrate-indexing/setup/data-requests/#events),
@@ -64,8 +62,6 @@ Next, we have to account for the changes in signatures of the data requesting pr
 - [`addContractsContractEmitted()`](/substrate-indexing/specialized/wasm/#processor-options),
 - [`addGearMessageEnqueued()`](/substrate-indexing/specialized/gear/#addgearmessageenqueued),
 - [`addGearUserMessageSent()`](/substrate-indexing/specialized/gear/#addgearusermessagesent),
-- `addAcalaEvmExecuted()`,
-- `addAcalaEvmExecutedFailed()`.
 
 Previously, each call of these methods supplied its own fine-grained data fields selector. In the new interface, these calls only request data items, either directly or by relation (for example with the `call` flag for event-requesting methods). Field selection is now done by the new `setFields()` method on a per-item-type basis: once for all `Call`s, once for all `Event`s etc. The setting is processor-wide: for example, all `Call`s returned by the processor will have the same set of available fields, regardless of whether they were requested directly or as related data.
 
@@ -74,10 +70,8 @@ Begin migrating to the new interface by finding all calls to these methods and c
 The new field selector format is fully documented on the [Field selection](/substrate-indexing/setup/field-selection) page.
 
 :::info
-Blanket field selections like `{data: {event: {extrinsic: true}}}` are not supported in ArrowSquid Beta. If you used one of these, please find out which exact fields you use in the batch handler and specifically request them..
+Blanket field selections like `{data: {event: {extrinsic: true}}}` are not supported in ArrowSquid Beta. If you used one of these, please find out which exact fields you use in the batch handler and specifically request them.
 :::
-
-[//]: # (!!!! Should they be reintroduced?)
 
 For example, suppose the processor was initialized with the following three calls:
 
@@ -235,7 +229,7 @@ Finally, update the batch handler to use the new [batch context](/basics/squid-p
 
 2. Alternatively, rewrite your batch handler using the [new batch context interface](/basics/squid-processor/#batch-context).
 
-[//]: # (!!!! Add the substrate batch context interface doc here once its done: Consult the ..block data.. page for EVM-specific details on the new context format.)
+See [Block data for Substrate](/substrate-indexing/context-interfaces) for the documentation on the Substrate-specific part of batch context.
 
 ## Step 6
 
