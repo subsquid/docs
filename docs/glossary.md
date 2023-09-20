@@ -103,7 +103,7 @@ A collection of open-source libraries to build squids.
 ### Typegen
 
 A tool generating strongly typed data access classes from a metadata in some format. Subsquid SDK includes typegen tools:
-- for accessing event, extrinsics and storage data based on the substrate metadata. See [Substrate typegen](/firesquid/substrate-indexing/squid-substrate-typegen)
+- for accessing event, extrinsics and storage data based on the substrate metadata. See [Substrate typegen](/substrate-indexing/squid-substrate-typegen)
 - for accessing EVM smart contract data based on the contract ABI. See [EVM typegen](/evm-indexing/squid-evm-typegen)
 - for accessing ink! smart contract data based on the contract metadata. See [ink! typegen](https://github.com/subsquid/squid-sdk/tree/master/substrate/ink-typegen)
 
