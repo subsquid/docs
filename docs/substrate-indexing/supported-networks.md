@@ -15,7 +15,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | aleph-zero          | `lookupArchive('aleph-zero')`                       | `lookupArchive('aleph-zero',` `{release: 'ArrowSquid'})`                     |
 | aleph-zero-testnet  | `lookupArchive('aleph-zero-testnet')`               | temporarily unavailable                                                      |
 | altair              | `lookupArchive('altair')`                           | temporarily unavailable                                                      |
-| amplitude           | `lookupArchive('amplitude')`                        | temporarily unavailable                                                      |
+| amplitude           | `lookupArchive('amplitude')`                        | `lookupArchive('amplitude',` `{release: 'ArrowSquid'})`                      |
 | astar               | `lookupArchive('astar',` `{type: 'Substrate'})`     | temporarily unavailable                                                      |
 | bajun               | `lookupArchive('bajun')`                            | temporarily unavailable                                                      |
 | basilisk            | `lookupArchive('basilisk')`                         | `lookupArchive('basilisk',` `{release: 'ArrowSquid'})`                       |
@@ -44,21 +44,21 @@ The table below lists the currently available public Substrate endpoints to be u
 | heiko               | `lookupArchive('heiko')`                            | temporarily unavailable                                                      |
 | hydradx             | `lookupArchive('hydradx')`                          | `lookupArchive('hydradx',` `{release: 'ArrowSquid'})`                        |
 | integritee-network  | `lookupArchive('integritee-network')`               | temporarily unavailable                                                      |
-| interlay            | `lookupArchive('interlay')`                         | temporarily unavailable                                                      |
+| interlay            | `lookupArchive('interlay')`                         | `lookupArchive('interlay',` `{release: 'ArrowSquid'})`                       |
 | invarch-tinkernet   | `lookupArchive('invarch-tinkernet')`                | temporarily unavailable                                                      |
 | joystream           | `lookupArchive('joystream')`                        | temporarily unavailable                                                      |
 | kabocha             | `lookupArchive('kabocha')`                          | temporarily unavailable                                                      |
 | karura              | `lookupArchive('karura')`                           | `lookupArchive('karura',` `{release: 'ArrowSquid'})`                         |
 | khala               | `lookupArchive('khala')`                            | `lookupArchive('khala',` `{release: 'ArrowSquid'})`                          |
 | kilt                | `lookupArchive('kilt')`                             | `lookupArchive('kilt',` `{release: 'ArrowSquid'})`                           |
-| kintsugi            | `lookupArchive('kintsugi')`                         | temporarily unavailable                                                      |
-| kusama              | `lookupArchive('kusama')`                           | temporarily unavailable                                                      |
+| kintsugi            | `lookupArchive('kintsugi')`                         | `lookupArchive('kintsugi',` `{release: 'ArrowSquid'})`                       |
+| kusama              | `lookupArchive('kusama')`                           | `lookupArchive('kusama',` `{release: 'ArrowSquid'})`                         |
 | kylin               | `lookupArchive('kylin')`                            | temporarily unavailable                                                      |
 | litentry            | `lookupArchive('litentry')`                         | `lookupArchive('litentry',` `{release: 'ArrowSquid'})`                       |
 | litmus              | `lookupArchive('litmus')`                           | temporarily unavailable                                                      |
 | manta               | `lookupArchive('manta')`                            | temporarily unavailable                                                      |
 | moonbase            | `lookupArchive('moonbase',` `{type: 'Substrate'})`  | `lookupArchive('moonbase',` `{type: 'Substrate',` `release: 'ArrowSquid'})`  |
-| moonbeam            | `lookupArchive('moonbeam',` `{type: 'Substrate'})`  | temporarily unavailable                                                      |
+| moonbeam            | `lookupArchive('moonbeam',` `{type: 'Substrate'})`  | `lookupArchive('moonbeam',` `{type: 'Substrate',` `release: 'ArrowSquid'})`  |
 | moonriver           | `lookupArchive('moonriver',` `{type: 'Substrate'})` | `lookupArchive('moonriver',` `{type: 'Substrate',` `release: 'ArrowSquid'})` |
 | moonsama            | `lookupArchive('moonsama',` `{type: 'Substrate'})`  | temporarily unavailable                                                      |
 | myriad              | `lookupArchive('myriad')`                           | temporarily unavailable                                                      |
@@ -76,7 +76,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | reef                | `lookupArchive('reef')`                             | temporarily unavailable                                                      |
 | reef-testnet        | `lookupArchive('reef-testnet')`                     | temporarily unavailable                                                      |
 | robonomics          | `lookupArchive('robonomics')`                       | temporarily unavailable                                                      |
-| rococo              | `lookupArchive('rococo')`                           | temporarily unavailable                                                      |
+| rococo              | `lookupArchive('rococo')`                           | `lookupArchive('rococo',` `{release: 'ArrowSquid'})`                         |
 | shibuya             | `lookupArchive('shibuya')`                          | temporarily unavailable                                                      |
 | shiden              | `lookupArchive('shiden')`                           | `lookupArchive('shiden',` `{release: 'ArrowSquid'})`                         |
 | sora                | `lookupArchive('sora')`                             | temporarily unavailable                                                      |
@@ -89,7 +89,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | tanganika           | `lookupArchive('tanganika')`                        | temporarily unavailable                                                      |
 | ternoa              | `lookupArchive('ternoa')`                           | temporarily unavailable                                                      |
 | tidechain           | `lookupArchive('tidechain')`                        | temporarily unavailable                                                      |
-| turing              | `lookupArchive('turing')`                           | temporarily unavailable                                                      |
+| turing              | `lookupArchive('turing')`                           | `lookupArchive('turing',` `{release: 'ArrowSquid'})`                         |
 | vara                | `lookupArchive('vara')`                             | temporarily unavailable                                                      |
 | westend-collectives | `lookupArchive('westend-collectives')`              | temporarily unavailable                                                      |
 | xx-network          | `lookupArchive('xx-network')`                       | temporarily unavailable                                                      |
