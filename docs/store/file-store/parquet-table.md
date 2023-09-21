@@ -28,7 +28,7 @@ Column types can be obtained by making the function calls listed below from the 
 
 | Column type                             | Logical type                   | Primitive type | Valid data row object field contents                      |
 |:---------------------------------------:|:------------------------------:|:--------------:|:---------------------------------------------------------:|
-| `Types.String` `(length?)`              | variable or fixed length string     | `BYTE_ARRAY` or `FIXED_LEN_` `BYTE_ARRAY` | `string` of length equal to `length` if it is set or of any length otherwise     |
+| `Types.String()`                        | variable length string         | `BYTE_ARRAY`   | `string` of any length                                    |
 | `Types.Binary` `(length?)`              | variable or fixed length byte array | `BYTE_ARRAY` or `FIXED_LEN_` `BYTE_ARRAY` | `Uint8Array` of length equal to `length` if it is set or of any length otherwise |
 | `Types.Int8()`                          | 8-bit signed integer           | `INT32`        | `number` from -128 to 127                                 |
 | `Types.Int16()`                         | 16-bit signed integer          | `INT32`        | `number` from -32768 to 32767                             |
@@ -42,12 +42,12 @@ Column types can be obtained by making the function calls listed below from the 
 | `Types.Double()`                        | 64-bit floating point number   | `DOUBLE`       | non-`Nan` `number`                                        |
 | `Types.Boolean()`                       | boolean value                  | `BOOLEAN`      | `boolean`                                                 |
 | `Types.Timestamp()`                     | UNIX timestamp in milliseconds | `INT64`        | `Date`                                                    |
-| `Types.Decimal` `(precision, scale=0)`  | decimal with `precision` digits and `scale` digits to the right of the decimal point | `INT32` or `INT64` or `BYTE_ARRAY` | `number` or `bigint` or [`BigDecimal`](https://github.com/subsquid/squid-sdk/tree/master/util/big-decimal) |
+| `Types.Decimal` `(precision, scale=0)`  | decimal with `precision` digits and `scale` digits to the right of the decimal point | `INT32` or `INT64` or `FIXED_LEN_` `BYTE_ARRAY` | `number` or `bigint` or [`BigDecimal`](https://github.com/subsquid/squid-sdk/tree/master/util/big-decimal) |
 | `Types.List` `(itemType, {nullable=false})`  | a list filled with optionally nullable items of `itemType` column type | - | `Array` of items satisfying `itemType` |
 | `Types.JSON<T extends {[k: string]: any}>()` | JSON object of type `T`   | `BYTE_ARRAY`   | `Object` of type `T`                                      |
 | `Types.BSON<T extends {[k: string]: any}>()` | BSON object of type `T`   | `BYTE_ARRAY`   | `Object` of type `T`                                      |
 
-:::info
+:::tip
 The widest decimals that [PyArrow](https://arrow.apache.org/docs/python/index.html) can read are `Types.Decimal(76)`.
 :::
 
@@ -91,12 +91,10 @@ When `pageSize` is less than `rowGroupSize` times the number of columns, the lat
 
 ## Example
 
-This saves ERC20 `Transfer` events captured by the processor to a Parquet file. All columns except for `from` are `GZIP`ped. Row groups are set to be roughly 30000 bytes in size each. Each row group contains roughly ten ~1000 bytes-long pages per column. Full squid code is available in [this repo](https://github.com/subsquid-labs/file-store-parquet-example) (link out of date).
-
-[//]: # (!!!! Update the github URL)
+This saves ERC20 `Transfer` events captured by the processor to a Parquet file. All columns except for `from` are `GZIP`ped. Row groups are set to be roughly 30000 bytes in size each. Each row group contains roughly ten ~1000 bytes-long pages per column. Full squid code is available in [this repo](https://github.com/subsquid-labs/file-store-parquet-example).
 
 ```typescript
-import {Database} from '@subsquid/file-store'
+import {Database, LocalDest} from '@subsquid/file-store'
 import {
   Column,
   Table,
@@ -119,14 +117,16 @@ const dbOptions = {
         to: Column(Types.String()),
         value: Column(Types.Uint64())
       },
-      { 
+      {
         compression: 'GZIP',
         rowGroupSize: 300000,
         pageSize: 1000
       }
     )
   },
-  ...
+  dest: new LocalDest('./data'),
+  chunkSizeMb: 10,
+  syncIntervalBlocks: undefined
 }
 
 processor.run(new Database(dbOptions), async (ctx) => {

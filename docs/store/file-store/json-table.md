@@ -20,9 +20,7 @@ Here,
 
 ## Example
 
-This saves ERC20 `Transfer` events captured by the processor to a JSONL file where each line is a JSON serialization of a `{from: string, to: string, value: number}` object. Full squid code is available in [this repo](https://github.com/subsquid-labs/file-store-json-example) (link out of date).
-
-[//]: # (!!!! Update the github URL)
+This saves ERC20 `Transfer` events captured by the processor to a JSONL file where each line is a JSON serialization of a `{from: string, to: string, value: number}` object. Full squid code is available in [this repo](https://github.com/subsquid-labs/file-store-json-example).
 
 ```typescript
 import {Database} from '@subsquid/file-store'
@@ -38,7 +36,9 @@ const dbOptions = {
       value: bigint
     }>('transfers.jsonl', { lines: true })
   },
-  ...
+  dest: new LocalDest('./data'),
+  chunkSizeMb: 10,
+  syncIntervalBlocks: undefined
 }
 
 processor.run(new Database(dbOptions), async (ctx) => {

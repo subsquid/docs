@@ -37,13 +37,11 @@ The type `T` supplied to the `Types.JSON()` generic function must be an object w
 As its optional final argument, the constructor of `Table` accepts an object that defines table options:
 ```typescript
 TableOptions {
-  extension?: string
   dialect?: Dialect
   header?: boolean
 }
 ```
 Here,
-* **`extension`** determines the file extension (default: `'csv'`)
 * **`dialect`** determines the details of the CSV formatting (see the details below, default: `dialects.excel`)
 * **`header`** determines whether a CSV header should be added (default: `true`)
 
@@ -90,19 +88,16 @@ export let dialects = {
 
 ## Example
 
-This saves ERC20 `Transfer` events captured by the processor to TSV (tab-separated values) files. Full squid code is available in [this repo](https://github.com/subsquid-labs/file-store-csv-example) (link out of date).
-
-[//]: # (!!!! Update the github URL)
+This saves ERC20 `Transfer` events captured by the processor to TSV (tab-separated values) files. Full squid code is available in [this repo](https://github.com/subsquid-labs/file-store-csv-example).
 
 ```typescript
-import {Database} from '@subsquid/file-store'
+import {Database, LocalDest} from '@subsquid/file-store'
 import {
   Column,
   Table,
   Types,
   dialects
 } from '@subsquid/file-store-csv'
-
 ...
 
 const dbOptions = {
@@ -115,12 +110,14 @@ const dbOptions = {
         value: Column(Types.Numeric())
       },
       {
-        extension: 'tsv',
         dialect: dialects.excelTab,
+        header: true
       }
     )
   },
-  ...
+  dest: new LocalDest('./data'),
+  chunkSizeMb: 10,
+  syncIntervalBlocks: undefined
 }
 
 processor.run(new Database(dbOptions), async (ctx) => {
