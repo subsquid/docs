@@ -19,7 +19,7 @@ The following setters configure the global settings of `SubstrateBatchProcessor`
 
 - **(Recommended)** When the data source is a `MixedDataSource = {archive: string, chain: ChainRpc}`, the processor will obtain as much data as is currently available from an archive, then switch to ingesting from the RPC endpoint. This combines the good syncing performance of the archive-only approach with the low network latency of the RPC-powered approach.
 
-  Note that `SubstrateBatchProcessor` also uses the RPC on its startup to retrieve chain metadata. That makes it impossible to use the processor without an RPC.
+  Note that `SubstrateBatchProcessor` also uses the RPC to occasionally retrieve chain metadata. That makes it impossible to use the processor without an RPC.
 
 - When the data source is a `ChainDataSource = {chain: ChainRpc}`, the processor will obtain data _only_ from a node RPC endpoint. This mode of operation is slow, but requires no archive and. Like `MixedDataSource`, it also has almost [no chain latency](/basics/unfinalized-blocks). It can be used with Substrate networks not listed on the [supported networks](../../supported-networks) page and with local development nodes.
 
@@ -53,7 +53,7 @@ Sets the RPC poll interval in milliseconds. Default: 1000.
 
 By default, processor will fetch only blocks which contain requested items. This method modifies such behavior to fetch all chain blocks. Optionally a `Range` (`{from: number, to?: number | undefined}`) of blocks can be specified for which the setting should be effective.
 
-#### `setTypesBundle(bundle: string | OldTypesBundle | OldSpecsBundle | PolkadotjsTypesBundle)` (#set-types-bundle)
+#### `setTypesBundle(bundle: string | OldTypesBundle | OldSpecsBundle | PolkadotjsTypesBundle)` {#set-types-bundle}
 
 Sets a [types bundle](https://substrate.stackexchange.com/a/1231/4655).
 

@@ -40,7 +40,7 @@ Results of the ETL process can be stored in any [Postgres-compatible database](/
 
 ## RPC ingestion
 
-Starting with the ArrowSquid release, the processor can ingest data either from an [Archive](/archives) or directly from an RPC endpoint. If both an Archive and an RPC endpoint are provided, the processor will use the Archive until it reaches the highest block available there, then index the remaining blocks using the RPC endpoint. This allows squids to combine low sync times with near real-time chain data access. It is, however, possible to use either just the Archive (e.g. for analytics) or just the RPC endpoint.
+Starting with the ArrowSquid release, the processor can ingest data either from an [Archive](/archives) or directly from an RPC endpoint. If both an Archive and an RPC endpoint are provided, the processor will use the Archive until it reaches the highest block available there, then index the remaining blocks using the RPC endpoint. This allows squids to combine low sync times with near real-time chain data access. It is, however, possible to use just the RPC endpoint.
 
 ## What's next?
 
