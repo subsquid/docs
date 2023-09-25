@@ -65,12 +65,12 @@ Next, we have to account for the changes in signatures of the data requesting pr
 
 Previously, each call of these methods supplied its own fine-grained data fields selector. In the new interface, these calls only request data items, either directly or by relation (for example with the `call` flag for event-requesting methods). Field selection is now done by the new `setFields()` method on a per-item-type basis: once for all `Call`s, once for all `Event`s etc. The setting is processor-wide: for example, all `Call`s returned by the processor will have the same set of available fields, regardless of whether they were requested directly or as related data.
 
-Begin migrating to the new interface by finding all calls to these methods and combining all the data selectors into processor-wide `event`, `call` and `extrinsic` data selectors that request all fields previously requested by individual selectors. Note that `call.args` and `event.args` are now requested by default and can be omitted. When done, add a call to `setFields()` supplying it with the new field selectors.
+Begin migrating to the new interface by finding all calls to these methods and combining all the field selectors into processor-wide `event`, `call` and `extrinsic` field selectors that request all fields previously requested by individual selectors. Note that `call.args` and `event.args` are now requested by default and can be omitted. When done, add a call to `setFields()` supplying it with the new field selectors.
 
 The new field selector format is fully documented on the [Field selection](/substrate-indexing/setup/field-selection) page.
 
 :::info
-Blanket field selections like `{data: {event: {extrinsic: true}}}` are not supported in ArrowSquid Beta. If you used one of these, please find out which exact fields you use in the batch handler and specifically request them.
+Blanket field selections like `{data: {event: {extrinsic: true}}}` are not supported in ArrowSquid. If you used one of these, please find out which exact fields you use in the batch handler and specifically request them.
 :::
 
 For example, suppose the processor was initialized with the following three calls:
@@ -164,9 +164,9 @@ The meaning of passing `[]` as a set of parameter values has been changed in the
 ```
 :::
 
-Old data selectors will be erased during the process. Make sure to request the appropriate related data with the boolean flags (`call` for event-requesting methods, `events` for call-requesting methods and `extrinsic`, `stack` for both).
+Old data request calls will be erased during the process. Make sure to request the appropriate related data with the boolean flags (`call` for event-requesting methods, `events` for call-requesting methods and `extrinsic`, `stack` for both).
 
-Interfaces of the data selectors are documented on their respective pages:
+Interfaces of data request methods are documented on their respective pages:
 - [`addEvent()`](/substrate-indexing/setup/data-requests/#events),
 - [`addCall()`](/substrate-indexing/setup/data-requests/#calls),
 - [`addEvmLog()`](/substrate-indexing/specialized/evm/#subscribe-to-evm-events),

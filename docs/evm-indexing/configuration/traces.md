@@ -46,7 +46,7 @@ Note that traces can also be requested by the [`addTransaction()`](../transactio
 
 [//]: # (???? Check whether the final version adds the transactions / subtraces to the items, too)
 
-Selection of the exact data to be retrieved for each trace item is done with the `setFields()` method documented on the [Data selection](../data-selection) page. Be aware that field selectors for traces do not share their names with the fields of trace data items, unlike field selectors for other data item types. This is due to traces varying their structure depending on the value of the `type` field.
+Selection of the exact data to be retrieved for each trace item is done with the `setFields()` method documented on the [Field selection](../data-selection) page. Be aware that field selectors for traces do not share their names with the fields of trace data items, unlike field selectors for other data item types. This is due to traces varying their structure depending on the value of the `type` field.
 
 ## Examples
 
