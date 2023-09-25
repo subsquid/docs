@@ -44,7 +44,7 @@ type ChainRpc = string | {
 Setting `maxBatchCallSize` to `1` disables batching completely.
 
 :::tip
-We recommend using private RPC endpoints. If you deploy to Aquarium, store their URLs safely using [secret variables](/deploy-squid/env-variables/#secrets). You may also want to consider our [RPC proxy](/deploy-squid/rpc-proxy) service.
+We recommend using private endpoints for better performance and stability of your squids. For Aquarium deployments you can use the [RPC proxy](/deploy-squid/rpc-proxy). If you use an external private RPC, keep the endpoint URL in an environment variable and set it via [secrets](/deploy-squid/env-variables#secrets).
 :::
 
 #### `setFinalityConfirmation(nBlocks: number)` {#set-finality-confirmation}
