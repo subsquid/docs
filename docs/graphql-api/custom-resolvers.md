@@ -44,6 +44,8 @@ This example is designed to work with the `evm` template:
    ```ts
    export { CountResolver } from '../resolver'
    ```
+5. rebuild the squid with `sqd build`;
+6. (re)start the GraphQL server with `sqd serve`.
 
 `totalBurns` selection will appear in the [GraphiQL playground](http://localhost:4350/graphql).
 
