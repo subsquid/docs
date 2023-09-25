@@ -53,7 +53,7 @@ Sets the RPC poll interval in milliseconds. Default: 1000.
 
 By default, processor will fetch only blocks which contain requested items. This method modifies such behavior to fetch all chain blocks. Optionally a `Range` (`{from: number, to?: number | undefined}`) of blocks can be specified for which the setting should be effective.
 
-#### `setTypesBundle(bundle: string | OldTypesBundle | OldSpecsBundle | PolkadotjsTypesBundle)` (#set-types-bundle)
+#### `setTypesBundle(bundle: string | OldTypesBundle | OldSpecsBundle | PolkadotjsTypesBundle)` {#set-types-bundle}
 
 Sets a [types bundle](https://substrate.stackexchange.com/a/1231/4655).
 
