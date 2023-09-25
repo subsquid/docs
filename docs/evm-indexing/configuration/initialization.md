@@ -7,12 +7,8 @@ description: >-
 
 # General settings
 
-:::info
+:::tip
 The method documentation is also available inline and can be accessed via suggestions in most IDEs.
-:::
-
-:::info
-If contract address(-es) supplied to `EvmBatchProcessor` are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/basics/squid-processor/#processorrun) for data filtration, and all contract addresses in batch context data are **always** in flat lower case.
 :::
 
 The following setters configure the global settings of `EvmBatchProcessor`. They return the modified instance and can be chained.
@@ -23,23 +19,29 @@ The following setters configure the global settings of `EvmBatchProcessor`. They
 
 - **(Recommended)** When the data source is a `MixedDataSource = {archive: string, chain: ChainRpc}`, the processor will obtain as much data as is currently available from an archive, then switch to ingesting from the RPC endpoint. This combines the good syncing performance of the archive-only approach with the low network latency of the RPC-powered approach.
 
-- When the data source is an `ArchiveDataSource = {archive: string}`, the processor will obtain data _only_ from an [archive](/archives). This allows retrieving vast amounts of data rapidly and eliminates the need for a node RPC endpoint, but introduces a network latency typically in thousands of blocks. Public EVM archive endpoints are listed on the [supported networks](/evm-indexing/supported-networks) page and published to the [`@subsquid/archive-registry`](/archives/overview/#archive-registry) package, which exposes them with the `lookupArchive()` function.
+- When the data source is an `ArchiveDataSource = {archive: string}`, the processor will obtain data _only_ from an [archive](/archives). This allows retrieving vast amounts of data rapidly and eliminates the need for a node RPC endpoint, but introduces a network latency typically in thousands of blocks.
 
   A processor with an `ArchiveDataSource` cannot use [contract state queries](/evm-indexing/query-state). If you want to operate your squid in this regime but require state queries, use a `MixedDataSource` with the [`useArchiveOnly()`](#use-archive-only) setter.
 
 - When the data source is a `ChainDataSource = {chain: ChainRpc}`, the processor will obtain data _only_ from a node RPC endpoint. This mode of operation is slow, but requires no archive and has almost [no chain latency](/basics/unfinalized-blocks). It can be used with EVM networks not listed on the [supported networks](/evm-indexing/supported-networks) page and with [local development nodes](/tutorials/ethereum-local-development).
 
-  The node RPC endpoint can be specified as a string URL or as an object:
-  ```ts
-  type ChainRpc = string | {
-    url: string // http, https, ws and wss are supported
-    capacity?: number // num of concurrent connections, default 10
-    maxBatchCallSize?: number // default 100
-    rateLimit?: number // requests per second, default is no limit
-    requestTimeout?: number // in milliseconds, default 30_000
-  }
-  ```
-  Setting `maxBatchCallSize` to `1` disables batching completely.
+An Archive endpoint is specified as a string URL. Up-to-date URLs of public EVM Archives can be looked up with the `lookupArchive` utility from `@subsquid/archive-registry` (see [Supported networks](/evm-indexing/supported-networks)).
+
+A node RPC endpoint can be specified as a string URL or as an object:
+```ts
+type ChainRpc = string | {
+  url: string // http, https, ws and wss are supported
+  capacity?: number // num of concurrent connections, default 10
+  maxBatchCallSize?: number // default 100
+  rateLimit?: number // requests per second, default is no limit
+  requestTimeout?: number // in milliseconds, default 30_000
+}
+```
+Setting `maxBatchCallSize` to `1` disables batching completely.
+
+:::tip
+We recommend using private endpoints for better performance and stability of your squids. For Aquarium deployments you can use the [RPC proxy](/deploy-squid/rpc-proxy). If you use an external private RPC, keep the endpoint URL in an environment variable and set it via [secrets](/deploy-squid/env-variables#secrets).
+:::
 
 #### `setFinalityConfirmation(nBlocks: number)` {#set-finality-confirmation}
 

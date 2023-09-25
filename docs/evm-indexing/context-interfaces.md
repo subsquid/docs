@@ -25,7 +25,7 @@ export type BlockData<F extends FieldSelection = {}> = {
  - [`stateDiffs`](/evm-indexing/configuration/state-diffs) follow the order of transactions that gave rise to them;
  - `traces` are ordered in a deterministic but otherwise unspecified way.
 
-The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [data selection](/evm-indexing/configuration/data-selection) page:
+The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [field selection](/evm-indexing/configuration/data-selection) page:
  - [transactions section](/evm-indexing/configuration/data-selection/#transactions);
  - [logs section](/evm-indexing/configuration/data-selection/#logs);
  - [traces section](/evm-indexing/configuration/data-selection/#traces);

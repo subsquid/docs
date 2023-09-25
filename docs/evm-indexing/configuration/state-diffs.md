@@ -38,6 +38,6 @@ Note that state diffs can also be requested by the [`addTransaction()`](../trans
 [//]: # (???? Check whether the final version adds the transaction to the items, too)
 [//]: # (???? Check that the statement about all fields being disable-only for state diffs still holds in the final version)
 
-Selection of the exact data to be retrieved for each state diff item and its optional parent transaction is done with the `setFields()` method documented on the [Data selection](../data-selection) page. Unlike other data items, state diffs do not have any fields that can be enabled, but some can be disabled for improved sync performance.
+Selection of the exact data to be retrieved for each state diff item and its optional parent transaction is done with the `setFields()` method documented on the [Field selection](../data-selection) page. Unlike other data items, state diffs do not have any fields that can be enabled, but some can be disabled for improved sync performance.
 
 [//]: # (!!!! Add example)

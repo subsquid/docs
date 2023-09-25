@@ -6,8 +6,6 @@ description: A simple squid for Substrate indexing transfers
 
 # Quickstart: Substrate chains
 
-[//]: # (!!!! Rework when ArrowSquid for Substrate is released)
-
 The `substrate` squid template indexes transfers on the Kusama network. It is intended to be a stepping stone for building a custom squid for any Substrate-based chain. 
 
 ## Pre-requisites

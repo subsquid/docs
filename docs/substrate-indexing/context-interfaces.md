@@ -21,7 +21,7 @@ export type Block<F extends FieldSelection = {}> = {
 
 `Block.header` contains the block header data. The rest of the fields are iterables containing four kinds of blockchain data. The canonical ordering within each iterable is the same as it is within the blocks.
 
-The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [data selection](../setup/field-selection) page:
+The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [Field selection](../setup/field-selection) page:
  - [extrinsics section](../setup/field-selection/#extrinsics);
  - [calls section](../setup/field-selection/#calls);
  - [events section](../setup/field-selection/#events);

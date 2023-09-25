@@ -56,9 +56,9 @@ Your squid will work without an RPC endpoint, but with a significantly increased
 
 ## Step 3
 
-Next, we have to account for the changes in signatures of [`addLog()`](/evm-indexing/configuration/evm-logs/) and [`addTransaction()`](/evm-indexing/configuration/transactions/) processor methods. Previously, each call of these methods supplied its own fine-grained [data selectors](/evm-indexing/configuration/data-selection). In the new interface, these calls can only enable or disable the retrieval of related data (with boolean flags `transaction` for `addLog()` and `logs` and a few others for `addTransaction()`). Field selection is now done by the new `setFields()` method on a per-item-type basis: once for all `log`s, once for all `transaction`s etc. The setting is processor-wide: for example, all `transaction`s returned by the processor will have the same set of available fields, regardless of whether they are taken from the batch context directly or are accessed from within a `log` item.
+Next, we have to account for the changes in signatures of [`addLog()`](/evm-indexing/configuration/evm-logs/) and [`addTransaction()`](/evm-indexing/configuration/transactions/) processor methods. Previously, each call of these methods supplied its own fine-grained field selectors. In the new interface, these calls can only enable or disable the retrieval of related data (with boolean flags `transaction` for `addLog()` and `logs` and a few others for `addTransaction()`). Field selection is now done by the new [`setFields()`](/evm-indexing/configuration/data-selection) method on a per-item-type basis: once for all `log`s, once for all `transaction`s etc. The setting is processor-wide: for example, all `transaction`s returned by the processor will have the same set of available fields, regardless of whether they are taken from the batch context directly or are accessed from within a `log` item.
 
-Begin migrating to the new interface by finding all calls to `addLog()` and combining all the `evmLog` data selectors into a single processor-wide data selector that requests all fields previously requested by individual selectors. Remove the `id`, `logIndex` (previously `index`) and `transactionIndex` fields: now they are always available and cannot be requested explicitly. When done, make a call to `setFields()` and supply the new data selector at the `log` field of its argument. For example, suppose the processor was initialized with the following three calls:
+Begin migrating to the new interface by finding all calls to `addLog()` and combining all the `evmLog` field selectors into a single processor-wide field selector that requests all fields previously requested by individual selectors. Remove the `id`, `logIndex` (previously `index`) and `transactionIndex` fields: now they are always available and cannot be requested explicitly. When done, make a call to `setFields()` and supply the new field selector at the `log` field of its argument. For example, suppose the processor was initialized with the following three calls:
 ```typescript
 const processor = new EvmBatchProcessor()
   .addLog(CONTRACT_ADDRESS, {
@@ -100,17 +100,17 @@ const processor = new EvmBatchProcessor()
 ```
 Be aware that this operation will not increase the amount of data retrieved from the archive, since previously such coalescence was done under the hood and all fields were retrieved by the processor anyway. In fact, the amount of data should decrease due to a more efficient transfer mechanism employed by ArrowSquid.
 
-See the [Data selection](/evm-indexing/configuration/data-selection) page for full documentation on field selectors.
+See the [Field selection](/evm-indexing/configuration/data-selection) page for full documentation on field selectors.
 
 ## Step 4
 
-Repeat step 3 for the `transaction` data selector. Make sure to check any transaction data selections by `addLog()` calls in addition to these made by [`addTransaction()`](/evm-indexing/configuration/transactions/). Remove the default fields `id` and `transactionIndex` (previously `index`) and add the final data selector to the `.setFields()` call. For example, suppose the processor was initialized like this:
+Repeat step 3 for the `transaction` field selector. Make sure to check any transaction field selections by `addLog()` calls in addition to these made by [`addTransaction()`](/evm-indexing/configuration/transactions/). Remove the default fields `id` and `transactionIndex` (previously `index`) and add the final field selector to the `.setFields()` call. For example, suppose the processor was initialized like this:
 ```typescript
 const processor = new EvmBatchProcessor()
   .addLog(CONTRACT_ADDRESS, {
     filter: [[ abi.events.Transfer.topic ]],
     data: {
-      evmLog: { /* ...some log data selections... */ },
+      evmLog: { /* ...some log field selections... */ },
       transaction: {
         hash: true
       }
@@ -131,7 +131,7 @@ then the new global selector should be added like this:
  const processor = new EvmBatchProcessor()
    // ... addLog() and addTransaction() calls ...
    .setFields({
-     log: { /* ...some log data selections... */ },
+     log: { /* ...some log field selections... */ },
 +    transaction: {
 +      hash: true,
 +      gas: true,
@@ -140,7 +140,7 @@ then the new global selector should be added like this:
    })
 ```
 
-See the [Data selection](/evm-indexing/configuration/data-selection) page for full documentation on field selectors.
+See the [Field selection](/evm-indexing/configuration/data-selection) page for full documentation on field selectors.
 
 ## Step 5
 
@@ -158,7 +158,7 @@ The meaning of passing `[]` as a set of parameter values has been changed in the
 ```
 :::
 
-Old data selectors will be erased during the process. Make sure to request the appropriate data with the boolean flags (`transaction` for `addLog()` and `logs` for `addTransaction()`) while doing that.
+Old data requests will be erased during the process. Make sure to request the appropriate data with the boolean flags (`transaction` for `addLog()` and `logs` for `addTransaction()`) while doing that.
 
 For example, a processor originally initialized like this:
 ```typescript

@@ -92,7 +92,7 @@ A healthy response should look similar to
 
 1. Think of a good, globally unique name for your new squid. Now open a terminal and run the following commands to create the squid and enter its folder:
    ```bash
-   sqd init my-awesome-squid -t https://github.com/subsquid-labs/quest-single-chain-squid-0
+   sqd init my-awesome-squid -t https://github.com/subsquid-labs/quest-single-chain-squid
    cd my-awesome-squid
    ```
    Replace `my-awesome-squid` with the name you chose for your squid. If a squid with that name already exists, the first command will throw an error; if that happens simply think of another name and repeat the commands.
@@ -128,18 +128,21 @@ A healthy response should look similar to
    sqd down
    ```
 
-### Running a multiprocessor squid
+### Running multiprocessor squids
 
 Redo the previous section using a special multichain squid template prepared for the quest. This change will only affect the first two commands:
 ```bash
-sqd init my-awesome-multichain-squid -t https://github.com/subsquid-labs/quest-multi-chain-squid-0
+sqd init my-awesome-multichain-squid -t <multiprocessor_squid_template>
 cd my-awesome-multichain-squid
 ```
-Here, `my-awesome-multichain-squid` is a placeholder for the name you should choose for your awesome multiprocessor squid.
+Here, `my-awesome-multichain-squid` is a placeholder for the name you should choose for your awesome multiprocessor squid and `<multiprocessor_squid_template>` is one of the following:
+* `https://github.com/subsquid-labs/quest-double-chain-squid`
+* `https://github.com/subsquid-labs/quest-triple-chain-squid`
+* `https://github.com/subsquid-labs/quest-quad-chain-squid`
 
-Note that you need to use a different key for your multichain squid. Grab it from the Aquarium quests page.
+Note that you need to use a different key for your multichain squids. Grab it from the Aquarium quests page.
 
-The rest of the commands do not need to be changed. An output of a healthy multichain template squid looks like this:
+The rest of the commands do not need to be changed. An output of a healthy double chain template squid looks like this:
 ```
 [api] 10:05:05 WARN  sqd:graphql-server enabling dumb in-memory cache (size: 100mb, ttl: 1000ms, max-age: 1000ms)
 [api] 10:05:05 INFO  sqd:graphql-server listening on port 4350
@@ -152,4 +155,4 @@ The rest of the commands do not need to be changed. An output of a healthy multi
 [eth-processor] 10:05:10 INFO  sqd:processor 16003899 / 17743832, rate: 1482 blocks/sec, mapping: 616 blocks/sec, 1154 items/sec, eta: 20m
 [bsc-processor] 10:05:11 INFO  sqd:processor 27002719 / 30168778, rate: 787 blocks/sec, mapping: 542 blocks/sec, 1041 items/sec, eta: 1h 8m
 ```
-You need to wait for both processors to sync to complete the quest. The ETA is 25-40 minutes.
+You need to wait for all processors to sync to complete the quest. The ETA for the double chain template is 25-40 minutes.
