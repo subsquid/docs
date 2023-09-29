@@ -17,6 +17,26 @@ We provide access to historical blockchain data in an easily digestible form, fo
 For the moment, a Swiss company called Subsquid Gmbh. It is funded by the networks supported by Subsquid and by the proceeds of its [cloud service](#why-run-my-squid-in-subsquid-cloud).
 
 </details>
+<details>
+<summary>Is Subsquid like Alchemy?</summary>
+
+Unlike Alchemy, we do not provide direct access to RPC nodes. Instead, the data is provided in a form that is easier to filter and process in large batches.
+
+</details>
+<details>
+<summary>Perhaps like The Graph, then?</summary>
+
+Functionality is similar, tech is not.
+
+Unlike subgraphs, [Subsquid indexers](#wtf-is-a-squid) get most of their data from [Archives](/archives/evm). Archives can filter data and retrieve large chunks of it at once. The data is processed on a [per-chunk](/basics/batch-processing) rather than per-item basis, reducing the number of database queries. All of this leads to much faster sync times.
+
+Another huge difference is flexibility: unlike subgraphs, squids can mix in [any external data](/basics/external-api) during the data transform.
+
+Like The Graph, Subsquid is [in the process of decentralizing its service](/subsquid-network), although using a very different architecture.
+
+See [this page](/migrate/subsquid-vs-thegraph) for a more complete comparison.
+
+</details>
 
 ### Which networks are supported?
 
@@ -59,22 +79,6 @@ You get to transform your data with arbitrary TypeScript code. SDK provides [a t
 ### Why run my squid in Subsquid cloud?
 
 [Ease of deployment](/deploy-squid/quickstart), [competitive pricing](/deploy-squid/pricing), access to our [RPC proxy](/deploy-squid/rpc-proxy) service for real-time data.
-
-### Is Subsquid like Alchemy?
-
-Unlike Alchemy, we do not provide direct access to RPC nodes. Instead, the data is provided in a form that is easier to filter and process in large batches.
-
-### Perhaps like The Graph, then?
-
-Functionality is similar, tech is not.
-
-Unlike subgraphs, squids get most of their data from [Archives](/archives/evm). Archives can filter data and retrieve large chunks of it at once. The data is processed on a [per-chunk](/basics/batch-processing) rather than per-item basis, reducing the number of database queries. All of this leads to much faster sync times.
-
-Another huge difference is flexibility: unlike subgraphs, squids can mix in [any external data](/basics/external-api) during the data transform.
-
-Like The Graph, Subsquid is [in the process of decentralizing its service](/subsquid-network), although using a very different architecture.
-
-See [this page](/migrate/subsquid-vs-thegraph) for a more complete comparison.
 
 ### What are some of our plans for the future?
 
