@@ -41,13 +41,13 @@ Execution traces and contract state diffs are added on a best effort basis: we t
 
 </details>
 
-### How do I get the data?
+### WTF is a squid?
 
-With an indexer app called [squid](https://docs.subsquid.io/basics/overview/#architecture) that you can run on your own infrastructure or [in our cloud](/deploy-squid/quickstart). You can also opt to access it directly through [Archive API](/archives/evm).
+A [squid](/basics/overview/#architecture) is an indexer app that you can use to retrieve data from Subsquid. You can run squids on your own infrastructure or [in our cloud](/deploy-squid/quickstart). You can also opt to access Subsquid data directly through [Archive API](/archives/evm).
 
 ### Why use squids?
 
-Squids are built with Subsquid SDK, which allows you to
+Squids are built with [Subsquid SDK](https://github.com/subsquid/squid-sdk), which allows you to
 
 1. Seamlessly mix historical data with real-time data from RPC. Hot blocks/forks/reorganizations [are supported](/basics/unfinalized-blocks).
 2. Save data [to Postgres](/store/postgres) or [in files](/store/file-store) (local or [remote](/store/file-store/s3-dest)).
@@ -60,11 +60,24 @@ You get to transform your data with arbitrary TypeScript code. SDK provides [a t
 
 [Ease of deployment](/deploy-squid/quickstart), [competitive pricing](/deploy-squid/pricing), access to our [RPC proxy](/deploy-squid/rpc-proxy) service for real-time data.
 
-### What Subsquid does NOT do?
+### Is Subsquid like Alchemy?
 
-Provide direct access to RPC nodes.
+Unlike Alchemy, we do not provide direct access to RPC nodes. Instead, the data is provided in a form that is easier to filter and process in large batches.
+
+### Perhaps like The Graph, then?
+
+Functionality is similar, tech is not.
+
+Unlike subgraphs, squids get most of their data from [Archives](/archives/evm). Archives can filter data and retrieve large chunks of it at once. The data is processed on a [per-chunk](/basics/batch-processing) rather than per-item basis, reducing the number of database queries. All of this leads to much faster sync times.
+
+Another huge difference is flexibility: unlike subgraphs, squids can mix in [any external data](/basics/external-api) during the data transform.
+
+Like The Graph, Subsquid is [in the process of decentralizing its service](/subsquid-network), although using a very different architecture.
+
+See [this page](/migrate/subsquid-vs-thegraph) for a more complete comparison.
 
 ### What are some of our plans for the future?
 
 - Completely decentralize our data lakes by building [Subsquid network](/subsquid-network). Currently in the testnet stage.
 - Support Solana.
+- Build a [library](https://github.com/subsquid-labs/Subsquid-Datasets) of public [Parquet](https://parquet.apache.org) datasets with task-specific data.
