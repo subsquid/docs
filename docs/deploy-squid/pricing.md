@@ -9,11 +9,13 @@ description: Aquarium service plans
 The Aquarium hosted service offers three tiers: Free (Development) tier, Premium Pay-as-you-go and the Enterprise tier. For production-ready squids, one should upgrade to the Premium tier or to an individual Enterprise deal. 
 
 - The Develpment tier includes free of charge:
+  -  Unmetered number of GraphQL API requests   
   -  One collocated squid (API + processor + Postgres)
   -  10GB of database storage
   -  500k monthly RPC requests
   -  Community support
 - The Premium Pay-as-you-go tier enables:
+  - Unmetered number of GraphQL API requests     
   - Unlimited number of pay-as-you-go dedicated squids 
   - Unlimited number of pay-as-you-go collocated squids
   - free 2M RPC requests monthly + just `$2/1M` afterwards
