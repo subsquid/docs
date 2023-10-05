@@ -100,7 +100,7 @@ Finally, we create [database migrations](/store/postgres/db-migrations) to match
 ```bash
 sqd down
 sqd up
-sqd migrations:generate
+sqd migration:generate
 ```
 
 ## WASM ABI Tools
