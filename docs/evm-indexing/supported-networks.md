@@ -17,7 +17,7 @@ The table below lists the currently available public EVM ArrowSquid/v2 Archive e
 | astar (*)             |             |        | `lookupArchive('astar',` `{type: 'EVM'})`     |
 | avalanche             |             |        | `lookupArchive('avalanche')`                  |
 | avalanche-testnet     |             |        | `lookupArchive('avalanche-testnet')`          |
-| base-mainnet          |             |        | `lookupArchive('base-mainnet')`               |
+| base-mainnet          | ✓           | ✓      | `lookupArchive('base-mainnet')`               |
 | base-goerli           |             |        | `lookupArchive('base-goerli')`                |
 | binance               | ✓           | ✓      | `lookupArchive('binance')`                    |
 | binance-testnet       |             |        | `lookupArchive('binance-testnet')`            |
@@ -34,8 +34,8 @@ The table below lists the currently available public EVM ArrowSquid/v2 Archive e
 | moonriver (*)         |             | ✓      | `lookupArchive('moonriver',` `{type: 'EVM'})` |
 | moonsama (*)          |             |        | `lookupArchive('moonsama',` `{type: 'EVM'})`  |
 | neon-mainnet          |             |        | `lookupArchive('neon-mainnet')`               |
-| optimism-mainnet      |             |        | `lookupArchive('optimism-mainnet')`           |
-| optimism-goerli       |             |        | `lookupArchive('optimism-goerli')`            |
+| optimism-mainnet      | ✓           | ✓      | `lookupArchive('optimism-mainnet')`           |
+| optimism-goerli       | ✓           | ✓      | `lookupArchive('optimism-goerli')`            |
 | polygon               |             |        | `lookupArchive('polygon')`                    |
 | polygon-mumbai        |             |        | `lookupArchive('polygon-mumbai')`             |
 | polygon-zkevm         |             |        | `lookupArchive('polygon-zkevm')`              |
