@@ -23,6 +23,7 @@ The table below lists the currently available public EVM ArrowSquid/v2 Archive e
 | binance-testnet       |             |        | `lookupArchive('binance-testnet')`            |
 | eth-mainnet           | ✓           | ✓      | `lookupArchive('eth-mainnet')`                |
 | eth-goerli            | ✓           | ✓      | `lookupArchive('eth-goerli')`                 |
+| exosama               | ✓           | ✓      | `lookupArchive('exosama')`                    |
 | fantom                |             |        | `lookupArchive('fantom')`                     |
 | fantom-testnet        |             |        | `lookupArchive('fantom-testnet')`             |
 | flare-mainnet         |             |        | `lookupArchive('flare-mainnet')`              |
@@ -45,6 +46,8 @@ The table below lists the currently available public EVM ArrowSquid/v2 Archive e
 | shiden-mainnet (*)    |             |        | `lookupArchive('shiden-mainnet')`             |
 | zksync-mainnet        |             | ✓      | `lookupArchive('zksync-mainnet')`             |
 | zksync-testnet        |             | ✓      | `lookupArchive('zksync-testnet')`             |
+| zora-mainnet          | ✓           | ✓      | `lookupArchive('zora-mainnet')`               |
+| zora-goerli           | ✓           | ✓      | `lookupArchive('zora-goerli')`                |
 
 (*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate archive](/substrate-indexing/supported-networks).
 
