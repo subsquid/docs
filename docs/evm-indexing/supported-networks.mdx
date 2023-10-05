@@ -5,6 +5,16 @@ description: >-
 title: Supported networks
 ---
 
+export const FromBlockTooltip = ({children, tip}) => (
+  <div class="group relative w-max">
+    <div class={`pointer-events-auto absolute -top-9 -left-8 w-max opacity-0 transition-opacity group-hover:opacity-100`} style={{backgroundColor: "#f6f8fa"}}>
+      <div>from block</div>
+      <div>{tip}</div>
+    </div>
+    <span class="underline decoration-dotted">{children}</span>
+  </div>
+)
+
 # Supported EVM networks
 
 The table below lists the currently available public EVM ArrowSquid/v2 Archive endpoints to be used with the [`setDataSource()`](/evm-indexing/configuration/initialization) `EvmBatchProcessor` configuration method.
@@ -35,8 +45,8 @@ The table below lists the currently available public EVM ArrowSquid/v2 Archive e
 | moonriver (*)         |             | ✓      | `lookupArchive('moonriver',` `{type: 'EVM'})` |
 | moonsama (*)          |             |        | `lookupArchive('moonsama',` `{type: 'EVM'})`  |
 | neon-mainnet          |             |        | `lookupArchive('neon-mainnet')`               |
-| optimism-mainnet      | ✓           | ✓      | `lookupArchive('optimism-mainnet')`           |
-| optimism-goerli       | ✓           | ✓      | `lookupArchive('optimism-goerli')`            |
+| optimism-mainnet      | <FromBlockTooltip tip="105235063">✓</FromBlockTooltip> | ✓ | `lookupArchive('optimism-mainnet')` |
+| optimism-goerli       | <FromBlockTooltip tip="4061224">✓</FromBlockTooltip>   | ✓ | `lookupArchive('optimism-goerli')`  |
 | polygon               |             |        | `lookupArchive('polygon')`                    |
 | polygon-mumbai        |             |        | `lookupArchive('polygon-mumbai')`             |
 | polygon-zkevm         |             |        | `lookupArchive('polygon-zkevm')`              |
@@ -51,7 +61,7 @@ The table below lists the currently available public EVM ArrowSquid/v2 Archive e
 
 (*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate archive](/substrate-indexing/supported-networks).
 
-### Examples 
+### Examples
 
 Registry lookup:
 ```typescript
