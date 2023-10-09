@@ -13,7 +13,11 @@ It exposes low-level methods for accessing the storage. However, the recommended
 
 ## Type-safe storage access with typegen
 
-Substrate typegen tool exposes storage access wrappers at `src/types/storage.ts`. The wrappers follow the [general naming pattern](../squid-substrate-typegen/#typescript-wrappers) used by Substrate typegen: `storage.${palletName}.${storageName}`, with all identifiers lowerCamelCased. Each wrapper exposes a generated `get()` query method and, if available, methods for multi-key queries, listing keys, key-value pairs and retrieving the default value.
+Substrate typegen tool exposes storage access wrappers at `src/types/storage.ts`. The wrappers follow the [general naming pattern](../squid-substrate-typegen/#typescript-wrappers) used by Substrate typegen:
+```
+storage.${palletName}.${storageName}
+```
+with all identifiers lowerCamelCased. Each wrapper exposes a generated `get()` query method and, if available, methods for multi-key queries, listing keys, key-value pairs and retrieving the default value.
 
 Note that the generated getters **always query historical blockchain state at the height derived from their `block` argument**.
 
