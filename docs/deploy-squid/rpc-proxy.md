@@ -101,7 +101,7 @@ scale:
 
 ## Processor configuration
 
-With the addon successfully enabled, your squid will get a unique proxied endpoint to the requested network. Aquarium will make its URL available at the `RPC_${Upper(network)}_${Upper(protocol)}` environment variable. Assert it to avoid compilation errors. We also recommend rate limiting RPC proxy requests on the processor side to the same rate as was used in the manifest: 
+With the add-on successfully enabled, your squid will get a unique proxied endpoint to the requested network. Aquarium will make its URL available at the `RPC_${Upper(network)}_${Upper(protocol)}` environment variable. Assert it to avoid compilation errors. We also recommend rate limiting RPC proxy requests on the processor side to the same rate as was used in the manifest: 
 ```ts
 import {assertNotNull} from '@subsquid/util-internal'
 

@@ -164,7 +164,7 @@ export default function Home(): JSX.Element {
                 <h4 className="mb-4 body--m">What is a squid?</h4>
                 <p className="text-fg-base--muted font-light">
                     A squid is a project that extracts and transforms on-chain data in order to present it as a GraphQL API.
-                    Squids are developed using the Subsquid SDK, which provides extensive tooling to define data schemas, data transfomation rules, and the
+                    Squids are developed using the Subsquid SDK, which provides extensive tooling to define data schemas, data transformation rules, and the
                     shape of the resulting API.
                 </p>
             </div>

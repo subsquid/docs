@@ -14,11 +14,11 @@ Yes, see the issue in [the official repo](https://github.com/subsquid/squid-sdk/
 
 ### How does Subsquid handle unfinalized blocks?
 
-Archives index only finalized blocks. Handling unfinalized blocks and potential block reorganisations is supported by the Squid SDK since the ArrowSquid release, see [Indexing unfinalized blocks](/basics/unfinalized-blocks).
+Archives index only finalized blocks. Handling unfinalized blocks and potential block reorganizations is supported by the Squid SDK since the ArrowSquid release, see [Indexing unfinalized blocks](/basics/unfinalized-blocks).
 
 ### What is the latency for the data served by the squid? 
 
-Since the ArrowSquid release, the Squid SDK has the option to ingest unfinalized blocks directly from an RPC endpoint, making the indexing real-time. Archive-only squids without an RPC datasource typically have a latency of a few minutes to a few hours.
+Since the ArrowSquid release, the Squid SDK has the option to ingest unfinalized blocks directly from an RPC endpoint, making the indexing real-time. Archive-only squids without an RPC data source typically have a latency of a few minutes to a few hours.
 
 ### How do I enable GraphQL subscriptions for local runs?
 
