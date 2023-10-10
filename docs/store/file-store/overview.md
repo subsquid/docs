@@ -73,7 +73,7 @@ Each of the folders here contains a little over 10 MBytes of data. `status.txt` 
 
 ## Packages
 
-`@subsquid/file-store` is the core package that contains the implementation of `Database` for filesystems. At least one file format addon must be installed alongside it:
+`@subsquid/file-store` is the core package that contains the implementation of `Database` for filesystems. At least one file format add-on must be installed alongside it:
 
 * **CSV**: Supported via [`@subsquid/file-store-csv`](../csv-table).
 * **Parquet**: An [advanced format](https://parquet.apache.org) that works well for larger data sets. Supported via [`@subsquid/file-store-parquet`](../parquet-table).

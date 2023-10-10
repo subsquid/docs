@@ -8,7 +8,7 @@ description: A reference for the squid deployment manifest
 
 The deployment manifest is named `squid.yaml` by convention. The manifest defines how the squid should be built, customized and scaled during the deployment to Aquarium. It is used together with [`sqd deploy`](/squid-cli/deploy) to deploy or update an existing squid version.
 
-With the introduction of the deployment manifest the addons (`postgres`) and the API services (`api`) become optional. This allows flexible deployment configuration for analytic use-cases (e.g. transform and write to s3 or BigQuery).
+With the introduction of the deployment manifest the add-ons (`postgres`) and the API services (`api`) become optional. This allows flexible deployment configuration for analytic use-cases (e.g. transform and write to s3 or BigQuery).
 
 ## Header
 
@@ -50,11 +50,11 @@ A list of secret names that must be added in the [Aquarium app](https://app.subs
 
 ### `addons:`
 
-A list of addon services to be deployed along the squid services.
+A list of add-on services to be deployed along the squid services.
 
 - **`postgres:`**
 
-See [Postgres addon](/deploy-squid/pg-addon) for details.
+See [Postgres add-on](/deploy-squid/pg-addon) for details.
 
 ### `migrate:`
 

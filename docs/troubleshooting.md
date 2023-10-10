@@ -4,7 +4,7 @@ sidebar_position: 115
 
 # Troubleshooting
 
-Common gotchas occuring while developing and deploying squids.
+Common gotchas occurring while developing and deploying squids.
 
 ### `QueryFailedError: relation does not exist`
 
@@ -143,7 +143,7 @@ Most chains publish their type bundles as an npm package (for example: [Edgeware
 ```javascript
 {
   types: {}, // top-level type definitions, as `.types` option of `ApiPromise`
-  typesAlias: {}, // top-level type alieases, as `.typesAlias` option of `ApiPromise`
+  typesAlias: {}, // top-level type aliases, as `.typesAlias` option of `ApiPromise`
   versions: [ // spec version specific overrides, same as `OverrideBundleDefinition.types` of `polkadot.js`
     {
        minmax: [0, 1010] // spec range

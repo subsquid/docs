@@ -31,7 +31,7 @@ Squid generation procedure is very similar for both contract types. Here are the
    npx squid-gen config squidgen.yaml
    ```
 
-4. Prepare your squid for launching. If it is using a database, start a PostgreSQL container and generate migations:
+4. Prepare your squid for launching. If it is using a database, start a PostgreSQL container and generate migrations:
    ```bash
    sqd up
    sqd migration:generate

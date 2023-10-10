@@ -1,16 +1,16 @@
 ---
 sidebar_position: 30
-title: Postgres addon
-description: Provision and scale postgress for a squid
+title: Postgres add-on
+description: Provision and scale postgres for a squid
 ---
 
-# Postgres addon
+# Postgres add-on
 
-To provision a postgres instance, add the `addons.postgres:` section to the deployment manifest. The addon deploys a Postgres 14 instance and injects the `DB_NAME`, `DB_USER`, `DB_PASS`, `DB_PORT` environment variables to the `api` and `processor` squid services.
+To provision a postgres instance, add the `addons.postgres:` section to the deployment manifest. The add-on deploys a Postgres 14 instance and injects the `DB_NAME`, `DB_USER`, `DB_PASS`, `DB_PORT` environment variables to the `api` and `processor` squid services.
 
 ## Config options
 
-The addon supports additional PG config options:
+The add=on supports additional PG config options:
 
 | Name                                 | Description                                                            | Type      | Default value  | Optional   |  
 |:------------------------------------:|:----------------------------------------------------------------------:|:---------:|:--------------:|:----------:|
@@ -34,7 +34,7 @@ and navigate to `DB access` to inspect the PG connection string for the direct a
 
 ## Scaling
 
-The `postgres` addon supports storage and compute resource scaling by extending the `scale.addons.postgres` section of the deploy manifest. The following options are supported
+The `postgres` add-on supports storage and compute resource scaling by extending the `scale.addons.postgres` section of the deploy manifest. The following options are supported
 
 | Name        | Description  | Type      |Default value  | Optional   |  
 |:-----------:|:------------:|:---------:|:--------------:|:----------:|

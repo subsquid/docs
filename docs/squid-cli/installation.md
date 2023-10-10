@@ -49,7 +49,7 @@ sqd auth -k <DEPLOYMENT_KEY>
 
 ## 3. Explore with `--help`
 
-Use `sqd --help` to get a list of the available command and `sqd <command> --help` to get help on the available options for a specfic command, e.g.
+Use `sqd --help` to get a list of the available command and `sqd <command> --help` to get help on the available options for a specific command, e.g.
 
 ```bash
 sqd deploy --help
