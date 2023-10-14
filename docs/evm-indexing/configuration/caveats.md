@@ -10,7 +10,8 @@ description: >-
   ```ts title=src/processor.ts
   export const processor = new EvmBatchProcessor()
     .addLog({
-      address: ['0xdac17f958d2ee523a2206206994597c13d831ec7']
+      address: ['0xdac17f958d2ee523a2206206994597c13d831ec7'],
+      topic0: [erc20abi.events.Transfer.topic]
     })
   ```
   must always be matched with a filter like this
@@ -18,16 +19,17 @@ description: >-
   procesor.run(database, async ctx => {
     // ...
     for (let block of ctx.blocks) {
-      for (let event of block.events) {
+      for (let log of block.logs) {
         // ⌄⌄⌄ this filter ⌄⌄⌄
-        if (event.address==='0xd8da6bf26964af9d7eed9e03e53415d37aa96045') {
+        if (log.address === '0xdac17f958d2ee523a2206206994597c13d831ec7' &&
+            log.topics[0] === erc20abi.events.Transfer.topic) {
           // ...
         }
       }
     }
   })
   ```
-  *even if no other kinds of events were requested*.
+  *even if no other event types (including from other addresses) were requested*.
 
 - The meaning of passing `[]` as a set of parameter values has been changed in the ArrowSquid release: now it _selects no data_. Some data might still arrive (see above), but that's not guaranteed. Pass `undefined` for a wildcard selection:
   ```typescript
