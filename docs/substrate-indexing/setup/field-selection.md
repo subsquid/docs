@@ -164,6 +164,8 @@ Extrinsic {
   fee?: bigint
   hash: string
   signature?: {
+    // no per-field selection here:
+    // "signature: true" gets all fields
     address: unknown
     signature: unknown
     signedExtensions: unknown
@@ -194,7 +196,7 @@ Definition of mentioned types are available in their respective sections:
 ```ts
 BlockHeader{
   // can be requested with field selectors
-  digest: {
+  digest: { // request with "digest: true"
     logs: string[]
   }
   extrinsicsRoot: string

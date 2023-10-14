@@ -90,7 +90,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | tanganika           | `lookupArchive('tanganika')`                        | temporarily unavailable                                                      |
 | ternoa              | `lookupArchive('ternoa')`                           | temporarily unavailable                                                      |
 | tidechain           | `lookupArchive('tidechain')`                        | temporarily unavailable                                                      |
-| turing              | `lookupArchive('turing')`                           | `lookupArchive('turing',` `{release: 'ArrowSquid'})`                         |
+| turing              | `lookupArchive('turing')`                           | unavailable                                                                  |
 | vara                | `lookupArchive('vara')`                             | temporarily unavailable                                                      |
 | westend-collectives | `lookupArchive('westend-collectives')`              | temporarily unavailable                                                      |
 | xx-network          | `lookupArchive('xx-network')`                       | temporarily unavailable                                                      |

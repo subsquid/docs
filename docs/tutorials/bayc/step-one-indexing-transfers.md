@@ -52,7 +52,10 @@ export const CONTRACT_ADDRESS = '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
 export const processor = new EvmBatchProcessor()
     .setDataSource({
         archive: lookupArchive('eth-mainnet'),
-        chain: 'https://rpc.ankr.com/eth'
+        chain: {
+            url: 'https://rpc.ankr.com/eth',
+            rateLimit: 10
+        }
     })
     .setFinalityConfirmation(75)
     .setBlockRange({

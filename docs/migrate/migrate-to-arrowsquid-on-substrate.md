@@ -14,9 +14,7 @@ This is a Substrate guide. EVM guide is available [here](/migrate/migrate-to-arr
 
 ArrowSquid refers to `@subsquid/substrate-processor` versions `3.x` and above. It is not compatible with the FireSquid archive endpoints. The new `v2` archives are currently being rolled out (see the [Supported networks](/substrate-indexing/supported-networks) page).
 
-[//]: # (!!!! add a link to the archives page below)
-
-The main feature introduced by the ArrowSquid update is the new ability of the [processor](/basics/squid-processor) to ingest unfinalized blocks directly from a network node, instead of waiting for the archive to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency.
+The main feature introduced by the ArrowSquid update is the new ability of the [processor](/basics/squid-processor) to ingest unfinalized blocks directly from a network node, instead of waiting for an archive to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency.
 
 [//]: # (!!!! mention any new features here as I discover them)
 
@@ -24,7 +22,9 @@ Other new features include the new streamlined processor configuration interface
 
 [//]: # (!!!! add any new examples below)
 
-End-to-end ArrowSquid examples can be found in the SDK repo: there is [one for general Substrate indexing](https://github.com/subsquid/squid-sdk/tree/master/test/balances) and [one for working with the Frontier EVM pallet data](https://github.com/subsquid/squid-sdk/tree/master/test/astar-erc20).
+End-to-end Substrate ArrowSquid examples:
+ - [general Substrate indexing](https://github.com/subsquid-labs/squid-substrate-template/tree/arrowsquid) (note the `arrowsquid` branch);
+ - [working with Frontier EVM pallet data](https://github.com/subsquid/squid-sdk/tree/master/test/astar-erc20).
 
 Here is a step-by-step guide for migrating a squid built with an older SDK version to the post-ArrowSquid tooling.
 
@@ -47,7 +47,10 @@ Replace the old archive URL or lookup command with an [ArrowSquid archive lookup
    .setDataSource({
 -    archive: 'https://aleph-zero.archive.subsquid.io/graphql'
 +    archive: lookupArchive('aleph-zero', {release: 'ArrowSquid'}),
-+    chain: 'https://aleph-zero-rpc.dwellir.com'
++    chain: {
++        url: 'https://aleph-zero-rpc.dwellir.com',
++        rateLimit: 10
++    }
    })
 ```
 We recommend using a private RPC endpoint for the best performance, e.g. from [Dwellir](https://www.dwellir.com). For squids deployed to [Aquarium](/deploy-squid/quickstart/) you may also consider using our [RPC proxies](/deploy-squid/rpc-proxy).

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 99
-title: Aquarium Pricing
+title: Aquarium pricing
 description: Aquarium service plans 
 ---
 

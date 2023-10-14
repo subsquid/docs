@@ -44,7 +44,10 @@ Replace the old archive URL or lookup command with a [`v2` archive URL for your 
    .setDataSource({
 -    archive: lookupArchive('eth-mainnet', {type: 'EVM'})
 +    archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
-+    chain: 'https://eth-rpc.gateway.pokt.network'
++    chain: {
++      url: 'https://eth-rpc.gateway.pokt.network',
++      rateLimit: 10
++    }
    })
 +  .setFinalityConfirmation(75)
 ```

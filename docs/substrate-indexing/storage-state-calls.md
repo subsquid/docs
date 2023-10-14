@@ -97,10 +97,12 @@ The generated access interface provides methods for accessing:
 import {storage} from './types'
 
 processor.run(new TypeormDatabase(), async ctx => {
+  let aliceAddress = ss58.decode('5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY').bytes
   for (const blockData of ctx.blocks) {
-    let aliceAddress = ss58.decode('5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY').bytes
-    let aliceBalance = (await storage.balances.account.v1050.get(blockData.header, aliceAddress))?.free
-    ctx.log.info(`Alice free account balance at block ${blockData.header.height}: ${aliceBalance}`)
+    if (storage.balances.account.v1050.is(blockData.header)) {
+      let aliceBalance = (await storage.balances.account.v1050.get(blockData.header, aliceAddress))?.free
+      ctx.log.info(`Alice free account balance at block ${blockData.header.height}: ${aliceBalance}`)
+    }
   }
 })
 ```
