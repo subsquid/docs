@@ -139,8 +139,10 @@ import {constants} from './types'
 // ...
 processor.run(new TypeormDatabase(), async ctx => {
   for (let block of ctx.blocks) {
-    let c = new constants.balances.existentialDeposit.v1020.get(block.header)
-    ctx.log.info(`Balances.ExistentialDeposit (runtime version V1020): ${c}`)
+    if (constants.balances.existentialDeposit.v1020.is(block.header)) {
+      let c = new constants.balances.existentialDeposit.v1020.get(block.header)
+      ctx.log.info(`Balances.ExistentialDeposit (runtime version V1020): ${c}`)
+    }
   }
 })
 ```
