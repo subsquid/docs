@@ -42,6 +42,8 @@ Results of the ETL process can be stored in any [Postgres-compatible database](/
 
 Starting with the ArrowSquid release, the processor can ingest data either from an [Archive](/archives) or directly from an RPC endpoint. If both an Archive and an RPC endpoint are provided, the processor will use the Archive until it reaches the highest block available there, then index the remaining blocks using the RPC endpoint. This allows squids to combine low sync times with near real-time chain data access. It is, however, possible to use just the RPC endpoint.
 
+RPC ingestion can create a heavy load on node endpoints. With Archives the load is typically short and the total number of requests is low, but their frequency may be sufficient to trigger http 429 responses. Use private endpoints and rate limit your requests with the [`rateLimit` chain source option](../setup/general/#set-data-source).
+
 ## What's next?
 
 - Move forward to the [`SubstrateBatchProcessor` configuration page](../setup)

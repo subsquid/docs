@@ -216,7 +216,10 @@ let processor = new EvmBatchProcessor()
     .setBlockRange({from: 12369621})
     .setDataSource({
         archive: lookupArchive('eth-mainnet'),
-        chain: process.env.ETH_CHAIN_NODE,
+        chain: {
+            url: process.env.ETH_CHAIN_NODE,
+            rateLimit: 10
+        }
     })
     .setFinalityConfirmation(75)
     .addLog({

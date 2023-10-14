@@ -216,7 +216,10 @@ const database = new TypeormDatabase();
 const processor = new SubstrateBatchProcessor()
   .setBlockRange({ from: 442693 })
   .setDataSource({
-    chain: process.env.RPC_ENDPOINT,
+    chain: {
+      url: process.env.RPC_ENDPOINT,
+      rateLimit: 10,
+    },
     archive: lookupArchive("astar"),
   })
   .setTypesBundle("astar")
