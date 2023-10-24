@@ -53,7 +53,7 @@ Replace the old archive URL or lookup command with an [ArrowSquid archive lookup
 +    }
    })
 ```
-We recommend using a private RPC endpoint for the best performance, e.g. from [Dwellir](https://www.dwellir.com). For squids deployed to [Aquarium](/deploy-squid/quickstart/) you may also consider using our [RPC proxies](/deploy-squid/rpc-proxy).
+We recommend using a private RPC endpoint for the best performance, e.g. from [Dwellir](https://www.dwellir.com). For squids deployed to [Subsquid Cloud](/deploy-squid/quickstart/) you may also consider using our [RPC proxies](/deploy-squid/rpc-proxy).
 
 Your squid will work with just an RPC endpoint, but it will sync significantly slower. With an archive the processor will only use RPC to retrieve metadata **and** sync the few most recent blocks not yet made available by the archive; without it it will retrieve all data from the endpoint.
 

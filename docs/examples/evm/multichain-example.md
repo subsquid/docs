@@ -43,7 +43,7 @@ sqd serve
 
 ## Deploying
 
-The example contains a valid deployment manifest and can be used to check how Aquarium hosts multichain squids. Set the squid name to something unique at `squid.yaml`, [authenticate your Squid CLI](/squid-cli/installation/#2-authenticate-squid-cli) and run
+The example contains a valid deployment manifest and can be used to check how Subsquid Cloud hosts multichain squids. Set the squid name to something unique at `squid.yaml`, [authenticate your Squid CLI](/squid-cli/installation/#2-authenticate-squid-cli) and run
 ```bash
 sqd deploy .
 ```

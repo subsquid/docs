@@ -8,7 +8,7 @@ sidebar_position: 120
 
 A data source for squids that stores the historical block data in a normalized way. See [Archives](/archives).
 
-### Aquarium
+### Cloud (former Aquarium)
 
 A cloud service to deploy and run squids in a serverless fashion maintained by Subsquid Labs GmbH. See [Deploy a Squid](/deploy-squid)
 

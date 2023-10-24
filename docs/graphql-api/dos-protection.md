@@ -10,7 +10,7 @@ description: Enforce limits in the queries
 
 The squid [GraphQL API server](https://github.com/subsquid/squid-sdk/tree/master/graphql/graphql-server) accepts the following optional start arguments to fend off heavy queries. 
 
-To enable the protection for squids deployed to Aquarium, add the corresponding flags the GraphQL `api` service command in the [deployment manifest](/deploy-squid/deploy-manifest/#deploy). Here is an example:
+To enable the protection for squids deployed to Subsquid Cloud, add the corresponding flags the GraphQL `api` service command in the [deployment manifest](/deploy-squid/deploy-manifest/#deploy). Here is an example:
 
 ```yaml title="squid.yaml"
 # ...

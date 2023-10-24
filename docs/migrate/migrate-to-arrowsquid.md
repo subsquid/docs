@@ -51,7 +51,7 @@ Replace the old archive URL or lookup command with a [`v2` archive URL for your 
    })
 +  .setFinalityConfirmation(75)
 ```
-We recommend using a private RPC endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/). For squids deployed to [Aquarium](/deploy-squid/quickstart/) you may also consider using our [RPC proxies](/deploy-squid/rpc-proxy) (currently experimental).
+We recommend using a private RPC endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/). For squids deployed to [Subsquid Cloud](/deploy-squid/quickstart/) you may also consider using our [RPC proxies](/deploy-squid/rpc-proxy) (currently experimental).
 
 [//]: # (!!!! remove the experimental notice once RPC proxy is stable)
 

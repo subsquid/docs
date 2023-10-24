@@ -88,4 +88,4 @@ query MyQuery {
 - Explore native support for [Frontier EVM](/substrate-indexing/specialized/evm) on Astar and Shiden
 - Explore native support for [ink! contracts](/substrate-indexing/specialized/wasm)
 - Explore native support for [Gear contracts](/substrate-indexing/specialized/gear)
-- [Deploy](/deploy-squid) the squid to the Aquarium hosted service
+- [Deploy](/deploy-squid) the squid to Subsquid Cloud

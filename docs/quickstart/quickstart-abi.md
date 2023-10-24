@@ -122,7 +122,7 @@ query MyQuery {
 
 ## What's next?
 
-- [Deploy the squid to the Aquarium hosted service](/deploy-squid)
+- [Deploy the squid to Subsquid Cloud](/deploy-squid)
 - [Migrate your existing subgraphs to Subsquid](/migrate/migrate-subgraph)
 - [Explore examples of squids for EVM networks, from simple transfer indexing to DEX analytics](/examples/evm)
 - [Develop a custom EVM squid from scratch](/quickstart/quickstart-ethereum)

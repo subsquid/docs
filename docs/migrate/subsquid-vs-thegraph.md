@@ -35,7 +35,7 @@ description: Comparison of Subsquid and The Graph
 
 (*) to be supported by the Squid SDK in Q1 2023
 
-(**) for the Aquarium Premium plan 
+(**) for the Subsquid Cloud Premium plan 
 
 ## Architecture difference
 

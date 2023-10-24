@@ -48,10 +48,10 @@ since all processor context loggers inherit the processor-level namespace `sqd:p
 
 ## Accessing logs of a deployed Squid
 
-Processor logs can be inspected once the squid is deployed to Aquarium:
+Processor logs can be inspected once the squid is deployed to Cloud:
 
 ```bash
 sqd logs <name>@<version> -f --level <level>
 ```
 
-See [CLI Reference](/squid-cli/logs) or `sqd logs --help` for a full list of log options supported by Aquarium.
+See [CLI Reference](/squid-cli/logs) or `sqd logs --help` for a full list of log options supported by Subsquid Cloud.

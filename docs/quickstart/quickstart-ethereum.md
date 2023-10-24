@@ -93,4 +93,4 @@ query MyQuery {
 - Explore examples of squids for EVM networks, from [simple transfer indexing to DEX analytics](/examples/evm)
 - Dive deeper into [`EvmBatchProcessor`](/evm-indexing)
 - Explore how to enhance the GraphQL API with [custom SQL, caching and limits](/graphql-api)
-- [Deploy](/deploy-squid) the squid to the Aquarium hosted service
+- [Deploy](/deploy-squid) the squid to Subsquid Cloud

@@ -43,7 +43,7 @@ Squid generation procedure is very similar for both contract types. Here are the
    - for PostgreSQL-based squids you can also connect to the database with `PGPASSWORD=postgres psql -U postgres -p 23798 -h localhost squid` and take a look at the contents;
    - if it is storing data to a file-based dataset, [wait for the first filesystem sync](/store/file-store/overview/#filesystem-syncs-and-dataset-partitioning) then verify that all the expected files are present and contain the expected data.
 
-At this point your squid is ready. You can run it on your own infrastructure or [deploy it to Aquarium](/deploy-squid/).
+At this point your squid is ready. You can run it on your own infrastructure or [deploy it to Subsquid Cloud](/deploy-squid/).
 
 ## Configuration
 
@@ -75,7 +75,7 @@ Currently the only [file-based data target type](/store/file-store/) supported b
 
 Support for `file-store` is in alpha stage. Known caveats:
 
-* If a S3 URL is used, then the S3 region, endpoint and user credentials will be [taken from the default environment variables](/store/file-store/s3-dest/). Fill your `.env` file and/or set your [Aquarium secrets](/deploy-squid/env-variables/) accordingly.
+* If a S3 URL is used, then the S3 region, endpoint and user credentials will be [taken from the default environment variables](/store/file-store/s3-dest/). Fill your `.env` file and/or set your [Subsquid Cloud secrets](/deploy-squid/env-variables/) accordingly.
 
 * Unlike their PostgreSQL-powered equivalents, the squids that use `file-store` may not write their data often. You may have to configure the `chunkSizeMb` and `syncIntervalBlocks` parameters of the `Database` class manually to strike an acceptable balance between the lag of the indexed data and the number of files in the resulting dataset. See [Filesystem store overview](/store/file-store/overview/) for details.
 

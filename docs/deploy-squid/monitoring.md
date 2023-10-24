@@ -23,8 +23,8 @@ Inspect the metrics endpoint for a full list.
 
 ## Postgres metrics
 
-Postgres metrics will be available in the future Aquarium releases. 
+Postgres metrics will be available in the future Subsquid Cloud releases. 
 
 ## API metrics
 
-API metrics will be available in the future Aquarium releases. 
+API metrics will be available in the future Subsquid Cloud releases. 

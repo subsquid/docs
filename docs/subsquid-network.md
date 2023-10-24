@@ -93,7 +93,7 @@ Learn about the differences and see a full feature matrix [here](https://docs.su
 
 Subsquid Network offers the data for free to consumers while charging fixed subscription fees to chains from which the data is provided. 
 
-Of course, we can’t make the cost of hosting indexers or GraphQL free-of-charge. We invite you to consider the Aquarium’s simple subscription model, as well as to shop around and find the best hosting infrastructure for your project. 
+Of course, we can’t make the cost of hosting indexers or GraphQL free-of-charge. We invite you to consider the Subsquid Cloud’s simple subscription model, as well as to shop around and find the best hosting infrastructure for your project. 
 
 ### How does Subsquid ensure the security and privacy of the data accessed through the network?
 
