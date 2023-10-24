@@ -1,12 +1,12 @@
 ---
 sidebar_position: 99
-title: Aquarium pricing
-description: Aquarium service plans 
+title: Subsquid Cloud pricing
+description: Pay-as-you-go prices and service tiers
 ---
 
-# Aquarium Tiers
+# Subsquid Cloud tiers
 
-The Aquarium hosted service offers three tiers: Free (Development) tier, Premium Pay-as-you-go and the Enterprise tier. For production-ready squids, one should upgrade to the Premium tier or to an individual Enterprise deal. 
+Subsquid Cloud offers three tiers: Free (Development) tier, Premium Pay-as-you-go and the Enterprise tier. For production-ready squids, one should upgrade to the Premium tier or to an individual Enterprise deal.
 
 - The Develpment tier includes free of charge:
   -  Unmetered number of GraphQL API requests   
@@ -81,7 +81,7 @@ We align with the [SLAs of the Google Cloud Platform](https://cloud.google.com/c
 | 90.00% - < 95.00%       | 25%         |
 | < 90.00%          | 100%       |
 
-Note that the SLA applies only to the provisioning the Aquarium services (API availability, provisioning of compute resources) and DOES NOT apply to client code. In particular, if a squid is stuck due to a bug or an upstream Archive/RPC issue, the SLA discounts don't apply. Similarly, the client is responsible for provisioning compute profiles adequate to the expected traffic.
+Note that the SLA applies only to the provisioning the Subsquid Cloud services (API availability, provisioning of compute resources) and DOES NOT apply to client code. In particular, if a squid is stuck due to a bug or an upstream Archive/RPC issue, the SLA discounts don't apply. Similarly, the client is responsible for provisioning compute profiles adequate to the expected traffic.
 
 For Enterprise plan customers, individual SLA terms may be negotiated. 
 
@@ -150,7 +150,7 @@ A squid writing parquet files to an external s3 bucket. No database or API is pr
 ## Transition to the Paid Plans
 
 The transition to the paid plans will take place in September 2023 to enable smooth onboarding. 
-The existing Aquarium users will be able to see the usage and the provisional billing for September, with a full rebate of the total invoice. 
+The existing Cloud users will be able to see the usage and the provisional billing for September, with a full rebate of the total invoice. 
 The grace period ends on October 1st, 2023 with the payment rails enabled in the Aquairum app.
 
 ## FAQ

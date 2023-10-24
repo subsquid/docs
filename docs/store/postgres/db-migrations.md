@@ -95,14 +95,14 @@ Inspect the new migration in `db/migrations` and apply it:
 sqd migration:apply
 ```
 
-**5. Update the squid in Aquairum**
+**5. Update the squid in Cloud**
 
-If the squid is deployed to Aquarium, [update the deployed version](/squid-cli/deploy).
+If the squid is deployed to Subsquid Cloud, [update the deployed version](/squid-cli/deploy).
 
-## Aquarium deployment
+## Subsquid Cloud deployment
 
-By default, the TypeORM migrations are automatically applied by Aquarium with the command `npx squid-typeorm-migration apply` before the squid services are started. For custom behavior, one can override the migration script using the optional `migrate:` section of [squid.yaml](/deploy-squid/deploy-manifest#deploy).
+By default, the TypeORM migrations are automatically applied by Cloud with the command `npx squid-typeorm-migration apply` before the squid services are started. For custom behavior, one can override the migration script using the optional `migrate:` section of [squid.yaml](/deploy-squid/deploy-manifest#deploy).
 
 :::info
-To force Aquarium to reset the database and start with a blank state after a schema change, use the `--hard-reset` flag of [sqd deploy](/squid-cli/deploy).
+To force Cloud to reset the database and start with a blank state after a schema change, use the `--hard-reset` flag of [sqd deploy](/squid-cli/deploy).
 :::

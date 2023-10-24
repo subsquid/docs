@@ -6,9 +6,7 @@ description: >-
 
 # Query the contract state
 
-In order to make on-chain calls, one must set up a Websocket JSON-RPC endpoint using [setDataSource()](/evm-indexing/configuration/initialization). We recommend using a private endpoint from e.g. [BlastAPI](https://blastapi.io/) or the Aquarium's [RPC proxy](/deploy-squid/rpc-proxy) service (currently experimental), and set it via an environment variable:
-
-[//]: # (???? Remove the experimental notice above when/if the proxies are stable)
+In order to make on-chain calls, one must set up a Websocket JSON-RPC endpoint using [setDataSource()](/evm-indexing/configuration/initialization). We recommend using a private endpoint from e.g. [BlastAPI](https://blastapi.io/) or the Subsquid Cloud's [RPC proxy](/deploy-squid/rpc-proxy) service, and set it via an environment variable:
 
 ```ts
 //... 
@@ -18,7 +16,10 @@ In order to make on-chain calls, one must set up a Websocket JSON-RPC endpoint u
   })
 //...
 ```
-For local runs, simply update the local `.env` file and when the squid deployed to Aquarium define at as a [secret](/deploy-squid/env-variables) on your Aquairum account (or, if you are using the RPC proxy service, leave it to the Aquarium to define it for you).
+You can define the `RPC_ETH_HTTP` in three ways:
+ - for local runs, simply update the local `.env` file;
+ - for squids deployed to Cloud define it as a [secret](/deploy-squid/env-variables) on your Cloud account;
+ - if you are using the [RPC proxy service](/deploy-squid/rpc-proxy), leave it to the Cloud to define it for you.
 
 ## `Contract` class
 

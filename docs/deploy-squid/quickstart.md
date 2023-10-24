@@ -5,7 +5,7 @@ description: Quickstart on how to deploy a squid
 
 # Quickstart
 
-This section goes through deploying a squid to [Aquarium](https://app.subsquid.io) -- a cloud API service provided by Subsquid.
+This section goes through deploying a squid to [Subsquid Cloud](https://app.subsquid.io).
 The deployment is managed by the file `squid.yaml` in the root folder of the squid and defines:
 
 - the squid name and version
@@ -53,7 +53,7 @@ To inspect the squid logs run
 sqd logs my-new-squid@v0 -f 
 ```
 
-or navigate to the squid page in Aquarium. See the [logging page](/deploy-squid/logging) for more details on how to inspect logs.
+or navigate to the squid page in Cloud. See the [logging page](/deploy-squid/logging) for more details on how to inspect logs.
 
 ## What's next?
 

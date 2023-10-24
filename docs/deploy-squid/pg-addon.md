@@ -25,7 +25,7 @@ The add=on supports additional PG config options:
 Direct access is only avalilable for squids deployed with `squid.yaml`. For migrating from the old v0 flow, refer to the [migration page](/deploy-squid/migration).
 :::
 
-Aquarium enables direct read access to the deployed PG instances. Launch the [squid explorer](/squid-cli/explorer) with
+Subsquid Cloud enables direct read access to the deployed PG instances. Launch the [squid explorer](/squid-cli/explorer) with
 ```
 sqd explorer
 ```

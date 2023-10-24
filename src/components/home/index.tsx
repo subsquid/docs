@@ -57,7 +57,7 @@ export default function Home(): JSX.Element {
             path="/deploy-squid"
             image="/img/desktop-computer-emoji.png"
             title="Deploy a Squid">
-            Deploy your squid to the Aquarium (free of charge)
+            Deploy your squid to the Subsquid Cloud (free of charge)
           </ContentFeature>
 
           <ContentFeature
@@ -174,7 +174,7 @@ export default function Home(): JSX.Element {
                 <p className="text-fg-base--muted font-light">
                     The latency of serving app data with a squid is much lower compared to direct node access via gRPC. This means significantly better UX for your application. The flexibility of
                     the Subsquid SDK gives developers the full power to access and manipulate historical on-chain data and build complex and responsive dApps with familiar tools.
-                    Finally, by using the Aquarium cloud service, developers no longer have to care about indexing infrastructure maintenance costs and hassle.
+                    Finally, by using the Subsquid Cloud, developers no longer have to care about indexing infrastructure maintenance costs and hassle.
                 </p>
             </div>
 
@@ -183,7 +183,7 @@ export default function Home(): JSX.Element {
                 <p className="text-fg-base--muted font-light">
                     The Squid SDK is open source. Data access to the Subsquid Network (and Archives) is free as it is incentivized by the networks, thus 
                     for self-hosted or locally ran squids Subsquid services are free of charge. 
-                    For managed squids we offer free and Premium plans. See <a href="/deploy-squid/pricing">Aquarium Pricing</a>. 
+                    For managed squids we offer free and Premium plans. See <a href="/deploy-squid/pricing">Cloud pricing</a>. 
                 </p>
             </div>
 
@@ -196,16 +196,16 @@ export default function Home(): JSX.Element {
             </div>
 
             <div className="relative border border-border-color-base--default rounded-lg p-6 mb-8">
-                <h4 className="mb-4 body--m">What is Aquarium?</h4>
+                <h4 className="mb-4 body--m">What is Subsquid Cloud?</h4>
                 <p className="text-fg-base--muted font-light">
                     <a
                         href="https://app.subsquid.io/"
                         target="_blank"
-                        className="link">Aquarium</a> is a cloud service for hosting squids. This service is managed by Subsquid Labs.
+                        className="link">Subsquid Cloud</a> is a service for hosting squids. This service is managed by Subsquid Labs.
                     &nbsp;
                     <a href="/squid-cli" className="link">Subsquid's CLI</a> provides a convenient way to
                     &nbsp;
-                    <a href="/deploy-squid/quickstart" className="link">deploy squids</a> to the Aquarium and manage them once they are hosted.
+                    <a href="/deploy-squid/quickstart" className="link">deploy squids</a> to Cloud and manage them once they are hosted.
                 </p>
             </div>
 

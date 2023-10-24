@@ -35,7 +35,7 @@ A `ws` endpoint will be available the usual `localhost:<GQL_PORT>/graphql` URL.
 
 ## Aquairum deployments
 
-For Aquarium deployments, update the `api` command in the [deployment manifest](/deploy-squid/deploy-manifest/#deploy):
+For Subsquid Cloud deployments, update the `api` command in the [deployment manifest](/deploy-squid/deploy-manifest/#deploy):
 
 ```yaml title="squid.yaml"
 # ...

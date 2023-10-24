@@ -19,7 +19,7 @@ At the same time, concepts of the [schema file](/store/postgres/schema-file), [c
 There are some known limitations:
 - Many-to-Many entity relations should be [modeled explicitly](/store/postgres/schema-file/entity-relations/#many-to-many-relations) as two many-to-one relations
 
-On top of the features provided by subgraphs, the Squid SDK and the Aquarium cloud service offers extra flexibility in developing tailored APIs and ETLs for on-chain data:
+On top of the features provided by subgraphs, Squid SDK and Subsquid Cloud offer extra flexibility in developing tailored APIs and ETLs for on-chain data:
 
 - Full control over the target database (Postgres), including custom migrations and ad-hoc queries in the handler
 - Custom target databases and data formats (e.g. CSV)
@@ -224,6 +224,6 @@ and inspect the auto-generated GraphQL API using an interactive playground at [h
 ## What's Next?
 
 - Have a closer look at [`EvmBatchProcessor`](/evm-indexing)
-- Learn how to [deploy a squid to the Aquarium hosted service](/deploy-squid) for free
+- Learn how to [deploy a squid to Subsquid Cloud](/deploy-squid) for free
 - Learn how to [index and query the contract state](/evm-indexing/query-state)
 - Inspect a more complex [Uniswap V3 squid](https://github.com/dariaag/uniswap-squid-arrow) which tracks Uniswap V3 trading data. It was migrated from the [Uniswap V3 subgraph](https://github.com/Uniswap/v3-subgraph). It takes only a few hours to sync from scratch on a local machine.

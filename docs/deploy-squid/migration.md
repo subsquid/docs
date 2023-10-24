@@ -48,7 +48,7 @@ deploy:
 
 ## 2. (Optional) Add secrets and env variables
 
-If the squid expects additional environment variables to be set by the Aquarium via [secrets](/deploy-squid/env-variables/#secrets) or at the [deployment time](/deploy-squid/env-variables/#environment-variables-1) add them in the `deploy` section:
+If the squid expects additional environment variables to be set by the Cloud via [secrets](/deploy-squid/env-variables/#secrets) or at the [deployment time](/deploy-squid/env-variables/#environment-variables-1) add them in the `deploy` section:
 
 ```yml
 #...
@@ -64,7 +64,7 @@ You may want to add additional flags to `api.cmd`, e.g. to enable [caching](/gra
 
 ## 4. (Optional) Add `scale:` options
 
-Aquarium Premium users may request additional storage for the Postgres database and multiple gateway replicas for the `api` by adding the `scale` section to the manifest:
+Subsquid Cloud Premium users may request additional storage for the Postgres database and multiple gateway replicas for the `api` by adding the `scale` section to the manifest:
 
 ```yml
 scale:
@@ -79,7 +79,7 @@ Apply for a Premium account by filling this [form](https://t.ly/Uh_S).
 
 ## 5. Create or update the deployment
 
-If there is no version `v1` deployed to Aquarium, simply deploy with
+If there is no version `v1` deployed to Cloud, simply deploy with
 ```bash
 sqd deploy .
 ```

@@ -6,7 +6,7 @@ description: A reference for the squid deployment manifest
 
 # Deployment manifest
 
-The deployment manifest is named `squid.yaml` by convention. The manifest defines how the squid should be built, customized and scaled during the deployment to Aquarium. It is used together with [`sqd deploy`](/squid-cli/deploy) to deploy or update an existing squid version.
+The deployment manifest is named `squid.yaml` by convention. The manifest defines how the squid should be built, customized and scaled during the deployment to Subsquid Cloud. It is used together with [`sqd deploy`](/squid-cli/deploy) to deploy or update an existing squid version.
 
 With the introduction of the deployment manifest the add-ons (`postgres`) and the API services (`api`) become optional. This allows flexible deployment configuration for analytic use-cases (e.g. transform and write to s3 or BigQuery).
 
@@ -36,7 +36,7 @@ In particular, the following files and folders **must** be present in the root f
 
 The `db` and `assets` folders are added to the build context if present in the squid folder.
 
-Under the hood, Aquarium builds a Docker image and runs a docker container for each service (`api`, `processor`, `migrate`) using the same image.
+Under the hood, Cloud builds a Docker image and runs a docker container for each service (`api`, `processor`, `migrate`) using the same image.
 See [Troubleshooting](/deploy-squid/troubleshooting/#local-build) for instructions on how to build and run the Docker image locally.
 Even though the squid services (`api`, `processor`, `migrate`) use the same single container image, the exec command is different and can is defined by the `deploy:` section as explained below.
 
@@ -46,7 +46,7 @@ The `deploy` section may define:
 
 ### `secrets:`
 
-A list of secret names that must be added in the [Aquarium app](https://app.subsquid.io). If any of the secrets is not defined, the deployment will fail.
+A list of secret names that must be added in the [Cloud app](https://app.subsquid.io). If any of the secrets is not defined, the deployment will fail.
 
 ### `addons:`
 
@@ -139,7 +139,7 @@ build:
 deploy:
   addons:
     postgres: 
-  # the set of secrets that must be set and provided by Aquarium
+  # the set of secrets that must be set and provided by Cloud
   secrets:
     - ACALA_RPC_ENDPOINT
     - COINGECKO_API_KEY

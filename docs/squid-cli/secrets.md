@@ -3,17 +3,17 @@
 
 Manage account secrets
 
-The secrets are exposed as environment variables, and are accessible to all the squids deployed by the current Aquarium account.
+The secrets are exposed as environment variables, and are accessible to all the squids deployed by the current Subsquid Cloud account.
 
 * [`sqd secrets:ls`](#sqd-secretsls)
 * [`sqd secrets:rm NAME`](#sqd-secretsrm-name)
 * [`sqd secrets:set NAME VALUE`](#sqd-secretsset-name-value)
 
-All `sqd secrets` commands require specifying an [organization](/deploy-squid/organizations) with the `-o/--org` flag when invoked by accounts with more than one organization. Aquarium users with just one organization can omit this flag.
+All `sqd secrets` commands require specifying an [organization](/deploy-squid/organizations) with the `-o/--org` flag when invoked by accounts with more than one organization. Subsquid Cloud users with just one organization can omit this flag.
 
 ## `sqd secrets:ls`
 
-List all secrets for the current Aquarium account
+List all secrets for the current Subsquid Cloud account
 
 ```
 USAGE

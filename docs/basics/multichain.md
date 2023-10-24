@@ -24,7 +24,7 @@ To do this, run one [processor](/basics/squid-processor) per source network:
   Alternatively, parameterize your processor using environment variables: you can [set these on a per-processor basis](/deploy-squid/deploy-manifest/#processor) if you use a deployment manifest to run your squid.
 
 2. Arrange for running the processors alongside each other conveniently:
-   - If you are going to use [`sqd run`](/squid-cli/run) for local runs or deploy your squid to [Aquarium](/deploy-squid), list your processors at the `deploy.processor` section of your [deployment manifest](/deploy-squid/deploy-manifest/#processor):
+   - If you are going to use [`sqd run`](/squid-cli/run) for local runs or deploy your squid to [Subsquid Cloud](/deploy-squid), list your processors at the `deploy.processor` section of your [deployment manifest](/deploy-squid/deploy-manifest/#processor):
      ```yaml
      deploy:
        processor:

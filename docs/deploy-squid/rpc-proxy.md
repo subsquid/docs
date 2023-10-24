@@ -6,7 +6,7 @@ description: Built-in caching RPC endpoints
 
 # RPC proxy
 
-Since the Arrowsquid release, Aquarium provides a built-in caching RPC proxy service. Currently, it is a premium feature, with plans to make a subset of calls available to free tier users.
+Since the Arrowsquid release, Subsquid Cloud provides a built-in caching RPC proxy service. Currently, it is a premium feature, with plans to make a subset of calls available to free tier users.
 
 ## Available networks
 
@@ -101,7 +101,7 @@ scale:
 
 ## Processor configuration
 
-With the add-on successfully enabled, your squid will get a unique proxied endpoint to the requested network. Aquarium will make its URL available at the `RPC_${Upper(network)}_${Upper(protocol)}` environment variable. Assert it to avoid compilation errors. We also recommend rate limiting RPC proxy requests on the processor side to the same rate as was used in the manifest: 
+With the add-on successfully enabled, your squid will get a unique proxied endpoint to the requested network. Subsquid Cloud will make its URL available to the deployed squid at the `RPC_${Upper(network)}_${Upper(protocol)}` environment variable. Assert it to avoid compilation errors. We also recommend rate limiting RPC proxy requests on the processor side to the same rate as was used in the manifest: 
 ```ts
 import {assertNotNull} from '@subsquid/util-internal'
 

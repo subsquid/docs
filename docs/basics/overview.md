@@ -1,7 +1,7 @@
 ---
 sidebar_position: 10
 title: Subsquid overview
-description: Squid SDK, squids, Archives and Aquarium
+description: Squid SDK, squids, Archives and Cloud
 ---
 
 # Subsquid Overview
@@ -10,7 +10,7 @@ description: Squid SDK, squids, Archives and Aquarium
 
 ## What is Subsquid 
 
-Subsquid is a full-stack blockchain indexing solution which includes an open-source SDK, specialized data lakes for on-chain data (Archives) and a hosted service (Aquarium). Subsquid solves the data access problem for a wide range of online and analytical use cases, including:
+Subsquid is a full-stack blockchain indexing solution which includes an open-source SDK, specialized data lakes for on-chain data (Archives) and a hosted service (Subsquid Cloud). Subsquid solves the data access problem for a wide range of online and analytical use cases, including:
 
 - A flexible and performant backend for decentralized applications. In most cases, Subsquid can completely replace client RPC read requests with a tailored GraphQL API, significantly reducing the infrastructure costs and shortening the frontend development cycles.
 - A data pipeline for preparing, transforming and loading large volumes of on-chain data for data analysis and forensics.
@@ -26,7 +26,7 @@ Squid SDK indexing projects (or simply **squids**) are [Extract-Transform-Load-Q
 
 **Archives** are specialized data lakes optimized for extracting and filtering large volumes of raw on-chain data in batches. Until fully decentralized, Subsquid Labs maintains public Archive endpoints and offers batch access via the Squid SDK free of charge. A full list of Archive endpoints for the supported EVM and Substrate networks is available in this [repo](https://github.com/subsquid/archive-registry) and is published as a package [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) for easy access.
 
-Squids can be run locally, on-premises or deployed to the [Aquarium hosted service](/deploy-squid). 
+Squids can be run locally, on-premises or deployed to [Subsquid Cloud](/deploy-squid). 
 
 ![Subsquid ecosystem](</img/subsquid-ecosystem.png>)
 
@@ -50,9 +50,9 @@ The [Squid SDK](https://github.com/subsquid/squid-sdk) offers an extensive set o
 - [`graphql-server`](https://github.com/subsquid/squid/tree/master/graphql-server) is the backend for the GraphQL API served by the `api` service. The GraphQL schema is auto-generated from `schema.graphql`. The resulting API loosely follows the [OpenCRUD](https://www.opencrud.org/) standard and supports the most common query filters and selectors out-of-the box. See the [GraphQL API section](/graphql-api) for more details and configuration options.
 
 
-## Aquarium Hosted Service
+## Subsquid Cloud
 
-Squids can be deployed to the Subsquid cloud service, called the [Aquarium](https://app.subsquid.io), free of charge. The deployment of the squid services to the Aquarium (see below) is managed by the [`squid.yaml` manifest](/deploy-squid/deploy-manifest). Go to the [Deploy Squid](/deploy-squid) section for more information.
+Squids can be deployed to [Subsquid Cloud](https://app.subsquid.io) free of charge. The deployment of the squid services to Cloud is managed by the [`squid.yaml` manifest](/deploy-squid/deploy-manifest). Go to the [Deploy Squid](/deploy-squid) section for more information.
 
 ## What's next?
 

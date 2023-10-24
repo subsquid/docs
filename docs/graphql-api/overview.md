@@ -19,7 +19,7 @@ The `squid-graphql-server` binary supports multiple optional flags to enable cac
 
 The API server listens at port defined by `GQL_PORT` (defaults to `4350`). The database connection is configured with the env variables `DB_NAME`, `DB_USER`, `DB_PASS`, `DB_HOST`, `DB_PORT`.
 
-The GraphQL API is enabled by the `api:` service in the `deploy` section of [squid.yaml](/deploy-squid/deploy-manifest) for Aquarium deployments.
+The GraphQL API is enabled by the `api:` service in the `deploy` section of [squid.yaml](/deploy-squid/deploy-manifest) for Subsquid Cloud deployments.
 
 ## Supported Queries
 

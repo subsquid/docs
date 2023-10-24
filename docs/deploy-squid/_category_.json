@@ -7,6 +7,6 @@
     "link": {
       "type": "generated-index",
       "slug": "/deploy-squid",
-      "title": "Deploy a squid to the Aquarium hosted service"
+      "title": "Deploy a squid to Subsquid Cloud"
     }
 }
