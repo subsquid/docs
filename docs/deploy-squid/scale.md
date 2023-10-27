@@ -14,8 +14,8 @@ The manifest supports the following scaling options:
 
 Default: `dedicated: false`. 
 
-By default, the service deployments are collocated and so the maximal allowed resource allocation is not guaranteed. With the `dedicated: true` option, the resources are reserved in advance. See the profile specifications below for details. 
-We recommend setting `dedicated: true` for squids running in production.
+By default, the service deployments are _collocated_ - that is, share resources with other deployments - and so the maximal allowed resource allocation is not guaranteed. With the `dedicated: true` option, the resources are reserved in advance. See the profile specifications below for details. 
+We recommend setting `dedicated: true` for all squids running in production.
 
 ## `addons:`
 

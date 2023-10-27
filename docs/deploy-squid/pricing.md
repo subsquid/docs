@@ -8,17 +8,17 @@ description: Pay-as-you-go prices and service tiers
 
 Subsquid Cloud offers three tiers: Free (Development) tier, Premium Pay-as-you-go and the Enterprise tier. For production-ready squids, one should upgrade to the Premium tier or to an individual Enterprise deal.
 
-- The Develpment tier includes free of charge:
+- The Develpment tier is available free of charge. It includes:
   -  Unmetered number of GraphQL API requests   
-  -  One collocated squid (API + processor + Postgres)
+  -  One [collocated](/deploy-squid/scale/#dedicated) squid (API + processor + Postgres)
   -  10GB of database storage
-  -  500k monthly RPC requests
+  -  500k monthly RPC requests to the [RPC proxy](/deploy-squid/rpc-proxy) service (not yet available on the Development tier, ETA mid-November 2023)
   -  Community support
 - The Premium Pay-as-you-go tier enables:
   - Unmetered number of GraphQL API requests     
-  - Unlimited number of pay-as-you-go dedicated squids 
-  - Unlimited number of pay-as-you-go collocated squids
-  - free 2M RPC requests monthly + just `$2/1M` afterwards
+  - Unlimited number of pay-as-you-go [dedicated](/deploy-squid/scale/#dedicated) squids 
+  - Unlimited number of pay-as-you-go [collocated](/deploy-squid/scale/#dedicated) squids
+  - free 2M [RPC proxy](/deploy-squid/rpc-proxy) requests monthly + just `$2/1M` afterwards
   - Direct support in a personal Telegram chat
 - The Enterprise plan includes individual SLAs and discounts. [Book a demo](https://calendly.com/d/yzj-48g-bf7/subsquid-demo) to get a personal quote.
 
@@ -28,7 +28,7 @@ Data egress is not billed.
 ## Pay-as-you-go prices
 
 The pricing is based solely on the resources consumed by the squid, as the archive data is provided free of charge. 
-The total squid price is the total of compute and database storage resources.
+The total squid price is the sum of compute and database storage prices.
 
 ### Storage
 
@@ -81,7 +81,7 @@ We align with the [SLAs of the Google Cloud Platform](https://cloud.google.com/c
 | 90.00% - < 95.00%       | 25%         |
 | < 90.00%          | 100%       |
 
-Note that the SLA applies only to the provisioning the Subsquid Cloud services (API availability, provisioning of compute resources) and DOES NOT apply to client code. In particular, if a squid is stuck due to a bug or an upstream Archive/RPC issue, the SLA discounts don't apply. Similarly, the client is responsible for provisioning compute profiles adequate to the expected traffic.
+Note that the SLA applies only to the provisioning of the Subsquid Cloud services (API availability, provisioning of compute resources) and DOES NOT apply to client code. In particular, if a squid is stuck due to a bug or an upstream Archive/RPC issue, the SLA discounts don't apply. Similarly, the client is responsible for provisioning compute profiles adequate to the expected traffic.
 
 For Enterprise plan customers, individual SLA terms may be negotiated. 
 
@@ -151,7 +151,7 @@ A squid writing parquet files to an external s3 bucket. No database or API is pr
 
 The transition to the paid plans will take place in September 2023 to enable smooth onboarding. 
 The existing Cloud users will be able to see the usage and the provisional billing for September, with a full rebate of the total invoice. 
-The grace period ends on October 1st, 2023 with the payment rails enabled in the Aquairum app.
+The grace period ends on October 1st, 2023 with the payment rails enabled in the Subsquid Cloud app.
 
 ## FAQ
 
