@@ -10,7 +10,7 @@ The access to Archives is free. Subsquid Cloud offers a free plan and a premium 
 
 ### Do you have a roadmap ?
 
-Yes, see the issue in [the official repo](https://github.com/subsquid/squid-sdk/issues/70)
+Yes, see the issue in [the official repo](https://github.com/subsquid/squid-sdk/issues/70).
 
 ### How does Subsquid handle unfinalized blocks?
 
