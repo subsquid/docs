@@ -12,7 +12,7 @@ Subsquid Cloud offers three tiers: Free (Development) tier, Premium Pay-as-you-g
   -  Unmetered number of GraphQL API requests   
   -  One [collocated](/deploy-squid/scale/#dedicated) squid (API + processor + Postgres)
   -  10GB of database storage
-  -  500k monthly RPC requests to the [RPC proxy](/deploy-squid/rpc-proxy) service (not yet available on the Development tier, ETA mid-November 2023)
+  -  500k monthly RPC requests to the [RPC proxy](/deploy-squid/rpc-proxy) service
   -  Community support
 - The Premium Pay-as-you-go tier enables:
   - Unmetered number of GraphQL API requests     
