@@ -6,10 +6,6 @@ description: A step-by-step migration guide for Substrate
 
 # Migrate to ArrowSquid (Substrate)
 
-:::warning
-ArrowSquid for Substrate is currently in beta.
-:::
-
 This is a Substrate guide. EVM guide is available [here](/migrate/migrate-to-arrowsquid).
 
 ArrowSquid refers to `@subsquid/substrate-processor` versions `3.x` and above. It is not compatible with the FireSquid archive endpoints. The new `v2` archives are currently being rolled out (see the [Supported networks](/substrate-indexing/supported-networks) page).
