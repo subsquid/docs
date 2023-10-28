@@ -23,8 +23,9 @@ Other new features include the new streamlined processor configuration interface
 [//]: # (!!!! add any new examples below)
 
 End-to-end Substrate ArrowSquid examples:
- - [general Substrate indexing](https://github.com/subsquid-labs/squid-substrate-template/tree/arrowsquid) (note the `arrowsquid` branch);
- - [working with Frontier EVM pallet data](https://github.com/subsquid/squid-sdk/tree/master/test/astar-erc20).
+ - [general Substrate indexing](https://github.com/subsquid-labs/squid-substrate-template);
+ - [indexing an Ink! contract](https://github.com/subsquid-labs/squid-ink-template/);
+ - [working with Frontier EVM pallet data](https://github.com/subsquid-labs/squid-frontier-evm-template).
 
 Here is a step-by-step guide for migrating a squid built with an older SDK version to the post-ArrowSquid tooling.
 
