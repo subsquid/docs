@@ -29,10 +29,10 @@ Here is a step-by-step guide for migrating a squid built with an older SDK versi
 
 Update all packages affected by the update:
 ```bash
-npm i @subsquid/substrate-processor@next @subsquid/typeorm-store@latest
+npm i @subsquid/substrate-processor@latest @subsquid/typeorm-store@latest
 ```
 ```bash
-npm i --save-dev @subsquid/substrate-typegen@next
+npm i --save-dev @subsquid/substrate-typegen@latest
 ```
 We recommend that you also have `@subsquid/archive-registry` installed. If your squid uses [`file-store`](/store/file-store), please update any related packages to the `@latest` version.
 
@@ -236,12 +236,37 @@ See [Block data for Substrate](/substrate-indexing/context-interfaces) for the d
 
 ## Step 6
 
-If you used an Archive URL as `"specVersions"` at `typegen.json`, replace it with an URL of our new metadata service, e.g. like this
-```diff title=typegen.json
--  "specVersions": "https://kusama.archive.subsquid.io/graphql",
-+  "specVersions": "https://v2.archive.subsquid.io/metadata/kusama",
+Rewrite your `typegen.json` in the new style. Here is an example:
+```json
+{
+  "outDir": "src/types",
+  "specVersions": "https://v2.archive.subsquid.io/metadata/kusama",
+  "pallets": {
+    "Balances": {
+      "events": [
+        "Transfer"
+      ],
+      "calls": [],
+      "storage": [],
+      "constants": []
+    }
+  }
+}
 ```
-Regenerate all wrapper classes with `sqd typegen` or `npx squid-substrate-typegen typegen.json`, then follow the [Substrate typegen documentation page](/substrate-indexing/squid-substrate-typegen) to update your data decoding code. If you used any storage calls, consult [this documentation page](/substrate-indexing/storage-state-calls) for guidance.
+Note the changes:
+1. Archive URL as `"specVersions"` is replaced with an URL of our new metadata service (`"https://v2.archive.subsquid.io/metadata/kusama"`)
+2. Requests for data wrappers are now made on a per-pallet basis.
+
+Check out the updated [Substrate typegen documentation page](/substrate-indexing/squid-substrate-typegen). If you used any storage calls, consult [this documentation page](/substrate-indexing/storage-state-calls) for guidance.
+
+Once you're done migrating `typegen.json`, regenerate the wrapper classes with
+```bash
+sqd typegen
+```
+or equivalently
+```bash
+npx squid-substrate-typegen typegen.json
+```
 
 ## Step 7
 
