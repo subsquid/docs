@@ -1,17 +1,39 @@
 ---
-sidebar_position: 85
+sidebar_position: 15
 title: Organizations
 description: |- 
-  Group your squids
+  Grouping squids
 ---
 
 # Organizations
 
-**Available since `@subsquid/cli@2.4.0`**
+All squids within Subsquid Cloud are grouped into *organizations*. This additional layer of hierarchy enables team access and per-team billing. It also prevents unnecessary data sharing, as [environment variables](../env-variables) are separate between organizations.
 
-Squids within each Cloud account are grouped into *organizations*. You will have to create one when you first log into the service, then you may choose to add more. Besides simply organizing your workspace, this additional layer of hierarchy enables you to prevent some unnecessary data sharing, as [environment variables](../env-variables) are kept separate between organization.
+To create an organization, click on the organizations dropdown menu in the upper left corner of the [Cloud homepage](https://app.subsquid.io/) and select "Create new organization".
 
-When your account has more than one organization, it is necessary to specify one when [listing](/squid-cli/ls), [exploring](/squid-cli/explorer) or [deploying](/squid-cli/deploy) (with some exceptions) your squids, as well as when [setting environment variables/secrets](/squid-cli/secrets). Do it with the `--org/-o` flag:
+![Creation of an organization](./create-an-organization.png)
+
+## Playgrounds
+
+A playground organization is created for each account on its first login. There, you can deploy one squid for development or prototyping, free of charge.
+
+Playground squids cannot be used in production, as they are [collocated](/deploy-squid/scale/#dedicated) and run on [spot VMs](https://cloud.google.com/spot-vms). Expect 3-5 minutes of downtime once every few days. Other limitations include:
+ - 10 GB of database storage;
+ - 500k monthly requests to the [RPC proxy](/deploy-squid/rpc-proxy) service.
+
+Unlike other organizations, playgrounds cannot be shared or billed. 
+
+## Draft organizations
+
+Freshly created organizations are marked as drafts until [upgraded to Professional status](../pricing/#upgrading-to-professional). It is not possible to deploy squids to draft organizations, but you can invite other users into them and set [environment variables](../env-variables).
+
+## Professional organizations
+
+Once an organization is [upgraded](../pricing/#upgrading-to-professional) you can deploy as many squids as you requre. [`scale:` section](/deploy-squid/scale) is now unlocked: use it to request any resources suitable for your use case. Your organization will be billed according to our [pricing schedule](/deploy-squid/pricing).
+
+## Working with organizations
+
+When your account has access to more than one organization, it is necessary to specify one when [listing](/squid-cli/ls), [exploring](/squid-cli/explorer) or [deploying](/squid-cli/deploy) (with some exceptions) your squids, as well as when [setting environment variables/secrets](/squid-cli/secrets). Do it with the `--org/-o` flag:
 
 ```bash
 sqd secrets ls -o my-organization
