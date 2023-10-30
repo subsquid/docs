@@ -1,34 +1,37 @@
 ---
 sidebar_position: 99
-title: Subsquid Cloud pricing
-description: Pay-as-you-go prices and service tiers
+title: Pricing
+description: Subscription types and pay-as-you-go prices
 ---
 
-# Subsquid Cloud tiers
+# Subsquid Cloud Pricing
 
-Subsquid Cloud offers three tiers: Free (Development) tier, Premium Pay-as-you-go and the Enterprise tier. For production-ready squids, one should upgrade to the Premium tier or to an individual Enterprise deal.
+## Upgrading to Professional
 
-- The Develpment tier is available free of charge. It includes:
-  -  Unmetered number of GraphQL API requests   
-  -  One [collocated](/deploy-squid/scale/#dedicated) squid (API + processor + Postgres)
-  -  10GB of database storage
-  -  500k monthly RPC requests to the [RPC proxy](/deploy-squid/rpc-proxy) service
-  -  Community support
-- The Premium Pay-as-you-go tier enables:
-  - Unmetered number of GraphQL API requests     
-  - Unlimited number of pay-as-you-go [dedicated](/deploy-squid/scale/#dedicated) squids 
-  - Unlimited number of pay-as-you-go [collocated](/deploy-squid/scale/#dedicated) squids
-  - free 2M [RPC proxy](/deploy-squid/rpc-proxy) requests monthly + just `$2/1M` afterwards
-  - Direct support in a personal Telegram chat
-- The Enterprise plan includes individual SLAs and discounts. [Book a demo](https://calendly.com/d/yzj-48g-bf7/subsquid-demo) to get a personal quote.
+Subsquid bills [organizations](/deploy-squid/organizations) for the resources used by their squids. To deploy production-ready squids and configure their resources, the organization must have a [Professional status](../organizations/#professional-organizations).
 
-Switching between the tiers is free of charge. 
-Data egress is not billed.
+The status is given to all organizations with an valid payment method. Add it by visiting [the billing page](https://app.subsquid.io/billing), selecting your organization in the drop down menu in the top left corner and following the upgrade instructions:
+
+![Upgrading an organization](./billing-setup.png)
+
+The upgrade enables:
+
+ - unmetered GraphQL API requests
+ - deploying any number of pay-as-you-go [dedicated](/deploy-squid/scale/#dedicated) squids
+ - deploying any number of pay-as-you-go [collocated](/deploy-squid/scale/#dedicated) squids
+ - free 2M [RPC proxy](/deploy-squid/rpc-proxy) requests monthly + just `$2/1M` afterwards
+ - priority support 
+
+You will be billed for the resources used by all organization squids monthly, typically on the first day of each month.
+
+If your require a lot of resources or an individual SLA. [Book a demo](https://calendly.com/d/yzj-48g-bf7/subsquid-demo) to get a personal quote.
 
 ## Pay-as-you-go prices
 
 The pricing is based solely on the resources consumed by the squid, as the archive data is provided free of charge. 
 The total squid price is the sum of compute and database storage prices.
+
+Data egress is not billed.
 
 ### Storage
 
