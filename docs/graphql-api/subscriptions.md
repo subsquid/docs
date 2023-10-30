@@ -6,8 +6,6 @@ description: Subscribe to updates over a websocket
 
 # Query subscriptions
 
-**Available since `@subsquid/graphql-server@2.0.0`**
-
 OpenReader supports [GraphQL subscriptions](https://www.apollographql.com/docs/react/data/subscriptions/) via live queries. To use these, a client opens a websocket connection to the server and sends a `subscription` query there. The query body is then repeatedly executed (every 5 seconds by default) and the results are sent to the client whenever they change.
 
 To enable subscriptions, add the additional `--subscriptions` flag to the `squid-graphql-server` startup command. The poll interval is configured with the `--subscription-poll-interval` flag. For details and a full list of available options, run
@@ -33,7 +31,7 @@ To enable subscriptions for local runs, add the `--subscriptions` flag to the `s
 ```
 A `ws` endpoint will be available the usual `localhost:<GQL_PORT>/graphql` URL.
 
-## Aquairum deployments
+## Subsquid Cloud deployments
 
 For Subsquid Cloud deployments, update the `api` command in the [deployment manifest](/deploy-squid/deploy-manifest/#deploy):
 
