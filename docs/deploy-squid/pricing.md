@@ -70,6 +70,8 @@ The premium plan already includes a package of 2M requests per month. Above that
 
 ## SLAs
 
+Our SLA only applies to [dedicated](../scale/#dedicated) squids deployed to [Professional organizations](../organizations/#professional-organizations).
+
 We align with the [SLAs of the Google Cloud Platform](https://cloud.google.com/compute/sla) and will reduce the bill based on the following schedule:
 
 | Uptime | Rebate |
