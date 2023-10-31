@@ -91,7 +91,7 @@ Enable the RPC add-on like this:
 deploy:
   addons:
     rpc:
-      - moonriver:http
+      - eth-goerli:http
 
 scale:
   addons:
@@ -107,7 +107,8 @@ import {assertNotNull} from '@subsquid/util-internal'
 
 processor.setDataSource({
   chain: {
-    url: assertNotNull(process.env.RPC_MOONRIVER_HTTP),
+    // dash in "eth-goerli" becomes an underscore
+    url: assertNotNull(process.env.RPC_ETH_GOERLI_HTTP),
     rateLimit: 10
   },
   archive: /* archive URL */
