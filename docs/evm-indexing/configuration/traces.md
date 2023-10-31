@@ -12,7 +12,7 @@ Check out the [Caveats](../caveats) page to avoid common `EvmBatchProcessor` con
 
 #### `addTrace(options)` {#add-trace}
 
-Subscribe to [call execution traces](https://docs.alchemy.com/reference/debug-tracecall). This allows for tracking internal calls. The `options` object has the following structure:
+Subscribe to [execution traces](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-debug#debugtraceblockbyhash). This allows for tracking internal calls. The `options` object has the following structure:
 ```typescript
 {
   // data requests

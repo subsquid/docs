@@ -45,6 +45,10 @@ Limits the range of blocks to be processed. When the upper bound is specified, p
 
 Note that block ranges can also be specified separately for each data request. This method sets global bounds for all block ranges in the configuration.
 
+#### `useArchiveOnly(yes?: boolean | undefined)` {#use-archive-only}
+
+Explicitly disables data ingestion from an RPC endpoint. Use this if you are making an Archive-only squid.
+
 #### `setChainPollInterval(ms: number)` {#set-chain-poll-interval}
 
 Sets the RPC poll interval in milliseconds. Default: 1000.

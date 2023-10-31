@@ -223,6 +223,7 @@ and inspect the auto-generated GraphQL API using an interactive playground at [h
 
 ## What's Next?
 
+- Compare your API to that of subgraph using the [compareGraphQL](https://github.com/subsquid-labs/compareGraphQL) script
 - Have a closer look at [`EvmBatchProcessor`](/evm-indexing)
 - Learn how to [deploy a squid to Subsquid Cloud](/deploy-squid) for free
 - Learn how to [index and query the contract state](/evm-indexing/query-state)

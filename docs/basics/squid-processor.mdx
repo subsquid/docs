@@ -4,6 +4,9 @@ title: Squid processor
 description: Data ingestion and transformation 
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Squid Processor
 
 The processor service is a background Node.js process responsible for data ingestion, transformation and data persisting into the target database. By convention, the processor entry point is at `src/main.ts`. It is run as
@@ -76,13 +79,16 @@ Interface for the target data sink. See [Persisting data](/store).
 
 #### `ctx.blocks`
 
-The on-chain data items are grouped into blocks, with each block containing a header and iterables for all supported data item types (event log, transaction, trace etc). Batch context _always_ contains at least one block.
+On-chain data items are grouped into blocks, with each block containing a header and iterables for all supported data item types. Boundary blocks are always included into the `ctx.blocks` iterable with valid headers, even when they do not contain any requested data. It follows that batch context _always_ contains at least one block.
 
-The set of iterables depends on the processor type (docs for [EVM](/evm-indexing/context-interfaces)). Depending on the data item type, items within the iterables can be canonically ordered by how the data is recorded on-chain (e.g. transactions are ordered but traces are not). The shape of item objects is determined by the processor configuration done via the `.setFields()` method.
-
-[//]: # (!!!! add a substrate link once it's available)
+The set of iterables depends on the processor type (docs for [EVM](/evm-indexing/context-interfaces)/[Substrate](/substrate-indexing/context-interfaces)). Depending on the data item type, items within the iterables can be canonically ordered by how the data is recorded on-chain (e.g. transactions are ordered but traces are not). The shape of item objects is determined by the processor configuration done via the `.setFields()` method.
 
 An idiomatic use of the context API is to iterate first over blocks and then over each iterable of each block:
+
+```mdx-code-block
+<Tabs>
+<TabItem value="evm" label="EVM">
+```
 
 ```ts
 processor.run(new TypeormDatabase(), async (ctx) => {
@@ -93,10 +99,42 @@ processor.run(new TypeormDatabase(), async (ctx) => {
     for (let txn of block.transactions) {
       // filter and process transactions
     }
-    // iterate over, filter and process any other data items
+    for (let stDiff of block.stateDiffs) {
+      // filter and process state diffs
+    }
+    for (let traces of block.traces) {
+      // filter and process execution traces
+    }
   }
 })
 ```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="substrate" label="Substrate">
+```
+
+```ts
+processor.run(new TypeormDatabase(), async (ctx) => {
+  for (let block of ctx.blocks) {
+    for (let event of block.events) {
+      // filter and process events
+    }
+    for (let call of block.calls) {
+      // filter and process calls
+    }
+    for (let call of block.extrinsics) {
+      // filter and process extrinsics
+    }
+  }
+})
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
 The canonical ordering of `ctx.blocks` enables efficient in-memory data processing. For example, multiple updates of the same entity can be compressed into a single database transaction.
 
 Please be aware that the processor cannot ensure that data not meeting its filters will be excluded from iterables. It only guarantees the inclusion of data that matches the filters. Therefore, it is necessary to filter the data in the batch handler prior to processing.

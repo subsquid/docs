@@ -25,11 +25,15 @@ Unlike other organizations, playgrounds cannot be shared or billed.
 
 ## Draft organizations
 
-Freshly created organizations are marked as drafts until [upgraded to Professional status](../pricing/#upgrading-to-professional). It is not possible to deploy squids to draft organizations, but you can invite other users into them and set [environment variables](../env-variables).
+Freshly created organizations are marked as drafts until upgraded to Professional status. It is not possible to deploy squids to draft organizations, but you can invite other users into them and set [environment variables](../env-variables).
 
 ## Professional organizations
 
-Once an organization is [upgraded](../pricing/#upgrading-to-professional) you can deploy as many squids as you requre. [`scale:` section](/deploy-squid/scale) is now unlocked: use it to request any resources suitable for your use case. Your organization will be billed according to our [pricing schedule](/deploy-squid/pricing).
+Adding a valid payment method promotes an organization to Professional status. Visit [the billing page](https://app.subsquid.io/billing), select your organization in the dropdown menu in the top left corner and follow the upgrade instructions:
+
+![Upgrading an organization](./billing-setup.png)
+
+Once an organization is upgraded you can deploy as many squids as you requre. [`scale:` section](/deploy-squid/scale) is now unlocked: use it to request any resources suitable for your use case. Your organization will be billed according to our [pricing schedule](/deploy-squid/pricing).
 
 ## Working with organizations
 

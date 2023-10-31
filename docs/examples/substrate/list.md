@@ -13,7 +13,7 @@ Any GitHub repo can be used as a template for [sqd init](/squid-cli/init). Simpl
 
 Browse a dedicated repository with [Substrate squid examples](https://github.com/subsquid-labs/squid-substrate-examples):
 
-- [A simple squid tracking Kusama transfers](https://github.com/subsquid-labs/squid-substrate-template). Illustrates a basic usage of `SubstrateBatchProcessor`.
+- [A simple squid tracking Kusama transfers](https://github.com/subsquid-labs/squid-substrate-template). Illustrates basic usage of `SubstrateBatchProcessor`.
 - [A complex squid tracking balances across multiple parachains](/examples/substrate/balances-squid) (*). This complex squid illustrates the usage of `SubstrateBatchProcessor`, storage calls and custom resolvers.
 - [Simple Frontier EVM squid](https://github.com/subsquid-labs/squid-frontier-evm-template) indexing an NFT collection on Astar. Illustrates how to use `SubstrateBatchProcessor` to index EVM logs. See [Frontier EVM tutorial](/tutorials/create-an-evm-processing-squid) for details.
 - [Simple ink!/WASM squid](https://github.com/subsquid-labs/squid-wasm-template). Illustrates how to use `SubstrateBatchProcessor` to index WASM smart contract data. See [WASM tutorial](/tutorials/create-a-wasm-processing-squid) for details.
