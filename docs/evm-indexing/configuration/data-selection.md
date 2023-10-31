@@ -151,6 +151,8 @@ Transaction {
 ```
 `status` field contains the value returned by [`eth_getTransactionReceipt`](https://geth.ethereum.org/docs/interacting-with-geth/rpc/batch): `1` for successful transactions, `0` for failed ones and `undefined` for chains and block ranges not compliant with the post-Byzantinum hard fork EVM specification (e.g. 0-4,369,999 on Ethereum).
 
+`type` field is populated similarly. For example, on Ethereum `0` is returned for Legacy txs, `1` for EIP-2930 and `2` for EIP-1559. Other networks may have a different set of types.
+
 See the [block headers section](#block-headers) for the definition of `BlockHeader`.
 
 ### State diffs
