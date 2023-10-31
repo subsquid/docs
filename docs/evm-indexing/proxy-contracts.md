@@ -7,7 +7,7 @@ description: >-
 
 # Indexing proxy contracts
 
-_Proxy contracts_ are smart contracts that use the [DELEGATECALL](https://www.ethervm.io/#F4) EVM instruction to forward calls to some of their methods to another contract (referred to as the _implementation contract_). This setup allows changing the code that runs on method calls without redeploying the contract and losing its [state](https://docs.alchemy.com/docs/smart-contract-storage-layout). Proxy contracts are standardized in [ERC-1967](https://eips.ethereum.org/EIPS/eip-1967).
+_Proxy contracts_ are smart contracts that use the [DELEGATECALL](https://www.ethervm.io/#F4) EVM instruction to forward calls to some of their methods to another contract (referred to as the _implementation contract_). This setup allows changing the code that runs on method calls without redeploying the contract and losing its [state](https://coinsbench.com/solidity-layout-and-access-of-storage-variables-simply-explained-1ce964d7c738). Proxy contracts are standardized in [ERC-1967](https://eips.ethereum.org/EIPS/eip-1967).
 
 The easiest way to know if the contract is a proxy or not is to visit the "Contract" tab of its Etherscan page. Proxy contracts will typically have the "Read as Proxy" and "Write as Proxy" buttons available. Here is how it looks for the [USDC contract](https://etherscan.io/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48):
 
