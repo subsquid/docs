@@ -79,7 +79,7 @@ Interface for the target data sink. See [Persisting data](/store).
 
 #### `ctx.blocks`
 
-The on-chain data items are grouped into blocks, with each block containing a header and iterables for all supported data item types (event log, transaction, trace etc). Batch context _always_ contains at least one block.
+On-chain data items are grouped into blocks, with each block containing a header and iterables for all supported data item types. Boundary blocks are always included into the `ctx.blocks` iterable with valid headers, even when they do not contain any requested data. It follows that batch context _always_ contains at least one block.
 
 The set of iterables depends on the processor type (docs for [EVM](/evm-indexing/context-interfaces)/[Substrate](/substrate-indexing/context-interfaces)). Depending on the data item type, items within the iterables can be canonically ordered by how the data is recorded on-chain (e.g. transactions are ordered but traces are not). The shape of item objects is determined by the processor configuration done via the `.setFields()` method.
 
