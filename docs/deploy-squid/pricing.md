@@ -6,15 +6,9 @@ description: Subscription types and pay-as-you-go prices
 
 # Subsquid Cloud Pricing
 
-## Upgrading to Professional
+## Billing
 
-Subsquid bills [organizations](/deploy-squid/organizations) for the resources used by their squids. To deploy production-ready squids and configure their resources, the organization must have a [Professional status](../organizations/#professional-organizations).
-
-The status is given to all organizations with an valid payment method. Add it by visiting [the billing page](https://app.subsquid.io/billing), selecting your organization in the drop down menu in the top left corner and following the upgrade instructions:
-
-![Upgrading an organization](./billing-setup.png)
-
-The upgrade enables:
+Subsquid bills [organizations](/deploy-squid/organizations) for the resources used by their squids. To deploy production-ready squids and [configure](../scale) their resources, the organization must have a [Professional status](../organizations/#professional-organizations). All such organizations receive the following perks:
 
  - unmetered GraphQL API requests
  - deploying any number of pay-as-you-go [dedicated](/deploy-squid/scale/#dedicated) squids
@@ -22,9 +16,9 @@ The upgrade enables:
  - free 2M [RPC proxy](/deploy-squid/rpc-proxy) requests monthly + just `$2/1M` afterwards
  - priority support 
 
-You will be billed for the resources used by all organization squids monthly, typically on the first day of each month.
+Other resources used by squids are priced as described below. Billing typically occurs on the first day of each month.
 
-If your require a lot of resources or an individual SLA. [Book a demo](https://calendly.com/d/yzj-48g-bf7/subsquid-demo) to get a personal quote.
+We do provide enterprise discounts. If your use case requires a lot of resources or an individual SLA, [book a demo](https://calendly.com/d/yzj-48g-bf7/subsquid-demo) to get a personal quote.
 
 ## Pay-as-you-go prices
 
@@ -167,7 +161,7 @@ The grace period ends on October 1st, 2023 with the payment rails enabled in the
 **A**: Collocated squids share compute resources which means that it may be unresponsive if the neighbour squid is under high load. 
 While we do our best to ensure that the resources are shared fairly, we strongly recommend dedicated services for production use.
 
-**Q**: I deployed my squid yesterday, will it be billed for the whole month ?
+**Q**: I deployed my squid yesterday, will it be billed for the whole month?
 
 **A**: No, only the actual hours the squid has been running will be billed.
 
