@@ -1,5 +1,5 @@
 ---
-sidebar_position: 99
+sidebar_position: 95
 title: Pricing
 description: Subscription types and pay-as-you-go prices
 ---

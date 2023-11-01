@@ -159,3 +159,4 @@ Follow the [Deploy Squid](/deploy-squid) section.
 
 - Learn from the [Squids examples](/examples)
 - Get familiar with the typegen tools for [EVM](/evm-indexing/squid-evm-typegen) or [Substrate](/substrate-indexing/squid-substrate-typegen)
+- Get your squid [ready for production](/deploy-squid/best-practices)
