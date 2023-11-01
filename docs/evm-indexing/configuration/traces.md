@@ -10,6 +10,10 @@ description: >-
 Check out the [Caveats](../caveats) page to avoid common `EvmBatchProcessor` configuration issues.
 :::
 
+:::tip
+Traces for historical blocks are [currently available](/evm-indexing/supported-networks) from Archives on the same basis as all other data stored there: for free. If you deploy a squid that indexes traces [in real-time](/basics/unfinalized-blocks) to Subsquid Cloud and use our [RPC proxy](/deploy-squid/rpc-proxy), the necessary `trace_` or `debug_` RPC calls made will be counted alongside all other calls and [the price](/deploy-squid/pricing/#rpc-requests) will be computed for the total count. There are no surcharges for traces or state diffs.
+:::
+
 #### `addTrace(options)` {#add-trace}
 
 Subscribe to [execution traces](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-debug#debugtraceblockbyhash). This allows for tracking internal calls. The `options` object has the following structure:

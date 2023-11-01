@@ -10,6 +10,10 @@ description: >-
 Check out the [Caveats](../caveats) page to avoid common `EvmBatchProcessor` configuration issues.
 :::
 
+:::tip
+State diffs for historical blocks are [currently available](/evm-indexing/supported-networks) from Archives on the same basis as all other data stored there: for free. If you deploy a squid that indexes traces [in real-time](/basics/unfinalized-blocks) to Subsquid Cloud and use our [RPC proxy](/deploy-squid/rpc-proxy), the necessary `trace_` or `debug_` RPC calls made will be counted alongside all other calls and [the price](/deploy-squid/pricing/#rpc-requests) will be computed for the total count. There are no surcharges for traces or state diffs.
+:::
+
 #### `addStateDiff(options)` {#add-state-diff}
 
 Subscribe to changes in the [contract storage](https://coinsbench.com/solidity-layout-and-access-of-storage-variables-simply-explained-1ce964d7c738). This allows for tracking the contract state changes that are difficult to infer from events or transactions, such as the changes that take into account the output of internal calls. `options` has the following structure:

@@ -22,7 +22,7 @@ function getWorkerUrl(archiveUrl, height, callback) {
 
 function getWorkerCapabilities(workerUrl, height) {
 	const capabilities = ['transactions', 'logs', 'stateDiffs', 'traces']
-	if (height===0) {
+	if (height<=0) {
 		return Promise.resolve(Object.fromEntries(capabilities.map(c => [c, null])))
 	}
 

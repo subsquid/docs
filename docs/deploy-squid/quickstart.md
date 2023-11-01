@@ -12,6 +12,10 @@ The deployment is managed by the file `squid.yaml` in the root folder of the squ
 - [which services should be deployed](../deploy-manifest/#deploy) for the squid (e.g. postgres, processor, api, RPC proxy)
 - [what resources should be allocated](../scale) by Cloud for each squid service (only configurable if you deploy to a [Professional organization](../organizations/#professional-organizations))
 
+:::tip
+Make sure to check our [best practices guide](../best-practices) before deploying to production!
+:::
+
 :::warning
 Yarn is not supported. Use `npm` to install Squid CLI and manage your squid's dependencies.
 :::
