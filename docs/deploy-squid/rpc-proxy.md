@@ -114,3 +114,7 @@ processor.setDataSource({
   archive: /* archive URL */
 })
 ```
+
+## Pricing
+
+RPC proxy requests are priced [at a flat rate](../pricing/#rpc-requests), with substantial packages included for free for all [organization types](../organizations). Pricing does not depend on the call method.
