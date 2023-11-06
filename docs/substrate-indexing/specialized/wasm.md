@@ -1,5 +1,5 @@
 ---
-sidebar_position: 60
+sidebar_position: 40
 description: >-
   ink! WASM smart contracts support
 title: ink! contracts support
