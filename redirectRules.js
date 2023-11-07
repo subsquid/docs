@@ -85,15 +85,19 @@ const urlList = [
     },
     {
         "from": "/archives/archives-advanced-setup",
-        "to": "/archives/substrate/self-hosted"
+        "to": "/archives/overview"
     },
     {
-        "from": "/archives/archives-explorer-api",
-        "to": "/archives/substrate/archives-explorer-api"
+        "from": "/archives/substrate/batch-api",
+        "to": "/archives/substrate"
     },
     {
-        "from": "/run-squid",
-        "to": "/archives/substrate/self-hosted"
+        "from": "/archives/substrate/self-hosted",
+        "to": "/archives/overview"
+    },
+    {
+        "from": "/archives/substrate/explorer-api",
+        "to": "/archives/substrate"
     },
     {
         "from": "/run-squid/run-in-docker",
