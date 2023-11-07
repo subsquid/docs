@@ -1,7 +1,7 @@
 ---
 sidebar_position: 20
 title: EVM Archive API
-description: Archive API for batch access
+description: EVM Archive API for batch access
 ---
 
 # EVM Archive API
@@ -10,7 +10,7 @@ description: Archive API for batch access
 The EVM Archive API is currently in beta. Breaking changes may be introduced in the future releases.
 :::
 
-Since the ArrowSquid release, Subsquid archives do load balancing. The main archive URL now points at a _router_ that provides URLs of _workers_ that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
+Since the ArrowSquid release, Subsquid Archive API distributes the requests over a ([potentially decentralized](/subsquid-network)) network of _workers_. The main archive URL now points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
 
 1. Retrieve the archive height from the router with `GET /height`.
 2. Query the archive for an URL of a worker that has the data for the first block of the relevant range with `GET /${firstBlock}/worker`.
@@ -76,7 +76,7 @@ Full code [here](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a
 
 <summary><code>GET</code> <code><b>$&#123;firstBlock&#125;/worker</b></code> <code>(get a suitable worker URL)</code></summary>
 
-The returned worker will be capable of processing `POST /query` requests in which the `"fromBlock"` field is equal to `${firstBlock}`.
+The returned worker will be capable of processing `POST /` requests in which the `"fromBlock"` field is equal to `${firstBlock}`.
 
 **Example response:** `https://v2.archive.subsquid.io/worker/1/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0`.
 
