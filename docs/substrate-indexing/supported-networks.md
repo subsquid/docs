@@ -23,7 +23,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | bajun                | `lookupArchive('bajun')`                            | temporarily unavailable                                                      |
 | basilisk             | `lookupArchive('basilisk')`                         | `lookupArchive('basilisk',` `{release: 'ArrowSquid'})`                       |
 | bifrost              | `lookupArchive('bifrost')`                          | temporarily unavailable                                                      |
-| bifrost-polkadot     | `lookupArchive('bifrost-polkadot')`                 | temporarily unavailable                                                      |
+| bifrost-polkadot     | `lookupArchive('bifrost-polkadot')`                 | `lookupArchive('bifrost-polkadot',` `{release: 'ArrowSquid'})`               |
 | bitcountry-pioneer   | `lookupArchive('bitcountry-pioneer')`               | temporarily unavailable                                                      |
 | bridge-hub-kusama    | not available                                       | `lookupArchive('bridge-hub-kusama',` `{release: 'ArrowSquid'})`              |
 | bridge-hub-polkadot  | not available                                       | `lookupArchive('bridge-hub-polkadot',` `{release: 'ArrowSquid'})`            |
