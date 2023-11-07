@@ -10,7 +10,7 @@ Archive is a specialized data lake for on-chain data, optimized for batch data a
 
 Compared to data access using a conventional chain node RPC, an Archive allows one to access data at near zero cost, in a more granular fashion and from multiple blocks at once, thanks to its rich batching and filtering capabilities.
 
-Subsquid Labs GmbH maintains public Archives for most [EVM](/evm-indexing) and [Substrate](/substrate-indexing) chains. Until Archive services are replaced by a decentralized and permissionless Subsquid Network, access to the Archives is free of charge.  
+Subsquid Labs GmbH maintains public Archives for most [EVM](/evm-indexing) and [Substrate](/substrate-indexing) chains. Until Archive services are replaced by a decentralized and permissionless [Subsquid Network](/subsquid-network), access to the Archives is free of charge.
 
 If you are a network developer and would like to see your chain supported by Subsquid, please fill a [form](https://forms.gle/ioVNFiPjZgvUNunY9) or contact us in [SquidDevs Telegram chat](https://t.me/HydraDevs).
 
@@ -28,14 +28,24 @@ Usage: run [options]
 Display list of available archives
 
 Options:
-  -t --type <type>  Network type (choices: "evm", "substrate")
-  -h, --help        display help for command
+  -t --type <type>       Network type (choices: "evm", "substrate")
+  -r --release <string>  Release name (choices: "FireSquid", "ArrowSquid")
+  -h, --help             display help for command
 ```
 
 ### Lookup an Archive
 
 `@subsquid/archive-registry` provides a function 
-`lookupArchive(alias: KnownArchive, opts?: LookupOptionsEVM | LookupOptionsSubstrate )` to locate an Archive data source endpoint. `KnownArchive` is a network alias and `opts` is an optional config to disambiguate.
+`lookupArchive(alias: KnownArchive, opts?: LookupOptions )` to locate an Archive data source endpoint. `alias` is a network alias and `opts` is an optional config to disambiguate:
+
+```ts
+interface LookupOptions {
+  type?: 'Substrate' | 'EVM'
+  genesis?: string // Network genesis hex string (must start with "0x...")
+  release?: 'FireSquid' | 'ArrowSquid' // Archive release
+  // plus some extra Substrate-only fields for technical use
+}
+```
 
 **Example:**
 
