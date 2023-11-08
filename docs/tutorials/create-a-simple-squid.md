@@ -7,20 +7,18 @@ sidebar_position: 40
 
 # Simple Substrate squid
 
-[//]: # (!!!! Update when Substrate ArrowSquid is released)
-
 ## Objective
 
 The goal of this tutorial is to guide you through creating a simple blockchain indexer ("squid") using Squid SDK. In this example we will query the [Crust storage network](https://crust.network). Our objective will be to observe which files have been added and deleted from the network. Additionally, our squid will be able to tell us the groups joined and the storage orders placed by a given account.
 
 We will start with the `substrate` squid template, then go on to run the project, define a schema, and generate TypeScript interfaces. From there, we will be able to interact directly with the Archive, and extract a types bundle from Crust's own library. 
 
-We expect that experienced software developers should be able to complete this tutorial in around **10-15 minutes**. You can review the final code [here](https://github.com/subsquid/squid-crust-example).
+We expect that experienced software developers should be able to complete this tutorial in around **10-15 minutes**. You can review the final code [here](/dead).
 
 ## Pre-requisites
 
 - Familiarity with Git 
-- A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js and Docker
+- A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js, Git and Docker
 - [Squid CLI](/squid-cli/installation)
 
 :::info
@@ -44,6 +42,7 @@ Now you can follow the [quickstart](/quickstart/quickstart-substrate) guide to g
 npm ci
 sqd build
 sqd up
+
 sqd process # should begin to ingest blocks
 
 # open a separate terminal for this next command
@@ -53,7 +52,7 @@ After this test, shut down both processes with Ctrl-C and proceed.
 
 ## Define the schema and generate entity classes
 
-Next, we make changes to the data [schema](/store/postgres/schema-file) of the squid and define [entities](/store/postgres/schema-file/entities) that we would like to track. As stated above, we are interested in:
+Next, we make changes to the data [schema](/store/postgres/schema-file) of the squid and define [entities](/store/postgres/schema-file/entities) that we would like to track. We are interested in:
 
 * Files added to and deleted from the chain;
 * Active accounts;
@@ -75,9 +74,8 @@ type WorkReport @entity {
   account: Account!
   addedFiles: [[String]]
   deletedFiles: [[String]]
-  extrinsicId: String
-  createdAt: DateTime!
-  blockHash: String!
+  extrinsicHash: String
+  createdAt: DateTime
   blockNum: Int!
 }
 
@@ -85,9 +83,8 @@ type JoinGroup @entity {
   id: ID!
   member: Account!
   owner: String!
-  extrinsicId: String
-  createdAt: DateTime!
-  blockHash: String!
+  extrinsicHash: String
+  createdAt: DateTime
   blockNum: Int!
 }
 
@@ -95,18 +92,13 @@ type StorageOrder @entity {
   id: ID!
   account: Account!
   fileCid: String!
-  extrinsicId: String
-  createdAt: DateTime!
-  blockHash: String!
+  extrinsicHash: String
+  createdAt: DateTime
   blockNum: Int!
 }
 ```
 
 Notice that the `Account` entity is almost completely [derived](/store/postgres/schema-file/entity-relations/). It is there to tie the other three entities together.
-
-:::info
-Refer to [this article](/troubleshooting#how-do-i-know-which-events-and-extrinsics-i-need-for-the-handlers) if you are unsure which events and extrinsics to use for the handlers in your project.
-:::
 
 To finalize this step, run the `codegen` tool:
 
@@ -118,222 +110,239 @@ This will automatically generate TypeScript entity classes for our schema. They 
 
 ## Generate TypeScript wrappers for events
 
-The newest version of [Archives](/archives/overview) stores the chain metadata information. The `squid-substrate-typegen` tool is able to leverage this stored metadata. To leverage that functionality, point the `specVersion` field of the `typegen.json` configuration file to an endpoint URL of the chain Archive. You can also set this variable to a local path to a type bundle JSON/JSONL if you happen to have it.
+We generate these using the [squid-substrate-typegen](/substrate-indexing/squid-substrate-typegen) tool. Its configuration file is `typegen.json`; there, we need to
+1. Set the `"specVersions"` field to a valid source of Crust chain runtime metadata. We'll use an URL of Subsquid-maintained metadata service:
+   ```json
+   "specVersions": "https://v2.archive.subsquid.io/metadata/crust",
+   ```
+2. List all Substrate pallets we will need the data from. For each pallet we list all events, calls, storage items and constants needed.
 
-The tool also requires listing `events` and `calls` that have to be scraped off the blockchain in order to get the squid's target data. Finding them may require some research. In our case we only need events:
+:::info
+Refer to [this note](/troubleshooting/#how-do-i-know-which-events-and-extrinsics-i-need-on-substrate) if you are unsure what Substrate data to use in your project.
+:::
 
-* `WorksReportSuccess` from the `swork` pallet,
-* `JoinGroupSuccess` from the same pallet,
-* `FileSuccess` from the `market` pallet.
-
-With these, our final `typegen.json` looks like this:
+Our final `typegen.json` looks like this:
 
 ```json title="typegen.json"
 {
   "outDir": "src/types",
-  "specVersions": "https://crust.archive.subsquid.io/graphql",
-  "events": [
-    "Swork.WorksReportSuccess",
-    "Swork.JoinGroupSuccess",
-    "Market.FileSuccess"
-  ],
-  "calls": []
+  "specVersions": "https://v2.archive.subsquid.io/metadata/crust",
+  "pallets": {
+    "Swork": {
+      "events": [
+        "WorksReportSuccess",
+        "JoinGroupSuccess"
+      ]
+    },
+    "Market": {
+      "events": [
+        "FileSuccess"
+      ]
+    }
+  }
 }
 ```
-Finally, run the tool:
+Once done with the configuration, we run the tool with
 
 ```bash
 sqd typegen
 ```
-You should see the generated Typescript wrappers at [`src/types/events.ts`](https://github.com/subsquid/squid-crust-example/blob/main/src/types/events.ts).
+You should see the generated Typescript wrappers at [`src/types`](/dead).
 
-:::info
-Full documentation of `squid-substrate-typegen` and related tools is available [here](/substrate-indexing/squid-substrate-typegen). There also a [mini-guide](/troubleshooting/#where-do-i-get-a-type-bundle-for-my-chain) on how to obtain type bundles for Substrate chains without relying on Subsquid tools.
-:::
+## Set up the processor object
 
-## Define and bind event handlers
+The next step is to create a [`SubstrateBatchProcessor`](/substrate-indexing/substrate-processor/#overview-and-the-data-model) object which [subscribes](/substrate-indexing/setup/data-requests) to all the events we need. We do it at `src/processor.ts`:
 
-After having obtained wrappers for events that account for the metadata changes across different runtime versions, it's finally time to define handlers for these events and attach them to our [Processor](/substrate-indexing). This is done in the `src/processor.ts` file of the project folder.
+```ts title="src/processor.ts"
+import {
+  SubstrateBatchProcessor,
+  SubstrateBatchProcessorFields,
+  DataHandlerContext
+} from '@subsquid/substrate-processor'
+import {lookupArchive} from '@subsquid/archive-registry'
+import {events} from './types' // the wrappers generated in previous section
 
-We will ultimately end up replacing the code in this file almost entirely, leaving only a few useful pieces. However, we are going to take a step-by-step approach, showing where essential changes have to be made. The final result will be visible at the end of this section.
-
-First, we import the entity model classes and Crust event types we generated in previous sections:
-
-```typescript
-import {Account, WorkReport, JoinGroup, StorageOrder} from './model'
-import {MarketFileSuccessEvent, SworkJoinGroupSuccessEvent, SworkWorksReportSuccessEvent} from './types/events'
-```
-
-Next, we need to [customize the processor](/substrate-indexing/setup) by setting the correct Archive as a data source and specifying the events we would like to index:
-
-```typescript
 const processor = new SubstrateBatchProcessor()
   .setDataSource({
-    archive: lookupArchive("crust"),
+    archive: lookupArchive('crust', {release: 'ArrowSquid'}),
+    chain: {
+      url: 'https://crust.api.onfinality.io/public',
+      rateLimit: 10
+    }
   })
   .setBlockRange({ from: 583000 })
-  .addEvent("Market.FileSuccess", {
-    data: { event: { args: true , extrinsic: true, call: true} },
-  } as const)
-  .addEvent("Swork.JoinGroupSuccess", {
-    data: { event: { args: true , extrinsic: true, call: true} },
-  } as const)
-  .addEvent("Swork.WorksReportSuccess");
+  .addEvent({
+    name: [
+      events.market.fileSuccess.name,
+      events.swork.joinGroupSuccess.name,
+      events.swork.worksReportSuccess.name
+    ],
+    call: true,
+    extrinsic: true
+  })
+  .setFields({
+    extrinsic: {
+      hash: true
+    },
+    block: {
+      timestamp: true
+    }
+  })
+
+type Fields = SubstrateBatchProcessorFields<typeof processor>
+export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
+```
+This creates a processor that
+ - Uses an Archive as its main data source and a chain RPC for [real-time updates](/substrate-indexing/substrate-processor/#rpc-ingestion). URL of the Archive endpoint is looked up in the [Archive registry](/archives/overview/#archive-registry). See [this page](/substrate-indexing/setup/general) for reference;
+ - [Subscribes](/substrate-indexing/setup/data-requests) to `Market.FileSuccess`, `Swork.JoinGroupSuccess` and `Swork.WorksReportSuccess` events emitted at heights starting at 583000;
+ - Additionally subscribes to calls that emitted the events and the corresponding extrinsics;
+ - [Requests](/substrate-indexing/setup/field-selection) the `hash` data field for all retrieved extrinsics and the `timestamp` field for all block headers.
+
+We also export the `ProcessorContext` type to be able to pass the sole argument of the batch handler function around safely. 
+
+## Define the batch handler
+
+Squids [batch process](/basics/batch-processing) chain data from multiple blocks. Compared to the [handlers](/basics/batch-processing/#migrate-from-handlers) approach this results in a much lower database load. Batch processing is fully defined by processor's [batch handler](/basics/squid-processor/#processorrun), the callback supplied to the `processor.run()` call at the entry point of each processor (`src/main.ts` by convention).
+
+We begin defining our batch handler by importing the entity model classes and Crust event types that we generated in previous sections. We also import the processor and its types:
+
+```ts title="src/main.ts"
+import {Account, WorkReport, JoinGroup, StorageOrder} from './model'
+import {processor, ProcessorContext} from './processor'
 ```
 
-:::info
-Note the `addEvent` calls here. In the first two cases we requested `extrinsic` and `call` fields from the processor. In the third call to the method, we requested unfiltered information on the `Swork.WorksReportSuccess` event by omitting the [`data?` optional argument](/substrate-indexing/setup/field-selection).
-:::
-
-`Item` and `Ctx` types defined in the template are still useful, so we are going to keep them. Let's skip for now the `process.run()` call - we are going to come back to it in a second - and scroll down to the `getTransfers` function. In the template repository this function loops through the items contained in the context, extracts the events data and stores it in a list of objects.
+Let's skip for now the `process.run()` call - we are going to come back to it in a second - and scroll down to the `getTransferEvents` function. In the template repository this function loops through the items contained in the context, extracts the events data and stores it in a list of objects.
 
 For this project we are still going to extract events data from the context, but this time we have more than one event type so we have to sort them. We also need to handle the account information. Let's start with deleting the `TransferEvent` interface and defining this instead:
 
 ```typescript
-type Tuple<T,K> = [T,K];
-interface EventInfo {
-  joinGroups: Tuple<JoinGroup, string>[];
-  marketFiles: Tuple<StorageOrder, string>[];
-  workReports: Tuple<WorkReport, string>[];
-  accountIds: Set<string>;
+type Tuple<T,K> = [T,K]
+interface EventsInfo {
+  joinGroups: Tuple<JoinGroup, string>[]
+  marketFiles: Tuple<StorageOrder, string>[]
+  workReports: Tuple<WorkReport, string>[]
+  accountIds: Set<string>
 }
 ```
 
-Now, let's replace the `getTransfers` function with the below snippet. As described above, it will:
+Now, let's replace the `getTransferEvents` function with the below snippet that
 
-* extract event information in a different manner for each event (using the `item.name` to distinguish between them)
-* store event information in an object (we are going to use entity classes for that) and extract `accountId` from it
-* store all `accountId`s in a set
+* extracts event information in a manner specific to its name (known from `e.name`);
+* stores event information in an object (we are going to use entity classes for that) and extracts `accountId`s from it;
+* store all `accountId`s in a set.
 
 ```typescript
-function getEvents(ctx: Ctx): EventInfo {
-  let events: EventInfo = {
+import {toHex} from '@subsquid/substrate-processor'
+import * as ss58 from '@subsquid/ss58'
+
+function getEventsInfo(ctx: ProcessorContext<Store>): EventInfo {
+  let eventsInfo: EventsInfo = {
     joinGroups: [],
     marketFiles: [],
     workReports: [],
-    accountIds: new Set<string>(),
-  };
+    accountIds: new Set<string>()
+  }
   for (let block of ctx.blocks) {
-    for (let item of block.items) {
-      if (item.name === "Swork.JoinGroupSuccess") {
-        const e = new SworkJoinGroupSuccessEvent(ctx, item.event);
-        const memberId = ss58.codec("crust").encode(e.asV1[0]);
-        events.joinGroups.push([new JoinGroup({
-          id: item.event.id,
-          owner: ss58.codec("crust").encode(e.asV1[1]),
-          blockHash: block.header.hash,
-          blockNum: block.header.height,
-          createdAt: new Date(block.header.timestamp),
-          extrinsicId: item.event.extrinsic?.id, 
-        }), memberId]);
-        
-        // add encountered account ID to the Set of unique accountIDs
-        events.accountIds.add(memberId);
+    const blockTimestamp = block.header.timestamp ? new Date(block.header.timestamp) : undefined
+    for (let e of block.events) {
+      if (e.name === events.swork.joinGroupSuccess.name) {
+        const decoded = events.swork.joinGroupSuccess.v1.decode(e)
+        const memberId = ss58.codec('crust').encode(decoded[0])
+        eventsInfo.joinGroups.push([
+          new JoinGroup({
+            id: e.id,
+            owner: ss58.codec('crust').encode(decoded[1]),
+            blockNum: block.header.height,
+            createdAt: blockTimestamp,
+            extrinsicHash: e.extrinsic?.hash
+          }),
+          memberId
+        ])
+        // add encountered account ID to the set of unique accountIDs
+        eventsInfo.accountIds.add(memberId)
       }
-      if (item.name === "Market.FileSuccess") {
-        const e = new MarketFileSuccessEvent(ctx, item.event);
-        const accountId = ss58.codec("crust").encode(e.asV1[0]);
-        events.marketFiles.push([new StorageOrder({
-          id: item.event.id,
-          fileCid: toHex(e.asV1[1]),
-          blockHash: block.header.hash,
-          blockNum: block.header.height,
-          createdAt: new Date(block.header.timestamp),
-          extrinsicId: item.event.extrinsic?.id,
-        }), accountId]);
-
-        // add encountered account ID to the Set of unique accountIDs
-        events.accountIds.add(accountId)
+      if (e.name === events.market.fileSuccess.name) {
+        const decoded = events.market.fileSuccess.v1.decode(e)
+        const accountId = ss58.codec('crust').encode(decoded[0])
+        eventsInfo.marketFiles.push([
+          new StorageOrder({
+            id: e.id,
+            fileCid: toHex(decoded[1]),
+            blockNum: block.header.height,
+            createdAt: blockTimestamp,
+            extrinsicHash: e.extrinsic?.hash
+          }),
+          accountId
+        ])
+        eventsInfo.accountIds.add(accountId)
       }
-      if (item.name === "Swork.WorksReportSuccess") {
-        const e = new SworkWorksReportSuccessEvent(ctx, item.event);
-        const accountId = ss58.codec("crust").encode(e.asV1[0]);
+      if (e.name === events.swork.worksReportSuccess.name) {
+        const decoded = events.swork.worksReportSucces.v1.decode(e)
+        const accountId = ss58.codec('crust').encode(decoded[0])
 
-        const addedExtr = item.event.call?.args.addedFiles;
-        const deletedExtr = item.event.call?.args.deletedFiles;
+        const addedExtr = e.call?.args.addedFiles
+        const deletedExtr = e.call?.args.deletedFiles
 
-        const addedFiles = stringifyArray(addedExtr);
-        const deletedFiles = stringifyArray(deletedExtr);
+        const addedFiles = addedExtr.map(v => v.map(ve => String(ve)))
+        const deletedFiles = deletedExtr.map(v => v.map(ve => String(ve)))
 
         if (addedFiles.length > 0 || deletedFiles.length > 0) {
-          events.workReports.push([new WorkReport({
-            id: item.event.id,
-            addedFiles: addedFiles,
-            deletedFiles: deletedFiles,
-            blockHash: block.header.hash,
-            blockNum: block.header.height,
-            createdAt: new Date(block.header.timestamp),
-            extrinsicId: item.event.extrinsic?.id,
-          }), accountId]);
-
-          // add encountered account ID to the Set of unique accountIDs
-          events.accountIds.add(accountId);
+          eventsInfo.workReports.push([
+            new WorkReport({
+              id: e.id,
+              addedFiles: addedFiles,
+              deletedFiles: deletedFiles,
+              blockNum: block.header.height,
+              createdAt: blockTimestamp,
+              extrinsicHash: e.extrinsic?.hash,
+            }),
+            accountId
+          ])
+          eventsInfo.accountIds.add(accountId)
         }
       }
     }
   }
-  return events;
-}
-```
-This snippet is using the `stringifyArray` and `toHex` utility functions. Please add them as well:
-
-```typescript
-import {toHex} from "@subsquid/substrate-processor"
-
-function stringifyArray(list: any[]): any[] {
-  let listStr: any[] = [];
-  for (let vec of list) {
-    for (let i = 0; i < vec.length; i++) {
-      vec[i] = String(vec[i]);
-    }
-    listStr.push(vec);
-  }
-  return listStr;
+  return eventsInfo
 }
 ```
 
-Next, we want to create an entity (`Account`) object for every `accountId` in the set, then add the `Account` information to every event entity objext. For that we are reusing the existing `getAccount` function. Finally, we save all the created and modified entity models into the database. 
+Next, we want to create an entity (`Account`) object for every `accountId` in the set, then add the `Account` information to every event entity object. Finally, we save all the created and modified entity models into the database.
 
 Take the code inside `processor.run()` and change it so that it looks like this:
 
 ```typescript
 processor.run(new TypeormDatabase(), async (ctx) => {
-  const events = getEvents(ctx);
+  const eventsInfo = getEventsInfo(ctx)
 
   let accounts = await ctx.store
-    .findBy(Account, { id: In([...events.accountIds]) })
-    .then((accounts) => {
-      return new Map(accounts.map((a) => [a.id, a]));
-    });
-
-  for (const jg of events.joinGroups) {
-    const member = getAccount(accounts, jg[1]);
-    // necessary to add this field to the previously created model
-    // because now we have the Account created.
-    jg[0].member = member;
+    .findBy(Account, { id: In([...eventsInfo.accountIds]) })
+    .then(accounts => new Map(accounts.map(a => [a.id, a]))
+  for (let aid of eventsInfo.accountIds) {
+    if (!accounts.has(aid)) {
+      accounts.set(aid, new Account({ id: aid }))
+    }
   }
 
-  for (const mf of events.marketFiles) {
-    const account = getAccount(accounts, mf[1]);
+  for (const jg of eventsInfo.joinGroups) {
     // necessary to add this field to the previously created model
     // because now we have the Account created.
-    mf[0].account = account;
+    jg[0].member = accounts.get(jg[1])
+  }
+  for (const mf of eventsInfo.marketFiles) {
+    mf[0].account = accounts.get(mf[1])
+  }
+  for (const wr of eventsInfo.workReports) {
+    wr[0].account = accounts.get(wr[1])
   }
 
-  for (const wr of events.workReports) {
-    const account = getAccount(accounts, wr[1]);
-    // necessary to add this field to the previously created model
-    // because now we have the Account created.
-    wr[0].account = account;
-  }
-
-  await ctx.store.save(Array.from(accounts.values()));
-  await ctx.store.insert(events.joinGroups.map(el => el[0]));
-  await ctx.store.insert(events.marketFiles.map(el => el[0]));
-  await ctx.store.insert(events.workReports.map(el => el[0]));
+  await ctx.store.save([...accounts.values()]);
+  await ctx.store.insert(eventsInfo.joinGroups.map(el => el[0]));
+  await ctx.store.insert(eventsInfo.marketFiles.map(el => el[0]));
+  await ctx.store.insert(eventsInfo.workReports.map(el => el[0]));
 });
 ```
-You can take a look at [the final version of `src/processor.ts`](https://github.com/subsquid/squid-crust-example/blob/main/src/processor.ts) at [the GitHub repository of this example](https://github.com/subsquid/squid-crust-example/). If you like it, please leave a :star:
+You can take a look at the final version of `src/main.ts` [here](/dead).
 
 ## Apply changes to the database
 
@@ -352,7 +361,7 @@ The new migration will be generated from the TypeORM entity classes we previousl
 ```bash
 sqd migration:apply
 ```
-If we skipped this step, the new migration would have been applied next time we ran `sqd processor`.
+If we skip this step, the new migration will be applied next time we run `sqd processor`.
 
 ## Launch the project
 
@@ -382,4 +391,4 @@ query MyQuery {
 
 ## Credits
 
-This sample project is actually a real integration, developed by our very own [Mikhail Shulgin](https://github.com/ma-shulgin). Credit for building it and helping with the guide goes to him.
+This sample project is adapted from a real integration, developed by our very own [Mikhail Shulgin](https://github.com/ma-shulgin). Credit for building it and helping with the guide goes to him.

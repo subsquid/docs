@@ -81,6 +81,8 @@ Types bundles can be specified in 2 different ways:
    })
    ```
 
+There a [mini-guide](/troubleshooting/#where-do-i-get-a-type-bundle-for-my-chain) on how to obtain type bundles for Substrate chains without relying on Subsquid tools.
+
 ## Miscellaneous
 
 #### `setPrometheusPort(port: string | number)` {#set-prometheus-port}
