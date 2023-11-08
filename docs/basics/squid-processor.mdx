@@ -1,7 +1,7 @@
 ---
 sidebar_position: 15
 title: Squid processor
-description: Data ingestion and transformation 
+description: Data ingestion and transformation
 ---
 
 import Tabs from '@theme/Tabs';
@@ -123,7 +123,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
     for (let call of block.calls) {
       // filter and process calls
     }
-    for (let call of block.extrinsics) {
+    for (let extrinsic of block.extrinsics) {
       // filter and process extrinsics
     }
   }
