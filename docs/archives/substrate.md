@@ -217,6 +217,10 @@ A call will be included in the response if it matches all the requests. An empty
 
 ### `Contracts.ContractEmitted` events {#contractsEvents}
 
+:::info
+Contract addresses supplied with this data request must be hexadecimal (i.e. decoded from SS58) and lowecased. Addresses in all responses will be in the same format.
+:::
+
 ```ts
 {
   contractAddress: string[],
@@ -228,6 +232,10 @@ A call will be included in the response if it matches all the requests. An empty
 A `Contracts.ContractEmitted` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `Contracts.ContractEmitted` event. See [ink! contracts support](/substrate-indexing/specialized/wasm).
 
 ### `EVM.Log` events {#evmLog}
+
+:::info
+Contract addresses supplied with this data request must be in lowercase. Addresses in all responses will be in the same format.
+:::
 
 ```ts
 {
@@ -244,6 +252,10 @@ A `Contracts.ContractEmitted` event will be included in the response if it match
 An `EVM.Log` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `EVM.Log` event. See [Frontier EVM support](/substrate-indexing/specialized/evm/#subscribe-to-evm-events).
 
 ### `Ethereum.transact` calls {#ethereumTransact}
+
+:::info
+Contract addresses supplied with this data request must be in lowercase. Addresses in all responses will be in the same format.
+:::
 
 ```ts
 {
