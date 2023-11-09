@@ -13,7 +13,9 @@ The goal of this tutorial is to guide you through creating a simple blockchain i
 
 We will start with the `substrate` squid template, then go on to run the project, define a schema, and generate TypeScript interfaces. From there, we will be able to interact directly with the Archive, and extract a types bundle from Crust's own library. 
 
-We expect that experienced software developers should be able to complete this tutorial in around **10-15 minutes**. You can review the final code [here](/dead).
+We expect that experienced software developers should be able to complete this tutorial in around **10-15 minutes**.
+
+[//]: # (!!!! You can review the final code here/dead.)
 
 ## Pre-requisites
 
@@ -147,7 +149,7 @@ Once done with the configuration, we run the tool with
 ```bash
 sqd typegen
 ```
-You should see the generated Typescript wrappers at [`src/types`](/dead).
+[//]: # (!!! See the generated Typescript wrappers at `src/types`/dead)
 
 ## Set up the processor object
 
@@ -340,9 +342,10 @@ processor.run(new TypeormDatabase(), async (ctx) => {
   await ctx.store.insert(eventsInfo.joinGroups.map(el => el[0]));
   await ctx.store.insert(eventsInfo.marketFiles.map(el => el[0]));
   await ctx.store.insert(eventsInfo.workReports.map(el => el[0]));
-});
+})
 ```
-You can take a look at the final version of `src/main.ts` [here](/dead).
+
+[//]: # (!!!! You can take a look at the final version of `src/main.ts` here/dead)
 
 ## Apply changes to the database
 
