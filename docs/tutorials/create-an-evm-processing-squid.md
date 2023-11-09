@@ -3,12 +3,10 @@ id: create-an-evm-processing-squid
 title: Frontier EVM-indexing squid
 description: >-
   Build a squid indexing NFTs on Astar
-sidebar_position: 50
+sidebar_position: 60
 ---
 
 # Frontier EVM-indexing Squid
-
-[//]: # (!!!! Update when Substrate ArrowSquid is released)
 
 ## Objective
 
@@ -19,7 +17,7 @@ A somewhat outdated version of the final result can be browsed [here](https://gi
 ## Pre-requisites
 
 - Familiarity with Git 
-- A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js and Docker
+- A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js, Git and Docker
 - [Squid CLI](/squid-cli/installation)
 
 :::info
@@ -44,9 +42,9 @@ Next, we ensure that the data [schema](/store/postgres/schema-file) of the squid
 * Ownership of tokens
 * Contracts and their minted tokens
 
-Luckily, the EVM template already contains a schema file that defines the exact entities we need:
+Here is a schema that defines the exact entities we need:
 
-```graphql
+```graphql title="schema.graphql"
 type Token @entity {
   id: ID!
   owner: Owner
@@ -74,9 +72,8 @@ type Transfer @entity {
   token: Token!
   from: Owner
   to: Owner
-  timestamp: BigInt!
+  timestamp: Int!
   block: Int!
-  transactionHash: String!
 }
 ```
 
@@ -105,281 +102,264 @@ sqd typegen
 ```
 The results will be stored at `src/abi`. One module will be generated for each ABI file, and it will include constants useful for filtering and functions for decoding EVM events and functions defined in the ABI.
 
-## Define and Bind Event Handler(s)
+## Processor object and the batch handler
 
 Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/substrate-indexing). Its instances connect to chain-specific [Subsquid archives](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
 `SubstrateBatchProcessor`s [expose methods](/substrate-indexing/setup) that "subscribe" them to specific data such as Substrate events and calls. There are also [specialized methods](/substrate-indexing/specialized/evm) for subscribing to EVM logs and transactions by address. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for [*batches*](/basics/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
 
-[//]: # (!!!! Update the link above once ArrowSquid for Substrate is released)
-
 It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 
 ### Managing the EVM contract
 
-Before we begin defining the mapping logic of the squid, we are going to rewrite the `src/contracts.ts` utility module for managing the involved EVM contracts. It will export:
+Before we begin defining the mapping logic of the squid, we are going to write a `src/contracts.ts` utility module for managing the involved EVM contracts. It will export:
 
 * Addresses of [astarDegens](https://blockscout.com/astar/address/0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a) and [astarCats](https://blockscout.com/astar/address/0x8b5d62f396Ca3C6cF19803234685e693733f9779) contracts.
-* A `Map` from the contract addresses to constructor arguments of the `Contract` [entity](/store/postgres/schema-file/entities). The arguments are hardcoded.
-* A function that will create and save an instance of the `Contract` entity to the database, if one does not exist already. Either the already existing or the created entity instance will be returned on the first time the function is called on a given address. It will also be cached and on subsequent calls the cached version will be returned.
+* A `Map` from the contract addresses to hardcoded `Contract` [entity](/store/postgres/schema-file/entities) instances.
 
 Here are the full file contents:
 
-```typescript
-// src/contract.ts
-import { Store } from "@subsquid/typeorm-store";
-import { Contract } from "./model";
+```ts title="src/contracts.ts"
+import { Store } from '@subsquid/typeorm-store'
+import { Contract } from './model'
 
-export const astarDegensAddress = "0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a".toLowerCase();
-export const astarCatsAddress = "0x8b5d62f396Ca3C6cF19803234685e693733f9779".toLowerCase();
+export const astarDegensAddress = '0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a'.toLowerCase();
+export const astarCatsAddress = '0x8b5d62f396Ca3C6cF19803234685e693733f9779'.toLowerCase();
 
-export const contractMapping: Map<string, Contract> = new Map<
-  string,
-  Contract
->();
+export const contractMapping: Map<string, Contract> = new Map()
 
-contractMapping.set(astarDegensAddress, {
+contractMapping.set(astarDegensAddress, new Contract({
   id: astarDegensAddress,
-  name: "AstarDegens",
-  symbol: "DEGEN",
+  name: 'AstarDegens',
+  symbol: 'DEGEN',
   totalSupply: 10000n,
-  mintedTokens: [],
-});
+  mintedTokens: []
+}))
 
-contractMapping.set(astarCatsAddress, {
+contractMapping.set(astarCatsAddress, new Contract({
   id: astarCatsAddress,
-  name: "AstarCats",
-  symbol: "CAT",
+  name: 'AstarCats',
+  symbol: 'CAT',
   totalSupply: 7777n,
-  mintedTokens: [],
-});
-
-function createContractEntity(address: string): Contract {
-  const contractObj = contractMapping.get(address);
-  if (contractObj)
-    return new Contract(contractObj);
-  
-  throw new Error("could not find a contract with that address");
-}
-
-const contractAddresstoModel: Map<string, Contract> = new Map<
-string,
-Contract
->();
-
-export async function getContractEntity(
-  store: Store,
-  address: string
-): Promise<Contract | undefined> {
-  if (contractAddresstoModel.get(address) == null) {
-    let contractEntity = await store.get(Contract, address);
-    if (contractEntity == null) {
-      contractEntity = createContractEntity(address);
-      await store.insert(contractEntity);
-      contractAddresstoModel.set(address, contractEntity)
-    }
-  }
-  
-  return contractAddresstoModel.get(address);
-}
+  mintedTokens: []
+})
 ```
 
-## Configure Processor and Attach Handler
+## Create the processor object
 
-The `src/processor.ts` file is where squids instantiate the processor (a `SubstrateBatchProcessor` in our case), configure it and attach the handler functions.
+The `src/processor.ts` file is where squids instantiate and configure their processor objects. We will use an instance of [`SubstrateBatchProcessor`](/substrate-indexing).
 
-We adapt the template code to handle two contracts instead of one and change the logic of saving `Token`s in a way that avoids ID clashing. We also change the processor data source setting and point it the `astar` archive URL retrieved from the [archive registry](https://github.com/subsquid/archive-registry). Here is the end result:
+We adapt the template code to handle two contracts instead of one and point the processor data source setting to the `astar` archive URL retrieved from the [archive registry](https://github.com/subsquid/archive-registry). Here is the end result:
 
-```typescript
-// src/processor.ts
-import { lookupArchive } from "@subsquid/archive-registry";
-import { Store, TypeormDatabase } from "@subsquid/typeorm-store";
+```ts title="src/processor.ts"
+import {assertNotNull} from '@subsquid/util-internal'
+import {lookupArchive} from '@subsquid/archive-registry'
 import {
-  BatchContext,
-  BatchProcessorItem,
-  EvmLogEvent,
-  SubstrateBatchProcessor,
-  SubstrateBlock,
-} from "@subsquid/substrate-processor";
-import { In } from "typeorm";
-import { ethers } from "ethers";
-import {
-  astarDegensAddress,
-  astarCatsAddress,
-  contractMapping,
-  getContractEntity,
-} from "./contract";
-import { Owner, Token, Transfer } from "./model";
-import * as erc721 from "./abi/erc721";
+    BlockHeader,
+    DataHandlerContext,
+    SubstrateBatchProcessor,
+    SubstrateBatchProcessorFields,
+    Event as _Event,
+    Call as _Call,
+    Extrinsic as _Extrinsic
+} from '@subsquid/substrate-processor'
+import * as erc721 from './abi/erc721'
 
-const database = new TypeormDatabase();
+import {astarDegensAddress, astarCatsAddress} from './contracts'
+
 const processor = new SubstrateBatchProcessor()
   .setBlockRange({ from: 442693 })
   .setDataSource({
+    archive: lookupArchive('astar', {type: 'Substrate', release: 'ArrowSquid'}),
     chain: {
-      url: process.env.RPC_ENDPOINT,
+      url: assertNotNull(process.env.RPC_ENDPOINT),
       rateLimit: 10,
-    },
-    archive: lookupArchive("astar"),
+    }
   })
-  .setTypesBundle("astar")
-  .addEvmLog(astarDegensAddress, {
+  .addEvmLog({
+    address: [astarDegensAddress],
     range: { from: 442693 },
-    filter: [erc721.events.Transfer.topic],
+    topic0: [erc721.events.Transfer.topic]
   })
-  .addEvmLog(astarCatsAddress, {
+  .addEvmLog({
+    address: [astarCatsAddress],
     range: { from: 800854 },
-    filter: [erc721.events.Transfer.topic],
-  });
+    topic0: [erc721.events.Transfer.topic]
+  })
 
-type Item = BatchProcessorItem<typeof processor>;
-type Context = BatchContext<Store, Item>;
+export type Fields = SubstrateBatchProcessorFields<typeof processor>
+export type Block = BlockHeader<Fields>
+export type Event = _Event<Fields>
+export type Call = _Call<Fields>
+export type Extrinsic = _Extrinsic<Fields>
+export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
+```
 
-processor.run(database, async (ctx) => {
+:::warning
+This code expects to find an URL of a working Astar RPC endpoint in the `RPC_ENDPOINT` environment variable. Set it in the `.env` file and in [Subsquid Cloud secrets](/deploy-squid/env-variables) if and when you deploy your squid there. We tested the code using a public endpoint available at `wss://astar.public.blastapi.io`; for production, we recommend using private endpoints or our [RPC proxy](/deploy-squid/rpc-proxy) service.
+:::
+
+## Define the batch handler
+
+We change the batch handler logic taking care to avoid token ID clashing:
+
+```ts title="src/main.ts"
+import { Store, TypeormDatabase } from '@subsquid/typeorm-store'
+import { In } from 'typeorm'
+import {
+  astarDegensAddress,
+  astarCatsAddress,
+  contractMapping
+} from './contracts'
+import { Owner, Token, Transfer } from './model'
+import * as erc721 from './abi/erc721'
+import {
+  processor,
+  ProcessorContext,
+  Event,
+  Block
+} from './processor'
+
+var contractsSaved = false
+
+processor.run(new TypeormDatabase(), async (ctx) => {
   const transfersData: TransferData[] = [];
 
   for (const block of ctx.blocks) {
-    for (const item of block.items) {
-      if (item.name === "EVM.Log") {
-        const transfer = handleTransfer(block.header, item.event);
-        transfersData.push(transfer);
+    for (const event of block.events) {
+      if (event.name === 'EVM.Log') {
+        const transfer = handleTransfer(block.header, event)
+        transfersData.push(transfer)
       }
     }
   }
 
-  await saveTransfers(ctx, transfersData);
-});
+  if (!contractsSaved) {
+    await ctx.store.upsert([...contractMapping.values()])
+    contractsSaved = true
+  }
+  await saveTransfers(ctx, transfersData)
+})
 
 type TransferData = {
-  id: string;
-  from: string;
-  to: string;
-  token: ethers.BigNumber;
-  timestamp: bigint;
-  block: number;
-  transactionHash: string;
-  contractAddress: string;
-};
-
-function handleTransfer(
-  block: SubstrateBlock,
-  event: EvmLogEvent
-): TransferData {
-  const { from, to, tokenId } = erc721.events.Transfer.decode(event.args);
-
-  const transfer: TransferData = {
-    id: event.id,
-    token: tokenId,
-    from,
-    to,
-    timestamp: BigInt(block.timestamp),
-    block: block.height,
-    transactionHash: event.evmTxHash,
-    contractAddress: event.args.address,
-  };
-
-  return transfer;
+  id: string
+  from: string
+  to: string
+  token: bigint
+  timestamp: number
+  block: number
+  contractAddress: string
 }
 
-async function saveTransfers(ctx: Context, transfersData: TransferData[]) {
-  const tokensIds: Set<string> = new Set();
-  const ownersIds: Set<string> = new Set();
+function handleTransfer(block: Block, event: Event): TransferData {
+  const { from, to, tokenId } = erc721.events.Transfer.decode(event)
+  return {
+    id: event.id,
+    from,
+    to,
+    token: tokenId,
+    timestamp: block.timestamp,
+    block: block.height,
+    contractAddress: event.args.address
+  }
+}
+
+async function saveTransfers(
+  ctx: ProcessorContext<Store>,
+  transfersData: TransferData[]
+) {
+  const getTokenId = transferData => `${contractMapping.get(transferData.contractAddress)?.symbol ?? ""}-${transferData.token.toString()}`
+
+  const tokensIds: Set<string> = new Set()
+  const ownersIds: Set<string> = new Set()
 
   for (const transferData of transfersData) {
-    tokensIds.add(transferData.token.toString());
-    ownersIds.add(transferData.from);
-    ownersIds.add(transferData.to);
+    tokensIds.add(getTokenId(transferData))
+    ownersIds.add(transferData.from)
+    ownersIds.add(transferData.to)
   }
 
-  const transfers: Set<Transfer> = new Set();
-
   const tokens: Map<string, Token> = new Map(
-    (await ctx.store.findBy(Token, { id: In([...tokensIds]) })).map((token) => [
-      token.id,
-      token,
-    ])
-  );
+    (await ctx.store.findBy(Token, { id: In([...tokensIds]) }))
+      .map(token => [token.id, token])
+  )
 
   const owners: Map<string, Owner> = new Map(
-    (await ctx.store.findBy(Owner, { id: In([...ownersIds]) })).map((owner) => [
-      owner.id,
-      owner,
-    ])
-  );
+    (await ctx.store.findBy(Owner, { id: In([...ownersIds]) }))
+      .map(owner => [owner.id, owner])
+  )
+
+  const transfers: Set<Transfer> = new Set()
 
   for (const transferData of transfersData) {
     const contract = new erc721.Contract(
-      ctx,
+      // temporary workaround for SDK issue 212
+      // passing just the ctx as first arg may already work
+      {_chain: {client: ctx._chain.rpc}},
       { height: transferData.block },
       transferData.contractAddress
-    );
+    )
 
-    let from = owners.get(transferData.from);
+    let from = owners.get(transferData.from)
     if (from == null) {
-      from = new Owner({ id: transferData.from, balance: 0n });
-      owners.set(from.id, from);
+      from = new Owner({ id: transferData.from, balance: 0n })
+      owners.set(from.id, from)
     }
 
-    let to = owners.get(transferData.to);
+    let to = owners.get(transferData.to)
     if (to == null) {
-      to = new Owner({ id: transferData.to, balance: 0n });
-      owners.set(to.id, to);
+      to = new Owner({ id: transferData.to, balance: 0n })
+      owners.set(to.id, to)
     }
 
-    const tokenId = `${contractMapping.get(transferData.contractAddress)?.symbol || ""}-${transferData.token.toString()}`;
-    let token = tokens.get(tokenId);
+    const tokenId = getTokenId(transferData)
+    let token = tokens.get(tokenId)
     if (token == null) {
       token = new Token({
         id: tokenId,
         uri: await contract.tokenURI(transferData.token),
-        contract: await getContractEntity(ctx.store, transferData.contractAddress),
-      });
-      tokens.set(token.id, token);
+        contract: contractMapping.get(transferData.contractAddress)
+      })
+      tokens.set(token.id, token)
     }
-    token.owner = to;
 
-    const { id, block, transactionHash, timestamp } = transferData;
+    token.owner = to
+
+    const { id, block, timestamp } = transferData
 
     const transfer = new Transfer({
       id,
       block,
       timestamp,
-      transactionHash,
       from,
       to,
-      token,
-    });
+      token
+    })
 
-    transfers.add(transfer);
+    transfers.add(transfer)
   }
 
-  await ctx.store.save([...owners.values()]);
-  await ctx.store.save([...tokens.values()]);
-  await ctx.store.save([...transfers]);
+  await ctx.store.upsert([...owners.values()])
+  await ctx.store.upsert([...tokens.values()])
+  await ctx.store.insert([...transfers])
 }
 ```
 
-:::info
-Pay close attention to the line with the `const tokenId` definition, because this is how we avoid the clash while storing tokens from both collections. The contracts are using cardinal numbers to identify their own tokens, but now we are adding the IDs to the same table column. To identify tokens uniquely, we use a concatenation of the contract symbol and a string represenation of the original ID.
-:::
+[//]: # (!!!! Remove the Contract ctx hack once the alias is added by SDK)
 
 :::info
-It is also worth pointing out that the `contract.tokenURI` call is accessing the **state** of the contract via a chain RPC endpoint. This is slowing down the indexing a little bit, but this data is only available this way. You'll find more information on accessing state in the [dedicated section of our docs](/substrate-indexing/specialized/evm#access-contract-state).
+The `contract.tokenURI` call is accessing the **state** of the contract via a chain RPC endpoint. This is slowing down the indexing a little bit, but this data is only available this way. You'll find more information on accessing state in the [dedicated section of our docs](/substrate-indexing/specialized/evm#access-contract-state).
 :::
 
-:::warning
-This code expects to find an URL of a working Astar RPC endpoint in the `RPC_ENDPOINT` environment variable. Set it in the `.env` file and in [Subsquid Cloud secrets](/deploy-squid/env-variables) if and when you deploy your squid there. We tested the code using a public endpoint available at `wss://astar.public.blastapi.io`; for production, we recommend using private endpoints.
-:::
+## Database and the migration
 
-## Launch and Set Up the Database
+Before giving your squid processor a local test, launch a PostgreSQL container with
 
-When running the project locally it is possible to use the `docker-compose.yml` file that comes with the template to launch a PostgreSQL container. To do so, run `sqd up` in your terminal.
+```bash
+sqd up
+```
 
-[comment]: # (Launch database container https://i.gyazo.com/907ef55371e1cdb1839d2fe7ff108ee7.gif)
-
-Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping). In this approach the schema is managed through migration files. Because we made changes to the schema, we need to remove the existing migration(s) and create a new one, then apply the new migration.
-
-This involves the following steps:
+Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping). In this approach the schema is managed through migration files. Since we've made changes to the schema, we need to remove the existing migration(s) and create a new one. This involves the following steps:
 
 1. Build the code:
 
@@ -387,23 +367,18 @@ This involves the following steps:
     sqd build
     ```
 
-2. Make sure you start with a clean Postgres database. The following commands drop-create a new Postgres instance in Docker:
+2. Make sure you start with a clean Postgres database. The following commands drop-create the Postgres instance in Docker:
 
     ```bash
     sqd down
     sqd up
     ```
+    Skip this step if you haven't used your database since the last `sqd up`.
 
 3. Generate the new migration (this will wipe any old migrations):
 
     ```bash
     sqd migration:generate
-    ```
-
-4. Apply the migration, so that the tables are created in the database:
-
-    ```bash
-    sqd migration:apply
     ```
 
 ## Launch the Project
@@ -413,9 +388,6 @@ To launch the processor run the following command (this will block the current t
 ```bash
 sqd process
 ```
-
-[comment]: # (Launch processor https://i.gyazo.com/66ab9c1fef9203d3e24b6e274bba47e3.gif)
-
 Finally, in a separate terminal window, launch the GraphQL server:
 
 ```bash
@@ -437,7 +409,7 @@ Or this other one, looking up the tokens owned by a given owner:
 
 ```graphql
 query MyQuery {
-  tokens(where: {owner: {id_eq: "0x1210F3eA18Ef463c162FFF9084Cee5B6E5ccAb37"}}) {
+  tokens(where: {owner: {id_eq: "0x1210f3ea18ef463c162fff9084cee5b6e5ccab37"}}) {
     uri
     contract {
       id

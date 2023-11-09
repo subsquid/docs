@@ -3,18 +3,18 @@ id: create-a-wasm-processing-squid
 title: ink! contract indexing
 description: >-
   Build a squid indexing an ink! smart contract
-sidebar_position: 60
+sidebar_position: 50
 ---
-# ink! contract indexing
 
-[//]: # (!!!! Update when Substrate ArrowSquid is released)
+# ink! contract indexing
 
 ## Objective
 
-This tutorial starts with the [`substrate` squid template](https://github.com/subsquid-labs/squid-wasm-template) and goes through all the necessary changes to index the events of a WASM contract developed with [ink!](https://www.parity.io/blog/ink-3-0-paritys-rust-based-language-gets-a-major-update). This approach is taken to illustrate the development process. If you want to start indexing ASAP, consider using the WASM/ink! [squid generation tool](/basics/squid-gen/) or starting with the [`ink` template](https://github.com/subsquid/squid-wasm-template) that contains the final code of this tutorial:
+This tutorial starts with the [`substrate` squid template](https://github.com/subsquid-labs/squid-substrate-template) and goes through all the necessary changes to index the events of a WASM contract developed with [ink!](https://www.parity.io/blog/ink-3-0-paritys-rust-based-language-gets-a-major-update). This approach is taken to illustrate the development process. If you want to start indexing ASAP, consider starting with the [`ink` template](https://github.com/subsquid/squid-wasm-template) that contains the final code of this tutorial:
 ```bash
 sqd init <your squid name here> --template ink
 ```
+[//]: # (!!! or using the WASM/ink! squid generation tool/basics/squid-gen/.)
 
 Here we will use a simple test ERC20-type token contract deployed to [Shibuya](https://shibuya.subscan.io/) at `XnrLUQucQvzp5kaaWLG9Q3LbZw5DPwpGn69B5YcywSWVr5w`. Our squid will track all the token holders and account balances, together with the historical token transfers.
 
@@ -33,7 +33,7 @@ This tutorial uses custom scripts defined in `commands.json`. The scripts are au
 ## Pre-requisites
 
 - Familiarity with Git
-- A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js and Docker
+- A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js, Git and Docker
 - [Squid CLI](/squid-cli/installation)
 
 ## Run the template
@@ -105,7 +105,7 @@ sqd migration:generate
 
 ## WASM ABI Tools
 
-The `Contracts` pallet stores the contract execution logs (calls and events) in a binary format. The decoding of this data is contract-specific and is done with the help of an ABI file typically published by the contract developer. For our contract the data can be found [here](https://raw.githubusercontent.com/subsquid-labs/squid-wasm-template/master/abi/erc20.json).
+The `Contracts` pallet stores the contract execution logs (calls and events) in a binary format. The decoding of this data is contract-specific and is done with the help of an ABI file typically published by the contract developer. ABI for ERC20 contracts like the one we're indexing can be found [here](https://raw.githubusercontent.com/subsquid-labs/squid-wasm-template/master/abi/erc20.json).
 
 Download that file to the `abi` folder and install the following two tools from Subsquid SDK:
 
@@ -123,54 +123,144 @@ npx squid-ink-typegen --abi abi/erc20.json --output src/abi/erc20.ts
 ```
 The generated `src/abi/erc20.ts` module defines interfaces to represent WASM data defined in the ABI, as well as functions necessary to decode this data (e.g. the `decodeEvent` function).
 
-## Define and Bind the Batch Handler
+## Define the processor object
 
 Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/substrate-indexing). Its instances connect to chain-specific [Subsquid archives](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-`SubstrateBatchProcessor`s [exposes methods](/substrate-indexing/setup) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor [allows one](/substrate-indexing/specialized/wasm) to subscribe for such events emitted by a specific contract. The events can then be processed by calling the `.run()` function that starts generating requests to the Archive for [*batches*](/basics/batch-processing) of data.
+`SubstrateBatchProcessor`s [exposes methods](/substrate-indexing/setup) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor [allows one](/substrate-indexing/specialized/wasm) to subscribe to such events emitted by a specific contract.
 
-Every time a batch is returned by the Archive, it will trigger the callback function, or *batch handler* (passed to `.run()` as second argument). It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
+The processor is instantiated and configured at the `src/processor.ts`. Here are the changes we need to make there:
 
-The processor is instantiated and configured at the `src/processor.ts`. We need to make fundamental changes to the logic expressed in this code, starting from the configuration of the processor:
-
-* We need to change the archive used to `shibuya`.
-* We need to remove the `addEvent` function call, and add `addContractsContractEmitted` instead, specifying the address of the contract we are interested in. The address should be represented as a hex string, so we need to decode our ss58 address of interest, `XnrLUQucQvzp5kaaWLG9Q3LbZw5DPwpGn69B5YcywSWVr5w`.
-* The logic defined in the `processor.run()` and below it has to be replaced.
+* Change the archive used to `shibuya`.
+* Remove the `addEvent` function call, and add `addContractsContractEmitted` instead, specifying the address of the contract we are interested in. The address should be represented as a hex string, so we need to decode our ss58 address of interest, `XnrLUQucQvzp5kaaWLG9Q3LbZw5DPwpGn69B5YcywSWVr5w`.
 
 Here is the end result:
 
-```typescript
-// src/processor.ts
-import { lookupArchive } from "@subsquid/archive-registry"
-import * as ss58 from "@subsquid/ss58"
-import {toHex} from "@subsquid/util-internal-hex"
-import {BatchContext, BatchProcessorItem, SubstrateBatchProcessor} from "@subsquid/substrate-processor"
-import {Store, TypeormDatabase} from "@subsquid/typeorm-store"
-import {In} from "typeorm"
-import * as erc20 from "./abi/erc20"
-import {Owner, Transfer} from "./model"
- 
+```ts title="src/processor.ts"
+import {assertNotNull} from '@subsquid/util-internal'
+import {toHex} from '@subsquid/util-internal-hex'
+import * as ss58 from '@subsquid/ss58'
+import {lookupArchive} from '@subsquid/archive-registry'
+import {
+    BlockHeader,
+    DataHandlerContext,
+    SubstrateBatchProcessor,
+    SubstrateBatchProcessorFields,
+    Event as _Event,
+    Call as _Call,
+    Extrinsic as _Extrinsic
+} from '@subsquid/substrate-processor'
+
+export const SS58_NETWORK = 'astar' // used for the ss58 prefix, astar shares it with shibuya
+
 const CONTRACT_ADDRESS_SS58 = 'XnrLUQucQvzp5kaaWLG9Q3LbZw5DPwpGn69B5YcywSWVr5w'
-const CONTRACT_ADDRESS = toHex(ss58.decode(CONTRACT_ADDRESS_SS58).bytes)
-const SS58_PREFIX = ss58.decode(CONTRACT_ADDRESS_SS58).prefix
+export const CONTRACT_ADDRESS = ss58.codec(SS58_NETWORK).decode(CONTRACT_ADDRESS_SS58)
 
-const processor = new SubstrateBatchProcessor()
+export const processor = new SubstrateBatchProcessor()
     .setDataSource({
-        archive: lookupArchive("shibuya")
-    })
-    .addContractsContractEmitted(CONTRACT_ADDRESS, {
-        data: {
-            event: {args: true}
+        archive: lookupArchive('shibuya', {release: 'ArrowSquid'}),
+        chain: {
+            url: assertNotNull(process.env.RPC_ENDPOINT),
+            rateLimit: 10
         }
-    } as const)
- 
-type Item = BatchProcessorItem<typeof processor>
-type Ctx = BatchContext<Store, Item>
+    })
+    .addContractsContractEmitted({
+        contractAddress: [CONTRACT_ADDRESS],
+        extrinsic: true
+    })
+    .setFields({
+        block: {
+            timestamp: true
+        },
+        extrinsic: {
+            hash: true
+        }
+    })
+    .setBlockRange({
+        // genesis block happens to not have a timestamp, so it's easier
+        // to start from 1 in cases when the deployment height is unknown
+        from: 1
+    })
 
-processor.run(new TypeormDatabase(), async ctx => {
-    let txs = extractTransferRecords(ctx)
- 
-    let ownerIds = new Set<string>()
+export type Fields = SubstrateBatchProcessorFields<typeof processor>
+export type Block = BlockHeader<Fields>
+export type Event = _Event<Fields>
+export type Call = _Call<Fields>
+export type Extrinsic = _Extrinsic<Fields>
+export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
+```
+
+## Define the batch handler
+
+Once requested, the events can be processed by calling the `.run()` function that starts generating requests to the Archive for [*batches*](/basics/batch-processing) of data.
+
+Every time a batch is returned by the Archive, it will trigger the callback function, or *batch handler* (passed to `.run()` as second argument). It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
+
+Batch handler is typically defined at the squid processor entry point, `src/main.ts`. Here is one that works for our task:
+
+```ts title="src/main.ts"
+import {In} from 'typeorm'
+import assert from 'assert'
+
+import * as ss58 from '@subsquid/ss58'
+import {Store, TypeormDatabase} from '@subsquid/typeorm-store'
+
+import * as erc20 from './abi/erc20'
+import {Owner, Transfer} from "./model"
+import {
+    processor,
+    SS58_NETWORK,
+    CONTRACT_ADDRESS,
+    ProcessorContext
+} from './processor'
+
+processor.run(new TypeormDatabase({supportHotBlocks: true}), async ctx => {
+    const txs: TransferRecord[] = getTransferRecords(ctx)
+
+    const owners: Map<string, Owner> = await createOwners(ctx, txs)
+    const transfers: Transfer[] = createTransfers(txs, owners)
+
+    await ctx.store.upsert([...owners.values()])
+    await ctx.store.insert(transfers)
+})
+
+interface TransferRecord {
+    id: string
+    from?: string
+    to?: string
+    amount: bigint
+    block: number
+    timestamp: Date
+    extrinsicHash: string
+}
+
+function getTransferRecords(ctx: ProcessorContext<Store>): TransferRecord[] {
+    const records: TransferRecord[] = []
+    for (const block of ctx.blocks) {
+        assert(block.header.timestamp, `Block ${block.header.height} had no timestamp`)
+        for (const event of block.events) {
+            if (event.name === 'Contracts.ContractEmitted' && event.args.contract === CONTRACT_ADDRESS) {
+                assert(event.extrinsic, `Event ${event} arrived without a parent extrinsic`)
+                const decodedEvent = erc20.decodeEvent(event.args.data)
+                if (decodedEvent.__kind === 'Transfer') {
+                    records.push({
+                        id: event.id,
+                        from: decodedEvent.from && ss58.codec(SS58_NETWORK).encode(decodedEvent.from),
+                        to: decodedEvent.to && ss58.codec(SS58_NETWORK).encode(decodedEvent.to),
+                        amount: decodedEvent.value,
+                        block: block.header.height,
+                        timestamp: new Date(block.header.timestamp),
+                        extrinsicHash: event.extrinsic.hash
+                    })
+                }
+            }
+        }
+    }
+    return records
+}
+
+async function createOwners(ctx: ProcessorContext<Store>, txs: TransferRecord[]): Promise<Map<string, Owner>> {
+    const ownerIds = new Set<string>()
     txs.forEach(tx => {
         if (tx.from) {
             ownerIds.add(tx.from)
@@ -179,21 +269,27 @@ processor.run(new TypeormDatabase(), async ctx => {
             ownerIds.add(tx.to)
         }
     })
- 
-    let owners = await ctx.store.findBy(Owner, {
+
+    const ownersMap = await ctx.store.findBy(Owner, {
         id: In([...ownerIds])
     }).then(owners => {
-        return new Map(owners.map(o => [o.id, o]))
+        return new Map(owners.map(owner => [owner.id, owner]))
     })
- 
-    let transfers = txs.map(tx => {
-        let transfer = new Transfer({
+
+    return ownersMap
+}
+
+
+function createTransfers(txs: TransferRecord[], owners: Map<string, Owner>): Transfer[] {
+    return txs.map(tx => {
+        const transfer = new Transfer({
             id: tx.id,
             amount: tx.amount,
             block: tx.block,
-            timestamp: tx.timestamp
+            timestamp: tx.timestamp,
+            extrinsicHash: tx.extrinsicHash
         })
- 
+
         if (tx.from) {
             transfer.from = owners.get(tx.from)
             if (transfer.from == null) {
@@ -202,7 +298,7 @@ processor.run(new TypeormDatabase(), async ctx => {
             }
             transfer.from.balance -= tx.amount
         }
- 
+
         if (tx.to) {
             transfer.to = owners.get(tx.to)
             if (transfer.to == null) {
@@ -211,70 +307,34 @@ processor.run(new TypeormDatabase(), async ctx => {
             }
             transfer.to.balance += tx.amount
         }
- 
+
         return transfer
     })
- 
-    await ctx.store.save([...owners.values()])
-    await ctx.store.insert(transfers)
-})
- 
-interface TransferRecord {
-    id: string
-    from?: string
-    to?: string
-    amount: bigint
-    block: number
-    timestamp: Date
-}
-
-function extractTransferRecords(ctx: Ctx): TransferRecord[] {
-    let records: TransferRecord[] = []
-    for (let block of ctx.blocks) {
-        for (let item of block.items) {
-            if (item.name == 'Contracts.ContractEmitted' && item.event.args.contract == CONTRACT_ADDRESS) {
-                let event = erc20.decodeEvent(item.event.args.data)
-                if (event.__kind == 'Transfer') {
-                    records.push({
-                        id: item.event.id,
-                        from: event.from && ss58.codec(SS58_PREFIX).encode(event.from),
-                        to: event.to && ss58.codec(SS58_PREFIX).encode(event.to),
-                        amount: event.value,
-                        block: block.header.height,
-                        timestamp: new Date(block.header.timestamp)
-                    })
-                }
-            }
-        }
-    }
-    return records
 }
 ```
 
-The `extractTransferRecords` function generates a list of `TransferRecord` objects that contain the data we need to fill the models we have defined with our schema. This data is extracted from the events found in the `BatchContext`. It is then used in the main body of the _batch handler_, the arrow function used as the second argument of the `.run()` function call to fetch or create the `Owner`s on the database and create a `Transfer` instance for every event found in the context.
+The `getTransferRecords` function generates a list of `TransferRecord` objects that contain the data we need to fill the models we have defined with our schema. This data is extracted from the events found in the batch context, `ctx`. We use the in the main body of the batch handler, the arrow function used as the second argument of the `.run()` function call, to fetch or create `Owner` instance and create a `Transfer` instance for every event found in the context.
 
-All of this data is then saved on the database at the very end of the function, all in one go. This is done to reduce the number of database queries.
+Finally, these [TypeORM entity](/store/postgres/schema-file/entities) instances are saved to the database, all in one go. This is done to reduce the number of database queries.
 
 :::info
-As you can see in the `extractTransferRecords` function, we loop over the blocks we have been given in the `BatchContext` and loop over the items contained in them. The `if` checks are redundant when there's only one data type to process but will be needed when the processor is subscribed to multiple ones. In that case `block.items` will contain a mix of different event and extrinsic data that will need to be sorted.
+In the `getTransferRecords` function we loop over the blocks and over the events contained in them, then filter the events with an `if`. The filtering is redundant when there's only one event type to process but will be needed when the processor is subscribed to multiple ones.
 :::
 
 ## Launch the Project
 
-To launch the processor (this will block the current terminal), you can run the following command:
+Launch the processor with
 
 ```bash
 sqd process
 ```
-[comment]: # (Launch processor https://i.gyazo.com/66ab9c1fef9203d3e24b6e274bba47e3.gif)
-
-Finally, in a separate terminal window, launch the GraphQL server:
+This will block the current terminal. In a separate terminal window, launch the GraphQL server:
 
 ```bash
 sqd serve
 ```
 
-Visit [`localhost:4350/graphql`](http://localhost:4350/graphql) to access the [GraphiQl](https://github.com/graphql/graphiql) console. From this window, you can perform queries such as this one, to find out the account owners with the biggest balances:
+Visit [`localhost:4350/graphql`](http://localhost:4350/graphql) to access the [GraphiQl](https://github.com/graphql/graphiql) console. There you can perform queries such as this one, to find out the account owners with the biggest balances:
 
 ```graphql
 query MyQuery {

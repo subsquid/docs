@@ -55,8 +55,8 @@ The table below lists the currently available public Substrate endpoints to be u
 | hydradx              | `lookupArchive('hydradx')`                          | `lookupArchive('hydradx',` `{release: 'ArrowSquid'})`                        |
 | integritee-network   | `lookupArchive('integritee-network')`               | temporarily unavailable                                                      |
 | interlay             | `lookupArchive('interlay')`                         | `lookupArchive('interlay',` `{release: 'ArrowSquid'})`                       |
-| invarch-tinkernet    | `lookupArchive('invarch-tinkernet')`                | temporarily unavailable                                                      |
-| joystream            | `lookupArchive('joystream')`                        | temporarily unavailable                                                      |
+| invarch-tinkernet    | `lookupArchive('invarch-tinkernet')`                | `lookupArchive('invarch-tinkernet',` `{release: 'ArrowSquid'})`              |
+| joystream            | `lookupArchive('joystream')`                        | `lookupArchive('joystream',` `{release: 'ArrowSquid'})`                      |
 | kabocha              | `lookupArchive('kabocha')`                          | temporarily unavailable                                                      |
 | karura               | `lookupArchive('karura')`                           | `lookupArchive('karura',` `{release: 'ArrowSquid'})`                         |
 | khala                | `lookupArchive('khala')`                            | `lookupArchive('khala',` `{release: 'ArrowSquid'})`                          |
@@ -79,6 +79,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | parallel             | `lookupArchive('parallel')`                         | temporarily unavailable                                                      |
 | peaq                 | `lookupArchive('peaq')`                             | temporarily unavailable                                                      |
 | pendulum             | `lookupArchive('pendulum')`                         | temporarily unavailable                                                      |
+| phala-testnet        | not available                                       | `lookupArchive('phala-testnet',` `{release: 'ArrowSquid'})`                  |
 | phala                | `lookupArchive('phala')`                            | `lookupArchive('phala',` `{release: 'ArrowSquid'})`                          |
 | picasso              | `lookupArchive('picasso')`                          | temporarily unavailable                                                      |
 | polkadex             | `lookupArchive('polkadex')`                         | temporarily unavailable                                                      |
@@ -103,6 +104,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | vara                 | `lookupArchive('vara')`                             | temporarily unavailable                                                      |
 | westend-collectives  | `lookupArchive('westend-collectives')`              | temporarily unavailable                                                      |
 | xx-network           | `lookupArchive('xx-network')`                       | temporarily unavailable                                                      |
+| watr                 | not available                                       | `lookupArchive('watr',` `{release: 'ArrowSquid'})`                           |
 | zeitgeist            | `lookupArchive('zeitgeist')`                        | `lookupArchive('zeitgeist',` `{release: 'ArrowSquid'})`                      |
 
 ### Example

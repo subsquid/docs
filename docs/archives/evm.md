@@ -272,6 +272,10 @@ The returned worker will be capable of processing `POST /` requests in which the
 
 ## Data requests
 
+:::warning
+Addresses in all data requests must be in lowercase. All addresses in the responses will be in lowercase, too.
+:::
+
 ### Logs
 
 ```ts
