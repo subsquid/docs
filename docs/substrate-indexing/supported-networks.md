@@ -45,7 +45,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | elysium-testnet      | `lookupArchive('elysium-testnet')`                  | temporarily unavailable                                                      |
 | enjin-matrix         | `lookupArchive('enjin-matrix')`                     | temporarily unavailable                                                      |
 | equilibrium          | `lookupArchive('equilibrium')`                      | temporarily unavailable                                                      |
-| foucoco              | `lookupArchive('foucoco')`                          | temporarily unavailable                                                      |
+| foucoco              | `lookupArchive('foucoco')`                          | `lookupArchive('foucoco',` `{release: 'ArrowSquid'})`                        |
 | frequency            | `lookupArchive('frequency')`                        | `lookupArchive('frequency',` `{release: 'ArrowSquid'})`                      |
 | frequency-testnet    | `lookupArchive('frequency-testnet')`                | temporarily unavailable                                                      |
 | gear-testnet         | `lookupArchive('gear-testnet')`                     | temporarily unavailable                                                      |
@@ -78,7 +78,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | pangoro              | `lookupArchive('pangoro')`                          | temporarily unavailable                                                      |
 | parallel             | `lookupArchive('parallel')`                         | temporarily unavailable                                                      |
 | peaq                 | `lookupArchive('peaq')`                             | temporarily unavailable                                                      |
-| pendulum             | `lookupArchive('pendulum')`                         | temporarily unavailable                                                      |
+| pendulum             | `lookupArchive('pendulum')`                         | `lookupArchive('pendulum',` `{release: 'ArrowSquid'})`                       |
 | phala-testnet        | not available                                       | `lookupArchive('phala-testnet',` `{release: 'ArrowSquid'})`                  |
 | phala                | `lookupArchive('phala')`                            | `lookupArchive('phala',` `{release: 'ArrowSquid'})`                          |
 | picasso              | `lookupArchive('picasso')`                          | temporarily unavailable                                                      |
