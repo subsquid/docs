@@ -14,7 +14,7 @@ The processor metrics are available at `https://squid.subsquid.io/${name}/v/v${v
 
  `${processor}` here is the processor name; it defaults to `processor` unless specified.
 
-The metrics are documented inline and include: 
+The metrics are documented inline. They include some values reflecting the squid health:
 - `sqd_processor_last_block`. The last processed block.
 - `sqd_processor_chain_height`. Current chain height as reported by the archive.
 - `sqd_processor_archive_http_errors_in_row`. The number of consecutive failed Archive requests

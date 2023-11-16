@@ -83,4 +83,4 @@ Use the trace API to retrieve traces. Useful when requesting traces without stat
 
 #### `setPrometheusPort(port: string | number)` {#set-prometheus-port}
 
-Sets the port for a built-in prometheus metrics server. By default, the value of PROMETHEUS_PORT environment variable is used. When it is not set, processor will pick an ephemeral port.
+Sets the port for a built-in prometheus health metrics server (serving at `http://localhost:${port}/metrics`). By default, the value of PROMETHEUS_PORT environment variable is used. When it is not set, processor will pick an ephemeral port.
