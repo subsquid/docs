@@ -53,8 +53,9 @@ To inspect the squid logs run
 ```bash
 sqd logs my-new-squid@v0 -f 
 ```
+See the [logging page](../logging) for more details on how to inspect logs with `sqd`.
 
-or navigate to the squid page in Cloud. See the [logging page](../logging) for more details on how to inspect logs.
+You can also read logs on the squid page in [Cloud](https://app.subsquid.io/squids). The page also has credentials for direct database access and some metrics visualizations.
 
 ## What's next?
 
