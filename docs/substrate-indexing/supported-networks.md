@@ -16,8 +16,8 @@ The table below lists the currently available public Substrate endpoints to be u
 | aleph-zero-testnet   | `lookupArchive('aleph-zero-testnet')`               | temporarily unavailable                                                      |
 | altair               | `lookupArchive('altair')`                           | temporarily unavailable                                                      |
 | amplitude            | `lookupArchive('amplitude')`                        | `lookupArchive('amplitude',` `{release: 'ArrowSquid'})`                      |
-| asset-hub-kusama     | not available                                       | `lookupArchive('asset-hub-kusama',` `{release: 'ArrowSquid'})`               |
-| asset-hub-polkadot   | not available                                       | `lookupArchive('asset-hub-polkadot',` `{release: 'ArrowSquid'})`             |
+| asset-hub-kusama (*) | not available                                       | `lookupArchive('asset-hub-kusama',` `{release: 'ArrowSquid'})`               |
+| asset-hub-polkadot (*) | not available                                       | `lookupArchive('asset-hub-polkadot',` `{release: 'ArrowSquid'})`             |
 | asset-hub-rococo     | not available                                       | `lookupArchive('asset-hub-rococo',` `{release: 'ArrowSquid'})`               |
 | astar                | `lookupArchive('astar',` `{type: 'Substrate'})`     | `lookupArchive('astar',` `{type: 'Substrate',` `release: 'ArrowSquid'})`     |
 | bajun                | `lookupArchive('bajun')`                            | temporarily unavailable                                                      |
@@ -106,6 +106,9 @@ The table below lists the currently available public Substrate endpoints to be u
 | xx-network           | `lookupArchive('xx-network')`                       | temporarily unavailable                                                      |
 | watr                 | not available                                       | `lookupArchive('watr',` `{release: 'ArrowSquid'})`                           |
 | zeitgeist            | `lookupArchive('zeitgeist')`                        | `lookupArchive('zeitgeist',` `{release: 'ArrowSquid'})`                      |
+| zeitgeist-testnet    | not available                                       | `lookupArchive('zeitgeist-testnet',` `{release: 'ArrowSquid'})`              |
+
+(*) Asset Hub networks for Polkadot and Kusama were formerly known as Statemint and Statemine, respectively
 
 ### Example
 
