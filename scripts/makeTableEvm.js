@@ -47,22 +47,29 @@ Promise.all(rows.map(({network, command, url}) => {
 				network,
 				command,
 				stateDiffs: caps.stateDiffs===null ? '?' : (caps.stateDiffs ? '✓' : ' '),
-				traces: caps.traces===null ? '?' : (caps.traces ? '✓' : ' ')
+				traces: caps.traces===null ? '?' : (caps.traces ? '✓' : ' '),
+				url
 			}
 		})
 }))
-.then(res => { console.log(formatTable(res)) })
+.then(res => { console.log(`${formatTable(res, mainTableFields, mainTableFieldHeaders)}\n\n${formatTable(res, urlsTableFields, urlsTableFieldsHeaders)}`) })
 .then(() => process.exit(0))
 
-function formatTable(rows) {
-	const fields = ['network', 'stateDiffs', 'traces', 'command']
-	const fieldsHeaders = {
-		network: 'Network',
-		stateDiffs: 'State diffs',
-		traces: 'Traces',
-		command: 'Lookup command'
-	}
+const mainTableFields = ['network', 'stateDiffs', 'traces', 'command']
+const mainTableFieldHeaders = {
+	network: 'Network',
+	stateDiffs: 'State diffs',
+	traces: 'Traces',
+	command: 'Lookup command'
+}
 
+const urlsTableFields = ['network', 'url']
+const urlsTableFieldsHeaders = {
+	network: 'Network',
+	url: 'Archive endpoint URL'
+}
+
+function formatTable(rows, fields, fieldsHeaders) {
 	const maxWidths = Object.fromEntries(fields.map(f => [f, Math.max(fieldsHeaders[f].length, ...rows.map(r => r[f].length))]))
 
 	function padFieldContents(fieldContents, nominalWidth) {

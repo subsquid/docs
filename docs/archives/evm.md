@@ -18,7 +18,110 @@ Since the ArrowSquid release, Subsquid Archive API distributes the requests over
 4. Exclude the received blocks from the relevant range by setting `firstBlock` to the value of `header.number` of the last received block.
 5. Repeat steps 2-4 until all the required data is retrieved.
 
-Implementation example:
+Main URLs of EVM Archives are available on the [Supported networks page](/evm-indexing/supported-networks/#raw-urls).
+
+Implementation examples:
+
+<details>
+
+<summary>Manually with cURL</summary>
+
+Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` from block 16_000_000. We begin by finding the main archive URL for Ethereum Mainnet on the [Supported networks page](/evm-indexing/supported-networks/#raw-urls). Then we have to:
+
+1. Verify that the archive has reached the required height:
+   ```bash
+   $ curl https://v2.archive.subsquid.io/network/ethereum-mainnet/height
+   ```
+   Output
+   ```
+   18593441
+   ```
+
+2. Get a worker URL
+   ```bash
+   $ curl https://v2.archive.subsquid.io/network/ethereum-mainnet/16000000/worker
+   ```
+   Output:
+   ```
+   https://lm02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0
+   ```
+
+3. Retrieve the data from the worker
+   ```bash
+   $ curl https://lm02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0 \
+   -X 'POST' -H 'content-type: application/json' -H 'accept: application/json' \
+   -d '{
+       "fromBlock":16000000,
+       "toBlock":18593441,
+       "fields":{"transaction":{"hash":true}},
+       "transactions":[{"to":["0xd8da6bf26964af9d7eed9e03e53415d37aa96045"]}]
+   }' | python -m json.tool
+   ```
+   Note how the address in the `transactions` data request is lowercased.
+
+   Output:
+   ```json
+   [
+       {
+           "header": {
+               "number": 16000000,
+               "hash": "0x3dc4ef568ae2635db1419c5fec55c4a9322c05302ae527cd40bff380c1d465dd",
+               "parentHash": "0x6f377dc6bd1f3e38b9ceb8c946a88c13211fa3f084622df3ee5cfcd98cc6bb16"
+           },
+           "transactions": []
+       },
+       // ...
+       {
+           "header": {
+               "number": 16027977,
+               "hash": "0x4b332878deb33e963b68c8bbbea60cbca72a88c297b6800eafa82baab497c166",
+               "parentHash": "0x2b979d67d9b03394da336938ee0bcf5aedfdf87e1b5bd574d985aee749eb8b76"
+           },
+           "transactions": [
+               {
+                   "transactionIndex": 96,
+                   "hash": "0xbaede248ec6fce28e9d874f69ea70359bea0107ce9144d6838898674d9d10c8c"
+               }
+           ]
+       },
+       // ...
+       {
+           "header": {
+               "number": 16031419,
+               "hash": "0x9cc48c9b4ad8dddb1de86a15e30a62ffd48cf9b72930930cfa5167c4e1685d0a",
+               "parentHash": "0x4ec7b4562739032f51e70d26fe5129e571e2bf0348a744c1509f8205f4381696"
+           },
+           "transactions": []
+       }
+   ]
+   ```
+
+4. Observe that we received the transactions up to and including block 16031419. To get the rest of the data, we find a worker who has blocks from 16031420 on:
+   ```bash
+   $ curl https://v2.archive.subsquid.io/network/ethereum-mainnet/16031420/worker
+   ```
+   Output:
+   ```
+   https://rb02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0
+   ```
+   We can see that this part of the dataset is located on another host.
+
+5. Retrieve the data from the new worker
+   ```bash
+   $ curl https://rb02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0 \
+   -X 'POST' -H 'content-type: application/json' -H 'accept: application/json' \
+   -d '{
+       "fromBlock":16031420,
+       "toBlock":18593441,
+       "fields":{"transaction":{"hash":true}},
+       "transactions":[{"to":["0xd8da6bf26964af9d7eed9e03e53415d37aa96045"]}]
+   }' | python -m json.tool
+   ```
+   Output is similar to that of step 3.
+
+6. Repeat steps 4 and 5 until all the archive height of 18593441 reached.
+
+</details>
 
 <details>
 
@@ -29,7 +132,6 @@ def get_text(url: str) -> str:
     res = requests.get(url)
     res.raise_for_status()
     return res.text
-
 
 def dump(
     archive_url: str,
