@@ -1,0 +1,12 @@
+{
+    "position": 100,
+    "label": "Substrate-specific",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/sdk/resources/substrate",
+      "title": "Topics specific to Substrate"
+    }
+}

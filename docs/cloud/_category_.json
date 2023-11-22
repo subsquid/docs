@@ -1,0 +1,12 @@
+{
+    "position": 43,
+    "label": "Subsquid Cloud",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/cloud",
+      "title": "Deploy your indexers to Subsquid Cloud"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "position": 20,
+    "label": "Indexing SDK",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/sdk",
+      "title": "Extract, transform, load and query historical blockchain data from Subsquid data lakes"
+    }
+}

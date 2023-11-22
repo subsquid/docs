@@ -1,0 +1,13 @@
+{
+  "position": 90,
+  "label": "Troubleshooting",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "title": "Troubleshooting",
+    "description": "Common issues arising when developing squids",
+    "slug":"/sdk/troubleshooting"
+  }
+}

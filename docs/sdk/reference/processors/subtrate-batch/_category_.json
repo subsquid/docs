@@ -1,0 +1,12 @@
+{
+    "position": 40,
+    "label": "Substrate",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/sdk/reference/processors/subtrate-batch",
+      "title": "SubstrateBatchProcessor reference documentation"
+    }
+}

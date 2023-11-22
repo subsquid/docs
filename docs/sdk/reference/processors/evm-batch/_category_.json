@@ -1,0 +1,12 @@
+{
+    "position": 10,
+    "label": "EVM",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/sdk/reference/processors/evm-batch",
+      "title": "EvmBatchProcessor reference documentation"
+    }
+}

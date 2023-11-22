@@ -1,0 +1,294 @@
+---
+sidebar_position: 70
+description: >-
+  EVMBatchProcessor in action
+title: Processor in action
+---
+
+# `EvmBatchProcessor` in action
+
+[//]: # (!!!! Update examples and their URLs)
+
+An end-to-end idiomatic usage of `EvmBatchProcessor` can be inspected in the [gravatar-template repository](https://github.com/subsquid/gravatar-squid) (link out of date) and also learned from more elaborate [examples](/examples/evm).
+
+In order to illustrate the concepts covered thus far, here we highlight the key steps, put together a processor configuration and a data handling definition.
+
+## 1. Model the target schema and generate entity classes
+
+Create or edit `schema.graphql` to define the target entities and relations. Consult [the schema reference](/store/postgres/schema-file).
+
+Update the entity classes, start a fresh database and regenerate migrations:
+```bash
+sqd codegen
+sqd down
+sqd up
+sqd migration:generate
+```
+
+## 2. Generate Typescript ABI modules
+
+Use [`evm-typegen`](/evm-indexing/squid-evm-typegen) to generate the facade classes, for example like this:
+```bash
+npx squid-evm-typegen src/abi 0x2E645469f354BB4F5c8a05B3b30A929361cf77eC#Gravity --clean
+```
+
+## 3. Configuration
+
+See [Configuration section](/evm-indexing/configuration) for more details.
+
+```ts
+const processor = new EvmBatchProcessor()
+  .setDataSource({
+    archive: lookupArchive('eth-mainnet'),
+    chain: 'https://eth-rpc.gateway.pokt.network'
+  })
+  .setFinalityConfirmation(75)
+  .setBlockRange({ from: 6175243 })
+  // fetch logs emitted by '0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'
+  // matching either `NewGravatar` or `UpdatedGravatar`
+  .addLog({
+    address: ['0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'],
+    topic0: [
+      events.NewGravatar.topic,
+      events.UpdatedGravatar.topic,
+    ]
+  })
+```
+
+## 4. Iterate over the batch items and group events
+
+The following code snippet illustrates a typical data transformation in a batch. The strategy is to
+
+- Iterate over `ctx.blocks` and `block.logs`
+- Decode each log using a suitable facade class
+- Enrich and transform the data 
+- Upsert arrays of entities in batches using `ctx.save()`
+
+The `processor.run()` method the looks as follows:
+
+```ts
+processor.run(new TypeormDatabase(), async (ctx) => {
+  // storing the new/updated entities in
+  // an in-memory identity map
+  const gravatars: Map<string, Gravatar> = new Map()
+  // iterate over the data batch stored in ctx.blocks
+  for (const c of ctx.blocks) {
+    for (const log of c.logs) {
+      // decode the log data
+      const { id, owner, displayName, imageUrl } = extractData(log)
+      // transform and normalize to match the target entity (Gravatar)
+      gravatars.set(id.toHexString(), new Gravatar({
+        id: id.toHexString(),
+        owner: decodeHex(owner),
+        displayName,
+        imageUrl
+      })) 
+    }
+  }
+  // Upsert the entities that were updated.
+  // Note that store.save() automatically updates 
+  // the existing entities and creates new ones.
+  // It splits the data into suitable chunks to
+  // guarantee an adequate performance.
+  await ctx.store.save([...gravatars.values()])
+});
+```
+
+In the snippet above, we decode both `NewGravatar` and `UpdatedGravatar` with a single helper function that uses the 
+generated `events` facade class:
+```ts
+function extractData(evmLog: any): { id: ethers.BigNumber, owner: string, displayName: string, imageUrl: string} {
+  if (evmLog.topics[0] === events.NewGravatar.topic) {
+    return events.NewGravatar.decode(evmLog)
+  }
+  if (evmLog.topics[0] === events.UpdatedGravatar.topic) {
+    return events.UpdatedGravatar.decode(evmLog)
+  }
+  throw new Error('Unsupported topic')
+}
+```
+
+## 5. Run the processor and store the transformed data into the target database
+
+Run the processor with
+```bash
+sqd process
+```
+The script will build the code automatically before running.
+
+In a separate terminal window, run
+```bash
+sqd serve
+```
+Inspect the GraphQL API at [`http://localhost:4350/graphql`](http://localhost:4350/graphql).
+---
+sidebar_position: 70
+description: >-
+  Idiomatic usage of SubstrateBatchProcessor
+title: Processor in action
+---
+
+# `SubstrateBatchProcessor` in action
+
+An end-to-end idiomatic usage of `SubstrateBatchProcessor` can be inspected in the [squid-substrate-template](https://github.com/subsquid-labs/squid-substrate-template) and also learned from more elaborate [examples](/examples/substrate).
+
+Here we highlight the key steps and put together a configuration and a data handling definition to illustrate the concepts covered so far.
+
+## 1. Set up the processor
+
+See [Setup section](/substrate-indexing/setup) for more details.
+
+```ts title=src/processor.ts
+import {
+  SubstrateBatchProcessor
+} from '@subsquid/substrate-processor'
+
+export const processor = new SubstrateBatchProcessor()
+  // set the data source
+  .setDataSource({
+    archive: lookupArchive('kusama', {release: 'ArrowSquid'}),
+    chain: 'https://kusama-rpc.dwellir.com'
+  })
+  // add data requests
+  .addEvent({
+    name: ['Balances.Transfer'],
+    extrinsic: true
+  })
+  .addCall({
+    name: ['Balances.transfer_keep_alive'],
+    extrinsic: true
+  })
+  // define the data
+  // to be fetched for each data item
+  .setFields({
+    extrinsic: {
+      hash: true,
+      fee: true
+    },
+    call: {
+      success: true
+    },
+    block: {
+      timestamp: true
+    }
+  })
+```
+
+## 2. Define a custom data facade and extract normalized data from `BatchContext`
+
+The following code snippet illustrates how the data is extracted and normalized into some user-specific facade interface `TransferData`. Note how the data items in each of the block data iterables (`events`, `calls`, `extrinsics`) are filtered in the batch handler to make sure they match the data requests.
+
+Type-safe access and decoding of the call and event data is done with the help of the classes generated by a suitable [typegen tool](/glossary/#typegen), in this case [squid-substrate-typegen](../squid-substrate-typegen).
+
+```ts title="src/main.ts"
+import {Store} from '@subsquid/typeorm-store'
+import * as ss58 from '@subsquid/ss58'
+
+import {events} from './types'
+import {ProcessorContext} from './processor'
+
+// some normalized user-define data
+interface TransferData {
+  id: string
+  timestamp: Date | undefined
+  extrinsicHash: string | undefined
+  from: string
+  to: string
+  amount: bigint
+  fee?: bigint
+}
+
+// extract and normalize
+function getTransfers(ctx: ProcessorContext<Store>): TransferData[] {
+  let transfers: TransferData[] = []
+  for (let block of ctx.blocks) {
+    for (let event of block.events) {
+      if (event.name==='Balances.Transfer') {
+        // decode the event data with runtime-versioned
+        // classes generated by typegen
+        let rec: {from: string, to: string, amount: bigint}
+        if (events.balances.transfer.v1020.is(event)) {
+          let [from, to, amount,] =
+            events.balances.transfer.v1020.decode(event)
+          rec = {from, to, amount}
+        } else if (events.balances.transfer.v1050.is(event)) {
+          let [from, to, amount] =
+            events.balances.transfer.v1050.decode(event)
+          rec = {from, to, amount}
+        } else {
+          rec = events.balances.transfer.v9130.decode(event)
+        }
+        // extract and normalize the `item.event` data
+        let timestamp =
+          block.header.timestamp == null ?
+          undefined :
+          new Date(block.header.timestamp)
+        transfers.push({
+          id: event.id,
+          timestamp,
+          extrinsicHash: event.extrinsic?.hash,
+          from: ss58.codec('kusama').encode(rec.from),
+          to: ss58.codec('kusama').encode(rec.to),
+          amount: rec.amount,
+          fee: event.extrinsic?.fee || 0n
+        })
+      }
+    }
+    for (let call of block.calls) {
+      if (call.name==='Balances.transfer_keep_alive') {
+        // extranct and normalize the call data
+        transfer.push({
+          /* some data manipulation on the call data */
+        })
+      }
+    }
+  }
+  return transfers
+}
+```
+
+## 3. Run the processor and store the transformed data into the target database
+
+The snippet below assumes that we are using `TypeormDatabase` and that the database schema together with the model entity types has already been prepared. Consult the [Schema file](/store/postgres/schema-file) section for more details.
+
+```ts title="src/main.ts"
+import {TypeormDatabase} from '@subsquid/typeorm-store'
+// an entity type generated from the schema file
+import {Transfer} from './model'
+import {processor} from './processor'
+
+// ... `getTransfers(Ctx)` definition
+
+processor.run(new TypeormDatabase(), async ctx => {
+  // get the normalized data from the context
+  let transfersData = getTransfers(ctx)
+
+  // an array of entity class instances
+  let transfers: Transfer[] = []
+
+  for (let t of transfersData) {
+    let {id, blockNumber, timestamp, extrinsicHash, amount, fee} = t
+
+    // join some extra data
+    let from = getAccount(accounts, t.from)
+    let to = getAccount(accounts, t.to)
+
+    // populate entity class instances
+    // with the extracted data
+    transfers.push(new Transfer({
+      id,
+      blockNumber,
+      timestamp,
+      extrinsicHash,
+      from,
+      to,
+      amount,
+      fee
+    }))
+  }
+
+  // persist an array of entities
+  // in a single statement
+  await ctx.store.insert(transfers)
+})
+```
