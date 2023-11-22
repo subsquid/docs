@@ -1,10 +1,10 @@
 ---
 sidebar_position: 40
 description: >-
-  Query the historical state
+  Direct chain queries
 ---
 
-# Query the contract state
+# Direct chain queries
 
 In order to make on-chain calls, one must set up a Websocket JSON-RPC endpoint using [setDataSource()](/evm-indexing/configuration/initialization). We recommend using a private endpoint from e.g. [BlastAPI](https://blastapi.io/) or the Subsquid Cloud's [RPC proxy](/deploy-squid/rpc-proxy) service, and set it via an environment variable:
 

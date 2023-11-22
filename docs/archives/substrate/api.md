@@ -1,6 +1,6 @@
 ---
-sidebar_position: 30
-title: Substrate Archive API
+sidebar_position: 10
+title: API
 description: Substrate Archive API for batch access
 ---
 

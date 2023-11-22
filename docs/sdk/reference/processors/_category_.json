@@ -1,0 +1,12 @@
+{
+  "position": 10,
+  "label": "Processors",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "slug": "/sdk/reference/processors",
+    "title": "Classes for blockchain data extraction and transformation"
+  }
+}

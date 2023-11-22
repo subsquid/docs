@@ -1,12 +1,12 @@
 {
-    "position": 40,
-    "label": "Tutorials",
+    "position": 70,
+    "label": "Resources",
     "collapsible": true,
     "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
-      "title": "Step-by-step tutorials",
-      "slug":"/tutorials"
+      "slug": "/cloud/resources",
+      "title": "Subsquid Cloud resources"
     }
 }

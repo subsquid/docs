@@ -1,6 +1,6 @@
 ---
 sidebar_position: 20
-title: EVM Archive API
+title: API
 description: EVM Archive API for batch access
 ---
 

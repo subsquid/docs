@@ -1,0 +1,12 @@
+{
+  "position": 20,
+  "label": "Data sinks",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "slug": "/sdk/reference/store",
+    "title": "Classes for saving data"
+  }
+}

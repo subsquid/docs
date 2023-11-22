@@ -1,12 +1,12 @@
 {
-    "position": 40,
+    "position": 60,
     "label": "Schema file",
     "collapsible": true,
     "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
-      "slug": "/sdk/resources/schema-file",
+      "slug": "/sdk/reference/schema-file",
       "title": "Definition of the database schema, entity classes and the core GraphQL API"
     }
 }

@@ -3,7 +3,7 @@ sidebar_position: 35
 description: Type-safe EVM tx, log and state data
 ---
 
-# EVM typegen
+# Configuration
 
 **Since `@subsquid/evm-typegen@2.0.0`**
 

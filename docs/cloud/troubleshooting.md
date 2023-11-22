@@ -1,8 +1,8 @@
 ---
-sidebar_position: 115
+sidebar_position: 60
 ---
 
-# Common Aquarium issues
+# Troubleshooting
 
 ### `Secrets outdated. Please restart the squid` notification in Aquarium
 

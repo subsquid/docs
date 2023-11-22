@@ -2,7 +2,7 @@
 sidebar_position: 115
 ---
 
-# Database
+# Data sinks
 
 ### `QueryFailedError: relation does not exist`
 

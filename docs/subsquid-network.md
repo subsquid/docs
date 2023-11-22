@@ -1,5 +1,5 @@
 ---
-sidebar_position: 112
+sidebar_position: 70
 title: Subsquid network
 ---
 

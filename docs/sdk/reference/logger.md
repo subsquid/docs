@@ -1,9 +1,9 @@
 ---
-sidebar_position: 90
+sidebar_position: 30
 description: Native logger of Squid SDK
 ---
 
-# Logging
+# Logger
 
 A [`Logger`](https://github.com/subsquid/squid/tree/master/util/logger) interface is injected into the [handler context](/basics/squid-processor/#batch-context) with `ctx.log`. It is bound to the namespace `sqd:processor:mapping`. The context logger is a recommended way of logging for squid processors.
 

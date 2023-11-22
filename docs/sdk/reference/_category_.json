@@ -1,0 +1,12 @@
+{
+    "position": 200,
+    "label": "Reference",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/sdk/reference",
+      "title": "Squid SDK reference documentation"
+    }
+}

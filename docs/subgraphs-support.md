@@ -1,8 +1,8 @@
 ---
-title: Run a subgraph
+title: Subgraphs support
 description: >-
   Use Subsquid data lakes to sync a subgraph
-sidebar_position: 70
+sidebar_position: 30
 ---
 
 # Run a subgraph

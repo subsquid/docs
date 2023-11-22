@@ -1,6 +1,6 @@
 ---
 sidebar_position: 35
-title: RPC proxy
+title: addons.rpc section
 description: Built-in caching RPC endpoints
 ---
 

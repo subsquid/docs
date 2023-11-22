@@ -1,6 +1,6 @@
 ---
-sidebar_position: 40
-title: Scale the deployment
+sidebar_position: 20
+title: scale section
 description: Scale the squid with the deployment manifest
 ---
 

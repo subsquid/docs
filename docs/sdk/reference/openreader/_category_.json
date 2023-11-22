@@ -1,0 +1,12 @@
+{
+  "position": 80,
+  "label": "GraphQL API",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "slug": "/sdk/reference/openreader",
+    "title": "Core queries exposed by the squid GraphQL API"
+  }
+}

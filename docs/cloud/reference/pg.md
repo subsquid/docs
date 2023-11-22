@@ -1,6 +1,6 @@
 ---
 sidebar_position: 30
-title: Postgres add-on
+title: addons.postgres section
 description: Provision and scale postgres for a squid
 ---
 

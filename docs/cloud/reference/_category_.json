@@ -1,0 +1,12 @@
+{
+  "position": 200,
+  "label": "Reference",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "slug": "/cloud/reference",
+    "title": "Subsquid Cloud reference documentation"
+  }
+}
