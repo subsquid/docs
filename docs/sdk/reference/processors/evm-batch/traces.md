@@ -6,10 +6,6 @@ description: >-
 
 # Traces
 
-:::info
-Check out the [Caveats](../caveats) page to avoid common `EvmBatchProcessor` configuration issues.
-:::
-
 :::tip
 Traces for historical blocks are [currently available](/archives/evm/networks) from Archives on the same basis as all other data stored there: for free. If you deploy a squid that indexes traces [in real-time](/sdk/resources/unfinalized-blocks) to Subsquid Cloud and use our [RPC proxy](/cloud/reference/rpc-proxy), the necessary `trace_` or `debug_` RPC calls made will be counted alongside all other calls and [the price](/cloud/reference/pricing/#rpc-requests) will be computed for the total count. There are no surcharges for traces or state diffs.
 :::
@@ -50,7 +46,7 @@ Note that traces can also be requested by the [`addTransaction()`](../transactio
 
 [//]: # (???? Check whether the final version adds the transactions / subtraces to the items, too)
 
-Selection of the exact data to be retrieved for each trace item is done with the `setFields()` method documented on the [Field selection](../data-selection) page. Be aware that field selectors for traces do not share their names with the fields of trace data items, unlike field selectors for other data item types. This is due to traces varying their structure depending on the value of the `type` field.
+Selection of the exact data to be retrieved for each trace item is done with the `setFields()` method documented on the [Field selection](../field-selection) page. Be aware that field selectors for traces do not share their names with the fields of trace data items, unlike field selectors for other data item types. This is due to traces varying their structure depending on the value of the `type` field.
 
 ## Examples
 

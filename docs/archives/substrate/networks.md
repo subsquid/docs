@@ -7,7 +7,7 @@ title: Supported networks
 
 # Supported Substrate networks
 
-The table below lists the currently available public Substrate endpoints to be used with the [`setDataSource()`](../setup/general/#set-data-source) `SubstrateBatchProcessor` configuration method.
+The table below lists the currently available public Substrate endpoints to be used with the [`setDataSource()`](/sdk/reference/processors/subtrate-batch/general/#set-data-source) `SubstrateBatchProcessor` configuration method.
 
 | Network              | FireSquid lookup command                            | ArrowSquid lookup command                                                    |
 |:--------------------:|:---------------------------------------------------:|:----------------------------------------------------------------------------:|

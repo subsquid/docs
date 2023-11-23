@@ -37,7 +37,7 @@ A few scenarios are possible when indexing a proxy contract:
      let {minter, to, amount} = fiatToken.events.Mint.decode(log)
      // ...
    ```
-   Complete example is available [here](/examples/evm/evm-logs-example) (uses `Transfer`s instead of `Mint`s).
+   Complete example is available [here](https://github.com/subsquid-labs/evm-logs-example) (uses `Transfer`s instead of `Mint`s).
 
 2. **Events and calls that need to be indexed are described in the proxy contract itself**. This typically occurs in indexers that track contract upgrades. In this case simply use the ABI of the proxy contract to both request and decode the data:
    ```bash

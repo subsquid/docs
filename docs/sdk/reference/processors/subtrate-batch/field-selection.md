@@ -18,7 +18,7 @@ Set the fields to be retrieved for data items of each supported type. The `optio
 }
 ```
 
-Every field selector is a collection of boolean fields mapping one-to-one to the fields of data items within the batch context [iterables](../../context-interfaces). Setting a field of a field selector of a given type to true, like this
+Every field selector is a collection of boolean fields mapping one-to-one to the fields of data items within the batch context [iterables](../context-interfaces). Setting a field of a field selector of a given type to true, like this
 ```ts
 let processor = new SubstrateBatchProcessor()
   .setFields({
@@ -224,7 +224,7 @@ BlockHeader{
   }
 }
 ```
-`Runtime` is an internal type that tools like [squid-substrate-typegen](../../squid-substrate-typegen) use for dealing with Substrate runtime versions. The curious may take a look at the definition [here](https://github.com/subsquid/squid-sdk/blob/master/substrate/substrate-runtime/src/runtime/runtime.ts).
+`Runtime` is an internal type that tools like [squid-substrate-typegen](/sdk/reference/typegen) use for dealing with Substrate runtime versions. The curious may take a look at the definition [here](https://github.com/subsquid/squid-sdk/blob/master/substrate/substrate-runtime/src/runtime/runtime.ts).
 
 ## A complete example
 

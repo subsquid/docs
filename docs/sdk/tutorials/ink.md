@@ -1,5 +1,4 @@
 ---
-id: create-a-wasm-processing-squid
 title: ink! contract indexing
 description: >-
   Build a squid indexing an ink! smart contract

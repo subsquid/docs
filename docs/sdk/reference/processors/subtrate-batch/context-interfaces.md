@@ -17,15 +17,15 @@ export type Block<F extends FieldSelection = {}> = {
   events: Event<F>[]
 }
 ```
-`F` here is the type of the argument of the [`setFields()`](../setup/field-selection) processor method.
+`F` here is the type of the argument of the [`setFields()`](../field-selection) processor method.
 
 `Block.header` contains the block header data. The rest of the fields are iterables containing four kinds of blockchain data. The canonical ordering within each iterable is the same as it is within the blocks.
 
-The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [Field selection](../setup/field-selection) page:
- - [extrinsics section](../setup/field-selection/#extrinsics);
- - [calls section](../setup/field-selection/#calls);
- - [events section](../setup/field-selection/#events);
- - [block header section](../setup/field-selection/#block-headers).
+The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [Field selection](../field-selection) page:
+ - [extrinsics section](../field-selection/#extrinsics);
+ - [calls section](../field-selection/#calls);
+ - [events section](../field-selection/#events);
+ - [block header section](../field-selection/#block-headers).
 
 ## Example
 
@@ -60,6 +60,6 @@ processor.run(new TypeormDatabase(), async ctx => {
 })
 ```
 
-One can experiment with the [`setFields()`](../setup/field-selection) argument and see how the output changes.
+One can experiment with the [`setFields()`](../field-selection) argument and see how the output changes.
 
 [//]: # (!!!! For more elaborate examples, check examples and batch processor in action)

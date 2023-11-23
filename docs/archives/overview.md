@@ -10,7 +10,7 @@ Archive is a specialized data lake for on-chain data, optimized for batch data a
 
 Compared to data access using a conventional chain node RPC, an Archive allows one to access data at near zero cost, in a more granular fashion and from multiple blocks at once, thanks to its rich batching and filtering capabilities.
 
-Subsquid Labs GmbH maintains public Archives for most [EVM](/sdk) and [Substrate](/sdk) chains. Until Archive services are replaced by a decentralized and permissionless [Subsquid Network](/subsquid-network), access to the Archives is free of charge.
+Subsquid Labs GmbH maintains public Archives for most [EVM](/archives/evm) and [Substrate](/archives/substrate) chains. Until Archive services are replaced by a decentralized and permissionless [Subsquid Network](/subsquid-network), access to the Archives is free of charge.
 
 If you are a network developer and would like to see your chain supported by Subsquid, please fill a [form](https://forms.gle/ioVNFiPjZgvUNunY9) or contact us in [SquidDevs Telegram chat](https://t.me/HydraDevs).
 

@@ -6,10 +6,6 @@ description: >-
 
 # Event logs
 
-:::info
-Check out the [Caveats](../caveats) page to avoid common `EvmBatchProcessor` configuration issues.
-:::
-
 #### `addLog(options)` {#add-log}
 
 Get event logs emitted by some _or all_ contracts in the network. `options` has the following structure:
@@ -36,7 +32,7 @@ With `transaction = true` the processor will retrieve all parent transactions an
 
 Note that logs can also be requested by the [`addTransaction()`](../transactions) method as related data.
 
-Selection of the exact data to be retrieved for each log and its optional parent transaction is done with the `setFields()` method documented on the [Field selection](../data-selection) page. Some examples are available below.
+Selection of the exact data to be retrieved for each log and its optional parent transaction is done with the `setFields()` method documented on the [Field selection](../field-selection) page. Some examples are available below.
 
 ## Examples
 

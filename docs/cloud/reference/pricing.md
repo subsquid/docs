@@ -8,7 +8,7 @@ description: Subscription types and pay-as-you-go prices
 
 ## Billing
 
-Subsquid bills [organizations](/cloud/resources/organizations) for the resources used by their squids. To deploy production-ready squids and [configure](../scale) their resources, the organization must have a [Professional status](../organizations/#professional-organizations). All such organizations receive the following perks:
+Subsquid bills [organizations](/cloud/resources/organizations) for the resources used by their squids. To deploy production-ready squids and [configure](/cloud/reference/scale) their resources, the organization must have a [Professional status](/cloud/resources/organizations/#professional-organizations). All such organizations receive the following perks:
 
  - unmetered GraphQL API requests
  - deploying any number of pay-as-you-go [dedicated](/cloud/reference/scale/#dedicated) squids
@@ -70,7 +70,7 @@ The premium plan already includes a package of 2M requests per month. Above that
 
 ## SLAs
 
-Our SLA only applies to [dedicated](../scale/#dedicated) squids deployed to [Professional organizations](../organizations/#professional-organizations).
+Our SLA only applies to [dedicated](/cloud/reference/scale/#dedicated) squids deployed to [Professional organizations](/cloud/resources/organizations/#professional-organizations).
 
 We align with the [SLAs of the Google Cloud Platform](https://cloud.google.com/compute/sla) and will reduce the bill based on the following schedule:
 

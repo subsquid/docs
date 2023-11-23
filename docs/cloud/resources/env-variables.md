@@ -13,14 +13,14 @@ Secrets are set using the special command [`sqd secrets`](/squid-cli/secrets), w
 
 ## Secrets 
 
-Secrets are designed to store sensitive data that all the squids can access as an environment variable with the given name. A typical usage is an API key or a private URL for a chain gRPC endpoint. The secrets are defined at the Cloud [organization](../organizations) level and are exposed to all organization squids that [request them in their manifest](../deploy-manifest/#secrets).
+Secrets are designed to store sensitive data that all the squids can access as an environment variable with the given name. A typical usage is an API key or a private URL for a chain gRPC endpoint. The secrets are defined at the Cloud [organization](/cloud/resources/organizations) level and are exposed to all organization squids that [request them in their manifest](/cloud/reference/manifest/#secrets).
 
 To add a secret:
 1. Create it in the Cloud:
    ```bash
    sqd secrets set MOONRIVER_GRPC_ENDPOINT wss://moonriver.my-endpoint.com/ws/my-secret-key
    ```
-2. Add it to the [manifest](../deploy-manifest):
+2. Add it to the [manifest](/cloud/reference/manifest):
    ```yaml
    deploy:
      secrets:

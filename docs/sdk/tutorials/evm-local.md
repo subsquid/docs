@@ -1,5 +1,4 @@
 ---
-id: ethereum-local-development
 title: Use with Ganache or Hardhat
 description: >-
   Use Subsquid to index an Ethereum dev node

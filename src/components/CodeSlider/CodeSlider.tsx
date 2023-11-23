@@ -108,7 +108,7 @@ export function CodeSlider(props: any) {
                         <a ref={linkRef} href={slides[0].link} target="_blank"
                            className={clsx('text-fg-role--accent-02')}>Full squid</a>
                         <span className="code-slider__line"></span>
-                        <Link to="/evm-indexing/configuration/showcase/"
+                        <Link to="/sdk/examples/#evm-showcase"
                               className={clsx('text-fg-role--accent-02')}>Showcase</Link>
                         <span className="code-slider__line"></span>
                     </div>

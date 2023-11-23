@@ -70,11 +70,11 @@ These modules provide:
 } 
 ```
 On related data:
-- with `call = true` the processor will retrieve the parent call and add it to the `calls` iterable within the [block data](../../context-interfaces);
+- with `call = true` the processor will retrieve the parent call and add it to the `calls` iterable within the [block data](/sdk/reference/processors/subtrate-batch/context-interfaces);
 - with `stack = true` it will do that with all calls in the entire call stack;
 - with `extrinsic = true` it will add the parent extrinsic to the `extrinsics` block data iterable.
 
-Field selection for the events and their related data is done with [`setFields()`](../../setup/field-selection).
+Field selection for the events and their related data is done with [`setFields()`](/sdk/reference/processors/subtrate-batch/field-selection).
 
 #### Example
 
@@ -119,11 +119,11 @@ const processor = new SubstrateBatchProcessor()
 }
 ```
 On related data:
-- With `events = true` the processor will retrieve all the events that the call emitted and add them to the `events` iterable within the [block data](../../context-interfaces). These will include `Ethereum.Executed` that can be used to figure out the EVM transaction status (see [`getTransactionResult()`](#get-transaction-result)).
+- With `events = true` the processor will retrieve all the events that the call emitted and add them to the `events` iterable within the [block data](/sdk/reference/processors/subtrate-batch/context-interfaces). These will include `Ethereum.Executed` that can be used to figure out the EVM transaction status (see [`getTransactionResult()`](#get-transaction-result)).
 - With `stack = true` it will add all calls in the stack of each matching call, including itself, to the `calls` iterable.
 - With `extrinsic = true` it will add the parent extrinsic to the `extrinsics` block data iterable.
 
-Field selection for the calls and their related data is done with [`setFields()`](../../setup/field-selection).
+Field selection for the calls and their related data is done with [`setFields()`](/sdk/reference/processors/subtrate-batch/field-selection).
 
 Note that by default both successful and failed transactions are fetched. Further, there's a difference between the success of a Substrate call and the internal EVM transaction. The transaction may fail even if the enclosing Substrate call has succeeded. Use the [`getTransactionResult()` utility function](#get-transaction-result) to extract the EVM transaction status.
 
@@ -240,7 +240,7 @@ While the set of handler subscriptions is static and defined at the processor cr
 
 * If your use case does not require any Substrate-specific data (e.g. extrinsic hashes), use [`EvmBatchProcessor`](/sdk) instead. EVM-only Archives are [available](/archives/evm/networks) for all major EVM-on-Substrate chains.
 
-* Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](../../context-interfaces). As such, it is important to always filter the data within the batch handler: match e.g.
+* Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/sdk/reference/processors/subtrate-batch/context-interfaces). As such, it is important to always filter the data within the batch handler: match e.g.
   ```ts title=src/processor.ts
   .addEvmLog({
     address: ['0xb654611f84a8dc429ba3cb4fda9fad236c505a1a'],

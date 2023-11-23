@@ -1,5 +1,4 @@
 ---
-id: case-studies
 title: Case studies
 description: >-
   Deep dives into larger projects built with Subsquid

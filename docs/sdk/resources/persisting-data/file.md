@@ -75,13 +75,13 @@ Each of the folders here contains a little over 10 MBytes of data. `status.txt` 
 
 `@subsquid/file-store` is the core package that contains the implementation of `Database` for filesystems. At least one file format add-on must be installed alongside it:
 
-* **CSV**: Supported via [`@subsquid/file-store-csv`](../csv-table).
-* **Parquet**: An [advanced format](https://parquet.apache.org) that works well for larger data sets. Supported via [`@subsquid/file-store-parquet`](../parquet-table).
+* **CSV**: Supported via [`@subsquid/file-store-csv`](/sdk/reference/store/file/csv).
+* **Parquet**: An [advanced format](https://parquet.apache.org) that works well for larger data sets. Supported via [`@subsquid/file-store-parquet`](/sdk/reference/store/file/parquet).
 
 Data in either of these formats can be written to
 
 * **A local filesystem**: Supported by `@subsquid/file-store` out of the box.
-* **A bucket in an Amazon S3-compatible cloud**: Supported via [`@subsquid/file-store-s3`](../s3-dest).
+* **A bucket in an Amazon S3-compatible cloud**: Supported via [`@subsquid/file-store-s3`](/sdk/reference/store/file/s3-dest).
 
 ## `Database` Options
 
@@ -96,9 +96,9 @@ DatabaseOptions {
 }
 ```
 Here,
-* `Table` is an interface for classes that make [table writers](#table-writer-interface), objects that convert in-memory tabular data into format-specific file contents. An implementation of `Table` is available for every file format supported by `file-store`. Consult [pages about specific output formats](..) to find out how to define `Table`s.
+* `Table` is an interface for classes that make [table writers](#table-writer-interface), objects that convert in-memory tabular data into format-specific file contents. An implementation of `Table` is available for every file format supported by `file-store`. Consult [pages about specific output formats](/sdk/reference/store/file) to find out how to define `Table`s.
 * **`tables`** is a mapping from developer-defined string handles to `Table` instances. A table writer will be created for each `Table` in this mapping. It will be exposed at `ctx.store.<tableHandle>`.
-* **`dest`** is an instance of `Dest`, an interface for objects that take the properly formatted file contents and write them onto a particular filesystem. An implementation of `Dest` is available for every filesystem supported by `file-store`. For local filesystems use the `LocalDest` class from the `@subsquid/file-store` package and supply `new LocalDest(outputDirectoryName)` here. For other targets consult [documentation pages specific to your filesystem choice](..).
+* **`dest`** is an instance of `Dest`, an interface for objects that take the properly formatted file contents and write them onto a particular filesystem. An implementation of `Dest` is available for every filesystem supported by `file-store`. For local filesystems use the `LocalDest` class from the `@subsquid/file-store` package and supply `new LocalDest(outputDirectoryName)` here. For other targets consult [documentation pages specific to your filesystem choice](/sdk/reference/store/file).
 * **`chunkSizeMb`**, **`syncIntervalBlocks`** and **`hooks`** are optional parameters that tune the behavior of the [dataset partitioning algorithm](#filesystem-syncs-and-dataset-partitioning).
 
 ## Table Writer Interface
@@ -108,7 +108,7 @@ For each `Table` supplied via the `tables` field of the constructor argument, `D
 **`ctx.store.<tableHandle>.write(record: T)`**  
 **`ctx.store.<tableHandle>.writeMany(records: T[])`**  
 
-Here, `T` is a `Table` implementation-specific data row type. See the [documentation pages on specific file formats](..) for details.
+Here, `T` is a `Table` implementation-specific data row type. See the [documentation pages on specific file formats](/sdk/reference/store/file) for details.
 
 These synchronous methods add rows of data to an in-memory buffer and perform no actual filesystem writes. Instead, the write [happens automatically when a new dataset partition is created](#filesystem-syncs-and-dataset-partitioning). The methods return the table writer instance and can be chained.
 

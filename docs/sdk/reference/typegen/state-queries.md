@@ -103,22 +103,16 @@ processor.run(new TypeormDatabase(), async (ctx) => {
   }) 
 })
 ```
----
-sidebar_position: 60
-description: >-
-   Access state and storage with gRPC
-title: State queries
----
 
-# Storage calls and state queries
+## Storage calls and state queries
 
 It is sometimes impossible to extract the required data with only event and call data without querying the runtime state.
 The context exposes a lightweight gRPC client to the chain node accessible via `ctx._chain`. 
-It exposes low-level methods for accessing the storage. However, the recommended way to query the storage is with type-safe wrappers generated with [Substrate typegen](../squid-substrate-typegen).
+It exposes low-level methods for accessing the storage. However, the recommended way to query the storage is with type-safe wrappers generated with [Substrate typegen](../configuration).
 
 ## Type-safe storage access with typegen
 
-Substrate typegen tool exposes storage access wrappers at `src/types/storage.ts`. The wrappers follow the [general naming pattern](../squid-substrate-typegen/#typescript-wrappers) used by Substrate typegen:
+Substrate typegen tool exposes storage access wrappers at `src/types/storage.ts`. The wrappers follow the [general naming pattern](../decoding/#typescript-wrappers) used by Substrate typegen:
 ```
 storage.${palletName}.${storageName}
 ```
@@ -128,7 +122,7 @@ Note that the generated getters **always query historical blockchain state at th
 
 To generate the storage access wrappers with typegen:
 
-* In `typegen.json`, set `specVersions` as described on the [typegen page](../squid-substrate-typegen).
+* In `typegen.json`, set `specVersions` as described on the [typegen page](../configuration).
 * List storage items at `pallets.${PalletName}.storage` arrays of `typegen.json`. Alternatively, generate wrappers for all storage items in the pallet by setting `storage: true`.
 * Run the typegen with
 

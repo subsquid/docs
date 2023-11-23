@@ -9,7 +9,7 @@ description: >-
 
 ## Overview
 
-Writing to Amazon S3-compatible file storage services such as [AWS](https://aws.amazon.com) and [Filebase](https://filebase.com) is supported via the `S3Dest` class from the `@subsquid/file-store-s3` package. Use it by [setting the `dest` field of the `Database` constructor argument](../overview/#database-options) to its instance. Constructor of `S3Dest` accepts the following arguments:
+Writing to Amazon S3-compatible file storage services such as [AWS](https://aws.amazon.com) and [Filebase](https://filebase.com) is supported via the `S3Dest` class from the `@subsquid/file-store-s3` package. Use it by [setting the `dest` field of the `Database` constructor argument](/sdk/resources/persisting-data/file/#database-options) to its instance. Constructor of `S3Dest` accepts the following arguments:
 * **`url: string`**: S3 URL in the `s3://bucket/path` format.
 * **`optionsOrClient?: S3Client | S3ClientConfig`**: an optional [S3 client](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-s3/Class/S3Client/) or [client config](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/interfaces/s3clientconfig.html). By default, a simple config parameterized by environment variables is used:
    ```typescript

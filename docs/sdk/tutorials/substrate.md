@@ -1,5 +1,4 @@
 ---
-id: create-a-simple-squid
 description: >-
   Build a starter squid for Substrate
 sidebar_position: 40

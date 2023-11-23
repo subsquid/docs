@@ -83,4 +83,4 @@ Ensure that you use a unique target folder for each processor.
 
 ## Example
 
-A complete example is available [here](/examples/evm/multichain-example).
+A complete example is available [here](https://github.com/subsquid-labs/squid-multichain-template).

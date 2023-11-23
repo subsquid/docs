@@ -327,7 +327,7 @@ processor.run(new TypeormDatabase(), async ctx => {
 
 ### Storage
 
-See [Storage queries](../storage-state-calls).
+See [Storage queries](../state-queries).
 
 ### Constants
 

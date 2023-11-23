@@ -18,14 +18,11 @@ export default function Home(): JSX.Element {
         </div>
         <div className="flex flex-wrap gap-2">
         <a
-          className="x-button min-w-[140px] bg-bg-base--contrast text-fg-base--contrast"
-          href="/quickstart">Quickstart</a>
-        <a
           className="x-button min-w-[140px] border-bg-base--contrast text-fg-base--default"
-              href="/basics/overview">Overview</a>
-        {/*<a*/}
-        {/*  className="x-button min-w-[140px] bg-bg-base--contrast text-fg-base--contrast"*/}
-        {/*      href="/evm-indexing/configuration/showcase">Showcase</a>*/}
+              href="/sdk/overview">Overview</a>
+        <a
+          className="x-button min-w-[140px] bg-bg-base--contrast text-fg-base--contrast"
+          href="/sdk/squid-development">Dev guide</a>
         </div>
       </div>
 
@@ -82,44 +79,35 @@ export default function Home(): JSX.Element {
         <span className="h3">Highlights</span>
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2 guide-cards">
-          
           <GuideCard
-            path="/quickstart/"
+            path="/sdk/resources/squid-gen"
             color={'bg-role--success'}
             description="Index any smart contract log and transaction data in 5 minutes">Quickstart
           </GuideCard>
-        
-          {/*
           <GuideCard
-            path="/evm-indexing/configuration/showcase"
-            color={'bg-role--success'}
-            description="Collection of snippets showing what kind of data can be requested">EVM data requests showcase
-          </GuideCard>
-          */}
-          <GuideCard
-            path="/basics/external-api"
+            path="/sdk/resources/external-api"
             color={'bg-role--success'}
             description="Enrich the indexed data with third-party API and IPFS queries">Query APIs and IPFS
           </GuideCard>
           <GuideCard
-            path="/graphql-api/subscriptions"
+            path="/sdk/reference/graphql-server/subscriptions"
             color={'bg-role--success'}
             description="Live query updates with GraphQL subscriptions">GraphQL subscriptions</GuideCard>
           <GuideCard
-            path="/deploy-squid/promote-to-production"
+            path="/cloud/resources/production-alias"
             color={'bg-role--notice'}
             description="Switch between versions with zero downtime">Production aliases</GuideCard>
           <GuideCard
             color={'bg-role--notice'}
-            path="/quickstart/quickstart-substrate/"
+            path="/sdk/overview"
             description="The most advanced SDK for indexing Substrate-based chains">Index
             Substrate data</GuideCard>
           <GuideCard
-            path="/tutorials/create-a-wasm-processing-squid"
+            path="/sdk/resources/substrate/ink"
             color={'bg-role--notice'}
-            description="Index WASM contracts developed with Ink!">WASM smart contracts</GuideCard>
+            description="Index WASM contracts developed with ink!">ink! smart contracts</GuideCard>
           <GuideCard
-            path="/migrate/subsquid-vs-thegraph/"
+            path="/sdk/resources/subsquid-vs-thegraph"
             color={'bg-role--success'}
             description="Compare the feature set and the architecture">Subsquid vs The Graph
           </GuideCard>
@@ -143,15 +131,14 @@ export default function Home(): JSX.Element {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
          <TutorialCard
-            path="/migrate/migrate-subgraph"
+            path="/sdk/resources/migrate/migrate-subgraph"
             description="Migrate your subgraph and improve sync times up to 10x.">Migrate from The Graph</TutorialCard>
-        {/* <TutorialCard
-            path="/migrate/migrate-to-fire-squid"
-            description="Migrate to FireSquid from older versions of squid SDK">Migrate to FireSquid</TutorialCard>
          <TutorialCard
-            path=""
-            description="Coming soon" 
-  disabled={true}>Migrate From Subquery</TutorialCard> */} 
+            path="/sdk/resources/migrate/migrate-to-arrowsquid"
+            description="Migrate your EVM squid to ArrowSquid.">Migrate to ArrowSquid on EVM</TutorialCard>
+         <TutorialCard
+            path="/sdk/resources/migrate/migrate-to-arrowsquid-on-substrate"
+            description="Migrate your Substrate squid to ArrowSquid.">Migrate to ArrowSquid on Substrate</TutorialCard>
         </div>
       </div>
 
@@ -183,7 +170,7 @@ export default function Home(): JSX.Element {
                 <p className="text-fg-base--muted font-light">
                     The Squid SDK is open source. Data access to the Subsquid Network (and Archives) is free as it is incentivized by the networks, thus 
                     for self-hosted or locally ran squids Subsquid services are free of charge. 
-                    For managed squids we offer free and Premium plans. See <a href="/deploy-squid/pricing">Cloud pricing</a>. 
+                    For managed squids we offer free and Premium plans. See <a href="/cloud/reference/pricing">Cloud pricing</a>. 
                 </p>
             </div>
 
@@ -205,7 +192,7 @@ export default function Home(): JSX.Element {
                     &nbsp;
                     <a href="/squid-cli" className="link">Subsquid's CLI</a> provides a convenient way to
                     &nbsp;
-                    <a href="/deploy-squid/quickstart" className="link">deploy squids</a> to Cloud and manage them once they are hosted.
+                    <a href="/cloud/overview" className="link">deploy squids</a> to Cloud and manage them once they are hosted.
                 </p>
             </div>
 

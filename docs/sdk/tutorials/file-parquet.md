@@ -1,5 +1,4 @@
 ---
-id: parquet-file-store
 title: Index to Parquet files
 description: >-
   Storing data in files for analysis
@@ -88,7 +87,7 @@ The `Database` class gets its name from the interface that was originally develo
 
 To summarize, `Table` instances are used to define data files along with their schemas and hold file-specific settings. `Database` facilitates the interactions with the processor, coordinates writing to the files and maintains any state that facilitates that process (configuration, cloud connections and so on).
 
-There are two main differences from the [CSV tutorial](/tutorials/index-to-local-csv-files.md) and the first one is that for this project we will be using a `Table` implementation from `@subsquid/file-store-parquet`. Let's install it:
+There are two main differences from the [CSV tutorial](/sdk/tutorials/file-csv) and the first one is that for this project we will be using a `Table` implementation from `@subsquid/file-store-parquet`. Let's install it:
 
 ```bash
 npm i @subsquid/file-store-parquet

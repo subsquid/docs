@@ -28,7 +28,7 @@ Check out the [Caveats](#caveats) section to avoid common mistakes.
 `name`s must follow the convention `${Pallet}.${NameWithinPallet}` with both parts usually capitalized, e.g. `Balances.Transfer`.
 
 You may also request the data related to the events:
-- with `call = true` the processor will retrieve the parent call and add it to the `calls` iterable within the [block data](../../context-interfaces);
+- with `call = true` the processor will retrieve the parent call and add it to the `calls` iterable within the [block data](../context-interfaces);
 - with `stack = true` it will do that with all calls in the entire call stack;
 - with `extrinsic = true` it will add the parent extrinsic to the `extrinsics` block data iterable.
 
@@ -57,7 +57,7 @@ The name must follow the convention `${Pallet}.${call_name}`. The pallet name is
 By default, both successful and failed calls are fetched. Select the `call.success` field and later check it within the batch handler if you need to disambiguate.
 
 You may also request the data related to the calls:
-- with `events = true` the processor will retrieve all the events that the call emitted and add them to the `events` iterable within the [block data](../../context-interfaces);
+- with `events = true` the processor will retrieve all the events that the call emitted and add them to the `events` iterable within the [block data](../context-interfaces);
 - with `stack = true` it will add all calls in the stack of each matching call, including itself, to the `calls` iterable;
 - with `extrinsic = true` it will add the parent extrinsic to the `extrinsics` block data iterable.
 
@@ -69,18 +69,18 @@ Selection of the exact data to be retrieved for each log and its optional parent
 
 **`addEvmLog()`**  
 **`addEthereumTransaction()`**  
-Subscribe to Frontier EVM transactions and event logs. See [EVM Support](../../specialized/evm).
+Subscribe to Frontier EVM transactions and event logs.
 
 **`addContractsContractEmitted()`**  
-Subscribe to events emitted by a WASM contract. See [WASM Support](../../specialized/wasm).
+Subscribe to events emitted by a WASM contract.
 
 **`addGearMessageEnqueued()`**
 **`addGearUserMessageSent()`**
-Subscribe to messages emitted by a Gear program. See [Gear Support](../../specialized/gear).
+Subscribe to messages emitted by a Gear program.
 
 ## Caveats
 
-- Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](../../context-interfaces). As such, it is important to always filter the data within the batch handler. For example, a processor config like this
+- Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](../context-interfaces). As such, it is important to always filter the data within the batch handler. For example, a processor config like this
   ```ts title=src/procesor.ts
   export const processor = new SubstrateBatchProcessor()
     .addEvent({
@@ -109,14 +109,8 @@ Subscribe to messages emitted by a Gear program. See [Gear Support](../../specia
   .addEvent({name: []}) // selects no events
   .addEvent({}) // selects all events
   ```
----
-sidebar_position: 40
-description: >-
-  ink! WASM smart contracts support
-title: ink! contracts support
----
 
-# ink! contracts support
+## ink! contracts support
 
 This section describes additional options available for indexing [ink!-based WASM contracts](https://use.ink), supported by chains with a `Contracts` pallet. At the moment of writing, AlephZero, Shibuya (Astar testnet), Shiden (Kusama parachain) and Astar (Polkadot parachain) are the most popular chains for deploying ink! contracts.
 
@@ -141,11 +135,11 @@ This section describes additional options available for indexing [ink!-based WAS
 Contract addresses must be specified as hex strings, so make sure to decode them if yours are encoded with ss58.
 
 You can also retrieve related data:
-- with `call = true` the processor will retrieve the parent call and add it to the `calls` iterable within the [block data](../../context-interfaces);
+- with `call = true` the processor will retrieve the parent call and add it to the `calls` iterable within the [block data](../context-interfaces);
 - with `stack = true` it will do that with all calls in the entire call stack;
 - with `extrinsic = true` it will add the parent extrinsic to the `extrinsics` block data iterable.
 
-Field selection for the events and their related data is done with [`setFields()`](../../setup/field-selection).
+Field selection for the events and their related data is done with [`setFields()`](../field-selection).
 
 #### Example
 ```ts
@@ -251,13 +245,8 @@ processor.run(new TypeormDatabase(), async ctx => {
   }
 })
 ```
----
-sidebar_position: 50
-description: >-
-  Indexing EVMs running on Substrate
----
 
-# Frontier EVM support
+## Frontier EVM support
 
 :::tip
 Method documentation is also available inline and can be accessed via suggestions in most IDEs.
@@ -323,11 +312,11 @@ These modules provide:
 } 
 ```
 On related data:
-- with `call = true` the processor will retrieve the parent call and add it to the `calls` iterable within the [block data](../../context-interfaces);
+- with `call = true` the processor will retrieve the parent call and add it to the `calls` iterable within the [block data](../context-interfaces);
 - with `stack = true` it will do that with all calls in the entire call stack;
 - with `extrinsic = true` it will add the parent extrinsic to the `extrinsics` block data iterable.
 
-Field selection for the events and their related data is done with [`setFields()`](../../setup/field-selection).
+Field selection for the events and their related data is done with [`setFields()`](../field-selection).
 
 #### Example
 
@@ -372,11 +361,11 @@ const processor = new SubstrateBatchProcessor()
 }
 ```
 On related data:
-- With `events = true` the processor will retrieve all the events that the call emitted and add them to the `events` iterable within the [block data](../../context-interfaces). These will include `Ethereum.Executed` that can be used to figure out the EVM transaction status (see [`getTransactionResult()`](#get-transaction-result)).
+- With `events = true` the processor will retrieve all the events that the call emitted and add them to the `events` iterable within the [block data](../context-interfaces). These will include `Ethereum.Executed` that can be used to figure out the EVM transaction status (see [`getTransactionResult()`](#get-transaction-result)).
 - With `stack = true` it will add all calls in the stack of each matching call, including itself, to the `calls` iterable.
 - With `extrinsic = true` it will add the parent extrinsic to the `extrinsics` block data iterable.
 
-Field selection for the calls and their related data is done with [`setFields()`](../../setup/field-selection).
+Field selection for the calls and their related data is done with [`setFields()`](../field-selection).
 
 Note that by default both successful and failed transactions are fetched. Further, there's a difference between the success of a Substrate call and the internal EVM transaction. The transaction may fail even if the enclosing Substrate call has succeeded. Use the [`getTransactionResult()` utility function](#get-transaction-result) to extract the EVM transaction status.
 
@@ -493,7 +482,7 @@ While the set of handler subscriptions is static and defined at the processor cr
 
 * If your use case does not require any Substrate-specific data (e.g. extrinsic hashes), use [`EvmBatchProcessor`](/sdk) instead. EVM-only Archives are [available](/archives/evm/networks) for all major EVM-on-Substrate chains.
 
-* Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](../../context-interfaces). As such, it is important to always filter the data within the batch handler: match e.g.
+* Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](../context-interfaces). As such, it is important to always filter the data within the batch handler: match e.g.
   ```ts title=src/processor.ts
   .addEvmLog({
     address: ['0xb654611f84a8dc429ba3cb4fda9fad236c505a1a'],
@@ -528,11 +517,6 @@ While the set of handler subscriptions is static and defined at the processor cr
   ```
 
 * If contract address(es) supplied to the processor configuration methods are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/sdk/overview/#processorrun) for item filtration, and all contract addresses in the items are **always** in flat lower case.
----
-sidebar_position: 61
-description: >-
-  Additional support for indexing Gear programs
----
 
 # Gear support
 
@@ -561,7 +545,7 @@ Structure of `options` is identical for both methods:
 ```
 The methods above subscribe to the events [`Gear.MessageEnqueued`](https://wiki.gear-tech.io/docs/api/events/#messageenqueued) and [`Gear.UserMessageSent`](https://wiki.gear-tech.io/docs/api/events/#usermessagesent) emitted by the specified Gear program. 
 
-The meaning of the related data retrieval flags is identical to those of [`addEvent()`](../../setup/data-requests/#events). Field selection for the retrieved events is done with [`setFields()`](../../setup/field-selection).
+The meaning of the related data retrieval flags is identical to those of [`addEvent()`](../data-requests/#events). Field selection for the retrieved events is done with [`setFields()`](../field-selection).
 
 The processor can also subscribe to any other event with `addEvent()` and filter by program ID in the batch handler, if so necessary. 
 

@@ -1,5 +1,4 @@
 ---
-id: create-an-evm-processing-squid
 title: Frontier EVM-indexing squid
 description: >-
   Build a squid indexing NFTs on Astar

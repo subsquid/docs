@@ -117,4 +117,4 @@ processor.setDataSource({
 
 ## Pricing
 
-RPC proxy requests are priced [at a flat rate](../pricing/#rpc-requests), with substantial packages included for free for all [organization types](../organizations). Pricing does not depend on the call method.
+RPC proxy requests are priced [at a flat rate](/cloud/reference/pricing/#rpc-requests), with substantial packages included for free for all [organization types](/cloud/resources/organizations). Pricing does not depend on the call method.

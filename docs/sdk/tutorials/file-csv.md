@@ -1,5 +1,4 @@
 ---
-id: index-to-local-csv-files
 title: Index to local CSV files
 description: >-
   Storing data in files for analysis
