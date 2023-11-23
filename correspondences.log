@@ -66,7 +66,7 @@ query-squid/cross-relation-field-queries.md -> sdk/reference/openreader/cross-re
 query-squid/json-queries.md -> sdk/reference/openreader/json-queries.md
 query-squid/queries.md -> sdk/reference/openreader/queries.md
 query-squid/paginate-query-results.md -> sdk/reference/openreader/paginate-query-results.md
-query-squid -> sdk/reference/graphql-server/queries
+query-squid -> sdk/reference/openreader
 quickstart/quickstart-substrate.md -> sdk/squid-development.mdx
 quickstart/quickstart-ethereum.md -> sdk/squid-development.mdx
 quickstart/quickstart-abi.md -> sdk/resources/squid-gen.md
