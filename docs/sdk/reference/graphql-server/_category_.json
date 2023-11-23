@@ -6,7 +6,7 @@
     "className": "red",
     "link": {
       "type": "generated-index",
-      "slug": "/sdk/resources/graphql-api",
+      "slug": "/sdk/reference/graphql-server",
       "title": "GraphQL API server for squid data"
     }
 }
