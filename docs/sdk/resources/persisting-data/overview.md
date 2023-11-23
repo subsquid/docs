@@ -13,7 +13,7 @@ description: >-
 run<Store>(db: Database<Store>, handler: (ctx: DataHandlerContext<Store, F extends FieldSelection>) => Promise<void>): void
 ```
 
-The `Database` interface only defines the logic of how the processor persists the processor status and the store. Squid SDK supports `Database` implementations for `TypeORM`-compatible databases ([`TypeormDatabase`](/store/postgres/typeorm-store)) and for file-based datasets ([the `file-store` packages](/store/file-store)). The interface allows implementation of adapters for custom data sinks. Support for more databases and analytics store will be added in the future.
+The `Database` interface only defines the logic of how the processor persists the processor status and the store. Squid SDK supports `Database` implementations for `TypeORM`-compatible databases ([`TypeormDatabase`](/sdk/resources/persisting-data/typeorm)) and for file-based datasets ([the `file-store` packages](/sdk/resources/persisting-data/file)). The interface allows implementation of adapters for custom data sinks. Support for more databases and analytics store will be added in the future.
 
 ---
 sidebar_position: 30

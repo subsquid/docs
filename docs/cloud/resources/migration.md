@@ -4,7 +4,7 @@ sidebar_class_name: hidden
 
 # Migrate from `@subsquid/cli@0.x`
 
-Since `@subsquid/cli@2.x` the CLI commands `squid:deploy` and `squid:update` are deprecated in favor of the [manifest](/deploy-squid/deploy-manifest)-based deployments and `sqd deploy`.
+Since `@subsquid/cli@2.x` the CLI commands `squid:deploy` and `squid:update` are deprecated in favor of the [manifest](/cloud/reference/manifest)-based deployments and `sqd deploy`.
 
 To migrate:
 
@@ -46,7 +46,7 @@ deploy:
 
 ## 2. (Optional) Add secrets and env variables
 
-If the squid expects additional environment variables to be set by the Cloud via [secrets](/deploy-squid/env-variables/#secrets) or at the [deployment time](/deploy-squid/env-variables/#environment-variables-1) add them in the `deploy` section:
+If the squid expects additional environment variables to be set by the Cloud via [secrets](/cloud/resources/env-variables/#secrets) or at the [deployment time](/cloud/resources/env-variables/#environment-variables-1) add them in the `deploy` section:
 
 ```yml
 #...
@@ -58,7 +58,7 @@ deploy:
 
 ## 3. (Optional) Revise `cmd`
 
-You may want to add additional flags to `api.cmd`, e.g. to enable [caching](/graphql-api/caching) or [enforce query limits](/graphql-api/dos-protection).
+You may want to add additional flags to `api.cmd`, e.g. to enable [caching](/sdk/reference/graphql-server/caching) or [enforce query limits](/sdk/reference/graphql-server/dos-protection).
 
 ## 4. (Optional) Add `scale:` options
 

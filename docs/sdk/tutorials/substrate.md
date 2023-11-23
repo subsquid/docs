@@ -20,7 +20,7 @@ We expect that experienced software developers should be able to complete this t
 ## Pre-requisites
 
 - Familiarity with Git 
-- A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js, Git and Docker
+- A properly set up [development environment](/sdk/resources/development-environment-set-up) consisting of Node.js, Git and Docker
 - [Squid CLI](/squid-cli/installation)
 
 :::info
@@ -38,7 +38,7 @@ cd substrate-crust-tutorial
 
 ### Run the project
 
-Now you can follow the [quickstart](/quickstart/quickstart-substrate) guide to get the project up and running. Here is a summary:
+Now you can follow the [quickstart](/sdk/squid-development) guide to get the project up and running. Here is a summary:
 
 ```bash
 npm ci
@@ -54,7 +54,7 @@ After this test, shut down both processes with Ctrl-C and proceed.
 
 ## Define the schema and generate entity classes
 
-Next, we make changes to the data [schema](/store/postgres/schema-file) of the squid and define [entities](/store/postgres/schema-file/entities) that we would like to track. We are interested in:
+Next, we make changes to the data [schema](/sdk/reference/schema-file) of the squid and define [entities](/sdk/reference/schema-file/entities) that we would like to track. We are interested in:
 
 * Files added to and deleted from the chain;
 * Active accounts;
@@ -100,7 +100,7 @@ type StorageOrder @entity {
 }
 ```
 
-Notice that the `Account` entity is almost completely [derived](/store/postgres/schema-file/entity-relations/). It is there to tie the other three entities together.
+Notice that the `Account` entity is almost completely [derived](/sdk/reference/schema-file/entity-relations/). It is there to tie the other three entities together.
 
 To finalize this step, run the `codegen` tool:
 
@@ -112,7 +112,7 @@ This will automatically generate TypeScript entity classes for our schema. They 
 
 ## Generate TypeScript wrappers for events
 
-We generate these using the [squid-substrate-typegen](/substrate-indexing/squid-substrate-typegen) tool. Its configuration file is `typegen.json`; there, we need to
+We generate these using the [squid-substrate-typegen[(/sdk/tutorials/batch-processor-in-action) tool. Its configuration file is `typegen.json`; there, we need to
 1. Set the `"specVersions"` field to a valid source of Crust chain runtime metadata. We'll use an URL of Subsquid-maintained metadata service:
    ```json
    "specVersions": "https://v2.archive.subsquid.io/metadata/crust",
@@ -120,7 +120,7 @@ We generate these using the [squid-substrate-typegen](/substrate-indexing/squid-
 2. List all Substrate pallets we will need the data from. For each pallet we list all events, calls, storage items and constants needed.
 
 :::info
-Refer to [this note](/troubleshooting/#how-do-i-know-which-events-and-extrinsics-i-need-on-substrate) if you are unsure what Substrate data to use in your project.
+Refer to [this note[(/archives/substrate/networks) if you are unsure what Substrate data to use in your project.
 :::
 
 Our final `typegen.json` looks like this:
@@ -153,7 +153,7 @@ sqd typegen
 
 ## Set up the processor object
 
-The next step is to create a [`SubstrateBatchProcessor`](/substrate-indexing/substrate-processor/#overview-and-the-data-model) object which [subscribes](/substrate-indexing/setup/data-requests) to all the events we need. We do it at `src/processor.ts`:
+The next step is to create a [`SubstrateBatchProcessor`](/sdk/overview/#overview-and-the-data-model) object which [subscribes](/sdk/reference/processors/subtrate-batch/data-requests) to all the events we need. We do it at `src/processor.ts`:
 
 ```ts title="src/processor.ts"
 import {
@@ -195,16 +195,16 @@ type Fields = SubstrateBatchProcessorFields<typeof processor>
 export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 ```
 This creates a processor that
- - Uses an Archive as its main data source and a chain RPC for [real-time updates](/substrate-indexing/substrate-processor/#rpc-ingestion). URL of the Archive endpoint is looked up in the [Archive registry](/archives/overview/#archive-registry). See [this page](/substrate-indexing/setup/general) for reference;
- - [Subscribes](/substrate-indexing/setup/data-requests) to `Market.FileSuccess`, `Swork.JoinGroupSuccess` and `Swork.WorksReportSuccess` events emitted at heights starting at 583000;
+ - Uses an Archive as its main data source and a chain RPC for [real-time updates](/sdk/overview/#rpc-ingestion). URL of the Archive endpoint is looked up in the [Archive registry](/archives/overview/#archive-registry). See [this page](/sdk/reference/processors/subtrate-batch/general) for reference;
+ - [Subscribes](/sdk/reference/processors/subtrate-batch/data-requests) to `Market.FileSuccess`, `Swork.JoinGroupSuccess` and `Swork.WorksReportSuccess` events emitted at heights starting at 583000;
  - Additionally subscribes to calls that emitted the events and the corresponding extrinsics;
- - [Requests](/substrate-indexing/setup/field-selection) the `hash` data field for all retrieved extrinsics and the `timestamp` field for all block headers.
+ - [Requests](/sdk/reference/processors/subtrate-batch/field-selection) the `hash` data field for all retrieved extrinsics and the `timestamp` field for all block headers.
 
 We also export the `ProcessorContext` type to be able to pass the sole argument of the batch handler function around safely. 
 
 ## Define the batch handler
 
-Squids [batch process](/basics/batch-processing) chain data from multiple blocks. Compared to the [handlers](/basics/batch-processing/#migrate-from-handlers) approach this results in a much lower database load. Batch processing is fully defined by processor's [batch handler](/basics/squid-processor/#processorrun), the callback supplied to the `processor.run()` call at the entry point of each processor (`src/main.ts` by convention).
+Squids [batch process](/sdk/resources/batch-processing) chain data from multiple blocks. Compared to the [handlers](/sdk/resources/batch-processing/#migrate-from-handlers) approach this results in a much lower database load. Batch processing is fully defined by processor's [batch handler](/sdk/overview/#processorrun), the callback supplied to the `processor.run()` call at the entry point of each processor (`src/main.ts` by convention).
 
 We begin defining our batch handler by importing the entity model classes and Crust event types that we generated in previous sections. We also import the processor and its types:
 
@@ -349,7 +349,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 ## Apply changes to the database
 
-Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping) provided by [TypeORM](https://typeorm.io). Previously we changed the data schema at `schema.graphql` and reflected these changes in our Typescript code using `sqd codegen`. Here, we [apply the corresponding changes to the database itself](/store/postgres/db-migrations).
+Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping) provided by [TypeORM](https://typeorm.io). Previously we changed the data schema at `schema.graphql` and reflected these changes in our Typescript code using `sqd codegen`. Here, we [apply the corresponding changes to the database itself](/sdk/resources/persisting-data/typeorm).
 
 We begin by making sure that the database is at blank state:
 ```bash

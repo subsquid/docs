@@ -31,7 +31,7 @@ The easiest way to do so is to use our [graph-node-setup](https://github.com/sub
 
    ![Configuring the environment](subgraphs-support-configuration.gif)
 
-   You will be asked to select a network and provide a node RPC endpoint. You can pick any network from our [supported EVM networks](/evm-indexing/supported-networks); networks that are not currently [supported by TheGraph](https://thegraph.com/docs/en/developing/supported-networks/) will be available their under Subsquid names.
+   You will be asked to select a network and provide a node RPC endpoint. You can pick any network from our [supported EVM networks](/archives/evm/networks); networks that are not currently [supported by TheGraph](https://thegraph.com/docs/en/developing/supported-networks/) will be available their under Subsquid names.
 
    The RPC endpoint will only be used to sync a few thousands of blocks at the chain end, so it does not have to be a paid one. However, `firehose-grpc` does not limit its request rate yet, so using a public RPC might result in a cooldown.
 

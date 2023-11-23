@@ -17,7 +17,7 @@ A somewhat outdated version of the final result can be browsed [here](https://gi
 ## Pre-requisites
 
 - Familiarity with Git 
-- A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js, Git and Docker
+- A properly set up [development environment](/sdk/resources/development-environment-set-up) consisting of Node.js, Git and Docker
 - [Squid CLI](/squid-cli/installation)
 
 :::info
@@ -36,7 +36,7 @@ npm ci
 
 ## Define Entity Schema
 
-Next, we ensure that the data [schema](/store/postgres/schema-file) of the squid defines [entities](/store/postgres/schema-file/entities) that we would like to track. We are interested in:
+Next, we ensure that the data [schema](/sdk/reference/schema-file) of the squid defines [entities](/sdk/reference/schema-file/entities) that we would like to track. We are interested in:
 
 * Token transfers
 * Ownership of tokens
@@ -77,10 +77,10 @@ type Transfer @entity {
 }
 ```
 
-It's worth noting a couple of things in this [schema definition](/store/postgres/schema-file):
+It's worth noting a couple of things in this [schema definition](/sdk/reference/schema-file):
 
 * **`@entity`**: Signals that this type will be translated into an ORM model that is going to be persisted in the database.
-* **`@derivedFrom`**: Signals that the field will not be persisted in the database. Instead, it will be [derived from](/store/postgres/schema-file/entity-relations) the entity relations.
+* **`@derivedFrom`**: Signals that the field will not be persisted in the database. Instead, it will be [derived from](/sdk/reference/schema-file/entity-relations) the entity relations.
 * **type references** (e.g. `from: Owner`): When used on entity types, they establish a relation between two entities.
 
 TypeScript entity classes have to be regenerated whenever the schema is changed, and to do that we use the `squid-typeorm-codegen` tool. The pre-packaged `commands.json` already comes with a `codegen` shortcut, so we can invoke it with `sqd`:
@@ -92,7 +92,7 @@ The (re)generated entity classes can then be browsed at `src/model/generated`.
 
 ## ABI Definition and Wrapper
 
-Subsquid maintains [tools](/evm-indexing/squid-evm-typegen) for automated generation of TypeScript classes for handling EVM logs and transactions based on a [JSON ABI](https://docs.ethers.io/v5/api/utils/abi/) of the contract.
+Subsquid maintains [tools[(/sdk/reference/typegen/state-queries) for automated generation of TypeScript classes for handling EVM logs and transactions based on a [JSON ABI](https://docs.ethers.io/v5/api/utils/abi/) of the contract.
 
 For our squid we will need such a module for the [ERC-721](https://eips.ethereum.org/EIPS/eip-721)-compliant part of the contracts' interfaces. Once again, the template repository already includes it, but it is still important to explain what needs to be done in case one wants to index a different type of contract.
 
@@ -104,9 +104,9 @@ The results will be stored at `src/abi`. One module will be generated for each A
 
 ## Processor object and the batch handler
 
-Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/substrate-indexing). Its instances connect to chain-specific [Subsquid archives](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to chain-specific [Subsquid archives](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-`SubstrateBatchProcessor`s [expose methods](/substrate-indexing/setup) that "subscribe" them to specific data such as Substrate events and calls. There are also [specialized methods](/substrate-indexing/specialized/evm) for subscribing to EVM logs and transactions by address. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for [*batches*](/basics/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
+`SubstrateBatchProcessor`s [expose methods](/sdk/reference/processors/subtrate-batch) that "subscribe" them to specific data such as Substrate events and calls. There are also [specialized methods](/sdk/resources/substrate/frontier-evm) for subscribing to EVM logs and transactions by address. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for [*batches*](/sdk/resources/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
 
 It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 
@@ -115,7 +115,7 @@ It is in this callback function that all the mapping logic is expressed. This is
 Before we begin defining the mapping logic of the squid, we are going to write a `src/contracts.ts` utility module for managing the involved EVM contracts. It will export:
 
 * Addresses of [astarDegens](https://blockscout.com/astar/address/0xd59fC6Bfd9732AB19b03664a45dC29B8421BDA9a) and [astarCats](https://blockscout.com/astar/address/0x8b5d62f396Ca3C6cF19803234685e693733f9779) contracts.
-* A `Map` from the contract addresses to hardcoded `Contract` [entity](/store/postgres/schema-file/entities) instances.
+* A `Map` from the contract addresses to hardcoded `Contract` [entity](/sdk/reference/schema-file/entities) instances.
 
 Here are the full file contents:
 
@@ -147,7 +147,7 @@ contractMapping.set(astarCatsAddress, new Contract({
 
 ## Create the processor object
 
-The `src/processor.ts` file is where squids instantiate and configure their processor objects. We will use an instance of [`SubstrateBatchProcessor`](/substrate-indexing).
+The `src/processor.ts` file is where squids instantiate and configure their processor objects. We will use an instance of [`SubstrateBatchProcessor`](/sdk).
 
 We adapt the template code to handle two contracts instead of one and point the processor data source setting to the `astar` archive URL retrieved from the [archive registry](https://github.com/subsquid/archive-registry). Here is the end result:
 
@@ -196,7 +196,7 @@ export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 ```
 
 :::warning
-This code expects to find an URL of a working Astar RPC endpoint in the `RPC_ENDPOINT` environment variable. Set it in the `.env` file and in [Subsquid Cloud secrets](/deploy-squid/env-variables) if and when you deploy your squid there. We tested the code using a public endpoint available at `wss://astar.public.blastapi.io`; for production, we recommend using private endpoints or our [RPC proxy](/deploy-squid/rpc-proxy) service.
+This code expects to find an URL of a working Astar RPC endpoint in the `RPC_ENDPOINT` environment variable. Set it in the `.env` file and in [Subsquid Cloud secrets](/cloud/resources/env-variables) if and when you deploy your squid there. We tested the code using a public endpoint available at `wss://astar.public.blastapi.io`; for production, we recommend using private endpoints or our [RPC proxy](/cloud/reference/rpc-proxy) service.
 :::
 
 ## Define the batch handler
@@ -348,7 +348,7 @@ async function saveTransfers(
 [//]: # (!!!! Remove the Contract ctx hack once the alias is added by SDK)
 
 :::info
-The `contract.tokenURI` call is accessing the **state** of the contract via a chain RPC endpoint. This is slowing down the indexing a little bit, but this data is only available this way. You'll find more information on accessing state in the [dedicated section of our docs](/substrate-indexing/specialized/evm#access-contract-state).
+The `contract.tokenURI` call is accessing the **state** of the contract via a chain RPC endpoint. This is slowing down the indexing a little bit, but this data is only available this way. You'll find more information on accessing state in the [dedicated section of our docs](/sdk/resources/substrate/frontier-evm#access-contract-state).
 :::
 
 ## Database and the migration

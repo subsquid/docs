@@ -17,9 +17,9 @@ To create an organization, click on the organizations dropdown menu in the upper
 
 A playground organization is created for each account on its first login. There, you can deploy one squid for development or prototyping, free of charge.
 
-Playground squids cannot be used in production, as they are [collocated](/deploy-squid/scale/#dedicated) and run on [spot VMs](https://cloud.google.com/spot-vms). Expect 3-5 minutes of downtime once every few days. Other limitations include:
+Playground squids cannot be used in production, as they are [collocated](/cloud/reference/scale/#dedicated) and run on [spot VMs](https://cloud.google.com/spot-vms). Expect 3-5 minutes of downtime once every few days. Other limitations include:
  - 10 GB of database storage;
- - 500k monthly requests to the [RPC proxy](/deploy-squid/rpc-proxy) service.
+ - 500k monthly requests to the [RPC proxy](/cloud/reference/rpc-proxy) service.
 
 Unlike other organizations, playgrounds cannot be shared or billed. 
 
@@ -33,7 +33,7 @@ Adding a valid payment method promotes an organization to Professional status. V
 
 ![Upgrading an organization](./billing-setup.png)
 
-Once an organization is upgraded you can deploy as many squids as you requre. [`scale:` section](/deploy-squid/scale) is now unlocked: use it to request any resources suitable for your use case. Your organization will be billed according to our [pricing schedule](/deploy-squid/pricing).
+Once an organization is upgraded you can deploy as many squids as you requre. [`scale:` section](/cloud/reference/scale) is now unlocked: use it to request any resources suitable for your use case. Your organization will be billed according to our [pricing schedule](/cloud/reference/pricing).
 
 ## Working with organizations
 

@@ -33,7 +33,7 @@ This tutorial uses custom scripts defined in `commands.json`. The scripts are au
 ## Pre-requisites
 
 - Familiarity with Git
-- A properly set up [development environment](/tutorials/development-environment-set-up) consisting of Node.js, Git and Docker
+- A properly set up [development environment](/sdk/resources/development-environment-set-up) consisting of Node.js, Git and Docker
 - [Squid CLI](/squid-cli/installation)
 
 ## Run the template
@@ -65,7 +65,7 @@ We track:
 * Wallet balances
 * Token transfers
 
-Our [schema definition](/store/postgres/schema-file) for modelling this data is straightforward:
+Our [schema definition](/sdk/reference/schema-file) for modelling this data is straightforward:
 
 ```graphql
 # schema.graphql
@@ -86,7 +86,7 @@ type Transfer @entity {
  
 ```
 Note:
-* a one-to-many [relation](/store/postgres/schema-file/entity-relations) between `Owner` and `Transfer`;
+* a one-to-many [relation](/sdk/reference/schema-file/entity-relations) between `Owner` and `Transfer`;
 * `@index` decorators for properties that we want to be able to filter the data by.
 
 Next, we generate `TypeORM` entity classes from the schema with the `squid-typeorm-codegen` tool. There is a handy `sqd` script for that:
@@ -96,7 +96,7 @@ sqd codegen
 ```
 The generated entity classes can be found under `src/model/generated`.
 
-Finally, we create [database migrations](/store/postgres/db-migrations) to match the changed schema. We restore the database to a clean state, then replace any existing migrations with the new one:
+Finally, we create [database migrations](/sdk/resources/persisting-data/typeorm) to match the changed schema. We restore the database to a clean state, then replace any existing migrations with the new one:
 ```bash
 sqd down
 sqd up
@@ -125,9 +125,9 @@ The generated `src/abi/erc20.ts` module defines interfaces to represent WASM dat
 
 ## Define the processor object
 
-Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/substrate-indexing). Its instances connect to chain-specific [Subsquid archives](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to chain-specific [Subsquid archives](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-`SubstrateBatchProcessor`s [exposes methods](/substrate-indexing/setup) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor [allows one](/substrate-indexing/specialized/wasm) to subscribe to such events emitted by a specific contract.
+`SubstrateBatchProcessor`s [exposes methods](/sdk/reference/processors/subtrate-batch) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor [allows one](/sdk/resources/substrate/ink) to subscribe to such events emitted by a specific contract.
 
 The processor is instantiated and configured at the `src/processor.ts`. Here are the changes we need to make there:
 
@@ -192,7 +192,7 @@ export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 
 ## Define the batch handler
 
-Once requested, the events can be processed by calling the `.run()` function that starts generating requests to the Archive for [*batches*](/basics/batch-processing) of data.
+Once requested, the events can be processed by calling the `.run()` function that starts generating requests to the Archive for [*batches*](/sdk/resources/batch-processing) of data.
 
 Every time a batch is returned by the Archive, it will trigger the callback function, or *batch handler* (passed to `.run()` as second argument). It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 
@@ -315,7 +315,7 @@ function createTransfers(txs: TransferRecord[], owners: Map<string, Owner>): Tra
 
 The `getTransferRecords` function generates a list of `TransferRecord` objects that contain the data we need to fill the models we have defined with our schema. This data is extracted from the events found in the batch context, `ctx`. We use the in the main body of the batch handler, the arrow function used as the second argument of the `.run()` function call, to fetch or create `Owner` instance and create a `Transfer` instance for every event found in the context.
 
-Finally, these [TypeORM entity](/store/postgres/schema-file/entities) instances are saved to the database, all in one go. This is done to reduce the number of database queries.
+Finally, these [TypeORM entity](/sdk/reference/schema-file/entities) instances are saved to the database, all in one go. This is done to reduce the number of database queries.
 
 :::info
 In the `getTransferRecords` function we loop over the blocks and over the events contained in them, then filter the events with an `if`. The filtering is redundant when there's only one event type to process but will be needed when the processor is subscribed to multiple ones.

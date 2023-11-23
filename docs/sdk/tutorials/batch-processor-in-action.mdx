@@ -9,13 +9,13 @@ title: Processor in action
 
 [//]: # (!!!! Update examples and their URLs)
 
-An end-to-end idiomatic usage of `EvmBatchProcessor` can be inspected in the [gravatar-template repository](https://github.com/subsquid/gravatar-squid) (link out of date) and also learned from more elaborate [examples](/examples/evm).
+An end-to-end idiomatic usage of `EvmBatchProcessor` can be inspected in the [gravatar-template repository](https://github.com/subsquid/gravatar-squid) (link out of date) and also learned from more elaborate [examples](/sdk/examples).
 
 In order to illustrate the concepts covered thus far, here we highlight the key steps, put together a processor configuration and a data handling definition.
 
 ## 1. Model the target schema and generate entity classes
 
-Create or edit `schema.graphql` to define the target entities and relations. Consult [the schema reference](/store/postgres/schema-file).
+Create or edit `schema.graphql` to define the target entities and relations. Consult [the schema reference](/sdk/reference/schema-file).
 
 Update the entity classes, start a fresh database and regenerate migrations:
 ```bash
@@ -27,14 +27,14 @@ sqd migration:generate
 
 ## 2. Generate Typescript ABI modules
 
-Use [`evm-typegen`](/evm-indexing/squid-evm-typegen) to generate the facade classes, for example like this:
+Use [`evm-typegen`[(/sdk/reference/typegen/state-queries) to generate the facade classes, for example like this:
 ```bash
 npx squid-evm-typegen src/abi 0x2E645469f354BB4F5c8a05B3b30A929361cf77eC#Gravity --clean
 ```
 
 ## 3. Configuration
 
-See [Configuration section](/evm-indexing/configuration) for more details.
+See [Configuration section](/sdk/reference/processors/evm-batch) for more details.
 
 ```ts
 const processor = new EvmBatchProcessor()
@@ -130,13 +130,13 @@ title: Processor in action
 
 # `SubstrateBatchProcessor` in action
 
-An end-to-end idiomatic usage of `SubstrateBatchProcessor` can be inspected in the [squid-substrate-template](https://github.com/subsquid-labs/squid-substrate-template) and also learned from more elaborate [examples](/examples/substrate).
+An end-to-end idiomatic usage of `SubstrateBatchProcessor` can be inspected in the [squid-substrate-template](https://github.com/subsquid-labs/squid-substrate-template) and also learned from more elaborate [examples](/sdk/examples).
 
 Here we highlight the key steps and put together a configuration and a data handling definition to illustrate the concepts covered so far.
 
 ## 1. Set up the processor
 
-See [Setup section](/substrate-indexing/setup) for more details.
+See [Setup section](/sdk/reference/processors/subtrate-batch) for more details.
 
 ```ts title=src/processor.ts
 import {
@@ -249,7 +249,7 @@ function getTransfers(ctx: ProcessorContext<Store>): TransferData[] {
 
 ## 3. Run the processor and store the transformed data into the target database
 
-The snippet below assumes that we are using `TypeormDatabase` and that the database schema together with the model entity types has already been prepared. Consult the [Schema file](/store/postgres/schema-file) section for more details.
+The snippet below assumes that we are using `TypeormDatabase` and that the database schema together with the model entity types has already been prepared. Consult the [Schema file](/sdk/reference/schema-file) section for more details.
 
 ```ts title="src/main.ts"
 import {TypeormDatabase} from '@subsquid/typeorm-store'

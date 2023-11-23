@@ -21,7 +21,7 @@ The following setters configure the global settings of `SubstrateBatchProcessor`
 
   Note that `SubstrateBatchProcessor` also uses the RPC to occasionally retrieve chain metadata. That makes it impossible to use the processor without an RPC.
 
-- When the data source is a `ChainDataSource = {chain: ChainRpc}`, the processor will obtain data _only_ from a node RPC endpoint. This mode of operation is slow, but requires no archive and. Like `MixedDataSource`, it also has almost [no chain latency](/basics/unfinalized-blocks). It can be used with Substrate networks not listed on the [supported networks](../../supported-networks) page and with local development nodes.
+- When the data source is a `ChainDataSource = {chain: ChainRpc}`, the processor will obtain data _only_ from a node RPC endpoint. This mode of operation is slow, but requires no archive and. Like `MixedDataSource`, it also has almost [no chain latency](/sdk/resources/unfinalized-blocks). It can be used with Substrate networks not listed on the [supported networks](../../supported-networks) page and with local development nodes.
 
 The node RPC endpoint can be specified as a string URL or as an object:
 ```ts
@@ -36,7 +36,7 @@ type ChainRpc = string | {
 Setting `maxBatchCallSize` to `1` disables batching completely.
 
 :::tip
-We recommend using private endpoints for better performance and stability of your squids. For Subsquid Cloud deployments you can use the [RPC proxy](/deploy-squid/rpc-proxy). If you use an external private RPC, keep the endpoint URL in an environment variable and set it via [secrets](/deploy-squid/env-variables#secrets).
+We recommend using private endpoints for better performance and stability of your squids. For Subsquid Cloud deployments you can use the [RPC proxy](/cloud/reference/rpc-proxy). If you use an external private RPC, keep the endpoint URL in an environment variable and set it via [secrets](/cloud/resources/env-variables#secrets).
 :::
 
 #### `setBlockRange({from: number, to?: number | undefined})` {#set-block-range}
@@ -81,7 +81,7 @@ Types bundles can be specified in 2 different ways:
    })
    ```
 
-There a [mini-guide](/troubleshooting/#where-do-i-get-a-type-bundle-for-my-chain) on how to obtain type bundles for Substrate chains without relying on Subsquid tools.
+There a [mini-guide[(/archives/substrate/networks) on how to obtain type bundles for Substrate chains without relying on Subsquid tools.
 
 ## Miscellaneous
 

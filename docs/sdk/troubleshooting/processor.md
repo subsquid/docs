@@ -6,7 +6,7 @@ sidebar_position: 115
 
 ### `Error: data out-of-bounds` `ethers` errors on EVM
 
-Make sure you filter the data in your batch handler before parsing it. The processor only guarantees that the data that matches its filters gets into batches, not that the non-matching data does not. Typically each filter in the [processor configuration](/evm-indexing/configuration) should be matched in the batch handler, e.g.
+Make sure you filter the data in your batch handler before parsing it. The processor only guarantees that the data that matches its filters gets into batches, not that the non-matching data does not. Typically each filter in the [processor configuration](/sdk/reference/processors/evm-batch) should be matched in the batch handler, e.g.
 ```ts
 //...
 processor.addLog({
@@ -28,10 +28,10 @@ Another common source of this error is faulty RPC endpoints. If your EVM process
 
 ### `BAD_DATA` when using a Multicall contract
 
-This error can occur for a variety of reasons, but one common cause is choosing a Multicall deployment that is newer than the oldest blocks that have to be indexed. When [batch state queries](/evm-indexing/query-state/#batch-state-queries) are performed on historical chain state older than the Multicall deployment, EVM detects that and refuses to run.
+This error can occur for a variety of reasons, but one common cause is choosing a Multicall deployment that is newer than the oldest blocks that have to be indexed. When [batch state queries](/sdk/reference/typegen/state-queries/#batch-state-queries) are performed on historical chain state older than the Multicall deployment, EVM detects that and refuses to run.
 
 Solutions:
 1. Use an older Multicall deployment.
 2. Delay your chain state queries until a later block.
 
-These issues are explored in [Part 4 of the BAYC tutorial](/tutorials/bayc/step-four-optimizations).
+These issues are explored in [Part 4 of the BAYC tutorial](/sdk/tutorials/bayc/step-four-optimizations).

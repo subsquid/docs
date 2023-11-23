@@ -10,7 +10,7 @@ Each deployed squid version exposes Prometheus metrics for external monitoring w
 
 ## Processor metrics
 
-The processor metrics are available at `https://squid.subsquid.io/${name}/v/v${version}/processors/${processor}/metrics`. It is also exposed for the [production alias](/deploy-squid/promote-to-production) at `https://squid.subsquid.io/${name}/processors/${processor}/metrics`.
+The processor metrics are available at `https://squid.subsquid.io/${name}/v/v${version}/processors/${processor}/metrics`. It is also exposed for the [production alias](/cloud/resources/production-alias) at `https://squid.subsquid.io/${name}/processors/${processor}/metrics`.
 
  `${processor}` here is the processor name; it defaults to `processor` unless specified.
 

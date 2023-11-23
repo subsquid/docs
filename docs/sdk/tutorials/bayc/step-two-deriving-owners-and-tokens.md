@@ -13,7 +13,7 @@ Prerequisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a proje
 
 ## Writing `schema.graphql`
 
-Start the process by adding new [entities](/store/postgres/schema-file/entities) to the `schema.graphql` file:
+Start the process by adding new [entities](/sdk/reference/schema-file/entities) to the `schema.graphql` file:
 ```graphql
 # any unique string can be used as id
 type Owner @entity {
@@ -25,7 +25,7 @@ type Token @entity {
     tokenId: BigInt!
 }
 ```
-Next, add [entity relations](/store/postgres/schema-file/entity-relations). Let us begin with adding a simple relation linking tokens to their owners:
+Next, add [entity relations](/sdk/reference/schema-file/entity-relations). Let us begin with adding a simple relation linking tokens to their owners:
 ```diff
  type Token @entity {
      id: ID! # string form of tokenId
@@ -65,7 +65,7 @@ Introduce more entity relations by replacing the `from`, `to` and `tokenId` fiel
  }
 ```
 
-Lastly, include the virtual (i.e., not mapped to a column in the database schema) [reverse lookup fields](/store/postgres/schema-file/entity-relations):
+Lastly, include the virtual (i.e., not mapped to a column in the database schema) [reverse lookup fields](/sdk/reference/schema-file/entity-relations):
 
 ```diff
  type Owner @entity {
@@ -99,7 +99,7 @@ Note how the entities we define form an acyclic dependency graph:
 
 As a consequence, the creation of entity instances must proceed in a [particular order](https://en.wikipedia.org/wiki/Topological_sorting). Squids usually use small graphs like this one, and in these the order can be easily found manually (e.g. `Owner`s then `Token`s then `Transfer`s in this case). We will assume that it can be hardcoded by the programmer.
 
-Further, at each step we will [process the data for the whole batch](/basics/batch-processing/) instead of handling the items individually. This is crucial for achieving a good syncing performance.
+Further, at each step we will [process the data for the whole batch](/sdk/resources/batch-processing/) instead of handling the items individually. This is crucial for achieving a good syncing performance.
 
 With all that in mind, let's create a batch processor that generates and persists all of our entities:
 

@@ -16,7 +16,7 @@ npx squid-graphql-server --help
 For each entity types, the following queries are supported for subscriptions:
 - `${EntityName}ById` -- query a single entity
 - `${EntityName}s` -- query multiple entities with a `where` filter
-Note that despite being [deprecated](/graphql-api/overview/#supported-queries) from the regular query set, `${EntityName}s` queries will continue to be available for subscriptions going forward.
+Note that despite being [deprecated](/sdk/reference/graphql-server/overview/#supported-queries) from the regular query set, `${EntityName}s` queries will continue to be available for subscriptions going forward.
 
 ## Local runs
 
@@ -33,7 +33,7 @@ A `ws` endpoint will be available the usual `localhost:<GQL_PORT>/graphql` URL.
 
 ## Subsquid Cloud deployments
 
-For Subsquid Cloud deployments, update the `api` command in the [deployment manifest](/deploy-squid/deploy-manifest/#deploy):
+For Subsquid Cloud deployments, update the `api` command in the [deployment manifest](/cloud/reference/manifest/#deploy):
 
 ```yaml title="squid.yaml"
 # ...

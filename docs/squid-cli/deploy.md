@@ -7,7 +7,7 @@ Squid name and version are taken from the provided deployment manifest.
 
 * [`sqd deploy SOURCE`](#sqd-deploy-source)
 
-When invoked by an account with more than one organization, this command may require specifying an [organization](/deploy-squid/organizations) with the `-o/--org` flag. The organization has to be specified when deploying a new squid, but can be omitted when deploying a new version of an existing squid.
+When invoked by an account with more than one organization, this command may require specifying an [organization](/cloud/resources/organizations) with the `-o/--org` flag. The organization has to be specified when deploying a new squid, but can be omitted when deploying a new version of an existing squid.
 
 Subsquid Cloud users with just one organization can omit this flag.
 

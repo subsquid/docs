@@ -6,7 +6,7 @@ description: Scale the squid with the deployment manifest
 
 # Scale the deployment
 
-The `scale:` section of the [deployment manifest](/deploy-squid/deploy-manifest) allows allocating additional computing resources for the squid add-ons and services. This option is only available for Premium Cloud accounts. To apply for a Premium account, fill the [form](https://docs.google.com/forms/d/e/1FAIpQLSchqvWxRhlw7yfBlfiudizLJI9hEfeCEuaSlk3wOcwB1HQf6g/viewform?usp=sf_link).
+The `scale:` section of the [deployment manifest](/cloud/reference/manifest) allows allocating additional computing resources for the squid add-ons and services. This option is only available for Premium Cloud accounts. To apply for a Premium account, fill the [form](https://docs.google.com/forms/d/e/1FAIpQLSchqvWxRhlw7yfBlfiudizLJI9hEfeCEuaSlk3wOcwB1HQf6g/viewform?usp=sf_link).
 
 The manifest supports the following scaling options:
 
@@ -23,7 +23,7 @@ Squid deployment must be dedicated to be a subject of [Subsquid Cloud SLA](../pr
 
 ### `postgres:`
 
-See [Postgres add-on](/deploy-squid/pg-addon) for details.
+See [Postgres add-on](/cloud/reference/pg) for details.
 
 ## `services:`
 

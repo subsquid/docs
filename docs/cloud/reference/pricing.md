@@ -8,12 +8,12 @@ description: Subscription types and pay-as-you-go prices
 
 ## Billing
 
-Subsquid bills [organizations](/deploy-squid/organizations) for the resources used by their squids. To deploy production-ready squids and [configure](../scale) their resources, the organization must have a [Professional status](../organizations/#professional-organizations). All such organizations receive the following perks:
+Subsquid bills [organizations](/cloud/resources/organizations) for the resources used by their squids. To deploy production-ready squids and [configure](../scale) their resources, the organization must have a [Professional status](../organizations/#professional-organizations). All such organizations receive the following perks:
 
  - unmetered GraphQL API requests
- - deploying any number of pay-as-you-go [dedicated](/deploy-squid/scale/#dedicated) squids
- - deploying any number of pay-as-you-go [collocated](/deploy-squid/scale/#dedicated) squids
- - free 2M [RPC proxy](/deploy-squid/rpc-proxy) requests monthly + just `$2/1M` afterwards
+ - deploying any number of pay-as-you-go [dedicated](/cloud/reference/scale/#dedicated) squids
+ - deploying any number of pay-as-you-go [collocated](/cloud/reference/scale/#dedicated) squids
+ - free 2M [RPC proxy](/cloud/reference/rpc-proxy) requests monthly + just `$2/1M` afterwards
  - priority support 
 
 Other resources used by squids are priced as described below. Billing typically occurs on the first day of each month.
@@ -33,7 +33,7 @@ Database storage is billed at `0.5$/mo` per Gigabyte, both for dedicated and col
 
 ### Compute for dedicated squids
 
-Dedicated squids have separate [compute profiles](/deploy-squid/scale/#services) for the Postgres database and API/processor services:
+Dedicated squids have separate [compute profiles](/cloud/reference/scale/#services) for the Postgres database and API/processor services:
 
 #### API/Processor
 
@@ -169,9 +169,9 @@ While we do our best to ensure that the resources are shared fairly, we strongly
 
 **Q**: How do I configure the profiles for my squid? 
 
-**A**: Use the [manifest-based deployments](/deploy-squid/deploy-manifest/) and [the profile reference](/deploy-squid/scale/).
+**A**: Use the [manifest-based deployments](/cloud/reference/manifest/) and [the profile reference](/cloud/reference/scale/).
 
 **Q**: How can I use the provided RPC package? How do I set the rate limits for it?
  
-**A**: Please look at the [RPC proxy docs](/deploy-squid/rpc-proxy/).
+**A**: Please look at the [RPC proxy docs](/cloud/reference/rpc-proxy/).
 

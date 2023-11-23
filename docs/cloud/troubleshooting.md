@@ -6,13 +6,13 @@ sidebar_position: 60
 
 ### `Secrets outdated. Please restart the squid` notification in Aquarium
 
-This occurs when you have a squid deployed, then create, remove or change some [environment variables](/squid-cli/secrets) of [relevance](/deploy-squid/organizations). Squids must be restarted manually for such changes to have effect. Navigate to the squid version page (e.g. by clicking on the warning sign) and click restart. The restart will not touch the database, so unless your new secret values cause the squid to crash this procedure should be quick and easy.
+This occurs when you have a squid deployed, then create, remove or change some [environment variables](/squid-cli/secrets) of [relevance](/cloud/resources/organizations). Squids must be restarted manually for such changes to have effect. Navigate to the squid version page (e.g. by clicking on the warning sign) and click restart. The restart will not touch the database, so unless your new secret values cause the squid to crash this procedure should be quick and easy.
 
 ![Secrets outdated](</img/secrets-outdated.png>)
 
 ### My squid is stuck in "Building", "Deploying" or "Starting" state
 
-- Run with `SQD_DEBUG=*` as explained on the [Logging](/basics/logging/#overriding-the-log-level) page
+- Run with `SQD_DEBUG=*` as explained on the [Logging](/sdk/reference/logger/#overriding-the-log-level) page
 - Update the squid CLI to the latest version with
 ```bash
 npm update -g @subsquid/cli
@@ -21,8 +21,8 @@ npm update -g @subsquid/cli
 ```bash
 npm run update
 ```
-- Check that the squid adheres to the expected [structure](/basics/squid-structure)
-- Make sure you can [build and run Docker images locally](/deploy-squid/self-hosting)
+- Check that the squid adheres to the expected [structure](/sdk/reference/layout)
+- Make sure you can [build and run Docker images locally](/sdk/resources/self-hosting)
 
 ### `Validation error` when releasing a squid
 

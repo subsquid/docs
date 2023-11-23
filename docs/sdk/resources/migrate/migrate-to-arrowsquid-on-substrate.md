@@ -6,11 +6,11 @@ description: A step-by-step migration guide for Substrate
 
 # Migrate to ArrowSquid (Substrate)
 
-This is a Substrate guide. EVM guide is available [here](/migrate/migrate-to-arrowsquid).
+This is a Substrate guide. EVM guide is available [here](/sdk/resources/migrate/migrate-to-arrowsquid).
 
-ArrowSquid refers to `@subsquid/substrate-processor` versions `3.x` and above. It is not compatible with the FireSquid archive endpoints. The new `v2` archives are currently being rolled out (see the [Supported networks](/substrate-indexing/supported-networks) page).
+ArrowSquid refers to `@subsquid/substrate-processor` versions `3.x` and above. It is not compatible with the FireSquid archive endpoints. The new `v2` archives are currently being rolled out (see the [Supported networks](/archives/substrate/networks) page).
 
-The main feature introduced by the ArrowSquid update is the new ability of the [processor](/basics/squid-processor) to ingest unfinalized blocks directly from a network node, instead of waiting for an archive to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency.
+The main feature introduced by the ArrowSquid update is the new ability of the [processor](/sdk/overview) to ingest unfinalized blocks directly from a network node, instead of waiting for an archive to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency.
 
 [//]: # (!!!! mention any new features here as I discover them)
 
@@ -34,11 +34,11 @@ npm i @subsquid/substrate-processor@latest @subsquid/typeorm-store@latest
 ```bash
 npm i --save-dev @subsquid/substrate-typegen@latest
 ```
-We recommend that you also have `@subsquid/archive-registry` installed. If your squid uses [`file-store`](/store/file-store), please update any related packages to the `@latest` version.
+We recommend that you also have `@subsquid/archive-registry` installed. If your squid uses [`file-store`](/sdk/resources/persisting-data/file), please update any related packages to the `@latest` version.
 
 ## Step 2
 
-Replace the old archive URL or lookup command with an [ArrowSquid archive lookup for your network](/substrate-indexing/supported-networks) within the `setDataSource()` configuration call. If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor. For Aleph Zero your edit might look like this:
+Replace the old archive URL or lookup command with an [ArrowSquid archive lookup for your network](/archives/substrate/networks) within the `setDataSource()` configuration call. If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor. For Aleph Zero your edit might look like this:
 ```diff
  processor
    .setDataSource({
@@ -50,7 +50,7 @@ Replace the old archive URL or lookup command with an [ArrowSquid archive lookup
 +    }
    })
 ```
-We recommend using a private RPC endpoint for the best performance, e.g. from [Dwellir](https://www.dwellir.com). For squids deployed to [Subsquid Cloud](/deploy-squid/quickstart/) you may also consider using our [RPC proxies](/deploy-squid/rpc-proxy).
+We recommend using a private RPC endpoint for the best performance, e.g. from [Dwellir](https://www.dwellir.com). For squids deployed to [Subsquid Cloud](/cloud/overview/) you may also consider using our [RPC proxies](/cloud/reference/rpc-proxy).
 
 Your squid will work with just an RPC endpoint, but it will sync significantly slower. With an archive the processor will only use RPC to retrieve metadata **and** sync the few most recent blocks not yet made available by the archive; without it it will retrieve all data from the endpoint.
 
@@ -58,19 +58,19 @@ Your squid will work with just an RPC endpoint, but it will sync significantly s
 
 Next, we have to account for the changes in signatures of the data requesting processor methods
 
-- [`addEvent()`](/substrate-indexing/setup/data-requests/#events),
-- [`addCall()`](/substrate-indexing/setup/data-requests/#calls),
-- [`addEvmLog()`](/substrate-indexing/specialized/evm/#subscribe-to-evm-events),
-- [`addEthereumTransaction()`](/substrate-indexing/specialized/evm/#subscribe-to-evm-transactions),
-- [`addContractsContractEmitted()`](/substrate-indexing/specialized/wasm/#processor-options),
-- [`addGearMessageEnqueued()`](/substrate-indexing/specialized/gear/#addgearmessageenqueued),
-- [`addGearUserMessageSent()`](/substrate-indexing/specialized/gear/#addgearusermessagesent),
+- [`addEvent()`](/sdk/reference/processors/subtrate-batch/data-requests/#events),
+- [`addCall()`](/sdk/reference/processors/subtrate-batch/data-requests/#calls),
+- [`addEvmLog()`](/sdk/resources/substrate/frontier-evm/#subscribe-to-evm-events),
+- [`addEthereumTransaction()`](/sdk/resources/substrate/frontier-evm/#subscribe-to-evm-transactions),
+- [`addContractsContractEmitted()`](/sdk/resources/substrate/ink/#processor-options),
+- [`addGearMessageEnqueued()`](/sdk/resources/substrate/gear/#addgearmessageenqueued),
+- [`addGearUserMessageSent()`](/sdk/resources/substrate/gear/#addgearusermessagesent),
 
 Previously, each call of these methods supplied its own fine-grained data fields selector. In the new interface, these calls only request data items, either directly or by relation (for example with the `call` flag for event-requesting methods). Field selection is now done by the new `setFields()` method on a per-item-type basis: once for all `Call`s, once for all `Event`s etc. The setting is processor-wide: for example, all `Call`s returned by the processor will have the same set of available fields, regardless of whether they were requested directly or as related data.
 
 Begin migrating to the new interface by finding all calls to these methods and combining all the field selectors into processor-wide `event`, `call` and `extrinsic` field selectors that request all fields previously requested by individual selectors. Note that `call.args` and `event.args` are now requested by default and can be omitted. When done, add a call to `setFields()` supplying it with the new field selectors.
 
-The new field selector format is fully documented on the [Field selection](/substrate-indexing/setup/field-selection) page.
+The new field selector format is fully documented on the [Field selection](/sdk/reference/processors/subtrate-batch/field-selection) page.
 
 :::info
 Blanket field selections like `{data: {event: {extrinsic: true}}}` are not supported in ArrowSquid. If you used one of these, please find out which exact fields you use in the batch handler and specifically request them.
@@ -170,13 +170,13 @@ The meaning of passing `[]` as a set of parameter values has been changed in the
 Old data request calls will be erased during the process. Make sure to request the appropriate related data with the boolean flags (`call` for event-requesting methods, `events` for call-requesting methods and `extrinsic`, `stack` for both).
 
 Interfaces of data request methods are documented on their respective pages:
-- [`addEvent()`](/substrate-indexing/setup/data-requests/#events),
-- [`addCall()`](/substrate-indexing/setup/data-requests/#calls),
-- [`addEvmLog()`](/substrate-indexing/specialized/evm/#subscribe-to-evm-events),
-- [`addEthereumTransaction()`](/substrate-indexing/specialized/evm/#subscribe-to-evm-transactions),
-- [`addContractsContractEmitted()`](/substrate-indexing/specialized/wasm/#processor-options),
-- [`addGearMessageEnqueued()`](/substrate-indexing/specialized/gear/#addgearmessageenqueued),
-- [`addGearUserMessageSent()`](/substrate-indexing/specialized/gear/#addgearusermessagesent).
+- [`addEvent()`](/sdk/reference/processors/subtrate-batch/data-requests/#events),
+- [`addCall()`](/sdk/reference/processors/subtrate-batch/data-requests/#calls),
+- [`addEvmLog()`](/sdk/resources/substrate/frontier-evm/#subscribe-to-evm-events),
+- [`addEthereumTransaction()`](/sdk/resources/substrate/frontier-evm/#subscribe-to-evm-transactions),
+- [`addContractsContractEmitted()`](/sdk/resources/substrate/ink/#processor-options),
+- [`addGearMessageEnqueued()`](/sdk/resources/substrate/gear/#addgearmessageenqueued),
+- [`addGearUserMessageSent()`](/sdk/resources/substrate/gear/#addgearusermessagesent).
 
 Here is a fully updated initialization code for the example processor from step 3:
 ```typescript
@@ -212,7 +212,7 @@ const processor = new SubstrateBatchProcessor()
 
 ## Step 5
 
-Finally, update the batch handler to use the new [batch context](/basics/squid-processor/#batch-context). The main change here is that now `block.items` is split into three separate iterables: `block.calls`, `block.events` and `block.extrinsics`. There are two ways to migrate:
+Finally, update the batch handler to use the new [batch context](/sdk/overview/#batch-context). The main change here is that now `block.items` is split into three separate iterables: `block.calls`, `block.events` and `block.extrinsics`. There are two ways to migrate:
 
 1. If you're in a hurry, use the `orderItems(block: Block)` function from [this snippet](https://gist.github.com/belopash/5d61dcce7739f60d55c4faaec0148282):
    ```typescript title=src/main.ts
@@ -230,9 +230,9 @@ Finally, update the batch handler to use the new [batch context](/basics/squid-p
    })
    ```
 
-2. Alternatively, rewrite your batch handler using the [new batch context interface](/basics/squid-processor/#batch-context).
+2. Alternatively, rewrite your batch handler using the [new batch context interface](/sdk/overview/#batch-context).
 
-See [Block data for Substrate](/substrate-indexing/context-interfaces) for the documentation on Substrate-specific part of batch context.
+See [Block data for Substrate](/sdk/reference/processors/subtrate-batch/context-interfaces) for the documentation on Substrate-specific part of batch context.
 
 ## Step 6
 
@@ -257,7 +257,7 @@ Note the changes:
 1. Archive URL as `"specVersions"` is replaced with an URL of our new metadata service (`"https://v2.archive.subsquid.io/metadata/kusama"`)
 2. Requests for data wrappers are now made on a per-pallet basis.
 
-Check out the updated [Substrate typegen documentation page](/substrate-indexing/squid-substrate-typegen). If you used any storage calls, consult [this documentation page](/substrate-indexing/storage-state-calls) for guidance.
+Check out the updated [Substrate typegen documentation page[(/sdk/tutorials/batch-processor-in-action). If you used any storage calls, consult [this documentation page](/sdk/reference/typegen/state-queries) for guidance.
 
 Once you're done migrating `typegen.json`, regenerate the wrapper classes with
 ```bash

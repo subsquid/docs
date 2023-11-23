@@ -1,12 +1,12 @@
 `sqd run`
 =========
 
-Run a squid locally according to the [deployment manifest](/deploy-squid/deploy-manifest).
+Run a squid locally according to the [deployment manifest](/cloud/reference/manifest).
 
 * [sqd run PATH](#sqd-run-path)
 
 Notes:
- - The command is especially useful for running [multichain squids](/basics/multichain), as it runs all services in the same terminal and handles failures gracefully.
+ - The command is especially useful for running [multichain squids](/sdk/resources/multichain), as it runs all services in the same terminal and handles failures gracefully.
  - Environment variables are read from the deployment manifest; `.env` file is ignored. 
  - Unlike the common `commands.json` script `sqd process`, `sqd run` will neither build nor apply migrations automatically.
    ```bash

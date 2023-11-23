@@ -10,7 +10,7 @@ A data source for squids that stores the historical block data in a normalized w
 
 ### Cloud (former Aquarium)
 
-A cloud service to deploy and run squids in a serverless fashion maintained by Subsquid Labs GmbH. See [Deploy a Squid](/deploy-squid)
+A cloud service to deploy and run squids in a serverless fashion maintained by Subsquid Labs GmbH. See [Deploy a Squid](/cloud)
 
 ### Block
 
@@ -58,7 +58,7 @@ An SDK (software development kit) and a smart-contract language for developing W
 
 ### OpenReader
 
-An open-source GraphQL server that automatically generates an expressive API from an input schema file. See the [repo](https://github.com/subsquid/squid/tree/master/openreader) and [details](/graphql-api).
+An open-source GraphQL server that automatically generates an expressive API from an input schema file. See the [repo](https://github.com/subsquid/squid/tree/master/openreader) and [details](/sdk/reference/graphql-server).
 
 ### Palette
 
@@ -66,7 +66,7 @@ A portable module that can be added to the Substrate runtime. Typically, contain
 
 ### Schema file
 
-A file describing the target data schema for a squid, normally called `schema.gql`. The file uses a GraphQL dialect to define entities, properties and relations. See [details here](/store/postgres/schema-file).
+A file describing the target data schema for a squid, normally called `schema.gql`. The file uses a GraphQL dialect to define entities, properties and relations. See [details here](/sdk/reference/schema-file).
 
 ### State
 
@@ -86,7 +86,7 @@ The ETL part of the squid. Extracts on-chain data from an Archive, transforms, o
 
 ### Squid API
 
-The data presentation part of the squid. Typically, it's a GraphQL API auto-generated from the schema file. See details [here](/graphql-api).
+The data presentation part of the squid. Typically, it's a GraphQL API auto-generated from the schema file. See details [here](/sdk/reference/graphql-server).
 
 ### Substrate
 
@@ -103,8 +103,8 @@ A collection of open-source libraries to build squids.
 ### Typegen
 
 A tool generating strongly typed data access classes from a metadata in some format. Subsquid SDK includes typegen tools:
-- for accessing event, extrinsics and storage data based on the substrate metadata. See [Substrate typegen](/substrate-indexing/squid-substrate-typegen)
-- for accessing EVM smart contract data based on the contract ABI. See [EVM typegen](/evm-indexing/squid-evm-typegen)
+- for accessing event, extrinsics and storage data based on the substrate metadata. See [Substrate typegen[(/sdk/tutorials/batch-processor-in-action)
+- for accessing EVM smart contract data based on the contract ABI. See [EVM typegen[(/sdk/reference/typegen/state-queries)
 - for accessing ink! smart contract data based on the contract metadata. See [ink! typegen](https://github.com/subsquid/squid-sdk/tree/master/substrate/ink-typegen)
 
 [//]: # (!!!! Update the link above once ArrowSquid for Substrate is released)

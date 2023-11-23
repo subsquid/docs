@@ -6,7 +6,7 @@ description: >-
 
 # Block data for EVM
 
-`EvmBatchProcessor` follows the common [squid processor architecture](/basics/squid-processor), in which data processing happens within the [batch handler](/basics/squid-processor/#processorrun), a function repeatedly called on batches of on-chain data. The function takes a single argument called "batch context". Its structure follows the [common batch context layout](/basics/squid-processor/#batch-context), with `ctx.blocks` being an array of `BlockData` objects containing the data to be processed, aligned at the block level.
+`EvmBatchProcessor` follows the common [squid processor architecture](/sdk/overview), in which data processing happens within the [batch handler](/sdk/overview/#processorrun), a function repeatedly called on batches of on-chain data. The function takes a single argument called "batch context". Its structure follows the [common batch context layout](/sdk/overview/#batch-context), with `ctx.blocks` being an array of `BlockData` objects containing the data to be processed, aligned at the block level.
 
 For `EvmBatchProcessor` the `BlockData` interface is defined as follows:
 ```ts
@@ -18,23 +18,23 @@ export type BlockData<F extends FieldSelection = {}> = {
   stateDiffs: StateDiff<F>[]
 }
 ```
-`F` here is the type of the argument of the [`setFields()`](/evm-indexing/configuration/data-selection) processor method.
+`F` here is the type of the argument of the [`setFields()`](/sdk/reference/processors/evm-batch/field-selection) processor method.
 
 `BlockData.header` contains the block header data. The rest of the fields are iterables containing four kinds of blockchain data. The canonical ordering within each iterable depends on the data kind:
  - `transactions` and `logs` are ordered in the same way as they are within blocks;
- - [`stateDiffs`](/evm-indexing/configuration/state-diffs) follow the order of transactions that gave rise to them;
+ - [`stateDiffs`](/sdk/reference/processors/evm-batch/state-diffs) follow the order of transactions that gave rise to them;
  - `traces` are ordered in a deterministic but otherwise unspecified way.
 
-The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [field selection](/evm-indexing/configuration/data-selection) page:
- - [transactions section](/evm-indexing/configuration/data-selection/#transactions);
- - [logs section](/evm-indexing/configuration/data-selection/#logs);
- - [traces section](/evm-indexing/configuration/data-selection/#traces);
- - [state diffs section](/evm-indexing/configuration/data-selection/#state-diffs);
- - [block header section](/evm-indexing/configuration/data-selection/#block-headers).
+The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [field selection](/sdk/reference/processors/evm-batch/field-selection) page:
+ - [transactions section](/sdk/reference/processors/evm-batch/field-selection/#transactions);
+ - [logs section](/sdk/reference/processors/evm-batch/field-selection/#logs);
+ - [traces section](/sdk/reference/processors/evm-batch/field-selection/#traces);
+ - [state diffs section](/sdk/reference/processors/evm-batch/field-selection/#state-diffs);
+ - [block header section](/sdk/reference/processors/evm-batch/field-selection/#block-headers).
 
 ## Example
 
-The handler below simply outputs all the log items emitted by the contract `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC` in [real time](/basics/unfinalized-blocks):
+The handler below simply outputs all the log items emitted by the contract `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC` in [real time](/sdk/resources/unfinalized-blocks):
 
 ```ts
 import { TypeormDatabase } from '@subsquid/typeorm-store'
@@ -70,6 +70,6 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 })
 ```
 
-One can experiment with the [`setFields()`](/evm-indexing/configuration/data-selection) argument and see how the output changes.
+One can experiment with the [`setFields()`](/sdk/reference/processors/evm-batch/field-selection) argument and see how the output changes.
 
-For more elaborate examples, check [EVM Examples](/examples).
+For more elaborate examples, check [EVM Examples](/sdk/examples).

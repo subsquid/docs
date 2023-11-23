@@ -14,22 +14,22 @@ git clone https://github.com/subsquid-labs/gravatar-squid.git
 
 `EvmBatchProcessor` provided by the Squid SDK defines a single handler that indexes EVM logs and transaction data in batches. It differs from the programming model of subgraph mappings that defines a separate data handler for each EVM log topic to be indexed. Due to significantly less frequent database hits (once per batch compared to once per log) the batch-based handling model shows up to a 10x increase in the indexing speed.
 
-At the same time, concepts of the [schema file](/store/postgres/schema-file), [code generation from the schema file](/store/postgres/schema-file/intro/#typeorm-codegen) and [auto-generated GraphQL API](/graphql-api) should be familiar to subgraph developers. In most cases the schema file of a subgraph can be imported into a squid as is. 
+At the same time, concepts of the [schema file](/sdk/reference/schema-file), [code generation from the schema file](/sdk/reference/schema-file/intro/#typeorm-codegen) and [auto-generated GraphQL API](/sdk/reference/graphql-server) should be familiar to subgraph developers. In most cases the schema file of a subgraph can be imported into a squid as is. 
 
 There are some known limitations:
-- Many-to-Many entity relations should be [modeled explicitly](/store/postgres/schema-file/entity-relations/#many-to-many-relations) as two many-to-one relations
+- Many-to-Many entity relations should be [modeled explicitly](/sdk/reference/schema-file/entity-relations/#many-to-many-relations) as two many-to-one relations
 
 On top of the features provided by subgraphs, Squid SDK and Subsquid Cloud offer extra flexibility in developing tailored APIs and ETLs for on-chain data:
 
 - Full control over the target database (Postgres), including custom migrations and ad-hoc queries in the handler
 - Custom target databases and data formats (e.g. CSV)
 - Arbitrary code execution in the data handler
-- [Extension of the GraphQL API](/graphql-api/custom-resolvers) with arbitrary SQL
-- [Secret environment variables](/deploy-squid/env-variables), allowing to seamlessly use private third-party JSON-RPC endpoints and integrate with external APIs
-- [API versioning and aliasing](/deploy-squid/promote-to-production)
-- [API caching](/graphql-api/caching)
+- [Extension of the GraphQL API](/sdk/reference/graphql-server/custom-resolvers) with arbitrary SQL
+- [Secret environment variables](/cloud/resources/env-variables), allowing to seamlessly use private third-party JSON-RPC endpoints and integrate with external APIs
+- [API versioning and aliasing](/cloud/resources/production-alias)
+- [API caching](/sdk/reference/graphql-server/caching)
 
-For a full feature set comparison, see [Subsquid vs The Graph](/migrate/subsquid-vs-thegraph).
+For a full feature set comparison, see [Subsquid vs The Graph](/sdk/resources/subsquid-vs-thegraph).
 
 ## Squid setup 
 
@@ -59,14 +59,14 @@ type Gravatar @entity {
 }
 ```
 
-Next, we generate the entities from the schema using the [`squid-typeorm-codegen`](/store/postgres/schema-file/intro/#typeorm-codegen) tool of the Squid SDK, then build the squid:
+Next, we generate the entities from the schema using the [`squid-typeorm-codegen`](/sdk/reference/schema-file/intro/#typeorm-codegen) tool of the Squid SDK, then build the squid:
 ```bash
 sqd codegen
 sqd build
 ```
 This command is equivalent to running `yarn codegen` in subgraph.
 
-After that, start the local database and generate migrations from the generated entities using the [`squid-typeorm-migration`](/store/postgres/db-migrations) tool:
+After that, start the local database and generate migrations from the generated entities using the [`squid-typeorm-migration`](/sdk/resources/persisting-data/typeorm) tool:
 ```bash
 sqd up
 sqd migration:generate
@@ -123,7 +123,7 @@ export const processor = new EvmBatchProcessor()
 
 In the snippet above we tell the squid processor to fetch logs emitted by the contract `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC` with topic0 within a specified list. The configuration also states that indexing should start from block `6175243`, the height at which the contract was deployed.
 
-Check out the [EVM indexing](/evm-indexing) section for the list of supported networks and configuration details.
+Check out the [EVM indexing](/sdk) section for the list of supported networks and configuration details.
 
 The above snippet is eqivalent to the following `subgraph.yaml`:
 
@@ -176,7 +176,7 @@ function extractData(evmLog: any): { id: bigint, owner: string, displayName: str
 }
 ```
 
-Next, we make a [batch handler](/basics/squid-processor/#processorrun) collecting the updates from a single batch of EVM logs. To convert a `0x...` string into a byte array we use the `decodeHex` utility from Subsquid SDK.
+Next, we make a [batch handler](/sdk/overview/#processorrun) collecting the updates from a single batch of EVM logs. To convert a `0x...` string into a byte array we use the `decodeHex` utility from Subsquid SDK.
 
 ```ts title=src/main.ts
 import { TypeormDatabase } from '@subsquid/typeorm-store'
@@ -224,7 +224,7 @@ and inspect the auto-generated GraphQL API using an interactive playground at [h
 ## What's Next?
 
 - Compare your API to that of subgraph using the [compareGraphQL](https://github.com/subsquid-labs/compareGraphQL) script
-- Have a closer look at [`EvmBatchProcessor`](/evm-indexing)
-- Learn how to [deploy a squid to Subsquid Cloud](/deploy-squid) for free
-- Learn how to [index and query the contract state](/evm-indexing/query-state)
+- Have a closer look at [`EvmBatchProcessor`](/sdk)
+- Learn how to [deploy a squid to Subsquid Cloud](/cloud) for free
+- Learn how to [index and query the contract state](/sdk/reference/typegen/state-queries)
 - Inspect a more complex [Uniswap V3 squid](https://github.com/dariaag/uniswap-squid-arrow) which tracks Uniswap V3 trading data. It was migrated from the [Uniswap V3 subgraph](https://github.com/Uniswap/v3-subgraph). It takes only a few hours to sync from scratch on a local machine.

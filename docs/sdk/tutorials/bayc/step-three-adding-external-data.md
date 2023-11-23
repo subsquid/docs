@@ -17,9 +17,9 @@ Prerequisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a proje
 
 Now that we have a record for each BAYC NFT, let's explore how we can retrieve more data for each token.
 
-[EIP-721](https://eips.ethereum.org/EIPS/eip-721) suggests that token metadata contracts may make token data available in a JSON referred to by the output of the `tokenURI()` contract function. Upon examining `src/abi/bayc.ts`, we find that the BAYC token contract implements this function. Also, the public ABI has no obvious contract methods that may set token URI or events that may be emitted on its change. In other words, it appears that the only way to retrieve this data is by [querying the contract state](/evm-indexing/query-state/).
+[EIP-721](https://eips.ethereum.org/EIPS/eip-721) suggests that token metadata contracts may make token data available in a JSON referred to by the output of the `tokenURI()` contract function. Upon examining `src/abi/bayc.ts`, we find that the BAYC token contract implements this function. Also, the public ABI has no obvious contract methods that may set token URI or events that may be emitted on its change. In other words, it appears that the only way to retrieve this data is by [querying the contract state](/sdk/reference/typegen/state-queries/).
 
-This requires a RPC endpoint of an archive Ethereum node, but we do not need to add one here: processor will reuse the endpoint we [supplied in part one](../step-one-indexing-transfers/#configuring-the-data-filters) of the tutorial for use in [RPC ingestion](/evm-indexing/evm-processor/#rpc-ingestion).
+This requires a RPC endpoint of an archive Ethereum node, but we do not need to add one here: processor will reuse the endpoint we [supplied in part one](../step-one-indexing-transfers/#configuring-the-data-filters) of the tutorial for use in [RPC ingestion](/sdk/overview/#rpc-ingestion).
 
 The next step is to prepare for retrieving and parsing the metadata proper. For this, we need to understand the protocols used in the URIs and the structure of metadata JSONs. To learn that, we retrieve and inspect some URIs ahead of the main squid sync. The most straightforward way to achieve this is by adding the following to the batch handler:
 ```diff title=src/main.ts
@@ -115,7 +115,7 @@ We will save both `image` and `attributes` metadata fields and the metadata URI 
 +    value: String!
 +}
 ```
-Here, `Attribute` is a [non-entity type](/store/postgres/schema-file/unions-and-typed-json/#typed-json) that we use to type the `attributes` field.
+Here, `Attribute` is a [non-entity type](/sdk/reference/schema-file/unions-and-typed-json/#typed-json) that we use to type the `attributes` field.
 
 Once `schema.graphql` is updated, we regenerate the TypeORM data model code::
 
@@ -151,7 +151,7 @@ interface PartialToken {
 }
 ```
 
-Here, `PartialToken` stores the incomplete `Token` information obtained purely from blockchain events and function calls, before any [state queries](/evm-indexing/query-state/) or enrichment with [external data](/basics/external-api/). 
+Here, `PartialToken` stores the incomplete `Token` information obtained purely from blockchain events and function calls, before any [state queries](/sdk/reference/typegen/state-queries/) or enrichment with [external data](/sdk/resources/external-api/). 
 The function `completeTokens()` is responsible for filling `Token` fields that are missing in `PartialToken`s. This involves IO operations, so both the function and its caller `createTokens()` have to be asynchronous. The functions also require a batch context for state queries and logging. We modify the `createTokens()` call in the batch handler to accommodate these changes:
 ```diff
  processor.run(new TypeormDatabase(), async (ctx) => {

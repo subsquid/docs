@@ -200,7 +200,7 @@ In all cases, empty lists of requests **request no data**. Omit a field or send 
   extrinsic: boolean
 }
 ```
-An event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any events. See [Substrate events](/substrate-indexing/setup/data-requests/#events) for a detailed description of data request fields.
+An event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any events. See [Substrate events](/sdk/reference/processors/subtrate-batch/data-requests/#events) for a detailed description of data request fields.
 
 ### Calls
 
@@ -213,7 +213,7 @@ An event will be included in the response if it matches all the requests. An emp
   events: boolean
 }
 ```
-A call will be included in the response if it matches all the requests. An empty array matches no calls; omitted or `null` request matches any call. See [Substrate calls](/substrate-indexing/setup/data-requests/#calls) for a detailed description of data request fields.
+A call will be included in the response if it matches all the requests. An empty array matches no calls; omitted or `null` request matches any call. See [Substrate calls](/sdk/reference/processors/subtrate-batch/data-requests/#calls) for a detailed description of data request fields.
 
 ### `Contracts.ContractEmitted` events {#contractsEvents}
 
@@ -229,7 +229,7 @@ Contract addresses supplied with this data request must be hexadecimal (i.e. dec
   extrinsic: boolean
 }
 ```
-A `Contracts.ContractEmitted` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `Contracts.ContractEmitted` event. See [ink! contracts support](/substrate-indexing/specialized/wasm).
+A `Contracts.ContractEmitted` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `Contracts.ContractEmitted` event. See [ink! contracts support](/sdk/resources/substrate/ink).
 
 ### `EVM.Log` events {#evmLog}
 
@@ -249,7 +249,7 @@ Contract addresses supplied with this data request must be in lowercase. Address
   extrinsic: boolean
 }
 ```
-An `EVM.Log` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `EVM.Log` event. See [Frontier EVM support](/substrate-indexing/specialized/evm/#subscribe-to-evm-events).
+An `EVM.Log` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `EVM.Log` event. See [Frontier EVM support](/sdk/resources/substrate/frontier-evm/#subscribe-to-evm-events).
 
 ### `Ethereum.transact` calls {#ethereumTransact}
 
@@ -266,7 +266,7 @@ Contract addresses supplied with this data request must be in lowercase. Address
   events: boolean
 }
 ```
-An `Ethereum.transact` call will be included in the response if it matches all the requests. An empty array matches no calls; omitted or `null` request matches any `Ethereum.transact` call. See [Frontier EVM support](/substrate-indexing/specialized/evm/#subscribe-to-evm-transactions).
+An `Ethereum.transact` call will be included in the response if it matches all the requests. An empty array matches no calls; omitted or `null` request matches any `Ethereum.transact` call. See [Frontier EVM support](/sdk/resources/substrate/frontier-evm/#subscribe-to-evm-transactions).
 
 ### `Gear.MessageEnqueued` events {#gearMessageEnqueued}
 
@@ -278,7 +278,7 @@ An `Ethereum.transact` call will be included in the response if it matches all t
   extrinsic: boolean
 }
 ```
-A `Gear.MessageEnqueued` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `Gear.MessageEnqueued` event. See [Gear support](/substrate-indexing/specialized/gear).
+A `Gear.MessageEnqueued` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `Gear.MessageEnqueued` event. See [Gear support](/sdk/resources/substrate/gear).
 
 ### `Gear.UserMessageSent` events {#gearUserMessageSent}
 
@@ -290,8 +290,8 @@ A `Gear.MessageEnqueued` event will be included in the response if it matches al
   extrinsic: boolean
 }
 ```
-A `Gear.UserMessageSent` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `Gear.UserMessageSent` event. See [Gear support](/substrate-indexing/specialized/gear).
+A `Gear.UserMessageSent` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `Gear.UserMessageSent` event. See [Gear support](/sdk/resources/substrate/gear).
 
 ## Data fields selector
 
-A JSON selector of fields for the returned data items. Documented in the [Field selectors](/substrate-indexing/setup/field-selection/#data-item-types-and-field-selectors) section.
+A JSON selector of fields for the returned data items. Documented in the [Field selectors](/sdk/reference/processors/subtrate-batch/field-selection/#data-item-types-and-field-selectors) section.

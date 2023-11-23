@@ -7,7 +7,7 @@ description: >-
 
 # `TypeormDatabase` 
 
-`TypeormDatabase` context store provides a wrapper over the [TypeORM `EntityManager`](https://typeorm.io/entity-manager-api) optimized for batch saving. It currently supports only Postgres-compatible databases and seamlessly integrates with entity classes generated from the [schema file](/store/postgres/schema-file).
+`TypeormDatabase` context store provides a wrapper over the [TypeORM `EntityManager`](https://typeorm.io/entity-manager-api) optimized for batch saving. It currently supports only Postgres-compatible databases and seamlessly integrates with entity classes generated from the [schema file](/sdk/reference/schema-file).
 
 ## Usage
  
@@ -214,7 +214,7 @@ Database migrations and setup scripts must be located in the reserved folder `db
 ## TypeORM migrations
 
 The Squid SDK offers first-class support for [TypeORM-based database migrations](https://typeorm.io/migrations) with the `squid-typeorm-migration(1)` tool.
-The tool auto-generates the schema migrations from the TypeORM entities created by [codegen](/store/postgres/schema-file) so that custom migration scripts are rarely needed.
+The tool auto-generates the schema migrations from the TypeORM entities created by [codegen](/sdk/reference/schema-file) so that custom migration scripts are rarely needed.
 
 Most use cases of the tool are covered by `sqd` commands defined in `commands.json` of most templates that wrap around `squid-typeorm-migration`:
 
@@ -273,7 +273,7 @@ In some rare cases it is possible to update the schema without dropping the data
 
 **1. Update `schema.graphql` ** 
 
-For example, [add an index](/store/postgres/schema-file/indexes-and-constraints)
+For example, [add an index](/sdk/reference/schema-file/indexes-and-constraints)
 
 **2. Regenerate the model classes and build the code**
 
@@ -305,7 +305,7 @@ If the squid is deployed to Subsquid Cloud, [update the deployed version](/squid
 
 ## Subsquid Cloud deployment
 
-By default, the TypeORM migrations are automatically applied by Cloud with the command `npx squid-typeorm-migration apply` before the squid services are started. For custom behavior, one can override the migration script using the optional `migrate:` section of [squid.yaml](/deploy-squid/deploy-manifest#deploy).
+By default, the TypeORM migrations are automatically applied by Cloud with the command `npx squid-typeorm-migration apply` before the squid services are started. For custom behavior, one can override the migration script using the optional `migrate:` section of [squid.yaml](/cloud/reference/manifest#deploy).
 
 :::info
 To force Cloud to reset the database and start with a blank state after a schema change, use the `--hard-reset` flag of [sqd deploy](/squid-cli/deploy).
@@ -327,4 +327,4 @@ It is possible to use `TypeormDatabase` with non-local PostgreSQL. Credentials m
 * `DB_PASS` (default `postgres`)
 * `DB_SSL` (SSL will not be used unless set to `true`)
 
-`DB_SSL` sometimes does not suffice for connecting to SSL-only cloud databases. The workaround is to set `PGSSLMODE=require` in the [environment](/deploy-squid/env-variables).
+`DB_SSL` sometimes does not suffice for connecting to SSL-only cloud databases. The workaround is to set `PGSSLMODE=require` in the [environment](/cloud/resources/env-variables).

@@ -6,11 +6,11 @@ description: Basics, public Archives, Archive registry
 
 # Squid Archives
 
-Archive is a specialized data lake for on-chain data, optimized for batch data access. The Archive API is meant to be used as a data source for Squid SDK [processors](/basics/squid-processor). 
+Archive is a specialized data lake for on-chain data, optimized for batch data access. The Archive API is meant to be used as a data source for Squid SDK [processors](/sdk/overview). 
 
 Compared to data access using a conventional chain node RPC, an Archive allows one to access data at near zero cost, in a more granular fashion and from multiple blocks at once, thanks to its rich batching and filtering capabilities.
 
-Subsquid Labs GmbH maintains public Archives for most [EVM](/evm-indexing) and [Substrate](/substrate-indexing) chains. Until Archive services are replaced by a decentralized and permissionless [Subsquid Network](/subsquid-network), access to the Archives is free of charge.
+Subsquid Labs GmbH maintains public Archives for most [EVM](/sdk) and [Substrate](/sdk) chains. Until Archive services are replaced by a decentralized and permissionless [Subsquid Network](/subsquid-network), access to the Archives is free of charge.
 
 If you are a network developer and would like to see your chain supported by Subsquid, please fill a [form](https://forms.gle/ioVNFiPjZgvUNunY9) or contact us in [SquidDevs Telegram chat](https://t.me/HydraDevs).
 
@@ -63,4 +63,4 @@ const processor = new EVMBatchProcessor()
 
 Starting with the ArrowSquid release and until Subsquid network is launched we are pausing the support of self-hosted archives. If you maintain a production network or a stable testnet and need a public archive please let us know at the [SquidDevs Telegram chat](https://t.me/HydraDevs).
 
-For smaller networks (including temporary testnets and any development networks) consider using the [RPC ingestion](/evm-indexing/evm-processor/#rpc-ingestion) feature. One of these use cases is described in our [local development tutorial](/tutorials/ethereum-local-development).
+For smaller networks (including temporary testnets and any development networks) consider using the [RPC ingestion](/sdk/overview/#rpc-ingestion) feature. One of these use cases is described in our [local development tutorial](/sdk/tutorials/evm-local).

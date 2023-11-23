@@ -37,7 +37,7 @@ export class CountResolver {
 ```
 
 This example is designed to work with the `evm` template:
-1. grab a test squid as described [here](/quickstart/quickstart-ethereum/);
+1. grab a test squid as described [here](/sdk/squid-development/);
 2. install `type-graphql`;
 3. save the example code to `src/server-extension/resolver.ts`;
 4. re-export `CountResolver` at `src/server-extension/resolvers/index.ts`:
@@ -108,7 +108,7 @@ const LOG = createLogger('sqd:graphql-server:my-resolver')
 LOG.info('created a dedicated logger for my-resolver')
 ```
 
-`LOG` here is a [logger object](/basics/logging) identical to `ctx.log` interface-wise.
+`LOG` here is a [logger object](/sdk/reference/logger) identical to `ctx.log` interface-wise.
 
 ## Troubleshooting
 

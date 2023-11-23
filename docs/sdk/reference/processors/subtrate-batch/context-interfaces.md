@@ -6,7 +6,7 @@ description: >-
 
 # Block data for Substrate
 
-`SubstrateBatchProcessor` follows the common [squid processor architecture](/basics/squid-processor), in which data processing happens within the [batch handler](/basics/squid-processor/#processorrun), a function repeatedly called on batches of on-chain data. The function takes a single argument called "batch context". Its structure follows the [common batch context layout](/basics/squid-processor/#batch-context), with `ctx.blocks` being an array of `Block` objects containing the data to be processed, aligned at the block level.
+`SubstrateBatchProcessor` follows the common [squid processor architecture](/sdk/overview), in which data processing happens within the [batch handler](/sdk/overview/#processorrun), a function repeatedly called on batches of on-chain data. The function takes a single argument called "batch context". Its structure follows the [common batch context layout](/sdk/overview/#batch-context), with `ctx.blocks` being an array of `Block` objects containing the data to be processed, aligned at the block level.
 
 For `SubstrateBatchProcessor` the `Block` interface is defined as follows:
 ```ts
@@ -29,7 +29,7 @@ The exact fields available in each data item type are inferred from the `setFiel
 
 ## Example
 
-The handler below simply outputs all the `Balances.transfer_all` calls on Kusama in [real time](/basics/unfinalized-blocks):
+The handler below simply outputs all the `Balances.transfer_all` calls on Kusama in [real time](/sdk/resources/unfinalized-blocks):
 
 ```ts
 import {SubstrateBatchProcessor} from '@subsquid/substrate-processor'

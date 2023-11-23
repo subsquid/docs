@@ -26,7 +26,7 @@ Squid SDK indexing projects (or simply **squids**) are [Extract-Transform-Load-Q
 
 **Archives** are specialized data lakes optimized for extracting and filtering large volumes of raw on-chain data in batches. Until fully decentralized, Subsquid Labs maintains public Archive endpoints and offers batch access via the Squid SDK free of charge. A full list of Archive endpoints for the supported EVM and Substrate networks is available in this [repo](https://github.com/subsquid/archive-registry) and is published as a package [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) for easy access.
 
-Squids can be run locally, on-premises or deployed to [Subsquid Cloud](/deploy-squid). 
+Squids can be run locally, on-premises or deployed to [Subsquid Cloud](/cloud). 
 
 ![Subsquid ecosystem](</img/subsquid-ecosystem.png>)
 
@@ -44,20 +44,20 @@ A squid project consists of a long-running `processor` service fetching and tran
 
 The [Squid SDK](https://github.com/subsquid/squid-sdk) offers an extensive set of tools for developing squids:
 
-- Core classes for the `processor` service: [`EvmBatchProcessor`](/evm-indexing) for EVM chains and [`SubstrateBatchProcessor`](/substrate-indexing) for Substrate-based chains.
-- The `sqd-typeorm-codegen` tool for generating TypeORM entities from `schema.graphql`. See [schema file and codegen](/store/postgres/schema-file).
+- Core classes for the `processor` service: [`EvmBatchProcessor`](/sdk) for EVM chains and [`SubstrateBatchProcessor`](/sdk) for Substrate-based chains.
+- The `sqd-typeorm-codegen` tool for generating TypeORM entities from `schema.graphql`. See [schema file and codegen](/sdk/reference/schema-file).
 - Tools for generating type-safe facade classes for decoding on-chain data. See [typegen](/glossary/#typegen).
-- [`graphql-server`](https://github.com/subsquid/squid/tree/master/graphql-server) is the backend for the GraphQL API served by the `api` service. The GraphQL schema is auto-generated from `schema.graphql`. The resulting API loosely follows the [OpenCRUD](https://www.opencrud.org/) standard and supports the most common query filters and selectors out-of-the box. See the [GraphQL API section](/graphql-api) for more details and configuration options.
+- [`graphql-server`](https://github.com/subsquid/squid/tree/master/graphql-server) is the backend for the GraphQL API served by the `api` service. The GraphQL schema is auto-generated from `schema.graphql`. The resulting API loosely follows the [OpenCRUD](https://www.opencrud.org/) standard and supports the most common query filters and selectors out-of-the box. See the [GraphQL API section](/sdk/reference/graphql-server) for more details and configuration options.
 
 
 ## Subsquid Cloud
 
-Squids can be deployed to [Subsquid Cloud](https://app.subsquid.io) free of charge. The deployment of the squid services to Cloud is managed by the [`squid.yaml` manifest](/deploy-squid/deploy-manifest). Go to the [Deploy Squid](/deploy-squid) section for more information.
+Squids can be deployed to [Subsquid Cloud](https://app.subsquid.io) free of charge. The deployment of the squid services to Cloud is managed by the [`squid.yaml` manifest](/cloud/reference/manifest). Go to the [Deploy Squid](/cloud) section for more information.
 
 ## What's next?
 
-- Follow the [Quickstart](/quickstart) to build your first squid
-- Explore [Examples](/examples)
-- Learn how to [migrate from The Graph](/migrate/migrate-subgraph)
-- Dive deeper into [EVM Indexing](/evm-indexing) and [Substrate Indexing](/substrate-indexing)
-- Explore the [GraphQL API options](/graphql-api) including custom extensions, caching and DoS protection in production
+- Follow the [Quickstart](/sdk/squid-development) to build your first squid
+- Explore [Examples](/sdk/examples)
+- Learn how to [migrate from The Graph](/sdk/resources/migrate/migrate-subgraph)
+- Dive deeper into [EVM Indexing](/sdk) and [Substrate Indexing](/sdk)
+- Explore the [GraphQL API options](/sdk/reference/graphql-server) including custom extensions, caching and DoS protection in production

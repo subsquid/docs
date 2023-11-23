@@ -24,7 +24,7 @@ The manifest header defines the squid metadata
 ## `build:`
 
 Specifies the way the squid is built into a docker image. Only an empty `build:` section is supported, and the squid must adhere
-to the default [folder structure](/basics/squid-structure).
+to the default [folder structure](/sdk/reference/layout).
 
 In particular, the following files and folders **must** be present in the root folder of the squid:
 
@@ -37,7 +37,7 @@ In particular, the following files and folders **must** be present in the root f
 The `db` and `assets` folders are added to the build context if present in the squid folder.
 
 Under the hood, Cloud builds a Docker image and runs a docker container for each service (`api`, `processor`, `migrate`) using the same image.
-See [Troubleshooting](/deploy-squid/troubleshooting/#local-build) for instructions on how to build and run the Docker image locally.
+See [Troubleshooting](/cloud/troubleshooting/#local-build) for instructions on how to build and run the Docker image locally.
 Even though the squid services (`api`, `processor`, `migrate`) use the same single container image, the exec command is different and can is defined by the `deploy:` section as explained below.
 
 ## `deploy:`
@@ -105,7 +105,7 @@ For the multiprocessor case:
 
 ## `scale:`
 
-See the [Scale the deployment](/deploy-squid/scale) section.
+See the [Scale the deployment](/cloud/reference/scale) section.
 
 ## Examples
 

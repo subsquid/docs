@@ -68,7 +68,7 @@ For writing local CSVs we will need the `file-store-csv` package:
 npm i @subsquid/file-store-csv
 ```
 :::info
-Packages are also available for [writing to parquet files](/store/file-store/parquet-table) and for [uploading to S3-compatible cloud services](/store/file-store/s3-dest).
+Packages are also available for [writing to parquet files](/sdk/reference/store/file/parquet) and for [uploading to S3-compatible cloud services](/sdk/reference/store/file/s3-dest).
 :::
 
 Next, let's create a new file at `src/tables.ts`. This is where it's possible to provide filenames for the CSV files, as well as configure their data structure, in much the same way as if they were a database table (the class name is no coincidence):
@@ -92,7 +92,7 @@ export const Transfers = new Table(
 )
 ```
 
-Let's create another file next, this time named `src/db.ts`, to configure the data abstraction layer. Here we export an instance of the [`Database` class](/store/custom-database) implementation from the `file-store` package (a dependency of `file-store-csv`). We will use this instance in much the same way as we would use a [`TypeormDatabase`](/store/postgres/typeorm-store) instance in a PostgreSQL-based squid.
+Let's create another file next, this time named `src/db.ts`, to configure the data abstraction layer. Here we export an instance of the [`Database` class](/sdk/resources/persisting-data/overview) implementation from the `file-store` package (a dependency of `file-store-csv`). We will use this instance in much the same way as we would use a [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm) instance in a PostgreSQL-based squid.
 
 ```typescript
 import {Database, LocalDest, Store} from '@subsquid/file-store'
@@ -113,7 +113,7 @@ Note the `chunkSizeMb` and `syncIntervalBlocks` option. `file-store-csv` chunks 
 1. the amount of data stored in the processor buffer exceeds `chunkSizeMb`, or
 2. there is some data to the buffer and the blockchain head is reached in the sync process, or
 3. there is some data in the buffer and more than `syncIntervalBlocks` blocks has been processed since the last write.
-See [this section](/store/file-store/overview/#filesystem-syncs-and-dataset-partitioning) for details.
+See [this section](/sdk/resources/persisting-data/file/#filesystem-syncs-and-dataset-partitioning) for details.
 :::
 
 ### Data indexing
@@ -182,7 +182,7 @@ processor.run(db, async (ctx) => {
 ```
 
 :::info
-The file in the GitHub repository is slightly different, as there's some added logic to obtain the number of decimals for the token. For that, the processor [interacts with the smart contract deployed on chain](/evm-indexing/query-state).
+The file in the GitHub repository is slightly different, as there's some added logic to obtain the number of decimals for the token. For that, the processor [interacts with the smart contract deployed on chain](/sdk/reference/typegen/state-queries).
 :::
 
 [//]: # (!!!! Consider dropping the contract state query use here)

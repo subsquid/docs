@@ -11,5 +11,5 @@ The current version of the Subsquid SDK (`@subsquid/evm-processor@1.x` and `@sub
 ## FireSquid
 
 Previous version of Subsquid SDK. Documented [here](/firesquid). If your squid uses this version, please migrate:
- - [EVM guide](/migrate/migrate-to-arrowsquid)
- - [Substrate guide](/migrate/migrate-to-arrowsquid-on-substrate)
+ - [EVM guide](/sdk/resources/migrate/migrate-to-arrowsquid)
+ - [Substrate guide](/sdk/resources/migrate/migrate-to-arrowsquid-on-substrate)

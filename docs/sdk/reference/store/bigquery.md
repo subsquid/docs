@@ -63,7 +63,7 @@ Tables are made out of statically typed columns. Available types:
 
 ## Deploying to Subsquid Cloud
 
-We discourage uploading any sensitive data with squid code when [deploying](/deploy-squid) to Subsquid Cloud. For BigQuery squids that means that accessing a [credentials JSON](https://cloud.google.com/docs/authentication/application-default-credentials#GAC) is typically not possible. The solution is to use [Cloud secrets](/deploy-squid/env-variables/#secrets) to store credentials.
+We discourage uploading any sensitive data with squid code when [deploying](/cloud) to Subsquid Cloud. For BigQuery squids that means that accessing a [credentials JSON](https://cloud.google.com/docs/authentication/application-default-credentials#GAC) is typically not possible. The solution is to use [Cloud secrets](/cloud/resources/env-variables/#secrets) to store credentials.
 
 Assuming that the name of the project is `subsquid-datasets` as in the example above and not sensitive, you can initialize your `BigQuery` instance like this:
 ```ts title="src/main.ts"
@@ -85,7 +85,7 @@ const db = new Database({
   bq,
 ...
 ```
-Request that the required secret variables are visible from your squid in [`squid.yaml`](/deploy-squid/deploy-manifest):
+Request that the required secret variables are visible from your squid in [`squid.yaml`](/cloud/reference/manifest):
 ```yaml title="squid.yaml"
 ...
 deploy:

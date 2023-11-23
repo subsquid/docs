@@ -6,9 +6,9 @@ description: >-
 
 # Union type resolution
 
-Use cases for [Union types](/store/postgres/schema-file/unions-and-typed-json) have been discussed in the [schema reference](/store/postgres/schema-file). Here, we discuss how to query union types.
+Use cases for [Union types](/sdk/reference/schema-file/unions-and-typed-json) have been discussed in the [schema reference](/sdk/reference/schema-file). Here, we discuss how to query union types.
 
-Let's take this modified schema from the [Substrate tutorial](/tutorials/create-a-simple-squid):
+Let's take this modified schema from the [Substrate tutorial](/sdk/tutorials/substrate):
 
 ```graphql title="schema.graphql"
 type Account @entity {

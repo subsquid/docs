@@ -120,7 +120,7 @@ title: ink! contracts support
 
 This section describes additional options available for indexing [ink!-based WASM contracts](https://use.ink), supported by chains with a `Contracts` pallet. At the moment of writing, AlephZero, Shibuya (Astar testnet), Shiden (Kusama parachain) and Astar (Polkadot parachain) are the most popular chains for deploying ink! contracts.
 
-[Generate an ink! indexing squid automatically](/basics/squid-gen), follow the [WASM squid tutorial](/tutorials/create-a-wasm-processing-squid) for a step-by-step instruction or check out the [squid-wasm-template](https://github.com/subsquid-labs/squid-wasm-template) reference project.
+[Generate an ink! indexing squid automatically](/sdk/resources/squid-gen), follow the [WASM squid tutorial](/sdk/tutorials/ink) for a step-by-step instruction or check out the [squid-wasm-template](https://github.com/subsquid-labs/squid-wasm-template) reference project.
 
 ## Processor options
 
@@ -275,7 +275,7 @@ This page describes the tools for handling EVM contracts and additional options 
 
 ## Squid EVM typegen
 
-[`squid-evm-typegen`](/evm-indexing/squid-evm-typegen) tool is used to generate Typescript modules for convenient interaction with EVM contracts. Each such module is generated from a JSON ABI read from a local file or from an Etherscan-like API:
+[`squid-evm-typegen`[(/sdk/reference/typegen/state-queries) tool is used to generate Typescript modules for convenient interaction with EVM contracts. Each such module is generated from a JSON ABI read from a local file or from an Etherscan-like API:
 ```bash
 npx squid-evm-typegen src/abi erc20.json
 ```
@@ -481,17 +481,17 @@ processor.run(new TypeormDatabase(), async ctx => {
 })
 ```
 
-For more information on EVM Typegen, see this [dedicated page](/evm-indexing/squid-evm-typegen).
+For more information on EVM Typegen, see this [dedicated page[(/sdk/reference/typegen/state-queries).
 
 ## Factory contracts
 
 It some cases the set of contracts to be indexed by the squid is not known in advance. For example, a DEX contract typically creates a new contract for each trading pair added, and each such trading contract is of interest.
 
-While the set of handler subscriptions is static and defined at the processor creation, one can leverage the wildcard subscriptions and filter the contracts of interest in runtime. This pattern is [described extensively](/evm-indexing/factory-contracts) in EVM documentation, but it can be used with EVM methods of `SubstrateBatchProcessor` as well. A (somewhat outdated) example is available in [this archive repo](https://github.com/subsquid/beamswap-squid/blob/master/src/processor.ts).
+While the set of handler subscriptions is static and defined at the processor creation, one can leverage the wildcard subscriptions and filter the contracts of interest in runtime. This pattern is [described extensively](/sdk/resources/evm/factory-contracts) in EVM documentation, but it can be used with EVM methods of `SubstrateBatchProcessor` as well. A (somewhat outdated) example is available in [this archive repo](https://github.com/subsquid/beamswap-squid/blob/master/src/processor.ts).
 
 ## Caveats
 
-* If your use case does not require any Substrate-specific data (e.g. extrinsic hashes), use [`EvmBatchProcessor`](/evm-indexing) instead. EVM-only Archives are [available](/evm-indexing/supported-networks) for all major EVM-on-Substrate chains.
+* If your use case does not require any Substrate-specific data (e.g. extrinsic hashes), use [`EvmBatchProcessor`](/sdk) instead. EVM-only Archives are [available](/archives/evm/networks) for all major EVM-on-Substrate chains.
 
 * Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](../../context-interfaces). As such, it is important to always filter the data within the batch handler: match e.g.
   ```ts title=src/processor.ts
@@ -527,7 +527,7 @@ While the set of handler subscriptions is static and defined at the processor cr
   .addEvmLog({}) // selects all events
   ```
 
-* If contract address(es) supplied to the processor configuration methods are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/basics/squid-processor/#processorrun) for item filtration, and all contract addresses in the items are **always** in flat lower case.
+* If contract address(es) supplied to the processor configuration methods are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/sdk/overview/#processorrun) for item filtration, and all contract addresses in the items are **always** in flat lower case.
 ---
 sidebar_position: 61
 description: >-
