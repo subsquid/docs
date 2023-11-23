@@ -126,6 +126,5 @@ evm-indexing/supported-networks.mdx -> archives/evm/networks.mdx
 substrate-indexing/supported-networks.md -> archives/substrate/networks.md
 evm-indexing/configuration/caveats.md -> sdk/troubleshooting
 troubleshooting.md -> sdk/troubleshooting
-
-basics -> sdk // maybe to overview? top level overview?
-basics/overview.md -> overview.md // might change into a folder
+basics -> sdk
+basics/overview.md -> overview.md
