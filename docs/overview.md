@@ -4,55 +4,73 @@ title: Subsquid overview
 description: Squid SDK, squids, Archives and Cloud
 ---
 
-# Subsquid Overview
+# Overview
 
 [//]: # (!!!! illustrations need updating)
 
-## What is Subsquid 
+The Subsuid ecosystem is built around Subsquid Network -- a decentralized query engine and a horizontally-scalable data lake for batch-queries. Currently, Subsquid Network is optimized for quering raw historical on-chain data from EVM- and non-EVM using a custom REST-like API. In the future, it will additionally support general-purpose SQL queries and an ever-growing collection of structured data sets derived from on- and off- chain data.
 
-Subsquid is a full-stack blockchain indexing solution which includes an open-source SDK, specialized data lakes for on-chain data (Archives) and a hosted service (Subsquid Cloud). Subsquid solves the data access problem for a wide range of online and analytical use cases, including:
+Depending on the use-case, one should use either use Subsquid Network directly or go for one of the more specialized products leveraging it. 
 
-- A flexible and performant backend for decentralized applications. In most cases, Subsquid can completely replace client RPC read requests with a tailored GraphQL API, significantly reducing the infrastructure costs and shortening the frontend development cycles.
-- A data pipeline for preparing, transforming and loading large volumes of on-chain data for data analysis and forensics.
-- A highly customizable data source for dashboards and on-chain activity monitoring.
+## Subsquid Network
 
-Subsquid is designed ground-up around batch processing in contrast to other block-based and event-based indexers. The batch-based programming model embraced by the Squid SDK boosts its indexing performance to 50k+ blocks per second.
+[Subsquid Network](/subsquid-network) exposes low-level REST-like API to batch-extract and filter:
+- raw event logs
+- transaction and transaction receipt data
+- execution traces (for selected networks)
+- state diffs (for selected networks)
 
-## Architecture
+Supports all the major [EVM] and [Substrate] networks, with more in the works. [Contact us](https://t.me/HydraDevs) if you're missing support for some other network.
 
-The Subsquid indexing stack partially separates on-chain data ingestion (Archives) from data transformation and presentation (squids).
+It can be used in two flavours:
 
-Squid SDK indexing projects (or simply **squids**) are [Extract-Transform-Load-Query (ETLQ)](https://en.wikipedia.org/wiki/Extract,_transform,_load) projects built using the open-source [Squid SDK](https://github.com/subsquid/squid-sdk). Squids ingest historical on-chain data from Archive in batches and transform it with a user-defined data processor. After reaching the highest block available in the archive, a squid switches to ingesting and processing the new blocks from an RPC endpoint in near real-time. Any data from orphaned blocks is detected and replaced with consensus data. Subsquid SDK offers a built-in server to present the transformed data with a GraphQL API as well as customizable adapters for transactional databases (e.g. Postgres) and data lakes (e.g. s3).
+- A privately run cluster by Subsquid (formerly known as Subsquid Archives). Suitable for production use-cases. The data is accessed via public gateways maintained by Subsquid Labs GmbH. Supports most of the networks above.
 
-**Archives** are specialized data lakes optimized for extracting and filtering large volumes of raw on-chain data in batches. Until fully decentralized, Subsquid Labs maintains public Archive endpoints and offers batch access via the Squid SDK free of charge. A full list of Archive endpoints for the supported EVM and Substrate networks is available in this [repo](https://github.com/subsquid/archive-registry) and is published as a package [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) for easy access.
+- A decentralized permissionless network, currently a testnet. The testnet supports only a (growing) subset of networks supported by the private cluster. Experimental until the mainnet is live. Requires a local p2p gateway to access the data. 
 
-Squids can be run locally, on-premises or deployed to [Subsquid Cloud](/cloud). 
+Use cases for the Subsquid Network direct API:
+- boost the performance of the existing pipelines by replacing per-block RPC requests with batch-requests to Subsquid Network
+- non-Typescript (e.g. Rust) indexers, mobile SDKs
+- high-performance data pipelines for raw historical data
+- a high-performance data source for tools like ApeWorkX, Cryo
+- ad-hoc queries over historical on-chain data
 
-![Subsquid ecosystem](</img/subsquid-ecosystem.png>)
+Subsquid Network is not suitable for real-time use-cases, use Squid SDK if it's a requirement
 
 ## Squid SDK
 
-Squid SDK is a set of tools and libraries to efficiently query the Archive data, transform, enrich and persist into the target store. Squid SDK projects are called **squids**.
+A comprehensive Typescript-based toolkit for building indexers on top of Subsquid Network. The Squid SDK libraries offer:
+- Ergonomic high-level libraries for extractining, decoding and normalizing the data from Subsquid Network (sometimes called extract-transform-load pipelines). It includes specialized libraries for EVM, Substrate and other network-specific data
+- Perfomant tools for type generation and batch-quering custom smart contract data 
+- Expressive GraphQL server with a declarative schema-based config
+- Pluggable data stores to save the transformed and decoded data into Postgres, parquet files, s3 warehouses, BigQuery or a completely custom targets
+- Built-in handling of unfinalized blocks and chain reorganisations
+- Seamless support for real-time data ingestion with RPC
 
-[//]: # (!!!! Update the figure Squid SDK </img/archive-and-sdk.png> )
+The SDK is a go-to choice for:
+- building a custom indexer and/or API for a set of smart contracts
+- for building a low-cost, high-performance in-house data pipelines 
+- rapid prototyping
+- local data extraction of decoded data
+- real-time on-chain data processing
 
-Squids have a certain structure and are supposed to be developed as regular node.js packages. Use [`sqd init`](/squid-cli/init) command to scaffold a new squid project from a suitable template.
-
-A squid project consists of a long-running `processor` service fetching and transforming the data from an archive and an optional `api` service presenting the transformed data with a GraphQL API generated from `schema.graphql`.
-
-[//]: # (!!!! Update the figure Squid </img/squid-diagram.png>)
-
-The [Squid SDK](https://github.com/subsquid/squid-sdk) offers an extensive set of tools for developing squids:
-
-- Core classes for the `processor` service: [`EvmBatchProcessor`](/sdk) for EVM chains and [`SubstrateBatchProcessor`](/sdk) for Substrate-based chains.
-- The `sqd-typeorm-codegen` tool for generating TypeORM entities from `schema.graphql`. See [schema file and codegen](/sdk/reference/schema-file).
-- Tools for generating type-safe facade classes for decoding on-chain data. See [typegen](/glossary/#typegen).
-- [`graphql-server`](https://github.com/subsquid/squid/tree/master/graphql-server) is the backend for the GraphQL API served by the `api` service. The GraphQL schema is auto-generated from `schema.graphql`. The resulting API loosely follows the [OpenCRUD](https://www.opencrud.org/) standard and supports the most common query filters and selectors out-of-the box. See the [GraphQL API section](/sdk/reference/graphql-server) for more details and configuration options.
-
+Here is a (incomplete) list of real-world applications for which Squid SDK was a good-fit:
+- DeFi dashboards, tracking addresses and internal transactions
+- NFT marketplaces, with a dynamic sets of NFT contracts to watch
+- Historical price feeds, tracking Uniswap trades and Chainlink oracle contracts
+- Mining smart contract deployments and the bytecode
+- Real-time bots (< 1sec delay) triggered by on-chain activity
 
 ## Subsquid Cloud
 
-Squids can be deployed to [Subsquid Cloud](https://app.subsquid.io) free of charge. The deployment of the squid services to Cloud is managed by the [`squid.yaml` manifest](/cloud/reference/manifest). Go to the [Deploy Squid](/cloud) section for more information.
+A Platform-as-a-Service for deploying indexers (called squids) developed with Squid SDK. Offers a wide range of add-ons for a one-stop-shop Web3 data experience:
+- on-demand provisiong of Postgres and compute resources for indexers
+- versioning and aliasing for indexers and GraphQL APIs
+- on-demand provisioning of high-performance RPC endpoints
+- CORS and caching
+- intuitive deployment management through a Web application or CLI
+
+Subsquid Cloud is a go-to choice for a managed high-uptime service with Google Cloud-level SLAs. Ideally suites for projects who don't want to run indexing in-house.
 
 ## What's next?
 
