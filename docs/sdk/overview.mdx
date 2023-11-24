@@ -7,138 +7,91 @@ description: Architecture of squid indexers
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Squid Processor
+# Squids overview
 
-The processor service is a background Node.js process responsible for data ingestion, transformation and data persisting into the target database. By convention, the processor entry point is at `src/main.ts`. It is run as
-```bash
-node lib/main.js
-```
+_Squids_ are indexing projects that use [Squid SDK](https://github.com/subsquid/squid-sdk) to retrieve and process blockchain data from Subsquid data lakes, then save it or make it avaiable via an API.
 
-For local runs, one normally additionally exports environment variables from `.env` using `dotenv`:
-```bash
-node -r dotenv/config lib/main.js
-```
-This is what the `sqd process` shortcut does under the hood.
+## Required squid components
 
-## Processor choice
+### Processor
 
-The Squid SDK currently offers specialized processor classes for EVM (`EvmBatchProcessor`) and Substrate networks (`SubstrateBatchProcessor`). More networks will be supported in the future. By convention, the processor object is defined at `src/processor.ts`.
+_Processor_ is the word used for
 
-![Processor choice based on the network](</img/network-choice.png>)
+1. The main NodeJS process of the squid.
+2. The main object (`processor`) of this process: its method call `processor.run()` is the entry point.
 
-Navigate to a dedicated section for each processor class:
+`processor` objects handle data retrieval and transformation; data persistence is handled by a separate object called [Store](#store). Squid SDK offers two processor classes:
 
-- [`EvmBatchProcessor`](/sdk)
-- [`SubstrateBatchProcessor`](/sdk)
+* `EvmBatchProcessor` via the [`@subsquid/evm-processor`](https://www.npmjs.com/package/@subsquid/evm-processor) NPM package - for Ethereum-compatible networks
+* `SubstrateBatchProcessor` via [`@subsquid/substrate-processor`](https://www.npmjs.com/package/@subsquid/substrate-processor) - for networks based on [Substrate](https://substrate.io) such as [Polkadot](https://polkadot.network)
 
-## Configuration
+### Store
 
-A processor instance should be configured ([EVM](/sdk/reference/processors/evm-batch), [Substrate](/sdk/reference/processors/subtrate-batch)) to define the block range to be indexed, and the selectors of data to be fetched from the archive and/or a node RPC endpoint.
+A _store_ is an object that processors use to persist their data. Subsquid offers three store classes:
 
-## `processor.run()`
+* `TypeormStore` for saving data to PostgreSQL, via
+  - [`@subsquid/typeorm-store`](https://www.npmjs.com/package/@subsquid/typeorm-store)
+  - [`@subsquid/typeorm-codegen`](https://www.npmjs.com/package/@subsquid/typeorm-codegen)
+  - [`@subsquid/typeorm-migration`](https://www.npmjs.com/package/@subsquid/typeorm-migration)
 
-The actual data processing is done by the `run()` method called on a processor instance (typically at `src/main.ts`). The method has the following signature:
+  Install all three packages to use this store.
+* `file-store` via [`@subsquid/file-store`](https://www.npmjs.com/package/@subsquid/file-store) - for saving data to filesystems. It is a modular system with a variety of [extensions](/sdk/reference/store/file) for various formats and destinations.
+* `bigquery-store` via [`@subsquid/bigquery-store`](https://www.npmjs.com/package/@subsquid/bigquery-store) - for saving data to [Google BigQuery](https://cloud.google.com/bigquery).
 
-```ts
-run<Store>(
-  db: Database<Store>,
-  batchHander: (context: DataHandlerContext<Store, F extends FieldSelection>) => Promise<void>
-): void
-```
+You can mix and match any store class with any processor class.
 
-The `db` parameter defines the target [data sink](/sdk/resources/persisting-data), and `batchHandler` is an `async` `void` function defining the data transformation and persistence logic. It repeatedly receives batches of archive data stored in `context.blocks`, transforms them and persists the results to the target database using the `context.store` interface (more on `context` in the next section).
+## Optional squid components
 
-To jump straight to examples, see [EVM Processor in action](/sdk/tutorials/batch-processor-in-action) and [Substrate Processor in action](/sdk/tutorials/batch-processor-in-action).
+### Typegen
 
-## Batch context
-
-Batch handler takes a single argument of `DataHandlerContext` type:
-```ts
-export interface DataHandlerContext<Store, F extends FieldSelection> {
-    _chain: Chain
-    log: Logger
-    store: Store
-    blocks: BlockData<F>[]
-    isHead: boolean
-}
-```
-
-Here, `F` is the type of the argument of the `setFields()` ([EVM](/sdk/reference/processors/evm-batch/field-selection), [Substrate](/sdk/reference/processors/subtrate-batch/field-selection)) processor configuration method. `Store` type is inferred from the `Database` instance passed into the `run()` method.
-
-#### `ctx._chain`
-
-Internal handle for direct access to the underlying chain state via RPC calls. Rarely used directly, but rather by the facade access classes generated by the [typegen tools](/glossary/#typegen).
-
-#### `ctx.log`
-
-The native logger handle. See [Logging](/sdk/reference/logger).
-
-#### `ctx.store`
-
-Interface for the target data sink. See [Persisting data](/sdk/resources/persisting-data).
-
-#### `ctx.blocks`
-
-On-chain data items are grouped into blocks, with each block containing a header and iterables for all supported data item types. Boundary blocks are always included into the `ctx.blocks` iterable with valid headers, even when they do not contain any requested data. It follows that batch context _always_ contains at least one block.
-
-The set of iterables depends on the processor type (docs for [EVM](/sdk/reference/processors/evm-batch/context-interfaces)/[Substrate](/sdk/reference/processors/subtrate-batch/context-interfaces)). Depending on the data item type, items within the iterables can be canonically ordered by how the data is recorded on-chain (e.g. transactions are ordered but traces are not). The shape of item objects is determined by the processor configuration done via the `.setFields()` method.
-
-An idiomatic use of the context API is to iterate first over blocks and then over each iterable of each block:
+A _typegen_ is a tool for generating utility code for technology-specific operations such as decoding. Here are the typegens available:
 
 ```mdx-code-block
 <Tabs>
-<TabItem value="evm" label="EVM">
+<TabItem value="evm" label="On EVM">
 ```
-
-```ts
-processor.run(new TypeormDatabase(), async (ctx) => {
-  for (let block of ctx.blocks) {
-    for (let log of block.logs) {
-      // filter and process logs
-    }
-    for (let txn of block.transactions) {
-      // filter and process transactions
-    }
-    for (let stDiff of block.stateDiffs) {
-      // filter and process state diffs
-    }
-    for (let traces of block.traces) {
-      // filter and process execution traces
-    }
-  }
-})
-```
+* `squid-evm-typegen` via [`@subsquid/evm-typegen`](https://www.npmjs.com/package/@subsquid/evm-typegen):
+  - decodes smart contract data
+  - handles direct calls to contract methods
+  - exposes useful constants such as event topics and function signature hashes
 
 ```mdx-code-block
 </TabItem>
-<TabItem value="substrate" label="Substrate">
+<TabItem value="substrate" label="On Substrate">
 ```
-
-```ts
-processor.run(new TypeormDatabase(), async (ctx) => {
-  for (let block of ctx.blocks) {
-    for (let event of block.events) {
-      // filter and process events
-    }
-    for (let call of block.calls) {
-      // filter and process calls
-    }
-    for (let extrinsic of block.extrinsics) {
-      // filter and process extrinsics
-    }
-  }
-})
-```
+* `squid-substrate-typegen` via [`@subsquid/substrate-typegen`](https://www.npmjs.com/package/@subsquid/substrate-typegen):
+  - general purpose pallet data decoding (aware of runtime versions)
+  - handles direct storage queries
+* `squid-ink-typegen` via [`@subsquid/ink-typegen`](https://www.npmjs.com/package/@subsquid/ink-typegen) for decoding the data of [ink!](https://use.ink) contracts
 
 ```mdx-code-block
 </TabItem>
 </Tabs>
 ```
 
-The canonical ordering of `ctx.blocks` enables efficient in-memory data processing. For example, multiple updates of the same entity can be compressed into a single database transaction.
+### GraphQL server
 
-Please be aware that the processor cannot ensure that data not meeting its filters will be excluded from iterables. It only guarantees the inclusion of data that matches the filters. Therefore, it is necessary to filter the data in the batch handler prior to processing.
+Squids that store their data in PostgreSQL can subsequently make it available as a GraphQL API. To use this functionality, install [`@subsquid/graphql-server`](https://www.npmjs.com/package/@subsquid/graphql-server).
 
-#### `ctx.isHead`
+The [server](/sdk/reference/graphql-server) runs as a separate process. [Core API](/sdk/reference/openreader) is automatically derived from the database schema; it is possible to extend it with [custom queries](/sdk/reference/graphql-server/custom-resolvers) and [basic access control](/sdk/reference/graphql-server/authorization).
 
-Is `true` if the processor has reached the chain head. The last block `ctx.blocks` is then the current chain tip.
+### Misc utilities
+
+```mdx-code-block
+<Tabs>
+<TabItem value="evm" label="On EVM">
+```
+* [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) simplifies keeping track of available Subsquid [archives](/archives)
+
+```mdx-code-block
+</TabItem>
+<TabItem value="substrate" label="On Substrate">
+```
+* [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) simplifies keeping track of available Subsquid [archives](/archives)
+* [`@subsquid/ss58`](https://www.npmjs.com/package/@subsquid/ss58) handles encoding and decoding of SS58 addresses
+* [`@subsquid/frontier`](https://www.npmjs.com/package/@subsquid/frontier) decodes events and calls of the [Frontier EVM pallet](https://paritytech.github.io/frontier/frame/evm.html) to make them decodable with [`squid-evm-typegen`](/sdk/reference/typegen/configuration)
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
