@@ -24,7 +24,7 @@ export default function Home(): JSX.Element {
         <div className="flex flex-wrap gap-2">
         <a
           className="x-button min-w-[140px] border-bg-base--contrast text-fg-base--default"
-              href="/sdk/overview">Overview</a>
+              href="/overview">Overview</a>
         <a
           className="x-button min-w-[140px] bg-bg-base--contrast text-fg-base--contrast"
           href="/sdk/squid-development">Dev guide</a>
