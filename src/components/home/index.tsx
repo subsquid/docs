@@ -11,21 +11,15 @@ export default function Home(): JSX.Element {
       <div className="flex flex-col gap-6 max-w-[640px] items-start self-start mb-14 pt-2">
         <span className="h3 flex items-center gap-4">Get started <div className="icon icon-mage"></div></span>
         <div className="flex flex-col gap-2 font-light text-fg-base--muted onboarding-homepage__text">
-<<<<<<< Updated upstream
-          <span>Subsquid is a blockchain indexing SDK and a distributed data lake optimized for serving large volumes of historical on-chain data from over 100+ chains.</span><p></p>
-          <span>The SDK offers a highly customizable Extract-Transform-Load-Query stack for indexing events, transactions, traces and state diffs.</span><p></p>
-          <span>Indexers built with the SDK (squids) are suitable for both real-time streaming and batch data processing and don't require a high-throughput RPC endpoint to run. As the data is ingested primarily from the data lake, a typical indexing speed is up to and beyond <strong>50,000 blocks per second</strong>.</span>
-          {/* <span>To put this into perspective, all 10k events in 4M blocks of <a href="https://etherscan.io/address/0x1f98431c8ad98523631ae4a59f267346ea31f984">Uniswap V3 Factory contract</a> history can be indexed in about 8 minutes. For a busier <a href="https://etherscan.io/address/0xc36442b4a4522e871399cd717abdd847ab11fe88">Uniswap V3 Positions NFT contract</a> with 3.1M events and function calls the indexing takes about 40 minutes.</span> */}
-=======
-          <span>Subsquid Network is a decentralized data lake and a query engine optimized for batch filtering and extraction of large volumes of historical data.</span><p/>
-          <span>This documentation covers the Subsquid Network itself and the products built on top:
+          <span><b>Subsquid Network</b> is a decentralized query engine optimized for batch extraction of large volumes of data. It currently
+            serves historial on-chain data ingested from 100+ EVM and Substrate networks, including event logs, transaction receipts, traces and per-transaction state diffs.</span><p/>
+          <span>This documentation covers the <b>Subsquid Network</b> itself and the complimentary products developed by Subsquid:
             <ul>
-              <li>Squid SDK -- a lightweight, batch-based toolkit for high-performance indexing without access to an archival RPC.</li>
-              <li>Subsquid Cloud -- a hosted servers for one-line deployments of custom indexers and GraphQL APIs.</li>
-              <li>Subsquid-Firehose -- a lightweight adapter for running Subgraphs without an archival RPC node.</li>
+              <li><b>Squid SDK</b> - a Typescript toolkit for high-performance batch indexing sourcing the data from the Subsquid Network, without accessing an archival RPC.</li>
+              <li><b>Subsquid Cloud</b> - a hosted service for custom indexers and GraphQL APIs.</li>
+              <li><b>Subsquid-Firehose</b> - a lightweight adapter for running subgraphs against Subsquid Network, without accessing an archival RPC node.</li>
             </ul>
           </span>
->>>>>>> Stashed changes
         </div>
         <div className="flex flex-wrap gap-2">
         <a
