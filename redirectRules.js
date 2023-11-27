@@ -77,23 +77,23 @@ const urlList = [
     },
     {
         "from": "/archives/archive-registry",
-        "to": "/archives/overview"
+        "to": "/subsquid-network/overview"
     },
     {
         "from": "/archives/archives-advanced-setup",
-        "to": "/archives/overview"
+        "to": "/subsquid-network/overview"
     },
     {
         "from": "/archives/substrate/batch-api",
-        "to": "/archives/substrate/api"
+        "to": "/subsquid-network/reference/substrate-api"
     },
     {
         "from": "/archives/substrate/self-hosted",
-        "to": "/archives/overview"
+        "to": "/subsquid-network/overview"
     },
     {
         "from": "/archives/substrate/explorer-api",
-        "to": "/archives/substrate/api"
+        "to": "/subsquid-network/reference/substrate-api"
     },
     {
         "from": "/run-squid/run-in-docker",
@@ -709,11 +709,11 @@ const urlList = [
     },
     {
         "from": "/evm-indexing/supported-networks",
-        "to": "/archives/evm/networks"
+        "to": "/subsquid-network/reference/evm-networks"
     },
     {
         "from": "/substrate-indexing/supported-networks",
-        "to": "/archives/substrate/networks"
+        "to": "/subsquid-network/reference/substrate-networks"
     },
     {
         "from": "/evm-indexing/configuration/caveats",
