@@ -1,0 +1,94 @@
+---
+sidebar_position: 10
+title: Overview
+description: Flavors of Subsquid Network
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Overview
+
+Subsquid Network is a distributed query engine and data lake that the Subsquid ecosystem is built around.
+
+Currently it serves historical blockchain data for 80+ networks. Compared to data access using a conventional chain node RPC, Subsquid Network allows one to access data at near zero cost, in a more granular fashion and from multiple blocks at once, thanks to its rich batching and filtering capabilities.
+
+It comes in two flavors:
+
+1. A decentralized permissionless network **(testnet)**
+
+2. An open private network ran by Subsquid **(production-ready)**
+   * [Supported EVM networks](/subsquid-network/private/evm-networks)
+   * [Supported Substrate networks](/subsquid-network/private/substrate-networks)
+
+Both variants are freely accessible to public using the same [API](/subsquid-network/reference).
+
+If you are a network developer and would like to see your chain supported by Subsquid, please fill a [form](https://forms.gle/ioVNFiPjZgvUNunY9) or contact us in [SquidDevs Telegram chat](https://t.me/HydraDevs).
+
+## Permissionless public network
+
+The decentralized version of Subsquid Network is currently a testnet. It serves data for a (growing) subset of networks supported by the [private cluster](#open-private-network). Each request is routed to the network node responsible for the appropriate subset of data via a local p2p gateway.
+
+You can read more about the testnet [here](/subsquid-network/public).
+
+## Open private network
+
+Subsquid's private data lake (formerly known as Archives) is a production-ready fork of early Subsquid Network that runs on Subsquid infrastructure. It provides a stand-in for the permissionless Subsquid Network until it matures; its [API](/subsquid-network/reference) is identical to that of p2p gateways of the public network.
+
+The gateway of this private network is public and free to query. URLs for datasets of supported networks are available via [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry):
+
+```mdx-code-block
+<Tabs>
+<TabItem value="evm" label="EVM">
+```
+
+List all supported networks:
+```bash
+npx --yes -p @subsquid/archive-registry squid-archive-registry -t evm
+```
+Usage in [squids](/sdk) within [`EvmBatchProcessor` configuration](/sdk/reference/processors/evm-batch/general/#set-data-source):
+
+```ts
+import { lookupArchive } from '@subsquid/archive-registry'
+
+const processor = new EvmBatchProcessor()
+  .setDataSource({
+     // resolves to 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
+     archive: lookupArchive('eth-mainnet')
+   })
+```
+
+See the [EVM datasets](/subsquid-network/private/evm-networks/) page for exact lookup calls for all supported networks.
+
+
+```mdx-code-block
+</TabItem>
+<TabItem value="substrate" label="Substrate">
+```
+
+List all supported networks:
+```bash
+npx --yes -p @subsquid/archive-registry squid-archive-registry -t substrate
+```
+Usage in [squids](/sdk) within [`SubstrateBatchProcessor` configuration](/sdk/reference/processors/subtrate-batch/general/#set-data-source):
+
+```ts
+import { lookupArchive } from '@subsquid/archive-registry'
+
+const processor = new SubstrateBatchProcessor()
+  .setDataSource({
+     // resolved to 'https://v2.archive.subsquid.io/network/phala'
+     archive: lookupArchive('phala', {release: 'ArrowSquid'}),
+     chain: 'https://api.phala.network/rpc'
+   })
+```
+
+See the [Substrate datasets](/subsquid-network/private/substrate-networks/) page for exact lookup calls for all supported networks.
+
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+See also [`archive-registry` reference documentation](/subsquid-network/reference/registry).

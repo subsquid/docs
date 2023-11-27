@@ -1,9 +1,9 @@
 ---
-sidebar_position: 70
-title: Subsquid network
+sidebar_position: 20
+title: Permissionless network
 ---
 
-# Subsquid Network FAQ v1
+# Public Subsquid Network FAQ v1
 
 ### What is Subsquid Network?
 
@@ -87,7 +87,7 @@ The data indexed by the Subsquid Network is stored in persistent storage. During
 
 ### What is the difference between Subsquid Network and the Graph Network?
 
-Learn about the differences and see a full feature matrix [here](https://docs.subsquid.io/migrate/subsquid-vs-thegraph/).
+Learn about the differences and see a full feature matrix [here](/sdk/resources/migrate/migrate-subgraph).
 
 ### How does the Subsquid Network make blockchain data accessible for free? Are there costs involved?
 

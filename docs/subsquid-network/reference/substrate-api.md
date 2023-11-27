@@ -1,13 +1,13 @@
 ---
-sidebar_position: 10
-title: API
-description: Substrate Archive API for batch access
+sidebar_position: 40
+title: Substrate API
+description: Access the data of Substrate blockchains
 ---
 
-# Substrate Archive API
+# Substrate Subsquid Network API
 
 :::warning
-The Substrate Archive API is currently in beta. Breaking changes may be introduced in the future releases.
+The Substrate API of Subsquid Network is currently in beta. Breaking changes may be introduced in the future releases.
 :::
 
 Since the ArrowSquid release, Subsquid Archive API distributes the requests over a ([potentially decentralized](/subsquid-network)) network of _workers_. The main archive URL now points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:

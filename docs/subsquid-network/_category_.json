@@ -1,12 +1,12 @@
 {
   "position": 60,
-  "label": "Archives",
+  "label": "Subsquid Network",
   "collapsible": true,
   "collapsed": true,
   "className": "red",
   "link": {
     "type": "generated-index",
-    "slug": "/archives",
-    "title": "Specialized data lakes for on-chain data"
+    "slug": "/subsquid-network",
+    "title": "Distributed query engine with blockchain data"
   }
 }

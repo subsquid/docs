@@ -1,8 +1,8 @@
 ---
-sidebar_position: 21
+sidebar_position: 10
 description: >-
-  A list of public EVM archives
-title: Supported networks
+  Public EVM datasets
+title: EVM networks
 ---
 
 export const FromBlockTooltip = ({children, tip}) => (
@@ -15,7 +15,9 @@ export const FromBlockTooltip = ({children, tip}) => (
   </div>
 )
 
-The table below lists the currently available public EVM ArrowSquid/v2 Archive endpoints to be used with the [`setDataSource()`](/sdk/reference/processors/evm-batch/general) `EvmBatchProcessor` configuration method.
+## From open private network
+
+This page lists the public EVM ArrowSquid/v2 available from the [open private network](/subsquid-network/overview/#open-private-network). If you are developing a squid, use the `lookupArchive` function available from [@subsquid/archive-registry](/subsquid-network/reference/registry) to get dataset URLs to be used with the [`setDataSource()`](/sdk/reference/processors/evm-batch/general) `EvmBatchProcessor` configuration method.
 
 | Network               | State diffs | Traces | Lookup command                                |
 |:---------------------:|:-----------:|:------:|:---------------------------------------------:|
@@ -85,7 +87,7 @@ const processor = new EvmBatchProcessor()
 
 ### Raw URLs
 
-Here are the raw archive URLs (retrieved on 2023-11-18):
+Here are the raw dataset URLs (retrieved on 2023-11-18):
 
 | Network               | Archive endpoint URL                                         |
 |:---------------------:|:------------------------------------------------------------:|

@@ -1,13 +1,13 @@
 ---
 sidebar_position: 20
 description: >-
-  A list of public Substrate archives
-title: Supported networks
+  Public Substrate datasets
+title: Substrate networks
 ---
 
-# Supported Substrate networks
+## From open private network
 
-The table below lists the currently available public Substrate endpoints to be used with the [`setDataSource()`](/sdk/reference/processors/subtrate-batch/general/#set-data-source) `SubstrateBatchProcessor` configuration method.
+The table below lists the currently available public Substrate endpoints to be used with the [`setDataSource()`](/sdk/reference/processors/subtrate-batch/general/#set-data-source) `SubstrateBatchProcessor` configuration method. ArrowSquid URLs are served by the [open private network](/subsquid-network/overview/#open-private-network).
 
 | Network              | FireSquid lookup command                            | ArrowSquid lookup command                                                    |
 |:--------------------:|:---------------------------------------------------:|:----------------------------------------------------------------------------:|
