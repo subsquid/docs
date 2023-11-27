@@ -8,7 +8,7 @@ description: A step-by-step migration guide for EVM
 
 This is a EVM guide. Substrate guide is available [here](/sdk/resources/migrate/migrate-to-arrowsquid-on-substrate).
 
-ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`. ArrowSquid is not compatible with the FireSquid archive endpoints, and the new `v2` archives are currently released only for a limited set of networks (see the [Supported EVM networks](/archives/evm/networks/) page).
+ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`. ArrowSquid is not compatible with the FireSquid archive endpoints, and the new `v2` archives are currently released only for a limited set of networks (see the [Supported EVM networks](/subsquid-network/reference/evm-networks/) page).
 
 [//]: # (!!!! add a link to the archives page below)
 
@@ -38,7 +38,7 @@ If your squid uses [`file-store`](/sdk/resources/persisting-data/file), please u
 
 ## Step 2
 
-Replace the old archive URL or lookup command with a [`v2` archive URL for your network](/archives/evm/networks) within the `setDataSource` configuration call. If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor. Also configure the network-specific number of transaction confirmations sufficient for finality. For Ethereum mainnet your edit might look like this:
+Replace the old archive URL or lookup command with a [`v2` archive URL for your network](/subsquid-network/reference/evm-networks) within the `setDataSource` configuration call. If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor. Also configure the network-specific number of transaction confirmations sufficient for finality. For Ethereum mainnet your edit might look like this:
 ```diff
  processor
    .setDataSource({

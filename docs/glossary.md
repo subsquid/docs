@@ -6,7 +6,7 @@ sidebar_position: 120
 
 ### Archive
 
-A data source for squids that stores the historical block data in a normalized way. See [Archives](/archives).
+A data source for squids that stores the historical block data in a normalized way. See [Archives](/subsquid-network/overview).
 
 ### Cloud (former Aquarium)
 

@@ -13,7 +13,7 @@ This tutorial uses alpha-quality software. If you encouter any issues while usin
 
 **Dependencies**: Docker, Git, NodeJS, Yarn.
 
-It is now possible to run [subgraphs](https://thegraph.com/docs/en/glossary/) using Subsquid data sources such as [Archives](/archives) and the [Subsquid network](/subsquid-network). To do this, run a regular Graph node against [firehose-grpc](https://github.com/subsquid/firehose-grpc), our drop-in replacement for [Firehose](https://firehose.streamingfast.io).
+It is now possible to run [subgraphs](https://thegraph.com/docs/en/glossary/) using Subsquid data sources such as [Archives](/subsquid-network/overview) and the [Subsquid network](/subsquid-network/public). To do this, run a regular Graph node against [firehose-grpc](https://github.com/subsquid/firehose-grpc), our drop-in replacement for [Firehose](https://firehose.streamingfast.io).
 
 The easiest way to do so is to use our [graph-node-setup](https://github.com/subsquid-labs/graph-node-setup) repo. Here's how:
 
@@ -31,7 +31,7 @@ The easiest way to do so is to use our [graph-node-setup](https://github.com/sub
 
    ![Configuring the environment](subgraphs-support-configuration.gif)
 
-   You will be asked to select a network and provide a node RPC endpoint. You can pick any network from our [supported EVM networks](/archives/evm/networks); networks that are not currently [supported by TheGraph](https://thegraph.com/docs/en/developing/supported-networks/) will be available their under Subsquid names.
+   You will be asked to select a network and provide a node RPC endpoint. You can pick any network from our [supported EVM networks](/subsquid-network/reference/evm-networks); networks that are not currently [supported by TheGraph](https://thegraph.com/docs/en/developing/supported-networks/) will be available their under Subsquid names.
 
    The RPC endpoint will only be used to sync a few thousands of blocks at the chain end, so it does not have to be a paid one. However, `firehose-grpc` does not limit its request rate yet, so using a public RPC might result in a cooldown.
 

@@ -27,7 +27,7 @@ npx --yes -p @subsquid/archive-registry squid-archive-registry -t evm
 
 ### Lookup a network gateway
 
-`@subsquid/archive-registry` provides a function `lookupArchive(alias, opts?)` to locate main URLs of datasets stored in the [open private network](/subsquid-network/overview/#open-private-network). `alias` is a network [alias](/subsquid-network/private/) and `opts` is an optional config to disambiguate:
+`@subsquid/archive-registry` provides a function `lookupArchive(alias, opts?)` to locate main URLs of datasets stored in the [open private network](/subsquid-network/overview/#open-private-network). `alias` is a network alias (see supported network pages for [EVM](/subsquid-network/reference/evm-networks) and [Substrate](/subsquid-network/reference/substrate-networks)) and `opts` is an optional config to disambiguate:
 
 ```ts
 interface LookupOptions {

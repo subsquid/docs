@@ -10,7 +10,7 @@ description: Access the data of Substrate blockchains
 The Substrate API of Subsquid Network is currently in beta. Breaking changes may be introduced in the future releases.
 :::
 
-Since the ArrowSquid release, Subsquid Archive API distributes the requests over a ([potentially decentralized](/subsquid-network)) network of _workers_. The main archive URL now points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
+Since the ArrowSquid release, Subsquid Archive API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. The main archive URL now points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
 
 1. Retrieve the archive height from the router with `GET /height`.
 2. Query the archive for an URL of a worker that has the data for the first block of the relevant range with `GET /${firstBlock}/worker`.

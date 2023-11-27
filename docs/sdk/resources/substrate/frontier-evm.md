@@ -238,7 +238,7 @@ While the set of handler subscriptions is static and defined at the processor cr
 
 ## Caveats
 
-* If your use case does not require any Substrate-specific data (e.g. extrinsic hashes), use [`EvmBatchProcessor`](/sdk) instead. EVM-only Archives are [available](/archives/evm/networks) for all major EVM-on-Substrate chains.
+* If your use case does not require any Substrate-specific data (e.g. extrinsic hashes), use [`EvmBatchProcessor`](/sdk) instead. EVM-only Archives are [available](/subsquid-network/reference/evm-networks) for all major EVM-on-Substrate chains.
 
 * Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/sdk/reference/processors/subtrate-batch/context-interfaces). As such, it is important to always filter the data within the batch handler: match e.g.
   ```ts title=src/processor.ts

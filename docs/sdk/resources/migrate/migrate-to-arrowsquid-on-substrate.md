@@ -8,7 +8,7 @@ description: A step-by-step migration guide for Substrate
 
 This is a Substrate guide. EVM guide is available [here](/sdk/resources/migrate/migrate-to-arrowsquid).
 
-ArrowSquid refers to `@subsquid/substrate-processor` versions `3.x` and above. It is not compatible with the FireSquid archive endpoints. The new `v2` archives are currently being rolled out (see the [Supported networks](/archives/substrate/networks) page).
+ArrowSquid refers to `@subsquid/substrate-processor` versions `3.x` and above. It is not compatible with the FireSquid archive endpoints. The new `v2` archives are currently being rolled out (see the [Supported networks](/subsquid-network/reference/substrate-networks) page).
 
 The main feature introduced by the ArrowSquid update is the new ability of the [processor](/sdk/overview) to ingest unfinalized blocks directly from a network node, instead of waiting for an archive to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency.
 
@@ -38,7 +38,7 @@ We recommend that you also have `@subsquid/archive-registry` installed. If your 
 
 ## Step 2
 
-Replace the old archive URL or lookup command with an [ArrowSquid archive lookup for your network](/archives/substrate/networks) within the `setDataSource()` configuration call. If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor. For Aleph Zero your edit might look like this:
+Replace the old archive URL or lookup command with an [ArrowSquid archive lookup for your network](/subsquid-network/reference/substrate-networks) within the `setDataSource()` configuration call. If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor. For Aleph Zero your edit might look like this:
 ```diff
  processor
    .setDataSource({

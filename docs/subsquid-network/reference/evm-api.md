@@ -10,7 +10,7 @@ description: Access the data of EVM blockchains
 The EVM API of Subsquid Network is currently in beta. Breaking changes may be introduced in the future releases.
 :::
 
-Since the ArrowSquid release, Subsquid Archive API distributes the requests over a ([potentially decentralized](/subsquid-network)) network of _workers_. The main archive URL now points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
+Since the ArrowSquid release, Subsquid Archive API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. The main archive URL now points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
 
 1. Retrieve the archive height from the router with `GET /height`.
 2. Query the archive for an URL of a worker that has the data for the first block of the relevant range with `GET /${firstBlock}/worker`.
@@ -18,7 +18,7 @@ Since the ArrowSquid release, Subsquid Archive API distributes the requests over
 4. Exclude the received blocks from the relevant range by setting `firstBlock` to the value of `header.number` of the last received block.
 5. Repeat steps 2-4 until all the required data is retrieved.
 
-Main URLs of EVM Archives are available on the [Supported networks page](/archives/evm/networks/#raw-urls).
+Main URLs of EVM Archives are available on the [Supported networks page](/subsquid-network/reference/evm-networks/#raw-urls).
 
 Implementation examples:
 
@@ -26,7 +26,7 @@ Implementation examples:
 
 <summary>Manually with cURL</summary>
 
-Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` from block 16_000_000. We begin by finding the main archive URL for Ethereum Mainnet on the [Supported networks page](/archives/evm/networks/#raw-urls). Then we have to:
+Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` from block 16_000_000. We begin by finding the main archive URL for Ethereum Mainnet on the [Supported networks page](/subsquid-network/reference/evm-networks/#raw-urls). Then we have to:
 
 1. Verify that the archive has reached the required height:
    ```bash

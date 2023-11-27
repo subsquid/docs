@@ -124,7 +124,7 @@ The generated `src/abi/erc20.ts` module defines interfaces to represent WASM dat
 
 ## Define the processor object
 
-Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to chain-specific [Subsquid archives](/archives/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to chain-specific [Subsquid archives](/subsquid-network/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
 `SubstrateBatchProcessor`s [exposes methods](/sdk/reference/processors/subtrate-batch) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor [allows one](/sdk/resources/substrate/ink) to subscribe to such events emitted by a specific contract.
 

@@ -238,7 +238,7 @@ Now you can develop a Subsquid-based indexer alongside your contracts. Head over
 You can also set the data source through an environment variable like it is done in [this complete end-to-end project example](https://medium.com/subsquid/how-to-build-a-performant-and-scalable-full-stack-nft-marketplace-63c12466b959). This will make sure the project code stays the same and only the environment variables change depending on where the project is deployed.
 
 :::info
-Prior to the ArrowSquid release of Subsquid SDK it was not possible for squids to ingest data directly from an RPC endpoint, so a local [Archive](/archives) setup was required. This is no longer the case.
+Prior to the ArrowSquid release of Subsquid SDK it was not possible for squids to ingest data directly from an RPC endpoint, so a local [Archive](/subsquid-network/overview) setup was required. This is no longer the case.
 :::
 
 [//]: # (!!!! Add a reference to a page explaining the ArrowSquid release above)

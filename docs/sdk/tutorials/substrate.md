@@ -194,7 +194,7 @@ type Fields = SubstrateBatchProcessorFields<typeof processor>
 export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 ```
 This creates a processor that
- - Uses an Archive as its main data source and a chain RPC for [real-time updates](/sdk/overview/#rpc-ingestion). URL of the Archive endpoint is looked up in the [Archive registry](/archives/overview/#archive-registry). See [this page](/sdk/reference/processors/subtrate-batch/general) for reference;
+ - Uses an Archive as its main data source and a chain RPC for [real-time updates](/sdk/overview/#rpc-ingestion). URL of the Archive endpoint is looked up in the [Archive registry](/subsquid-network/overview/#archive-registry). See [this page](/sdk/reference/processors/subtrate-batch/general) for reference;
  - [Subscribes](/sdk/reference/processors/subtrate-batch/data-requests) to `Market.FileSuccess`, `Swork.JoinGroupSuccess` and `Swork.WorksReportSuccess` events emitted at heights starting at 583000;
  - Additionally subscribes to calls that emitted the events and the corresponding extrinsics;
  - [Requests](/sdk/reference/processors/subtrate-batch/field-selection) the `hash` data field for all retrieved extrinsics and the `timestamp` field for all block headers.

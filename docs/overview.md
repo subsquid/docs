@@ -14,7 +14,7 @@ Depending on the use-case, one should use either use Subsquid Network directly o
 
 ## Subsquid Network
 
-[Subsquid Network](/subsquid-network) exposes low-level REST-like API to batch-extract and filter:
+[Subsquid Network](/subsquid-network/public) exposes low-level REST-like API to batch-extract and filter:
 - raw event logs
 - transaction and transaction receipt data
 - execution traces (for selected networks)
