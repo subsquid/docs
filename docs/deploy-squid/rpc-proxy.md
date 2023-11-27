@@ -58,7 +58,8 @@ Since the Arrowsquid release, Subsquid Cloud provides a built-in caching RPC pro
 | Network name | network:protocol           |
 |--------------|----------------------------|
 | Acala        | `acala:http`               |
-| Aleph        | `aleph:http`               |
+| Aleph Zero   | `aleph-zero:http`          |
+| Aleph Zero (testnet) | `aleph-zero-testnet:http` |
 | Amplitude    | `amplitude:http`           |
 | Astar        | `astar-substrate:http`     |
 | Basilisk     | `basilisk:http`            |
