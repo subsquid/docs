@@ -49,7 +49,7 @@ A single account can register multiple workers.
 
 ### How do I deploy a simple squid indexer?
 
-Start your first squid indexer in 5 minutes! Learn more [here](https://docs.subsquid.io/quickstart/).
+Start your first squid indexer in 5 minutes! Learn more [here](/sdk/squid-development).
 
 ### What is a Subsquid Archive?
 
