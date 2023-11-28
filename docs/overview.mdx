@@ -56,13 +56,12 @@ For real-time use cases such as app-specific APIs use [Squid SDK](/sdk): it'll u
 - Pluggable [data sinks](/sdk/reference/store) to save data into Postgres, files (local or s3) or BigQuery
 - Expressive [GraphQL server](/sdk/reference/graphql-server) with a schema-based [config](/sdk/reference/schema-file)
 - Seamless handling of [unfinalized blocks and chain reorganizations](/sdk/resources/unfinalized-blocks) for real-time data ingestion
+- rapid data extraction and decoding [for local analytics](/sdk/tutorials/file-csv)
 
 The SDK is a go-to choice for production solutions and prototypes of
 
 1. custom APIs based on data from sets of smart contracts, and
 2. low-cost, highly performant in-house data pipelines
-
-[//]: # (!!!! -  local data extraction of decoded data - meaning?)
 
 that can work in real time setting (<1s chain latency). Take a look at the list of [concrete, real-world applications](/sdk/faq/#real-world-applications) for which Squid SDK was a good fit.
 ## Subsquid Cloud
@@ -74,8 +73,6 @@ A Platform-as-a-Service for deploying Squid SDK indexers, featuring
 - provisioning of [high-performance RPC endpoints](/cloud/reference/rpc-proxy) for real-time applications
 - intuitive deployment management through a [Web application](https://app.subsquid.io) or [CLI](/squid-cli)
 - Google Cloud-level [SLA](/cloud/reference/pricing/#slas)
-
-[//]: # (!!! - CORS and caching - meaning?)
 
 ## What's next?
 
