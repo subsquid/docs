@@ -1,0 +1,122 @@
+---
+sidebar_position: 10
+title: Overview
+description: Subsquid Network and the products built around it
+---
+
+# Overview
+
+[//]: # (!!!! illustrations need updating)
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+The Subsuid ecosystem is built around [Subsquid Network](/subsquid-network) - a decentralized query engine and a horizontally-scalable data lake for batch queries. Currently, Subsquid Network serves raw historical on-chain data from [EVM](/subsquid-network/reference/evm-networks)- and [non-EVM](/subsquid-network/reference/substrate-networks) networks using a custom REST-like API. In the future, it will additionally support general-purpose SQL queries and an ever-growing collection of structured data sets derived from on- and off- chain data.
+
+## Subsquid Network
+
+[Subsquid Network](/subsquid-network) API currently provides:
+
+- raw event logs
+- transaction data (with receipts)
+- execution traces (for selected networks)
+- state diffs (for selected networks)
+
+It supports all major [EVM](/subsquid-network/reference/evm-networks) and [Substrate](/subsquid-network/reference/substrate-networks) networks, with more in the works. [Let us know](https://t.me/HydraDevs) if you'd like us to support some other network.
+
+Currently there are two deployments of Subsquid Network:
+
+1. Production-ready [private cluster](/subsquid-network/overview/#open-private-network) running on Subsquid infrastructure (formerly known as Subsquid Archives). Access to the cluster is free and public.
+2. A [decentralized permissionless network](/subsquid-network/overview/#permissionless-public-network), currently a testnet.
+
+User-facing [API](/subquid-network/reference) between these two is identical. Use it directly whenever you need historical blockchain data older than about 6-24 hours in either **(1)** high volume or **(2)** filtered form.
+
+<details>
+
+<summary>Example use cases for the Subsquid Network direct API</summary>
+
+- boost the performance of existing pipelines by replacing per-block RPC requests with batch-requests to Subsquid Network
+- non-Typescript indexers, mobile SDKs
+- high-performance data pipelines for raw historical data
+- a high-performance data source for tools like ApeWorkX, Cryo
+- ad-hoc queries over historical on-chain data, such as
+  * "all transactions from a given address in a range of blocks"
+  * "all events with a given topic in a range of blocks"
+
+</details>
+
+For real-time use cases such as app-specific APIs use [Squid SDK](/sdk): it'll use Subsquid Network to sync quickly, then seamlessly switch to real-time data. If you already have a subgraph indexer, you also have an option to [run it against the network](/subgraphs-support).
+
+## Squid SDK
+
+[Squid SDK](/sdk) is a powerful Typescript toolkit for building indexers on top of Subsquid Network, featuring
+
+- [High-level libraries](/sdk/reference/processors) for extracting and filtering the Subsquid Network data in what can be though of as Extract-Transform-Load (ETL) pipelines
+- [Ergonomic tools](/sdk/reference/typegen) for decoding and normalizing raw data and efficiently accessing [network state](/sdk/reference/typegen/state-queries)
+- Pluggable [data sinks](/sdk/reference/store) to save data into Postgres, files (local or s3) or BigQuery
+- Expressive [GraphQL server](/sdk/reference/graphql-server) with a schema-based [config](/sdk/reference/schema-file)
+- Seamless handling of [unfinalized blocks and chain reorganizations](/sdk/resources/unfinalized-blocks) for real-time data ingestion
+
+The SDK is a go-to choice for production solutions and prototypes of
+
+1. custom APIs based on data from sets of smart contracts, and
+2. low-cost, highly performant in-house data pipelines
+
+[//]: # (!!!! -  local data extraction of decoded data - meaning?)
+
+that can work in real time setting (<1s chain latency). Take a look at the list of [concrete, real-world applications](/sdk/faq/#real-world-applications) for which Squid SDK was a good fit.
+## Subsquid Cloud
+
+A Platform-as-a-Service for deploying Squid SDK indexers, featuring
+
+- provisioning of [Postgres](/cloud/reference/pg) and other [compute resources](/cloud/reference/manifest) for indexers
+- [zero downtime migrations](/cloud/resources/production-alias) between indexer versions
+- provisioning of [high-performance RPC endpoints](/cloud/reference/rpc-proxy) for real-time applications
+- intuitive deployment management through a [Web application](https://app.subsquid.io) or [CLI](/squid-cli)
+- Google Cloud-level [SLA](/cloud/reference/pricing/#slas)
+
+[//]: # (!!! - CORS and caching - meaning?)
+
+## What's next?
+
+```mdx-code-block
+<Tabs>
+<TabItem value="sdk" label="SDK">
+```
+
+- Learn about [squid components](/sdk/overview), [combining them](/sdk/squid-from-scratch) or follow the [end-to-end development guide](/sdk/squid-development)
+- Explore [tutorials](/sdk/tutorials) or [examples](/sdk/examples)
+- Learn how to [migrate from The Graph](/sdk/resources/migrate/migrate-subgraph)
+- Explore the [GraphQL server options](/sdk/reference/graphql-server) including custom extensions, caching and DoS protection in production
+
+```mdx-code-block
+</TabItem>
+<TabItem value="network" label="Subsquid Network">
+```
+
+- See the lists of supported networks on [EVM](/subsquid-network/reference/evm-networks) or [Substrate](/subsquid-network/reference/substrate-networks)
+- Learn how to use the [API](/subsquid-network/reference) of the [open private network](/subsquid-network/overview/#open-private-network)
+- Check out the [public network FAQ](/subsquid-network/public)
+
+```mdx-code-block
+</TabItem>
+<TabItem value="cloud" label="Subsquid Cloud">
+```
+
+- Learn how to [deploy your squid](/cloud/overview)
+- Learn about [organizations](/cloud/resources/organizations) and how they are billed
+- Use your free [playground](/cloud/resources/organizations/#playgrounds) to develop a prototype of your indexer
+- View our [pricing schedule](/cloud/reference/pricing)
+
+```mdx-code-block
+</TabItem>
+<TabItem value="other" label="Other">
+```
+
+- [Run subgraphs](/subgraphs-support) using Subsquid Network data
+- Learn about [third party tools](/external-tools) for using with SDK or for building standalone indexers
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```

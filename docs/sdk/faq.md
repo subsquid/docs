@@ -4,11 +4,20 @@ sidebar_position: 35
 
 # FAQ
 
+### What are some real-world applications for which Squid SDK was a good fit? {#real-world-applications}
+
+Here is an incomplete list:
+- DeFi dashboards, tracking addresses and internal transactions
+- NFT marketplaces, with a dynamic sets of NFT contracts to watch
+- Historical price feeds, tracking Uniswap trades and Chainlink oracle contracts
+- Mining smart contract deployments and the bytecode
+- Real-time bots (<1sec delay) triggered by on-chain activity
+
 ### What is the Premium plan?
 
 The access to Archives is free. Subsquid Cloud offers a free plan and a premium plan. The Premium plan is currently available by invite via the [form](https://docs.google.com/forms/d/e/1FAIpQLSchqvWxRhlw7yfBlfiudizLJI9hEfeCEuaSlk3wOcwB1HQf6g/viewform?usp=sf_link). When released to the public, Premium will be based on the fixed subscription fee + pay-as-you-go model. Details will be announced in the official Subsquid channels.
 
-### Do you have a roadmap ?
+### Do you have a roadmap?
 
 Yes, see the issue in [the official repo](https://github.com/subsquid/squid-sdk/issues/70).
 
