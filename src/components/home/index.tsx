@@ -152,17 +152,18 @@ export default function Home(): JSX.Element {
             <div className="relative border border-border-color-base--default rounded-lg p-6 mb-8">
                 <h4 className="mb-4 body--m">What is a squid?</h4>
                 <p className="text-fg-base--muted font-light">
-                    A squid is a project that extracts and transforms on-chain data in order to present it as a GraphQL API.
-                    Squids are developed using the Subsquid SDK, which provides extensive tooling to define data schemas, data transformation rules, and the
-                    shape of the resulting API.
+                    A squid is a indexing project developed using the Squid SDK. It normally extracts the historicaln on-chain data from Subsquid Network,
+                    decodes and transforms it, and persists into a target store (such as Postgres or s3 bucket). The transformed 
+                    data may be optionally served with a GraphQL API.
                 </p>
             </div>
 
             <div className="relative border border-border-color-base--default rounded-lg p-6 mb-8">
                 <h4 className="mb-4 body--m">Why should I use Subsquid?</h4>
                 <p className="text-fg-base--muted font-light">
-                    The latency of serving app data with a squid is much lower compared to direct node access via gRPC. This means significantly better UX for your application. The flexibility of
-                    the Subsquid SDK gives developers the full power to access and manipulate historical on-chain data and build complex and responsive dApps with familiar tools.
+                    Indexing on-chain data is essential for building Web3 applications and analytic dashboards. Subsquid Network and the products build on top
+                    offer extremely fast and cost-efficient way to extract and index the historical data, even from lesser known chains. It reduces the data 
+                    extraction and indexing costs by up to 90% compared to direct indexing using centralized RPC providers like Alchemy or Infura.  
                     Finally, by using the Subsquid Cloud, developers no longer have to care about indexing infrastructure maintenance costs and hassle.
                 </p>
             </div>
@@ -170,17 +171,12 @@ export default function Home(): JSX.Element {
             <div className="relative border border-border-color-base--default rounded-lg p-6 mb-8">
                 <h4 className="mb-4 body--m">How much does Subsquid cost?</h4>
                 <p className="text-fg-base--muted font-light">
-                    The Squid SDK is open source. Data access to the Subsquid Network (and Archives) is free as it is incentivized by the networks, thus 
-                    for self-hosted or locally ran squids Subsquid services are free of charge. 
-                    For managed squids we offer free and Premium plans. See <a href="/cloud/reference/pricing">Cloud pricing</a>. 
-                </p>
-            </div>
-
-            <div className="relative border border-border-color-base--default rounded-lg p-6 mb-8">
-                <h4 className="mb-4 body--m">What is an Archive?</h4>
-                <p className="text-fg-base--muted font-light">
-                    Archives ingest and store the full log of historical on-chain data in a normalized format.
-                    Designed to be data sources for squids, Archives serve on-chain data as an API that supports batching over multiple blocks.
+                    The Squid SDK is open source. Accessing the data from the Subsquid Network is free until the mainnet launch, and 
+                    afterwards is projected to be in the range of $1-$5 for a terabyte of extracted data.
+                    The Subsquid Cloud offers a free playgroud space for developing indexers and a hosted service
+                    for production-ready indexing pipelines. The pay-as-you-go pricing only accounts 
+                    for the actual compute and storage resources consumed by the indexer, 
+                    see <a href="/cloud/reference/pricing">for the pricing details</a>. 
                 </p>
             </div>
 
@@ -190,11 +186,11 @@ export default function Home(): JSX.Element {
                     <a
                         href="https://app.subsquid.io/"
                         target="_blank"
-                        className="link">Subsquid Cloud</a> is a service for hosting squids. This service is managed by Subsquid Labs.
+                        className="link">Subsquid Cloud</a> is a service for hosting indexers, managed by Subsquid Labs.
                     &nbsp;
                     <a href="/squid-cli" className="link">Subsquid's CLI</a> provides a convenient way to
                     &nbsp;
-                    <a href="/cloud/overview" className="link">deploy squids</a> to Cloud and manage them once they are hosted.
+                    <a href="/cloud/overview" className="link">run, deploy and manage indexing projects (squids)</a> locally and in the Cloud.
                 </p>
             </div>
 
