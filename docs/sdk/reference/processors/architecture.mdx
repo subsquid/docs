@@ -1,15 +1,13 @@
 ---
 sidebar_position: 10
-title: Overview
-description: Architecture of squid indexers
+title: Processor architecture
+description: Makeup of squid processors
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Squids overview
-
-The processor service is a background Node.js process responsible for data ingestion, transformation and data persisting into the target database. By convention, the processor entry point is at `src/main.ts`. It is run as
+The processor service is a Node.js process responsible for data ingestion, transformation and data persisting into the target database. By [convention](/sdk/reference/layout), the processor entry point is at `src/main.ts`. It is run as
 ```bash
 node lib/main.js
 ```
@@ -18,7 +16,7 @@ For local runs, one normally additionally exports environment variables from `.e
 ```bash
 node -r dotenv/config lib/main.js
 ```
-This is what the `sqd process` shortcut does under the hood.
+This is what the `sqd process` shortcut does under the hood in [templates](/sdk/squid-development/#templates).
 
 ## Processor choice
 
@@ -28,12 +26,12 @@ The Squid SDK currently offers specialized processor classes for EVM (`EvmBatchP
 
 Navigate to a dedicated section for each processor class:
 
-- [`EvmBatchProcessor`](/sdk)
-- [`SubstrateBatchProcessor`](/sdk)
+- [`EvmBatchProcessor`](/sdk/reference/processors/evm-batch)
+- [`SubstrateBatchProcessor`](/sdk/reference/processors/subtrate-batch)
 
 ## Configuration
 
-A processor instance should be configured ([EVM](/sdk/reference/processors/evm-batch), [Substrate](/sdk/reference/processors/subtrate-batch)) to define the block range to be indexed, and the selectors of data to be fetched from the archive and/or a node RPC endpoint.
+A processor instance should be configured to define the block range to be indexed, and the selectors of data to be fetched from the archive and/or a node RPC endpoint.
 
 ## `processor.run()`
 
@@ -42,7 +40,9 @@ The actual data processing is done by the `run()` method called on a processor i
 ```ts
 run<Store>(
   db: Database<Store>,
-  batchHander: (context: DataHandlerContext<Store, F extends FieldSelection>) => Promise<void>
+  batchHander: (
+    context: DataHandlerContext<Store, F extends FieldSelection>
+  ) => Promise<void>
 ): void
 ```
 
