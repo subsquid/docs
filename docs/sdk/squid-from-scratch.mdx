@@ -6,7 +6,173 @@ title: Squid from scratch
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Squid from scratch
+Here's an example of how SDK packages can be combined into a working squid indexer.
 
-Here's how to combine SDK packages in an empty folder to create a working something
+This page goes through all the technical details to make the squid architecture easier to understand. If you would like to get to a working indexer ASAP, [bootstrap from a template](/sdk/squid-development/#templates).
 
+## USDT transfers API
+
+**Pre-requisites**: NodeJS 16.x or newer, Docker.
+
+Suppose the task is to track transfers of USDT on Ethereum, then save the resulting data to PostgreSQL and serve it as a GraphQL API. From this description we can immediately put together a list of [packages](/sdk/overview):
+
+* `@subsquid/evm-processor` - for retrieving Ethereum data
+* the triad of `@subsquid/typeorm-store`, `@subsquid/typeorm-codegen` and `@subsquid/typeorm-migration` - for saving data to PostgreSQL
+* `@subsquid/graphql-server`
+
+We also assume the following choice of _optional_ packages:
+
+* `@subsquid/evm-typegen` - for decoding Ethereum data and useful constants such as event topic0 values
+* `@subsquid/archive-registry` - for retrieving the URLs of [open private network](/subsquid-network/overview/#open-private-network) EVM [datasets](/subsquid-network/reference/evm-networks)
+
+To make the indexer, follow these steps:
+
+1. Create a new folder and install the packages:
+   ```bash
+   npm i @subsquid/evm-processor @subsquid/typeorm-store @subsquid/typeorm-migration @subsquid/graphql-server @subsquid/archive-registry
+   ```
+   ```bash
+   npm i typescript @subsquid/typeorm-codegen @subsquid/evm-typegen --save-dev
+   ```
+
+2. Add a minimal `tsconfig.json`:
+   ```json title=tsconfig.json
+   {
+     "compilerOptions": {
+       "rootDir": "src",
+       "outDir": "lib",
+       "module": "commonjs",
+       "target": "es2020",
+       "esModuleInterop": true,
+       "skipLibCheck": true,
+       "experimentalDecorators": true,
+       "emitDecoratorMetadata": true
+     }
+   }
+   ```
+
+3. Define the schema for both the database and the core GraphQL API in [`schema.graphql`](/sdk/reference/schema-file):
+   ```graphql title=schema.graphql
+   type Transfer @entity {
+     id: ID!
+     from: String! @index
+     to: String! @index
+     value: BigInt!
+   }
+   ```
+
+4. Generate TypeORM classes based on the schema:
+   ```bash
+   npx squid-typeorm-codegen
+   ```
+   The TypeORM classes are now available at `src/model/index.ts`.
+
+5. Prepare the database:
+   * create `.env` and `docker-compose.yaml` files
+     ```bash title=.env
+     DB_NAME=squid
+     DB_PORT=23798
+     ```
+     ```yaml title=docker-compose.yaml
+     version: "3"
+     services:
+       db:
+         image: postgres:15
+         environment:
+           POSTGRES_DB: "${DB_NAME}"
+           POSTGRES_PASSWORD: postgres
+         ports:
+           - "${DB_PORT}:5432"
+     ```
+   * start the database container
+     ```bash
+     docker compose up -d
+     ```
+   * compile the TypeORM classes
+     ```bash
+     npx tsc
+     ```
+   * generate the migration file
+     ```bash
+     npx squid-typeorm-migration generate
+     ```
+   * apply the migration with
+     ```bash
+     npx squid-typeorm-migration apply
+     ```
+
+6. [Generate utility classes](/sdk/reference/typegen/configuration) for decoding [USDT contract](https://etherscan.io/address/0xdac17f958d2ee523a2206206994597c13d831ec7) data based on its ABI downloaded from Etherscan:
+   ```bash
+   npx \
+   squid-evm-typegen \
+   src/abi \
+   0xdAC17F958D2ee523a2206206994597C13D831ec7#usdt
+   ```
+   The utility classes are now available at `src/abi/usdt.ts`
+
+7. Tie all the generated code together with a `src/main.ts` executable with the following code blocks:
+   * Imports
+     ```ts
+     import { EvmBatchProcessor } from '@subsquid/evm-processor'
+     import { TypeormDatabase } from '@subsquid/typeorm-store'
+     import { lookupArchive } from '@subsquid/archive-registry'
+     import * as usdtAbi from './abi/usdt'
+     import { Transfer } from './model'
+     ```
+   * [`EvmBatchProcessor`](/sdk/reference/processors/evm-batch) object definition
+     ```ts
+     const processor = new EvmBatchProcessor()
+       .setDataSource({
+         archive: lookupArchive('eth-mainnet'),
+         chain: { // for real-time updates
+           url: 'https://rpc.ankr.com/eth',
+           rateLimit: 10
+         }
+       })
+       .setFinalityConfirmation(75) // 15 mins to finality
+       .addLog({
+         address: [ '0xdAC17F958D2ee523a2206206994597C13D831ec7' ],
+         topic0: [ usdtAbi.events.Transfer.topic ]
+       })
+     ```
+   * [`TypeormDatabase`](/sdk/reference/store/typeorm) object definition
+     ```ts
+     const db = new TypeormDatabase()
+     ```
+   * A call to [`processor.run()`](/sdk/reference/processors/architecture/#processorrun) with an inline definition of the [batch handler](/sdk/reference/processors/architecture/#batch-context)
+     ```ts
+     processor.run(db, async ctx => {
+       const transfers: Transfer[] = []
+       for (let block of ctx.blocks) {
+         for (let log of block.logs) {
+           let {from, to, value} = usdtAbi.events.Transfer.decode(log)
+           transfers.push(new Transfer({
+             id: log.id,
+             from, to, value
+           }))
+         }
+       }
+       await ctx.store.insert(transfers)
+     })
+     ```
+     Note how supplying a `TypeormDatabase` to the function caused `ctx.store` to be a [PostgreSQL-compatible `Store` object](/sdk/reference/store/typeorm/#store-interface).
+
+8. Compile the project and start the [processor process](/sdk/overview/#processor)
+   ```bash
+   npx tsc
+   ```
+   ```bash
+   node -r dotenv/config lib/main.js
+   ```
+
+9. In a separate terminal, configure the GraphQL port and start the GraphQL server:
+   ```diff title=.env
+    DB_NAME=squid
+    DB_PORT=23798
+   +GQL_PORT=4350
+   ```
+   ```bash
+   npx squid-graphql-server
+   ```
+
+The finished GraphQL API with GraphiQL is available at [localhost:4350/graphql](http://localhost:4350/graphql).
