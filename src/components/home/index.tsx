@@ -15,9 +15,9 @@ export default function Home(): JSX.Element {
             serves historial on-chain data ingested from 100+ EVM and Substrate networks, including event logs, transaction receipts, traces and per-transaction state diffs.</span><p/>
           <span>This documentation covers the <b>Subsquid Network</b> itself and the complimentary products developed by Subsquid:
             <ul>
-              <li><b>Squid SDK</b> - a Typescript toolkit for high-performance batch indexing sourcing the data from the Subsquid Network, without accessing an archival RPC.</li>
-              <li><b>Subsquid Cloud</b> - a hosted service for custom indexers and GraphQL APIs.</li>
-              <li><b>Subsquid-Firehose</b> - a lightweight adapter for running subgraphs against Subsquid Network, without accessing an archival RPC node.</li>
+              <li><a href="/sdk/overview">Squid SDK</a> - a Typescript toolkit for high-performance batch indexing sourcing the data from the Subsquid Network, without accessing an archival RPC.</li>
+              <li><a href="/cloud/overview">Subsquid Cloud</a> - a hosted service for custom indexers and GraphQL APIs.</li>
+              <li><a href="/subgraphs-support">Subsquid-Firehose</a> - a lightweight adapter for running subgraphs against Subsquid Network, without accessing an archival RPC node.</li>
             </ul>
           </span>
         </div>
@@ -25,14 +25,11 @@ export default function Home(): JSX.Element {
         <a
           className="x-button min-w-[140px] border-bg-base--contrast text-fg-base--default"
               href="/overview">Overview</a>
-        <a
-          className="x-button min-w-[140px] bg-bg-base--contrast text-fg-base--contrast"
-          href="/sdk/squid-development">Dev guide</a>
         </div>
       </div>
 
         <div className="flex flex-col gap-6 max-w-[640px] items-start self-start mb-14 pt-2">
-            <span className="h3 flex items-center gap-4">Examples of data requests</span>
+            <span className="h3 flex items-center gap-4">Squid SDK indexing examples</span>
             <CodeSlider slides={CodeSlidesData}/>
         </div>
 
