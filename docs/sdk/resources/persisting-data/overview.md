@@ -5,26 +5,21 @@ description: >-
   Store API for persisting the transformed data
 ---
 
-# Store Interface
-
 `Store` is a generic interface exposed by `DataHandlerContext.store` to the batch handler that defines an interface for persisting data. Its concrete type is inferred from the `Database` argument of the `run()` method:
 
 ```typescript
-run<Store>(db: Database<Store>, handler: (ctx: DataHandlerContext<Store, F extends FieldSelection>) => Promise<void>): void
+run<Store>(
+  db: Database<Store>,
+  handler: (ctx: DataHandlerContext<Store, F extends FieldSelection>)
+    => Promise<void>
+): void
 ```
 
-The `Database` interface only defines the logic of how the processor persists the processor status and the store. Squid SDK supports `Database` implementations for `TypeORM`-compatible databases ([`TypeormDatabase`](/sdk/resources/persisting-data/typeorm)) and for file-based datasets ([the `file-store` packages](/sdk/resources/persisting-data/file)). The interface allows implementation of adapters for custom data sinks. Support for more databases and analytics store will be added in the future.
+The `Database` interface defines how the processor persists its status and the store. Squid SDK supports `Database` implementations for [`TypeORM`-compatible databases](/sdk/resources/persisting-data/typeorm), [file-based datasets](/sdk/resources/persisting-data/file) and [Google BigQuery](/sdk/resources/persisting-data/bigquery). Support for more databases and analytics storage will be added in the future.
 
----
-sidebar_position: 30
-title: Custom Database classes
-description: >-
-  Implement a custom data sink
----
+## Custom `Database`
 
-# Custom Database
-
-A custom implementation of the `Database` interface is a recommended solution for squids with multiple data sinks and/or for non-transactional or non-relational databases. In such a case, the inferred `Store` facade exposed to the handlers may provide multiple targets for persisting the data. `Database.transact` should handle potential edge-cases when writes to either of the data sinks fail.
+A custom implementation of the `Database` interface is the recommended solution for squids with multiple data sinks and/or for non-transactional or non-relational databases. In such a case, the inferred `Store` facade exposed to the handlers may provide multiple targets for persisting the data. `Database.transact` should handle potential edge-cases when writes to either of the data sinks fail.
 
 In order to implement a custom adapter to a data sink, it suffices to implement the `Database` interface:
 

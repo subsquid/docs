@@ -1,8 +1,8 @@
 ---
-sidebar_position: 10
-title: Overview
+sidebar_position: 30
+title: Saving to filesystems
 description: >-
-  Tools for saving data to filesystems
+  Save data to filesystem-based datasets
 ---
 
 # Filesystem store
