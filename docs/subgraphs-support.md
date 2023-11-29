@@ -1,11 +1,11 @@
 ---
-title: Subgraphs support
+title: Subsquid Firehose
 description: >-
-  Use Subsquid data lakes to sync a subgraph
+  Leverage the power of Subsquid Network data sync subgraphs
 sidebar_position: 30
 ---
 
-# Run a subgraph
+# Run subgraphs without archival nodes
 
 :::warning
 This tutorial uses alpha-quality software. If you encouter any issues while using it please let us know at the [SquidDevs Telegram chat](https://t.me/HydraDevs).

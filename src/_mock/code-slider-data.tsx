@@ -2,7 +2,7 @@ import React from "react";
 
 export default [
   {
-    title: "Transactions to and from a set of 1.4M wallets",
+    title: "Mine the tx data from millions of wallets",
     code: 'export const processor = new EvmBatchProcessor()\n' +
         '  .setDataSource({\n' +
         '    archive: lookupArchive(\'binance\'),\n' +
@@ -28,7 +28,7 @@ export default [
     link: "https://github.com/subsquid-labs/showcase00-analyzing-a-large-number-of-wallets"
   },
   {
-    title: "USDC Transfers in real time",
+    title: "Track USDC Transfers in real time",
     code: 'export const USDC_CONTRACT_ADDRESS = \'0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\'\n' +
         '\n' +
         'export const processor = new EvmBatchProcessor()\n' +
@@ -53,7 +53,7 @@ export default [
     link: "https://github.com/subsquid-labs/showcase01-all-usdc-transfers"
   },
   {
-    title: "All Transfers to vitalik.eth",
+    title: "Extract all Transfers to/from vitalik.eth",
     code: 'export const VITALIK_ETH_TOPIC = \'0x000000000000000000000000\' +' +
         '\'d8da6bf26964af9d7eed9e03e53415d37aa96045\'\n' +
         '\n' +
@@ -74,7 +74,7 @@ export default [
     link: "https://github.com/subsquid-labs/showcase02-all-transfers-to-a-wallet"
   },
   {
-    title: "Calls to AAVE Pool and all events they caused",
+    title: "Index the AAVE Pool tx data, decoding the event logs",
     code: 'export const AAVE_CONTRACT = \'0x7d2768de32b0b80b7a3454c06bdac94a69ddc7a9\'\n' +
         'export const processor = new EvmBatchProcessor()\n' +
         '  .setDataSource({\n' +
@@ -102,7 +102,7 @@ export default [
     link: "https://github.com/subsquid-labs/showcase03-all-events-caused-by-contract-calls/"
   },
   {
-    title: "All Mint events emitted anywhere on a chain",
+    title: "Index all NFT mints",
     code: 'export const processor = new EvmBatchProcessor()\n' +
         '  .setDataSource({\n' +
         '    archive: lookupArchive(\'eth-mainnet\'),\n' +
@@ -123,7 +123,7 @@ export default [
     link: "https://github.com/subsquid-labs/showcase04-all-mint-events"
   },
   {
-    title: "DEX trading pairs and Swap events",
+    title: "Index all DEX trading pairs and Swap events",
     code: 'export const FACTORY_ADDRESSES = [  \'0xbcfccbde45ce874adcb698cc183debcf17952812\',  \'0xca143ce32fe78f1f7019d7d551a6402fc5350c73\',\n' +
         ']\n' +
         '\n' +
@@ -155,7 +155,7 @@ export default [
     link: "https://github.com/subsquid-labs/showcase05-dex-pair-creation-and-swaps"
   },
   {
-    title: "All calls to contract functions, including internal",
+    title: "Index internal contract calls and traces",
     code: 'const BAYC_ADDRESS = \'0xbc4ca0eda7647a8ab7c2061c2e118 a18a936f13d\'\n' +
         '\n' +
         'export const processor = new EvmBatchProcessor()\n' +
@@ -189,7 +189,7 @@ export default [
     link: "https://github.com/subsquid-labs/showcase06-all-bayc-call-traces"
   },
   {
-    title: "All NFT contract deployments and Transfers chain-wide",
+    title: "Mine all NFT contracts ever deployed",
     code: 'export const processor = new EvmBatchProcessor()\n' +
         '  .setDataSource({\n' +
         '    archive: lookupArchive(\'eth-mainnet\'),\n' +
