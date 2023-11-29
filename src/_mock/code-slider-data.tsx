@@ -2,7 +2,7 @@ import React from "react";
 
 export default [
   {
-    title: "Mine the tx data from millions of wallets",
+    title: "Mine the tx data for more than a million of wallets",
     code: 'export const processor = new EvmBatchProcessor()\n' +
         '  .setDataSource({\n' +
         '    archive: lookupArchive(\'binance\'),\n' +
@@ -53,7 +53,7 @@ export default [
     link: "https://github.com/subsquid-labs/showcase01-all-usdc-transfers"
   },
   {
-    title: "Extract all Transfers to/from vitalik.eth",
+    title: "Extract all Transfers to vitalik.eth",
     code: 'export const VITALIK_ETH_TOPIC = \'0x000000000000000000000000\' +' +
         '\'d8da6bf26964af9d7eed9e03e53415d37aa96045\'\n' +
         '\n' +
@@ -74,7 +74,7 @@ export default [
     link: "https://github.com/subsquid-labs/showcase02-all-transfers-to-a-wallet"
   },
   {
-    title: "Index the AAVE Pool tx data, decoding the event logs",
+    title: "Index the AAVE Pool tx data and event logs",
     code: 'export const AAVE_CONTRACT = \'0x7d2768de32b0b80b7a3454c06bdac94a69ddc7a9\'\n' +
         'export const processor = new EvmBatchProcessor()\n' +
         '  .setDataSource({\n' +
@@ -102,7 +102,7 @@ export default [
     link: "https://github.com/subsquid-labs/showcase03-all-events-caused-by-contract-calls/"
   },
   {
-    title: "Index all NFT mints",
+    title: "All Mint events emitted anywhere on a chain",
     code: 'export const processor = new EvmBatchProcessor()\n' +
         '  .setDataSource({\n' +
         '    archive: lookupArchive(\'eth-mainnet\'),\n' +
@@ -123,7 +123,7 @@ export default [
     link: "https://github.com/subsquid-labs/showcase04-all-mint-events"
   },
   {
-    title: "Index all DEX trading pairs and Swap events",
+    title: "Index all trading pairs and Swap events for a DEX",
     code: 'export const FACTORY_ADDRESSES = [  \'0xbcfccbde45ce874adcb698cc183debcf17952812\',  \'0xca143ce32fe78f1f7019d7d551a6402fc5350c73\',\n' +
         ']\n' +
         '\n' +
@@ -155,7 +155,7 @@ export default [
     link: "https://github.com/subsquid-labs/showcase05-dex-pair-creation-and-swaps"
   },
   {
-    title: "Index internal contract calls and traces",
+    title: "Index internal contract calls and state diffs",
     code: 'const BAYC_ADDRESS = \'0xbc4ca0eda7647a8ab7c2061c2e118 a18a936f13d\'\n' +
         '\n' +
         'export const processor = new EvmBatchProcessor()\n' +
