@@ -1,9 +1,7 @@
 ---
-sidebar_position: 20
-title: Permissionless network
+sidebar_position: 30
+title: FAQ
 ---
-
-# Public Subsquid Network FAQ v1
 
 ### What is Subsquid Network?
 
