@@ -342,9 +342,8 @@ The rationale for this split is:
 
 At an equilibrium, the stakers will get `10%` annual yield, while workers get anything in betweek `20-30%` depending on the staked funds. Note, that the maximal stake is limited by the bond size.
 
-
 ## References
 
-- [SuperDAO Growth Trends report](https://superdao.notion.site/Web3-Growth-Trends-2023-Superdao-Report-1b51a98ad10644afba94c1d9df1e5f99)
+`[1]` [SuperDAO Growth Trends report](https://superdao.notion.site/Web3-Growth-Trends-2023-Superdao-Report-1b51a98ad10644afba94c1d9df1e5f99)
 
-- Based on the estimate that read-only RPC queries constitute roughly 90% of the RPC provider traffic
+`[2]` Based on the estimate that read-only RPC queries constitute roughly 90% of the RPC provider traffic
