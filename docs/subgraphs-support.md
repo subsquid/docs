@@ -5,7 +5,7 @@ description: >-
 sidebar_position: 30
 ---
 
-# Run subgraphs without archival nodes
+# Run subgraphs without full nodes
 
 :::warning
 This tutorial uses alpha-quality software. If you encouter any issues while using it please let us know at the [SquidDevs Telegram chat](https://t.me/HydraDevs).
@@ -13,9 +13,13 @@ This tutorial uses alpha-quality software. If you encouter any issues while usin
 
 **Dependencies**: Docker, Git, NodeJS, Yarn.
 
-It is now possible to run [subgraphs](https://thegraph.com/docs/en/glossary/) using Subsquid data sources such as [Archives](/subsquid-network/overview) and the [Subsquid network](/subsquid-network/public). To do this, run a regular Graph node against [firehose-grpc](https://github.com/subsquid/firehose-grpc), our drop-in replacement for [Firehose](https://firehose.streamingfast.io).
+Developing and running [subgraphs](https://thegraph.com/docs/en/glossary/) is hard, as one has to run a full archival node, and for many networks it is not feasible to run a full archival node to at all. 
 
-The easiest way to do so is to use our [graph-node-setup](https://github.com/subsquid-labs/graph-node-setup) repo. Here's how:
+**Subsquid Firehose** is an open-source lightweight adapter run as a side-car to a graph indexer node, ingesting and filtering the data directly from Subsquid Network instead of an RPC endpoint. However, since the network does not provide the real-time blocks, the most recent and unfinalized blocks are (optionally) ingested from a complementary RPC endpoint in a seamless way.
+
+It is possible to run subgraphs against both a production-ready permissioned Subsquid Network instance (formerly known as Subsquid Archives) and a decentralized testnet (see [Subsquid Network Overview](/subsquid-network/overview) to learn more about the difference). 
+
+The easiest way to run a subgraph with Subsquid Firehose to use our [graph-node-setup](https://github.com/subsquid-labs/graph-node-setup) repo. Here's how:
 
 1. Clone the repo and install the dependencies:
    ```bash
@@ -57,13 +61,13 @@ The easiest way to do so is to use our [graph-node-setup](https://github.com/sub
 
 ## Disabling RPC ingestion
 
-If you would like to use `firehose-grpc` without RPC ingestion, you can configure the environment to do so by running
+If you would like to use `firehose-grpc` without the optional real-time RPC data-source, run 
 ```bash
 npm run configure -- --disable-rpc-ingestion
 ```
-You will still have to supply an RPC URL, but it won't be used for ingestion, so a public RPC will suffice.
+One would still have to provide a placeholder RPC URL to the config, but it won't be used for the data ingestion, so a public RPC will suffice.
 
-Disabling RPC ingestion introduces a delay of several thousands of blocks between the highest block available to the subgraph and the actual block head.
+Disabling RPC ingestion introduces a delay of several thousands of blocks between the highest block available to the subgraph and the actual block head, but completely eliminates the need to care about the RPC endpoints.
 
 ## Troubleshooting
 
