@@ -345,6 +345,6 @@ At an equilibrium, the stakers will get `10%` annual yield, while workers get an
 
 ## References
 
-[1] [SuperDAO Growth Trends report](https://superdao.notion.site/Web3-Growth-Trends-2023-Superdao-Report-1b51a98ad10644afba94c1d9df1e5f99)
+- [SuperDAO Growth Trends report](https://superdao.notion.site/Web3-Growth-Trends-2023-Superdao-Report-1b51a98ad10644afba94c1d9df1e5f99)
 
-[2] Based on the estimate that read-only RPC queries constitute roughly 90% of the RPC provider traffic
+- Based on the estimate that read-only RPC queries constitute roughly 90% of the RPC provider traffic
