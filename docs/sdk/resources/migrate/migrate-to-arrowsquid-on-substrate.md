@@ -58,8 +58,8 @@ Your squid will work with just an RPC endpoint, but it will sync significantly s
 
 Next, we have to account for the changes in signatures of the data requesting processor methods
 
-- [`addEvent()`](/sdk/reference/processors/subtrate-batch/data-requests/#events),
-- [`addCall()`](/sdk/reference/processors/subtrate-batch/data-requests/#calls),
+- [`addEvent()`](/sdk/reference/processors/substrate-batch/data-requests/#events),
+- [`addCall()`](/sdk/reference/processors/substrate-batch/data-requests/#calls),
 - [`addEvmLog()`](/sdk/resources/substrate/frontier-evm/#subscribe-to-evm-events),
 - [`addEthereumTransaction()`](/sdk/resources/substrate/frontier-evm/#subscribe-to-evm-transactions),
 - [`addContractsContractEmitted()`](/sdk/resources/substrate/ink/#processor-options),
@@ -70,7 +70,7 @@ Previously, each call of these methods supplied its own fine-grained data fields
 
 Begin migrating to the new interface by finding all calls to these methods and combining all the field selectors into processor-wide `event`, `call` and `extrinsic` field selectors that request all fields previously requested by individual selectors. Note that `call.args` and `event.args` are now requested by default and can be omitted. When done, add a call to `setFields()` supplying it with the new field selectors.
 
-The new field selector format is fully documented on the [Field selection](/sdk/reference/processors/subtrate-batch/field-selection) page.
+The new field selector format is fully documented on the [Field selection](/sdk/reference/processors/substrate-batch/field-selection) page.
 
 :::info
 Blanket field selections like `{data: {event: {extrinsic: true}}}` are not supported in ArrowSquid. If you used one of these, please find out which exact fields you use in the batch handler and specifically request them.
@@ -170,8 +170,8 @@ The meaning of passing `[]` as a set of parameter values has been changed in the
 Old data request calls will be erased during the process. Make sure to request the appropriate related data with the boolean flags (`call` for event-requesting methods, `events` for call-requesting methods and `extrinsic`, `stack` for both).
 
 Interfaces of data request methods are documented on their respective pages:
-- [`addEvent()`](/sdk/reference/processors/subtrate-batch/data-requests/#events),
-- [`addCall()`](/sdk/reference/processors/subtrate-batch/data-requests/#calls),
+- [`addEvent()`](/sdk/reference/processors/substrate-batch/data-requests/#events),
+- [`addCall()`](/sdk/reference/processors/substrate-batch/data-requests/#calls),
 - [`addEvmLog()`](/sdk/resources/substrate/frontier-evm/#subscribe-to-evm-events),
 - [`addEthereumTransaction()`](/sdk/resources/substrate/frontier-evm/#subscribe-to-evm-transactions),
 - [`addContractsContractEmitted()`](/sdk/resources/substrate/ink/#processor-options),
@@ -232,7 +232,7 @@ Finally, update the batch handler to use the new [batch context](/sdk/overview/#
 
 2. Alternatively, rewrite your batch handler using the [new batch context interface](/sdk/overview/#batch-context).
 
-See [Block data for Substrate](/sdk/reference/processors/subtrate-batch/context-interfaces) for the documentation on Substrate-specific part of batch context.
+See [Block data for Substrate](/sdk/reference/processors/substrate-batch/context-interfaces) for the documentation on Substrate-specific part of batch context.
 
 ## Step 6
 

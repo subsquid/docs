@@ -31,7 +31,7 @@ Structure of `options` is identical for both methods:
 ```
 The methods above subscribe to the events [`Gear.MessageEnqueued`](https://wiki.gear-tech.io/docs/api/events/#messageenqueued) and [`Gear.UserMessageSent`](https://wiki.gear-tech.io/docs/api/events/#usermessagesent) emitted by the specified Gear program. 
 
-The meaning of the related data retrieval flags is identical to those of [`addEvent()`](/sdk/reference/processors/subtrate-batch/data-requests/#events). Field selection for the retrieved events is done with [`setFields()`](/sdk/reference/processors/subtrate-batch/field-selection).
+The meaning of the related data retrieval flags is identical to those of [`addEvent()`](/sdk/reference/processors/substrate-batch/data-requests/#events). Field selection for the retrieved events is done with [`setFields()`](/sdk/reference/processors/substrate-batch/field-selection).
 
 The processor can also subscribe to any other event with `addEvent()` and filter by program ID in the batch handler, if so necessary. 
 

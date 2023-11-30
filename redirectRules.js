@@ -49,7 +49,7 @@ const urlList = [
     },
     {
         "from": "/substrate-indexing/data-handlers",
-        "to": "/sdk/reference/processors/subtrate-batch/context-interfaces"
+        "to": "/sdk/reference/processors/substrate-batch/context-interfaces"
     },
     {
         "from": "/substrate-indexing/store-interface",
@@ -57,11 +57,11 @@ const urlList = [
     },
     {
         "from": "/substrate-indexing/data-subscriptions",
-        "to": "/sdk/reference/processors/subtrate-batch"
+        "to": "/sdk/reference/processors/substrate-batch"
     },
     {
         "from": "/substrate-indexing/configuration",
-        "to": "/sdk/reference/processors/subtrate-batch"
+        "to": "/sdk/reference/processors/substrate-batch"
     },
     {
         "from": "/substrate-indexing/evm-support",
@@ -597,19 +597,19 @@ const urlList = [
     },
     {
         "from": "/substrate-indexing/setup/data-requests",
-        "to": "/sdk/reference/processors/subtrate-batch/data-requests"
+        "to": "/sdk/reference/processors/substrate-batch/data-requests"
     },
     {
         "from": "/substrate-indexing/setup/general",
-        "to": "/sdk/reference/processors/subtrate-batch/general"
+        "to": "/sdk/reference/processors/substrate-batch/general"
     },
     {
         "from": "/substrate-indexing/setup/field-selection",
-        "to": "/sdk/reference/processors/subtrate-batch/field-selection"
+        "to": "/sdk/reference/processors/substrate-batch/field-selection"
     },
     {
         "from": "/substrate-indexing/setup",
-        "to": "/sdk/reference/processors/subtrate-batch"
+        "to": "/sdk/reference/processors/substrate-batch"
     },
     {
         "from": "/substrate-indexing/batch-processor-in-action",
@@ -625,7 +625,7 @@ const urlList = [
     },
     {
         "from": "/substrate-indexing/context-interfaces",
-        "to": "/sdk/reference/processors/subtrate-batch/context-interfaces"
+        "to": "/sdk/reference/processors/substrate-batch/context-interfaces"
     },
     {
         "from": "/substrate-indexing/substrate-processor",

@@ -265,11 +265,11 @@ See [reference documentation](/sdk/reference/processors/evm-batch) for more info
 
 Edit the definition of `const processor` to
 
-1. Use a [data source](/sdk/reference/processors/subtrate-batch/general/#set-data-source) appropriate for your chain and task
+1. Use a [data source](/sdk/reference/processors/substrate-batch/general/#set-data-source) appropriate for your chain and task
    - Use a [Subsquid Network dataset](/subsquid-network/reference/evm-networks) whenever it is available. RPC is still required in this case.
    - For networks without a dataset use just the RPC.
 
-2. Request all [events](/sdk/reference/processors/subtrate-batch/data-requests/#events) and [calls](/sdk/reference/processors/subtrate-batch/data-requests/#calls) that your task requires, with any necessary related data (e.g. parent extrinsics).
+2. Request all [events](/sdk/reference/processors/substrate-batch/data-requests/#events) and [calls](/sdk/reference/processors/substrate-batch/data-requests/#calls) that your task requires, with any necessary related data (e.g. parent extrinsics).
 
 3. If your squid indexes any of the following:
    - an [ink! contract](/sdk/resources/substrate/ink)
@@ -278,9 +278,9 @@ Edit the definition of `const processor` to
 
    then you can use some of the [specialized data requesting methods](/dead) to retrieve data more selectively.
 
-4. [Select all data fields](/sdk/reference/processors/subtrate-batch/field-selection) necessary for your task (e.g. `fee` for extrinsics).
+4. [Select all data fields](/sdk/reference/processors/substrate-batch/field-selection) necessary for your task (e.g. `fee` for extrinsics).
 
-See [reference documentation](/sdk/reference/processors/subtrate-batch) for more info. Processor config examples can be found in the tutorials:
+See [reference documentation](/sdk/reference/processors/substrate-batch) for more info. Processor config examples can be found in the tutorials:
 
 * [general Substrate](/sdk/tutorials/substrate)
 

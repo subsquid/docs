@@ -200,7 +200,7 @@ In all cases, empty lists of requests **request no data**. Omit a field or send 
   extrinsic: boolean
 }
 ```
-An event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any events. See [Substrate events](/sdk/reference/processors/subtrate-batch/data-requests/#events) for a detailed description of data request fields.
+An event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any events. See [Substrate events](/sdk/reference/processors/substrate-batch/data-requests/#events) for a detailed description of data request fields.
 
 ### Calls
 
@@ -213,7 +213,7 @@ An event will be included in the response if it matches all the requests. An emp
   events: boolean
 }
 ```
-A call will be included in the response if it matches all the requests. An empty array matches no calls; omitted or `null` request matches any call. See [Substrate calls](/sdk/reference/processors/subtrate-batch/data-requests/#calls) for a detailed description of data request fields.
+A call will be included in the response if it matches all the requests. An empty array matches no calls; omitted or `null` request matches any call. See [Substrate calls](/sdk/reference/processors/substrate-batch/data-requests/#calls) for a detailed description of data request fields.
 
 ### `Contracts.ContractEmitted` events {#contractsEvents}
 
@@ -294,4 +294,4 @@ A `Gear.UserMessageSent` event will be included in the response if it matches al
 
 ## Data fields selector
 
-A JSON selector of fields for the returned data items. Documented in the [Field selectors](/sdk/reference/processors/subtrate-batch/field-selection/#data-item-types-and-field-selectors) section.
+A JSON selector of fields for the returned data items. Documented in the [Field selectors](/sdk/reference/processors/substrate-batch/field-selection/#data-item-types-and-field-selectors) section.
