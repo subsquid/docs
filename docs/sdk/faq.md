@@ -1,8 +1,8 @@
 ---
 sidebar_position: 35
+title: FAQ
+description: Frequently asked questions
 ---
-
-# FAQ
 
 ### What are some real-world applications for which Squid SDK was a good fit? {#real-world-applications}
 
