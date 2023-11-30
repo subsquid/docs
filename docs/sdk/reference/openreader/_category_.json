@@ -1,6 +1,6 @@
 {
   "position": 80,
-  "label": "GraphQL API",
+  "label": "Core GraphQL API",
   "collapsible": true,
   "collapsed": true,
   "className": "red",
