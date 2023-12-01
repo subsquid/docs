@@ -698,8 +698,16 @@ code, kbd, samp, pre {
     vertical-align: baseline;
 }
 
-.hidden {
+.hidden, .sidebarLogo_node_modules-\@docusaurus-theme-classic-lib-theme-DocSidebar-Desktop-styles-module {
     display: none !important;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.docRoot_node_modules-\@docusaurus-theme-classic-lib-theme-DocRoot-Layout-styles-module{
+    gap: 3.5rem;
 }
 
 .fs-14 {

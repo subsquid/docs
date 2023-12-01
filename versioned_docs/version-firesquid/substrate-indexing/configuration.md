@@ -162,13 +162,13 @@ interface ExtrinsicRequest {
 ```
 
 Setting a primitive field to `true` indicates that the corresponding property will be requested from the archive and present in the corresponding [context item](/firesquid/substrate-indexing/context-interfaces). Setting any of the composite fields to `true` indicates that a default full set of fields is fetched, e.g. 
-``ts
+```ts
 {
   data: { 
     event: true 
   }
 }
-``
+```
 fetches a full set of `event`, `call` and `extrinsic` fields.
 
 #### Example
