@@ -36,7 +36,7 @@ The behavior of `TypeormDatabase` and the derived `Store` objects can be tuned b
 
 ### Batch methods
 
-**`save(e: E | E[])`** 
+#### **`upsert(e: E | E[])`** {#upsert}
 
 Upsert a single or multiple entities to the database. **Does not cascade the upsert to the relations.**
 
@@ -44,7 +44,7 @@ Upsert a single or multiple entities to the database. **Does not cascade the ups
 await ctx.store.save([new User({id: 'Bob'}), new User({id: 'Alice'}))])
 ```
 
-**`insert(e: E | E[])`**
+#### **`insert(e: E | E[])`** {#insert}
 
 Inserts a given entity or entities into the database. Does not check if the entity(s) exist in the database and will fail if a duplicate is inserted. Executes a primitive INSERT operation **without cascading to the relations**.
 
@@ -52,7 +52,7 @@ Inserts a given entity or entities into the database. Does not check if the enti
 await ctx.store.insert([new User({id: 'Bob'}), new User({id: 'Alice'}))])
 ```
 
-**`remove(e: E | E[] | EntityClass<E>, id?: string | string[])`**
+#### **`remove(e: E | E[] | EntityClass<E>, id?: string | string[])`** {#remove}
 
 Deletes a given entity or entities from the database. Accepts either an object or an entity ID(s). **Does not cascade the deletion**.
 
@@ -64,7 +64,7 @@ await ctx.store.remove(User, ['Alice', 'Bob'])
 
 For details see [TypeORM EntityManager reference](https://typeorm.io/entity-manager-api).
 
-**`get`**
+#### **`get`**
 
 Get an entity by ID.
 
@@ -72,7 +72,7 @@ Get an entity by ID.
 await ctx.store.get(User, 'Bob')
 ```
 
-**`count`**
+#### **`count`**
 
 Count the number of entities matching a where filter.
 
@@ -84,7 +84,7 @@ await ctx.store.count(User, {
 })
 ```
 
-**`countBy`**
+#### **`countBy`**
 
 Count the number of entities matching a filter.
 
@@ -92,7 +92,7 @@ Count the number of entities matching a filter.
 await ctx.store.countBy(User, { firstName: "Timber" })
 ```
 
-**`find`** 
+#### **`find`**
 
 Return a list matching a where filter.
 
@@ -103,7 +103,8 @@ await ctx.store.find(User, {
     },
 })
 ```
-**`findBy`** 
+
+#### **`findBy`**
 
 Return a list matching a filter.
 
@@ -111,7 +112,7 @@ Return a list matching a filter.
 let accounts = await ctx.store.findBy(Account, {id: In([...accountIds])})
 ```
 
-**`findOne`** 
+#### **`findOne`**
 
 Return the first entity matching a where filter.
 
@@ -123,7 +124,7 @@ const timber = await ctx.store.findOne(User, {
 })
 ```
 
-**`findOneBy`** 
+#### **`findOneBy`**
 
 Return the first entity matching a filter.
 
@@ -131,7 +132,7 @@ Return the first entity matching a filter.
 const timber = await ctx.store.findOneBy(User, { firstName: "Timber" })
 ```
 
-**`findOneOrFail`**
+#### **`findOneOrFail`**
 
 Throws if nothing is found.
 
@@ -143,7 +144,7 @@ const timber = await ctx.store.findOneOrFail(User, {
 })
 ```
 
-**`findOneByOrFail`** 
+#### **`findOneByOrFail`**
 
 Throws if nothing is found.
 
@@ -195,7 +196,6 @@ await ctx.store.find(User, {
 ```
 
 See the [TypeORM docs](https://typeorm.io/find-options) sections for details. 
-
 
 ## `FullTypeormDatabase`
 
