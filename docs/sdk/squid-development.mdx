@@ -116,6 +116,15 @@ Although it is possible to [compose a squid from individual packages](/sdk/squid
 
 ```mdx-code-block
 </details>
+<details><summary>Templates for the Google BigQuery data destination</summary>
+```
+- USDC transfers -> BigQuery dataset
+  ```bash
+  sqd init my-squid-name -t https://github.com/subsquid-labs/squid-bigquery-example
+  ```
+
+```mdx-code-block
+</details>
 </TabItem>
 <TabItem value="substrate" label="Substrate">
 <details><summary>Templates for the PostgreSQL+GraphQL data destination</summary>
@@ -190,13 +199,25 @@ When done, shut down and erase your database with `sqd down`.
 
 ```mdx-code-block
 </TabItem>
+<TabItem value="bigquery-store" label="BigQuery">
+```
+
+Create a dataset with your BigQuery account, then follow the [template README](https://github.com/subsquid-labs/squid-bigquery-example/blob/master/README.md).
+
+
+```mdx-code-block
+</TabItem>
 </Tabs>
 ```
 :::info
 To make local runs more convenient squid templates define additional `sqd` commands at `commands.json`. All of `sqd` commands used here are such extras. Take a look at the contents of this file to learn more about how your template works [under the hood](/sdk/squid-from-scratch).
 :::
 
-## Regenerate the task-specific utilities {#typegen}
+## The bottom-up development cycle {#bottom-up-development}
+
+The advantage of this approach is that the code remains buildable at all times, making it easier to catch issues early.
+
+### I. Regenerate the task-specific utilities {#typegen}
 
 ```mdx-code-block
 <Tabs>
@@ -239,7 +260,7 @@ sqd typegen
 </Tabs>
 ````
 
-## Configure the data requests
+### II. Configure the data requests {#processor-config}
 
 Data requests are [customarily](/sdk/reference/layout) defined at `src/processor.ts`. The details depend on the network type:
 
@@ -250,7 +271,8 @@ Data requests are [customarily](/sdk/reference/layout) defined at `src/processor
 Edit the definition of `const processor` to
 
 1. Use a [data source](/sdk/reference/processors/evm-batch/general/#set-data-source) appropriate for your chain and task.
-   - If you're building a real-time API, use both RPC and a [Subsquid Network dataset](/subsquid-network/reference/evm-networks) whenever possible.
+   - It is possible to use RPC as the only data source, but adding a [Subsquid Network](/subsquid-network/reference/evm-networks) data source will make your squid sync much faster.
+   - RPC is a hard requirement if you're building a real-time API.
    - If you're using RPC as one of your data sources, make sure to [set the number of finality confirmations](/sdk/reference/processors/evm-batch/general/#set-finality-confirmation) so that [hot blocks ingestion](/sdk/resources/unfinalized-blocks) works properly.
 2. Request all [event logs](/sdk/reference/processors/evm-batch/logs/), [transactions](/sdk/reference/processors/evm-batch/transactions/), [execution traces](/sdk/reference/processors/evm-batch/traces) and [state diffs](/sdk/reference/processors/evm-batch/state-diffs/) that your task requires, with any necessary related data (e.g. parent transactions for event logs).
 
@@ -293,11 +315,42 @@ See [reference documentation](/sdk/reference/processors/substrate-batch) for mor
 </Tabs>
 ```
 
+### III. Decode and normalize the data {#batch-handler-decoding}
+
+Next, change the batch handler to decode and normalize your data.
+
+In templates, the batch handler is defined at the [`processor.run()`](/sdk/reference/processors/architecture/#processorrun) call in `src/main.ts` as an inline function. Its sole argument `ctx` contains:
+- at `ctx.blocks`: all the requested data for a batch of blocks
+- at `ctx.store`: the means to save the processed data
+- at `ctx.log`: a [`Logger`](/sdk/reference/logger/)
+- at `ctx.isHead`: a boolean indicating whether the batch is at the current chain head
+- at `ctx._chain`: the means to access RPC for [state calls](#extras-state-calls)
+
+This structure ([reference](/sdk/reference/processors/architecture/#batch-context)) is common for all processors; the structure of `ctx.blocks` items varies.
 
 ```mdx-code-block
 <Tabs>
 <TabItem value="evm" label="EVM">
 ```
+Each item in `ctx.blocks` contains the data for the requested logs, transactions, traces and state diffs for a particular block, plus some info on the block itself. See [EVM batch context reference](/sdk/reference/processors/evm-batch/context-interfaces).
+
+Use the `.decode` methods from the [contract ABI utilities](#typegen) to decode events and transactions, e.g. like this
+
+```ts
+import * as erc20abi from './abi/erc20'
+
+processor.run(db, async ctx => {
+  for (let block of ctx.blocks) {
+    for (let log of block.logs) {
+      if (log.topics[0]===erc20abi.events.Transfer.topic) {
+        let {from, to, value} = erc20.events.Transfer.decode(log)
+      }
+    }
+  }
+})
+```
+See also the [EVM data decoding reference](/dead).
+
 ```mdx-code-block
 </TabItem>
 <TabItem value="substrate" label="Substrate">
@@ -307,4 +360,184 @@ See [reference documentation](/sdk/reference/processors/substrate-batch) for mor
 </Tabs>
 ```
 
+### (Optional) IV. Mix in external data and chain state calls output {#external-data}
 
+If you need external (i.e. non-blockchain) data in your transformation, take a look at the [External APIs and IPFS](/sdk/resources/external-api) page.
+
+If any of the on-chain data you need is unavalable from the processor or incovenient to retrieve with it, you have an option to get it via [direct chain queries](/sdk/reference/typegen/state-queries).
+
+### V. Prepare the store {#store}
+
+At `src/main.ts`, change the [`Database`](/sdk/resources/persisting-data/overview) object definition to accept your output data. The methods for saving data will be exposed by `ctx.store` within the [batch handler](/sdk/reference/processors/architecture).
+
+```mdx-code-block
+<Tabs>
+<TabItem value="typeorm" label="PostgreSQL+GraphQL">
+```
+
+1. Define the schema of the database (and the [core schema of the GraphQL API](/sdk/reference/openreader) if it is used) at [`schema.graphql`](/sdk/reference/schema-file).
+
+2. Regenerate the TypeORM model classes with
+   ```bash
+   sqd codegen
+   ```
+   The classes will become available at `src/model`.
+
+3. Compile the models code with
+   ```bash
+   sqd build
+   ```
+
+4. Ensure that the squid has access to a blank database. The easiest way to do so is to start PostgreSQL in a Docker container with
+   ```bash
+   sqd up
+   ```
+   If the container is running, stop it and erase the database with
+   ```bash
+   sqd down
+   ```
+   before issuing an `sqd up`.
+
+   The alternative is to use an [external database](/sdk/resources/persisting-data/typeorm/#using-an-external-database).
+
+5. Generate a migration with
+   ```bash
+   sqd migration:generate
+   ```
+   The migration will be automatically applied when you start the processor with `sqd process`.
+
+You can now use the async functions [`ctx.store.upsert()`](/sdk/reference/store/typeorm/#upsert) and [`ctx.store.insert()`](/sdk/reference/store/typeorm/#insert), as well as various [TypeORM lookup methods](/sdk/reference/store/typeorm/#typeorm-methods) to access the database.
+
+See the `typeorm-store` [guide](/sdk/resources/persisting-data/typeorm) and [reference](/sdk/reference/store/typeorm) for more info.
+
+```mdx-code-block
+</TabItem>
+<TabItem value="file-store" label="filesystem dataset">
+```
+
+Filesystem dataset writing, as performed by the `@subsquid/file-store` package and its extensions, stores the data into one or more flat tables. The exact table definition format depends on the output file format.
+
+1. Decide on the file format you're going to use:
+   - [Parquet](/sdk/reference/store/file/parquet)
+   - [CSV](/sdk/reference/store/file/csv)
+   - [JSON/JSONL](/sdk/reference/store/file/json)
+
+   If your template does not have any of the necessary packages, install them.
+
+2. Define any tables you need at the `tables` field of the `Database` constructor argument:
+   ```ts
+   import { Database } from '@subsquid/file-store'
+
+   const dbOptions = {
+     tables: {
+       FirstTable: new Table(/* ... */),
+       SecondTable: new Table(/* ... */),
+       // ...
+     },
+     // ...
+   }
+
+   processor.run(new Database(dbOptions), async ctx => { // ...
+   ```
+
+3. Define the destination filesystem via the `dest` field of the `Database` constructor argument. Options:
+   * local folder - use `LocalDest` from `@subsquid/file-store`
+   * S3-compatible file storage service - install `@subsquid/file-store-s3` and use [`S3Dest`](/sdk/reference/store/file/s3-dest)
+
+Once you're done you'll be able to enqueue data rows for saving using the `write()` and `writeMany()` methods of the context store-provided table objects:
+
+```ts
+ctx.store.FirstTable.writeMany(/* ... */)
+ctx.store.SecondTable.write(/* ... */)
+```
+The store will write the files automatically as soon as the buffer reaches the size set by the `chunkSizeMb` field of the `Database` constructor argument, or at the end of the batch if a call to [`setForceFlush()`](/dead) was made anywhere in the batch handler.
+
+See the `file-store` [guide](/sdk/resources/persisting-data/file) and the [reference pages of its extensions](/sdk/reference/store/file).
+
+```mdx-code-block
+</TabItem>
+<TabItem value="bigquery-store" label="BigQuery">
+```
+
+Follow the [guide](/sdk/resources/persisting-data/bigquery).
+
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+### VI. Persist the transformed data to your data sink {#batch-handler-persistence}
+
+Once your data is [decoded](#batch-handler-decoding), optionally [enriched with external data](#external-data) and transformed the way you need it to be, it is time to save it.
+
+```mdx-code-block
+<Tabs>
+<TabItem value="typeorm" label="PostgreSQL+GraphQL">
+```
+
+For each batch, create all the instances of all TypeORM model classes at once, then save them with the minimal number of calls to `upsert()` or `insert()`, e.g.:
+```ts
+import { EntityA, EntityB } from './model'
+
+processor.run(new TypeormDatabase(), async ctx => {
+  const aEntities: Map<string, EntityA> = new Map() // id -> entity instance
+  const bEntities: EntityB = []
+
+  for (let block of ctx.blocks) {
+    // fill the containets aEntities and bEntities
+  }
+
+  await ctx.store.upsert([...aEntities.values()])
+  await ctx.store.insert(bEntities)
+})
+```
+It will often make sense to keep the entity instances in maps rather than arrays to make it easier to reuse them when defining instances of other entities with [relations](/sdk/reference/schema-file/entity-relations) to the previous ones. The process is described in more detail in the [step 2 of the BAYC tutorial](/sdk/tutorials/bayc/step-two-deriving-owners-and-tokens).
+
+See also the [patterns](/sdk/resources/batch-processing/#patterns) and [anti-pattens](/sdk/resources/batch-processing/#anti-patterns) sections of the Batch processing guide.
+
+
+```mdx-code-block
+</TabItem>
+<TabItem value="file-store" label="filesystem dataset">
+```
+
+You can enqueue the transformed data for writing whenever convenient without any sizeable impact on performance.
+
+At low output data rates (e.g. if your entire dataset is in tens of Mbytes or under) take care to call [`ctx.store.setForceFlush()`](/dead) when appropriate to make sure your data actually gets written.
+
+
+```mdx-code-block
+</TabItem>
+<TabItem value="bigquery-store" label="BigQuery">
+```
+
+You can enqueue the transformed data for writing whenever convenient without any sizeable impact on performance. The actual data writing will happen automatically at the end of each batch.
+
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+## The top-down development cycle
+
+The [bottom-up development cycle](#bottom-up-development) described above is convenient for inital squid development and for trying out new things, but it has the disadvantage of not having the means of saving the data ready at hand when initially writing the data decoding/transformation code. That makes it necessary to come back to that code later, which is somewhat inconvenient e.g. when adding new squid features incrementally.
+
+The alternative is to do the same steps in a different order:
+
+1. [Update the store](#store)
+2. If necessary, [regenerate the utility classes](#typegen)
+3. [Update the processor configuration](#processor-config)
+4. [Decode and normalize the added data](#batch-handler-decoding)
+5. [Retrieve any external data](#external-data) if necessary
+6. [Add the persistence code for the transformed data](#batch-handler-persistence)
+
+## Scaling up
+
+If you're developing a large squid, you may want to take a look at the [Giant Squid Explorer](https://github.com/subsquid-labs/giant-squid-explorer) and [Thena Squid](https://github.com/subsquid-labs/thena-squid) repos for inspiration.
+
+## Next steps
+
+* Deploy your squid [on own infrastructure](/sdk/resources/self-hosting) or to [Subsquid Cloud](/cloud)
+* If your squid serves a GraphQL API, consult the [Core GraphQL API reference](/sdk/reference/openreader) while writing your frontend
