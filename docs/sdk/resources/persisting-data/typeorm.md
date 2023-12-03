@@ -202,16 +202,13 @@ See the [TypeORM docs](https://typeorm.io/find-options) sections for details.
 `FullTypeormDatabase` context store provides full access to the underlying database, including execution of arbitrary queries with `.query()`. The interface is identical to that of [TypeORM EntityManager](https://typeorm.io/entity-manager-api).
 
 We recommend using `TypeormDatabase` store unless full access to the database is required.
----
-sidebar_position: 50
-description: Define db migrations and init scripts
----
 
-# Database migrations
+
+## Database migrations
 
 Database migrations and setup scripts must be located in the reserved folder `db/migrations`. 
 
-## TypeORM migrations
+### TypeORM migrations
 
 The Squid SDK offers first-class support for [TypeORM-based database migrations](https://typeorm.io/migrations) with the `squid-typeorm-migration(1)` tool.
 The tool auto-generates the schema migrations from the TypeORM entities created by [codegen](/sdk/reference/schema-file) so that custom migration scripts are rarely needed.
@@ -232,7 +229,7 @@ npx squid-typeorm-migration --help
 
 To generate or update the migrations after a schema change, follow the steps below.
 
-## Updating after schema changes
+### Updating after schema changes
 
 In most cases the simplest way to update the schema is to drop the database and regenerate the migrations from scratch.
 
@@ -303,20 +300,15 @@ sqd migration:apply
 
 If the squid is deployed to Subsquid Cloud, [update the deployed version](/squid-cli/deploy).
 
-## Subsquid Cloud deployment
+### Subsquid Cloud deployment
 
 By default, the TypeORM migrations are automatically applied by Cloud with the command `npx squid-typeorm-migration apply` before the squid services are started. For custom behavior, one can override the migration script using the optional `migrate:` section of [squid.yaml](/cloud/reference/manifest#deploy).
 
 :::info
 To force Cloud to reset the database and start with a blank state after a schema change, use the `--hard-reset` flag of [sqd deploy](/squid-cli/deploy).
 :::
----
-sidebar_position: 60
-title: External PostgreSQL
-description: Supplying database credentials via env vars
----
 
-# Using an external database
+## Using an external database
 
 It is possible to use `TypeormDatabase` with non-local PostgreSQL. Credentials must be supplied via the environment variables:
 
