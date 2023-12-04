@@ -32,3 +32,7 @@ Since both the squid and version name become part of the squid API endpoint URL,
 ### My squid ran out of disk space
 
 Edit the [postgres addon](/cloud/reference/pg) section of `squid.yaml` and request more space for the database. 
+
+### My squid is behind the chain, but is shows that it is in sync
+
+Check that your processor uses both `archive:` and `chain:` data sources. 
