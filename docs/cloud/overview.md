@@ -13,7 +13,7 @@ The deployment is managed by the file `squid.yaml` in the root folder of the squ
 - [what resources should be allocated](/cloud/reference/scale) by Cloud for each squid service (only configurable if you deploy to a [Professional organization](/cloud/resources/organizations/#professional-organizations))
 
 :::tip
-Make sure to check our [best practices guide](/cloud/resources/best-practices) before deploying to production!
+Make sure to check our [best practices guide](/cloud/best-practices) before deploying to production!
 :::
 
 :::warning
@@ -62,5 +62,5 @@ You can also read logs on the squid page in [Cloud](https://app.subsquid.io/squi
 - See how to [update](/squid-cli/deploy) and [kill](/squid-cli/rm) the deployed squid versions.
 - See [environment variables](/cloud/resources/env-variables) to add secrets to a squid deployment.
 - See the supported options for [`sqd logs`](/squid-cli/logs) such as filtering and log following.
-- Learn about [organizations](/cloud/resources/organizations) and [billing](/cloud/reference/pricing).
+- Learn about [organizations](/cloud/resources/organizations) and [billing](/cloud/pricing).
 - Learn how to [scale](/cloud/reference/scale) squids by requesting more resources.
