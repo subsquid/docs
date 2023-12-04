@@ -137,6 +137,7 @@ processor.run(db, async ctx => {
 Both of the following calls
 
 **`ctx.setForceFlush()`**
+
 **`ctx.setForceFlush(true)`**
 
 set the force flush flag within the store. If the flag is still set at the end of a [batch](/sdk/reference/processors/architecture/#processorrun), a dataset partition will be written regardless of how full the data buffer currently is. This is useful e.g. in ensuring that the partition size is not much greater than a constant value when writing data at a low rate:

@@ -31,7 +31,7 @@ Consider your business requirements and find out
    - Ethereum Virtual Machine (EVM) chains like [Ethereum](https://ethereum.org) - [supported networks](/subsquid-network/reference/evm-networks)
    - [Substrate](https://substrate.io)-powered chains like [Polkadot](https://polkadot.network) and [Kusama](https://kusama.network) - [supported networks](/subsquid-network/reference/substrate-networks)
 
-   Note that you can use Subsquid via [RPC ingestion](/dead) even if your network is not listed.
+   Note that you can use Subsquid via [RPC ingestion](/sdk/resources/unfinalized-blocks) even if your network is not listed.
 4. What exact data should be retrieved from blockchain(s)
 5. Whether you need to mix in any [off-chain data](/sdk/resources/external-api)
 
@@ -242,7 +242,7 @@ npx squid-evm-typegen \
 ```
 The utility classes will become available at `src/abi`.
 
-[Full reference for EVM typegen](/dead).
+See also the [EVM typegen code generation](/sdk/reference/typegen/generation/?typegen=evm) reference page.
 
 ```mdx-code-block
 </TabItem>
@@ -250,13 +250,13 @@ The utility classes will become available at `src/abi`.
 ```
 Follow the respective reference configuration pages of each typegen tool:
 
-* [Substrate typegen configuration](/dead)
-* [ink! typegen configuration](/dead)
+* [Substrate typegen configuration](/sdk/reference/typegen/generation/?typegen=substrate)
+* [ink! typegen configuration](/sdk/reference/typegen/generation/?typegen=ink)
 
 <details>
 <summary>A tip for `frontier-evm` squids</summary>
 
-These squids use both Substrate typegen _and_ EVM typegen. To generate all the required utilities, [configure the Substrate part](/dead), then save all relevant JSON ABIs to `./abi`, then run
+These squids use both Substrate typegen _and_ EVM typegen. To generate all the required utilities, [configure the Substrate part](/sdk/reference/typegen/generation/?typegen=substrate), then save all relevant JSON ABIs to `./abi`, then run
 ```bash
 sqd typegen
 ```
@@ -306,7 +306,7 @@ Edit the definition of `const processor` to
    - an EVM contract running on the [Frontier EVM pallet](/sdk/resources/substrate/frontier-evm)
    - [Gear messages](/sdk/resources/substrate/gear)
 
-   then you can use some of the [specialized data requesting methods](/dead) to retrieve data more selectively.
+   then you can use some of the [specialized data requesting methods](/sdk/reference/processors/substrate-batch/data-requests/#specialized-setters) to retrieve data more selectively.
 
 4. [Select all data fields](/sdk/reference/processors/substrate-batch/field-selection) necessary for your task (e.g. `fee` for extrinsics).
 
@@ -357,7 +357,7 @@ processor.run(db, async ctx => {
   }
 })
 ```
-See also the [EVM data decoding reference](/dead).
+See also the [EVM data decoding reference](/sdk/reference/typegen/decoding/?typegen=evm).
 
 ```mdx-code-block
 </TabItem>
@@ -396,11 +396,11 @@ processor.run(db, async ctx => {
 
 ```
 
-See also the [Substrate data decoding reference](/dead).
+See also the [Substrate data decoding reference](/sdk/reference/typegen/decoding/?typegen=substrate).
 
 You can also decode the data of certain pallet-specific events and transactions with specialized tools:
- - use the utility classes made with `@substrate/squid-ink-typegen` to [decode events emitted by ink! contracts](/sdk/resources/substrate/ink/#ink-typegen)
- - use the [`@subsquid/frontier` utils](/sdk/resources/substrate/frontier-evm/#event-and-transaction-data-parsing) and the [EVM typegen](/dead) to decode event logs and transactions of EVM contracts
+ - use the utility classes made with `@substrate/squid-ink-typegen` to [decode events emitted by ink! contracts](/sdk/reference/typegen/decoding/?typegen=ink)
+ - use the [`@subsquid/frontier` utils](/sdk/reference/frontier) and the [EVM typegen](/sdk/reference/typegen/decoding/?typegen=evm) to decode event logs and transactions of EVM contracts
 
 ```mdx-code-block
 </TabItem>
@@ -497,7 +497,7 @@ Once you're done you'll be able to enqueue data rows for saving using the `write
 ctx.store.FirstTable.writeMany(/* ... */)
 ctx.store.SecondTable.write(/* ... */)
 ```
-The store will write the files automatically as soon as the buffer reaches the size set by the `chunkSizeMb` field of the `Database` constructor argument, or at the end of the batch if a call to [`setForceFlush()`](/dead) was made anywhere in the batch handler.
+The store will write the files automatically as soon as the buffer reaches the size set by the `chunkSizeMb` field of the `Database` constructor argument, or at the end of the batch if a call to [`setForceFlush()`](/sdk/resources/persisting-data/file/#setforceflush) was made anywhere in the batch handler.
 
 See the `file-store` [guide](/sdk/resources/persisting-data/file) and the [reference pages of its extensions](/sdk/reference/store/file).
 
@@ -553,7 +553,7 @@ See also the [patterns](/sdk/resources/batch-processing/#patterns) and [anti-pat
 
 You can enqueue the transformed data for writing whenever convenient without any sizeable impact on performance.
 
-At low output data rates (e.g. if your entire dataset is in tens of Mbytes or under) take care to call [`ctx.store.setForceFlush()`](/dead) when appropriate to make sure your data actually gets written.
+At low output data rates (e.g. if your entire dataset is in tens of Mbytes or under) take care to call [`ctx.store.setForceFlush()`](/sdk/resources/persisting-data/file/#setforceflush) when appropriate to make sure your data actually gets written.
 
 
 ```mdx-code-block

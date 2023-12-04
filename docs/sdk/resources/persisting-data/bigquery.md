@@ -1,5 +1,5 @@
 ---
-sidebar_position: 25
+sidebar_position: 40
 title: Saving to BigQuery
 description: >-
   Support for Google's data warehouse
