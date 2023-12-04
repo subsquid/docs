@@ -1,0 +1,43 @@
+---
+sidebar_position: 70
+title: RPC ingestion and hot blocks
+description: Data from chain and network consensus
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Starting with the ArrowSquid release, the processor can ingest data either from a [Subsquid Network](/subsquid-network) dataset or directly from an RPC endpoint. If both a network dataset and a RPC endpoint are provided, the processor will use the dataset until it reaches the highest block available there, then index the few remaining blocks using the RPC endpoint. This allows squids to combine low sync times with near real-time chain data access. It is, however, possible to use just the RPC endpoint (e.g. for [local development](/sdk/tutorials/ethereum-local-development)). On [EVM](/sdk/reference/processors/evm-batch) it is also possible to use just the dataset (e.g. for analytics).
+
+RPC ingestion can create a heavy load on node endpoints. The load typically short in duration when a Subsquid Network dataset is used, and the total number of requests is low. However, their frequency may be sufficient to trigger HTTP 429 responses. Use private endpoints and rate limit your requests with the `rateLimit` chain source option ([EVM](/sdk/reference/processors/evm-batch/general/#set-data-source)/[Substrate](/sdk/reference/processors/substrate-batch/general/#set-data-source)).
+
+## Indexing unfinalized blocks
+
+When ingesting from RPC, Squid SDK can index blocks before they are [finalized](https://info.etherscan.com/epoch-in-ethereum/), enabling real-time use cases. To take advantage of this feature, a squid processor must
+
+1. have a node RPC endpoint as one of its data sources and
+2. use a [`Database`](/sdk/resources/persisting-data/overview) with hot blocks support (e.g. [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm)) in its [`processor.run()`](/sdk/overview/#processorrun) call, and
+3. not set the [`useArchiveOnly(true)`](/sdk/reference/processors/evm-batch/general/#use-archive-only) setting.
+
+With this, the processor will consider some blocks to be "hot":
+
+```mdx-code-block
+<Tabs>
+<TabItem value="evm" label="EVM">
+```
+
+All blocks with fewer confirmations than the number set by the [`setFinalityConfirmations()`](/sdk/reference/processors/evm-batch/general/#set-finality-confirmation) setting
+
+```mdx-code-block
+</TabItem>
+<TabItem value="substrate" label="Substrate">
+```
+
+All blocks above the latest finalized block provided by the [`chain_getFinalizedHead()`](https://polkadot.js.org/docs/substrate/rpc/#getfinalizedhead-blockhash) RPC method
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+The processor will periodically (interval setting for [EVM](/sdk/reference/processors/evm-batch/general/#set-chain-poll-interval), [Substrate](/sdk/reference/processors/substrate-batch/general/#set-chain-poll-interval)) poll the RPC endpoint for changes in consensus. When the consensus changes, it will re-run the [batch handler](/sdk/overview/#processorrun) with the new consensus data and ask the `Database` to adjust its state. The `Database` then must roll back the changes made due to orphaned blocks and apply the new changes. With this, the state of the `Database` reflects the current blockchain consensus at all times.
