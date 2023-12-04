@@ -257,7 +257,7 @@ const urlList = [
     },
     {
         "from": "/deploy-squid/best-practices",
-        "to": "/cloud/best-practices"
+        "to": "/cloud/resources/best-practices"
     },
     {
         "from": "/deploy-squid/organizations",

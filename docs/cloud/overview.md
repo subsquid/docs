@@ -13,7 +13,7 @@ The deployment is managed by the file `squid.yaml` in the root folder of the squ
 - [what resources should be allocated](/cloud/reference/scale) by Cloud for each squid service (only configurable if you deploy to a [Professional organization](/cloud/resources/organizations/#professional-organizations))
 
 :::tip
-Make sure to check our [best practices guide](/cloud/best-practices) before deploying to production!
+Make sure to check our [best practices guide](/cloud/resources/best-practices) before deploying to production!
 :::
 
 :::warning
