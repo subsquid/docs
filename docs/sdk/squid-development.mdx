@@ -253,20 +253,20 @@ Follow the respective reference configuration pages of each typegen tool:
 * [Substrate typegen configuration](/dead)
 * [ink! typegen configuration](/dead)
 
-```mdx-code-block
 <details>
 <summary>A tip for `frontier-evm` squids</summary>
-```
+
 These squids use both Substrate typegen _and_ EVM typegen. To generate all the required utilities, [configure the Substrate part](/dead), then save all relevant JSON ABIs to `./abi`, then run
 ```bash
 sqd typegen
 ```
 
-```mdx-code-block
 </details>
+
+```mdx-code-block
 </TabItem>
 </Tabs>
-````
+```
 
 ### II. Configure the data requests {#processor-config}
 
@@ -342,7 +342,7 @@ This structure ([reference](/sdk/reference/processors/architecture/#batch-contex
 ```
 Each item in `ctx.blocks` contains the data for the requested logs, transactions, traces and state diffs for a particular block, plus some info on the block itself. See [EVM batch context reference](/sdk/reference/processors/evm-batch/context-interfaces).
 
-Use the `.decode` methods from the [contract ABI utilities](#typegen) to decode events and transactions, e.g. like this
+Use the `.decode` methods from the [contract ABI utilities](#typegen) to decode events and transactions, e.g.
 
 ```ts
 import * as erc20abi from './abi/erc20'
@@ -363,6 +363,45 @@ See also the [EVM data decoding reference](/dead).
 </TabItem>
 <TabItem value="substrate" label="Substrate">
 ```
+Each item in `ctx.blocks` contains the data for the requested events, calls and, if requested, any related extrinsics; it also has some info on the block itself. See [Substrate batch context reference](/sdk/reference/processors/substrate-batch/context-interfaces).
+
+Use the `.is()` and `.decode()` functions to decode the data for each runtime version, e.g. like this:
+
+```ts
+import {events} from './types'
+
+processor.run(db, async ctx => {
+  for (let block of ctx.blocks) {
+    for (let event of block.events) {
+      if (event.name == events.balances.transfer.name) {
+        let rec: {from: string; to: string; amount: bigint}
+        if (events.balances.transfer.v1020.is(event)) {
+          let [from, to, amount] = events.balances.transfer.v1020.decode(event)
+          rec = {from, to, amount}
+        }
+        else if (events.balances.transfer.v1050.is(event)) {
+          let [from, to, amount] = events.balances.transfer.v1050.decode(event)
+          rec = {from, to, amount}
+        }
+        else if (events.balances.transfer.v9130.is(event)) {
+          rec = events.balances.transfer.v9130.decode(event)
+        }
+        else {
+          throw new Error('Unsupported spec')
+        }
+      }
+    }
+  }
+})
+
+```
+
+See also the [Substrate data decoding reference](/dead).
+
+You can also decode the data of certain pallet-specific events and transactions with specialized tools:
+ - use the utility classes made with `@substrate/squid-ink-typegen` to [decode events emitted by ink! contracts](/sdk/resources/substrate/ink/#ink-typegen)
+ - use the [`@subsquid/frontier` utils](/sdk/resources/substrate/frontier-evm/#event-and-transaction-data-parsing) and the [EVM typegen](/dead) to decode event logs and transactions of EVM contracts
+
 ```mdx-code-block
 </TabItem>
 </Tabs>
