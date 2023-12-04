@@ -5,7 +5,7 @@ description: Quickstart on how to deploy a squid
 
 # Quickstart
 
-This section goes through deploying a squid to [Subsquid Cloud](https://app.subsquid.io).
+This section goes through serverless deployment of an indexing project (*squid*) to [Subsquid Cloud](https://app.subsquid.io).
 The deployment is managed by the file `squid.yaml` in the root folder of the squid and defines:
 
 - [squid name and version](/cloud/reference/manifest/#header)
