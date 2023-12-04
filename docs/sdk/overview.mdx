@@ -10,10 +10,7 @@ import TabItem from '@theme/TabItem';
 # Overview
 
 A _squid_ is an indexing project built with [Squid SDK](https://github.com/subsquid/squid-sdk) to retrieve and process blockchain data from the [Subsquid Network](/subsquid-network/overview)
-(either permissioned or decentralized instance). The Squid SDK is a set of typescript-based open-source libraries to decode, transform, persist and 
-make the transformed data avaiable via an API. All stages of the indexing pipeline, from the data extraction
-to transformation to persistence are designed to be batch-based to maximize the indexing speed. The modular architecture of the SDK
-makes it possible to extend the indexing projects (squids) with custom plugins and data targets.
+(either permissioned or decentralized instance). The Squid SDK is a set of open source Typescript libraries that retrieve, decode, transform and persist the data. It can also make the transformed data available via an API. All stages of the indexing pipeline, from the data extraction to transformation to persistence are performed on [batches of blocks](/sdk/resources/batch-processing) to maximize the indexing speed.
 
 ## Required squid components
 
