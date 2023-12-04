@@ -84,12 +84,12 @@ export default function Home(): JSX.Element {
           <GuideCard
             path="/sdk/resources/squid-gen"
             color={'bg-role--success'}
-            description="Index any smart contract log and transaction data in 5 minutes">Quickstart
+            description="A 5 minutes intro into Squid SDK">Quickstart
           </GuideCard>
           <GuideCard
             path="/sdk/resources/external-api"
             color={'bg-role--success'}
-            description="Enrich the indexed data with third-party API and IPFS queries">Query APIs and IPFS
+            description="Power up your indexer with third-party APIs and IPFS queries">Query APIs and IPFS
           </GuideCard>
           <GuideCard
             path="/sdk/reference/graphql-server/subscriptions"
@@ -98,7 +98,7 @@ export default function Home(): JSX.Element {
           <GuideCard
             path="/cloud/resources/production-alias"
             color={'bg-role--notice'}
-            description="Switch between versions with zero downtime">Production aliases</GuideCard>
+            description="Manage indexers deployed to Subsquid Cloud with zero downtime">Production aliases</GuideCard>
           <GuideCard
             color={'bg-role--notice'}
             path="/sdk/overview"
@@ -107,7 +107,7 @@ export default function Home(): JSX.Element {
           <GuideCard
             path="/sdk/resources/substrate/ink"
             color={'bg-role--notice'}
-            description="Index WASM contracts developed with ink!">ink! smart contracts</GuideCard>
+            description="First-class indexing of WASM contracts developed with ink!">ink! smart contracts</GuideCard>
           <GuideCard
             path="/sdk/resources/subsquid-vs-thegraph"
             color={'bg-role--success'}
@@ -117,13 +117,13 @@ export default function Home(): JSX.Element {
             isExternalLink={true}
             path="https://www.youtube.com/playlist?list=PLH2948XqklrgTvG6-ro3eqS17j7n_raiN"
             color={'bg-role--success'}
-            description="Step-by-step video tutorials covering the most powerful Subsquid features">Subsquid Academy
+            description="Stay ahead of the curve and discover the latest trends in Web3 data">Subsquid Blog
           </GuideCard>
           <GuideCard
             isExternalLink={true}
             path="https://github.com/subsquid-labs/"
             color={'bg-role--success'}
-            description="Dive into our SDK samples and indexing templates on GitHub">Show me the code!
+            description="Learn by example: ready-to-use indexers built with Squid SDK">Show me the code!
           </GuideCard>
         </div>
       </div>
