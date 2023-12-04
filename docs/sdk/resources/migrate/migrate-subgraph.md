@@ -164,7 +164,7 @@ In Subgraph data is saved in the `mapping.ts` file. The mapping function will re
 We migrate the subgraph handlers that transform the event data into `Gravatar` objects. Instead of saving or updating gravatars one by one, `EvmBatchProcessor` receives an ordered batch of event items it is subscribed to. In our case we have only two kinds of logs -- emitted on gravatar creations and updates.
 
 The entry point for transform code is `src/main.ts`. We start by appending an auxiliary data normalization function to the end of that file:
-```ts title=src/main.ts
+```ts title="src/main.ts"
 function extractData(evmLog: any): { id: bigint, owner: string, displayName: string, imageUrl: string} {
   if (evmLog.topics[0] === events.NewGravatar.topic) {
     return events.NewGravatar.decode(evmLog)
@@ -178,7 +178,7 @@ function extractData(evmLog: any): { id: bigint, owner: string, displayName: str
 
 Next, we make a [batch handler](/sdk/overview/#processorrun) collecting the updates from a single batch of EVM logs. To convert a `0x...` string into a byte array we use the `decodeHex` utility from Subsquid SDK.
 
-```ts title=src/main.ts
+```ts title="src/main.ts"
 import { TypeormDatabase } from '@subsquid/typeorm-store'
 import { decodeHex } from '@subsquid/evm-processor'
 import { events } from './abi/Gravity'

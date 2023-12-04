@@ -14,7 +14,7 @@ Let's consider how it works in a DEX example, with a contract emitting `PoolCrea
 
 [//]: # (!!!! Update the archive and chain specs on release)
 
-```typescript title=src/processor.ts
+```typescript title="src/processor.ts"
 export const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
@@ -42,7 +42,7 @@ export const processor = new EvmBatchProcessor()
   })
 ```
 
-```typescript title=src/main.ts
+```typescript title="src/main.ts"
 let factoryPools: Set<string>
 
 processor.run(new TypeormDatabase(), async (ctx) => {
@@ -78,7 +78,7 @@ The technique has a couple of limitations:
 
 The idea is to retrieve the list of the contracts that the factory deploys up to a certain block _before the main sync starts_. Then all data of interest up to that block can be requested only for these contracts. Once that data is retrieved, the contract can switch back to retrieving the data chain-wide and filtering it in processor. The example above can be changed to:
 
-```typescript title=src/processor.ts
+```typescript title="src/processor.ts"
 const { preloadHeight, preloadedPools } = loadPools() // e.g. from a filesystem
 
 export const processor = new EvmBatchProcessor()

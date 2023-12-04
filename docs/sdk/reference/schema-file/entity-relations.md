@@ -38,7 +38,7 @@ The `User` entity references `Account` and owns the one-to-one relation. This is
 
 :::info
 Unlike for the many-to-one case, the codegen will not add a virtual reverse lookup property to the TypeORM code for one-to-one relations. You can add it manually:
-```typescript title=src/model/generated/account.model.ts
+```typescript title="src/model/generated/account.model.ts"
 import {OneToOne as OneToOne_} from "typeorm"
 
 @Entity_()

@@ -43,7 +43,7 @@ Reading about [elsewhere](https://eips.ethereum.org/EIPS/eip-721) we learn that 
 ## Configuring the data filters
 
 A "squid processor" is the Node.js process and the [object that powers it](/sdk/overview/) that are responsible for retrieving filtered blockchain data from a specialized data lake (an [archive](/subsquid-network/overview)), transforming it and saving the result to a destination of choice. To configure the processor (object) to retrieve the `Transfer` events of the BAYC token contract, we initialize it like this:
-```typescript title=src/processor.ts
+```typescript title="src/processor.ts"
 // ...
 import * as bayc from './abi/bayc'
 
@@ -100,7 +100,7 @@ Here,
 Batch handler is where the raw on-chain data from the archive is decoded, transformed and persisted. This is the part we'll be concerned with for the rest of the tutorial.
 
 We begin by defining a batch handler decoding the `Transfer` event:
-```typescript title=src/main.ts
+```typescript title="src/main.ts"
 import {TypeormDatabase} from '@subsquid/typeorm-store'
 import {processor, CONTRACT_ADDRESS} from './processor'
 import * as bayc from './abi/bayc'
@@ -138,7 +138,7 @@ The full code can be found at [this commit](https://github.com/subsquid-labs/bay
 TypeORM code is generated from `schema.graphql` with the [`squid-typeorm-codegen`](/sdk/resources/persisting-data/typeorm) tool and must be regenerated every time the schema is changed. This is usually accompanied by regenerating the [database migrations](/sdk/resources/persisting-data/typeorm/) and recreating the database itself. The migrations are applied before every run of the processor, ensuring that whenever any TypeORM code within the processor attempts to access the database, the database is in a state that allows it to succeed.
 
 The main unit of data in `schema.graphql` is [entity](/sdk/reference/schema-file/entities/). These map onto [TypeORM entites](https://typeorm.io/entities) that in turn map onto database tables. We define one for `Transfer` events by replacing the file contents with
-```graphql title=schema.graphql
+```graphql title="schema.graphql"
 type Transfer @entity {
     id: ID!
     tokenId: BigInt! @index
@@ -162,7 +162,7 @@ sqd up
 sqd migration:generate
 ```
 The generated code is in `src/model`. We can now import a `Transfer` entity class from there and use it to perform [various operations](/sdk/resources/persisting-data/typeorm/) on the corresponding database table. Let us rewrite our batch handler to save the parsed `Transfer` events data to the database:
-```typescript title=src/main.ts
+```typescript title="src/main.ts"
 import {TypeormDatabase} from '@subsquid/typeorm-store'
 import {processor, CONTRACT_ADDRESS} from './processor'
 import * as bayc from './abi/bayc'

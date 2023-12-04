@@ -37,7 +37,7 @@ To make the indexer, follow these steps:
    ```
 
 2. Add a minimal `tsconfig.json`:
-   ```json title=tsconfig.json
+   ```json title="tsconfig.json"
    {
      "compilerOptions": {
        "rootDir": "src",
@@ -53,7 +53,7 @@ To make the indexer, follow these steps:
    ```
 
 3. Define the schema for both the database and the core GraphQL API in [`schema.graphql`](/sdk/reference/schema-file):
-   ```graphql title=schema.graphql
+   ```graphql title="schema.graphql"
    type Transfer @entity {
      id: ID!
      from: String! @index
@@ -70,11 +70,11 @@ To make the indexer, follow these steps:
 
 5. Prepare the database:
    * create `.env` and `docker-compose.yaml` files
-     ```bash title=.env
+     ```bash title=".env"
      DB_NAME=squid
      DB_PORT=23798
      ```
-     ```yaml title=docker-compose.yaml
+     ```yaml title="docker-compose.yaml"
      version: "3"
      services:
        db:
@@ -167,7 +167,7 @@ To make the indexer, follow these steps:
    ```
 
 9. In a separate terminal, configure the GraphQL port and start the GraphQL server:
-   ```diff title=.env
+   ```diff title=".env"
     DB_NAME=squid
     DB_PORT=23798
    +GQL_PORT=4350

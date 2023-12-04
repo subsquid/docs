@@ -41,14 +41,14 @@ To do this, run one [processor](/sdk/overview) per source network:
 Also ensure that
 
 1. State schema name for each processor is unique
-  ```ts title=src/bsc/main.ts
+  ```ts title="src/bsc/main.ts"
   processor.run(
     new TypeormDatabase({
       stateSchema: 'bsc_processor'
     }),
     async ctx => { // ...
   ```
-  ```ts title=src/eth/main.ts
+  ```ts title="src/eth/main.ts"
   processor.run(
     new TypeormDatabase({
       stateSchema: 'eth_processor'

@@ -22,7 +22,7 @@ Now that we have a record for each BAYC NFT, let's explore how we can retrieve m
 This requires a RPC endpoint of an archive Ethereum node, but we do not need to add one here: processor will reuse the endpoint we [supplied in part one](../step-one-indexing-transfers/#configuring-the-data-filters) of the tutorial for use in [RPC ingestion](/sdk/overview/#rpc-ingestion).
 
 The next step is to prepare for retrieving and parsing the metadata proper. For this, we need to understand the protocols used in the URIs and the structure of metadata JSONs. To learn that, we retrieve and inspect some URIs ahead of the main squid sync. The most straightforward way to achieve this is by adding the following to the batch handler:
-```diff title=src/main.ts
+```diff title="src/main.ts"
 processor.run(new TypeormDatabase(), async (ctx) => {
      let tokens: Map<string, Token> = createTokens(rawTransfers, owners)
      let transfers: Transfer[] = createTransfers(rawTransfers, owners, tokens)
@@ -243,7 +243,7 @@ const client = axios.create({
 We move all the code related to metadata retrieval to a separate module `src/metadata.ts`. Examine its full contents [here](https://github.com/subsquid-labs/bayc-squid-1/blob/ab5f094ae34e8822dfb912f6e6116df2cfa800b5/src/metadata.ts).
 
 Then all that is left is to import the relevant parts in `src/main.ts`:
-```diff title=src/main.ts
+```diff title="src/main.ts"
 +import {TokenMetadata, fetchTokenMetadata} from './metadata'
 ```
 and we are done with the processor code for this part of the tutorial. Full squid code at this point is available at [this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/ab5f094ae34e8822dfb912f6e6116df2cfa800b5).

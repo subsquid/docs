@@ -81,7 +81,7 @@ Subscribe to messages emitted by a Gear program.
 ## Caveats
 
 - Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](../context-interfaces). As such, it is important to always filter the data within the batch handler. For example, a processor config like this
-  ```ts title=src/procesor.ts
+  ```ts title="src/procesor.ts"
   export const processor = new SubstrateBatchProcessor()
     .addEvent({
       name: ['Balances.Transfer']
@@ -89,7 +89,7 @@ Subscribe to messages emitted by a Gear program.
     // the rest of the configuration
   ```
   should always be matched with
-  ```ts title=src/main.ts
+  ```ts title="src/main.ts"
   processor.run(database, async ctx => {
     // ...
     for (let block of ctx.blocks) {
@@ -483,14 +483,14 @@ While the set of handler subscriptions is static and defined at the processor cr
 * If your use case does not require any Substrate-specific data (e.g. extrinsic hashes), use [`EvmBatchProcessor`](/sdk) instead. EVM-only Archives are [available](/subsquid-network/reference/evm-networks) for all major EVM-on-Substrate chains.
 
 * Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](../context-interfaces). As such, it is important to always filter the data within the batch handler: match e.g.
-  ```ts title=src/processor.ts
+  ```ts title="src/processor.ts"
   .addEvmLog({
     address: ['0xb654611f84a8dc429ba3cb4fda9fad236c505a1a'],
     topic0: [erc721.events.Transfer.topic],
   })
   ```
   with
-  ```ts title=src/main.ts
+  ```ts title="src/main.ts"
   processor.run(new TypeormDatabase(), async ctx => {
     for (const block of ctx.blocks) {
       for (const event of block.events) {

@@ -223,7 +223,7 @@ Finally, update the batch handler to use the new [batch context](/sdk/overview/#
    curl -o src/transformContext.ts https://gist.githubusercontent.com/belopash/aa6b67dc374add44b9bdff1c9c1eee17/raw/441d43a932591624822b5bfd51a23147b5cecac2/transformContext.ts
    ```
    then transform the new context to the old format at the beginning of the batch handler:
-   ```typescript title=src/processor.ts
+   ```typescript title="src/processor.ts"
    import {transformContext} from './transformContext'
    
    // ...

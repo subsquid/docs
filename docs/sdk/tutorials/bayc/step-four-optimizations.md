@@ -20,7 +20,7 @@ We begin by introducing [batch processing](/sdk/resources/batch-processing/) whe
 npx squid-evm-typegen --multicall src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#bayc
 ```
 This adds a Typescript ABI interface at `src/abi/multicall.ts`. Let us use it in a rewrite of `completeTokens()`:
-```typescript title=src/main.ts
+```typescript title="src/main.ts"
 import {Multicall} from './abi/multicall'
 
 const MULTICALL_ADDRESS = '0xeefba1e63905ef1d7acba5a8513c70307c1ce441'
@@ -200,7 +200,7 @@ In part 3 of this tutorial we [explored metadata URIs](../step-three-adding-exte
 npx squid-evm-typegen --multicall src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#bayc
 ```
 then add the code for batch URI retrieval to the batch handler:
-```diff title=src/main.ts
+```diff title="src/main.ts"
 +import {Multicall} from './abi/multicall'
 
 +const MULTICALL_ADDRESS = '0xeefba1e63905ef1d7acba5a8513c70307c1ce441'
