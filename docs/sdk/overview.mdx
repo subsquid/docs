@@ -22,21 +22,21 @@ _Processor_ is the word used for
 
 `processor` objects handle data retrieval and transformation; data persistence is handled by a separate object called [Store](#store). Squid SDK offers two processor classes:
 
-* `EvmBatchProcessor` via the [`@subsquid/evm-processor`](https://www.npmjs.com/package/@subsquid/evm-processor) NPM package - for Ethereum-compatible [networks](/subsquid-network/reference/evm-networks)
-* `SubstrateBatchProcessor` via [`@subsquid/substrate-processor`](https://www.npmjs.com/package/@subsquid/substrate-processor) - for [networks](/subsquid-network/reference/substrate-networks) based on [Substrate](https://substrate.io) such as [Polkadot](https://polkadot.network)
+* [`EvmBatchProcessor`](/sdk/reference/processors/evm-batch) via the [`@subsquid/evm-processor`](https://www.npmjs.com/package/@subsquid/evm-processor) NPM package - for Ethereum-compatible [networks](/subsquid-network/reference/evm-networks)
+* [`SubstrateBatchProcessor`](/sdk/reference/processors/substrate-batch) via [`@subsquid/substrate-processor`](https://www.npmjs.com/package/@subsquid/substrate-processor) - for [networks](/subsquid-network/reference/substrate-networks) based on [Substrate](https://substrate.io) such as [Polkadot](https://polkadot.network)
 
 ### Store
 
 A _store_ is an object that processors use to persist their data. Subsquid offers three store classes:
 
-* `TypeormStore` for saving data to PostgreSQL, via
+* [`TypeormStore`](/sdk/resources/persisting-data/typeorm) for saving data to PostgreSQL, via
   - [`@subsquid/typeorm-store`](https://www.npmjs.com/package/@subsquid/typeorm-store)
   - [`@subsquid/typeorm-codegen`](https://www.npmjs.com/package/@subsquid/typeorm-codegen) (a code generator, install with `--save-dev`)
   - [`@subsquid/typeorm-migration`](https://www.npmjs.com/package/@subsquid/typeorm-migration)
 
   Install all three packages to use this store.
-* `file-store` via [`@subsquid/file-store`](https://www.npmjs.com/package/@subsquid/file-store) - for saving data to filesystems. It is a modular system with a variety of [extensions](/sdk/reference/store/file) for various formats and destinations.
-* `bigquery-store` via [`@subsquid/bigquery-store`](https://www.npmjs.com/package/@subsquid/bigquery-store) - for saving data to [Google BigQuery](https://cloud.google.com/bigquery).
+* [`file-store`](/sdk/resources/persisting-data/file) via [`@subsquid/file-store`](https://www.npmjs.com/package/@subsquid/file-store) - for saving data to filesystems. It is a modular system with a variety of [extensions](/sdk/reference/store/file) for various formats and destinations.
+* [`bigquery-store`](/sdk/resources/persisting-data/bigquery) via [`@subsquid/bigquery-store`](https://www.npmjs.com/package/@subsquid/bigquery-store) - for saving data to [Google BigQuery](https://cloud.google.com/bigquery).
 
 You can mix and match any store class with any processor class.
 
@@ -50,7 +50,7 @@ A _typegen_ is a tool for generating utility code for technology-specific operat
 <Tabs>
 <TabItem value="evm" label="On EVM">
 ```
-* `squid-evm-typegen` via [`@subsquid/evm-typegen`](https://www.npmjs.com/package/@subsquid/evm-typegen):
+* [`squid-evm-typegen`](/dead) via [`@subsquid/evm-typegen`](https://www.npmjs.com/package/@subsquid/evm-typegen):
   - decodes smart contract data
   - handles direct calls to contract methods
   - exposes useful constants such as event topics and function signature hashes
@@ -59,10 +59,10 @@ A _typegen_ is a tool for generating utility code for technology-specific operat
 </TabItem>
 <TabItem value="substrate" label="On Substrate">
 ```
-* `squid-substrate-typegen` via [`@subsquid/substrate-typegen`](https://www.npmjs.com/package/@subsquid/substrate-typegen):
+* [`squid-substrate-typegen`](/dead) via [`@subsquid/substrate-typegen`](https://www.npmjs.com/package/@subsquid/substrate-typegen):
   - general purpose pallet data decoding (aware of runtime versions)
   - handles direct storage queries
-* `squid-ink-typegen` via [`@subsquid/ink-typegen`](https://www.npmjs.com/package/@subsquid/ink-typegen) for decoding the data of [ink!](https://use.ink) contracts
+* [`squid-ink-typegen`](/dead) via [`@subsquid/ink-typegen`](https://www.npmjs.com/package/@subsquid/ink-typegen) for decoding the data of [ink!](https://use.ink) contracts
 
 ```mdx-code-block
 </TabItem>
