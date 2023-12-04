@@ -4,7 +4,7 @@ sidebar_position: 60
 
 # Troubleshooting
 
-### `Secrets outdated. Please restart the squid` notification in Aquarium
+### "Secrets outdated. Please restart the squid" warning
 
 This occurs when you have a squid deployed, then create, remove or change some [environment variables](/squid-cli/secrets) of [relevance](/cloud/resources/organizations). Squids must be restarted manually for such changes to have effect. Navigate to the squid version page (e.g. by clicking on the warning sign) and click restart. The restart will not touch the database, so unless your new secret values cause the squid to crash this procedure should be quick and easy.
 
@@ -31,8 +31,4 @@ Since both the squid and version name become part of the squid API endpoint URL,
 
 ### My squid ran out of disk space
 
-Get in contact with the [Squid Squad](https://t.me/SquidDevs) and request extra resources. 
-
-### I have exceeded the limit of squid versions
-
-Get in contact with the [Squid Squad](https://t.me/SquidDevs) to get a Premium tier.
+Edit the [postgres addon](/cloud/reference/pg) section of `squid.yaml` and request more space for the database. 
