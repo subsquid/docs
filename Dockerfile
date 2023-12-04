@@ -1,6 +1,6 @@
 ## Base ########################################################################
 # Use a larger node image to do the build for native deps (e.g., gcc, python)
-FROM node:16-alpine as base
+FROM node:18-alpine as base
 
 # Reduce npm log spam and colour during install within Docker
 ENV NPM_CONFIG_LOGLEVEL=warn
