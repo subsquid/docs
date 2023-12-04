@@ -13,7 +13,7 @@ The table below lists the currently available public Substrate endpoints to be u
 |:--------------------:|:---------------------------------------------------:|:----------------------------------------------------------------------------:|
 | acala                | `lookupArchive('acala')`                            | `lookupArchive('acala',` `{release: 'ArrowSquid'})`                          |
 | aleph-zero           | `lookupArchive('aleph-zero')`                       | `lookupArchive('aleph-zero',` `{release: 'ArrowSquid'})`                     |
-| aleph-zero-testnet   | `lookupArchive('aleph-zero-testnet')`               | temporarily unavailable                                                      |
+| aleph-zero-testnet   | `lookupArchive('aleph-zero-testnet')`               | `lookupArchive('aleph-zero-testnet',` `{release: 'ArrowSquid'})`             |
 | altair               | `lookupArchive('altair')`                           | temporarily unavailable                                                      |
 | amplitude            | `lookupArchive('amplitude')`                        | `lookupArchive('amplitude',` `{release: 'ArrowSquid'})`                      |
 | asset-hub-kusama (*) | not available                                       | `lookupArchive('asset-hub-kusama',` `{release: 'ArrowSquid'})`               |
@@ -63,7 +63,6 @@ The table below lists the currently available public Substrate endpoints to be u
 | kilt                 | `lookupArchive('kilt')`                             | `lookupArchive('kilt',` `{release: 'ArrowSquid'})`                           |
 | kintsugi             | `lookupArchive('kintsugi')`                         | `lookupArchive('kintsugi',` `{release: 'ArrowSquid'})`                       |
 | kusama               | `lookupArchive('kusama')`                           | `lookupArchive('kusama',` `{release: 'ArrowSquid'})`                         |
-| kylin                | `lookupArchive('kylin')`                            | temporarily unavailable                                                      |
 | litentry             | `lookupArchive('litentry')`                         | `lookupArchive('litentry',` `{release: 'ArrowSquid'})`                       |
 | litmus               | `lookupArchive('litmus')`                           | `lookupArchive('litmus',` `{release: 'ArrowSquid'})`                         |
 | manta                | `lookupArchive('manta')`                            | temporarily unavailable                                                      |
@@ -96,7 +95,6 @@ The table below lists the currently available public Substrate endpoints to be u
 | statemint            | `lookupArchive('statemint')`                        | temporarily unavailable                                                      |
 | subsocial-parachain  | `lookupArchive('subsocial-parachain')`              | temporarily unavailable                                                      |
 | subsocial            | `lookupArchive('subsocial')`                        | temporarily unavailable                                                      |
-| t0rn                 | `lookupArchive('t0rn')`                             | temporarily unavailable                                                      |
 | tanganika            | `lookupArchive('tanganika')`                        | temporarily unavailable                                                      |
 | ternoa               | `lookupArchive('ternoa')`                           | temporarily unavailable                                                      |
 | tidechain            | `lookupArchive('tidechain')`                        | temporarily unavailable                                                      |
