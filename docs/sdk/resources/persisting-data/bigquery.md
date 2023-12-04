@@ -49,17 +49,7 @@ The dataset must be created prior to running the processor.
 :::
  * `tables` lists the tables that will be created and populated within the dataset. For every field of the `tables` object an eponymous field of the `ctx.store` object will be created; calling `insert()` or `insertMany()` on such a field will result in data being queued for writing to the corresponding dataset table. The actual writing will be done at the end of the batch in a single transaction, ensuring dataset integrity.
 
-Tables are made out of statically typed columns. Available types:
-
-| Column type                    | Value type                       | Dataset column type                                                                                      |
-|:------------------------------:|:--------------------------------:|:--------------------------------------------------------------------------------------------------------:|
-| `String()`                     | `string`                         | [STRING](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#string_type)           |
-| `Numeric(precision, scale)`    | <code>number &#124 bigint</code> | [NUMERIC(P[, S])](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#parameterized_decimal_type)    |
-| `BigNumeric(precision, scale)` | <code>number &#124 bigint</code> | [BIGNUMERIC(P[, S])](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#parameterized_decimal_type) |
-| `Bool()`                       | `boolean`                        | [BOOL](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#boolean_type)            |
-| `Timestamp()`                  | `Date`                           | [TIMESTAMP](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#timestamp_type)     |
-| `Float64()`                    | `number`                         | [FLOAT64](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#floating_point_types) |
-| `Int64()`                      | <code>number &#124 bigint</code> | [INT64](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#integer_types)          |
+Tables are made out of statically typed columns. Available types are listed on the [reference page](/sdk/reference/store/bigquery).
 
 ## Deploying to Subsquid Cloud
 

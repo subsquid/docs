@@ -6,6 +6,10 @@ description: Subscription types and pay-as-you-go prices
 
 # Subsquid Cloud Pricing
 
+## Free squids
+
+Each account gets a playground [organization](/cloud/resources/organizations) where a single free squid can be deployed. Certain limitations apply; check the [playground organization](/cloud/resources/organizations/#playgrounds) section for details.
+
 ## Billing
 
 Subsquid bills [organizations](/cloud/resources/organizations) for the resources used by their squids. To deploy production-ready squids and [configure](/cloud/reference/scale) their resources, the organization must have a [Professional status](/cloud/resources/organizations/#professional-organizations). All such organizations receive the following perks:

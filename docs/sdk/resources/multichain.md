@@ -60,7 +60,7 @@ Also ensure that
 
 ### Handling concurrency
 
-  - The [default isolation level](/sdk/resources/persisting-data/typeorm/#constructor-options) used by `TypeormDatabase` is `SERIALIZABLE`, the most secure and the most restrictive one. Another isolation level commonly used in multichain squids is `READ COMMITTED`, which guarantees that the execution is deterministic for as long as the sets of records that different processors read/write do not overlap.
+  - The [default isolation level](/sdk/reference/store/typeorm/#typeormdatabase-constructor-arguments) used by `TypeormDatabase` is `SERIALIZABLE`, the most secure and the most restrictive one. Another isolation level commonly used in multichain squids is `READ COMMITTED`, which guarantees that the execution is deterministic for as long as the sets of records that different processors read/write do not overlap.
   - To avoid overlaps, use per-chain records for volatile data. E.g. if you track account balances across multiple chains you can avoid overlaps by storing the balance for each chain in a different table row.
   - When you need to combine the records (e.g. get a total of all balaces across chains) use [custom resolvers](/sdk/reference/graphql-server/custom-resolvers) to do it on the GraphQL server side.
   - It is OK to use cross-chain [entities](/sdk/reference/schema-file/entities) to simplify aggregation. Just don't store any data in them:

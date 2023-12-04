@@ -445,7 +445,7 @@ At `src/main.ts`, change the [`Database`](/sdk/resources/persisting-data/overvie
    ```
    before issuing an `sqd up`.
 
-   The alternative is to use an [external database](/sdk/resources/persisting-data/typeorm/#using-an-external-database).
+   The alternative is to connect to an external database. See [this section](/sdk/reference/store/typeorm/#database-connection-parameters) to learn how to specify the connection parameters.
 
 5. Generate a migration with
    ```bash
@@ -540,6 +540,8 @@ processor.run(new TypeormDatabase(), async ctx => {
 })
 ```
 It will often make sense to keep the entity instances in maps rather than arrays to make it easier to reuse them when defining instances of other entities with [relations](/sdk/reference/schema-file/entity-relations) to the previous ones. The process is described in more detail in the [step 2 of the BAYC tutorial](/sdk/tutorials/bayc/step-two-deriving-owners-and-tokens).
+
+If you perform any [database lookups](/sdk/reference/store/typeorm/#typeorm-methods), try to do so in batches and make sure that the entity fields that you're searching over are [indexed](/sdk/reference/schema-file/indexes-and-constraints).
 
 See also the [patterns](/sdk/resources/batch-processing/#patterns) and [anti-pattens](/sdk/resources/batch-processing/#anti-patterns) sections of the Batch processing guide.
 

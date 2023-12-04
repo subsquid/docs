@@ -1,5 +1,5 @@
 ---
-sidebar_position: 115
+sidebar_position: 30
 ---
 
 # GraphQL

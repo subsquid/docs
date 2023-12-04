@@ -5,7 +5,7 @@ description: >-
   Store API for persisting the transformed data
 ---
 
-`Store` is a generic interface exposed by `DataHandlerContext.store` to the batch handler that defines an interface for persisting data. Its concrete type is inferred from the `Database` argument of the `run()` method:
+`Store` is a generic interface exposed by [`DataHandlerContext`](/sdk/reference/processors/architecture/#batch-context) at `.store`. It is used in the [batch handler](/sdk/reference/processors/architecture/#processorrun) to persist data. Its concrete type is inferred from the `Database` argument of the [`run()` processor method](/sdk/reference/processors/architecture/#processorrun):
 
 ```typescript
 run<Store>(
@@ -15,13 +15,18 @@ run<Store>(
 ): void
 ```
 
-The `Database` interface defines how the processor persists its status and the store. Squid SDK supports `Database` implementations for [`TypeORM`-compatible databases](/sdk/resources/persisting-data/typeorm), [file-based datasets](/sdk/resources/persisting-data/file) and [Google BigQuery](/sdk/resources/persisting-data/bigquery). Support for more databases and analytics storage will be added in the future.
+The `Database` implementation supplied here defines the store and the way the processor [persists its status](/sdk/faq/#how-do-squids-keep-track-of-their-sync-progress). Squid SDK supports `Database` implementations for:
+ * [`TypeORM`-compatible databases](/sdk/resources/persisting-data/typeorm)
+ * [file-based datasets](/sdk/resources/persisting-data/file)
+ * [Google BigQuery](/sdk/resources/persisting-data/bigquery)
+
+Support for more databases and analytics storage will be added in the future.
 
 ## Custom `Database`
 
 A custom implementation of the `Database` interface is the recommended solution for squids with multiple data sinks and/or for non-transactional or non-relational databases. In such a case, the inferred `Store` facade exposed to the handlers may provide multiple targets for persisting the data. `Database.transact` should handle potential edge-cases when writes to either of the data sinks fail.
 
-In order to implement a custom adapter to a data sink, it suffices to implement the `Database` interface:
+In order to implement a custom data sink adapter, it suffices to implement the `Database` interface:
 
 ```ts
 export type Database<S> = FinalDatabase<S> | HotDatabase<S>

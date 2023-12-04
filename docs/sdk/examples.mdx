@@ -17,12 +17,12 @@ Browse a dedicated repository with [EVM squid examples](https://github.com/subsq
 
 - A [squid indexing ERC20 transfers](https://github.com/subsquid-labs/evm-logs-example) by extracting `Transfer(address,address,uint256)` logs emitted by the USDC contract.
 - A [squid indexing DEX trades](https://github.com/subsquid-labs/evm-factory-example) while dynamically tracking Uniswap v3 pool contracts as they are deployed. Shows [factory contract](/sdk/resources/evm/factory-contracts) indexing in action.
-- A [NFT indexing squid](https://github.com/subsquid-labs/evm-multicall-example) that additionally queries the NFT metadata from the contract state. Illustrates batching RPC calls using the [Multicall contract](/sdk/reference/typegen/configuration/#batching-contract-state-calls-using-the-multicall-contract).
+- A [NFT indexing squid](https://github.com/subsquid-labs/evm-multicall-example) that additionally queries the NFT metadata from the contract state. Illustrates batching RPC calls using the [Multicall contract](/sdk/reference/typegen/generation/#batching-contract-state-calls-using-the-multicall-contract).
 - A [multichain squid](https://github.com/subsquid-labs/squid-multichain-template) tracking USDC `Transfer` events on both Ethereum and BSC.
 
 and a few others.
 
-## Processor configs showcase {#evm-showcase}
+### Processor configs showcase {#evm-showcase}
 
 The snippets below show how to configure [`EvmBatchProcessor`](/sdk/reference/processors/evm-batch) and use Squid SDK to build a custom indexer for various use-cases. Each snippet comes with a link to a repository with full sources, and can be used [as a template](/squid-cli/init/#sqd-init-name).
 

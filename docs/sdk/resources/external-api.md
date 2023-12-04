@@ -5,7 +5,7 @@ description: Use external APIs and IPFS from a squid
 
 # External APIs and IPFS
 
-Squid processor is a usual node.js process, so one can fetch data from external APIs or IPFS gateways within the `processor.run()` method. Normally, one uses API calls in combination with API keys set via [secrets](/cloud/resources/env-variables) when deployed to Subsquid Cloud.
+Squid processor is a usual node.js process, so one can fetch data from external APIs or IPFS gateways within the `processor.run()` method. In squids deployed to [Subsquid Cloud](/cloud) one normally uses API calls in combination with API keys set via [secrets](/cloud/resources/env-variables).
 
 ### Example
 
@@ -42,7 +42,7 @@ async function getETHPriceByDate(timestamp: number): Promise<bigint> {
 
 For reliable indexing of content stored on IPFS (e.g. NFT metadata) we recommend fetching from dedicated IPFS gateways, e.g. provided by [Cloudflare](https://www.cloudflare.com/web3/).
 
-For a more elaborate example of with IPFS gateway and external API calls, inspect the [BAYC NFT indexing squid](https://github.com/subsquid-labs/ipfs-example).
+For a more elaborate example of with IPFS gateway and external API calls, inspect the [Step 3 of the BAYC tutorial](/sdk/tutorials/bayc/step-three-adding-external-data).
 
 ### Example
 

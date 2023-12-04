@@ -1,32 +1,17 @@
 ---
 sidebar_position: 10
-title: TypeormDatabase class
+title: typeorm-store
 description: >-
   Optimized TypeORM-based store
 ---
 
-# `TypeormDatabase` 
+# `@subsquid/typeorm-store`
 
-`TypeormDatabase` context store provides a wrapper over the [TypeORM `EntityManager`](https://typeorm.io/entity-manager-api) optimized for batch saving. It currently supports only Postgres-compatible databases and seamlessly integrates with entity classes generated from the [schema file](/sdk/reference/schema-file).
+This page describes the interface of the classes from the `@subsquid/typeorm-store` NPM package. If you're looking for a guide on saving squid data to databases and the related workflows, check out the [Saving to PostgreSQL](/sdk/resources/persisting-data/typeorm) page.
 
-## Usage
- 
-```ts
-import { Store, TypeormDatabase } from '@subsquid/typeorm-store'
+## `TypeormDatabase` constructor arguments
 
-const dbOptions = {} // see Constructor options
-
-processor.run(new TypeormDatabase(dbOptions), async ctx => {
-  // ...  
-  await ctx.store.save([new FooEntity({ id: '1'}), new FooEntity({ id: '2'})])
-})
-``` 
-
-In the snippet above, `ctx.store` passed to the handlers will be of type `Store`.
-
-## Constructor options
-
-The behavior of `TypeormDatabase` and the derived `Store` objects can be tuned by setting the following fields of the database class constructor arguments:
+The argument of the `TypeormDatabase` class constructor may have the following fields:
 * `stateSchema: string`: the name of the [database schema](https://www.postgresql.org/docs/current/sql-createschema.html) that the processor uses to persist its status (currently just the highest reached block number). Useful for making sure that each processor uses its own state schema when running multiple processors against the same database (e.g. in a multichain setting). Default: `'squid_processor'`.
 * `isolationLevel: 'SERIALIZABLE' | 'READ COMMITTED' | 'REPEATABLE READ'`: sets the [transaction isolation level](https://www.postgresql.org/docs/current/transaction-iso.html) of processor transactions. Default: `'SERIALIZABLE'`.
 * `supportHotBlocks: boolean`: controls the support for hot blocks. Necessary in all squids that must be able to handle short-lived [blockchain forks](https://en.wikipedia.org/wiki/Fork_(blockchain)). That includes all squids that index chain data in near-real time using RPC endpoints. Default: `true`.
@@ -34,7 +19,7 @@ The behavior of `TypeormDatabase` and the derived `Store` objects can be tuned b
 
 ## `Store` interface
 
-### Batch methods
+### Batch access methods
 
 #### **`upsert(e: E | E[])`** {#upsert}
 
@@ -202,3 +187,16 @@ See the [TypeORM docs](https://typeorm.io/find-options) sections for details.
 `FullTypeormDatabase` context store provides full access to the underlying database, including execution of arbitrary queries with `.query()`. The interface is identical to that of [TypeORM EntityManager](https://typeorm.io/entity-manager-api).
 
 We recommend using `TypeormDatabase` store unless full access to the database is required.
+
+## Database connection parameters
+
+Database credentials must be supplied via the environment variables:
+
+* `DB_HOST` (default `localhost`)
+* `DB_PORT` (default `5432`)
+* `DB_NAME` (default `postgres`)
+* `DB_USER` (default `postgres`)
+* `DB_PASS` (default `postgres`)
+* `DB_SSL` (SSL will not be used unless set to `true`)
+
+`DB_SSL` sometimes does not suffice for connecting to SSL-only cloud databases. The workaround is to set `PGSSLMODE=require` in the [environment](/cloud/resources/env-variables).

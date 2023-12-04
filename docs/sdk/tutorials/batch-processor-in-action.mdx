@@ -1,17 +1,22 @@
 ---
 sidebar_position: 70
 description: >-
-  EVMBatchProcessor in action
+  Batch processors in action
 title: Processor in action
 ---
 
-# `EvmBatchProcessor` in action
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-[//]: # (!!!! Update examples and their URLs)
 
-An end-to-end idiomatic usage of `EvmBatchProcessor` can be inspected in the [gravatar-template repository](https://github.com/subsquid/gravatar-squid) (link out of date) and also learned from more elaborate [examples](/sdk/examples).
+```mdx-code-block
+<Tabs>
+<TabItem value="evm" label="EVM">
+```
 
-In order to illustrate the concepts covered thus far, here we highlight the key steps, put together a processor configuration and a data handling definition.
+An end-to-end idiomatic usage of `EvmBatchProcessor` can be inspected in the [gravatar template repository](https://github.com/subsquid/gravatar-squid) and also learned from more elaborate [examples](/sdk/examples).
+
+In order to illustrate the concepts covered in the [development guide](/sdk/squid-development), here we highlight the key steps, put together a processor configuration and a data handling definition.
 
 ## 1. Model the target schema and generate entity classes
 
@@ -61,7 +66,7 @@ The following code snippet illustrates a typical data transformation in a batch.
 
 - Iterate over `ctx.blocks` and `block.logs`
 - Decode each log using a suitable facade class
-- Enrich and transform the data 
+- Enrich and transform the data
 - Upsert arrays of entities in batches using `ctx.save()`
 
 The `processor.run()` method the looks as follows:
@@ -82,11 +87,11 @@ processor.run(new TypeormDatabase(), async (ctx) => {
         owner: decodeHex(owner),
         displayName,
         imageUrl
-      })) 
+      }))
     }
   }
   // Upsert the entities that were updated.
-  // Note that store.save() automatically updates 
+  // Note that store.save() automatically updates
   // the existing entities and creates new ones.
   // It splits the data into suitable chunks to
   // guarantee an adequate performance.
@@ -94,8 +99,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 });
 ```
 
-In the snippet above, we decode both `NewGravatar` and `UpdatedGravatar` with a single helper function that uses the 
-generated `events` facade class:
+In the snippet above, we decode both `NewGravatar` and `UpdatedGravatar` with a single helper function that uses the generated `events` facade class:
 ```ts
 function extractData(evmLog: any): { id: ethers.BigNumber, owner: string, displayName: string, imageUrl: string} {
   if (evmLog.topics[0] === events.NewGravatar.topic) {
@@ -121,18 +125,16 @@ In a separate terminal window, run
 sqd serve
 ```
 Inspect the GraphQL API at [`http://localhost:4350/graphql`](http://localhost:4350/graphql).
----
-sidebar_position: 70
-description: >-
-  Idiomatic usage of SubstrateBatchProcessor
-title: Processor in action
----
 
-# `SubstrateBatchProcessor` in action
+
+```mdx-code-block
+</TabItem>
+<TabItem value="substrate" label="Substrate">
+```
 
 An end-to-end idiomatic usage of `SubstrateBatchProcessor` can be inspected in the [squid-substrate-template](https://github.com/subsquid-labs/squid-substrate-template) and also learned from more elaborate [examples](/sdk/examples).
 
-Here we highlight the key steps and put together a configuration and a data handling definition to illustrate the concepts covered so far.
+Here we highlight the key steps and put together a configuration and a data handling definition to illustrate the concepts covered in the [squid development guide](/sdk/squid-development).
 
 ## 1. Set up the processor
 
@@ -291,4 +293,9 @@ processor.run(new TypeormDatabase(), async ctx => {
   // in a single statement
   await ctx.store.insert(transfers)
 })
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
 ```
