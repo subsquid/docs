@@ -257,7 +257,7 @@ const urlList = [
     },
     {
         "from": "/deploy-squid/best-practices",
-        "to": "/cloud/resources/best-practices"
+        "to": "/cloud/best-practices"
     },
     {
         "from": "/deploy-squid/organizations",
@@ -289,7 +289,7 @@ const urlList = [
     },
     {
         "from": "/deploy-squid/pricing",
-        "to": "/cloud/reference/pricing"
+        "to": "/cloud/pricing"
     },
     {
         "from": "/deploy-squid/promote-to-production",

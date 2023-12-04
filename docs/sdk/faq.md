@@ -13,21 +13,14 @@ Here is an incomplete list:
 - Mining smart contract deployments and the bytecode
 - Real-time bots (\<1sec delay) triggered by on-chain activity
 
-### What is the Premium plan?
 
-The access to Archives is free. Subsquid Cloud offers a free plan and a premium plan. The Premium plan is currently available by invite via the [form](https://docs.google.com/forms/d/e/1FAIpQLSchqvWxRhlw7yfBlfiudizLJI9hEfeCEuaSlk3wOcwB1HQf6g/viewform?usp=sf_link). When released to the public, Premium will be based on the fixed subscription fee + pay-as-you-go model. Details will be announced in the official Subsquid channels.
+### How does Squid SDK handle unfinalized blocks?
 
-### Do you have a roadmap?
-
-Yes, see the issue in [the official repo](https://github.com/subsquid/squid-sdk/issues/70).
-
-### How does Subsquid handle unfinalized blocks?
-
-Archives index only finalized blocks. Handling unfinalized blocks and potential block reorganizations is supported by the Squid SDK since the ArrowSquid release, see [Indexing unfinalized blocks](/sdk/resources/unfinalized-blocks).
+The Subsquid Network only serves finalized blocks and is typically ~1000 blocks behind the tip. The most recent blocks, as well as the unfinalized blocks are seemlesly handled by the SDK from a complementary RPC data source, set by the `chain` config. Potential chain reorgs are automatically handled under the hood. See [Indexing unfinalized blocks](/sdk/resources/unfinalized-blocks) for details.
 
 ### What is the latency for the data served by the squid? 
 
-Since the ArrowSquid release, the Squid SDK has the option to ingest unfinalized blocks directly from an RPC endpoint, making the indexing real-time. Archive-only squids without an RPC data source typically have a latency of a few minutes to a few hours.
+Since the ArrowSquid release, the Squid SDK has the option to ingest unfinalized blocks directly from an RPC endpoint, making the indexing real-time. 
 
 ### How do I enable GraphQL subscriptions for local runs?
 
@@ -46,3 +39,7 @@ drop schema squid_processor cascade;
 to reset the processor status.
 
 Squids that store their data in [file-based datasets](/sdk/resources/persisting-data/file) store their status in `status.txt` by default. This can be overridden by defining custom [database hooks](/sdk/resources/persisting-data/file/#filesystem-syncs-and-dataset-partitioning).
+
+### Is there a healthcheck endpoint for the indexer?
+
+Yes, the processor exposes the key prometheus metrics at the `${process.env.PROMETHEUS_PORT}/metric` endpoint. The squids deployed to the Subsquid Cloud also publicly explose the metrics, see [Monitoring in the Cloud](/cloud/resources/monitoring/)

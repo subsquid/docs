@@ -33,7 +33,7 @@ Adding a valid payment method promotes an organization to Professional status. V
 
 ![Upgrading an organization](./billing-setup.png)
 
-Once an organization is upgraded you can deploy as many squids as you requre. [`scale:` section](/cloud/reference/scale) is now unlocked: use it to request any resources suitable for your use case. Your organization will be billed according to our [pricing schedule](/cloud/reference/pricing).
+Once an organization is upgraded you can deploy as many squids as you requre. [`scale:` section](/cloud/reference/scale) is now unlocked: use it to request any resources suitable for your use case. Your organization will be billed according to our [pricing schedule](/cloud/pricing).
 
 ## Working with organizations
 

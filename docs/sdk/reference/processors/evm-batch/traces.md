@@ -7,7 +7,7 @@ description: >-
 # Traces
 
 :::tip
-Traces for historical blocks are [currently available](/subsquid-network/reference/evm-networks) from Archives on the same basis as all other data stored there: for free. If you deploy a squid that indexes traces [in real-time](/sdk/resources/unfinalized-blocks) to Subsquid Cloud and use our [RPC proxy](/cloud/reference/rpc-proxy), the necessary `trace_` or `debug_` RPC calls made will be counted alongside all other calls and [the price](/cloud/reference/pricing/#rpc-requests) will be computed for the total count. There are no surcharges for traces or state diffs.
+Traces for historical blocks are [currently available](/subsquid-network/reference/evm-networks) from Archives on the same basis as all other data stored there: for free. If you deploy a squid that indexes traces [in real-time](/sdk/resources/unfinalized-blocks) to Subsquid Cloud and use our [RPC proxy](/cloud/reference/rpc-proxy), the necessary `trace_` or `debug_` RPC calls made will be counted alongside all other calls and [the price](/cloud/pricing/#rpc-requests) will be computed for the total count. There are no surcharges for traces or state diffs.
 :::
 
 #### `addTrace(options)` {#add-trace}
