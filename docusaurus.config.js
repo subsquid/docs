@@ -87,7 +87,7 @@ const config = {
     },
     footer: {},
     prism: {
-      additionalLanguages: ['docker', 'powershell', 'diff'],
+      additionalLanguages: ['docker', 'powershell', 'diff', 'json'],
       theme: lightCodeTheme,
       darkTheme: {
         ...darkCodeTheme,
