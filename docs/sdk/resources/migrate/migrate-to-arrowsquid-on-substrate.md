@@ -139,7 +139,8 @@ Be aware that this operation will not increase the amount of data retrieved from
 
 There are two old field requests that have no direct equivalent in the new interface:
 
-<details><summary>call.parent</summary>
+<details>
+<summary>call.parent</summary>
 
 It is currently impossible to request just the parent call. Work around by requesting the full call stack with `stack: true` in the call-requesting configuration calls, then using `.parentCall` property or `getParentCall()` method of `Call` data items to get parent calls.
 
@@ -147,7 +148,8 @@ It is currently impossible to request just the parent call. Work around by reque
 
 </details>
 
-<details><summary>event.evmTxHash</summary>
+<details>
+<summary>event.evmTxHash</summary>
 
 Processor no longer makes EVM transaction hashes explicitly available. **(untested)** Given an `Ethereum.Executed` event `e`, you can get it as `e.args[2] || e.args.transactionHash`.
 

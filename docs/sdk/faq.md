@@ -11,7 +11,7 @@ Here is an incomplete list:
 - NFT marketplaces, with a dynamic sets of NFT contracts to watch
 - Historical price feeds, tracking Uniswap trades and Chainlink oracle contracts
 - Mining smart contract deployments and the bytecode
-- Real-time bots (<1sec delay) triggered by on-chain activity
+- Real-time bots (\<1sec delay) triggered by on-chain activity
 
 ### What is the Premium plan?
 

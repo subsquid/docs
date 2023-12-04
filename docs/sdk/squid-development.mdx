@@ -37,7 +37,8 @@ Consider your business requirements and find out
 
 #### Example requirements
 
-<details><summary>DEX analytics on Polygon</summary>
+<details>
+<summary>DEX analytics on Polygon</summary>
 
 Suppose you want to train a prototype ML model on all trades done on Uniswap Polygon since the v3 upgrade.
 
@@ -49,7 +50,8 @@ Suppose you want to train a prototype ML model on all trades done on Uniswap Pol
 
 </details>
 
-<details><summary>NFT ownership on Ethereum</summary>
+<details>
+<summary>NFT ownership on Ethereum</summary>
 
 Suppose you want to make a website that shows the image and ownership history for ERC721 NFTs from a certain Polygon contract.
 
@@ -61,7 +63,8 @@ Suppose you want to make a website that shows the image and ownership history fo
 
 </details>
 
-<details><summary>Kusama transfers BigQuery dataset</summary>
+<details>
+<summary>Kusama transfers BigQuery dataset</summary>
 
 Suppose you want to create a BigQuery dataset with Kusama native tokens transfers.
 
@@ -80,7 +83,8 @@ Although it is possible to [compose a squid from individual packages](/sdk/squid
 ```mdx-code-block
 <Tabs>
 <TabItem value="evm" label="EVM">
-<details><summary>Templates for the PostgreSQL+GraphQL data destination</summary>
+<details>
+<summary>Templates for the PostgreSQL+GraphQL data destination</summary>
 ```
 
 - A minimal template intended for developing EVM squids. Indexes ETH burns.
@@ -98,7 +102,8 @@ Although it is possible to [compose a squid from individual packages](/sdk/squid
 
 ```mdx-code-block
 </details>
-<details><summary>Templates for storing data in files</summary>
+<details>
+<summary>Templates for storing data in files</summary>
 ```
 
 - USDC transfers -> local CSV
@@ -116,7 +121,8 @@ Although it is possible to [compose a squid from individual packages](/sdk/squid
 
 ```mdx-code-block
 </details>
-<details><summary>Templates for the Google BigQuery data destination</summary>
+<details>
+<summary>Templates for the Google BigQuery data destination</summary>
 ```
 - USDC transfers -> BigQuery dataset
   ```bash
@@ -127,7 +133,8 @@ Although it is possible to [compose a squid from individual packages](/sdk/squid
 </details>
 </TabItem>
 <TabItem value="substrate" label="Substrate">
-<details><summary>Templates for the PostgreSQL+GraphQL data destination</summary>
+<details>
+<summary>Templates for the PostgreSQL+GraphQL data destination</summary>
 ```
 
 - Native events emitted by Substrate-based chains
@@ -247,7 +254,8 @@ Follow the respective reference configuration pages of each typegen tool:
 * [ink! typegen configuration](/dead)
 
 ```mdx-code-block
-<details><summary>A tip for `frontier-evm` squids</summary>
+<details>
+<summary>A tip for `frontier-evm` squids</summary>
 ```
 These squids use both Substrate typegen _and_ EVM typegen. To generate all the required utilities, [configure the Substrate part](/dead), then save all relevant JSON ABIs to `./abi`, then run
 ```bash
