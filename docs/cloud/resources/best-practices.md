@@ -1,5 +1,5 @@
 ---
-sidebar_position: 50
+sidebar_position: 10
 title: Best practices
 description: Checklist for going to production
 ---
