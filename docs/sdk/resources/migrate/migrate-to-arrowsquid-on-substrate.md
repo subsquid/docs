@@ -60,11 +60,11 @@ Next, we have to account for the changes in signatures of the data requesting pr
 
 - [`addEvent()`](/sdk/reference/processors/substrate-batch/data-requests/#events),
 - [`addCall()`](/sdk/reference/processors/substrate-batch/data-requests/#calls),
-- [`addEvmLog()`](/sdk/resources/substrate/frontier-evm/#subscribe-to-evm-events),
-- [`addEthereumTransaction()`](/sdk/resources/substrate/frontier-evm/#subscribe-to-evm-transactions),
-- [`addContractsContractEmitted()`](/sdk/resources/substrate/ink/#processor-options),
-- [`addGearMessageEnqueued()`](/sdk/resources/substrate/gear/#addgearmessageenqueued),
-- [`addGearUserMessageSent()`](/sdk/resources/substrate/gear/#addgearusermessagesent),
+- [`addEvmLog()`](/sdk/reference/processors/substrate-batch/data-requests/#addevmlog),
+- [`addEthereumTransaction()`](/sdk/reference/processors/substrate-batch/data-requests/#addethereumtransaction),
+- [`addContractsContractEmitted()`](/sdk/reference/processors/substrate-batch/data-requests/#addcontractscontractemitted),
+- [`addGearMessageQueued()`](/sdk/reference/processors/substrate-batch/data-requests/#addgearmessagequeued),
+- [`addGearUserMessageSent()`](/sdk/reference/processors/substrate-batch/data-requests/#addgearusermessagesent),
 
 Previously, each call of these methods supplied its own fine-grained data fields selector. In the new interface, these calls only request data items, either directly or by relation (for example with the `call` flag for event-requesting methods). Field selection is now done by the new `setFields()` method on a per-item-type basis: once for all `Call`s, once for all `Event`s etc. The setting is processor-wide: for example, all `Call`s returned by the processor will have the same set of available fields, regardless of whether they were requested directly or as related data.
 
@@ -171,14 +171,15 @@ The meaning of passing `[]` as a set of parameter values has been changed in the
 
 Old data request calls will be erased during the process. Make sure to request the appropriate related data with the boolean flags (`call` for event-requesting methods, `events` for call-requesting methods and `extrinsic`, `stack` for both).
 
-Interfaces of data request methods are documented on their respective pages:
+Interfaces of data request methods are documented on the Data requests reference page:
+
 - [`addEvent()`](/sdk/reference/processors/substrate-batch/data-requests/#events),
 - [`addCall()`](/sdk/reference/processors/substrate-batch/data-requests/#calls),
-- [`addEvmLog()`](/sdk/resources/substrate/frontier-evm/#subscribe-to-evm-events),
-- [`addEthereumTransaction()`](/sdk/resources/substrate/frontier-evm/#subscribe-to-evm-transactions),
-- [`addContractsContractEmitted()`](/sdk/resources/substrate/ink/#processor-options),
-- [`addGearMessageEnqueued()`](/sdk/resources/substrate/gear/#addgearmessageenqueued),
-- [`addGearUserMessageSent()`](/sdk/resources/substrate/gear/#addgearusermessagesent).
+- [`addEvmLog()`](/sdk/reference/processors/substrate-batch/data-requests/#addevmlog),
+- [`addEthereumTransaction()`](/sdk/reference/processors/substrate-batch/data-requests/#addethereumtransaction),
+- [`addContractsContractEmitted()`](/sdk/reference/processors/substrate-batch/data-requests/#addcontractscontractemitted),
+- [`addGearMessageQueued()`](/sdk/reference/processors/substrate-batch/data-requests/#addgearmessagequeued),
+- [`addGearUserMessageSent()`](/sdk/reference/processors/substrate-batch/data-requests/#addgearusermessagesent).
 
 Here is a fully updated initialization code for the example processor from step 3:
 ```typescript
