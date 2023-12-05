@@ -1,5 +1,5 @@
 ---
-sidebar_position: 50
+sidebar_position: 10
 description: >-
   Indexing a dynamic set of contracts
 ---
