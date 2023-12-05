@@ -1,0 +1,133 @@
+---
+sidebar_position: 21
+description: >-
+  A list of public EVM archives
+title: Supported networks
+---
+
+export const FromBlockTooltip = ({children, tip}) => (
+  <div class="group relative w-max">
+    <div class={`pointer-events-auto absolute -top-9 -left-8 w-max opacity-0 transition-opacity group-hover:opacity-100`}>
+      <div>from block</div>
+      <div>{tip}</div>
+    </div>
+    <span class="underline decoration-dotted">{children}</span>
+  </div>
+)
+
+The table below lists the currently available public EVM ArrowSquid/v2 Archive endpoints to be used with the [`setDataSource()`](/arrowsquid-docs-v0/evm-indexing/configuration/initialization) `EvmBatchProcessor` configuration method.
+
+| Network               | State diffs | Traces | Lookup command                                |
+|:---------------------:|:-----------:|:------:|:---------------------------------------------:|
+| arbitrum              |             |        | `lookupArchive('arbitrum')`                   |
+| arbitrum-goerli       |             | ✓      | `lookupArchive('arbitrum-goerli')`            |
+| arbitrum-nova         |             | ✓      | `lookupArchive('arbitrum-nova')`              |
+| astar (*)             |             |        | `lookupArchive('astar',` `{type: 'EVM'})`     |
+| astar-zkatana         |             |        | `lookupArchive('astar-zkatana')`              |
+| avalanche             | ✓           | ✓      | `lookupArchive('avalanche')`                  |
+| avalanche-testnet     | ✓           | ✓      | `lookupArchive('avalanche-testnet')`          |
+| base-mainnet          | ✓           | ✓      | `lookupArchive('base-mainnet')`               |
+| base-goerli           |             |        | `lookupArchive('base-goerli')`                |
+| binance               | ✓           | ✓      | `lookupArchive('binance')`                    |
+| binance-testnet       |             |        | `lookupArchive('binance-testnet')`            |
+| eth-mainnet           | ✓           | ✓      | `lookupArchive('eth-mainnet')`                |
+| eth-goerli            | ✓           | ✓      | `lookupArchive('eth-goerli')`                 |
+| exosama               | ✓           | ✓      | `lookupArchive('exosama')`                    |
+| fantom                |             |        | `lookupArchive('fantom')`                     |
+| fantom-testnet        |             |        | `lookupArchive('fantom-testnet')`             |
+| flare-mainnet         |             |        | `lookupArchive('flare-mainnet')`              |
+| gnosis-mainnet        | ✓           | ✓      | `lookupArchive('gnosis-mainnet')`             |
+| linea-mainnet         |             | ✓      | `lookupArchive('linea-mainnet')`              |
+| mineplex-testnet      | ✓           | ✓      | `lookupArchive('mineplex-testnet')`           |
+| moonbase (*)          |             |        | `lookupArchive('moonbase',` `{type: 'EVM'})`  |
+| moonbeam (*)          |             | ✓      | `lookupArchive('moonbeam',` `{type: 'EVM'})`  |
+| moonriver (*)         |             | ✓      | `lookupArchive('moonriver',` `{type: 'EVM'})` |
+| moonsama (*)          |             |        | `lookupArchive('moonsama',` `{type: 'EVM'})`  |
+| neon-mainnet          |             |        | `lookupArchive('neon-mainnet')`               |
+| opbnb-mainnet         |             |        | `lookupArchive('opbnb-mainnet')`              |
+| opbnb-testnet         |             |        | `lookupArchive('opbnb-testnet')`              |
+| optimism-mainnet      | <FromBlockTooltip tip="105235063">✓</FromBlockTooltip> | ✓ | `lookupArchive('optimism-mainnet')` |
+| optimism-goerli       | <FromBlockTooltip tip="4061224">✓</FromBlockTooltip>   | ✓ | `lookupArchive('optimism-goerli')`  |
+| polygon               |             |        | `lookupArchive('polygon')`                    |
+| polygon-mumbai        |             |        | `lookupArchive('polygon-mumbai')`             |
+| polygon-zkevm         |             |        | `lookupArchive('polygon-zkevm')`              |
+| polygon-zkevm-testnet |             |        | `lookupArchive('polygon-zkevm-testnet')`      |
+| sepolia               | ✓           | ✓      | `lookupArchive('sepolia')`                    |
+| shibuya-testnet (*)   |             |        | `lookupArchive('shibuya-testnet')`            |
+| shiden-mainnet (*)    |             |        | `lookupArchive('shiden-mainnet')`             |
+| zksync-mainnet        |             | ✓      | `lookupArchive('zksync-mainnet')`             |
+| zksync-testnet        |             | ✓      | `lookupArchive('zksync-testnet')`             |
+| zora-mainnet          | ✓           | ✓      | `lookupArchive('zora-mainnet')`               |
+| zora-goerli           | ✓           | ✓      | `lookupArchive('zora-goerli')`                |
+
+(*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate archive](/arrowsquid-docs-v0/substrate-indexing/supported-networks).
+
+### Examples
+
+Registry lookup:
+```typescript
+import { lookupArchive } from '@subsquid/archive-registry'
+
+const processor = new EvmBatchProcessor()
+  .setDataSource({
+     // resolves to 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
+     archive: lookupArchive('eth-mainnet')
+   })
+```
+Explicit Archive endpoints:
+```typescript
+const processor = new EvmBatchProcessor()
+  .setDataSource({
+     chain: 'https://rpc.ankr.com/eth', // RPC endpoint
+     archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
+  })
+```
+
+### Raw URLs
+
+Here are the raw archive URLs (retrieved on 2023-11-18):
+
+| Network               | Archive endpoint URL                                         |
+|:---------------------:|:------------------------------------------------------------:|
+| arbitrum              | https://v2.archive.subsquid.io/network/arbitrum-one          |
+| arbitrum-goerli       | https://v2.archive.subsquid.io/network/arbitrum-goerli       |
+| arbitrum-nova         | https://v2.archive.subsquid.io/network/arbitrum-nova         |
+| astar                 | https://v2.archive.subsquid.io/network/astar-mainnet         |
+| astar-zkatana         | https://v2.archive.subsquid.io/network/astar-zkatana         |
+| avalanche             | https://v2.archive.subsquid.io/network/avalanche-mainnet     |
+| avalanche-testnet     | https://v2.archive.subsquid.io/network/avalanche-testnet     |
+| base-mainnet          | https://v2.archive.subsquid.io/network/base-mainnet          |
+| base-goerli           | https://v2.archive.subsquid.io/network/base-goerli           |
+| binance               | https://v2.archive.subsquid.io/network/binance-mainnet       |
+| binance-testnet       | https://v2.archive.subsquid.io/network/binance-testnet       |
+| eth-mainnet           | https://v2.archive.subsquid.io/network/ethereum-mainnet      |
+| eth-goerli            | https://v2.archive.subsquid.io/network/ethereum-goerli       |
+| exosama               | https://v2.archive.subsquid.io/network/exosama               |
+| fantom                | https://v2.archive.subsquid.io/network/fantom-mainnet        |
+| fantom-testnet        | https://v2.archive.subsquid.io/network/fantom-testnet        |
+| flare-mainnet         | https://v2.archive.subsquid.io/network/flare-mainnet         |
+| gnosis-mainnet        | https://v2.archive.subsquid.io/network/gnosis-mainnet        |
+| linea-mainnet         | https://v2.archive.subsquid.io/network/linea-mainnet         |
+| mantle-mainnet        | https://v2.archive.subsquid.io/network/mantle-mainnet        |
+| metis-mainnet         | https://v2.archive.subsquid.io/network/metis-mainnet         |
+| mineplex-testnet      | https://v2.archive.subsquid.io/network/mineplex-testnet      |
+| moonbase              | https://v2.archive.subsquid.io/network/moonbase-testnet      |
+| moonbeam              | https://v2.archive.subsquid.io/network/moonbeam-mainnet      |
+| moonriver             | https://v2.archive.subsquid.io/network/moonriver-mainnet     |
+| moonsama              | https://v2.archive.subsquid.io/network/moonsama              |
+| neon-mainnet          | https://v2.archive.subsquid.io/network/neon-mainnet          |
+| opbnb-mainnet         | https://v2.archive.subsquid.io/network/opbnb-mainnet         |
+| opbnb-testnet         | https://v2.archive.subsquid.io/network/opbnb-testnet         |
+| optimism-mainnet      | https://v2.archive.subsquid.io/network/optimism-mainnet      |
+| optimism-goerli       | https://v2.archive.subsquid.io/network/optimism-goerli       |
+| polygon               | https://v2.archive.subsquid.io/network/polygon-mainnet       |
+| polygon-mumbai        | https://v2.archive.subsquid.io/network/polygon-testnet       |
+| polygon-zkevm         | https://v2.archive.subsquid.io/network/polygon-zkevm-mainnet |
+| polygon-zkevm-testnet | https://v2.archive.subsquid.io/network/polygon-zkevm-testnet |
+| sepolia               | https://v2.archive.subsquid.io/network/ethereum-sepolia      |
+| shibuya-testnet       | https://v2.archive.subsquid.io/network/shibuya-testnet       |
+| shiden-mainnet        | https://v2.archive.subsquid.io/network/shiden-mainnet        |
+| zksync-mainnet        | https://v2.archive.subsquid.io/network/zksync-mainnet        |
+| zksync-testnet        | https://v2.archive.subsquid.io/network/zksync-testnet        |
+| zora-mainnet          | https://v2.archive.subsquid.io/network/zora-mainnet          |
+| zora-goerli           | https://v2.archive.subsquid.io/network/zora-goerli           |

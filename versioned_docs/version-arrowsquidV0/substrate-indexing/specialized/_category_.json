@@ -1,0 +1,12 @@
+{
+    "position": 100,
+    "label": "Pallet-specific support",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/substrate-indexing/specialized",
+      "title": "Support for indexing pallet/network specific data"
+    }
+}

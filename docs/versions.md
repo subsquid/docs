@@ -4,12 +4,16 @@ sidebar_class_name: hidden
 
 # Versions
 
-## ArrowSquid
+## Current
 
-The current version of the Subsquid SDK (`@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`). Best known for the added ability of processors to ingest directly from RPC node endpoints. Documented [here](/).
+Restructured [documentation](/) covering Subsquid Network, Squid SDK (the ArrowSquid version) and Subsquid Cloud as separate products.
+
+## ArrowSquid docs V0
+
+Older docs centered around the ArrowSquid version of Squid SDK (`@subsquid/evm-processor@^1.x` and `@subsquid/substrate-processor@^3.x`). Available [here](/arrowsquid-docs-v0).
 
 ## FireSquid
 
-Previous version of Subsquid SDK. Documented [here](/firesquid). If your squid uses this version, please migrate:
+[Documentation](/firesquid) for the previous version of Squid SDK. If your squid uses this version, please migrate:
  - [EVM guide](/sdk/resources/migrate/migrate-to-arrowsquid)
  - [Substrate guide](/sdk/resources/migrate/migrate-to-arrowsquid-on-substrate)

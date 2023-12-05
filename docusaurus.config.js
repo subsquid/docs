@@ -40,8 +40,12 @@ const config = {
           lastVersion: 'current',
           versions: {
             current: {
-              label: 'ArrowSquid',
+              label: 'Current',
               path: '/'
+            },
+            arrowsquidV0: {
+              label: 'ArrowSquid docs V0',
+              path: '/arrowsquid-docs-v0'
             },
             firesquid: {
               label: 'FireSquid',

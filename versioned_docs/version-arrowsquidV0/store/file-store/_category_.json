@@ -1,0 +1,12 @@
+{
+    "position": 20,
+    "label": "Saving to files",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/store/file-store",
+      "title": "Tools for saving squid data to file-based datasets locally or on S3"
+    }
+}
