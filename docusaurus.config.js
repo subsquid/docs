@@ -44,7 +44,7 @@ const config = {
               path: '/'
             },
             arrowsquidV0: {
-              label: 'ArrowSquid docs V0',
+              label: 'Old ArrowSquid docs',
               path: '/arrowsquid-docs-v0'
             },
             firesquid: {
