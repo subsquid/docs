@@ -68,7 +68,7 @@ Configure the processor by defining:
 - data to be extracted from the Archive
 
 **Example:**
-```ts title=src/processor.ts
+```ts title="src/processor.ts"
 export const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: lookupArchive('eth-mainnet'),
@@ -104,7 +104,7 @@ Squid SDK embraces the [batch-based programming model](/arrowsquid-docs-v0/basic
 - For `SubstrateBatchProcessor`, see the [Block data for Substrate](/arrowsquid-docs-v0/substrate-indexing/context-interfaces)
 
 **Example:**
-```ts title=src/main.ts
+```ts title="src/main.ts"
 processor.run(new TypeormDatabase(), async (ctx) => {
   const entities: Map<string, FooEntity> = new Map()
   // process a batch of data 

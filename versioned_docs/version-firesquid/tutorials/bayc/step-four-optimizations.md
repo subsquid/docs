@@ -18,7 +18,7 @@ We begin by introducing [batch processing](/firesquid/basics/batch-processing/) 
 npx squid-evm-typegen --multicall src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#bayc
 ```
 This adds a Typescript ABI interface at `src/abi/multicall.ts`. Let us use it in a rewrite of `completeTokens()`:
-```typescript title=src/processor.ts
+```typescript title="src/processor.ts"
 import { Multicall } from './abi/multicall'
 
 const MULTICALL_ADDRESS = '0x5ba1e12693dc8f9c48aad8770482f4739beed696'
@@ -192,7 +192,7 @@ In part 3 of this tutorial we [explored metadata URIs](/firesquid/tutorials/bayc
 npx squid-evm-typegen --multicall src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#bayc
 ```
 then supply a RPC endpoint to the processor and add the code for batch URI retrieval to the batch handler:
-```diff title=src/processor.ts
+```diff title="src/processor.ts"
  let processor = new EvmBatchProcessor()
      .setDataSource({
          archive: lookupArchive('eth-mainnet'),

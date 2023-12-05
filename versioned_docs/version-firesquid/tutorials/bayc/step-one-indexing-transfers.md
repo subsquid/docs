@@ -124,7 +124,7 @@ The full code can be found at [this commit](https://github.com/abernatskiy/tmp-b
 TypeORM code is generated from `schema.graphql` with the [`squid-typeorm-codegen`](/firesquid/basics/schema-file/#typeorm-codegen) tool and must be regenerated every time the schema is changed. This is usually accompanied by regenerating the [database migrations](/firesquid/basics/db-migrations/) and recreating the database itself. The migrations are applied before every run of the processor, ensuring that whenever any TypeORM code within the processor attempts to access the database, the database is in a state that allows it to succeed.
 
 The main unit of data in `schema.graphql` is [entity](/firesquid/basics/schema-file/entities/). These map onto [TypeORM entites](https://typeorm.io/entities) that in turn map onto database tables. We define one for `Transfer` events by replacing the file contents with
-```graphql title=schema.graphql
+```graphql title="schema.graphql"
 type Transfer @entity {
     id: ID!
     tokenId: Int! @index

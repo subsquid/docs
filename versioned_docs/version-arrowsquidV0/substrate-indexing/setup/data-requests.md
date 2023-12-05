@@ -81,7 +81,7 @@ Subscribe to messages emitted by a Gear program. See [Gear Support](../../specia
 ## Caveats
 
 - Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](../../context-interfaces). As such, it is important to always filter the data within the batch handler. For example, a processor config like this
-  ```ts title=src/procesor.ts
+  ```ts title="src/procesor.ts"
   export const processor = new SubstrateBatchProcessor()
     .addEvent({
       name: ['Balances.Transfer']
@@ -89,7 +89,7 @@ Subscribe to messages emitted by a Gear program. See [Gear Support](../../specia
     // the rest of the configuration
   ```
   should always be matched with
-  ```ts title=src/main.ts
+  ```ts title="src/main.ts"
   processor.run(database, async ctx => {
     // ...
     for (let block of ctx.blocks) {

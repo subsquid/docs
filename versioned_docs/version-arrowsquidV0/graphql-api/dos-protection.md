@@ -69,7 +69,7 @@ Same as `--max-response-size` but for live query [subscriptions](/arrowsquid-doc
 
 Assume the schema is defined as follows, and the server is launched with `--max-response-size 1000`.
 
-```ts title=schema.graphql
+```ts title="schema.graphql"
 type Foo @entity {
     id: ID!
     // a large string 

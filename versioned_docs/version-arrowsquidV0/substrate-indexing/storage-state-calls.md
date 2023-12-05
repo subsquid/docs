@@ -33,7 +33,7 @@ sqd typegen
 
 Here's an example of `typegen.json` for generating a wrapper for `Balances.Account` on Kusama:
 
-```json title=typegen.json
+```json title="typegen.json"
 {
   "outDir": "src/types",
   "specVersions": "https://v2.archive.subsquid.io/metadata/kusama",
@@ -49,7 +49,7 @@ Here's an example of `typegen.json` for generating a wrapper for `Balances.Accou
 
 Inspect the generated wrapper at `src/types/balances/storage.ts`:
 
-```typescript title=src/types/balances/storage.ts
+```typescript title="src/types/balances/storage.ts"
 import {sts, Block, Bytes, Option, Result, StorageType} from '../support'
 import * as v1050 from '../v1050'
 import * as v9420 from '../v9420'
@@ -93,7 +93,7 @@ The generated access interface provides methods for accessing:
 
 ### Example
 
-```typescript title=src/main.ts
+```typescript title="src/main.ts"
 import {storage} from './types'
 
 processor.run(new TypeormDatabase(), async ctx => {

@@ -7,7 +7,7 @@ description: >-
 # Caveats
 
 - Processor data subscription methods guarantee that all data matching their data requests will be retrieved, but for technical reasons non-matching data may be added to the [batch context iterables](/arrowsquid-docs-v0/evm-indexing/context-interfaces). As such, it is important to always filter the data within the batch handler. For example, a config like this
-  ```ts title=src/processor.ts
+  ```ts title="src/processor.ts"
   export const processor = new EvmBatchProcessor()
     .addLog({
       address: ['0xdac17f958d2ee523a2206206994597c13d831ec7'],
@@ -15,7 +15,7 @@ description: >-
     })
   ```
   must always be matched with a filter like this
-  ```ts title=src/main.ts
+  ```ts title="src/main.ts"
   procesor.run(database, async ctx => {
     // ...
     for (let block of ctx.blocks) {

@@ -15,7 +15,7 @@ Here we highlight the key steps and put together a configuration and a data hand
 
 See [Setup section](/arrowsquid-docs-v0/substrate-indexing/setup) for more details.
 
-```ts title=src/processor.ts
+```ts title="src/processor.ts"
 import {
   SubstrateBatchProcessor
 } from '@subsquid/substrate-processor'

@@ -14,7 +14,7 @@ The snippets below show how to configure [`EvmBatchProcessor`](/arrowsquid-docs-
 
 [Full squid here](https://github.com/subsquid-labs/showcase00-analyzing-a-large-number-of-wallets).
 
-```ts title=src/processor.ts
+```ts title="src/processor.ts"
 export const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: lookupArchive('binance'),
@@ -22,7 +22,7 @@ export const processor = new EvmBatchProcessor()
   .addTransaction({})
 ```
 
-```ts title=src/main.ts
+```ts title="src/main.ts"
 const wallets: Set<string> = loadWallets()
 // wallets.size can be very large (tested at 1.4M)
 

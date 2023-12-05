@@ -23,7 +23,7 @@ A few scenarios are possible when indexing a proxy contract:
    npx squid-evm-typegen src/abi 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF#fiatToken
    ```
    That retrieves the ABI from Etherscan API and uses it to create [TypeScript wrapper classes](/arrowsquid-docs-v0/evm-indexing/squid-evm-typegen) for implementation functions and events at './src/abi/fiatToken.ts`. Use these to subscribe to and decode the data of the proxy contract:
-   ```ts title=./src/processor.ts
+   ```ts title="./src/processor.ts"
    import * as fiatToken from './abi/fiatToken'
    export const processor = new EvmBatchProcessor()
      .addLog({
@@ -32,7 +32,7 @@ A few scenarios are possible when indexing a proxy contract:
        topic0: [fiatToken.events.Mint.topic],
      })
    ```
-   ```ts title=./src/main.ts
+   ```ts title="./src/main.ts"
      // ...
      let {minter, to, amount} = fiatToken.events.Mint.decode(log)
      // ...
@@ -43,7 +43,7 @@ A few scenarios are possible when indexing a proxy contract:
    ```bash
    npx squid-evm-typegen src/abi 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48#usdcProxy
    ```
-   ```ts title=./src/processor.ts
+   ```ts title="./src/processor.ts"
    import * as usdcProxy from './abi/usdcProxy'
    export const processor = new EvmBatchProcessor()
      .addLog({
@@ -51,14 +51,14 @@ A few scenarios are possible when indexing a proxy contract:
        topic0: [usdcProxy.events.Upgraded.topic],
      })
    ```
-   ```ts title=./src/main.ts
+   ```ts title="./src/main.ts"
      // ...
      let {implementation} = usdcProxy.events.Upgraded.decode(log)
      // ...
    ```
 
 3. **Events and call described in both contracts are needed**. If that is your use case, retrieve ABIs of both the proxy and the implementation and use both:
-   ```ts title=./src/processor.ts
+   ```ts title="./src/processor.ts"
    import * as fiatToken from './abi/fiatToken'
    import * as usdcProxy from './abi/usdcProxy'
    export const processor = new EvmBatchProcessor()

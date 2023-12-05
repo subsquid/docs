@@ -103,7 +103,7 @@ Further, at each step we will [process the data for the whole batch](/arrowsquid
 
 With all that in mind, let's create a batch processor that generates and persists all of our entities:
 
-```typescript title=src/main.ts
+```typescript title="src/main.ts"
 import {Owner, Token} from './model'
 
 processor.run(new TypeormDatabase(), async (ctx) => {
@@ -131,7 +131,7 @@ interface RawTransfer {
 }
 ```
 is an interface very similar to that of the `Transfer` entity as it was at the beginning of this part of the tutorial. This allows us to reuse most of the code of the old batch handler in `getRawTransfers()`:
-```typescript title=src/main.ts
+```typescript title="src/main.ts"
 import {Context} from './processor'
 
 function getRawTransfers(ctx: Context): RawTransfer[] {
@@ -159,7 +159,7 @@ function getRawTransfers(ctx: Context): RawTransfer[] {
 ```
 The next step involves creating `Owner` entity instances. We will need these to create both `Tokens` and `Transfers`. In both scenarios, we'll have the IDs of the owners (i.e., their addresses) prepared. To simplify future lookups, we choose to return the `Owner` instances as a `Map<string, Owner>`:
 
-```typescript title=src/main.ts
+```typescript title="src/main.ts"
 function createOwners(rawTransfers: RawTransfer[]): Map<string, Owner> {
     let owners: Map<string, Owner> = new Map()
     for (let t of rawTransfers) {
@@ -171,7 +171,7 @@ function createOwners(rawTransfers: RawTransfer[]): Map<string, Owner> {
 ```
 Similarly, `Token` instances will also need to be looked up later, so we return them as a `Map<string, Token>`. To identify the most recent owner of each token, we traverse all the transfers in the order they appear on the blockchain and assign the owner of any involved tokens to their recipient:
 
-```typescript title=src/main.ts
+```typescript title="src/main.ts"
 function createTokens(
     rawTransfers: RawTransfer[],
     owners: Map<string, Owner>
@@ -196,7 +196,7 @@ In some circumstances we might have had to retrieve the old entity instances fro
 :::
 
 Finally, we create an array of `Transfer` entity instances through a simple mapping:
-```typescript title=src/main.ts
+```typescript title="src/main.ts"
 function createTransfers(
     rawTransfers: RawTransfer[],
     owners: Map<string, Owner>,

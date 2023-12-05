@@ -18,7 +18,7 @@ Now that we have a record for each BAYC NFT. Let's explore how we can retrieve m
 [EIP-721](https://eips.ethereum.org/EIPS/eip-721) suggests that token metadata contracts may make token data available in a JSON referred to by the output of the `tokenURI()` contract function. Upon examining `src/abi/bayc.ts`, we find that the BAYC token contract implements this function. Also, the public ABI has no obvious contract methods that may set token URI or events that may be emitted on its change. In other words, it appears that the only way to retrieve this data is by [querying the contract state](/firesquid/evm-indexing/query-state/).
 
 We prepare for this by supplying a RPC endpoint of an archive Ethereum node on processor initialization:
-```diff title=src/processor.ts
+```diff title="src/processor.ts"
  let processor = new EvmBatchProcessor()
      .setDataSource({
          archive: lookupArchive('eth-mainnet'),
@@ -250,7 +250,7 @@ const client = axios.create({
 We move all the code related to metadata retrieval to a separate module `src/metadata.ts`. Examine its full contents [here](https://github.com/abernatskiy/tmp-bayc-squid-2/blob/d98676253419e845e2e6c131a8ec9f7bcabe775f/src/metadata.ts).
 
 Then all that is left is to import the relevant parts in `src/processor.ts`:
-```diff title=src/processor.ts
+```diff title="src/processor.ts"
 +import { TokenMetadata, fetchTokenMetadata } from './metadata'
 ```
 and we are done with the processor code for this part of the tutorial. Full squid code at this point is available at [this commit](https://github.com/abernatskiy/tmp-bayc-squid-2/tree/d98676253419e845e2e6c131a8ec9f7bcabe775f).

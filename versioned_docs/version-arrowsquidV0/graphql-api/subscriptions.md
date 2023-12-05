@@ -21,7 +21,7 @@ Note that despite being [deprecated](/arrowsquid-docs-v0/graphql-api/overview/#s
 ## Local runs
 
 To enable subscriptions for local runs, add the `--subscriptions` flag to the `serve` command at `commands.json`:
-```json title=commands.json
+```json title="commands.json"
       ...
       "serve": {
         "description": "Start the GraphQL API server",
