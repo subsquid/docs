@@ -17,7 +17,7 @@ export default function Home(): JSX.Element {
             <ul>
               <li><a href="/sdk/overview">Squid SDK</a> - a Typescript toolkit for high-performance batch indexing sourcing the data from the Subsquid Network, without accessing an archival RPC.</li>
               <li><a href="/cloud/overview">Subsquid Cloud</a> - a hosted service for custom indexers and GraphQL APIs.</li>
-              <li><a href="/subgraphs-support">Subsquid-Firehose</a> - a lightweight adapter for running subgraphs against Subsquid Network, without accessing an archival RPC node.</li>
+              <li><a href="/subgraphs-support">Subsquid Firehose</a> - a lightweight adapter for running subgraphs against Subsquid Network, without accessing an archival RPC node.</li>
             </ul>
           </span>
         </div>
