@@ -698,7 +698,7 @@ code, kbd, samp, pre {
     vertical-align: baseline;
 }
 
-.hidden, .sidebarLogo_node_modules-\@docusaurus-theme-classic-lib-theme-DocSidebar-Desktop-styles-module {
+.hidden, [class^=sidebarLogo] {
     display: none !important;
     opacity: 0;
     width: 0;
@@ -706,7 +706,7 @@ code, kbd, samp, pre {
     pointer-events: none;
 }
 
-.docRoot_node_modules-\@docusaurus-theme-classic-lib-theme-DocRoot-Layout-styles-module{
+[class^=docRoot] {
     gap: 3.5rem;
 }
 
