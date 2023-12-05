@@ -128,22 +128,6 @@ export default function Home(): JSX.Element {
         </div>
       </div>
 
-      <div className="flex flex-col gap-6 mb-16">
-        <span className="h3">Migration</span>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-         <TutorialCard
-            path="/sdk/resources/migrate/migrate-subgraph"
-            description="Migrate your subgraph and improve sync times up to 10x.">Migrate from The Graph</TutorialCard>
-         <TutorialCard
-            path="/sdk/resources/migrate/migrate-to-arrowsquid"
-            description="Migrate your EVM squid to ArrowSquid.">Migrate to ArrowSquid on EVM</TutorialCard>
-         <TutorialCard
-            path="/sdk/resources/migrate/migrate-to-arrowsquid-on-substrate"
-            description="Migrate your Substrate squid to ArrowSquid.">Migrate to ArrowSquid on Substrate</TutorialCard>
-        </div>
-      </div>
-
       <div className="flex flex-col gap-6">
         <span className="h3">FAQ</span>
 
@@ -167,6 +151,16 @@ export default function Home(): JSX.Element {
                     Finally, by using the Subsquid Cloud, developers no longer have to care about indexing infrastructure maintenance costs and hassle.
                 </p>
             </div>
+
+            <div className="relative border border-border-color-base--default rounded-lg p-6 mb-8">
+                <h4 className="mb-4 body--m">How does Subsquid compare to The Graph?</h4>
+                <p className="text-fg-base--muted font-light">
+                   Subsquid is modular -- the on-chain data is extracted from a decentralized data layer (<a href="/subsquid-network/">Subsquid Network</a>), rather than 
+                   directly from a blockchain node. It enables up to 100x faster indexing, guaranteed data consistensy and reliable indexing even for small networks.
+                   For a detailed feature comparison, see <a href="/sdk/resources/subsquid-vs-thegraph/">Subsquid vs The Graph</a>.
+                </p>
+            </div>
+
 
             <div className="relative border border-border-color-base--default rounded-lg p-6 mb-8">
                 <h4 className="mb-4 body--m">How much does Subsquid cost?</h4>
