@@ -714,3 +714,7 @@ code, kbd, samp, pre {
     font-size: 14px;
     line-height: 160%;
 }
+
+.table-of-contents {
+    font-size: 0.9rem;
+}
