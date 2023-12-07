@@ -19,7 +19,7 @@ We expect that experienced software developers should be able to complete this t
 ## Pre-requisites
 
 - Familiarity with Git 
-- A properly set up [development environment](/sdk/resources/development-environment-set-up) consisting of Node.js, Git and Docker
+- A properly set up [development environment](/sdk/how-to-start/development-environment-set-up) consisting of Node.js, Git and Docker
 - [Squid CLI](/squid-cli/installation)
 
 :::info
@@ -37,7 +37,7 @@ cd substrate-crust-tutorial
 
 ### Run the project
 
-Now you can follow the [quickstart](/sdk/squid-development) guide to get the project up and running. Here is a summary:
+Now you can follow the [quickstart](/sdk/how-to-start/squid-development) guide to get the project up and running. Here is a summary:
 
 ```bash
 npm ci
@@ -203,7 +203,7 @@ We also export the `ProcessorContext` type to be able to pass the sole argument 
 
 ## Define the batch handler
 
-Squids [batch process](/sdk/resources/batch-processing) chain data from multiple blocks. Compared to the [handlers](/sdk/resources/batch-processing/#migrate-from-handlers) approach this results in a much lower database load. Batch processing is fully defined by processor's [batch handler](/sdk/overview/#processorrun), the callback supplied to the `processor.run()` call at the entry point of each processor (`src/main.ts` by convention).
+Squids [batch process](/sdk/resources/basics/batch-processing) chain data from multiple blocks. Compared to the [handlers](/sdk/resources/basics/batch-processing/#migrate-from-handlers) approach this results in a much lower database load. Batch processing is fully defined by processor's [batch handler](/sdk/overview/#processorrun), the callback supplied to the `processor.run()` call at the entry point of each processor (`src/main.ts` by convention).
 
 We begin defining our batch handler by importing the entity model classes and Crust event types that we generated in previous sections. We also import the processor and its types:
 

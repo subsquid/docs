@@ -224,7 +224,7 @@ BlockHeader{
   }
 }
 ```
-`Runtime` is an internal type that tools like [squid-substrate-typegen](/sdk/reference/typegen) use for dealing with Substrate runtime versions. The curious may take a look at the definition [here](https://github.com/subsquid/squid-sdk/blob/master/substrate/substrate-runtime/src/runtime/runtime.ts).
+`Runtime` is an internal type that tools like [squid-substrate-typegen](/sdk/resources/tools/typegen) use for dealing with Substrate runtime versions. The curious may take a look at the definition [here](https://github.com/subsquid/squid-sdk/blob/master/substrate/substrate-runtime/src/runtime/runtime.ts).
 
 ## A complete example
 

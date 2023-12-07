@@ -17,7 +17,7 @@ Prerequisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a proje
 
 Now that we have a record for each BAYC NFT, let's explore how we can retrieve more data for each token.
 
-[EIP-721](https://eips.ethereum.org/EIPS/eip-721) suggests that token metadata contracts may make token data available in a JSON referred to by the output of the `tokenURI()` contract function. Upon examining `src/abi/bayc.ts`, we find that the BAYC token contract implements this function. Also, the public ABI has no obvious contract methods that may set token URI or events that may be emitted on its change. In other words, it appears that the only way to retrieve this data is by [querying the contract state](/sdk/reference/typegen/state-queries/).
+[EIP-721](https://eips.ethereum.org/EIPS/eip-721) suggests that token metadata contracts may make token data available in a JSON referred to by the output of the `tokenURI()` contract function. Upon examining `src/abi/bayc.ts`, we find that the BAYC token contract implements this function. Also, the public ABI has no obvious contract methods that may set token URI or events that may be emitted on its change. In other words, it appears that the only way to retrieve this data is by [querying the contract state](/sdk/resources/tools/typegen/state-queries/).
 
 This requires a RPC endpoint of an archive Ethereum node, but we do not need to add one here: processor will reuse the endpoint we [supplied in part one](../step-one-indexing-transfers/#configuring-the-data-filters) of the tutorial for use in [RPC ingestion](/sdk/overview/#rpc-ingestion).
 
@@ -151,7 +151,7 @@ interface PartialToken {
 }
 ```
 
-Here, `PartialToken` stores the incomplete `Token` information obtained purely from blockchain events and function calls, before any [state queries](/sdk/reference/typegen/state-queries/) or enrichment with [external data](/sdk/resources/external-api/). 
+Here, `PartialToken` stores the incomplete `Token` information obtained purely from blockchain events and function calls, before any [state queries](/sdk/resources/tools/typegen/state-queries/) or enrichment with [external data](/sdk/resources/basics/external-api/). 
 The function `completeTokens()` is responsible for filling `Token` fields that are missing in `PartialToken`s. This involves IO operations, so both the function and its caller `createTokens()` have to be asynchronous. The functions also require a batch context for state queries and logging. We modify the `createTokens()` call in the batch handler to accommodate these changes:
 ```diff
  processor.run(new TypeormDatabase(), async (ctx) => {

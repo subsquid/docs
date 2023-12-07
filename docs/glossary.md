@@ -58,7 +58,7 @@ An SDK (software development kit) and a smart-contract language for developing W
 
 ### OpenReader
 
-An open-source GraphQL server that automatically generates an expressive API from an input schema file. See the [repo](https://github.com/subsquid/squid/tree/master/openreader) and [details](/sdk/reference/graphql-server).
+An open-source GraphQL server that automatically generates an expressive API from an input schema file. See the [repo](https://github.com/subsquid/squid/tree/master/openreader) and [details](/sdk/resources/graphql-server).
 
 ### Palette
 
@@ -86,7 +86,7 @@ The ETL part of the squid. Extracts on-chain data from an Archive, transforms, o
 
 ### Squid API
 
-The data presentation part of the squid. Typically, it's a GraphQL API auto-generated from the schema file. See details [here](/sdk/reference/graphql-server).
+The data presentation part of the squid. Typically, it's a GraphQL API auto-generated from the schema file. See details [here](/sdk/resources/graphql-server).
 
 ### Substrate
 

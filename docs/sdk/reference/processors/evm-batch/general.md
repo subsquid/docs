@@ -21,9 +21,9 @@ The following setters configure the global settings of `EvmBatchProcessor`. They
 
 - When the data source is an `ArchiveDataSource = {archive: string}`, the processor will obtain data _only_ from an [archive](/subsquid-network/overview). This allows retrieving vast amounts of data rapidly and eliminates the need for a node RPC endpoint, but introduces a network latency typically in thousands of blocks.
 
-  A processor with an `ArchiveDataSource` cannot use [contract state queries](/sdk/reference/typegen/state-queries). If you want to operate your squid in this regime but require state queries, use a `MixedDataSource` with the [`useArchiveOnly()`](#use-archive-only) setter.
+  A processor with an `ArchiveDataSource` cannot use [contract state queries](/sdk/resources/tools/typegen/state-queries). If you want to operate your squid in this regime but require state queries, use a `MixedDataSource` with the [`useArchiveOnly()`](#use-archive-only) setter.
 
-- When the data source is a `ChainDataSource = {chain: ChainRpc}`, the processor will obtain data _only_ from a node RPC endpoint. This mode of operation is slow, but requires no archive and has almost [no chain latency](/sdk/resources/unfinalized-blocks). It can be used with EVM networks not listed on the [supported networks](/subsquid-network/reference/evm-networks) page and with [local development nodes](/sdk/tutorials/evm-local).
+- When the data source is a `ChainDataSource = {chain: ChainRpc}`, the processor will obtain data _only_ from a node RPC endpoint. This mode of operation is slow, but requires no archive and has almost [no chain latency](/sdk/resources/basics/unfinalized-blocks). It can be used with EVM networks not listed on the [supported networks](/subsquid-network/reference/evm-networks) page and with [local development nodes](/sdk/tutorials/evm-local).
 
 An Archive endpoint is specified as a string URL. Up-to-date URLs of public EVM Archives can be looked up with the `lookupArchive` utility from `@subsquid/archive-registry` (see [Supported networks](/subsquid-network/reference/evm-networks)).
 
@@ -55,7 +55,7 @@ Note that block ranges can also be specified separately for each data request. T
 
 #### `useArchiveOnly(yes?: boolean | undefined)` {#use-archive-only}
 
-Explicitly disables data ingestion from an RPC endpoint. Use this if you are making an Archive-only squid that also needs to [query contract state](/sdk/reference/typegen/state-queries).
+Explicitly disables data ingestion from an RPC endpoint. Use this if you are making an Archive-only squid that also needs to [query contract state](/sdk/resources/tools/typegen/state-queries).
 
 #### `setChainPollInterval(ms: number)` {#set-chain-poll-interval}
 

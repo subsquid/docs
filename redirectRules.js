@@ -509,7 +509,7 @@ const urlList = [
     },
     {
         "from": "/quickstart",
-        "to": "/sdk/how-to-start"
+        "to": "/sdk/how-to-start/squid-development"
     },
     {
         "from": "/store/postgres/schema-file/entities",

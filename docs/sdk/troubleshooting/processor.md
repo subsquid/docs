@@ -28,7 +28,7 @@ Another common source of this error is faulty RPC endpoints. If your EVM process
 
 ### `BAD_DATA` when using a Multicall contract
 
-This error can occur for a variety of reasons, but one common cause is choosing a Multicall deployment that is newer than the oldest blocks that have to be indexed. When [batch state queries](/sdk/reference/typegen/state-queries/#batch-state-queries) are performed on historical chain state older than the Multicall deployment, EVM detects that and refuses to run.
+This error can occur for a variety of reasons, but one common cause is choosing a Multicall deployment that is newer than the oldest blocks that have to be indexed. When [batch state queries](/sdk/resources/tools/typegen/state-queries/#batch-state-queries) are performed on historical chain state older than the Multicall deployment, EVM detects that and refuses to run.
 
 Solutions:
 1. Use an older Multicall deployment.

@@ -7,7 +7,7 @@ description: Makeup of squid processors
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The processor service is a Node.js process responsible for data ingestion, transformation and data persisting into the target database. By [convention](/sdk/reference/layout), the processor entry point is at `src/main.ts`. It is run as
+The processor service is a Node.js process responsible for data ingestion, transformation and data persisting into the target database. By [convention](/sdk/how-to-start/layout), the processor entry point is at `src/main.ts`. It is run as
 ```bash
 node lib/main.js
 ```
@@ -16,7 +16,7 @@ For local runs, one normally additionally exports environment variables from `.e
 ```bash
 node -r dotenv/config lib/main.js
 ```
-This is what the `sqd process` shortcut does under the hood in [templates](/sdk/squid-development/#templates).
+This is what the `sqd process` shortcut does under the hood in [templates](/sdk/how-to-start/squid-development/#templates).
 
 ## Processor choice
 

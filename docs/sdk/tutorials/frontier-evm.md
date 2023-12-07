@@ -16,7 +16,7 @@ A somewhat outdated version of the final result can be browsed [here](https://gi
 ## Pre-requisites
 
 - Familiarity with Git 
-- A properly set up [development environment](/sdk/resources/development-environment-set-up) consisting of Node.js, Git and Docker
+- A properly set up [development environment](/sdk/how-to-start/development-environment-set-up) consisting of Node.js, Git and Docker
 - [Squid CLI](/squid-cli/installation)
 
 :::info
@@ -105,7 +105,7 @@ The results will be stored at `src/abi`. One module will be generated for each A
 
 Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to chain-specific [Subsquid archives](/subsquid-network/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-`SubstrateBatchProcessor`s [expose methods](/sdk/reference/processors/substrate-batch) that "subscribe" them to specific data such as Substrate events and calls. There are also [specialized methods](/sdk/resources/substrate/frontier-evm) for subscribing to EVM logs and transactions by address. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for [*batches*](/sdk/resources/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
+`SubstrateBatchProcessor`s [expose methods](/sdk/reference/processors/substrate-batch) that "subscribe" them to specific data such as Substrate events and calls. There are also [specialized methods](/sdk/resources/substrate/frontier-evm) for subscribing to EVM logs and transactions by address. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for [*batches*](/sdk/resources/basics/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
 
 It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 
