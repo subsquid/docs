@@ -63,7 +63,7 @@ squid-evm-typegen src/abi 0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413#my-contract
 
 |                           |                                                          |
 |---------------------------|----------------------------------------------------------|
-|  `--multicall`            | generate a facade for the MakerDAO multicall contract. May significantly improve the performance of contract state calls by [batching RPC requests](/sdk/reference/typegen/state-queries/?typegen=evm#batch-state-queries) |
+|  `--multicall`            | generate a facade for the MakerDAO multicall contract. May significantly improve the performance of contract state calls by [batching RPC requests](/sdk/resources/tools/typegen/state-queries/?typegen=evm#batch-state-queries) |
 |  `--etherscan-api <url>`  | etherscan API to fetch contract ABI by a known address. By default, `https://api.etherscan.io/`   |
 |  `--clean`                | delete output directory before the run                   |
 |  `-h, --help`             | display help for command                                 |
@@ -92,9 +92,9 @@ The generated utility modules have three intended uses:
        ]
      })
    ```
-2. [Decoding of EVM logs and transactions](/sdk/reference/typegen/decoding/?typegen=evm)
+2. [Decoding of EVM logs and transactions](/sdk/resources/tools/typegen/decoding/?typegen=evm)
 
-3. [Direct chain state queries](/sdk/reference/typegen/state-queries/?typegen=evm), including [queries to multicall](/sdk/reference/typegen/state-queries/?typegen=evm#batch-state-queries).
+3. [Direct chain state queries](/sdk/resources/tools/typegen/state-queries/?typegen=evm), including [queries to multicall](/sdk/resources/tools/typegen/state-queries/?typegen=evm#batch-state-queries).
 
 ```mdx-code-block
 </TabItem>
@@ -184,9 +184,9 @@ All identifiers (pallet name, call name etc) are lowerCamelCased. E.g. the const
 
 1. Item name constants (e.g. `events.balances.transfer.name`).
 
-2. Runtime versioning-aware [decoding](/sdk/reference/typegen/decoding/?typegen=substrate).
+2. Runtime versioning-aware [decoding](/sdk/resources/tools/typegen/decoding/?typegen=substrate).
 
-3. [Chain storage queries](/sdk/reference/typegen/state-queries/?typegen=substrate)
+3. [Chain storage queries](/sdk/resources/tools/typegen/state-queries/?typegen=substrate)
 
 4. Runtime constants:
    ```typescript
@@ -215,7 +215,7 @@ Usage:
 npx squid-ink-typegen --abi abi/erc20.json --output src/abi/erc20.ts
 ```
 
-The generated source code exposes the [decoding methods](/sdk/reference/typegen/decoding/?typegen=ink), some useful types and a class for performing [wrapped RPC queries](/sdk/reference/typegen/state-queries/?typegen=ink), using `@subsquid/ink-abi` under the hood
+The generated source code exposes the [decoding methods](/sdk/resources/tools/typegen/decoding/?typegen=ink), some useful types and a class for performing [wrapped RPC queries](/sdk/resources/tools/typegen/state-queries/?typegen=ink), using `@subsquid/ink-abi` under the hood
 
 ```mdx-code-block
 </TabItem>

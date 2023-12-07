@@ -242,7 +242,7 @@ npx squid-evm-typegen \
 ```
 The utility classes will become available at `src/abi`.
 
-See also the [EVM typegen code generation](/sdk/reference/typegen/generation/?typegen=evm) reference page.
+See also [EVM typegen code generation](/sdk/resources/tools/typegen/generation/?typegen=evm).
 
 ```mdx-code-block
 </TabItem>
@@ -250,13 +250,13 @@ See also the [EVM typegen code generation](/sdk/reference/typegen/generation/?ty
 ```
 Follow the respective reference configuration pages of each typegen tool:
 
-* [Substrate typegen configuration](/sdk/reference/typegen/generation/?typegen=substrate)
-* [ink! typegen configuration](/sdk/reference/typegen/generation/?typegen=ink)
+* [Substrate typegen configuration](/sdk/resources/tools/typegen/generation/?typegen=substrate)
+* [ink! typegen configuration](/sdk/resources/tools/typegen/generation/?typegen=ink)
 
 <details>
 <summary>A tip for `frontier-evm` squids</summary>
 
-These squids use both Substrate typegen _and_ EVM typegen. To generate all the required utilities, [configure the Substrate part](/sdk/reference/typegen/generation/?typegen=substrate), then save all relevant JSON ABIs to `./abi`, then run
+These squids use both Substrate typegen _and_ EVM typegen. To generate all the required utilities, [configure the Substrate part](sdk/resources/tools/typegen/generation/?typegen=substrate), then save all relevant JSON ABIs to `./abi`, then run
 ```bash
 sqd typegen
 ```
@@ -357,7 +357,7 @@ processor.run(db, async ctx => {
   }
 })
 ```
-See also the [EVM data decoding reference](/sdk/reference/typegen/decoding/?typegen=evm).
+See also the [EVM data decoding](/sdk/resources/tools/typegen/decoding/?typegen=evm).
 
 ```mdx-code-block
 </TabItem>
@@ -396,11 +396,11 @@ processor.run(db, async ctx => {
 
 ```
 
-See also the [Substrate data decoding reference](/sdk/reference/typegen/decoding/?typegen=substrate).
+See also the [Substrate data decoding](/sdk/resources/tools/typegen/decoding/?typegen=substrate).
 
 You can also decode the data of certain pallet-specific events and transactions with specialized tools:
- - use the utility classes made with `@substrate/squid-ink-typegen` to [decode events emitted by ink! contracts](/sdk/reference/typegen/decoding/?typegen=ink)
- - use the [`@subsquid/frontier` utils](/sdk/reference/frontier) and the [EVM typegen](/sdk/reference/typegen/decoding/?typegen=evm) to decode event logs and transactions of EVM contracts
+ - use the utility classes made with `@substrate/squid-ink-typegen` to [decode events emitted by ink! contracts](/sdk/resources/tools/typegen/decoding/?typegen=ink)
+ - use the [`@subsquid/frontier` utils](/sdk/reference/frontier) and the [EVM typegen](/sdk/resources/tools/typegen/decoding/?typegen=evm) to decode event logs and transactions of EVM contracts
 
 ```mdx-code-block
 </TabItem>
