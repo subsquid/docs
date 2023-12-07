@@ -1,5 +1,5 @@
 ---
-sidebar_position: 30
+sidebar_position: 90
 title: Subsquid vs The Graph
 description: Comparison of Subsquid and The Graph
 ---

@@ -237,7 +237,7 @@ const urlList = [
     },
     {
         "from": "/basics/squid-development",
-        "to": "/sdk/squid-development"
+        "to": "/sdk/how-to-start/squid-development"
     },
     {
         "from": "/basics/squid-gen",
@@ -249,7 +249,7 @@ const urlList = [
     },
     {
         "from": "/basics/squid-structure",
-        "to": "/sdk/reference/layout"
+        "to": "/sdk/how-to-start/layout"
     },
     {
         "from": "/basics/unfinalized-blocks",
@@ -497,11 +497,11 @@ const urlList = [
     },
     {
         "from": "/quickstart/quickstart-substrate",
-        "to": "/sdk/squid-development"
+        "to": "/sdk/how-to-start/squid-development"
     },
     {
         "from": "/quickstart/quickstart-ethereum",
-        "to": "/sdk/squid-development"
+        "to": "/sdk/how-to-start/squid-development"
     },
     {
         "from": "/quickstart/quickstart-abi",
@@ -509,7 +509,7 @@ const urlList = [
     },
     {
         "from": "/quickstart",
-        "to": "/sdk/squid-development"
+        "to": "/sdk/how-to-start"
     },
     {
         "from": "/store/postgres/schema-file/entities",
@@ -653,7 +653,7 @@ const urlList = [
     },
     {
         "from": "/tutorials/development-environment-set-up",
-        "to": "/sdk/development-environment-set-up"
+        "to": "/sdk/how-to-start/development-environment-set-up"
     },
     {
         "from": "/tutorials/case-studies",

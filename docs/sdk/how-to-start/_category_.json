@@ -1,0 +1,12 @@
+{
+    "position": 20,
+    "label": "Getting started",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/sdk/how-to-start",
+      "title": "Getting started with Squid SDK"
+    }
+}

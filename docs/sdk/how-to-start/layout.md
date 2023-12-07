@@ -1,7 +1,7 @@
 ---
-sidebar_position: 10
-title: Layout convention
-description: The folder layout of a squid
+sidebar_position: 40
+title: Project structure
+description: The folder layout of a squid project
 ---
 
 # Squid structure
@@ -25,10 +25,7 @@ A squid is expected to follow the folder structure conventions listed below.
 - `docker-compose.yml` -- A Docker compose file for local runs. Has a Postgres service definition by default. Ignored by Subsquid Cloud.
 - `.env` -- Defines environment variables used by `docker-compose.yml` and when the squid is run locally. Ignored by Subsquid Cloud.
 - `typegen.json` -- (optional) The config file for `squid-substrate-typegen`. Ignored by Subsquid Cloud.
-- `Makefile` -- (optional) Script definitions for `Make`. Ignored by Subsquid Cloud.
+- `commands.json` -- User-defined scripts picked up by [Squid CLI](/squid-cli). 
 - `tsconfig.json`, `package-lock.json`, `package.json` -- **(Required)** The `npm` and `tsc` configs.
 - `/archive` -- An (optional) folder for running a local Archive. Ignored by Subsquid Cloud.
 
-The templates also define the following auxiliary scripts (optional):
-- `build` to build the squid.
-- `update` to update the squid packages to the latest version.

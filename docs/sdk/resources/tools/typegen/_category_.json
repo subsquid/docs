@@ -1,6 +1,6 @@
 {
   "position": 50,
-  "label": "Typegens",
+  "label": "Type-safe decoding",
   "collapsible": true,
   "collapsed": true,
   "className": "red",

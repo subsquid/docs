@@ -1,5 +1,5 @@
 ---
-sidebar_position: 32
+sidebar_position: 80
 title: FAQ
 description: Frequently asked questions
 ---
