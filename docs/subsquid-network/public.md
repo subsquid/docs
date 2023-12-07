@@ -85,7 +85,7 @@ The data indexed by the Subsquid Network is stored in persistent storage. During
 
 ### What is the difference between Subsquid Network and the Graph Network?
 
-Learn about the differences and see a full feature matrix [here](/sdk/resources/migrate/migrate-subgraph).
+Learn about the differences and see a full feature matrix [here](/sdk/resources/integration/migrate/migrate-subgraph).
 
 ### How does the Subsquid Network make blockchain data accessible for free? Are there costs involved?
 

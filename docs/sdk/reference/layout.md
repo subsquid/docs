@@ -8,7 +8,7 @@ description: The folder layout of a squid
 
 A squid is expected to follow the folder structure conventions listed below.
 
-- `/db` -- **(Required)** The designated folder with the [database migrations](/sdk/resources/persisting-data/typeorm).
+- `/db` -- **(Required)** The designated folder with the [database migrations](/sdk/resources/store/typeorm).
 - `/lib` -- The output folder for the compiled squid code.
 - `/src` -- **(Required)** The source folder for the squid processor.
    + `/src/main.ts` -- The entry point of the squid processor process. Typically contains a `processor.run()` call.

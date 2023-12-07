@@ -1,0 +1,12 @@
+{
+    "position": 200,
+    "label": "Integration",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/sdk/resources/integration",
+      "title": "Guides and notes involving multiple squid components"
+    }
+}

@@ -6,7 +6,7 @@ sidebar_position: 20
 
 ### `QueryFailedError: relation does not exist`
 
-Often occurs after changing [schema](/sdk/reference/schema-file) and forgetting to regenerate the [database migrations](/sdk/resources/persisting-data/typeorm). Try
+Often occurs after changing [schema](/sdk/reference/schema-file) and forgetting to regenerate the [database migrations](/sdk/resources/store/typeorm). Try
 ```bash
 sqd codegen
 sqd build
@@ -18,7 +18,7 @@ sqd migration:generate
 ### `driverError: error: relation "..." does not exist` in the processor logs
 
 It is likely that the generated migrations in the `db/migrations` folder are outdated and do not match the schema file.
-Recreate the migrations from scratch as detailed in [this page](/sdk/resources/persisting-data/typeorm/#updating-after-schema-changes)
+Recreate the migrations from scratch as detailed in [this page](/sdk/resources/store/typeorm/#updating-after-schema-changes)
 
 ### `Query runner already released. Cannot run queries anymore` in the processor logs
 

@@ -151,7 +151,7 @@ interface PartialToken {
 }
 ```
 
-Here, `PartialToken` stores the incomplete `Token` information obtained purely from blockchain events and function calls, before any [state queries](/sdk/reference/typegen/state-queries/) or enrichment with [external data](/sdk/resources/external-api/). 
+Here, `PartialToken` stores the incomplete `Token` information obtained purely from blockchain events and function calls, before any [state queries](/sdk/reference/typegen/state-queries/) or enrichment with [external data](/sdk/resources/processor/external-api/). 
 The function `completeTokens()` is responsible for filling `Token` fields that are missing in `PartialToken`s. This involves IO operations, so both the function and its caller `createTokens()` have to be asynchronous. The functions also require a batch context for state queries and logging. We modify the `createTokens()` call in the batch handler to accommodate these changes:
 ```diff
  processor.run(new TypeormDatabase(), async (ctx) => {

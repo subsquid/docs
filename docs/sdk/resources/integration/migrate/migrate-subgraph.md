@@ -29,7 +29,7 @@ On top of the features provided by subgraphs, Squid SDK and Subsquid Cloud offer
 - [API versioning and aliasing](/cloud/resources/production-alias)
 - [API caching](/sdk/reference/graphql-server/caching)
 
-For a full feature set comparison, see [Subsquid vs The Graph](/sdk/resources/subsquid-vs-thegraph).
+For a full feature set comparison, see [Subsquid vs The Graph](/sdk/subsquid-vs-thegraph).
 
 ## Squid setup 
 
@@ -66,7 +66,7 @@ sqd build
 ```
 This command is equivalent to running `yarn codegen` in subgraph.
 
-After that, start the local database and generate migrations from the generated entities using the [`squid-typeorm-migration`](/sdk/resources/persisting-data/typeorm) tool:
+After that, start the local database and generate migrations from the generated entities using the [`squid-typeorm-migration`](/sdk/resources/store/typeorm) tool:
 ```bash
 sqd up
 sqd migration:generate

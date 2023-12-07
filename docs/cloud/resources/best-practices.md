@@ -8,7 +8,7 @@ description: Checklist for going to production
 
 Here is a list of items to check out before you deploy your squid for use in production:
 
-* If your squid [saves its data to a database](/sdk/resources/persisting-data/typeorm), make sure your [schema](/sdk/reference/schema-file) has [`@index` decorators](/sdk/reference/schema-file/indexes-and-constraints) for all entities that will be looked up frequently.
+* If your squid [saves its data to a database](/sdk/resources/store/typeorm), make sure your [schema](/sdk/reference/schema-file) has [`@index` decorators](/sdk/reference/schema-file/indexes-and-constraints) for all entities that will be looked up frequently.
 
 * If your squid serves a [GraphQL API](/sdk/reference/graphql-server), consider:
   1. configuring the built-in [DoS protection](/sdk/reference/graphql-server/dos-protection) against heavy queries;

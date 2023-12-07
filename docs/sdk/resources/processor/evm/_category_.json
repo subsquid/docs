@@ -1,12 +1,12 @@
 {
-    "position": 30,
+    "position": 80,
     "label": "EVM-specific",
     "collapsible": true,
     "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
-      "slug": "/sdk/resources/evm",
+      "slug": "/sdk/resources/processor/evm",
       "title": "Topics specific to EVM"
     }
 }

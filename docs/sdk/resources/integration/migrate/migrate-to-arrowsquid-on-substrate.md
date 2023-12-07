@@ -6,7 +6,7 @@ description: A step-by-step migration guide for Substrate
 
 # Migrate to ArrowSquid (Substrate)
 
-This is a Substrate guide. EVM guide is available [here](/sdk/resources/migrate/migrate-to-arrowsquid).
+This is a Substrate guide. EVM guide is available [here](/sdk/resources/integration/migrate/migrate-to-arrowsquid).
 
 ArrowSquid refers to `@subsquid/substrate-processor` versions `3.x` and above. It is not compatible with the FireSquid archive endpoints. The new `v2` archives are currently being rolled out (see the [Supported networks](/subsquid-network/reference/substrate-networks) page).
 
@@ -34,7 +34,7 @@ npm i @subsquid/substrate-processor@latest @subsquid/typeorm-store@latest
 ```bash
 npm i --save-dev @subsquid/substrate-typegen@latest
 ```
-We recommend that you also have `@subsquid/archive-registry` installed. If your squid uses [`file-store`](/sdk/resources/persisting-data/file), please update any related packages to the `@latest` version.
+We recommend that you also have `@subsquid/archive-registry` installed. If your squid uses [`file-store`](/sdk/resources/store/file), please update any related packages to the `@latest` version.
 
 ## Step 2
 

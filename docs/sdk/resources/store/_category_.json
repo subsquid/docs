@@ -1,12 +1,12 @@
 {
-    "position": 70,
-    "label": "Persisting data",
+    "position": 30,
+    "label": "Store",
     "collapsible": true,
     "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
-      "slug": "/sdk/resources/persisting-data",
+      "slug": "/sdk/resources/store",
       "title": "Supported data sinks for squid processors"
     }
 }

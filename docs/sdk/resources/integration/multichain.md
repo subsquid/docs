@@ -6,7 +6,7 @@ description: Combine data from multiple chains
 
 # Multichain indexing
 
-Squids can extract data from multiple chains into a shared data sink. If the data is [stored to Postgres](/sdk/resources/persisting-data/typeorm) it can then be served as a unified multichain [GraphQL API](/sdk/reference/graphql-server).
+Squids can extract data from multiple chains into a shared data sink. If the data is [stored to Postgres](/sdk/resources/store/typeorm) it can then be served as a unified multichain [GraphQL API](/sdk/reference/graphql-server).
 
 To do this, run one [processor](/sdk/overview) per source network:
 
@@ -77,7 +77,7 @@ Also ensure that
     }
     ```
 
-## On [file-store](/sdk/resources/persisting-data/file)
+## On [file-store](/sdk/resources/store/file)
 
 Ensure that you use a unique target folder for each processor.
 

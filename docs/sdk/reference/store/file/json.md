@@ -9,7 +9,7 @@ description: >-
 
 ## `Table` Implementation
 
-The `@subsquid/file-store-json` package provides a `Table` implementation for writing to JSON and [JSONL](https://jsonlines.org) files. Use it by [supplying one or more of its instances via the `tables` field of the `Database` constructor argument](/sdk/resources/persisting-data/file/#database-options). The `Table` uses a constructor with the following signature:
+The `@subsquid/file-store-json` package provides a `Table` implementation for writing to JSON and [JSONL](https://jsonlines.org) files. Use it by [supplying one or more of its instances via the `tables` field of the `Database` constructor argument](/sdk/resources/store/file/#database-options). The `Table` uses a constructor with the following signature:
 ```typescript
 Table<S extends Record<string, any>>(fileName: string, options?: {lines?: boolean})
 ```

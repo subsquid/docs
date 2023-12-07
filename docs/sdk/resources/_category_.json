@@ -1,12 +1,12 @@
 {
     "position": 60,
-    "label": "Resources",
+    "label": "Guides & notes",
     "collapsible": true,
     "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
       "slug": "/sdk/resources",
-      "title": "Resources for squid developers"
+      "title": "Guides into squid components and topics"
     }
 }

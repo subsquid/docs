@@ -91,7 +91,7 @@ export const Transfers = new Table(
 )
 ```
 
-Let's create another file next, this time named `src/db.ts`, to configure the data abstraction layer. Here we export an instance of the [`Database` class](/sdk/resources/persisting-data/overview) implementation from the `file-store` package (a dependency of `file-store-csv`). We will use this instance in much the same way as we would use a [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm) instance in a PostgreSQL-based squid.
+Let's create another file next, this time named `src/db.ts`, to configure the data abstraction layer. Here we export an instance of the [`Database` class](/sdk/resources/store/overview) implementation from the `file-store` package (a dependency of `file-store-csv`). We will use this instance in much the same way as we would use a [`TypeormDatabase`](/sdk/resources/store/typeorm) instance in a PostgreSQL-based squid.
 
 ```typescript
 import {Database, LocalDest, Store} from '@subsquid/file-store'
@@ -112,7 +112,7 @@ Note the `chunkSizeMb` and `syncIntervalBlocks` option. `file-store-csv` chunks 
 1. the amount of data stored in the processor buffer exceeds `chunkSizeMb`, or
 2. there is some data to the buffer and the blockchain head is reached in the sync process, or
 3. there is some data in the buffer and more than `syncIntervalBlocks` blocks has been processed since the last write.
-See [this section](/sdk/resources/persisting-data/file/#filesystem-syncs-and-dataset-partitioning) for details.
+See [this section](/sdk/resources/store/file/#filesystem-syncs-and-dataset-partitioning) for details.
 :::
 
 ### Data indexing

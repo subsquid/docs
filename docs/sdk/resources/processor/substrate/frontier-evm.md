@@ -120,7 +120,7 @@ processor.run(new TypeormDatabase(), async ctx => {
 
 It some cases the set of contracts to be indexed by the squid is not known in advance. For example, a DEX contract typically creates a new contract for each trading pair added, and each such trading contract is of interest.
 
-While the set of handler subscriptions is static and defined at the processor creation, one can leverage the wildcard subscriptions and filter the contracts of interest in runtime. This pattern is [described extensively](/sdk/resources/evm/factory-contracts) in EVM documentation, but it can be used with EVM methods of `SubstrateBatchProcessor` as well. A (somewhat outdated) example is available in [this archive repo](https://github.com/subsquid/beamswap-squid/blob/master/src/processor.ts).
+While the set of handler subscriptions is static and defined at the processor creation, one can leverage the wildcard subscriptions and filter the contracts of interest in runtime. This pattern is [described extensively](/sdk/resources/processor/evm/factory-contracts) in EVM documentation, but it can be used with EVM methods of `SubstrateBatchProcessor` as well. A (somewhat outdated) example is available in [this archive repo](https://github.com/subsquid/beamswap-squid/blob/master/src/processor.ts).
 
 ## Caveats
 

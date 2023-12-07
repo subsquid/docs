@@ -23,17 +23,17 @@ See also the [Environment set up](/sdk/resources/development-environment-set-up)
 Consider your business requirements and find out
 
 1. How the data should be delivered. Options:
-   - [PostgreSQL](/sdk/resources/persisting-data/typeorm) with an optional [GraphQL API](/sdk/reference/graphql-server) - can be real-time
-   - [file-based dataset](/sdk/resources/persisting-data/file) - local or on S3
-   - [Google BigQuery](/sdk/resources/persisting-data/bigquery/)
+   - [PostgreSQL](/sdk/resources/store/typeorm) with an optional [GraphQL API](/sdk/reference/graphql-server) - can be real-time
+   - [file-based dataset](/sdk/resources/store/file) - local or on S3
+   - [Google BigQuery](/sdk/resources/store/bigquery/)
 2. What data should be delivered
 3. What are the technologies powering the blockchain(s) in question. Supported options:
    - Ethereum Virtual Machine (EVM) chains like [Ethereum](https://ethereum.org) - [supported networks](/subsquid-network/reference/evm-networks)
    - [Substrate](https://substrate.io)-powered chains like [Polkadot](https://polkadot.network) and [Kusama](https://kusama.network) - [supported networks](/subsquid-network/reference/substrate-networks)
 
-   Note that you can use Subsquid via [RPC ingestion](/sdk/resources/unfinalized-blocks) even if your network is not listed.
+   Note that you can use Subsquid via [RPC ingestion](/sdk/resources/processor/unfinalized-blocks) even if your network is not listed.
 4. What exact data should be retrieved from blockchain(s)
-5. Whether you need to mix in any [off-chain data](/sdk/resources/external-api)
+5. Whether you need to mix in any [off-chain data](/sdk/resources/processor/external-api)
 
 #### Example requirements
 
@@ -45,7 +45,7 @@ Suppose you want to train a prototype ML model on all trades done on Uniswap Pol
 1. A delay of a few hours typically won't matter for training, so you may want to deliver the data as files for easier handling.
 2. The output could be a simple list of swaps, listing pair, direction and token amounts for each.
 3. Polygon is an EVM chain.
-4. All the required data is contained within `Swap` events emitted by the pair pool contracts. Uniswap deploys these [dynamically](/sdk/resources/evm/factory-contracts), so you will also have to capture `PoolCreated` events from the factory contract to know which `Swap` events are coming from Uniswap and map them to pairs.
+4. All the required data is contained within `Swap` events emitted by the pair pool contracts. Uniswap deploys these [dynamically](/sdk/resources/processor/evm/factory-contracts), so you will also have to capture `PoolCreated` events from the factory contract to know which `Swap` events are coming from Uniswap and map them to pairs.
 5. No off-chain data will be necessary for this task.
 
 </details>
@@ -71,7 +71,7 @@ Suppose you want to create a BigQuery dataset with Kusama native tokens transfer
 1. The delivery format is BigQuery.
 2. A single table with `from`, `to` and `amount` columns may suffice.
 3. Kusama is a Substrate chain.
-4. The required data is available from `Transfer` events emitted by the `Balances` pallet. Take a look at our [Substrate data sourcing miniguide](/sdk/resources/substrate/data-sourcing-miniguide) for more info on how to figure out which pallets, events and calls are necessary for your task.
+4. The required data is available from `Transfer` events emitted by the `Balances` pallet. Take a look at our [Substrate data sourcing miniguide](/sdk/resources/processor/substrate/data-sourcing-miniguide) for more info on how to figure out which pallets, events and calls are necessary for your task.
 5. No off-chain data will be necessary for this task.
 
 </details>
@@ -91,11 +91,11 @@ Although it is possible to [compose a squid from individual packages](/sdk/squid
   ```bash
   sqd init my-squid-name -t evm
   ```
-- Classic [example Subgraph](https://github.com/graphprotocol/example-subgraph) after a [migration](/sdk/resources/migrate/migrate-subgraph) to Subsquid.
+- Classic [example Subgraph](https://github.com/graphprotocol/example-subgraph) after a [migration](/sdk/resources/integration/migrate/migrate-subgraph) to Subsquid.
   ```bash
   sqd init my-squid-name -t gravatar
   ```
-- A template showing how to [combine data from multiple chains](/sdk/resources/multichain). Indexes USDC transfers on Ethereum and Binance.
+- A template showing how to [combine data from multiple chains](/sdk/resources/integration/multichain). Indexes USDC transfers on Ethereum and Binance.
   ```bash
   sqd init my-squid-name -t multichain
   ```
@@ -230,7 +230,7 @@ The advantage of this approach is that the code remains buildable at all times, 
 <Tabs>
 <TabItem value="evm" label="EVM">
 ```
-Retrieve JSON ABIs for all contracts of interest (e.g. from Etherscan), taking care to get implementation ABIs for [proxies](/sdk/resources/evm/proxy-contracts) where appropriate. Assuming that you saved the ABI files to `./abi`, you can then regenerate the utilities with
+Retrieve JSON ABIs for all contracts of interest (e.g. from Etherscan), taking care to get implementation ABIs for [proxies](/sdk/resources/processor/evm/proxy-contracts) where appropriate. Assuming that you saved the ABI files to `./abi`, you can then regenerate the utilities with
 ```bash
 sqd typegen
 ```
@@ -281,7 +281,7 @@ Edit the definition of `const processor` to
 1. Use a [data source](/sdk/reference/processors/evm-batch/general/#set-data-source) appropriate for your chain and task.
    - It is possible to use RPC as the only data source, but adding a [Subsquid Network](/subsquid-network/reference/evm-networks) data source will make your squid sync much faster.
    - RPC is a hard requirement if you're building a real-time API.
-   - If you're using RPC as one of your data sources, make sure to [set the number of finality confirmations](/sdk/reference/processors/evm-batch/general/#set-finality-confirmation) so that [hot blocks ingestion](/sdk/resources/unfinalized-blocks) works properly.
+   - If you're using RPC as one of your data sources, make sure to [set the number of finality confirmations](/sdk/reference/processors/evm-batch/general/#set-finality-confirmation) so that [hot blocks ingestion](/sdk/resources/processor/unfinalized-blocks) works properly.
 2. Request all [event logs](/sdk/reference/processors/evm-batch/logs/), [transactions](/sdk/reference/processors/evm-batch/transactions/), [execution traces](/sdk/reference/processors/evm-batch/traces) and [state diffs](/sdk/reference/processors/evm-batch/state-diffs/) that your task requires, with any necessary related data (e.g. parent transactions for event logs).
 
 3. [Select all data fields](/sdk/reference/processors/evm-batch/field-selection) necessary for your task (e.g. `gasUsed` for transactions).
@@ -302,9 +302,9 @@ Edit the definition of `const processor` to
 2. Request all [events](/sdk/reference/processors/substrate-batch/data-requests/#events) and [calls](/sdk/reference/processors/substrate-batch/data-requests/#calls) that your task requires, with any necessary related data (e.g. parent extrinsics).
 
 3. If your squid indexes any of the following:
-   - an [ink! contract](/sdk/resources/substrate/ink)
-   - an EVM contract running on the [Frontier EVM pallet](/sdk/resources/substrate/frontier-evm)
-   - [Gear messages](/sdk/resources/substrate/gear)
+   - an [ink! contract](/sdk/resources/processor/substrate/ink)
+   - an EVM contract running on the [Frontier EVM pallet](/sdk/resources/processor/substrate/frontier-evm)
+   - [Gear messages](/sdk/resources/processor/substrate/gear)
 
    then you can use some of the [specialized data requesting methods](/sdk/reference/processors/substrate-batch/data-requests/#specialized-setters) to retrieve data more selectively.
 
@@ -327,14 +327,14 @@ See [reference documentation](/sdk/reference/processors/substrate-batch) for mor
 
 Next, change the batch handler to decode and normalize your data.
 
-In templates, the batch handler is defined at the [`processor.run()`](/sdk/reference/processors/architecture/#processorrun) call in `src/main.ts` as an inline function. Its sole argument `ctx` contains:
+In templates, the batch handler is defined at the [`processor.run()`](/sdk/resources/processor/architecture/#processorrun) call in `src/main.ts` as an inline function. Its sole argument `ctx` contains:
 - at `ctx.blocks`: all the requested data for a batch of blocks
 - at `ctx.store`: the means to save the processed data
 - at `ctx.log`: a [`Logger`](/sdk/reference/logger/)
 - at `ctx.isHead`: a boolean indicating whether the batch is at the current chain head
 - at `ctx._chain`: the means to access RPC for [state calls](#extras-state-calls)
 
-This structure ([reference](/sdk/reference/processors/architecture/#batch-context)) is common for all processors; the structure of `ctx.blocks` items varies.
+This structure ([reference](/sdk/resources/processor/architecture/#batch-context)) is common for all processors; the structure of `ctx.blocks` items varies.
 
 ```mdx-code-block
 <Tabs>
@@ -409,13 +409,13 @@ You can also decode the data of certain pallet-specific events and transactions 
 
 ### (Optional) IV. Mix in external data and chain state calls output {#external-data}
 
-If you need external (i.e. non-blockchain) data in your transformation, take a look at the [External APIs and IPFS](/sdk/resources/external-api) page.
+If you need external (i.e. non-blockchain) data in your transformation, take a look at the [External APIs and IPFS](/sdk/resources/processor/external-api) page.
 
 If any of the on-chain data you need is unavalable from the processor or incovenient to retrieve with it, you have an option to get it via [direct chain queries](/sdk/reference/typegen/state-queries).
 
 ### V. Prepare the store {#store}
 
-At `src/main.ts`, change the [`Database`](/sdk/resources/persisting-data/overview) object definition to accept your output data. The methods for saving data will be exposed by `ctx.store` within the [batch handler](/sdk/reference/processors/architecture).
+At `src/main.ts`, change the [`Database`](/sdk/resources/store/overview) object definition to accept your output data. The methods for saving data will be exposed by `ctx.store` within the [batch handler](/sdk/resources/processor/architecture).
 
 ```mdx-code-block
 <Tabs>
@@ -455,7 +455,7 @@ At `src/main.ts`, change the [`Database`](/sdk/resources/persisting-data/overvie
 
 You can now use the async functions [`ctx.store.upsert()`](/sdk/reference/store/typeorm/#upsert) and [`ctx.store.insert()`](/sdk/reference/store/typeorm/#insert), as well as various [TypeORM lookup methods](/sdk/reference/store/typeorm/#typeorm-methods) to access the database.
 
-See the `typeorm-store` [guide](/sdk/resources/persisting-data/typeorm) and [reference](/sdk/reference/store/typeorm) for more info.
+See the `typeorm-store` [guide](/sdk/resources/store/typeorm) and [reference](/sdk/reference/store/typeorm) for more info.
 
 ```mdx-code-block
 </TabItem>
@@ -497,16 +497,16 @@ Once you're done you'll be able to enqueue data rows for saving using the `write
 ctx.store.FirstTable.writeMany(/* ... */)
 ctx.store.SecondTable.write(/* ... */)
 ```
-The store will write the files automatically as soon as the buffer reaches the size set by the `chunkSizeMb` field of the `Database` constructor argument, or at the end of the batch if a call to [`setForceFlush()`](/sdk/resources/persisting-data/file/#setforceflush) was made anywhere in the batch handler.
+The store will write the files automatically as soon as the buffer reaches the size set by the `chunkSizeMb` field of the `Database` constructor argument, or at the end of the batch if a call to [`setForceFlush()`](/sdk/resources/store/file/#setforceflush) was made anywhere in the batch handler.
 
-See the `file-store` [guide](/sdk/resources/persisting-data/file) and the [reference pages of its extensions](/sdk/reference/store/file).
+See the `file-store` [guide](/sdk/resources/store/file) and the [reference pages of its extensions](/sdk/reference/store/file).
 
 ```mdx-code-block
 </TabItem>
 <TabItem value="bigquery-store" label="BigQuery">
 ```
 
-Follow the [guide](/sdk/resources/persisting-data/bigquery).
+Follow the [guide](/sdk/resources/store/bigquery).
 
 
 ```mdx-code-block
@@ -543,7 +543,7 @@ It will often make sense to keep the entity instances in maps rather than arrays
 
 If you perform any [database lookups](/sdk/reference/store/typeorm/#typeorm-methods), try to do so in batches and make sure that the entity fields that you're searching over are [indexed](/sdk/reference/schema-file/indexes-and-constraints).
 
-See also the [patterns](/sdk/resources/batch-processing/#patterns) and [anti-pattens](/sdk/resources/batch-processing/#anti-patterns) sections of the Batch processing guide.
+See also the [patterns](/sdk/resources/integration/batch-processing/#patterns) and [anti-pattens](/sdk/resources/integration/batch-processing/#anti-patterns) sections of the Batch processing guide.
 
 
 ```mdx-code-block
@@ -553,7 +553,7 @@ See also the [patterns](/sdk/resources/batch-processing/#patterns) and [anti-pat
 
 You can enqueue the transformed data for writing whenever convenient without any sizeable impact on performance.
 
-At low output data rates (e.g. if your entire dataset is in tens of Mbytes or under) take care to call [`ctx.store.setForceFlush()`](/sdk/resources/persisting-data/file/#setforceflush) when appropriate to make sure your data actually gets written.
+At low output data rates (e.g. if your entire dataset is in tens of Mbytes or under) take care to call [`ctx.store.setForceFlush()`](/sdk/resources/store/file/#setforceflush) when appropriate to make sure your data actually gets written.
 
 
 ```mdx-code-block
@@ -588,5 +588,5 @@ If you're developing a large squid, you may want to take a look at the [Giant Sq
 
 ## Next steps
 
-* Deploy your squid [on own infrastructure](/sdk/resources/self-hosting) or to [Subsquid Cloud](/cloud)
+* Deploy your squid [on own infrastructure](/sdk/resources/integration/self-hosting) or to [Subsquid Cloud](/cloud)
 * If your squid serves a GraphQL API, consult the [Core GraphQL API reference](/sdk/reference/openreader) while writing your frontend

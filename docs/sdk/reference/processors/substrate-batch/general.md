@@ -21,7 +21,7 @@ The following setters configure the global settings of `SubstrateBatchProcessor`
 
   Note that `SubstrateBatchProcessor` also uses the RPC to occasionally retrieve chain metadata. That makes it impossible to use the processor without an RPC.
 
-- When the data source is a `ChainDataSource = {chain: ChainRpc}`, the processor will obtain data _only_ from a node RPC endpoint. This mode of operation is slow, but requires no archive and. Like `MixedDataSource`, it also has almost [no chain latency](/sdk/resources/unfinalized-blocks). It can be used with Substrate networks not listed on the [supported networks](/subsquid-network/reference/substrate-networks) page and with local development nodes.
+- When the data source is a `ChainDataSource = {chain: ChainRpc}`, the processor will obtain data _only_ from a node RPC endpoint. This mode of operation is slow, but requires no archive and. Like `MixedDataSource`, it also has almost [no chain latency](/sdk/resources/processor/unfinalized-blocks). It can be used with Substrate networks not listed on the [supported networks](/subsquid-network/reference/substrate-networks) page and with local development nodes.
 
 The node RPC endpoint can be specified as a string URL or as an object:
 ```ts

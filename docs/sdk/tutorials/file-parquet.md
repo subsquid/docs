@@ -83,7 +83,7 @@ This should create a few files in the `src/abi` folder for you. No need to do an
 
 The `@subsquid/file-store` library defines the `Table` and `Database` classes.
 
-The `Database` class gets its name from the interface that was originally developed to [access an actual database](/sdk/resources/persisting-data/typeorm). Here, the interface is [used without modification](/sdk/resources/persisting-data/overview) in a class designed to access a filesystem. `Table`s play a similar role to that of tables of an actual database: they represent collections of rows, all of which share same set of fields/columns. Each such data structure requires one or more data files to store it in both CSV and Parquet, hence the mapping of `Table`s to files.
+The `Database` class gets its name from the interface that was originally developed to [access an actual database](/sdk/resources/store/typeorm). Here, the interface is [used without modification](/sdk/resources/store/overview) in a class designed to access a filesystem. `Table`s play a similar role to that of tables of an actual database: they represent collections of rows, all of which share same set of fields/columns. Each such data structure requires one or more data files to store it in both CSV and Parquet, hence the mapping of `Table`s to files.
 
 To summarize, `Table` instances are used to define data files along with their schemas and hold file-specific settings. `Database` facilitates the interactions with the processor, coordinates writing to the files and maintains any state that facilitates that process (configuration, cloud connections and so on).
 

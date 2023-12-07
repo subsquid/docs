@@ -139,7 +139,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 ## Migrate from handlers
 
-Batch-based processing can be used as a drop-in replacement for the handler-based mappings employed by e.g. subgraphs. While the handler-based processing is significantly slower due to excessive database lookups and writes, it may be a good intermediary step while [migrating an existing subgraph to Squid SDK](/sdk/resources/migrate/migrate-subgraph/).
+Batch-based processing can be used as a drop-in replacement for the handler-based mappings employed by e.g. subgraphs. While the handler-based processing is significantly slower due to excessive database lookups and writes, it may be a good intermediary step while [migrating an existing subgraph to Squid SDK](/sdk/resources/integration/migrate/migrate-subgraph/).
 
 One can simply re-use the existing handlers while looping over the `ctx` items:
 

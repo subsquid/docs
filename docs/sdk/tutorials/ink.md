@@ -95,7 +95,7 @@ sqd codegen
 ```
 The generated entity classes can be found under `src/model/generated`.
 
-Finally, we create [database migrations](/sdk/resources/persisting-data/typeorm) to match the changed schema. We restore the database to a clean state, then replace any existing migrations with the new one:
+Finally, we create [database migrations](/sdk/resources/store/typeorm) to match the changed schema. We restore the database to a clean state, then replace any existing migrations with the new one:
 ```bash
 sqd down
 sqd up
@@ -126,7 +126,7 @@ The generated `src/abi/erc20.ts` module defines interfaces to represent WASM dat
 
 Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to chain-specific [Subsquid archives](/subsquid-network/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-`SubstrateBatchProcessor`s [exposes methods](/sdk/reference/processors/substrate-batch) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor [allows one](/sdk/resources/substrate/ink) to subscribe to such events emitted by a specific contract.
+`SubstrateBatchProcessor`s [exposes methods](/sdk/reference/processors/substrate-batch) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor [allows one](/sdk/resources/processor/substrate/ink) to subscribe to such events emitted by a specific contract.
 
 The processor is instantiated and configured at the `src/processor.ts`. Here are the changes we need to make there:
 
@@ -191,7 +191,7 @@ export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 
 ## Define the batch handler
 
-Once requested, the events can be processed by calling the `.run()` function that starts generating requests to the Archive for [*batches*](/sdk/resources/batch-processing) of data.
+Once requested, the events can be processed by calling the `.run()` function that starts generating requests to the Archive for [*batches*](/sdk/resources/integration/batch-processing) of data.
 
 Every time a batch is returned by the Archive, it will trigger the callback function, or *batch handler* (passed to `.run()` as second argument). It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 

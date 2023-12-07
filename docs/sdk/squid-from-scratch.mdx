@@ -140,7 +140,7 @@ To make the indexer, follow these steps:
      ```ts
      const db = new TypeormDatabase()
      ```
-   * A call to [`processor.run()`](/sdk/reference/processors/architecture/#processorrun) with an inline definition of the [batch handler](/sdk/reference/processors/architecture/#batch-context)
+   * A call to [`processor.run()`](/sdk/resources/processor/architecture/#processorrun) with an inline definition of the [batch handler](/sdk/resources/processor/architecture/#batch-context)
      ```ts
      processor.run(db, async ctx => {
        const transfers: Transfer[] = []

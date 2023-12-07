@@ -23,7 +23,7 @@ The following setters configure the global settings of `EvmBatchProcessor`. They
 
   A processor with an `ArchiveDataSource` cannot use [contract state queries](/sdk/reference/typegen/state-queries). If you want to operate your squid in this regime but require state queries, use a `MixedDataSource` with the [`useArchiveOnly()`](#use-archive-only) setter.
 
-- When the data source is a `ChainDataSource = {chain: ChainRpc}`, the processor will obtain data _only_ from a node RPC endpoint. This mode of operation is slow, but requires no archive and has almost [no chain latency](/sdk/resources/unfinalized-blocks). It can be used with EVM networks not listed on the [supported networks](/subsquid-network/reference/evm-networks) page and with [local development nodes](/sdk/tutorials/evm-local).
+- When the data source is a `ChainDataSource = {chain: ChainRpc}`, the processor will obtain data _only_ from a node RPC endpoint. This mode of operation is slow, but requires no archive and has almost [no chain latency](/sdk/resources/processor/unfinalized-blocks). It can be used with EVM networks not listed on the [supported networks](/subsquid-network/reference/evm-networks) page and with [local development nodes](/sdk/tutorials/evm-local).
 
 An Archive endpoint is specified as a string URL. Up-to-date URLs of public EVM Archives can be looked up with the `lookupArchive` utility from `@subsquid/archive-registry` (see [Supported networks](/subsquid-network/reference/evm-networks)).
 

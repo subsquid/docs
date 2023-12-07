@@ -7,7 +7,7 @@ description: >-
 
 # `@subsquid/typeorm-store`
 
-This page describes the interface of the classes from the `@subsquid/typeorm-store` NPM package. If you're looking for a guide on saving squid data to databases and the related workflows, check out the [Saving to PostgreSQL](/sdk/resources/persisting-data/typeorm) page.
+This page describes the interface of the classes from the `@subsquid/typeorm-store` NPM package. If you're looking for a guide on saving squid data to databases and the related workflows, check out the [Saving to PostgreSQL](/sdk/resources/store/typeorm) page.
 
 ## `TypeormDatabase` constructor arguments
 

@@ -203,7 +203,7 @@ We also export the `ProcessorContext` type to be able to pass the sole argument 
 
 ## Define the batch handler
 
-Squids [batch process](/sdk/resources/batch-processing) chain data from multiple blocks. Compared to the [handlers](/sdk/resources/batch-processing/#migrate-from-handlers) approach this results in a much lower database load. Batch processing is fully defined by processor's [batch handler](/sdk/overview/#processorrun), the callback supplied to the `processor.run()` call at the entry point of each processor (`src/main.ts` by convention).
+Squids [batch process](/sdk/resources/integration/batch-processing) chain data from multiple blocks. Compared to the [handlers](/sdk/resources/integration/batch-processing/#migrate-from-handlers) approach this results in a much lower database load. Batch processing is fully defined by processor's [batch handler](/sdk/overview/#processorrun), the callback supplied to the `processor.run()` call at the entry point of each processor (`src/main.ts` by convention).
 
 We begin defining our batch handler by importing the entity model classes and Crust event types that we generated in previous sections. We also import the processor and its types:
 
@@ -348,7 +348,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 ## Apply changes to the database
 
-Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping) provided by [TypeORM](https://typeorm.io). Previously we changed the data schema at `schema.graphql` and reflected these changes in our Typescript code using `sqd codegen`. Here, we [apply the corresponding changes to the database itself](/sdk/resources/persisting-data/typeorm).
+Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping) provided by [TypeORM](https://typeorm.io). Previously we changed the data schema at `schema.graphql` and reflected these changes in our Typescript code using `sqd codegen`. Here, we [apply the corresponding changes to the database itself](/sdk/resources/store/typeorm).
 
 We begin by making sure that the database is at blank state:
 ```bash

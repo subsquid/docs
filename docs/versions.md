@@ -15,5 +15,5 @@ Older docs centered around the ArrowSquid version of Squid SDK (`@subsquid/evm-p
 ## FireSquid
 
 [Documentation](/firesquid) for the previous version of Squid SDK. If your squid uses this version, please migrate:
- - [EVM guide](/sdk/resources/migrate/migrate-to-arrowsquid)
- - [Substrate guide](/sdk/resources/migrate/migrate-to-arrowsquid-on-substrate)
+ - [EVM guide](/sdk/resources/integration/migrate/migrate-to-arrowsquid)
+ - [Substrate guide](/sdk/resources/integration/migrate/migrate-to-arrowsquid-on-substrate)
