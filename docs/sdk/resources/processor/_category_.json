@@ -1,0 +1,12 @@
+{
+    "position": 20,
+    "label": "Processor",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/sdk/resources/processor",
+      "title": "Squid SDK processor"
+    }
+}

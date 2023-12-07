@@ -1,5 +1,5 @@
 ---
-sidebar_position: 90
+sidebar_position: 10
 title: Self-hosting
 description: Deploy squid locally or on-premises
 ---

@@ -6,7 +6,7 @@ description: Tools that generate squids from ABIs
 
 # Squid generation tools
 
-Subsquid provides [tools](https://github.com/subsquid/squid-gen) for generating ready-to-use squids that index events and function calls of smart contracts. EVM/Solidity and WASM/ink! smart contracts are supported. The tools can be configured to make squids that save data to a [PostgreSQL database](/sdk/resources/persisting-data/typeorm/) or to a [file-based dataset](/sdk/resources/persisting-data/file/). All that is required is NodeJS, [Subsquid CLI](/squid-cli/installation/) and, if your squid will be using a database, Docker.
+Subsquid provides [tools](https://github.com/subsquid/squid-gen) for generating ready-to-use squids that index events and function calls of smart contracts. EVM/Solidity and WASM/ink! smart contracts are supported. The tools can be configured to make squids that save data to a [PostgreSQL database](/sdk/resources/store/typeorm/) or to a [file-based dataset](/sdk/resources/store/file/). All that is required is NodeJS, [Subsquid CLI](/squid-cli/installation/) and, if your squid will be using a database, Docker.
 
 Squid generation procedure is very similar for both contract types. Here are the steps:
 
@@ -41,7 +41,7 @@ Squid generation procedure is very similar for both contract types. Here are the
 5. Test the complete squid by running it locally. Start a [processor](/sdk/overview/) with `sqd process`. If your squid will be serving GraphQL also run `sqd serve` in a separate terminal. Make sure that the squid saves the requested data to its target dataset:
    - if it is serving GraphQL, visit the local [GraphiQL playground](http://localhost:4350/graphql);
    - for PostgreSQL-based squids you can also connect to the database with `PGPASSWORD=postgres psql -U postgres -p 23798 -h localhost squid` and take a look at the contents;
-   - if it is storing data to a file-based dataset, [wait for the first filesystem sync](/sdk/resources/persisting-data/file/#filesystem-syncs-and-dataset-partitioning) then verify that all the expected files are present and contain the expected data.
+   - if it is storing data to a file-based dataset, [wait for the first filesystem sync](/sdk/resources/store/file/#filesystem-syncs-and-dataset-partitioning) then verify that all the expected files are present and contain the expected data.
 
 At this point your squid is ready. You can run it on your own infrastructure or [deploy it to Subsquid Cloud](/cloud/).
 
@@ -71,13 +71,13 @@ A valid config for the `squid-gen config` is a YAML file with the following sect
 
 ## `file-store` targets
 
-Currently the only [file-based data target type](/sdk/resources/persisting-data/file/) supported by `squid-gen` packages is [`parquet`](/sdk/reference/store/file/parquet/). When used, it requires that the `path` field is also set alongside `type`. A `path` can be a local path or an URL pointing to a folder within a bucket on an S3-compatible cloud service.
+Currently the only [file-based data target type](/sdk/resources/store/file/) supported by `squid-gen` packages is [`parquet`](/sdk/reference/store/file/parquet/). When used, it requires that the `path` field is also set alongside `type`. A `path` can be a local path or an URL pointing to a folder within a bucket on an S3-compatible cloud service.
 
 Support for `file-store` is in alpha stage. Known caveats:
 
 * If a S3 URL is used, then the S3 region, endpoint and user credentials will be [taken from the default environment variables](/sdk/reference/store/file/s3-dest/). Fill your `.env` file and/or set your [Subsquid Cloud secrets](/cloud/resources/env-variables/) accordingly.
 
-* Unlike their PostgreSQL-powered equivalents, the squids that use `file-store` may not write their data often. You may have to configure the `chunkSizeMb` and `syncIntervalBlocks` parameters of the `Database` class manually to strike an acceptable balance between the lag of the indexed data and the number of files in the resulting dataset. See [Filesystem store overview](/sdk/resources/persisting-data/file/) for details.
+* Unlike their PostgreSQL-powered equivalents, the squids that use `file-store` may not write their data often. You may have to configure the `chunkSizeMb` and `syncIntervalBlocks` parameters of the `Database` class manually to strike an acceptable balance between the lag of the indexed data and the number of files in the resulting dataset. See [Filesystem store overview](/sdk/resources/store/file/) for details.
 
 * For `parquet` targets, the [`Decimal(38)`](/sdk/reference/store/file/parquet/#columns) column type is used by the code generator to represent `uint256`. This is done for compatibility reasons: very few tools seem to support reading wider decimals from Parquet files. If you're getting a lot of errors containing `value ... does not fit into Decimal(38, 0)`, consider replacing the `Decimal(38)` column type with `Decimal(78)` or `String()` at `src/table.ts`.
 

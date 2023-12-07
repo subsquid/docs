@@ -1,5 +1,5 @@
 ---
-sidebar_position: 70
+sidebar_position: 20
 title: RPC ingestion and hot blocks
 description: Data from chain and network consensus
 ---
@@ -16,7 +16,7 @@ RPC ingestion can create a heavy load on node endpoints. The load typically shor
 When ingesting from RPC, Squid SDK can index blocks before they are [finalized](https://info.etherscan.com/epoch-in-ethereum/), enabling real-time use cases. To take advantage of this feature, a squid processor must
 
 1. have a node RPC endpoint as one of its data sources and
-2. use a [`Database`](/sdk/resources/persisting-data/overview) with hot blocks support (e.g. [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm)) in its [`processor.run()`](/sdk/overview/#processorrun) call, and
+2. use a [`Database`](/sdk/resources/store/overview) with hot blocks support (e.g. [`TypeormDatabase`](/sdk/resources/store/typeorm)) in its [`processor.run()`](/sdk/overview/#processorrun) call, and
 3. not set the [`useArchiveOnly(true)`](/sdk/reference/processors/evm-batch/general/#use-archive-only) setting.
 
 With this, the processor will consider some blocks to be "hot":

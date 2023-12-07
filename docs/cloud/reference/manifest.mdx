@@ -44,10 +44,6 @@ Even though the squid services (`api`, `processor`, `migrate`) use the same sing
 
 The `deploy` section may define:
 
-### `secrets:`
-
-A list of secret names that must be added in the [Cloud app](https://app.subsquid.io). If any of the secrets is not defined, the deployment will fail.
-
 ### `addons:`
 
 A list of add-on services to be deployed along the squid services.
@@ -102,6 +98,14 @@ For the multiprocessor case:
 |:-----------:|:-----------------------------------------------------------------------:|:-------------:|----------------------:|:------------------:|
 | `cmd`       | GraphQL API server exec command passed to the squid container. The server must be listening at port `GRAPHQL_SERVER_PORT`. |  `string[]` |    |   **Required**     |
 | `env`       | A key-value list of env variables to be set                             |  `{k:v}[]`    |  []                   |   Optional         |
+
+### `env:`
+
+**Optional** A key-value list of deployment-wide (i.e. visible to all services of the squid) env variables to be set
+
+### (deprecated) `secrets:` {#secrets}
+
+A list of secret names that must be added in the [Cloud app](https://app.subsquid.io). If any of the secrets is not defined, the deployment will fail.
 
 ## `scale:`
 

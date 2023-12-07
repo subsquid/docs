@@ -94,7 +94,7 @@ processor.run(db, async (ctx) => {
 })
 ```
 Here,
-* `db` is a [`Database` implementation](/sdk/resources/persisting-data/overview/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm/) object here.
+* `db` is a [`Database` implementation](/sdk/resources/store/overview/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/sdk/resources/store/typeorm/) object here.
 * `ctx` is a [batch context](/sdk/overview/#batch-context) object that exposes a batch of data retrieved from an archive or a RPC endpoint (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
 
 Batch handler is where the raw on-chain data from the archive is decoded, transformed and persisted. This is the part we'll be concerned with for the rest of the tutorial.
@@ -135,7 +135,7 @@ The full code can be found at [this commit](https://github.com/subsquid-labs/bay
 
 `TypeormDatabase` requires us to define a TypeORM data model to actually send the data to the database. In Subsquid, the same data model is also used by the GraphQL server to generate the API schema. To avoid any potential discrepancies, processor and GraphQL server rely on a shared data model description defined at `schema.graphql` in a GraphQL schema dialect fully documented [here](/sdk/reference/schema-file/).
 
-TypeORM code is generated from `schema.graphql` with the [`squid-typeorm-codegen`](/sdk/resources/persisting-data/typeorm) tool and must be regenerated every time the schema is changed. This is usually accompanied by regenerating the [database migrations](/sdk/resources/persisting-data/typeorm/) and recreating the database itself. The migrations are applied before every run of the processor, ensuring that whenever any TypeORM code within the processor attempts to access the database, the database is in a state that allows it to succeed.
+TypeORM code is generated from `schema.graphql` with the [`squid-typeorm-codegen`](/sdk/resources/store/typeorm) tool and must be regenerated every time the schema is changed. This is usually accompanied by regenerating the [database migrations](/sdk/resources/store/typeorm/) and recreating the database itself. The migrations are applied before every run of the processor, ensuring that whenever any TypeORM code within the processor attempts to access the database, the database is in a state that allows it to succeed.
 
 The main unit of data in `schema.graphql` is [entity](/sdk/reference/schema-file/entities/). These map onto [TypeORM entites](https://typeorm.io/entities) that in turn map onto database tables. We define one for `Transfer` events by replacing the file contents with
 ```graphql title="schema.graphql"
@@ -161,7 +161,7 @@ sqd down
 sqd up
 sqd migration:generate
 ```
-The generated code is in `src/model`. We can now import a `Transfer` entity class from there and use it to perform [various operations](/sdk/resources/persisting-data/typeorm/) on the corresponding database table. Let us rewrite our batch handler to save the parsed `Transfer` events data to the database:
+The generated code is in `src/model`. We can now import a `Transfer` entity class from there and use it to perform [various operations](/sdk/resources/store/typeorm/) on the corresponding database table. Let us rewrite our batch handler to save the parsed `Transfer` events data to the database:
 ```typescript title="src/main.ts"
 import {TypeormDatabase} from '@subsquid/typeorm-store'
 import {processor, CONTRACT_ADDRESS} from './processor'
@@ -195,7 +195,7 @@ Note a few things here:
 * A unique event log ID is available at `log.id` - no need to generate your own!
 * `tokenId` returned from the decoder is an `ethers.BigNumber`, so it has to be explicitly converted to `number`. The conversion is valid only because we know that BAYC NFT IDs run from 0 to 9999; in most cases we would use `BigInt` for the entity field type and convert with `tokenId.toBigInt()`.
 * `block.header` contains block metadata that we use to fill the extra fields.
-* Accumulating the `Transfer` entity instances before using `ctx.store.insert()` on the whole array of them in the end allows us to get away with just one database transaction per batch. This is [crucial for achieving a good syncing performance](/sdk/resources/batch-processing/).
+* Accumulating the `Transfer` entity instances before using `ctx.store.insert()` on the whole array of them in the end allows us to get away with just one database transaction per batch. This is [crucial for achieving a good syncing performance](/sdk/resources/integration/batch-processing/).
 
 At this point we have a squid that indexes the data on BAYC token transfers and is capable of serving it over a GraphQL API. Full code is available at [this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/aeb6268168385cc605ce04fe09d0159f708efe47). Test it by running
 ```bash

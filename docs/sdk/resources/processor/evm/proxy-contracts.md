@@ -1,5 +1,5 @@
 ---
-sidebar_position: 45
+sidebar_position: 20
 title: Proxy contracts
 description: >-
   Indexing proxy contracts

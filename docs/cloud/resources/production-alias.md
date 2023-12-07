@@ -1,5 +1,5 @@
 ---
-sidebar_position: 70
+sidebar_position: 60
 title: Production alias
 description: Switch between versions without downtime
 ---

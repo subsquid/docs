@@ -105,7 +105,7 @@ The results will be stored at `src/abi`. One module will be generated for each A
 
 Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to chain-specific [Subsquid archives](/subsquid-network/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-`SubstrateBatchProcessor`s [expose methods](/sdk/reference/processors/substrate-batch) that "subscribe" them to specific data such as Substrate events and calls. There are also [specialized methods](/sdk/resources/substrate/frontier-evm) for subscribing to EVM logs and transactions by address. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for [*batches*](/sdk/resources/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
+`SubstrateBatchProcessor`s [expose methods](/sdk/reference/processors/substrate-batch) that "subscribe" them to specific data such as Substrate events and calls. There are also [specialized methods](/sdk/resources/processor/substrate/frontier-evm) for subscribing to EVM logs and transactions by address. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for [*batches*](/sdk/resources/integration/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
 
 It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 
@@ -347,7 +347,7 @@ async function saveTransfers(
 [//]: # (!!!! Remove the Contract ctx hack once the alias is added by SDK)
 
 :::info
-The `contract.tokenURI` call is accessing the **state** of the contract via a chain RPC endpoint. This is slowing down the indexing a little bit, but this data is only available this way. You'll find more information on accessing state in the [dedicated section of our docs](/sdk/resources/substrate/frontier-evm#access-contract-state).
+The `contract.tokenURI` call is accessing the **state** of the contract via a chain RPC endpoint. This is slowing down the indexing a little bit, but this data is only available this way. You'll find more information on accessing state in the [dedicated section of our docs](/sdk/resources/processor/substrate/frontier-evm#access-contract-state).
 :::
 
 ## Database and the migration

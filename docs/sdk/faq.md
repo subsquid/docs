@@ -16,7 +16,7 @@ Here is an incomplete list:
 
 ### How does Squid SDK handle unfinalized blocks?
 
-The Subsquid Network only serves finalized blocks and is typically ~1000 blocks behind the tip. The most recent blocks, as well as the unfinalized blocks are seemlesly handled by the SDK from a complementary RPC data source, set by the `chain` config. Potential chain reorgs are automatically handled under the hood. See [Indexing unfinalized blocks](/sdk/resources/unfinalized-blocks) for details.
+The Subsquid Network only serves finalized blocks and is typically ~1000 blocks behind the tip. The most recent blocks, as well as the unfinalized blocks are seemlesly handled by the SDK from a complementary RPC data source, set by the `chain` config. Potential chain reorgs are automatically handled under the hood. See [Indexing unfinalized blocks](/sdk/resources/processor/unfinalized-blocks) for details.
 
 ### What is the latency for the data served by the squid? 
 
@@ -28,7 +28,7 @@ Add `--subscription` flag to the `serve` command defined in `commands.json`. See
 
 ### How do squids keep track of their sync progress?
 
-Depends on the data sink used. Squid processors that use [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm) keep their state in a [schema](https://www.postgresql.org/docs/current/sql-createschema.html), not in a table. By default the schema is called `squid_processor` (name must be overridden in [multiprocessor squids](/sdk/resources/multichain)). You can view it with
+Depends on the data sink used. Squid processors that use [`TypeormDatabase`](/sdk/resources/store/typeorm) keep their state in a [schema](https://www.postgresql.org/docs/current/sql-createschema.html), not in a table. By default the schema is called `squid_processor` (name must be overridden in [multiprocessor squids](/sdk/resources/integration/multichain)). You can view it with
 ```sql
 select * from squid_processor.status;
 ```
@@ -38,7 +38,7 @@ drop schema squid_processor cascade;
 ```
 to reset the processor status.
 
-Squids that store their data in [file-based datasets](/sdk/resources/persisting-data/file) store their status in `status.txt` by default. This can be overridden by defining custom [database hooks](/sdk/resources/persisting-data/file/#filesystem-syncs-and-dataset-partitioning).
+Squids that store their data in [file-based datasets](/sdk/resources/store/file) store their status in `status.txt` by default. This can be overridden by defining custom [database hooks](/sdk/resources/store/file/#filesystem-syncs-and-dataset-partitioning).
 
 ### Is there a healthcheck endpoint for the indexer?
 

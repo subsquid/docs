@@ -5,7 +5,7 @@ description: >-
   Store API for persisting the transformed data
 ---
 
-`Store` is a generic interface exposed by [`DataHandlerContext`](/sdk/reference/processors/architecture/#batch-context) at `.store`. It is used in the [batch handler](/sdk/reference/processors/architecture/#processorrun) to persist data. Its concrete type is inferred from the `Database` argument of the [`run()` processor method](/sdk/reference/processors/architecture/#processorrun):
+`Store` is a generic interface exposed by [`DataHandlerContext`](/sdk/resources/processor/architecture/#batch-context) at `.store`. It is used in the [batch handler](/sdk/resources/processor/architecture/#processorrun) to persist data. Its concrete type is inferred from the `Database` argument of the [`run()` processor method](/sdk/resources/processor/architecture/#processorrun):
 
 ```typescript
 run<Store>(
@@ -16,9 +16,9 @@ run<Store>(
 ```
 
 The `Database` implementation supplied here defines the store and the way the processor [persists its status](/sdk/faq/#how-do-squids-keep-track-of-their-sync-progress). Squid SDK supports `Database` implementations for:
- * [`TypeORM`-compatible databases](/sdk/resources/persisting-data/typeorm)
- * [file-based datasets](/sdk/resources/persisting-data/file)
- * [Google BigQuery](/sdk/resources/persisting-data/bigquery)
+ * [`TypeORM`-compatible databases](/sdk/resources/store/typeorm)
+ * [file-based datasets](/sdk/resources/store/file)
+ * [Google BigQuery](/sdk/resources/store/bigquery)
 
 Support for more databases and analytics storage will be added in the future.
 

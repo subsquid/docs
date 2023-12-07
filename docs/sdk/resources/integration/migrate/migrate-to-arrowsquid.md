@@ -6,7 +6,7 @@ description: A step-by-step migration guide for EVM
 
 # Migrate to ArrowSquid (EVM)
 
-This is a EVM guide. Substrate guide is available [here](/sdk/resources/migrate/migrate-to-arrowsquid-on-substrate).
+This is a EVM guide. Substrate guide is available [here](/sdk/resources/integration/migrate/migrate-to-arrowsquid-on-substrate).
 
 ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`. ArrowSquid is not compatible with the FireSquid archive endpoints, and the new `v2` archives are currently released only for a limited set of networks (see the [Supported EVM networks](/subsquid-network/reference/evm-networks/) page).
 
@@ -34,7 +34,7 @@ Update all packages affected by the update:
 npm i @subsquid/evm-processor@next
 npm i @subsquid/typeorm-store@next
 ```
-If your squid uses [`file-store`](/sdk/resources/persisting-data/file), please update any related packages to the `@next` version, too.
+If your squid uses [`file-store`](/sdk/resources/store/file), please update any related packages to the `@next` version, too.
 
 ## Step 2
 

@@ -21,7 +21,7 @@ Extract the transaction data from `Ethereum.transact` call with additional field
 
 Extract transaction result from an `Ethereum.Executed` event.
 
-See also the [Frontier EVM guide](/sdk/resources/substrate/frontier-evm).
+See also the [Frontier EVM guide](/sdk/resources/processor/substrate/frontier-evm).
 
 #### Example
 

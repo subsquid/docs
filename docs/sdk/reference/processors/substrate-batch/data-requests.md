@@ -135,7 +135,7 @@ Contract addresses must be specified as hex strings, so make sure to decode them
 
 Related data retrieval and field selection are identical to [`addEvent()`](#events).
 
-#### **`addGearMessageEnqueued(options)`** {#addgearmessageenqueued}
+#### **`addGearMessageQueued(options)`** {#addgearmessagequeued}
 #### **`addGearUserMessageSent(options)`** {#addgearusermessagesent}
 
 Structure of `options` is identical for both methods:
@@ -151,6 +151,6 @@ Structure of `options` is identical for both methods:
   extrinsic?: boolean
 }
 ```
-The methods above subscribe to the events [`Gear.MessageEnqueued`](https://wiki.gear-tech.io/docs/api/events/#messageenqueued) and [`Gear.UserMessageSent`](https://wiki.gear-tech.io/docs/api/events/#usermessagesent) emitted by the specified Gear program. 
+The methods above subscribe to the events [`Gear.MessageQueued`](https://wiki.gear-tech.io/docs/api/events/#messagequeued) and [`Gear.UserMessageSent`](https://wiki.gear-tech.io/docs/api/events/#usermessagesent) emitted by the specified Gear program.
 
 Related data retrieval and field selection are identical to [`addEvent()`](#events).

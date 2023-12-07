@@ -7,7 +7,7 @@ description: >-
 
 # `@subsquid/bigquery-store`
 
-See also the [BigQuery guide](/sdk/resources/persisting-data/bigquery).
+See also the [BigQuery guide](/sdk/resources/store/bigquery).
 
 ## Column types
 

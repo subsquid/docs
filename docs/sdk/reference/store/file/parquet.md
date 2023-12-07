@@ -15,16 +15,16 @@ Support for the Parquet format is currently experimental. Contact us at the [Squ
 
 [Apache Parquet](https://parquet.apache.org) is an advanced format for storing tabular data in files. It divides table columns into [column chunks](https://parquet.apache.org/docs/concepts/). Each column chunk is stored contiguously, allowing efficient partial reads of column subsets. Column chunks can also be compressed with row-specific compression algorithms, further enhancing the performance. Retrieval relies on metadata appended to the end of a Parquet file. [Metadata standard](https://parquet.apache.org/docs/file-format/metadata/) of Apache Parquet is extremely powerful, enabling all sorts of [extensions](https://parquet.apache.org/docs/file-format/extensibility/). Among other things, metadata contains the schema of the data, making the format self-describing.
 
-The `@subsquid/file-store-parquet` package provides a `Table` implementation for writing to Parquet files. Use it by [supplying one or more of its instances via the `tables` field of the `Database` constructor argument](/sdk/resources/persisting-data/file/#database-options). Constructor of the `Table` implementation accepts the following arguments:
+The `@subsquid/file-store-parquet` package provides a `Table` implementation for writing to Parquet files. Use it by [supplying one or more of its instances via the `tables` field of the `Database` constructor argument](/sdk/resources/store/file/#database-options). Constructor of the `Table` implementation accepts the following arguments:
 * **`fileName: string`**: the name of the output file in every dataset partition folder.
-* **`schema: {[column: string]: ColumnData}`**: a mapping from Parquet column names to [`ColumnData` objects](#columns). A mapping of the same keys to data values is the row type used by the [table writer](/sdk/resources/persisting-data/file/#table-writer-interface).
+* **`schema: {[column: string]: ColumnData}`**: a mapping from Parquet column names to [`ColumnData` objects](#columns). A mapping of the same keys to data values is the row type used by the [table writer](/sdk/resources/store/file/#table-writer-interface).
 * **`options?: TableOptions`**: see [`Table` Options](#table-options).
 
 ## Columns
 
 `ColumnData` objects define storage options for each table column. They are made with the `Column` factory function that accepts a column data type and an optional `options: ColumnOptions` object.
 
-Column types can be obtained by making the function calls listed below from the `Types` submodule. They determine the [Parquet type](https://parquet.apache.org/docs/file-format/types/) that will be used to store the data and the type that the [table writer](/sdk/resources/persisting-data/file/#table-writer-interface) will expect to find at the corresponding field of data row objects.
+Column types can be obtained by making the function calls listed below from the `Types` submodule. They determine the [Parquet type](https://parquet.apache.org/docs/file-format/types/) that will be used to store the data and the type that the [table writer](/sdk/resources/store/file/#table-writer-interface) will expect to find at the corresponding field of data row objects.
 
 | Column type                             | Logical type                   | Primitive type | Valid data row object field contents                      |
 |:---------------------------------------:|:------------------------------:|:--------------:|:---------------------------------------------------------:|

@@ -45,7 +45,7 @@ const urlList = [
     },
     {
         "from": "/evm-indexing/store-interface",
-        "to": "/sdk/resources/persisting-data"
+        "to": "/sdk/resources/store"
     },
     {
         "from": "/substrate-indexing/data-handlers",
@@ -53,7 +53,7 @@ const urlList = [
     },
     {
         "from": "/substrate-indexing/store-interface",
-        "to": "/sdk/resources/persisting-data"
+        "to": "/sdk/resources/store"
     },
     {
         "from": "/substrate-indexing/data-subscriptions",
@@ -65,15 +65,15 @@ const urlList = [
     },
     {
         "from": "/substrate-indexing/evm-support",
-        "to": "/sdk/resources/substrate/frontier-evm"
+        "to": "/sdk/resources/processor/substrate/frontier-evm"
     },
     {
         "from": "/substrate-indexing/wasm-support",
-        "to": "/sdk/resources/substrate/ink"
+        "to": "/sdk/resources/processor/substrate/ink"
     },
     {
         "from": "/substrate-indexing/gear-support",
-        "to": "/sdk/resources/substrate/gear"
+        "to": "/sdk/resources/processor/substrate/gear"
     },
     {
         "from": "/archives/archive-registry",
@@ -97,15 +97,15 @@ const urlList = [
     },
     {
         "from": "/run-squid/run-in-docker",
-        "to": "/sdk/resources/self-hosting"
+        "to": "/sdk/resources/integration/self-hosting"
     },
     {
         "from": "/run-squid/run-in-production",
-        "to": "/sdk/resources/self-hosting"
+        "to": "/sdk/resources/integration/self-hosting"
     },
     {
         "from": "/basics/store/typeorm-store",
-        "to": "/sdk/resources/persisting-data/typeorm"
+        "to": "/sdk/resources/store/typeorm"
     },
     {
         "from": "/basics/schema-file",
@@ -137,23 +137,23 @@ const urlList = [
     },
     {
         "from": "/basics/db-migrations",
-        "to": "/sdk/resources/persisting-data/typeorm"
+        "to": "/sdk/resources/store/typeorm"
     },
     {
         "from": "/basics/store",
-        "to": "/sdk/resources/persisting-data"
+        "to": "/sdk/resources/store"
     },
     {
         "from": "/basics/store/store-interface",
-        "to": "/sdk/resources/persisting-data/overview"
+        "to": "/sdk/resources/store/overview"
     },
     {
         "from": "/basics/store/postgres",
-        "to": "/sdk/resources/persisting-data/typeorm"
+        "to": "/sdk/resources/store/typeorm"
     },
     {
         "from": "/basics/store/postgres/typeorm-store",
-        "to": "/sdk/resources/persisting-data/typeorm"
+        "to": "/sdk/resources/store/typeorm"
     },
     {
         "from": "/basics/store/postgres/schema-file",
@@ -185,15 +185,15 @@ const urlList = [
     },
     {
         "from": "/basics/store/postgres/db-migrations",
-        "to": "/sdk/resources/persisting-data/typeorm"
+        "to": "/sdk/resources/store/typeorm"
     },
     {
         "from": "/basics/store/file-store",
-        "to": "/sdk/resources/persisting-data/file"
+        "to": "/sdk/resources/store/file"
     },
     {
         "from": "/basics/store/file-store/overview",
-        "to": "/sdk/resources/persisting-data/file"
+        "to": "/sdk/resources/store/file"
     },
     {
         "from": "/basics/store/file-store/csv-table",
@@ -213,7 +213,7 @@ const urlList = [
     },
     {
         "from": "/basics/store/custom-database",
-        "to": "/sdk/resources/persisting-data/overview"
+        "to": "/sdk/resources/store/overview"
     },
     {
         "from": "/squid-cli/redeploy",
@@ -221,15 +221,15 @@ const urlList = [
     },
     {
         "from": "/basics/batch-processing",
-        "to": "/sdk/resources/batch-processing"
+        "to": "/sdk/resources/integration/batch-processing"
     },
     {
         "from": "/basics/external-api",
-        "to": "/sdk/resources/external-api"
+        "to": "/sdk/resources/processor/external-api"
     },
     {
         "from": "/basics/multichain",
-        "to": "/sdk/resources/multichain"
+        "to": "/sdk/resources/integration/multichain"
     },
     {
         "from": "/basics/logging",
@@ -241,7 +241,7 @@ const urlList = [
     },
     {
         "from": "/basics/squid-gen",
-        "to": "/sdk/resources/squid-gen"
+        "to": "/sdk/resources/integration/squid-gen"
     },
     {
         "from": "/basics/squid-processor",
@@ -253,7 +253,7 @@ const urlList = [
     },
     {
         "from": "/basics/unfinalized-blocks",
-        "to": "/sdk/resources/unfinalized-blocks"
+        "to": "/sdk/resources/processor/unfinalized-blocks"
     },
     {
         "from": "/deploy-squid/best-practices",
@@ -309,7 +309,7 @@ const urlList = [
     },
     {
         "from": "/deploy-squid/self-hosting",
-        "to": "/sdk/resources/self-hosting"
+        "to": "/sdk/resources/integration/self-hosting"
     },
     {
         "from": "/deploy-squid/troubleshooting",
@@ -353,11 +353,11 @@ const urlList = [
     },
     {
         "from": "/evm-indexing/factory-contracts",
-        "to": "/sdk/resources/evm/factory-contracts"
+        "to": "/sdk/resources/processor/evm/factory-contracts"
     },
     {
         "from": "/evm-indexing/proxy-contracts",
-        "to": "/sdk/resources/evm/proxy-contracts"
+        "to": "/sdk/resources/processor/evm/proxy-contracts"
     },
     {
         "from": "/evm-indexing/query-state",
@@ -437,23 +437,23 @@ const urlList = [
     },
     {
         "from": "/migrate/subsquid-vs-thegraph",
-        "to": "/sdk/resources/subsquid-vs-thegraph"
+        "to": "/sdk/subsquid-vs-thegraph"
     },
     {
         "from": "/migrate/migrate-to-arrowsquid-on-substrate",
-        "to": "/sdk/resources/migrate/migrate-to-arrowsquid-on-substrate"
+        "to": "/sdk/resources/integration/migrate/migrate-to-arrowsquid-on-substrate"
     },
     {
         "from": "/migrate/migrate-subgraph",
-        "to": "/sdk/resources/migrate/migrate-subgraph"
+        "to": "/sdk/resources/integration/migrate/migrate-subgraph"
     },
     {
         "from": "/migrate/migrate-to-arrowsquid",
-        "to": "/sdk/resources/migrate/migrate-to-arrowsquid"
+        "to": "/sdk/resources/integration/migrate/migrate-to-arrowsquid"
     },
     {
         "from": "/migrate",
-        "to": "/sdk/resources/migrate"
+        "to": "/sdk/resources/integration/migrate"
     },
     {
         "from": "/query-squid/nested-field-queries",
@@ -505,7 +505,7 @@ const urlList = [
     },
     {
         "from": "/quickstart/quickstart-abi",
-        "to": "/sdk/resources/squid-gen"
+        "to": "/sdk/resources/integration/squid-gen"
     },
     {
         "from": "/quickstart",
@@ -541,11 +541,11 @@ const urlList = [
     },
     {
         "from": "/store/bigquery-store",
-        "to": "/sdk/resources/persisting-data/bigquery"
+        "to": "/sdk/resources/store/bigquery"
     },
     {
         "from": "/store/file-store/overview",
-        "to": "/sdk/resources/persisting-data/file"
+        "to": "/sdk/resources/store/file"
     },
     {
         "from": "/store/file-store/csv-table",
@@ -565,35 +565,35 @@ const urlList = [
     },
     {
         "from": "/store/file-store",
-        "to": "/sdk/resources/persisting-data/file"
+        "to": "/sdk/resources/store/file"
     },
     {
         "from": "/store/postgres/typeorm-store",
-        "to": "/sdk/resources/persisting-data/typeorm"
+        "to": "/sdk/resources/store/typeorm"
     },
     {
         "from": "/store/postgres/db-migrations",
-        "to": "/sdk/resources/persisting-data/typeorm"
+        "to": "/sdk/resources/store/typeorm"
     },
     {
         "from": "/store/postgres/external-db",
-        "to": "/sdk/resources/persisting-data/typeorm"
+        "to": "/sdk/resources/store/typeorm"
     },
     {
         "from": "/store/postgres",
-        "to": "/sdk/resources/persisting-data/typeorm"
+        "to": "/sdk/resources/store/typeorm"
     },
     {
         "from": "/store/store-interface",
-        "to": "/sdk/resources/persisting-data/overview"
+        "to": "/sdk/resources/store/overview"
     },
     {
         "from": "/store/custom-database",
-        "to": "/sdk/resources/persisting-data/overview"
+        "to": "/sdk/resources/store/overview"
     },
     {
         "from": "/store",
-        "to": "/sdk/resources/persisting-data"
+        "to": "/sdk/resources/store"
     },
     {
         "from": "/substrate-indexing/setup/data-requests",
@@ -633,15 +633,15 @@ const urlList = [
     },
     {
         "from": "/substrate-indexing/specialized/evm",
-        "to": "/sdk/resources/substrate/frontier-evm"
+        "to": "/sdk/resources/processor/substrate/frontier-evm"
     },
     {
         "from": "/substrate-indexing/specialized/wasm",
-        "to": "/sdk/resources/substrate/ink"
+        "to": "/sdk/resources/processor/substrate/ink"
     },
     {
         "from": "/substrate-indexing/specialized/gear",
-        "to": "/sdk/resources/substrate/gear"
+        "to": "/sdk/resources/processor/substrate/gear"
     },
     {
         "from": "/substrate-indexing",

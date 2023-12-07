@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 # Overview
 
 A _squid_ is an indexing project built with [Squid SDK](https://github.com/subsquid/squid-sdk) to retrieve and process blockchain data from the [Subsquid Network](/subsquid-network/overview)
-(either permissioned or decentralized instance). The Squid SDK is a set of open source Typescript libraries that retrieve, decode, transform and persist the data. It can also make the transformed data available via an API. All stages of the indexing pipeline, from the data extraction to transformation to persistence are performed on [batches of blocks](/sdk/resources/batch-processing) to maximize the indexing speed. Modular architecture of the SDK makes it possible to extend indexing projects (squids) with custom plugins and data targets.
+(either permissioned or decentralized instance). The Squid SDK is a set of open source Typescript libraries that retrieve, decode, transform and persist the data. It can also make the transformed data available via an API. All stages of the indexing pipeline, from the data extraction to transformation to persistence are performed on [batches of blocks](/sdk/resources/integration/batch-processing) to maximize the indexing speed. Modular architecture of the SDK makes it possible to extend indexing projects (squids) with custom plugins and data targets.
 
 ## Required squid components
 
@@ -30,14 +30,14 @@ _Processor_ is the word used for
 
 A _store_ is an object that processors use to persist their data. Subsquid offers three store classes:
 
-* [`TypeormStore`](/sdk/resources/persisting-data/typeorm) for saving data to PostgreSQL, via
+* [`TypeormStore`](/sdk/resources/store/typeorm) for saving data to PostgreSQL, via
   - [`@subsquid/typeorm-store`](https://www.npmjs.com/package/@subsquid/typeorm-store)
   - [`@subsquid/typeorm-codegen`](https://www.npmjs.com/package/@subsquid/typeorm-codegen) (a code generator, install with `--save-dev`)
   - [`@subsquid/typeorm-migration`](https://www.npmjs.com/package/@subsquid/typeorm-migration)
 
   Install all three packages to use this store.
-* [`file-store`](/sdk/resources/persisting-data/file) via [`@subsquid/file-store`](https://www.npmjs.com/package/@subsquid/file-store) - for saving data to filesystems. It is a modular system with a variety of [extensions](/sdk/reference/store/file) for various formats and destinations.
-* [`bigquery-store`](/sdk/resources/persisting-data/bigquery) via [`@subsquid/bigquery-store`](https://www.npmjs.com/package/@subsquid/bigquery-store) - for saving data to [Google BigQuery](https://cloud.google.com/bigquery).
+* [`file-store`](/sdk/resources/store/file) via [`@subsquid/file-store`](https://www.npmjs.com/package/@subsquid/file-store) - for saving data to filesystems. It is a modular system with a variety of [extensions](/sdk/reference/store/file) for various formats and destinations.
+* [`bigquery-store`](/sdk/resources/store/bigquery) via [`@subsquid/bigquery-store`](https://www.npmjs.com/package/@subsquid/bigquery-store) - for saving data to [Google BigQuery](https://cloud.google.com/bigquery).
 
 You can mix and match any store class with any processor class.
 

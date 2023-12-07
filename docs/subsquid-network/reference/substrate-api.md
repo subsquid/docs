@@ -100,7 +100,7 @@ The returned worker will be capable of processing `POST /` requests in which the
 - **contractsEvents**: (optional) A list of [Contracts.ContractEmitted event requests](#contractsEvents).
 - **evmLogs**: (optional) A list of [EVM.Log event requests](#evmLog).
 - **ethereumTransactions**: (optional) A list of [Ethereum.transact call requests](#ethereumTransact).
-- **gearMessagesEnqueued**: (optional) A list of [Gear.MessageEnqueued event requests](#gearMessageEnqueued).
+- **gearMessagesQueued**: (optional) A list of [Gear.MessageQueued event requests](#gearMessageQueued).
 - **gearUserMessagesSent**: (optional) A list of [Gear.UserMessageSent event requests](#gearUserMessageSent).
 
 In all cases, empty lists of requests **request no data**. Omit a field or send a `null` for a wildcard subscription.
@@ -229,7 +229,7 @@ Contract addresses supplied with this data request must be hexadecimal (i.e. dec
   extrinsic: boolean
 }
 ```
-A `Contracts.ContractEmitted` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `Contracts.ContractEmitted` event. See [ink! contracts support](/sdk/resources/substrate/ink).
+A `Contracts.ContractEmitted` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `Contracts.ContractEmitted` event. See [ink! contracts support](/sdk/resources/processor/substrate/ink).
 
 ### `EVM.Log` events {#evmLog}
 
@@ -249,7 +249,7 @@ Contract addresses supplied with this data request must be in lowercase. Address
   extrinsic: boolean
 }
 ```
-An `EVM.Log` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `EVM.Log` event. See [Frontier EVM support](/sdk/resources/substrate/frontier-evm/#subscribe-to-evm-events).
+An `EVM.Log` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `EVM.Log` event. See [Frontier EVM support](/sdk/resources/processor/substrate/frontier-evm/#subscribe-to-evm-events).
 
 ### `Ethereum.transact` calls {#ethereumTransact}
 
@@ -266,9 +266,9 @@ Contract addresses supplied with this data request must be in lowercase. Address
   events: boolean
 }
 ```
-An `Ethereum.transact` call will be included in the response if it matches all the requests. An empty array matches no calls; omitted or `null` request matches any `Ethereum.transact` call. See [Frontier EVM support](/sdk/resources/substrate/frontier-evm/#subscribe-to-evm-transactions).
+An `Ethereum.transact` call will be included in the response if it matches all the requests. An empty array matches no calls; omitted or `null` request matches any `Ethereum.transact` call. See [Frontier EVM support](/sdk/resources/processor/substrate/frontier-evm/#subscribe-to-evm-transactions).
 
-### `Gear.MessageEnqueued` events {#gearMessageEnqueued}
+### `Gear.MessageQueued` events {#gearMessageQueued}
 
 ```ts
 {
@@ -278,7 +278,7 @@ An `Ethereum.transact` call will be included in the response if it matches all t
   extrinsic: boolean
 }
 ```
-A `Gear.MessageEnqueued` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `Gear.MessageEnqueued` event. See [Gear support](/sdk/resources/substrate/gear).
+A `Gear.MessageQueued` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `Gear.MessageQueued` event. See [Gear support](/sdk/resources/processor/substrate/gear).
 
 ### `Gear.UserMessageSent` events {#gearUserMessageSent}
 
@@ -290,7 +290,7 @@ A `Gear.MessageEnqueued` event will be included in the response if it matches al
   extrinsic: boolean
 }
 ```
-A `Gear.UserMessageSent` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `Gear.UserMessageSent` event. See [Gear support](/sdk/resources/substrate/gear).
+A `Gear.UserMessageSent` event will be included in the response if it matches all the requests. An empty array matches no events; omitted or `null` request matches any `Gear.UserMessageSent` event. See [Gear support](/sdk/resources/processor/substrate/gear).
 
 ## Data fields selector
 
