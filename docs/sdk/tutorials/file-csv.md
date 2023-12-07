@@ -181,7 +181,7 @@ processor.run(db, async (ctx) => {
 ```
 
 :::info
-The file in the GitHub repository is slightly different, as there's some added logic to obtain the number of decimals for the token. For that, the processor [interacts with the smart contract deployed on chain](/sdk/reference/typegen/state-queries).
+The file in the GitHub repository is slightly different, as there's some added logic to obtain the number of decimals for the token. For that, the processor [interacts with the smart contract deployed on chain](/sdk/resources/tools/typegen/state-queries).
 :::
 
 [//]: # (!!!! Consider dropping the contract state query use here)

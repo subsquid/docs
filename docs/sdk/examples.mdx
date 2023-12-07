@@ -1,5 +1,5 @@
 ---
-sidebar_position: 31
+sidebar_position: 80
 title: Examples
 description: Example squids
 ---
@@ -17,7 +17,7 @@ Browse a dedicated repository with [EVM squid examples](https://github.com/subsq
 
 - A [squid indexing ERC20 transfers](https://github.com/subsquid-labs/evm-logs-example) by extracting `Transfer(address,address,uint256)` logs emitted by the USDC contract.
 - A [squid indexing DEX trades](https://github.com/subsquid-labs/evm-factory-example) while dynamically tracking Uniswap v3 pool contracts as they are deployed. Shows [factory contract](/sdk/resources/evm/factory-contracts) indexing in action.
-- A [NFT indexing squid](https://github.com/subsquid-labs/evm-multicall-example) that additionally queries the NFT metadata from the contract state. Illustrates batching RPC calls using the [Multicall contract](/sdk/reference/typegen/generation/#batching-contract-state-calls-using-the-multicall-contract).
+- A [NFT indexing squid](https://github.com/subsquid-labs/evm-multicall-example) that additionally queries the NFT metadata from the contract state. Illustrates batching RPC calls using the [Multicall contract](/sdk/resources/tools/typegen/generation/#batching-contract-state-calls-using-the-multicall-contract).
 - A [multichain squid](https://github.com/subsquid-labs/squid-multichain-template) tracking USDC `Transfer` events on both Ethereum and BSC.
 
 and a few others.
@@ -62,7 +62,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 <details>
 <summary>Index all USDC Transfer events on Ethereum with real time updates</summary>
 
-Real time data is fetched from a chain node RPC; a Database object with hot blocks support is required to store it (see [this page](/sdk/resources/unfinalized-blocks) for more details). [Full squid here](https://github.com/subsquid-labs/showcase01-all-usdc-transfers).
+Real time data is fetched from a chain node RPC; a Database object with hot blocks support is required to store it (see [this page](/sdk/resources/basics/unfinalized-blocks) for more details). [Full squid here](https://github.com/subsquid-labs/showcase01-all-usdc-transfers).
 
 ```ts
 export const USDC_CONTRACT_ADDRESS = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'

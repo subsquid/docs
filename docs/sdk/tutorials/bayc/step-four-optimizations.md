@@ -15,7 +15,7 @@ Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a proj
 
 ## Using Multicall for aggregating state queries
 
-We begin by introducing [batch processing](/sdk/resources/batch-processing/) wherever possible, and our first step is to replace individual contract state queries with [batch calls](/sdk/reference/typegen/state-queries/#batch-state-queries) to a [MakerDAO multicall contract](https://github.com/mds1/multicall). Retrieve the multicall contract ABI by re-running `squid-evm-typegen` with `--multicall` option:
+We begin by introducing [batch processing](/sdk/resources/basics/batch-processing/) wherever possible, and our first step is to replace individual contract state queries with [batch calls](/sdk/resources/tools/typegen/state-queries/#batch-state-queries) to a [MakerDAO multicall contract](https://github.com/mds1/multicall). Retrieve the multicall contract ABI by re-running `squid-evm-typegen` with `--multicall` option:
 ```bash
 npx squid-evm-typegen --multicall src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#bayc
 ```

@@ -1,0 +1,12 @@
+{
+    "position": 40,
+    "label": "Tools",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/sdk/resources/tools",
+      "title": "Development tools for type-safe decoding the raw data, streamlined persistence with TypeORM, and code generation."
+    }
+}

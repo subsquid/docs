@@ -44,4 +44,4 @@ query {
 }
 
 ```
-Note that the [newer](/sdk/reference/graphql-server/overview/#supported-queries) and [more advanced](/sdk/reference/openreader/paginate-query-results) `{entityName}sConnection` queries support exactly the same format of the `where` argument as the older `{entityName}s` queries used in the examples provided here.
+Note that the [newer](/sdk/resources/graphql-server/overview/#supported-queries) and [more advanced](/sdk/reference/openreader/paginate-query-results) `{entityName}sConnection` queries support exactly the same format of the `where` argument as the older `{entityName}s` queries used in the examples provided here.

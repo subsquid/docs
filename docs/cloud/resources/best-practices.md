@@ -10,9 +10,9 @@ Here is a list of items to check out before you deploy your squid for use in pro
 
 * If your squid [saves its data to a database](/sdk/resources/persisting-data/typeorm), make sure your [schema](/sdk/reference/schema-file) has [`@index` decorators](/sdk/reference/schema-file/indexes-and-constraints) for all entities that will be looked up frequently.
 
-* If your squid serves a [GraphQL API](/sdk/reference/graphql-server), consider:
-  1. configuring the built-in [DoS protection](/sdk/reference/graphql-server/dos-protection) against heavy queries;
-  2. configuring [caching](/sdk/reference/graphql-server/caching).
+* If your squid serves a [GraphQL API](/sdk/resources/graphql-server), consider:
+  1. configuring the built-in [DoS protection](/sdk/resources/graphql-server/dos-protection) against heavy queries;
+  2. configuring [caching](/sdk/resources/graphql-server/caching).
 
 * If you deploy your squid to Subsquid Cloud:
   1. Deploy your squid to a [Professional organization](/cloud/resources/organizations/#professional-organizations).

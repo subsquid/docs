@@ -1,12 +1,12 @@
 {
   "position": 50,
-  "label": "Typegens",
+  "label": "Type-safe decoding",
   "collapsible": true,
   "collapsed": true,
   "className": "red",
   "link": {
     "type": "generated-index",
-    "slug": "/sdk/reference/typegen",
+    "slug": "/sdk/resources/tools/typegen",
     "title": "Generators of code for tech-specific tasks such as decoding and querying chains directly"
   }
 }

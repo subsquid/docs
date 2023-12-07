@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 # Overview
 
 A _squid_ is an indexing project built with [Squid SDK](https://github.com/subsquid/squid-sdk) to retrieve and process blockchain data from the [Subsquid Network](/subsquid-network/overview)
-(either permissioned or decentralized instance). The Squid SDK is a set of open source Typescript libraries that retrieve, decode, transform and persist the data. It can also make the transformed data available via an API. All stages of the indexing pipeline, from the data extraction to transformation to persistence are performed on [batches of blocks](/sdk/resources/batch-processing) to maximize the indexing speed. Modular architecture of the SDK makes it possible to extend indexing projects (squids) with custom plugins and data targets.
+(either permissioned or decentralized instance). The Squid SDK is a set of open source Typescript libraries that retrieve, decode, transform and persist the data. It can also make the transformed data available via an API. All stages of the indexing pipeline, from the data extraction to transformation to persistence are performed on [batches of blocks](/sdk/resources/basics/batch-processing) to maximize the indexing speed. Modular architecture of the SDK makes it possible to extend indexing projects (squids) with custom plugins and data targets.
 
 ## Required squid components
 
@@ -51,7 +51,7 @@ A _typegen_ is a tool for generating utility code for technology-specific operat
 <Tabs>
 <TabItem value="evm" label="On EVM">
 ```
-* [`squid-evm-typegen`](/sdk/reference/typegen/generation/?typegen=evm) via [`@subsquid/evm-typegen`](https://www.npmjs.com/package/@subsquid/evm-typegen):
+* [`squid-evm-typegen`](/sdk/resources/tools/typegen/generation/?typegen=evm) via [`@subsquid/evm-typegen`](https://www.npmjs.com/package/@subsquid/evm-typegen):
   - decodes smart contract data
   - handles direct calls to contract methods
   - exposes useful constants such as event topics and function signature hashes
@@ -60,10 +60,10 @@ A _typegen_ is a tool for generating utility code for technology-specific operat
 </TabItem>
 <TabItem value="substrate" label="On Substrate">
 ```
-* [`squid-substrate-typegen`](/sdk/reference/typegen/generation/?typegen=substrate) via [`@subsquid/substrate-typegen`](https://www.npmjs.com/package/@subsquid/substrate-typegen):
+* [`squid-substrate-typegen`](/sdk/resources/tools/typegen/generation/?typegen=substrate) via [`@subsquid/substrate-typegen`](https://www.npmjs.com/package/@subsquid/substrate-typegen):
   - general purpose pallet data decoding (aware of runtime versions)
   - handles direct storage queries
-* [`squid-ink-typegen`](/sdk/reference/typegen/generation/?typegen=ink) via [`@subsquid/ink-typegen`](https://www.npmjs.com/package/@subsquid/ink-typegen) for decoding the data of [ink!](https://use.ink) contracts
+* [`squid-ink-typegen`](/sdk/resources/tools/typegen/generation/?typegen=ink) via [`@subsquid/ink-typegen`](https://www.npmjs.com/package/@subsquid/ink-typegen) for decoding the data of [ink!](https://use.ink) contracts
 
 ```mdx-code-block
 </TabItem>
@@ -76,7 +76,7 @@ Install these with `--save-dev`.
 
 Squids that store their data in PostgreSQL can subsequently make it available as a GraphQL API. To use this functionality, install [`@subsquid/graphql-server`](https://www.npmjs.com/package/@subsquid/graphql-server).
 
-The [server](/sdk/reference/graphql-server) runs as a separate process. [Core API](/sdk/reference/openreader) is automatically derived from the database schema; it is possible to extend it with [custom queries](/sdk/reference/graphql-server/custom-resolvers) and [basic access control](/sdk/reference/graphql-server/authorization).
+The [server](/sdk/resources/graphql-server) runs as a separate process. [Core API](/sdk/reference/openreader) is automatically derived from the database schema; it is possible to extend it with [custom queries](/sdk/resources/graphql-server/custom-resolvers) and [basic access control](/sdk/resources/graphql-server/authorization).
 
 ### Misc utilities
 
@@ -94,7 +94,7 @@ The [server](/sdk/reference/graphql-server) runs as a separate process. [Core AP
 * [Squid CLI](/squid-cli/installation) is a utility for [retrieving squid templates](/squid-cli/init), managing [chains of commands](https://github.com/subsquid/squid-sdk/tree/master/util/commands) commonly used in development and running [all squid processes at once](/squid-cli/run). It can also be used for deploying to [Subsquid Cloud](/cloud).
 * [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry) simplifies keeping track of available Subsquid [archives](/subsquid-network/overview)
 * [`@subsquid/ss58`](https://www.npmjs.com/package/@subsquid/ss58) handles encoding and decoding of SS58 addresses
-* [`@subsquid/frontier`](https://www.npmjs.com/package/@subsquid/frontier) decodes events and calls of the [Frontier EVM pallet](https://paritytech.github.io/frontier/frame/evm.html) to make them decodable with [`squid-evm-typegen`](/sdk/reference/typegen/generation)
+* [`@subsquid/frontier`](https://www.npmjs.com/package/@subsquid/frontier) decodes events and calls of the [Frontier EVM pallet](https://paritytech.github.io/frontier/frame/evm.html) to make them decodable with [`squid-evm-typegen`](/sdk/resources/tools/typegen/generation)
 
 ```mdx-code-block
 </TabItem>

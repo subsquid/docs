@@ -25,15 +25,15 @@ const urlList = [
     },
     {
         "from": "/develop-a-squid/graphql-api",
-        "to": "/sdk/reference/graphql-server"
+        "to": "/sdk/resources/graphql-server"
     },
     {
         "from": "/develop-a-squid/typegen/squid-substrate-typegen",
-        "to": "/sdk/reference/typegen"
+        "to": "/sdk/resources/tools/typegen"
     },
     {
         "from": "/develop-a-squid/typegen/squid-evm-typegen",
-        "to": "/sdk/reference/typegen"
+        "to": "/sdk/resources/tools/typegen"
     },
     {
         "from": "/develop-a-squid/evm-processor/configuration",
@@ -97,11 +97,11 @@ const urlList = [
     },
     {
         "from": "/run-squid/run-in-docker",
-        "to": "/sdk/resources/self-hosting"
+        "to": "/sdk/resources/basics/self-hosting"
     },
     {
         "from": "/run-squid/run-in-production",
-        "to": "/sdk/resources/self-hosting"
+        "to": "/sdk/resources/basics/self-hosting"
     },
     {
         "from": "/basics/store/typeorm-store",
@@ -221,15 +221,15 @@ const urlList = [
     },
     {
         "from": "/basics/batch-processing",
-        "to": "/sdk/resources/batch-processing"
+        "to": "/sdk/resources/basics/batch-processing"
     },
     {
         "from": "/basics/external-api",
-        "to": "/sdk/resources/external-api"
+        "to": "/sdk/resources/basics/external-api"
     },
     {
         "from": "/basics/multichain",
-        "to": "/sdk/resources/multichain"
+        "to": "/sdk/resources/basics/multichain"
     },
     {
         "from": "/basics/logging",
@@ -237,11 +237,11 @@ const urlList = [
     },
     {
         "from": "/basics/squid-development",
-        "to": "/sdk/squid-development"
+        "to": "/sdk/how-to-start/squid-development"
     },
     {
         "from": "/basics/squid-gen",
-        "to": "/sdk/resources/squid-gen"
+        "to": "/sdk/resources/tools/squid-gen"
     },
     {
         "from": "/basics/squid-processor",
@@ -249,11 +249,11 @@ const urlList = [
     },
     {
         "from": "/basics/squid-structure",
-        "to": "/sdk/reference/layout"
+        "to": "/sdk/how-to-start/layout"
     },
     {
         "from": "/basics/unfinalized-blocks",
-        "to": "/sdk/resources/unfinalized-blocks"
+        "to": "/sdk/resources/basics/unfinalized-blocks"
     },
     {
         "from": "/deploy-squid/best-practices",
@@ -309,7 +309,7 @@ const urlList = [
     },
     {
         "from": "/deploy-squid/self-hosting",
-        "to": "/sdk/resources/self-hosting"
+        "to": "/sdk/resources/basics/self-hosting"
     },
     {
         "from": "/deploy-squid/troubleshooting",
@@ -361,11 +361,11 @@ const urlList = [
     },
     {
         "from": "/evm-indexing/query-state",
-        "to": "/sdk/reference/typegen/state-queries"
+        "to": "/sdk/resources/tools/typegen/state-queries"
     },
     {
         "from": "/evm-indexing/squid-evm-typegen",
-        "to": "/sdk/reference/typegen"
+        "to": "/sdk/resources/tools/typegen"
     },
     {
         "from": "/evm-indexing/batch-processor-in-action",
@@ -409,35 +409,35 @@ const urlList = [
     },
     {
         "from": "/graphql-api/authorization",
-        "to": "/sdk/reference/graphql-server/authorization"
+        "to": "/sdk/resources/graphql-server/authorization"
     },
     {
         "from": "/graphql-api/caching",
-        "to": "/sdk/reference/graphql-server/caching"
+        "to": "/sdk/resources/graphql-server/caching"
     },
     {
         "from": "/graphql-api/custom-resolvers",
-        "to": "/sdk/reference/graphql-server/custom-resolvers"
+        "to": "/sdk/resources/graphql-server/custom-resolvers"
     },
     {
         "from": "/graphql-api/dos-protection",
-        "to": "/sdk/reference/graphql-server/dos-protection"
+        "to": "/sdk/resources/graphql-server/dos-protection"
     },
     {
         "from": "/graphql-api/overview",
-        "to": "/sdk/reference/graphql-server/overview"
+        "to": "/sdk/resources/graphql-server/overview"
     },
     {
         "from": "/graphql-api/subscriptions",
-        "to": "/sdk/reference/graphql-server/subscriptions"
+        "to": "/sdk/resources/graphql-server/subscriptions"
     },
     {
         "from": "/graphql-api",
-        "to": "/sdk/reference/graphql-server"
+        "to": "/sdk/resources/graphql-server"
     },
     {
         "from": "/migrate/subsquid-vs-thegraph",
-        "to": "/sdk/resources/subsquid-vs-thegraph"
+        "to": "/sdk/subsquid-vs-thegraph"
     },
     {
         "from": "/migrate/migrate-to-arrowsquid-on-substrate",
@@ -497,19 +497,19 @@ const urlList = [
     },
     {
         "from": "/quickstart/quickstart-substrate",
-        "to": "/sdk/squid-development"
+        "to": "/sdk/how-to-start/squid-development"
     },
     {
         "from": "/quickstart/quickstart-ethereum",
-        "to": "/sdk/squid-development"
+        "to": "/sdk/how-to-start/squid-development"
     },
     {
         "from": "/quickstart/quickstart-abi",
-        "to": "/sdk/resources/squid-gen"
+        "to": "/sdk/resources/tools/squid-gen"
     },
     {
         "from": "/quickstart",
-        "to": "/sdk/squid-development"
+        "to": "/sdk/how-to-start/squid-development"
     },
     {
         "from": "/store/postgres/schema-file/entities",
@@ -617,11 +617,11 @@ const urlList = [
     },
     {
         "from": "/substrate-indexing/squid-substrate-typegen",
-        "to": "/sdk/reference/typegen"
+        "to": "/sdk/resources/tools/typegen"
     },
     {
         "from": "/substrate-indexing/storage-state-calls",
-        "to": "/sdk/reference/typegen/state-queries"
+        "to": "/sdk/resources/tools/typegen/state-queries"
     },
     {
         "from": "/substrate-indexing/context-interfaces",
@@ -653,7 +653,7 @@ const urlList = [
     },
     {
         "from": "/tutorials/development-environment-set-up",
-        "to": "/sdk/resources/development-environment-set-up"
+        "to": "/sdk/how-to-start/development-environment-set-up"
     },
     {
         "from": "/tutorials/case-studies",

@@ -99,7 +99,7 @@ Note how the entities we define form an acyclic dependency graph:
 
 As a consequence, the creation of entity instances must proceed in a [particular order](https://en.wikipedia.org/wiki/Topological_sorting). Squids usually use small graphs like this one, and in these the order can be easily found manually (e.g. `Owner`s then `Token`s then `Transfer`s in this case). We will assume that it can be hardcoded by the programmer.
 
-Further, at each step we will [process the data for the whole batch](/sdk/resources/batch-processing/) instead of handling the items individually. This is crucial for achieving a good syncing performance.
+Further, at each step we will [process the data for the whole batch](/sdk/resources/basics/batch-processing/) instead of handling the items individually. This is crucial for achieving a good syncing performance.
 
 With all that in mind, let's create a batch processor that generates and persists all of our entities:
 

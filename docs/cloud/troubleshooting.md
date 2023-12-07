@@ -21,8 +21,8 @@ npm update -g @subsquid/cli
 ```bash
 npm run update
 ```
-- Check that the squid adheres to the expected [structure](/sdk/reference/layout)
-- Make sure you can [build and run Docker images locally](/sdk/resources/self-hosting)
+- Check that the squid adheres to the expected [structure](/sdk/how-to-start/layout)
+- Make sure you can [build and run Docker images locally](/sdk/resources/basics/self-hosting)
 
 ### `Validation error` when releasing a squid
 

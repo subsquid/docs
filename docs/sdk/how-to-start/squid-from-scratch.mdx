@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 Here's an example of how SDK packages can be combined into a working indexer (called *squid*).
 
-This page goes through all the technical details to make the squid architecture easier to understand. If you would like to get to a working indexer ASAP, [bootstrap from a template](/sdk/squid-development/#templates).
+This page goes through all the technical details to make the squid architecture easier to understand. If you would like to get to a working indexer ASAP, [bootstrap from a template](/sdk/how-to-start/squid-development/#templates).
 
 ## USDT transfers API
 
@@ -102,7 +102,7 @@ To make the indexer, follow these steps:
      npx squid-typeorm-migration apply
      ```
 
-6. [Generate utility classes](/sdk/reference/typegen/generation) for decoding [USDT contract](https://etherscan.io/address/0xdac17f958d2ee523a2206206994597c13d831ec7) data based on its ABI downloaded from Etherscan:
+6. [Generate utility classes](/sdk/resources/tools/typegen/generation) for decoding [USDT contract](https://etherscan.io/address/0xdac17f958d2ee523a2206206994597c13d831ec7) data based on its ABI downloaded from Etherscan:
    ```bash
    npx \
    squid-evm-typegen \

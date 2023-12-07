@@ -58,7 +58,7 @@ deploy:
 
 ## 3. (Optional) Revise `cmd`
 
-You may want to add additional flags to `api.cmd`, e.g. to enable [caching](/sdk/reference/graphql-server/caching) or [enforce query limits](/sdk/reference/graphql-server/dos-protection).
+You may want to add additional flags to `api.cmd`, e.g. to enable [caching](/sdk/resources/graphql-server/caching) or [enforce query limits](/sdk/resources/graphql-server/dos-protection).
 
 ## 4. (Optional) Add `scale:` options
 

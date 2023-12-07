@@ -1,12 +1,12 @@
 {
-    "position": 70,
-    "label": "Reference",
+    "position": 9,
+    "label": "Basics",
     "collapsible": true,
     "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
-      "slug": "/sdk/reference",
-      "title": "Squid SDK reference documentation"
+      "slug": "/sdk/resources/basics",
+      "title": "Basics of Squid SDK"
     }
 }

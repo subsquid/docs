@@ -37,7 +37,7 @@ export class CountResolver {
 ```
 
 This example is designed to work with the `evm` template:
-1. grab a test squid as described [here](/sdk/squid-development/);
+1. grab a test squid as described [here](/sdk/how-to-start/squid-development/);
 2. install `type-graphql`;
 3. save the example code to `src/server-extension/resolver.ts`;
 4. re-export `CountResolver` at `src/server-extension/resolvers/index.ts`:

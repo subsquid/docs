@@ -29,7 +29,7 @@ The exact fields available in each data item type are inferred from the `setFiel
 
 ## Example
 
-The handler below simply outputs all the `Balances.transfer_all` calls on Kusama in [real time](/sdk/resources/unfinalized-blocks):
+The handler below simply outputs all the `Balances.transfer_all` calls on Kusama in [real time](/sdk/resources/basics/unfinalized-blocks):
 
 ```ts
 import {SubstrateBatchProcessor} from '@subsquid/substrate-processor'
