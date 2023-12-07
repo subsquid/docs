@@ -1,5 +1,5 @@
 ---
-sidebar_position: 40
+sidebar_position: 10
 title: Layout convention
 description: The folder layout of a squid
 ---

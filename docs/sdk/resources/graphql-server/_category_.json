@@ -1,12 +1,12 @@
 {
-    "position": 70,
+    "position": 11,
     "label": "GraphQL server",
     "collapsible": true,
     "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
-      "slug": "/sdk/reference/graphql-server",
+      "slug": "/sdk/resources/graphql-server",
       "title": "GraphQL API server for squid data"
     }
 }
