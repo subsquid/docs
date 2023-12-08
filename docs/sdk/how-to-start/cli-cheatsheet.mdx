@@ -32,14 +32,14 @@ sqd clean             Delete all build artifacts
 
 ### Running the squid 
 :::info
-Both `sqd up` and `sqd down` assume `docker-compose` is installed and the `docker` deamon is running. Modify the definitions 
-in `commands.json` accordingly if `docker compose` (the docker command) should be used instead.
+Both `sqd up` and `sqd down` assume that the `docker compose` command is supported and the `docker` deamon is running. Modify the definitions 
+in `commands.json` accordingly if `docker-compose` should be used instead.
 :::
 
 ```
 sqd up                  Start a local PG database
 sqd down                Drop the local PG database  
-sqd run [PATH]          Run all the processors defined in squid.yaml locally
+sqd run [PATH]          Run all the services defined in squid.yaml locally
 sqd serve               Start the GraphQL server
 sqd serve:prod          Start the GraphQL API server with caching and limits
 ```
