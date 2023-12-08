@@ -14,9 +14,11 @@ import TabItem from '@theme/TabItem';
 <TabItem value="evm" label="EVM">
 ```
 
-An end-to-end idiomatic usage of `EvmBatchProcessor` can be inspected in the [gravatar template repository](https://github.com/subsquid/gravatar-squid) and also learned from more elaborate [examples](/sdk/examples).
+An end-to-end idiomatic usage of `EvmBatchProcessor` can be inspected in the [gravatar template repository](https://github.com/subsquid-labs/gravatar-squid) and also learned from more elaborate [examples](/sdk/examples).
 
 In order to illustrate the concepts covered in the [development guide](/sdk/how-to-start/squid-development), here we highlight the key steps, put together a processor configuration and a data handling definition.
+
+**Pre-requisites:** NodeJS, Git, Docker, [Squid CLI](/squid-cli/installation), any of the [EVM templates](/sdk/how-to-start/squid-development/?template-tech=evm#templates).
 
 ## 1. Model the target schema and generate entity classes
 
@@ -32,7 +34,7 @@ sqd migration:generate
 
 ## 2. Generate Typescript ABI modules
 
-Use [`evm-typegen`[(/sdk/reference/typegen/state-queries) to generate the facade classes, for example like this:
+Use [`evm-typegen`](/sdk/resources/tools/typegen/) to generate the facade classes, for example like this:
 ```bash
 npx squid-evm-typegen src/abi 0x2E645469f354BB4F5c8a05B3b30A929361cf77eC#Gravity --clean
 ```
@@ -135,6 +137,8 @@ Inspect the GraphQL API at [`http://localhost:4350/graphql`](http://localhost:43
 An end-to-end idiomatic usage of `SubstrateBatchProcessor` can be inspected in the [squid-substrate-template](https://github.com/subsquid-labs/squid-substrate-template) and also learned from more elaborate [examples](/sdk/examples).
 
 Here we highlight the key steps and put together a configuration and a data handling definition to illustrate the concepts covered in the [squid development guide](/sdk/how-to-start/squid-development).
+
+**Pre-requisites:** NodeJS, Git, Docker, [Squid CLI](/squid-cli/installation), any of the [Substrate templates](/sdk/how-to-start/squid-development/?template-tech=substrate#templates).
 
 ## 1. Set up the processor
 
