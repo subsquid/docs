@@ -1,7 +1,69 @@
 ---
 sidebar_position: 50
-title: CLI cheatsheet
+title: sqd CLI cheatsheet
 description: Commonly used CLI commands
 ---
 
 # Squid CLI cheatsheet
+
+The [`sqd` CLI tool](/squid-cli/) has built-in aliasing that picks up the commands defined in `commands.json` in the project root. 
+See [the commands tool repo](https://github.com/subsquid/squid-sdk/tree/master/util/commands) for details.
+
+All the squid templates (e.g. [the evm template](https://github.com/subsquid-labs/squid-evm-template)) come with a default
+`commands.json` file pre-populated with some handy scripts below. 
+
+One can always inspect the available commands defined in `commands.json` with
+```
+sqd --help
+```
+The commands defined by `commands.json` will appear in the `SQUID COMMANDS` help sections. 
+
+Before using the `sqd` CLI tool, make sure all the project dependencies are installed:
+```sh
+npm i
+```
+
+### Building the squid 
+
+```sh
+sqd build             Build the squid project
+sqd clean             Delete all build artifacts  
+```
+
+### Running the squid 
+:::info
+Both `sqd up` and `sqd down` assume `docker-compose` is installed and the `docker` deamon is running. Modify the definitions 
+in `commands.json` accordingly if `docker compose` (the docker command) should be used instead.
+:::
+
+```
+sqd up                  Start a local PG database
+sqd down                Drop the local PG database  
+sqd run [PATH]          Run all the processors defined in squid.yaml locally
+sqd serve               Start the GraphQL server
+sqd serve:prod          Start the GraphQL API server with caching and limits
+```
+
+### DB migrations
+
+Read [TypeORM Migration generation](/sdk/resources/tools/migrations-gen/) for details.
+
+```
+sqd migration:apply             apply pending migrations
+sqd migration:generate          generate the migration for the schema defined in schema.graphql
+sqd migration:clean             clean the db/migrations folder 
+```
+
+### Code generation
+
+Consult [TypeORM Model generation](/sdk/resources/tools/model-gen/) for TypeORM model generation details, 
+and [Type-safe decoding](https://docs.subsquid.io/sdk/resources/tools/typegen/) for type generation. 
+
+:::info
+Depending on the template, `sqd typegen` is aliased to a different typegen tool specific to the chain type and thus has different usage. Consult `sqd typegen --help` for details.
+:::
+
+```
+sqd codegen        Generate TypeORM entities from schema.graphql
+sqd typegen        Generate data access classes for an ABI file(s) in the ./abi folder
+```
