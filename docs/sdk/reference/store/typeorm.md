@@ -197,6 +197,30 @@ Database credentials must be supplied via the environment variables:
 * `DB_NAME` (default `postgres`)
 * `DB_USER` (default `postgres`)
 * `DB_PASS` (default `postgres`)
-* `DB_SSL` (SSL will not be used unless set to `true`)
+* `DB_SSL` (default `false`)
+* `DB_SSL_REJECT_UNAUTHORIZED` (default `true`)
+* `DB_URL` (default `undefined`)
 
-`DB_SSL` sometimes does not suffice for connecting to SSL-only cloud databases. The workaround is to set `PGSSLMODE=require` in the [environment](/cloud/resources/env-variables).
+`typorm-store` also supports the following variables for connecting to databases that require client-side SSL:
+
+* `DB_SSL_CA` - the root certificate in plain text
+* `DB_SSL_CA_FILE` - path to a root certificate file
+* `DB_SSL_CERT` - client certificate in plain text
+* `DB_SSL_CERT_FILE` - path to client certificate in plain text
+* `DB_SSL_KEY` - client key in plain text
+* `DB_SSL_KEY_FILE` - path to client key in plain text
+
+### `DB_URL`
+
+When set, `DB_URL` takes precedence over individual variables. Its format is as follows:
+```
+postgres[ql]://[username[:password]@][host[:port],]/database[?parameter_list]
+```
+where `parameter_list` is an `&`-separated list of assignments of SSL connection parameters:
+* `ssl=(0|1|true|false)`
+* `sslmode=(disabled|no-verify|prefer|require|verify-ca|verify-full)`
+* `sslcert=<path_to_cert_file>`
+* `sslkey=<path_to_key_file>`
+* `sslrootcert=<path_to_root_cert_file>`
+
+When any value is omitted from the URL, the value of the corresponding individual `DB_*` variable will be used instead. If that is not set, the default will be used.
