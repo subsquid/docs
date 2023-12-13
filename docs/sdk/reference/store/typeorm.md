@@ -201,6 +201,13 @@ Database credentials must be supplied via the environment variables:
 * `DB_SSL_REJECT_UNAUTHORIZED` (default `true`)
 * `DB_URL` (default `undefined`)
 
+:::info
+To take advantage of `DB_SSL_REJECT_UNAUTHORIZED`, `DB_URL` and the client-side SSL variables use the `@next` version of the packages:
+```bash
+npm i @subsquid/typeorm-store@next
+```
+:::
+
 `typorm-store` also supports the following variables for connecting to databases that require client-side SSL:
 
 * `DB_SSL_CA` - the root certificate in plain text
