@@ -17,7 +17,11 @@ In contrast, the Parquet format is designed for efficient read/write operations 
 
 The subject of this tutorial is the Uniswap DApp, namely the data from its pool contracts and positions held by investors. Uniswap was chosen because it generates a very large amount of information, and ultimately this helps to better show how to leverage a more performance-oriented format.
 
-An article about this demo project [has been published on Medium](https://link.medium.com/7gU0BrLbDxb). The project source code can be found [in this repository on GitHub](https://github.com/subsquid-labs/squid-parquet-storage) (link out of date).
+An article about this demo project [has been published on Medium](https://link.medium.com/7gU0BrLbDxb). The project source code can be found in the [`squid-parquet-storage` repo](https://github.com/subsquid-labs/squid-parquet-storage).
+
+:::warning
+As of 2023-12-17, the `squid-parquet-storage` repo is mostly still sound, but already somewhat outdated. You can take a look at the less sophisticated, yet regularly updated example [here](https://github.com/subsquid-labs/file-store-parquet-example/).
+:::
 
 [//]: # (!!!! Update all github URLs)
 [//]: # (!!!! Update all outdated benchmark figures "figure/figures out of date")
@@ -39,9 +43,9 @@ sqd init local-parquet-indexing -t evm
 Here, `local-parquet-indexing` is the name of the project, and can be changed to anything else. The `-t evm` option specifies that the [`evm` template](https://github.com/subsquid-labs/squid-evm-template) should be used as a starting point.
 
 :::info
-**Note:** The template actually has more than what we need for this project. Unnecessary packages have been removed in the tutorial repository. You can grab [`package.json`](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/package.json) (link out of date) from there to do the same.
+**Note:** The template actually has more than what we need for this project. Unnecessary packages have been removed in the tutorial repository. You can grab [`package.json`](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/package.json) from there to do the same.
 
-Files-wise, `docker-compose.yml`, `schema.graphql` and `squid.yaml` were removed. `commands.json`, the list of local `sqd` scripts, has been significantly shortened ([here is the updated version](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/commands.json) (link out of date)).
+Files-wise, `docker-compose.yml`, `schema.graphql` and `squid.yaml` were removed. `commands.json`, the list of local `sqd` scripts, has been significantly shortened ([here is the updated version](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/commands.json)).
 :::
 
 Finally, make sure to install the dependencies:
@@ -272,7 +276,7 @@ For a brief explanation of what [`processFactory`](https://github.com/subsquid-l
 
 * writes the decoded information to the corresponding table (parquet file)
 
-To better understand how data is transformed, and how the other functions are defined as well, it's advised to [browse the repository](https://github.com/subsquid-labs/squid-parquet-storage/tree/main/src/mappings) (link out of date) and inspect the code. Be sure to check the [`utils`](https://github.com/subsquid-labs/squid-parquet-storage/tree/main/src/utils) (link out of date) folder as well, as there are some auxiliary files and functions used in the mapping logic.
+To better understand how data is transformed, and how the other functions are defined as well, it's advised to [browse the repository](https://github.com/subsquid-labs/squid-parquet-storage/tree/main/src/mappings) and inspect the code. Be sure to check the [`utils`](https://github.com/subsquid-labs/squid-parquet-storage/tree/main/src/utils) folder as well, as there are some auxiliary files and functions used in the mapping logic.
 
 ### Launch the project
 

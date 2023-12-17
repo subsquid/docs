@@ -91,7 +91,7 @@ For a full implementation of the above pattern, see [EVM squid example](https://
 
 ## Anti-patterns
 
-Avoid loading or persisting single entities unless strictly necessary. For example, here is a possible antipattern for the [Gravatar example](https://github.com/subsquid/gravatar-squid) (link out of date):
+Avoid loading or persisting single entities unless strictly necessary. For example, here is a possible antipattern for the [Gravatar example](https://github.com/subsquid/gravatar-squid):
 
 ```ts 
 processor.run(new TypeormDatabase(), async (ctx) => {

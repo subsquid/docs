@@ -15,9 +15,13 @@ File-based data formats like CSV are convenient for data analysis, especially in
 
 We chose MATIC transactions on Ethereum mainnet for this example. This selection provides enough data to highlight the performance of the Subsquid framework and is interesting from a data analysis standpoint.
 
-An article about this demo project [has been published on Medium](https://link.medium.com/1NPC1S2czxb). The project source code can be found [in this repository on GitHub](https://github.com/RaekwonIII/local-csv-indexing) (link out of date).
+An article about this demo project [has been published on Medium](https://link.medium.com/1NPC1S2czxb). The project source code can be found in the [`local-csv-indexing` repository](https://github.com/subsquid-labs/local-csv-indexing).
 
 [//]: # (!!!! Update all github URLs)
+
+:::warning
+As of 2023-12-17, the `local-csv-indexing` repo is mostly still sound, but already somewhat outdated. You can take a look at the less sophisticated, yet regularly updated example [here](https://github.com/subsquid-labs/file-store-csv-example).
+:::
 
 ## Pre-requisites
 
@@ -35,9 +39,9 @@ sqd init local-csv-indexing -t evm
 Here, `local-csv-indexing` is the name of the project, and can be changed to anything else. The `-t evm` option specifies that the [`evm` template](https://github.com/subsquid-labs/squid-evm-template) should be used as a starting point.
 
 :::info
-**Note:** The template actually has more than what we need for this project. Unnecessary packages have been removed in the tutorial repository. You can grab [`package.json`](https://github.com/RaekwonIII/local-csv-indexing/blob/main/package.json) (link out of date) from there to do the same.
+**Note:** The template actually has more than what we need for this project. Unnecessary packages have been removed in the tutorial repository. You can grab [`package.json`](https://github.com/subsquid-labs/local-csv-indexing/blob/main/package.json) from there to do the same.
 
-Files-wise, `docker-compose.yml`, `schema.graphql` and `squid.yaml` were removed. `commands.json`, the list of local `sqd` scripts, has been significantly shortened ([here is the updated version](https://github.com/RaekwonIII/local-csv-indexing/blob/main/commands.json) (link out of date)).
+Files-wise, `docker-compose.yml`, `schema.graphql` and `squid.yaml` were removed. `commands.json`, the list of local `sqd` scripts, has been significantly shortened ([here is the updated version](https://github.com/subsquid-labs/local-csv-indexing/blob/main/commands.json)).
 :::
 
 ### ERC-20 token ABI
@@ -198,7 +202,7 @@ And in a few minutes, a few sub-folders (whose names are the block ranges where 
 
 ### Data analysis with Python
 
-If you want to learn how to analyze this data using Python and Pandas, refer to [the Medium article dedicated to this demo project](https://link.medium.com/1NPC1S2czxb), or consult the [project's repository on GitHub](https://github.com/RaekwonIII/local-csv-indexing).
+If you want to learn how to analyze this data using Python and Pandas, refer to [the Medium article dedicated to this demo project](https://link.medium.com/1NPC1S2czxb), or consult the [project's repository on GitHub](https://github.com/subsquid-labs/local-csv-indexing/local-csv-indexing).
 
 ## Conclusions
 
