@@ -26,7 +26,7 @@ sqd --version
 Create `squid.yaml` in the squid root folder, and set the squid name, version and the description (optional). Note that the squid version must be an integer, so start with `1`.
 
 ```yml file="squid.yaml
-manifestVersion: subsquid.io/v0.1
+manifest_version: subsquid.io/v0.1
 name: my-squid # set name
 version: 1 # version, must be an integer
 description: |-  # set description
@@ -38,9 +38,9 @@ deploy:
   addons:
     postgres: 
   processor:
-    cmd: [ "node", "lib/processor" ] 
+    cmd: [ "sqd", "process:prod" ]
   api:
-    cmd: [ "npx", "squid-graphql-server"]
+    cmd: [ "sqd", "process:serve" ]
 
 ```
 
@@ -51,9 +51,8 @@ If the squid expects additional environment variables to be set by the Cloud via
 ```yml
 #...
 deploy:
-  secrets:
-    - ETHEREUM_RPC_ENDPOINT
-
+  env:
+    ETHEREUM_RPC_ENDPOINT: ${{ secrets.ETHEREUM_RPC_ENDPOINT }}
 ```
 
 ## 3. (Optional) Revise `cmd`

@@ -101,11 +101,12 @@ The table below lists the currently available public Substrate endpoints to be u
 | ternoa               | `lookupArchive('ternoa')`                           | temporarily unavailable                                                      |
 | tidechain            | `lookupArchive('tidechain')`                        | temporarily unavailable                                                      |
 | turing               | `lookupArchive('turing')`                           | unavailable                                                                  |
-| vara                 | `lookupArchive('vara')`                             | temporarily unavailable                                                      |
+| vara                 | `lookupArchive('vara')`                             | `lookupArchive('vara',` `{release: 'ArrowSquid'})`                           |
 | vara-testnet         | not available                                       | `lookupArchive('vara-testnet',` `{release: 'ArrowSquid'})`                   |
 | westend-collectives  | `lookupArchive('westend-collectives')`              | temporarily unavailable                                                      |
 | xx-network           | `lookupArchive('xx-network')`                       | temporarily unavailable                                                      |
 | watr                 | not available                                       | `lookupArchive('watr',` `{release: 'ArrowSquid'})`                           |
+| xsocial              | not available                                       | `lookupArchive('xsocial',` `{release: 'ArrowSquid'})`                        |
 | zeitgeist            | `lookupArchive('zeitgeist')`                        | `lookupArchive('zeitgeist',` `{release: 'ArrowSquid'})`                      |
 | zeitgeist-testnet    | not available                                       | `lookupArchive('zeitgeist-testnet',` `{release: 'ArrowSquid'})`              |
 

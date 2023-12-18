@@ -6,20 +6,30 @@ description: Enable caching for faster queries
 
 # Caching 
 
-**Available since `@subsquid/graphql-server@3.2.0`**
-
 The GraphQL API server provided by `@subsquid/graphql-server` supports caching via additional flags. It is done on a per-query basis. The whole response is cached for a specified amount of time (`maxAge`).
 
-To enable caching when deploying to Subsquid Cloud, add the caching flags to `cmd` sections of the [deployment manifest](/cloud/reference/manifest/#deploy). Cloud currently supports only in-memory cache, with Redis-based cache to be supported in the near future.
-For example, the snippet below will deploy a GraphQL API server with a `100Mb` in-memory cache and invalidation time of `5` seconds:
+To enable caching when deploying to Subsquid Cloud, add the caching flags to the `serve:prod` command definition at `commands.json`, then use that command to run the server in the [deployment manifest](/cloud/reference/manifest/#deploy). Cloud currently supports only in-memory cache.
+For example, snippets below will deploy a GraphQL API server with a `100Mb` in-memory cache and invalidation time of `5` seconds:
 
+```json title="commands.json"
+...
+  "serve:prod": {
+    "description": "Start the GraphQL API server with caching and limits",
+    "cmd": [ "squid-graphql-server",
+      "--dumb-cache", "in-memory",
+      "--dumb-cache-ttl", "5000",
+      "--dumb-cache-size", "100",
+      "--dumb-cache-max-age", "5000" ]
+  }
+...
+```
 
 ```yaml title="squid.yaml"
 # ...
 deploy:
   # other services ...
   api:
-    cmd: [ "npx", "squid-graphql-server", "--dumb-cache", "in-memory", "--dumb-cache-ttl", "5000", "--dumb-cache-size", "100", "--dumb-cache-max-age", "5000" ]
+    cmd: [ "sqd", "serve:prod" ]
 ```
 
 Caching flags list is available via `npx squid-graphql-server --help`. Here are some more details on them:

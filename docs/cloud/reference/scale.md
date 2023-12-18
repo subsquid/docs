@@ -60,7 +60,7 @@ The profile specifications for a processor service are as follows:
 ## Example
 
 ```yaml title="squid.yaml"
-manifestVersion: subsquid.io/v0.1
+manifest_version: subsquid.io/v0.1
 name: sample-squid
 
 build: 
@@ -69,20 +69,20 @@ deploy:
   addons:
     postgres: 
   processor:
-    cmd: [ "node", "lib/processor" ] 
+    cmd: [ "sqd", "process:prod" ]
   api:
-    cmd: [ "npx", "squid-graphql-server"]
+    cmd: [ "sqd", "serve:prod" ]
 
 scale:
   dedicated: true
   addons:
-     postgres:
-         storage: 100G
-         profile: medium
+    postgres:
+      storage: 100G
+      profile: medium
   processor:
-     profile: medium
+    profile: medium
   api:
-     profile: large
-     # load-balance three replicas
-     replicas: 3
+    profile: large
+    # load-balance three replicas
+    replicas: 3
 ```

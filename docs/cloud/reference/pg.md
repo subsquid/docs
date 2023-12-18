@@ -53,7 +53,7 @@ The profile specifications for a `postgres` service are as follows:
 ## Examples
 
 ```yaml
-manifestVersion: subsquid.io/v0.1
+manifest_version: subsquid.io/v0.1
 name: sample-squid
 version: 1
 description: |-
@@ -68,9 +68,9 @@ deploy:
         statement_timeout: 100000
         log_min_duration_statement: 100000
   processor:
-    cmd: [ "node", "lib/processor" ] 
+    cmd: [ "sqd", "process:prod" ]
   api:
-    cmd: [ "npx", "squid-graphql-server"]
+    cmd: [ "sqd", "serve:prod" ]
 
 scale:
   addons:
