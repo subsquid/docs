@@ -6,7 +6,7 @@ sidebar_position: 60
 
 ### "Secrets outdated. Please restart the squid" warning
 
-This occurs when you have a squid deployed, then create, remove or change some [environment variables](/squid-cli/secrets) of [relevance](/cloud/resources/organizations). Squids must be restarted manually for such changes to have effect. Navigate to the squid version page (e.g. by clicking on the warning sign) and click restart. The restart will not touch the database, so unless your new secret values cause the squid to crash this procedure should be quick and easy.
+This occurs when you have a squid deployed, then create, remove or change some [secrets](/squid-cli/secrets) of [relevance](/cloud/resources/organizations). Squids must be restarted manually for such changes to have effect. Navigate to the squid version page (e.g. by clicking on the warning sign) and click restart. The restart will not touch the database, so unless your new secret values cause the squid to crash this procedure should be quick and easy.
 
 ![Secrets outdated](</img/secrets-outdated.png>)
 
