@@ -68,9 +68,9 @@ deploy:
         statement_timeout: 100000
         log_min_duration_statement: 100000
   processor:
-    cmd: [ "node", "lib/processor" ] 
+    cmd: [ "sqd", "process:prod" ]
   api:
-    cmd: [ "npx", "squid-graphql-server"]
+    cmd: [ "sqd", "serve:prod" ]
 
 scale:
   addons:

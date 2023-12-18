@@ -24,17 +24,30 @@ To do this, run one [processor](/sdk/overview) per source network:
   Alternatively, parameterize your processor using environment variables: you can [set these on a per-processor basis](/cloud/reference/manifest/#processor) if you use a deployment manifest to run your squid.
 
 2. Arrange for running the processors alongside each other conveniently:
+   - Add `sqd` commands for running each processor to `commands.json`, e.g.
+     ```json title="commands.json"
+     ...
+       "process:eth": {
+         "deps": ["build", "migration:apply"],
+         "cmd": ["node", "lib/eth/main.js"]
+       },
+       "process:bsc": {
+         "deps": ["build", "migration:apply"],
+         "cmd": ["node", "lib/bsc/main.js"]
+       },
+     ...
+     ```
+     [Full example](https://github.com/subsquid-labs/multichain-transfers-example/blob/master/commands.json)
    - If you are going to use [`sqd run`](/squid-cli/run) for local runs or deploy your squid to [Subsquid Cloud](/cloud), list your processors at the `deploy.processor` section of your [deployment manifest](/cloud/reference/manifest/#processor):
      ```yaml
      deploy:
        processor:
          - name: eth-processor
-           cmd: [ "node", "lib/eth/main" ]
+           cmd: [ "sqd", "process:prod:eth" ]
          - name: bsc-processor
-           cmd: [ "node", "lib/bsc/main" ]
+           cmd: [ "sqd", "process:prod:bsc" ]
      ```
      Make sure to give each processor a unique name!
-   - Optionally, add `sqd` commands for running each processor to `commands.json`. [Example](https://github.com/subsquid-labs/multichain-transfers-example/blob/master/commands.json)
 
 ## On Postgres
 

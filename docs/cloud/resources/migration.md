@@ -38,9 +38,9 @@ deploy:
   addons:
     postgres: 
   processor:
-    cmd: [ "node", "lib/processor" ] 
+    cmd: [ "sqd", "process:prod" ]
   api:
-    cmd: [ "npx", "squid-graphql-server"]
+    cmd: [ "sqd", "process:serve" ]
 
 ```
 
@@ -51,9 +51,8 @@ If the squid expects additional environment variables to be set by the Cloud via
 ```yml
 #...
 deploy:
-  secrets:
-    - ETHEREUM_RPC_ENDPOINT
-
+  env:
+    ETHEREUM_RPC_ENDPOINT: ${{ secrets.ETHEREUM_RPC_ENDPOINT }}
 ```
 
 ## 3. (Optional) Revise `cmd`

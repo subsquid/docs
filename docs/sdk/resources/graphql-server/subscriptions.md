@@ -20,27 +20,31 @@ Note that despite being [deprecated](/sdk/resources/graphql-server/overview/#sup
 
 ## Local runs
 
-To enable subscriptions for local runs, add the `--subscriptions` flag to the `serve` command at `commands.json`:
+To enable subscriptions, add the `--subscriptions` flag to `serve` and `serve:prod` commands at `commands.json`:
 ```json title="commands.json"
-      ...
-      "serve": {
-        "description": "Start the GraphQL API server",
-        "cmd": ["squid-graphql-server", "--subscriptions"]
-      },
-      ...
+...
+  "serve": {
+    "description": "Start the GraphQL API server",
+    "cmd": ["squid-graphql-server", "--subscriptions"]
+  },
+  "serve:prod": {
+    "description": "Start the GraphQL API server in prod",
+    "cmd": ["squid-graphql-server", "--subscriptions", "--dumb-cache", "in-memory"]
+  },
+...
 ```
 A `ws` endpoint will be available the usual `localhost:<GQL_PORT>/graphql` URL.
 
 ## Subsquid Cloud deployments
 
-For Subsquid Cloud deployments, update the `api` command in the [deployment manifest](/cloud/reference/manifest/#deploy):
+For Subsquid Cloud deployments, make sure to use the updated `serve:prod` command in the [deployment manifest](/cloud/reference/manifest/#deploy):
 
 ```yaml title="squid.yaml"
 # ...
 deploy:
   # other services ...
   api:
-    cmd: [ "npx", "squid-graphql-server", "--subscriptions" ]
+    cmd: [ "sqd", "serve:prod" ]
 ```
 The subscription `wss` endpoint will be available at the canonical API endpoint `wss://squid.subsquid.io/{name}/v/v{version}/graphql`.
 

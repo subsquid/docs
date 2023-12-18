@@ -69,20 +69,20 @@ deploy:
   addons:
     postgres: 
   processor:
-    cmd: [ "node", "lib/processor" ] 
+    cmd: [ "sqd", "process:prod" ]
   api:
-    cmd: [ "npx", "squid-graphql-server"]
+    cmd: [ "sqd", "serve:prod" ]
 
 scale:
   dedicated: true
   addons:
-     postgres:
-         storage: 100G
-         profile: medium
+    postgres:
+      storage: 100G
+      profile: medium
   processor:
-     profile: medium
+    profile: medium
   api:
-     profile: large
-     # load-balance three replicas
-     replicas: 3
+    profile: large
+    # load-balance three replicas
+    replicas: 3
 ```

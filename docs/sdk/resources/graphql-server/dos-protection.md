@@ -6,30 +6,32 @@ description: Enforce limits in the queries
 
 # DoS protection
 
-**Available since `@subsquid/graphql-server@2.1.0`**
-
 The squid [GraphQL API server](https://github.com/subsquid/squid-sdk/tree/master/graphql/graphql-server) accepts the following optional start arguments to fend off heavy queries. 
 
-To enable the protection for squids deployed to Subsquid Cloud, add the corresponding flags the GraphQL `api` service command in the [deployment manifest](/cloud/reference/manifest/#deploy). Here is an example:
+To enable the protection, add the corresponding flags to `serve` and `serve:prod` command definitions at `commands.json`:
+
+```json
+...
+  "serve": {
+    "description": "Start the GraphQL API server",
+    "cmd": ["squid-graphql-server", "--max-root-fields", "10", "--max-response-size", "1000"]
+  },
+  "serve:prod": {
+    "description": "Start the GraphQL API server in prod",
+    "cmd": ["squid-graphql-server", "--max-root-fields", "10", "--max-response-size", "1000", "--dumb-cache", "in-memory"]
+  },
+...
+```
+When deploying to [Subsquid Cloud](/cloud), make sure to use `serve:prod` to start the GraphQL `api` service in the [deployment manifest](/cloud/reference/manifest/#deploy):
 
 ```yaml title="squid.yaml"
 # ...
 deploy:
   # other services ...
   api:
-    cmd: [ "npx", "squid-graphql-server", "--max-root-fields", "10", "--max-response-size", "1000" ]
+    cmd: [ "sqd", "serve:prod" ]
 ```
 
-For local development, update `commands.json` accordingly:
-
-```json
-...
-    "serve": {
-      "description": "Start the GraphQL API server",
-      "cmd": ["squid-graphql-server", "--max-root-fields", "10", "--max-response-size", "1000"]
-    },
-...
-```
 
 **`--max-request-size <kb>`**
 

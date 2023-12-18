@@ -35,6 +35,7 @@ For a successful build the following files and folders **must** be present in th
 - `/src`
 - `tsconfig.json`
 - `package.json`
+- `commands.json`
 
 The `db` and `assets` folders are added to the build context if present in the squid folder. See [Project structure](/sdk/how-to-start/layout) for more info.
 
@@ -81,15 +82,27 @@ A processor service or a list of processor services of the squid.
 With a single processor this section may look like this:
 ```yaml
   processor:
-    cmd: [ "node", "lib/main" ]
+    cmd: [ "sqd", "process:prod" ]
 ```
 For the multiprocessor case:
 ```yaml
   processor:
     - name: eth-processor
-      cmd: [ "node", "lib/eth/main" ]
+      cmd: [ "sqd", "process:prod:eth" ]
     - name: bsc-processor
-      cmd: [ "node", "lib/bsc/main" ]
+      cmd: [ "sqd", "process:prod:bsc" ]
+```
+where `process:prod:bsc` and `process:prod:eth` are extra `sqd` commands defined at `commands.json`:
+```json title="commands.json"
+...
+  "process:prod:eth": {
+    "deps": ["migration:apply"],
+    "cmd": ["node", "lib/eth/main.js"]
+   },
+  "process:prod:bsc": {
+     "cmd": ["node", "lib/bsc/main.js"]
+   },
+...
 ```
 
 ### `api:`
@@ -126,9 +139,9 @@ deploy:
   addons:
     postgres: 
   processor:
-    cmd: [ "node", "lib/processor" ]
+    cmd: [ "sqd", "process:prod" ]
   api:
-    cmd: [ "npx", "squid-graphql-server" ]
+    cmd: [ "sqd", "serve:prod" ]
 ```
 
 An extended version:
@@ -145,19 +158,17 @@ build:
 deploy:
   addons:
     postgres: 
-  # the set of secrets that must be set and provided by Cloud
-  secrets:
-    - ACALA_RPC_ENDPOINT
-    - COINGECKO_API_KEY
   migrate:
     env:
       FOO: bar
-    cmd: ["echo", "skip migrations!" ]
+    cmd: [ "echo", "skip migrations!" ]
   processor:
-    # additional env variables
+    # static and secret-valued env variables
     env:
       SQD_DEBUG: sqd:mapping
-    cmd: [ "node", "lib/processor" ]
+      RPC_ENDPOINT: ${{ secrets.ACALA_RPC_ENDPOINT }}
+      COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+    cmd: [ "sqd", "process:prod" ]
   api:
     env:
       SQD_DEBUG: '*'
@@ -176,8 +187,3 @@ scale:
     # load-balance three replicas
     replicas: 3
 ```
-
-
-
-
-

@@ -79,10 +79,10 @@ Request that the required secret variables are visible from your squid in [`squi
 ```yaml title="squid.yaml"
 ...
 deploy:
-  secrets:
-    - GOOGLE_CLIENT_ID
-    - GOOGLE_CLIENT_EMAIL
-    - GOOGLE_PRIVATE_KEY
+  env:
+    GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+    GOOGLE_CLIENT_EMAIL: ${{ secrets.GOOGLE_CLIENT_EMAIL }}
+    GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
 ...
 ```
 Finally, set the variables with the [sqd secrets](/squid-cli/secrets) command, taking the values from the credentials JSON:
@@ -97,7 +97,6 @@ Escape the newline symbol with four backslashes when setting the private key:
 sqd secrets:set GOOGLE_PRIVATE_KEY "-----BEGIN PRIVATE KEY-----\\\\n...
 ```
 :::
-
 
 At this point your squid will be able to authenticate with Google Cloud once deployed.
 
