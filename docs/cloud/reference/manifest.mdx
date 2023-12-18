@@ -23,21 +23,23 @@ The manifest header defines the squid metadata
 
 ## `build:`
 
-Specifies the way the squid is built into a docker image. Only an empty `build:` section is supported, and the squid must adhere
-to the default [folder structure](/sdk/how-to-start/layout).
+Specifies the way the squid is built into a docker image.
 
-In particular, the following files and folders **must** be present in the root folder of the squid:
+| Name              | Type                          | Default value         |
+|:-----------------:|:-----------------------------:|----------------------:|
+| `node_version`    | `18 \| 20 \| 21`              | `20`                  |
+| `package_manager` | `auto \| npm \| pnpm \| yarn` | `auto`                |
+
+For a successful build the following files and folders **must** be present in the root folder of the squid:
 
 - `/src`
-- `schema.graphql`
 - `tsconfig.json`
-- `package-lock.json`
 - `package.json`
 
-The `db` and `assets` folders are added to the build context if present in the squid folder.
+The `db` and `assets` folders are added to the build context if present in the squid folder. See [Project structure](/sdk/how-to-start/layout) for more info.
 
 Under the hood, Cloud builds a Docker image and runs a docker container for each service (`api`, `processor`, `migrate`) using the same image.
-See [Troubleshooting](/cloud/troubleshooting/#local-build) for instructions on how to build and run the Docker image locally.
+See [Self-hosting](/sdk/resources/basics/self-hosting) for instructions on how to build and run the Docker image locally.
 Even though the squid services (`api`, `processor`, `migrate`) use the same single container image, the exec command is different and can is defined by the `deploy:` section as explained below.
 
 ## `deploy:`
@@ -103,10 +105,6 @@ For the multiprocessor case:
 
 **Optional** A key-value list of deployment-wide (i.e. visible to all services of the squid) env variables to be set
 
-### (deprecated) `secrets:` {#secrets}
-
-A list of secret names that must be added in the [Cloud app](https://app.subsquid.io). If any of the secrets is not defined, the deployment will fail.
-
 ## `scale:`
 
 See the [Scale the deployment](/cloud/reference/scale) section.
@@ -153,33 +151,30 @@ deploy:
     - COINGECKO_API_KEY
   migrate:
     env:
-      FOO: 
-        bar
+      FOO: bar
     cmd: ["echo", "skip migrations!" ]
   processor:
     # additional env variables
     env:
-      SQD_DEBUG: 
-        sqd:mapping
+      SQD_DEBUG: sqd:mapping
     cmd: [ "node", "lib/processor" ]
   api:
     env:
-      SQD_DEBUG: 
-        '*'
+      SQD_DEBUG: '*'
     # custom run command for the GraphQL server
     cmd: [ "npx", "squid-graphql-server", "--subscriptions", "--max-root-fields", "10", "--sql-statement-timeout", "1000" ]
 
 scale:
   addons:
-     postgres:
-         storage: 100G
-         profile: medium
+    postgres:
+      storage: 100G
+      profile: medium
   processor:
-     profile: medium
+    profile: medium
   api:
-     profile: large
-     # load-balance three replicas
-     replicas: 3
+    profile: large
+    # load-balance three replicas
+    replicas: 3
 ```
 
 
