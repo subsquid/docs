@@ -82,17 +82,17 @@ export default function Home(): JSX.Element {
 
         <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 gap-2 guide-cards">
           <GuideCard
-            path="/sdk/resources/squid-gen"
+            path="/sdk/how-to-start/"
             color={'bg-role--success'}
             description="A 5 minutes intro into Squid SDK">Quickstart
           </GuideCard>
           <GuideCard
-            path="/sdk/resources/external-api"
+            path="/sdk/resources/basics/external-api"
             color={'bg-role--success'}
             description="Power up your indexer with third-party APIs and IPFS queries">Query APIs and IPFS
           </GuideCard>
           <GuideCard
-            path="/sdk/reference/graphql-server/subscriptions"
+            path="/sdk/resources/graphql-server/subscriptions"
             color={'bg-role--success'}
             description="Live query updates with GraphQL subscriptions">GraphQL subscriptions</GuideCard>
           <GuideCard
@@ -109,7 +109,7 @@ export default function Home(): JSX.Element {
             color={'bg-role--notice'}
             description="First-class indexing of WASM contracts developed with ink!">ink! smart contracts</GuideCard>
           <GuideCard
-            path="/sdk/resources/subsquid-vs-thegraph"
+            path="/sdk/subsquid-vs-thegraph"
             color={'bg-role--success'}
             description="Compare the feature set and the architecture">Subsquid vs The Graph
           </GuideCard>
