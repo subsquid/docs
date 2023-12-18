@@ -26,7 +26,7 @@ sqd --version
 Create `squid.yaml` in the squid root folder, and set the squid name, version and the description (optional). Note that the squid version must be an integer, so start with `1`.
 
 ```yml file="squid.yaml
-manifestVersion: subsquid.io/v0.1
+manifest_version: subsquid.io/v0.1
 name: my-squid # set name
 version: 1 # version, must be an integer
 description: |-  # set description

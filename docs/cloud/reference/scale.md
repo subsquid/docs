@@ -60,7 +60,7 @@ The profile specifications for a processor service are as follows:
 ## Example
 
 ```yaml title="squid.yaml"
-manifestVersion: subsquid.io/v0.1
+manifest_version: subsquid.io/v0.1
 name: sample-squid
 
 build: 

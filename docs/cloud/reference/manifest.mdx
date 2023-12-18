@@ -16,7 +16,7 @@ The manifest header defines the squid metadata
 
 | Field                    |      Description                         |
 |:-----------------------:|:---------------------------------------------:|
-| `manifestVersion`        | Only `subsquid.io/v0.1` is currently supported     |
+| `manifest_version`        | Only `subsquid.io/v0.1` is currently supported     |
 | `name` | A globally unique squid name. Can only contain lowercase Latin letters (`a-z`) and a dash (`-`). Must be under 20 symbols. |
 | `version`                 | Squid version. **Must be an integer**. A squid deployment is canonically identified as `${name}@${version}`.  |
 | `description`  | (Optional) A short description of the squid  |
@@ -127,7 +127,7 @@ See the [Scale the deployment](/cloud/reference/scale) section.
 A minimal example of manifest is below:
 
 ```yaml title="squid.yaml"
-manifestVersion: subsquid.io/v0.1
+manifest_version: subsquid.io/v0.1
 name: sample-squid
 version: 1
 description: |-
@@ -147,7 +147,7 @@ deploy:
 An extended version:
 
 ```yaml title="squid.yaml"
-manifestVersion: subsquid.io/v0.1
+manifest_version: subsquid.io/v0.1
 name: sample-squid
 version: 1
 description: |-

@@ -53,7 +53,7 @@ The profile specifications for a `postgres` service are as follows:
 ## Examples
 
 ```yaml
-manifestVersion: subsquid.io/v0.1
+manifest_version: subsquid.io/v0.1
 name: sample-squid
 version: 1
 description: |-
