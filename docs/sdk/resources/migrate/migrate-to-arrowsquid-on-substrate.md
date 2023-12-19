@@ -76,6 +76,18 @@ The new field selector format is fully documented on the [Field selection](/sdk/
 Blanket field selections like `{data: {event: {extrinsic: true}}}` are not supported in ArrowSquid. If you used one of these, please find out which exact fields you use in the batch handler and specifically request them.
 :::
 
+:::warning
+Do not include related data requests into the field selection. E.g.
+```ts
+  .setFields({
+    event: {
+      call: true
+    }
+  })
+```
+will at best fail to compile and at worst make your squid fail due to HTTP 400s from the network gateway.
+:::
+
 For example, suppose the processor was initialized with the following three calls:
 
 ```typescript
@@ -144,16 +156,12 @@ There are two old field requests that have no direct equivalent in the new inter
 
 It is currently impossible to request just the parent call. Work around by requesting the full call stack with `stack: true` in the call-requesting configuration calls, then using `.parentCall` property or `getParentCall()` method of `Call` data items to get parent calls.
 
-[//]: # (!!!! Update if the parent call retrieval flag is reintroduced)
-
 </details>
 
 <details>
 <summary>event.evmTxHash</summary>
 
-Processor no longer makes EVM transaction hashes explicitly available. **(untested)** Given an `Ethereum.Executed` event `e`, you can get it as `e.args[2] || e.args.transactionHash`.
-
-[//]: # (!!!! Test the workaround)
+Processor no longer makes EVM transaction hashes explicitly available. Currently the only way to get hashes of logs' parent txs is to figure out the subset of calls that emitted the required logs, request them explicitly with their related events, filter out `Ethereum.Executed` events and decode these. See [this issue](https://github.com/subsquid/squid-sdk/issues/211).
 
 </details>
 
