@@ -42,7 +42,7 @@ processor.run(db, async ctx => {
 })
 ```
 Here,
- * `bq` is a `BigQuery` instance. When created without arguments like this it'll look at the `GOOGLE_APPLICATION_CREDENTIALS` environment variable for a path to a JSON with authentication details. When providing such a file is undesirable for any reason the credentials may be supplied to the constructor. An example is available at the [Deploying to Subsquid Cloud](#deploying-to-subsquid-cloud) section.
+ * `bq` is a `BigQuery` instance. When created without arguments like this it'll look at the `GOOGLE_APPLICATION_CREDENTIALS` environment variable for a path to a JSON with authentication details.
  * `dataset` is the path to the target dataset.
 :::warning
 The dataset must be created prior to running the processor.
@@ -53,52 +53,24 @@ Tables are made out of statically typed columns. Available types are listed on t
 
 ## Deploying to Subsquid Cloud
 
-We discourage uploading any sensitive data with squid code when [deploying](/cloud) to Subsquid Cloud. For BigQuery squids that means that accessing a [credentials JSON](https://cloud.google.com/docs/authentication/application-default-credentials#GAC) is typically not possible. The solution is to use [Cloud secrets](/cloud/resources/env-variables/#secrets) to store credentials.
-
-Assuming that the name of the project is `subsquid-datasets` as in the example above and not sensitive, you can initialize your `BigQuery` instance like this:
-```ts title="src/main.ts"
-...
-import {assertNotNull} from `@subsquid/util-internal`
-
-const client_id = assertNotNull(process.env.GOOGLE_CLIENT_ID)
-const client_email = assertNotNull(process.env.GOOGLE_CLIENT_EMAIL)
-const private_key = assertNotNull(
-  process.env.GOOGLE_PRIVATE_KEY
-).replace(/\\n/g, '\n')
-
-const bq = new BigQuery({
-  projectId: 'subsquid-datasets',
-  credentials: {client_id, client_email, private_key}
-})
-
-const db = new Database({
-  bq,
-...
+We discourage uploading any sensitive data with squid code when [deploying](/cloud) to Subsquid Cloud. To pass your [credentials JSON](https://cloud.google.com/docs/authentication/application-default-credentials#GAC) to your squid, create a [Cloud secret](/cloud/resources/env-variables/#secrets) variable populated with its contents:
+```bash
+sqd secrets set GAC_JSON_FILE < creds.json
 ```
-Request that the required secret variables are visible from your squid in [`squid.yaml`](/cloud/reference/manifest):
+Then in `src/main.ts` write the contents to a file:
+```ts title=src/main.ts
+import fs from 'fs'
+
+fs.writeFileSync('creds.json', process.env.GAC_JSON_FILE || '')
+```
+Set the `GOOGLE_APPLICATION_CREDENTIALS` variable and request the secret in the [deployment manifest](/cloud/reference/manifest):
 ```yaml title="squid.yaml"
-...
 deploy:
-  env:
-    GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-    GOOGLE_CLIENT_EMAIL: ${{ secrets.GOOGLE_CLIENT_EMAIL }}
-    GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
-...
+  processor:
+    env:
+      GAC_JSON_FILE: ${{ secrets.GAC_JSON_FILE }}
+      GOOGLE_APPLICATION_CREDENTIALS: creds.json
 ```
-Finally, set the variables with the [sqd secrets](/squid-cli/secrets) command, taking the values from the credentials JSON:
-```bash
-sqd secrets:set GOOGLE_CLIENT_ID <your_client_id>
-sqd secrets:set GOOGLE_CLIENT_EMAIL <your_client_email>
-sqd secrets:set GOOGLE_PRIVATE_KEY <your_private_key>
-```
-:::warning
-Escape the newline symbol with four backslashes when setting the private key:
-```bash
-sqd secrets:set GOOGLE_PRIVATE_KEY "-----BEGIN PRIVATE KEY-----\\\\n...
-```
-:::
-
-At this point your squid will be able to authenticate with Google Cloud once deployed.
 
 ## Examples
 

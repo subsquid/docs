@@ -65,7 +65,7 @@ const METHOD_SIGHASH = '0x88316456' // mint
 const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: lookupArchive('eth-mainnet'),
-    chain: 'https://rpc.ankr.com/eth'
+    chain: '<eth_rpc_endpoint_url>'
   })
   .setFinalityConfirmation(75)
   .setBlockRange({ from: 16962349, to: 16962349 })

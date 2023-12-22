@@ -108,7 +108,7 @@ export const processor = new EvmBatchProcessor()
     // lookupArchive('polygon')
     // lookupArchive('binance')
     archive: lookupArchive('eth-mainnet'),
-    chain: 'https://rpc.ankr.com/eth'
+    chain: '<eth_rpc_endpoint_url>'
   })
   .setBlockRange({ from: 6175243 })
   .setFinalityConfirmation(75)

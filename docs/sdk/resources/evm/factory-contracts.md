@@ -18,7 +18,7 @@ Let's consider how it works in a DEX example, with a contract emitting `PoolCrea
 export const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
-    chain: 'https://rpc.ankr.com/eth',
+    chain: '<eth_rpc_endpoint_url>',
   })
   .setBlockRange({
     from: 12_369_621,
@@ -84,7 +84,7 @@ const { preloadHeight, preloadedPools } = loadPools() // e.g. from a filesystem
 export const processor = new EvmBatchProcessor()
   .setDataSource({
     archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
-    chain: 'https://rpc.ankr.com/eth',
+    chain: '<eth_rpc_endpoint_url>',
   })
   .setBlockRange({
     from: 12_369_621,

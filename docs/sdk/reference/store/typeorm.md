@@ -202,7 +202,7 @@ Database credentials must be supplied via the environment variables:
 * `DB_URL` (default `undefined`)
 
 :::info
-To take advantage of `DB_SSL_REJECT_UNAUTHORIZED`, `DB_URL` and the client-side SSL variables use the `@next` version of the packages:
+To take advantage of `DB_SSL_REJECT_UNAUTHORIZED`, `DB_URL` and the client-side SSL variables use the `@next` version of `typeorm-store`:
 ```bash
 npm i @subsquid/typeorm-store@next
 ```
@@ -216,6 +216,13 @@ npm i @subsquid/typeorm-store@next
 * `DB_SSL_CERT_FILE` - path to client certificate in plain text
 * `DB_SSL_KEY` - client key in plain text
 * `DB_SSL_KEY_FILE` - path to client key in plain text
+
+:::tip
+In case you're deploying to [Cloud](/cloud) you can set [secrets](/cloud/resources/env-variables/#secrets) to the contents of any given file via stdin:
+```bash
+sqd secrets set DB_SSL_CA < ca.crt
+```
+:::
 
 ### `DB_URL`
 
