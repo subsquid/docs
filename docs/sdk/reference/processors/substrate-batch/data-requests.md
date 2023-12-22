@@ -14,6 +14,10 @@ Setting a data request field to `[]` _selects no data_. Pass `undefined` for a w
 ```
 :::
 
+:::tip
+All array-valued data request fields (e.g. `name?: string[]` of `addEvent()` are _arrays_ of acceptable values. That means that you can request e.g. multiple events with a single `addEvent()` call. Requesting data that way is more efficient than requesting data with many individual calls.
+:::
+
 ## Events
 
 **`addEvent(options)`**: Subscribe to Substrate runtime events. `options` has the following structure:
