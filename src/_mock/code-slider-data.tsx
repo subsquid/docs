@@ -34,7 +34,7 @@ export default [
         'export const processor = new EvmBatchProcessor()\n' +
         '  .setDataSource({\n' +
         '    archive: lookupArchive(\'eth-mainnet\'),\n' +
-        '    chain: \'https://rpc.ankr.com/eth\',\n' +
+        '    chain: \'<eth_rpc_endpoint_url>\',\n' +
         '  })\n' +
         '  .setFinalityConfirmation(75)\n' +
         '  .addLog({\n' +

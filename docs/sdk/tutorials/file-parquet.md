@@ -290,7 +290,7 @@ sqd process
 The indexer should be able to catch up with the Ethereum blockchain, and **reach the chain's head in a very short time**. 
 
 :::info
-Bear in mind that this may vary a lot, depending on the Ethereum node used ([Ankr public node](https://rpc.ankr.com/eth) in our case) and on your hardware, as well as the connection, or physical distance from the Ethereum node. It took ~45 minutes while testing for this article. A test on a connection with a much higher latency and the same configuration finished indexing in 5 hours (figures out of date).
+Bear in mind that this may vary a lot, depending on the Ethereum node used and on your hardware, as well as the connection, or physical distance from the Ethereum node. It took ~45 minutes while testing for this article. A test on a connection with a much higher latency and the same configuration finished indexing in 5 hours (figures out of date).
 :::
 
 The process will generate a series of sub-folders in the `data` folder, labelled after the block ranges where the data is coming from, and in each one of these folders there should be one `*.parquet` file for each of the *tables* we defined.
@@ -308,7 +308,7 @@ The purpose of this tutorial was to demonstrate how to use the Subsquid indexing
 The project described here was able to index the entirety of Uniswap Pool events, across all the pools created by the Factory contract, as well as the Positions held by investors, in less than an hour (~45 minutes) (figure out of date).
 
 :::info
-**Note:** Indexing time may vary, depending on factors, such as the Ethereum node used ([Ankr public node](https://rpc.ankr.com/eth) in our case), on the hardware, and quality of the connection.
+**Note:** Indexing time may vary, depending on factors, such as the Ethereum node used, on the hardware, and quality of the connection.
 :::
 
 The simple Python script in the project's repository shows how to read multiple Parquet files, and perform some data analysis with Pandas.

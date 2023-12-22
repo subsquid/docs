@@ -150,7 +150,7 @@ DB_NAME=squid
 DB_PORT=23798
 GQL_PORT=4350
 # JSON-RPC node endpoint, both wss and https endpoints are accepted
-RPC_ENDPOINT="https://rpc.ankr.com/eth"
+RPC_ENDPOINT="<eth_rpc_endpoint_url>"
 ```
 :::
 
