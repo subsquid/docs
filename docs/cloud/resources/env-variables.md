@@ -63,6 +63,10 @@ To add a secret:
    ```bash
    sqd secrets set MOONRIVER_GRPC_ENDPOINT wss://moonriver.my-endpoint.com/ws/my-secret-key
    ```
+   If you do not specify the value, `sqd` will attempt to read it from standard input. This is useful when setting a value to the contents of some file:
+   ```bash
+   sqd secrets set MY_JSON_CREDENTIALS < creds.json
+   ```
 2. At your squid's [manifest](/cloud/reference/manifest), add an environment variable and assign it to the secret:
    ```yaml
    deploy:

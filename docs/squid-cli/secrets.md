@@ -41,7 +41,7 @@ _See code: [src/commands/secrets/rm.ts](https://github.com/subsquid/squid-cli/tr
 
 ## `sqd secrets:set NAME VALUE`
 
-Create or update a secret. The secret will be exposed as an environment variable with the given name to all the squids. Note the changes take affect only after a squid is restarted or updated.
+Add or update a secret in the Cloud. If value is not specified, it is read from standard input. The secret will be exposed as an environment variable with the given name to all the squids in the organization. NOTE: The changes take affect only after a squid is restarted or updated.
 
 ```
 USAGE
