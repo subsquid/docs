@@ -26,13 +26,12 @@ The table below lists the currently available public Substrate endpoints to be u
 | basilisk             | `lookupArchive('basilisk')`                         | `lookupArchive('basilisk',` `{release: 'ArrowSquid'})`                       |
 | bifrost              | `lookupArchive('bifrost')`                          | temporarily unavailable                                                      |
 | bifrost-polkadot     | `lookupArchive('bifrost-polkadot')`                 | `lookupArchive('bifrost-polkadot',` `{release: 'ArrowSquid'})`               |
-| bitcountry-pioneer   | `lookupArchive('bitcountry-pioneer')`               | temporarily unavailable                                                      |
 | bridge-hub-kusama    | not available                                       | `lookupArchive('bridge-hub-kusama',` `{release: 'ArrowSquid'})`              |
 | bridge-hub-polkadot  | not available                                       | `lookupArchive('bridge-hub-polkadot',` `{release: 'ArrowSquid'})`            |
 | bridge-hub-rococo    | not available                                       | `lookupArchive('bridge-hub-rococo',` `{release: 'ArrowSquid'})`              |
 | bridge-hub-westend   | not available                                       | `lookupArchive('bridge-hub-westend',` `{release: 'ArrowSquid'})`             |
 | calamari             | `lookupArchive('calamari')`                         | temporarily unavailable                                                      |
-| centrifuge           | `lookupArchive('centrifuge')`                       | temporarily unavailable                                                      |
+| centrifuge           | `lookupArchive('centrifuge')`                       | `lookupArchive('centrifuge',` `{release: 'ArrowSquid'})`                     |
 | cere                 | `lookupArchive('cere')`                             | temporarily unavailable                                                      |
 | clover               | `lookupArchive('clover')`                           | temporarily unavailable                                                      |
 | collectives          | `lookupArchive('collectives')`                      | temporarily unavailable                                                      |
@@ -40,7 +39,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | collectives-westend  | `lookupArchive('collectives-westend')`              | `lookupArchive('collectives-westend',` `{release: 'ArrowSquid'})`            |
 | composable-finance   | `lookupArchive('composable-finance')`               | temporarily unavailable                                                      |
 | crab                 | `lookupArchive('crab')`                             | `lookupArchive('crab',` `{release: 'ArrowSquid'})`                           |
-| crust                | `lookupArchive('crust')`                            | temporarily unavailable                                                      |
+| crust                | `lookupArchive('crust')`                            | `lookupArchive('crust',` `{release: 'ArrowSquid'})`                          |
 | darwinia             | `lookupArchive('darwinia')`                         | `lookupArchive('darwinia',` `{release: 'ArrowSquid'})`                       |
 | eden                 | not available                                       | `lookupArchive('eden',` `{release: 'ArrowSquid'})`                           |
 | elysium              | `lookupArchive('elysium')`                          | temporarily unavailable                                                      |
@@ -71,8 +70,6 @@ The table below lists the currently available public Substrate endpoints to be u
 | moonbase             | `lookupArchive('moonbase',` `{type: 'Substrate'})`  | `lookupArchive('moonbase',` `{type: 'Substrate',` `release: 'ArrowSquid'})`  |
 | moonbeam             | `lookupArchive('moonbeam',` `{type: 'Substrate'})`  | `lookupArchive('moonbeam',` `{type: 'Substrate',` `release: 'ArrowSquid'})`  |
 | moonriver            | `lookupArchive('moonriver',` `{type: 'Substrate'})` | `lookupArchive('moonriver',` `{type: 'Substrate',` `release: 'ArrowSquid'})` |
-| myriad               | `lookupArchive('myriad')`                           | temporarily unavailable                                                      |
-| myriad-testnet       | `lookupArchive('myriad-testnet')`                   | temporarily unavailable                                                      |
 | origin-trail         | `lookupArchive('origin-trail')`                     | temporarily unavailable                                                      |
 | pangolin             | `lookupArchive('pangolin')`                         | temporarily unavailable                                                      |
 | pangoro              | `lookupArchive('pangoro')`                          | temporarily unavailable                                                      |
