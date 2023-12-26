@@ -35,9 +35,11 @@ The easiest way to run a subgraph with Subsquid Firehose to use our [graph-node-
 
    ![Configuring the environment](subgraphs-support-configuration.gif)
 
-   You will be asked to select a network and provide a node RPC endpoint. You can pick any network from our [supported EVM networks](/subsquid-network/reference/evm-networks); networks that are not currently [supported by TheGraph](https://thegraph.com/docs/en/developing/supported-networks/) will be available their under Subsquid names.
+   You will be asked to select a network. You can pick any network from our [supported EVM networks](/subsquid-network/reference/evm-networks); networks that are not currently [supported by TheGraph](https://thegraph.com/docs/en/developing/supported-networks/) will be available their under Subsquid names.
 
-   The RPC endpoint will only be used to sync a few thousands of blocks at the chain end, so it does not have to be a paid one. However, `firehose-grpc` does not limit its request rate yet, so using a public RPC might result in a cooldown.
+   Optionally you can also provide an RPC endpoint. If you do, it will be used to sync a few thousands of blocks at the chain end, so it does not have to be a paid one. However, `firehose-grpc` does not limit its request rate yet, so using a public RPC might result in a cooldown.
+
+   If you do not provide an RPC endpoint, your subgraph deployments will be a few thousands of blocks behind the chain head.
 
 3. Download and deploy your subgraph of choice! For example, if you configured the environment to use Ethereum mainnet (`eth-mainnet`), you can deploy the well known Gravatar subgraph:
    ```bash
@@ -59,16 +61,6 @@ The easiest way to run a subgraph with Subsquid Firehose to use our [graph-node-
    ```
    GraphiQL playground will be available at [http://127.0.0.1:8000/subgraphs/name/example/graphql](http://127.0.0.1:8000/subgraphs/name/example/graphql).
 
-## Disabling RPC ingestion
-
-If you would like to use `firehose-grpc` without the optional real-time RPC data-source, run 
-```bash
-npm run configure -- --disable-rpc-ingestion
-```
-One would still have to provide a placeholder RPC URL to the config, but it won't be used for the data ingestion, so a public RPC will suffice.
-
-Disabling RPC ingestion introduces a delay of several thousands of blocks between the highest block available to the subgraph and the actual block head, but completely eliminates the need to care about the RPC endpoints.
-
 ## Troubleshooting
 
 Do not hesitate to let us know about any issues (whether listed here or not) at the [SquidDevs Telegram chat](https://t.me/HydraDevs).
@@ -77,4 +69,4 @@ Do not hesitate to let us know about any issues (whether listed here or not) at 
   ```
   thread 'tokio-runtime-worker' panicked at 'called `Option::unwrap()` on a `None` value', src/ds_rpc.rs:556:80
   ```
-  errors in the `graph-node-setup-firehose` container logs, that likely means that the chain RPC is not fully Ethereum-compatible and a workaround is not yet implemented in `firehose-grpc`. You can still sync your subgraph with [RPC ingestion disabled](#disabling-rpc-ingestion).
+  errors in the `graph-node-setup-firehose` container logs, that likely means that the chain RPC is not fully Ethereum-compatible and a workaround is not yet implemented in `firehose-grpc`. You can still sync your subgraph with RPC ingestion disabled.
