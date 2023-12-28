@@ -13,4 +13,4 @@ sidebar_position: 90
 
 ## DipDup
 
-[DipDup](https://dipdup.io) is a Python indexing framework that uses [Subsquid Network](/subsquid-network) as a data source.
+[DipDup](https://dipdup.io) is a Python indexing framework that can use [Subsquid Network](/subsquid-network) as a data source.
