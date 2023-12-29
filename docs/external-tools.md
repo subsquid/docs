@@ -13,4 +13,9 @@ sidebar_position: 90
 
 ## DipDup
 
-[DipDup](https://dipdup.io) is a Python indexing framework that can use [Subsquid Network](/subsquid-network) as a data source.
+[DipDup](https://dipdup.io) is a Python indexing framework that can use [Subsquid Network](/subsquid-network) as a data source. It offers
+
+* SQLite, PostgreSQL and TimescaleDB data sinks
+* GraphQL APIs based on Hasura
+
+Development workflow uses the `dipdup` tool to generate a stub project. Once done with that, all you have to do is to define the data schema and the handlers. Take a look at their [quickstart](https://dipdup.io/docs/quickstart-evm) for more details.
