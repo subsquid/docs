@@ -7,54 +7,54 @@ description: A fairly detailed design overview
 ## Intro 
 
 
-The blockchain technology, initially designed solely for peer-to-peer transfers (Bitcoin), has evovled into a general 
-purpose global execution runtime. Decentralized applications (dApps) powered by blockchains now span multiple verticals which include:
+Blockchain, while initially designed solely for peer-to-peer transfers (Bitcoin), has since evolved into a general 
+purpose global execution runtime. The introduction of smart contract blockchains (Ethereum being the first) has enabled the creation of decentralized Apps (dApps) that are now catering to users in countless verticals, including:  
 
 - Decentralized Finance (DeFi) and tokenized real-world assets (RWA)
 - Decentralized Social application (DeSoc)
-- Decentralized Gaming with peer-to-peer economy (GameFi)
+- Decentralized Gaming with peer-to-peer game economies (GameFi)
 - Decentralized physical infrastructure (DePIN)
-- Decentralized creator ecomomy (Music, Videos, NFTs)
+- Decentralized creator economy (Music, Videos, NFTs)
 
-A key enabler for the ever-growing scale and complexity of dApps is the emergent infrastucture, all incorporated into the "Web3 stack":
+One of the key fundamentals that has allowed countless dApps to thrive is the emergent infrastructure addressing the challenges of scaling, storage, and retrieval of data. We also refer to this as the "Web3 tech stack". The below all form part of the stack: 
 
 - Scalable execution (L2 chains, Rollups, Bridges, Solana)
-- Putting off-chain and real world data on-chain (e.g. Chainlink)
+- Bringing off-chain and real-world data on-chain (Oracles like Chainlink)
 - Permanent and long-term storage for large data (Arweave, Filecoin)
 - Application-specific databases and APIs (TheGraph, POKT, Kwil, WeaveDB)
 
 ![image](https://user-images.githubusercontent.com/8627422/279713390-8667b401-5213-4126-a0c2-55d39ba611e8.png)
 
-However, an essential part of the stack is missing -- it is currently problematic to query and aggregate 
-the exponentially growing amount of data produced by the blockchains themselves (transactions and state data), applications 
-(decoded smart contract states) and the relevant off-chain data (prices, data kept in IPFS and Arweave, pruned EIP4844 data). In the traditional (Web2) world, the data produced by the application (e.g. logs or client data) are
-stored into centralized data lakes (e.g. BigQuery, Snowflake, Apache Iceberg), from where it can be queried or batch-extracted. On the contrary, the true value of the Web3 app data is unlocked when multi-chain, multi-application data can be seamlessly extracted, filtered and aggregated.
+However, there is still one part missing. One of the biggest challenges dApp developers face is accessing data at scale. It's currently highly complex to query and aggregate 
+the exponentially growing amount of data produced by blockchains (transactions and state data), applications 
+(decoded smart contract states), and any relevant off-chain data (prices, data kept in IPFS and Arweave, pruned EIP4844 data). In Web2, data produced by applications (such as logs or client data) is 
+stored in centralized data lakes like BigQuery, Snowflake, Apache, and Iceberg to facilitate access. Storing Web3 data in similar centralized data lakes would defeat the purpose of open, resilient access. Still, Web3 app data, if aggregated, filtered, and easily extractable, will serve as a catalyst to unlock the potential of the industry in a multi-chain paradigm.  
 
-However the permissionless and decentralized nature of Web3 requires a fundamentally different solution with the following properties:
+Instead of replicating Web2 approaches the permissionless and decentralized nature of Web3 requires a fundamentally different solution with the following properties:
 
 - Infinite horizontal scalability: the capacity of the lake should grow indefinitely as new nodes join
 - Permissionless data access: the data can be uploaded and queried without any gatekeeping or centralized control
-- Credible neutrality: no barrier for new nodes to join
-- Trust-minimized queries: the data can be audited and the clients can verify the query result
-- Low maintainance cost: the price per query should be negligible  
+- Credible neutrality: no barrier for new nodes to join the network 
+- Trust-minimized queries: the data can be audited, and all clients can verify the query result
+- Low maintenance cost: the price per query should be negligible  
 
-The Subsquid Network is set to satisfy all the properties above, with the following design decisions:
+The Subsquid Network is built to satisfy all the above properties, thanks to its architecture where: 
 
-- The raw data is uploaded into permanent storage by the data providers which act as oracles but for "big data"
+- The raw data is uploaded into permanent storage by the data providers, which act as oracles but for "big data"
 - The data is compressed and distributed among the network nodes
-- The node operators have to bond a secutity deposit which can be slashed for byzantine behavior 
+- Node operators have to bond a security deposit, which can be slashed for byzantine behavior 
 - Each node efficiently queries the local data with DuckDB 
-- Any query can be vefiried by submitting a signed response to an on-chain smart contract 
+- Any query can be verified by submitting a signed response to an on-chain smart contract 
 
-With the recent advances in the in-process databases like DuckDB and a ever-decreasing price of quality SSD storage, the operational costs of a single node handling 1Tb of data are as low as 35$/mo [1]. 
+With the recent advances in in-process databases like DuckDB and an ever-decreasing price of quality SSD storage, the operational cost of a single node handling 1Tb of data is as low as 35/mo [1] and will likely decline further in the future. 
 
-At the initial phase, the Subsquid Network only supports simple queries that can be resolved by quering the local data of a suitable node. It already provides a fundamentally new primitive for on-chain data availability, fully eliminating the need to maintain costly archival blockchain nodes for historical data access. 
+In the first stage, the Subsquid Network only supports simple queries that can be resolved by querying the local data of a suitable node. This already provides a fundamentally new primitive for on-chain data availability, fully eliminating the need to maintain expensive archival blockchain nodes to access historical blockchain data. 
 
-After the bootstrapping, the network will be endowed with an additional query planning and execution layer supporting general purpose SQL queries, inspired by Apache Calcite and DataFusion.
+After the bootstrapping period, the network will be expanded with an additional query planning and execution layer supporting general-purpose SQL queries inspired by Apache Calcite and DataFusion.
 
 ## Design Overview
 
-The Subsquid Network assumes the participation of the following actors:
+The below actors all participate in the Subsquid Network:
 
 - Data Providers
 - Workers 
@@ -68,42 +68,42 @@ The Subsquid Network assumes the participation of the following actors:
 
 ### Data Providers
 
-Data Providers produce data to be served by Subsquid Network. Currently, the focus is on on-chain data, and the data providers are chains. Currently, only EVM- and Substrate-based chains are supported, while plans exist to support Cosmos chains and Solana.
+Data Providers produce data to be served by Subsquid Network. Currently, the focus is on on-chain data, and data providers are blockchains and L2s. At the moment, Subsquid only supports EVM- and Substrate chains, but we plan on adding support for Cosmos and Solana in the near future.
 
-Data providers are responsible for ensuring the quality of data and that the it is provided in a timely manner. During the bootstrap phase, Subsquid Labs GmbH acts as the sole data provider for the Subsquid Network, serving as a proxy for the chains from which the data is ingested block-by-block. The ingested data is validated by comparing the hashes, split into small compressed chunks and saved into persistent storage, from which the chunks are randomly distributed between the workers.
+Data providers are responsible for ensuring the quality and timely provision of data. During the bootstrapping phase, Subsquid Labs GmbH acts as the sole data provider for the Subsquid Network, serving as a proxy for chains from which the data is ingested block-by-block. The ingested data is validated by comparing hashes. It's then split into small compressed chunks and saved into persistent storage, from which the chunks are randomly distributed between the workers.
 
 ![image](https://user-images.githubusercontent.com/8627422/255241118-9ba68865-c088-42ac-a01b-f961d1ed564b.png)
 
-The metadata is saved on-chain and is updated by the data provider each time a new piece of the data is uploaded. The metadata describes the schema, the data layout, the reserved storage and the desired replication factor to be accomodated by the network. The metadata structure is presented in an Appendix
+The metadata is saved on-chain and is updated by the data provider each time a new piece of the data is uploaded. The metadata describes the schema, the data layout, the reserved storage, and the desired replication factor to be accommodated by the network. You can find the metadata structure in the Appendix.
 
-The data provider is incentivized to provided consistent and valid data, and it is the data provider's responsibility to make the data available in the persistent storage. At the bootstrap phase, the persistent storage used by Subsquid Labs is an S3 compatible service with backups pinned to IPFS. As the network matures, more data providers and storage options will be supported, with the data providers vetted by on-chain governance and known identities. 
+The data provider is incentivized to provide consistent and valid data, and it is their responsibility to make the data available in persistent storage. During the bootstrap phase, the persistent storage used by Subsquid Labs is an S3-compatible service with backups pinned to IPFS. As the network matures, more data providers and storage options will be added, with data providers being vetted by on-chain governance and known trusted parties. 
 
-Data providers pay on-chain subscription fees to the network to make data available and to have it served by workers. These fees are are sent to the Subsquid Network treasury. 
+Data providers pay on-chain subscription fees to the network to make data available and to have it served by workers. These fees are sent to the Subsquid Network treasury. 
 
 ### Scheduler
 
-The scheduler is responsible for distributing the data chunks submitted by the data providers among the workers. The scheduler listens to updates of the data-sets, as well as updates for the worker sets and sends requests to the workers to download new chunks and/or redistribute the existing data chunks based on the capacity and the target redundancy for each dataset. Once a worker receives an update request from the coordinator, it downloads the missing data chunks from the corresponding persistent storage.
+The scheduler is responsible for distributing the data chunks submitted by the data providers among the workers. The scheduler listens to updates of the data sets, as well as updates of the worker sets, and sends requests to the workers to download new chunks and/or redistribute the existing data chunks based on the capacity and the target redundancy for each dataset. Once a worker receives an update request , it downloads the missing data chunks from the corresponding persistent storage.
 
 ![image](https://user-images.githubusercontent.com/8627422/255990260-ee4eca18-faa0-4e14-a495-9aad99ef14cb.png)
 
 
 ### Workers
 
-Workers contribute the storage and compute resources to the network, serve the data to peer-to-peer to consumersand are rewarded with $SQD tokens. Each worker has to be registered on-chain by bonding `100_000` SQD tokens which can be slashed if the worker provable violates the protocol rule. $SQD holders can also delegate to a specific worker to signal the reliability of the worker and get a cut of the reward. 
+Workers contribute the storage and compute resources to the network. They serve the data in a peer-to-peer manner for consumption and receive $SQD tokens as compensation. Each worker has to be registered on-chain by bonding `100_000` SQD tokens, which can be slashed if the worker provably violates the protocol rule. $SQD holders can also delegate to a specific worker to signal the reliability of the worker and earn a portion of the rewards. 
 
 The rewards are distributed each epoch and depend on:
-- Previous number of epochs the worker stayed online
-- The amount of served data to the clients
+- The previous number of epochs the worker stayed online
+- The amount of data served to clients
 - The number of delegated tokens
 - Fairness
 - Liveness during the epoch
 
-The worker submit to the Validator ping information along with the signed logs of the executed query requests, thus committing to the results returned to the clients. 
+Workers submit ping information along with their signed logs of the executed query requests to the Validator, thus committing to the results returned to the clients. 
 
 
 ### Logs collector
 
-The Logs Collector sole responsibility is to collect the liveness pings and the query execution logs from the workers, batch them and save into public persistent storage. The logs are signed by the worker P2P identies and pinned into IPFS. The data is stored for at least 6 months and is used by the other actors. 
+The Logs Collector's sole responsibility is to collect the liveness pings and the query execution logs from the workers, batch them, and save them into public persistent storage. The logs are signed by the workers' P2P identities and pinned to IPFS. The data is stored for at least 6 months and used by other network participants. 
 
 ### Reward Manager
 
@@ -111,41 +111,41 @@ The Reward Manager is responsible for calculating and submitting worker rewards 
 
 - Worker liveness during the epoch
 - Delegated tokens
-- Served queries (in bytes; both scanned and returned size is accounted)
+- Served queries (in bytes; both scanned and returned sizes are accounted for)
 - Liveness since the registration
 
-The Reward Manager accesses the logs, calculates the rewards and submits a claimable commitment on-chain for each epoch. Each worker then should claim the reward individually. The rewards may expire after some prolonged time.
+The Reward Manager accesses the logs, calculates the rewards, and submits a claimable commitment on-chain for each epoch. Each worker then claims their reward individually. The rewards may expire after an extended period of time
 
 ### Data Consumers
 
-In order to query the network, data consumers should operate a gateway or use an external service (which maybe public or require any form of payment). A gateway is bound to an on-chain address. The number of requests by a gateway can submit to the network is capped by a number calculated based on amount of locked $SQD tokens. Thus, the more tokens are locked by the gateway operator, the more bandwidth it is allowed to consume. 
+To query the network, data consumers have to operate a gateway or use an externally provided service (public or private). Each gateway is bound to an on-chain address. The number of requests a gateway can submit to the network is capped by a number calculated based on the amount of locked $SQD tokens. Consequently, the more tokens are locked by the gateway operator, the more bandwidth it is allowed to consume. 
 
-One can think of this mechanism as if the locked SQD yield virtual "compute units" (CU) based on the period the tokens are locked. All queries cost the same price of 1 CU (until complex SQL queries are implemented). 
+One can think of this mechanism as if the locked SQD yields virtual "compute units" (CU) based on the period the tokens are locked. All queries cost the same price of 1 CU (until complex SQL queries are implemented). 
 
-Thus, the query cap is calculated by:    
+The query cap is calculated by:    
 - Calculating the virtual yield in SQD on the locked tokens (in SQD)
 - Multiplying by the current CU price (in CU/SQD)
 
 ### Boosters
 
-The locking mechanism has an additional booster design to incentivize gateway operators locking the tokens for longer periods of time. The longer the lock period, the more CUs are allocated per SQD/yr. The APY is calculated as `BASE_VIRTUAL_APY * BOOSTER`. 
+The locking mechanism has an additional booster design to incentivize gateway operators to lock their tokens for longer periods of time for an increase in CU. The longer the lock period, the more CUs are allocated per SQD/yr. The APY is calculated as `BASE_VIRTUAL_APY * BOOSTER`. 
 
 ![image](https://github.com/subsquid/subsquid-network-contracts/assets/8627422/a1ab5ce1-da58-4cdc-aac5-90728be23b9e)
 
-At the launch of the network the parameters are set to be `BASE_VIRTUAL_APY = 12%` and `1SQD = 4000 CU`. 
+At the launch of the network, the parameters are set to be `BASE_VIRTUAL_APY = 12%` and `1SQD = 4000 CU`. 
 
-For example, if a gateway operator locks 100 SQD for 2 month, the virtual yield is 2SQD, which means it can perform 8000 queries (8000 CU).
+For example, if a gateway operator locks 100 SQD for 2 months, the virtual yield is 2SQD, which means it can perform 8000 queries (8000 CU).
 If 100 SQD are locked for 3 years, the virtual yield is `12% * 3` APY, so the operator gets CUs worth 108 of SQD, that is it can submit up to `432000` queries to the network within the period of 3 years.
 
 ## Query Validation
 
-The Subsquid Network provides economic guarantees for the validity of the queried data, with the opt-in to validate specific queries on-chain. All query responses are signed by the worker who has executed the query which acts as a commitment to the query response. Anyone can submit such a response on-chain, and, if is deemed incorrect, the worker bond is slashed. The smart contract validation logic may be dataset specific  depending on the nature of the data being queried, with the following options:
+The Subsquid Network provides economic guarantees for the validity of the queried data, with the added possibility of validating specific queries on-chain. All query responses are signed by the worker who  executed the query, acting as a commitment to the query response. Anyone can submit such a response on-chain, and if it is deemed incorrect, the worker bond is slashed. The smart contract validation logic may be dataset-specific depending on the nature of the data being queried, with the following options:
 
-- Proof by Authority: a white-listed set of on-chain identities decide on the validity of the response. 
-- Optimistic on-chain: after the validation request is submitted, anyone can submit a claim proving the query response is incorrect. For example, assume the original query was "Return transactions matching the filter `X` in the block range `[Y, Z]`" and the response is some set of transactions `T`. During the validation window, anyone can submit a Merkle proof for some transaction `t` matching the filter `X` yet not in `T`. If no such disproofs were submitted during the decision window, the response is deemed valid.
-- Zero-Knowledge: a zero-knowledge proof that the response exactly matches the requests. The zero-knowledge proof is generated off-chain by a prover and is validated on-chain by the smart-contract.
+- Proof by Authority: a white-listed set of on-chain identities decides on the validity of the response. 
+- Optimistic on-chain: after the validation request is submitted, anyone can submit a claim proving the query response is incorrect. For example, assuming the original query was "Return transactions matching the filter `X` in the block range `[Y, Z]`" and the response is some set of transactions `T.` During the validation window, anyone can submit a Merkle proof for some transaction `t` matching the filter `X` yet not in `T.` If no such proofs are submitted during the decision window, the response is considered valid.
+- Zero-Knowledge: a zero-knowledge proof that the response exactly matches the requests. The zero-knowledge proof is generated off-chain by a prover and is validated on-chain by the smart contract.
 
-Since submitting each query for on-chain validation on-chain is costly and not feasible, the clients opt-in into submitting the query responses into an off-chain queue, together with the metadata such as response latency. Then independent searches scan the queue and submit suspicious queries for on-chain validation. If the query is deemed invalid, the submitter gets a portion of the slashed bond as a rewards, thus incentivising searchers to efficiently scan the queue for malicious responses. 
+Since submitting each query for on-chain validation on-chain is costly and not feasible, clients opt-in to submit query responses in an off-chain queue, together with the metadata such as response latency. Then, independent searchers scan the queue and submit suspicious queries for on-chain validation. If the query is deemed invalid, the submitter gets a portion of the slashed bond as a reward, thus incentivizing searchers to efficiently scan the queue for malicious responses. 
 
 ![image](https://github.com/subsquid/subsquid-network-contracts/assets/8627422/8ae1eef9-95f3-4cc4-9b53-2dd8c02d9559)
 
@@ -154,18 +154,18 @@ Since submitting each query for on-chain validation on-chain is costly and not f
 
 SQD is an ERC20 token that powers Subsquid Network. It has the following functionalities:
 
-1) Payment: serving as a means of payment for the payment of the fees to the nodes (workers)
+1) Payment: serving as a payment token to pay the fees to the nodes (workers)
 running the required data pipelines of the Subsquid Protocol and the other workers serving the
 API requests.
 
 2) Utility/work: (a) bonding to join the network and running a node as a worker for data pipelines
-and serving API requests of the Subsquid Protocol requires staking of SQD tokens; and later
+and serving API requests of the Subsquid Protocol requires staking of SQD tokens and later
 (b) the possibility to stake to access premium datasets and receive discounts on them.
 
 3) Delegation: delegated staking for the benefit of the node operator (worker) or the workers of
 the Subsquid Protocol against a share of the fees earned by such node or worker.
 
-The governance of the Subsquid Protocol may be handed over in the future to a decentralized autonomous organization (Subsquid DAO) that then governs the further development of the Subsquid Protocol. Subsquid may determine the SQD tokens as means of voting for the Subsquid DAO.
+The governance of the Subsquid Protocol may be handed over in the future to a decentralized autonomous organization (Subsquid DAO) that then governs the further development of the Subsquid Protocol. Subsquid may determine the SQD tokens as a means of voting for the Subsquid DAO.
 
 
 ## Appendix I -- Metadata
@@ -210,9 +210,9 @@ enum DatasetState {
 }
 ```
 
-The `Scheduler` changes the state to `IN_PREPARATION` and `ACTIVE` from `SUBMITTED`. The `COOLDOWN` and `DISABLED` states are activated automatically if the subscription payment is not provided. 
+The `Scheduler` changes the state to `IN_PREPARATION` and `ACTIVE` from `SUBMITTED`. The `COOLDOWN` and `DISABLED` states are activated automatically if subscription payments aren't made.  
 
-At the initial stage of network, the switch to disabling datasets is granted to Subsquid Labs GmbH, which is going to be replaced by auto-payments at a later stage. 
+At the initial stage of the network, the switch to disabling datasets is granted to Subsquid Labs GmbH, which is going to be replaced by auto payments at a later stage. 
 
 ## Appendix II -- Rewards 
 
@@ -222,13 +222,13 @@ The rewards are allocated from the rewards pool. Each epoch, the rewards pool un
 
 ### Rewards pool
 
-The `SQD` supply is fixed for the initial, and the rewards are distributed are from a pool, to which `10%` of the supply is allocated at TGE. The reward pool has a protective mechanism, called health factor, which halves the effective rewards rate if the reward pool supply drops below 6-month average reward. 
+The `SQD` supply is fixed for the initial pool, and the rewards are distributed from a pool, to which `10%` of the supply is allocated at TGE. The reward pool has a protective mechanism called the health factor, which halves the effective reward rate if the reward pool supply drops below the 6-month average reward. 
 
-After the initial bootstrapping phase a governance should decide on the target inflation rate to replenish the rewards pool with freshly minted tokens based on the already distributed rewards and participation rate.
+After the initial bootstrapping phase a governance vote should decide on the target inflation rate to replenish the rewards pool with freshly minted tokens based on the already distributed rewards and participation rate.
 
 ### Reward rate 
 
-The reward rate depends on the two factors: how much the network is utilized and how much of the supply is staked. The network utilization rate is defined as 
+The reward rate depends on two factors: utilization of the network and staked supply. The network utilization rate is defined as 
 
 ```
 u_rate = (target_capacity - actual_capacity)/target_capacity
@@ -240,7 +240,7 @@ target_capacity = sum([d.reserved_space * d.replication_factor])
 ```
 where the sum is over the non-disabled datasets `d`. 
 
-The actualy capacity is calculated as
+The actual capacity is calculated as
 ```
 actual_capacity = num_of_active_workers() * WORKER_CAPCITY * CHURN
 ```
@@ -260,7 +260,7 @@ The discount factor `D` lowers the final `APY` if more than `25%` of the supply 
 
 ### Worker reward rate
 
-Each epoch, `rAPR` is calculated and the total of
+For each epoch, `rAPR` is calculated, and the total of
 
 ```
 R = rAPR/365 * total_staked * EPOCH_LENGTH
@@ -281,11 +281,11 @@ t_e[i] = T_e[i]/sum(T_e[i])
 t[i] = sqrt(t_scanned[i] * t_e[i])
 ```
 
-In words, `s[i]` and `t[i]` correspond to the contribution of the `i`-th worker to the total stake and to total traffic, respectively. 
+In other words, `s[i]` and `t[i]` correspond to the contribution of the `i`-th worker to the total stake and to total traffic, respectively. 
 
-The traffic weight `t[i]` is a geometric average of the normalized scanned (`t_scanned[i]`)  and the egress (`t_e[i]`) traffic processed by the worker. It is calculated by aggregating the logs of the queries processed by the worker during the epoch, and for each processed query the worker reports the response size (egress) and the number of scanned data chunks.
+The traffic weight `t[i]` is a geometric average of the normalized scanned (`t_scanned[i]`)  and the egress (`t_e[i]`) traffic processed by the worker. It is calculated by aggregating the logs of the queries processed by the worker during the epoch, and for each processed query, the worker reports the response size (egress) and the number of scanned data chunks.
 
-The max potential yield for the epoch is given by `rAPR` discribed above:
+The max potential yield for the epoch is given by `rAPR` described above:
 
 ```
 r_max = rAPR/365 * EPOCH_LENGTH
@@ -309,10 +309,10 @@ It has the following properties:
 
 - Always in the interval `[0, 1]`
 - Goes to zero as `t_i` goes to zero
-- Neutral (i.e. close to 1) when `s_i ~ t_i` that is, the stake contribution fair (proportial to the traffic contribution)
+- Neutral (i.e., close to 1) when `s_i ~ t_i`, that is, the stake contribution is fair (proportional to the traffic contribution)
 - Excess traffic contributes only sub-linearly to the reward
 
-`D_liveness` is a liveness factor calculated as the percentage of the time the worker is self-reported as online. A worker sends a ping message every 10 seconds, and if there no pings within a minute, the worker is deemed offline for this period of time. The liveness factor is the persentage of the time (with minute-based granularity) the network is live. We suggest a piecewise linear function with the following properties:
+`D_liveness` is a liveness factor calculated as the percentage of the time the worker is self-reported as online. A worker sends a ping message every 10 seconds, and if there are no pings within a minute, the worker is deemed offline for this period of time. The liveness factor is the percentage of the time (with minute-based granularity) the network is live. We suggest a piecewise linear function with the following properties:
 
 - It is `0` below a reasonably high threshold (set to `0.8`)
 - Sharply increases to near `1` in the "intermediary" regime `0.8-0.9`
@@ -323,24 +323,24 @@ It has the following properties:
 
 Finally, `D_tenure` is a long-range liveness factor incentivizing consistent liveness across the epochs. The rationale is that
 
-- The probability of a worker failure decreases with the time the worker is live, thus freshly spawned workers are rewarded less
+- The probability of a worker failure decreases with the time the worker is live thus freshly spawned workers are rewarded less
 - The discount for freshly spawned workers discourages the churn among workers and incentivizes longer-term commitments
 
 ![image](https://user-images.githubusercontent.com/8627422/257228987-7863df56-8ad3-447d-a095-dae18c1027b3.png)
 
 ### Distribution between the worker and delegators
 
-The total claimable reward for the `i`-th worker and the stakers is calculates simply as `r[i] * s[i]`. Clearly, `s[i]` is the sum of the (fixed) bond `b[i]` and the (variable) delegated stake `d[i]`. Thus, the delegator rewards account for `r[i] * d[i]`.  This extra reward part is split between the worker and the delegators:
+The total claimable reward for the `i`-th worker and the stakers is calculated simply as `r[i] * s[i]`. Clearly, `s[i]` is the sum of the (fixed) bond `b[i]` and the (variable) delegated stake `d[i]`. Thus, the delegator rewards account for `r[i] * d[i]`.  This extra reward part is split between the worker and the delegators:
 
 - The worker gets: `r[i] * b[i] + 0.5 * r[i] * s[i]`
 - The delegators get `0.5 * r[i] * s[i]`, effectively attining `0.5 * r[i]` as the effectual reward rate.
 
 The rationale for this split is:
 - Make the worker accountable for `r[i]`
-- Incentivize the worker to attarch stakers (the additional reward part)
+- Incentivize the worker to attract stakers (the additional reward part)
 - Incentivize the stakers to stake for a worker with high liveness (and, in general, high `r[i]`)
 
-At an equilibrium, the stakers will get `10%` annual yield, while workers get anything in betweek `20-30%` depending on the staked funds. Note, that the maximal stake is limited by the bond size.
+At an equilibrium, the stakers will get a `10%` annual yield, while workers get anything between `20-30%` depending on the staked funds. Note that the maximal stake is limited by the bond size.
 
 ## References
 
