@@ -26,6 +26,7 @@ This page lists the public EVM ArrowSquid/v2 available from the [open private ne
 | arbitrum              |             |        | `lookupArchive('arbitrum')`                   |
 | arbitrum-goerli       |             | ✓      | `lookupArchive('arbitrum-goerli')`            |
 | arbitrum-nova         |             | ✓      | `lookupArchive('arbitrum-nova')`              |
+| arbitrum-sepolia      | ✓           | ✓      | `lookupArchive('arbitrum-sepolia')`           |
 | astar (*)             |             |        | `lookupArchive('astar',` `{type: 'EVM'})`     |
 | astar-zkatana         |             |        | `lookupArchive('astar-zkatana')`              |
 | avalanche             | ✓           | ✓      | `lookupArchive('avalanche')`                  |
@@ -35,15 +36,18 @@ This page lists the public EVM ArrowSquid/v2 available from the [open private ne
 | base-sepolia          | ✓           | ✓      | `lookupArchive('base-sepolia')`               |
 | binance               | ✓           | ✓      | `lookupArchive('binance')`                    |
 | binance-testnet       |             |        | `lookupArchive('binance-testnet')`            |
+| dfk-chain             |             |        | `lookupArchive('dfk-chain')`                  |
 | eth-mainnet           | ✓           | ✓      | `lookupArchive('eth-mainnet')`                |
 | eth-goerli            | ✓           | ✓      | `lookupArchive('eth-goerli')`                 |
+| eth-holesky           | ✓           | ✓      | `lookupArchive('eth-holesky')`                |
+| etherlink-testnet     |             |        | `lookupArchive('etherlink-testnet')`          |
 | exosama               | ✓           | ✓      | `lookupArchive('exosama')`                    |
 | fantom                |             |        | `lookupArchive('fantom')`                     |
 | fantom-testnet        |             |        | `lookupArchive('fantom-testnet')`             |
 | flare-mainnet         |             |        | `lookupArchive('flare-mainnet')`              |
 | gnosis-mainnet        | ✓           | ✓      | `lookupArchive('gnosis-mainnet')`             |
 | linea-mainnet         |             | ✓      | `lookupArchive('linea-mainnet')`              |
-| mineplex-testnet      | ✓           | ✓      | `lookupArchive('mineplex-testnet')`           |
+| mineplex-testnet      |             | ✓      | `lookupArchive('mineplex-testnet')`           |
 | moonbase (*)          |             |        | `lookupArchive('moonbase',` `{type: 'EVM'})`  |
 | moonbeam (*)          |             | ✓      | `lookupArchive('moonbeam',` `{type: 'EVM'})`  |
 | moonriver (*)         |             | ✓      | `lookupArchive('moonriver',` `{type: 'EVM'})` |
@@ -91,13 +95,14 @@ const processor = new EvmBatchProcessor()
 
 ### Raw URLs
 
-Here are the raw dataset URLs (retrieved 2023-12-18):
+Here are the raw dataset URLs (retrieved 2024-01-09):
 
 | Network               | Archive endpoint URL                                         |
 |:---------------------:|:------------------------------------------------------------:|
 | arbitrum              | https://v2.archive.subsquid.io/network/arbitrum-one          |
 | arbitrum-goerli       | https://v2.archive.subsquid.io/network/arbitrum-goerli       |
 | arbitrum-nova         | https://v2.archive.subsquid.io/network/arbitrum-nova         |
+| arbitrum-sepolia      | https://v2.archive.subsquid.io/network/arbitrum-sepolia      |
 | astar                 | https://v2.archive.subsquid.io/network/astar-mainnet         |
 | astar-zkatana         | https://v2.archive.subsquid.io/network/astar-zkatana         |
 | avalanche             | https://v2.archive.subsquid.io/network/avalanche-mainnet     |
@@ -107,8 +112,11 @@ Here are the raw dataset URLs (retrieved 2023-12-18):
 | base-sepolia          | https://v2.archive.subsquid.io/network/base-sepolia          |
 | binance               | https://v2.archive.subsquid.io/network/binance-mainnet       |
 | binance-testnet       | https://v2.archive.subsquid.io/network/binance-testnet       |
+| dfk-chain             | https://v2.archive.subsquid.io/network/dfk-chain             |
 | eth-mainnet           | https://v2.archive.subsquid.io/network/ethereum-mainnet      |
 | eth-goerli            | https://v2.archive.subsquid.io/network/ethereum-goerli       |
+| eth-holesky           | https://v2.archive.subsquid.io/network/ethereum-holesky      |
+| etherlink-testnet     | https://v2.archive.subsquid.io/network/etherlink-testnet     |
 | exosama               | https://v2.archive.subsquid.io/network/exosama               |
 | fantom                | https://v2.archive.subsquid.io/network/fantom-mainnet        |
 | fantom-testnet        | https://v2.archive.subsquid.io/network/fantom-testnet        |
