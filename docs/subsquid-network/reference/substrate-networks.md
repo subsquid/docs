@@ -32,7 +32,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | bridge-hub-westend   | not available                                       | `lookupArchive('bridge-hub-westend',` `{release: 'ArrowSquid'})`             |
 | calamari             | `lookupArchive('calamari')`                         | temporarily unavailable                                                      |
 | centrifuge           | `lookupArchive('centrifuge')`                       | `lookupArchive('centrifuge',` `{release: 'ArrowSquid'})`                     |
-| cere                 | `lookupArchive('cere')`                             | temporarily unavailable                                                      |
+| cere                 | `lookupArchive('cere')`                             | `lookupArchive('cere',` `{release: 'ArrowSquid'})`                           |
 | clover               | `lookupArchive('clover')`                           | temporarily unavailable                                                      |
 | collectives          | `lookupArchive('collectives')`                      | temporarily unavailable                                                      |
 | collectives-polkadot | not available                                       | `lookupArchive('collectives-polkadot',` `{release: 'ArrowSquid'})`           |
@@ -45,7 +45,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | elysium              | `lookupArchive('elysium')`                          | temporarily unavailable                                                      |
 | elysium-testnet      | `lookupArchive('elysium-testnet')`                  | temporarily unavailable                                                      |
 | enjin-matrix         | `lookupArchive('enjin-matrix')`                     | temporarily unavailable                                                      |
-| equilibrium          | `lookupArchive('equilibrium')`                      | temporarily unavailable                                                      |
+| equilibrium          | `lookupArchive('equilibrium')`                      | `lookupArchive('equilibrium',` `{release: 'ArrowSquid'})`                    |
 | foucoco              | `lookupArchive('foucoco')`                          | `lookupArchive('foucoco',` `{release: 'ArrowSquid'})`                        |
 | frequency            | `lookupArchive('frequency')`                        | `lookupArchive('frequency',` `{release: 'ArrowSquid'})`                      |
 | frequency-testnet    | `lookupArchive('frequency-testnet')`                | temporarily unavailable                                                      |
@@ -54,7 +54,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | hashed               | `lookupArchive('hashed')`                           | temporarily unavailable                                                      |
 | heiko                | `lookupArchive('heiko')`                            | temporarily unavailable                                                      |
 | hydradx              | `lookupArchive('hydradx')`                          | `lookupArchive('hydradx',` `{release: 'ArrowSquid'})`                        |
-| integritee-network   | `lookupArchive('integritee-network')`               | temporarily unavailable                                                      |
+| integritee-network   | `lookupArchive('integritee-network')`               | `lookupArchive('integritee-network',` `{release: 'ArrowSquid'})`             |
 | interlay             | `lookupArchive('interlay')`                         | `lookupArchive('interlay',` `{release: 'ArrowSquid'})`                       |
 | invarch-tinkernet    | `lookupArchive('invarch-tinkernet')`                | `lookupArchive('invarch-tinkernet',` `{release: 'ArrowSquid'})`              |
 | joystream            | `lookupArchive('joystream')`                        | `lookupArchive('joystream',` `{release: 'ArrowSquid'})`                      |
@@ -78,7 +78,8 @@ The table below lists the currently available public Substrate endpoints to be u
 | pendulum             | `lookupArchive('pendulum')`                         | `lookupArchive('pendulum',` `{release: 'ArrowSquid'})`                       |
 | phala-testnet        | not available                                       | `lookupArchive('phala-testnet',` `{release: 'ArrowSquid'})`                  |
 | phala                | `lookupArchive('phala')`                            | `lookupArchive('phala',` `{release: 'ArrowSquid'})`                          |
-| picasso              | `lookupArchive('picasso')`                          | temporarily unavailable                                                      |
+| picasso              | `lookupArchive('picasso')`                          | `lookupArchive('picasso',` `{release: 'ArrowSquid'})`                        |
+| polimec              | not available                                       | `lookupArchive('polimec',` `{release: 'ArrowSquid'})`                        |
 | polkadex             | `lookupArchive('polkadex')`                         | temporarily unavailable                                                      |
 | polkadot             | `lookupArchive('polkadot')`                         | `lookupArchive('polkadot',` `{release: 'ArrowSquid'})`                       |
 | reef                 | `lookupArchive('reef')`                             | `lookupArchive('reef',` `{release: 'ArrowSquid'})`                           |
