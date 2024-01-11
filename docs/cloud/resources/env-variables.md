@@ -2,7 +2,7 @@
 sidebar_position: 20
 title: Environment variables
 description: |- 
-  Variables, namespaces, secrets
+  Variables, contexts, secrets
 ---
 
 :::info
@@ -27,7 +27,7 @@ deploy:
     MY_SQUIDWIDE_VAR: string_value
 ```
 
-Variables can be assigned either to strings, or to member variables of [namespaces](#namespaces) provided by the service. For example, to make a processor-scoped `API_KEY` variable and populate it with the value of `secrets.API_KEY`, do this:
+Variables can be assigned either to strings, or to member variables of [contexts](#contexts) provided by the service. For example, to make a processor-scoped `API_KEY` variable and populate it with the value of `secrets.API_KEY`, do this:
 ```yaml title="squid.yaml"
 deploy:
   processor:
@@ -35,9 +35,9 @@ deploy:
       RPC_ENDPOINT: ${{ secrets.API_KEY }}
 ```
 
-## Database variables shadowing
+## Variable shadowing
 
-There is one special case in which the variables defined in the manifest will get overwritten by the Cloud: [database connection settings](/sdk/reference/store/typeorm/#database-connection-parameters) are shadowed by the system-defined values whenever the [`postgres` addon](/cloud/reference/pg) is enabled. For example, in the snippet below all the `DB_*` variable definitions will be ignored:
+There is one special case in which the variables defined in the manifest will get overwritten by the Cloud: [database connection settings](/sdk/reference/store/typeorm/#database-connection-parameters) are shadowed by the system-defined values whenever the [`postgres` addon](/cloud/reference/pg) is enabled (see the [Variable shadowing](/cloud/reference/pg/#variable-shadowing) section of the addon page). For example, in the snippet below all the `DB_*` variable definitions will be ignored:
 ```yaml title="squid.yaml"
 deploy:
   addons:
@@ -51,7 +51,13 @@ deploy:
     DB_SSL: true
 ```
 
-## Namespaces
+## Contexts
+
+The Cloud exposes some useful variables via a mechanism identical to [GitHub Actions contexts](https://docs.github.com/en/actions/learn-github-actions/contexts). Namely, any string
+```
+${{ <context> }}
+```
+added to the [manifest](/cloud/reference/manifest) at any environment variable definition gets replaced by the value supplied by the Cloud.
 
 ### Secrets
 

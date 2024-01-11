@@ -11,11 +11,12 @@ The deployment manifest is named `squid.yaml` by convention. The manifest define
 With the introduction of the deployment manifest the add-ons (`postgres`) and the API services (`api`) become optional. This allows flexible deployment configuration for analytic use-cases (e.g. transform and write to s3 or BigQuery).
 
 :::tip
-Cloud [secrets](/cloud/resources/env-variables/#secrets) of the squid's [organization](/cloud/resources/organizations) are exposed as the `secrets` namespace. You can set any variable defined in any of the `env:` sections mentioned below:
+Cloud [secrets](/cloud/resources/env-variables/#secrets) of the squid's [organization](/cloud/resources/organizations) are exposed as the `secrets` context. You can set any variable defined in any of the `env:` sections mentioned below:
 ```yaml
 env:
   RPC_ENDPOINT: ${{ secrets.FAST_RPC_ENDPOINT_URL }}
 ```
+See the [Environment variables](/cloud/resources/env-variables) page for more info.
 :::
 
 ## Header

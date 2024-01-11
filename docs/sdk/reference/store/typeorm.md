@@ -199,13 +199,10 @@ Database credentials must be supplied via the environment variables:
 * `DB_PASS` (default `postgres`)
 * `DB_SSL` (default `false`)
 * `DB_SSL_REJECT_UNAUTHORIZED` (default `true`)
-* `DB_URL` (default `undefined`)
+* `DB_URL` (default `undefined`, see the [DB_URL section](#db_url))
 
 :::info
-To take advantage of `DB_SSL_REJECT_UNAUTHORIZED`, `DB_URL` and the client-side SSL variables use the `@next` version of `typeorm-store`:
-```bash
-npm i @subsquid/typeorm-store@next
-```
+When deploying to [Cloud](/cloud) with the [Postgres addon](/cloud/reference/pg) enabled in the [manifest](/cloud/reference/manifest), any user-supplied values are overwritten for most of these variables. See [Variable shadowing](/cloud/reference/pg/#variable-shadowing).
 :::
 
 `typorm-store` also supports the following variables for connecting to databases that require client-side SSL:
@@ -226,9 +223,9 @@ sqd secrets set DB_SSL_CA < ca.crt
 
 ### `DB_URL`
 
-When set, `DB_URL` takes precedence over individual variables. Its format is as follows:
+When set, `DB_URL` takes precedence over all individual variables. Its format is as follows:
 ```
-postgres[ql]://[username[:password]@][host[:port],]/database[?parameter_list]
+postgres[ql]://[username[:password]@][host[:port]]/database[?parameter_list]
 ```
 where `parameter_list` is an `&`-separated list of assignments of SSL connection parameters:
 * `ssl=(0|1|true|false)`

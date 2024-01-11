@@ -3,7 +3,7 @@
 
 Manage account secrets
 
-The secrets are [exposed as a namespace](/cloud/resources/env-variables/#secrets), and are accessible to all the squids deployed by the current Subsquid Cloud [organization](/cloud/resources/organizations).
+The secrets are [exposed as a context](/cloud/resources/env-variables/#secrets), and are accessible to all the squids deployed by the current Subsquid Cloud [organization](/cloud/resources/organizations).
 
 * [`sqd secrets:ls`](#sqd-secretsls)
 * [`sqd secrets:rm NAME`](#sqd-secretsrm-name)
