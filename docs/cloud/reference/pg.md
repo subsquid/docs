@@ -6,7 +6,18 @@ description: Provision and scale postgres for a squid
 
 # Postgres add-on
 
-To provision a postgres instance, add the `addons.postgres:` section to the deployment manifest. The add-on deploys a Postgres 14 instance and injects the `DB_NAME`, `DB_USER`, `DB_PASS`, `DB_PORT` environment variables to the `api` and `processor` squid services.
+To provision a postgres instance, add the `addons.postgres:` section to the deployment manifest. The add-on deploys a Postgres 14 instance and [injects variables](#variable-shadowing) with database connection params into the environment of the `api` and `processor` squid services.
+
+## Variable shadowing
+
+Any of the following variables set globally or for `api` or `processor` squid services in the [manifest](/cloud/reference/manifest) will be overwritten with Cloud-supplied values:
+ * `DB_SSL`
+ * `DB_HOST`
+ * `DB_PORT`
+ * `DB_NAME`
+ * `DB_USER`
+ * `DB_PASS`
+ * `DB_URL`
 
 ## Config options
 
@@ -78,5 +89,3 @@ scale:
       storage: 100G
       profile: medium
 ```
-
-
