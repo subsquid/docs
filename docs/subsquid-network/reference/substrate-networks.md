@@ -9,7 +9,7 @@ title: Substrate networks
 
 ## From open private network
 
-The table below lists the currently available public Substrate endpoints to be used with the [`setDataSource()`](/sdk/reference/processors/substrate-batch/general/#set-data-source) `SubstrateBatchProcessor` configuration method. ArrowSquid URLs are served by the [open private network](/subsquid-network/overview/#open-private-network).
+The table below lists the currently available public Substrate endpoints to be used with the [`setGateway()`](/sdk/reference/processors/substrate-batch/general/#set-gateway) `SubstrateBatchProcessor` configuration method. ArrowSquid URLs are served by the [open private network](/subsquid-network/overview/#open-private-network).
 
 | Network              | FireSquid lookup command                            | ArrowSquid lookup command                                                    |
 |:--------------------:|:---------------------------------------------------:|:----------------------------------------------------------------------------:|
