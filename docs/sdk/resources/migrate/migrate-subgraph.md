@@ -103,13 +103,11 @@ import { lookupArchive } from '@subsquid/archive-registry'
 export const GRAVATAR_CONTRACT = '0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'.toLowerCase()
 
 export const processor = new EvmBatchProcessor()
-  .setDataSource({
-    // change the alias to run against other EVM networks, e.g.
-    // lookupArchive('polygon')
-    // lookupArchive('binance')
-    archive: lookupArchive('eth-mainnet'),
-    chain: '<eth_rpc_endpoint_url>'
-  })
+  // change the alias to run against other EVM networks, e.g.
+  // lookupArchive('polygon')
+  // lookupArchive('binance')
+  .setGateway(lookupArchive('eth-mainnet'))
+  .setRpcEndpoint('<my_eth_rpc_url>')
   .setBlockRange({ from: 6175243 })
   .setFinalityConfirmation(75)
   .addLog({

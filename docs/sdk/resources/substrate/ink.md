@@ -22,10 +22,8 @@ import {toHex} from '@subsquid/util-internal-hex'
 const ADDRESS = toHex(ss58.decode('XnrLUQucQvzp5kaaWLG9Q3LbZw5DPwpGn69B5YcywSWVr5w').bytes)
 
 const processor = new SubstrateBatchProcessor()
-  .setDataSource({
-    archive: lookupArchive('shibuya'),
-    chain: 'https://shibuya.public.blastapi.io'
-  })
+  .setGateway(lookupArchive('shibuya'))
+  .setRpcEndpoint('https://shibuya.public.blastapi.io')
   .addContractsContractEmitted({
     contractAddress: [ADDRESS],
     extrinsic: true

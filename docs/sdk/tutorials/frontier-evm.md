@@ -168,12 +168,15 @@ import {astarDegensAddress, astarCatsAddress} from './contracts'
 
 const processor = new SubstrateBatchProcessor()
   .setBlockRange({ from: 442693 })
-  .setDataSource({
-    archive: lookupArchive('astar', {type: 'Substrate', release: 'ArrowSquid'}),
-    chain: {
-      url: assertNotNull(process.env.RPC_ENDPOINT),
-      rateLimit: 10,
+  .setGateway(lookupArchive(
+    'astar', {
+      type: 'Substrate',
+      release: 'ArrowSquid'
     }
+  ))
+  .setRpcEndpoint({
+    url: assertNotNull(process.env.RPC_ENDPOINT),
+    rateLimit: 10,
   })
   .addEvmLog({
     address: [astarDegensAddress],

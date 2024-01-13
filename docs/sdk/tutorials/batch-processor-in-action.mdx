@@ -45,10 +45,8 @@ See [Configuration section](/sdk/reference/processors/evm-batch) for more detail
 
 ```ts
 const processor = new EvmBatchProcessor()
-  .setDataSource({
-    archive: lookupArchive('eth-mainnet'),
-    chain: 'https://eth-rpc.gateway.pokt.network'
-  })
+  .setGateway(lookupArchive('eth-mainnet'))
+  .setRpcEndpoint('<my_eth_rpc_url>')
   .setFinalityConfirmation(75)
   .setBlockRange({ from: 6175243 })
   // fetch logs emitted by '0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'
@@ -151,10 +149,8 @@ import {
 
 export const processor = new SubstrateBatchProcessor()
   // set the data source
-  .setDataSource({
-    archive: lookupArchive('kusama', {release: 'ArrowSquid'}),
-    chain: 'https://kusama-rpc.dwellir.com'
-  })
+  .setGateway(lookupArchive('kusama', {release: 'ArrowSquid'}))
+  .setRpcEndpoint('https://kusama-rpc.dwellir.com')
   // add data requests
   .addEvent({
     name: ['Balances.Transfer'],

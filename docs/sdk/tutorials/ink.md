@@ -156,12 +156,10 @@ const CONTRACT_ADDRESS_SS58 = 'XnrLUQucQvzp5kaaWLG9Q3LbZw5DPwpGn69B5YcywSWVr5w'
 export const CONTRACT_ADDRESS = ss58.codec(SS58_NETWORK).decode(CONTRACT_ADDRESS_SS58)
 
 export const processor = new SubstrateBatchProcessor()
-    .setDataSource({
-        archive: lookupArchive('shibuya', {release: 'ArrowSquid'}),
-        chain: {
-            url: assertNotNull(process.env.RPC_ENDPOINT),
-            rateLimit: 10
-        }
+    .setGateway(lookupArchive('shibuya', {release: 'ArrowSquid'}))
+    .setRpcEndpoint({
+        url: assertNotNull(process.env.RPC_ENDPOINT),
+        rateLimit: 10
     })
     .addContractsContractEmitted({
         contractAddress: [CONTRACT_ADDRESS],

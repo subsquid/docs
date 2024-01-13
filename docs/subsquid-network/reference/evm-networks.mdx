@@ -79,18 +79,14 @@ Registry lookup:
 import { lookupArchive } from '@subsquid/archive-registry'
 
 const processor = new EvmBatchProcessor()
-  .setDataSource({
-     // resolves to 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
-     archive: lookupArchive('eth-mainnet')
-   })
+  // the lookupArchive() call resolves to
+  // 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
+  .setGateway(lookupArchive('eth-mainnet'))
 ```
 Explicit Archive endpoints:
 ```typescript
 const processor = new EvmBatchProcessor()
-  .setDataSource({
-     chain: '<eth_rpc_endpoint_url>', // RPC endpoint
-     archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
-  })
+  .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
 ```
 
 ### Raw URLs

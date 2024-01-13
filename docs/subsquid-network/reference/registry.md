@@ -45,7 +45,5 @@ import { lookupArchive } from '@subsquid/archive-registry'
 import { EvmBatchProcessor } from '@subsquid/evm-processor'
 
 const processor = new EvmBatchProcessor()
-  .setDataSource({
-     archive: lookupArchive('eth-mainnet')
-  })
+  .setGateway(lookupArchive('eth-mainnet'))
 ```

@@ -217,12 +217,10 @@ import {processPositions} from './mappings/positions'
 
 let processor = new EvmBatchProcessor()
     .setBlockRange({from: 12369621})
-    .setDataSource({
-        archive: lookupArchive('eth-mainnet'),
-        chain: {
-            url: process.env.ETH_CHAIN_NODE,
-            rateLimit: 10
-        }
+    .setGateway(lookupArchive('eth-mainnet'))
+    .setRpcEndpoint({
+        url: process.env.ETH_CHAIN_NODE,
+        rateLimit: 10
     })
     .setFinalityConfirmation(75)
     .addLog({

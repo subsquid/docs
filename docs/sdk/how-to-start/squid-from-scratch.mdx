@@ -123,12 +123,11 @@ To make the indexer, follow these steps:
    * [`EvmBatchProcessor`](/sdk/reference/processors/evm-batch) object definition
      ```ts
      const processor = new EvmBatchProcessor()
-       .setDataSource({
-         archive: lookupArchive('eth-mainnet'),
-         chain: { // set RPC endpoint in .env 
-           url: process.env.RPC_ETH_HTTP`,
-           rateLimit: 10
-         }
+       .setGateway(lookupArchive('eth-mainnet'))
+       .setRpcEndpoint({
+         // set RPC endpoint in .env
+         url: process.env.RPC_ETH_HTTP`,
+         rateLimit: 10
        })
        .setFinalityConfirmation(75) // 15 mins to finality
        .addLog({

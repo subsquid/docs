@@ -116,9 +116,8 @@ The table below lists the currently available public Substrate endpoints to be u
 import { lookupArchive } from '@subsquid/archive-registry'
 
 const processor = new SubstrateBatchProcessor()
-  .setDataSource({
-     chain: 'https://api.phala.network/rpc',
-     // resolved to 'https://v2.archive.subsquid.io/network/phala'
-     archive: lookupArchive('phala', {release: 'ArrowSquid'})
-   })
+  // the lookupArchive() call resolves to
+  // 'https://v2.archive.subsquid.io/network/phala'
+  .setGateway(lookupArchive('phala', {release: 'ArrowSquid'}))
+  .setRpcEndpoint('https://api.phala.network/rpc')
 ```
