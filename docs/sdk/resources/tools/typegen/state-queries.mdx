@@ -14,14 +14,11 @@ import TabItem from '@theme/TabItem';
 <TabItem value="evm" label="squid-evm-typegen">
 ```
 
-In order to make on-chain calls, one must set up a JSON-RPC endpoint using [setDataSource()](/sdk/reference/processors/evm-batch/general). We recommend using a private endpoint from e.g. [BlastAPI](https://blastapi.io/) or the Subsquid Cloud's [RPC proxy](/cloud/reference/rpc-proxy) service, and set it via an environment variable:
+In order to make on-chain calls, one must set up a JSON-RPC endpoint using [setRpcEndpoint()](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint). We recommend using a private endpoint from e.g. [BlastAPI](https://blastapi.io/) or the Subsquid Cloud's [RPC proxy](/cloud/reference/rpc-proxy) service, and set it via an environment variable:
 
 ```ts
 //...
-  .setDataSource({
-    chain: process.env.RPC_ETH_HTTP,
-    archive: lookupArchive('eth-mainnet'),
-  })
+  .setRpcEndpoint(process.env.RPC_ETH_HTTP)
 //...
 ```
 You can define the `RPC_ETH_HTTP` in three ways:

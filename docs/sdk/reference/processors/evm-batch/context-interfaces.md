@@ -43,10 +43,8 @@ import { EvmBatchProcessor } from '@subsquid/evm-processor'
 const CONTRACT_ADDRESS = '0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'.toLowerCase()
 
 const processor = new EvmBatchProcessor()
-  .setDataSource({
-    archive: lookupArchive('eth-mainnet'),
-    chain: 'https://eth-rpc.gateway.pokt.network'
-  })
+  .setGateway(lookupArchive('eth-mainnet'))
+  .setRpcEndpoint('<my_eth_rpc_url>')
   .setFinalityConfirmation(75)
   .setBlockRange({ from: 17000000 })
   .addLog({

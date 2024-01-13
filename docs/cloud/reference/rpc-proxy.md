@@ -105,13 +105,10 @@ With the add-on successfully enabled, your squid will get a unique proxied endpo
 ```ts
 import {assertNotNull} from '@subsquid/util-internal'
 
-processor.setDataSource({
-  chain: {
-    // dash in "eth-goerli" becomes an underscore
-    url: assertNotNull(process.env.RPC_ETH_GOERLI_HTTP),
-    rateLimit: 10
-  },
-  archive: /* archive URL */
+processor.setRpcEndpoint({
+  // dash in "eth-goerli" becomes an underscore
+  url: assertNotNull(process.env.RPC_ETH_GOERLI_HTTP),
+  rateLimit: 10
 })
 ```
 

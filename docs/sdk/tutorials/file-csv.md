@@ -128,12 +128,10 @@ export const contractAddress =
   '0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0'.toLowerCase();
 
 const processor = new EvmBatchProcessor()
-  .setDataSource({
-    archive: lookupArchive('eth-mainnet'),
-    chain: {
-      url: process.env.RPC_ENDPOINT,
-      rateLimit: 10
-    }
+  .setGateway(lookupArchive('eth-mainnet'))
+  .setRpcEndpoint({
+    url: process.env.RPC_ENDPOINT,
+    rateLimit: 10
   })
   .setFinalityConfirmation(75)
   .addLog({

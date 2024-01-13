@@ -38,22 +38,20 @@ If your squid uses [`file-store`](/sdk/resources/persisting-data/file), please u
 
 ## Step 2
 
-Replace the old archive URL or lookup command with a [`v2` archive URL for your network](/subsquid-network/reference/evm-networks) within the `setDataSource` configuration call. If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor. Also configure the network-specific number of transaction confirmations sufficient for finality. For Ethereum mainnet your edit might look like this:
+Replace the old `setDataSource()` processor configuration call with a combination of [setGateway()](/sdk/reference/processors/evm-batch/general/#set-gateway) and [setRpcEndpoint()](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint). Use a [public Subsquid Network gateway+dataset URL for your network](/subsquid-network/reference/evm-networks). If your squid did not use an RPC endpoint before, find one for your network and set it with [setRpcEndpoint()](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint). Also [configure](/sdk/reference/processors/evm-batch/general/#set-finality-confirmation) the network-specific number of transaction confirmations sufficient for finality. For Ethereum mainnet your edit might look like this:
 ```diff
  processor
-   .setDataSource({
--    archive: lookupArchive('eth-mainnet', {type: 'EVM'})
-+    archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
-+    chain: {
-+      url: 'https://eth-rpc.gateway.pokt.network',
-+      rateLimit: 10
-+    }
-   })
+-  .setDataSource({
+-    archive: lookupArchive('eth-mainnet', {release: 'FireSquid'})
+-  })
++  .setGateway(lookupArchive('eth-mainnet')
++  .setRpcEndpoint({
++    url: '<my_eth_rpc_url>',
++    rateLimit: 10
++  })
 +  .setFinalityConfirmation(75)
 ```
-We recommend using a private RPC endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/). For squids deployed to [Subsquid Cloud](/cloud/overview/) you may also consider using our [RPC proxies](/cloud/reference/rpc-proxy) (currently experimental).
-
-[//]: # (!!!! remove the experimental notice once RPC proxy is stable)
+We recommend using a private RPC endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/). For squids deployed to [Subsquid Cloud](/cloud/overview/) you may also consider using our [RPC proxies](/cloud/reference/rpc-proxy).
 
 Your squid will work without an RPC endpoint, but with a significantly increased chain latency (a few hours for most chains, roughly a day for BSC). If that works for you, you can replace the archive URL without setting an RPC here and skip [Step 7](#step-7) altogether.
 

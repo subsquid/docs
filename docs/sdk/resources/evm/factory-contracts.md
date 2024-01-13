@@ -12,14 +12,10 @@ While the set of handler subscriptions is static and defined at the processor cr
 
 Let's consider how it works in a DEX example, with a contract emitting `PoolCreated` log when a new pool contract is created by the main contract. Full code is available in the [examples repo](https://github.com/subsquid-labs/factory-example).
 
-[//]: # (!!!! Update the archive and chain specs on release)
-
 ```typescript title="src/processor.ts"
 export const processor = new EvmBatchProcessor()
-  .setDataSource({
-    archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
-    chain: '<eth_rpc_endpoint_url>',
-  })
+  .setGateway(lookupArchive('eth-mainnet'))
+  .setRpcEndpoint('<my_eth_rpc_url>')
   .setBlockRange({
     from: 12_369_621,
   })
@@ -82,10 +78,8 @@ The idea is to retrieve the list of the contracts that the factory deploys up to
 const { preloadHeight, preloadedPools } = loadPools() // e.g. from a filesystem
 
 export const processor = new EvmBatchProcessor()
-  .setDataSource({
-    archive: 'https://v2.archive.subsquid.io/network/ethereum-mainnet',
-    chain: '<eth_rpc_endpoint_url>',
-  })
+  .setGateway(lookupArchive('eth-mainnet'))
+  .setRpcEndpoint('<eth_rpc_endpoint_url>')
   .setBlockRange({
     from: 12_369_621,
   })

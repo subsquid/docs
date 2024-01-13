@@ -27,10 +27,8 @@ See also the [Frontier EVM guide](/sdk/resources/substrate/frontier-evm).
 
 ```typescript 
 const processor = new SubstrateBatchProcessor()
-  .setDataSource({
-    archive: lookupArchive('astar', {type: 'Substrate'}),
-    chain: 'https://astar-rpc.dwellir.com'
-  })
+  .setGateway(lookupArchive('astar', {type: 'Substrate'}))
+  .setRpcEndpoint('https://astar-rpc.dwellir.com')
   .addEthereumTransaction({})
   .addEvmLog({})
 

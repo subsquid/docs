@@ -38,19 +38,19 @@ We recommend that you also have `@subsquid/archive-registry` installed. If your 
 
 ## Step 2
 
-Replace the old archive URL or lookup command with an [ArrowSquid archive lookup for your network](/subsquid-network/reference/substrate-networks) within the `setDataSource()` configuration call. If your squid did not use an RPC endpoint before, find one for your network and supply it to the processor. For Aleph Zero your edit might look like this:
+Replace the old `setDataSource()` processor configuration call with a combination of [setGateway()](/sdk/reference/processors/substrate-batch/general/#set-gateway) and [setRpcEndpoint()](/sdk/reference/processors/substrate-batch/general/#set-rpc-endpoint). Use a [public Subsquid Network gateway+dataset URL for your network](/subsquid-network/reference/substrate-networks). If your squid did not use an RPC endpoint before, find one for your network and set it with [setRpcEndpoint()](/sdk/reference/processors/substrate-batch/general/#set-rpc-endpoint). For Aleph Zero your edit might look like this:
 ```diff
  processor
-   .setDataSource({
+-  .setDataSource({
 -    archive: 'https://aleph-zero.archive.subsquid.io/graphql'
-+    archive: lookupArchive('aleph-zero', {release: 'ArrowSquid'}),
-+    chain: {
-+        url: 'https://aleph-zero-rpc.dwellir.com',
-+        rateLimit: 10
-+    }
-   })
+-  })
++  .setGateway(lookupArchive('aleph-zero', {release: 'ArrowSquid'}))
++  .setRpcEndpoint({
++    url: 'https://aleph-zero-rpc.dwellir.com',
++    rateLimit: 10
++  })
 ```
-We recommend using a private RPC endpoint for the best performance, e.g. from [Dwellir](https://www.dwellir.com). For squids deployed to [Subsquid Cloud](/cloud/overview/) you may also consider using our [RPC proxies](/cloud/reference/rpc-proxy).
+We recommend using a private RPC endpoint for the best performance, e.g. from [Dwellir](https://www.dwellir.com). For squids deployed to [Subsquid Cloud](/cloud/overview) you may also consider using our [RPC proxies](/cloud/reference/rpc-proxy).
 
 Your squid will work with just an RPC endpoint, but it will sync significantly slower. With an archive the processor will only use RPC to retrieve metadata **and** sync the few most recent blocks not yet made available by the archive; without it it will retrieve all data from the endpoint.
 

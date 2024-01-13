@@ -83,12 +83,9 @@ To add a secret:
 3. Access the value in the squid with `process.env`, e.g.
    ```ts
    const processor = new EvmBatchProcessor()
-     .setDataSource({
-       archive: lookupArchive('moonriver', { type: 'EVM' }),
-       chain: {
-         url: process.env.RPC_ENDPOINT,
-         rateLimit: 1000rps
-       }
+     .setRpcEndpoint({
+       url: process.env.RPC_ENDPOINT,
+       rateLimit: 1000rps
      })
    ```
 Inspect, remove and update the secrets using the [`sqd secrets`](/squid-cli/secrets) command.

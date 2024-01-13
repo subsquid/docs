@@ -48,16 +48,15 @@ List all supported networks:
 ```bash
 npx --yes -p @subsquid/archive-registry squid-archive-registry -t evm
 ```
-Usage in [squids](/sdk) within [`EvmBatchProcessor` configuration](/sdk/reference/processors/evm-batch/general/#set-data-source):
+Usage in [squids](/sdk) within [`EvmBatchProcessor` configuration](/sdk/reference/processors/evm-batch/general/#set-gateway):
 
 ```ts
 import { lookupArchive } from '@subsquid/archive-registry'
 
 const processor = new EvmBatchProcessor()
-  .setDataSource({
-     // resolves to 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
-     archive: lookupArchive('eth-mainnet')
-   })
+  .setGateway(lookupArchive('eth-mainnet'))
+  // the `lookupArchive` call resolves to
+  // 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
 ```
 
 See the [EVM datasets](/subsquid-network/reference/evm-networks/) page for exact lookup calls for all supported networks.
@@ -72,17 +71,15 @@ List all supported networks:
 ```bash
 npx --yes -p @subsquid/archive-registry squid-archive-registry -t substrate
 ```
-Usage in [squids](/sdk) within [`SubstrateBatchProcessor` configuration](/sdk/reference/processors/substrate-batch/general/#set-data-source):
+Usage in [squids](/sdk) within [`SubstrateBatchProcessor` configuration](/sdk/reference/processors/substrate-batch/general):
 
 ```ts
 import { lookupArchive } from '@subsquid/archive-registry'
 
 const processor = new SubstrateBatchProcessor()
-  .setDataSource({
-     // resolved to 'https://v2.archive.subsquid.io/network/phala'
-     archive: lookupArchive('phala', {release: 'ArrowSquid'}),
-     chain: 'https://api.phala.network/rpc'
-   })
+  .setGateway(lookupArchive('phala', {release: 'ArrowSquid'}))
+  // the `lookupArchive` call resolves to
+  // 'https://v2.archive.subsquid.io/network/phala'
 ```
 
 See the [Substrate datasets](/subsquid-network/reference/substrate-networks/) page for exact lookup calls for all supported networks.

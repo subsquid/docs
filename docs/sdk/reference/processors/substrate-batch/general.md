@@ -13,17 +13,28 @@ The method documentation is also available inline and can be accessed via sugges
 
 The following setters configure the global settings of `SubstrateBatchProcessor`. They return the modified instance and can be chained.
 
-#### `setDataSource(ds: ChainDataSource | MixedDataSource)` {#set-data-source}
+Calling [`setRpcEndpoint()`](#set-rpc-endpoint) is a hard requirement on Substrate, as chain RPC is used to retrieve chain metadata. Adding a [Subsquid Network dataset](/subsquid-network/reference/substrate-networks) with [`setGateway()`](#set-gateway) is optional but highly recommended, as it greatly reduces RPC usage.
 
-**(Required)** Sets the blockchain data source. Squids can source data in three ways:
+To reduce it further, you can explicitly disable [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) by calling [`setRpcDataIngestionSettings({ disabled: true })`](#set-rpc-data-ingestion-settings): in this scenario the RPC will only be used for metadata retrieval and to perform any [direct RPC queries](/sdk/resources/tools/typegen/state-queries/?typegen=substrate) you might be doing in your squid code. This will, however, introduce a delay of a few thousands of blocks between the chain head and the highest block available to your squid.
 
-- **(Recommended)** When the data source is a `MixedDataSource = {archive: string, chain: ChainRpc}`, the processor will obtain as much data as is currently available from an archive, then switch to ingesting from the RPC endpoint. This combines the good syncing performance of the archive-only approach with the low network latency of the RPC-powered approach.
+### `setGateway(url: string | GatewaySettings)` {#set-gateway}
 
-  Note that `SubstrateBatchProcessor` also uses the RPC to occasionally retrieve chain metadata. That makes it impossible to use the processor without an RPC.
+Adds a [Subsquid Network](/subsquid-network) data source. The argument is either a string URL of a dataset served by a Subsquid Network gateway or
+```ts
+{
+  url: string // dataset URL
+  requestTimeout?: number // in milliseconds
+}
+```
+See [Substrate datasets](/subsquid-network/reference/substrate-networks) for public dataset URLs.
 
-- When the data source is a `ChainDataSource = {chain: ChainRpc}`, the processor will obtain data _only_ from a node RPC endpoint. This mode of operation is slow, but requires no archive and. Like `MixedDataSource`, it also has almost [no chain latency](/sdk/resources/basics/unfinalized-blocks). It can be used with Substrate networks not listed on the [supported networks](/subsquid-network/reference/substrate-networks) page and with local development nodes.
+### `setRpcEndpoint(rpc: ChainRpc)` {#set-rpc-endpoint}
 
-The node RPC endpoint can be specified as a string URL or as an object:
+Adds a RPC data source. If added, it will be used for
+ - [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) (unless explicitly disabled with [`setRpcDataIngestionSettings()`](#set-rpc-data-ingestion-settings))
+ - any [direct RPC queries](/sdk/resources/tools/typegen/state-queries/?typegen=substrate) you make in your squid code
+
+A node RPC endpoint can be specified as a string URL or as an object:
 ```ts
 type ChainRpc = string | {
   url: string // http, https, ws and wss are supported
@@ -36,28 +47,39 @@ type ChainRpc = string | {
 Setting `maxBatchCallSize` to `1` disables batching completely.
 
 :::tip
-We recommend using private endpoints for better performance and stability of your squids. For Subsquid Cloud deployments you can use the [RPC proxy](/cloud/reference/rpc-proxy). If you use an external private RPC, keep the endpoint URL in an environment variable and set it via [secrets](/cloud/resources/env-variables#secrets).
+We recommend using private endpoints for better performance and stability of your squids. For Subsquid Cloud deployments you can use the [RPC proxy](/cloud/reference/rpc-proxy). If you use an external private RPC, keep the endpoint URL in a [Cloud secret](/cloud/resources/env-variables#secrets).
 :::
 
-#### `setBlockRange({from: number, to?: number | undefined})` {#set-block-range}
+### `setDataSource(ds: {archive?: string, chain?: ChainRpc})` (deprecated) {#set-data-source}
+
+Replaced by [`setGateway()`](#set-gateway) and [`setRpcEndpoint()`](#set-rpc-endpoint).
+
+### `setRpcDataIngestionSetting(settings: RpcDataIngestionSettings)` {#set-rpc-data-ingestion-settings}
+
+Specify the [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) settings.
+```ts
+type RpcDataIngestionSettings = {
+  disabled?: boolean
+  headPollInterval?: number
+  newHeadTimeout?: number
+}
+```
+Here,
+ * `disabled`: Explicitly disables data ingestion from an RPC endpoint.
+ * `headPollInterval`: Poll interval for new blocks in milliseconds. Poll mechanism is used to get new blocks via HTTP connections. Default: 5000.
+ * `newHeadTimeout`: When ingesting from a websocket, this setting specifies the timeout in milliseconds after which the connection will be reset and subscription re-initiated if no new blocks were received. Default: no timeout.
+
+### `setBlockRange({from: number, to?: number})` {#set-block-range}
 
 Limits the range of blocks to be processed. When the upper bound is specified, processor will terminate with exit code 0 once it reaches it.
 
 Note that block ranges can also be specified separately for each data request. This method sets global bounds for all block ranges in the configuration.
 
-#### `useArchiveOnly(yes?: boolean | undefined)` {#use-archive-only}
+### `includeAllBlocks(range?: {from: number, to?: number})` {#include-all-blocks}
 
-Explicitly disables data ingestion from an RPC endpoint. Use this if you are making an Archive-only squid.
+By default, processor will fetch only blocks which contain requested items. This method modifies such behavior to fetch all chain blocks. Optionally a range of blocks can be specified for which the setting should be effective.
 
-#### `setChainPollInterval(ms: number)` {#set-chain-poll-interval}
-
-Sets the RPC poll interval in milliseconds. Default: 1000.
-
-#### `includeAllBlocks(range?: Range | undefined)` {#include-all-blocks}
-
-By default, processor will fetch only blocks which contain requested items. This method modifies such behavior to fetch all chain blocks. Optionally a `Range` (`{from: number, to?: number | undefined}`) of blocks can be specified for which the setting should be effective.
-
-#### `setTypesBundle(bundle: string | OldTypesBundle | OldSpecsBundle | PolkadotjsTypesBundle)` {#set-types-bundle}
+### `setTypesBundle(bundle: string | OldTypesBundle | OldSpecsBundle | PolkadotjsTypesBundle)` {#set-types-bundle}
 
 Sets a [types bundle](https://substrate.stackexchange.com/a/1231/4655).
 
@@ -83,8 +105,6 @@ Types bundles can be specified in 2 different ways:
 
 There a [mini-guide[(/archives/substrate/networks) on how to obtain type bundles for Substrate chains without relying on Subsquid tools.
 
-## Miscellaneous
-
-#### `setPrometheusPort(port: string | number)` {#set-prometheus-port}
+### `setPrometheusPort(port: string | number)` {#set-prometheus-port}
 
 Sets the port for a built-in prometheus health metrics server (serving at `http://localhost:${port}/metrics`). By default, the value of PROMETHEUS_PORT environment variable is used. When it is not set, processor will pick an ephemeral port.

@@ -148,6 +148,7 @@ Once done with the configuration, we run the tool with
 ```bash
 sqd typegen
 ```
+
 [//]: # (!!! See the generated Typescript wrappers at `src/types`/dead)
 
 ## Set up the processor object
@@ -164,12 +165,10 @@ import {lookupArchive} from '@subsquid/archive-registry'
 import {events} from './types' // the wrappers generated in previous section
 
 const processor = new SubstrateBatchProcessor()
-  .setDataSource({
-    archive: lookupArchive('crust', {release: 'ArrowSquid'}),
-    chain: {
-      url: 'https://crust.api.onfinality.io/public',
-      rateLimit: 10
-    }
+  .setGateway(lookupArchive('crust', {release: 'ArrowSquid'}))
+  .setRpcEndpoint({
+    url: 'https://crust.api.onfinality.io/public',
+    rateLimit: 10
   })
   .setBlockRange({ from: 583000 })
   .addEvent({

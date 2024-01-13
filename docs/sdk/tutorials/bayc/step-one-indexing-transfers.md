@@ -50,12 +50,10 @@ import * as bayc from './abi/bayc'
 export const CONTRACT_ADDRESS = '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
 
 export const processor = new EvmBatchProcessor()
-    .setDataSource({
-        archive: lookupArchive('eth-mainnet'),
-        chain: {
-            url: '<eth_rpc_endpoint_url>',
-            rateLimit: 10
-        }
+    .setGateway(lookupArchive('eth-mainnet'))
+    .setRpcEndpoint({
+        url: '<my_eth_rpc_url>',
+        rateLimit: 10
     })
     .setFinalityConfirmation(75)
     .setBlockRange({
@@ -72,8 +70,6 @@ export const processor = new EvmBatchProcessor()
     })
 // ...
 ```
-
-[//]: # (!!!! Reconsider using a public RPC endpoint here)
 
 Here,
 * `'eth-mainnet'` is the alias for the public archive that Subsquid maintains for Ethereum mainnet. Check out `npx squid-archive-registry` for a list of public archives for all supported networks or explore the [archives documentation](/subsquid-network/overview/) to find out how to host your own archive.

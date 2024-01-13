@@ -63,10 +63,8 @@ const TO_CONTRACT = '0xc36442b4a4522e871399cd717abdd847ab11fe88' // Uniswap v3 P
 const METHOD_SIGHASH = '0x88316456' // mint
 
 const processor = new EvmBatchProcessor()
-  .setDataSource({
-    archive: lookupArchive('eth-mainnet'),
-    chain: '<eth_rpc_endpoint_url>'
-  })
+  .setGateway(lookupArchive('eth-mainnet'))
+  .setRpcEndpoint('<my_eth_rpc_url>')
   .setFinalityConfirmation(75)
   .setBlockRange({ from: 16962349, to: 16962349 })
   .addTransaction({
@@ -106,9 +104,7 @@ import {CreatedContract} from './model'
 import {lookupArchive} from '@subsquid/archive-registry'
 
 const processor = new EvmBatchProcessor()
-  .setDataSource({
-    archive: lookupArchive('eth-mainnet'),
-  })
+  .setGateway(lookupArchive('eth-mainnet'))
   .setFields({
     trace: {
       createResultAddress: true,
