@@ -157,8 +157,11 @@ SQD is the ERC-20 protocol token that is native to the Subsquid Network ecosyste
 The SQD token is a critical component of the Subsquid ecosystem. Use cases for the SQD token are focused on streamlining and securing network operations in a permissionless manner:
 
 1) Alignment of incentives for infrastructure providers: SQD is used to reward node operators that contribute computation and storage resources to the network.
+
 2) Curation of network participants: Via delegation, the SQD token design includes built-in curation of nodes, facilitating permissionless selection of trustworthy operators for rewards.
+
 3) Fair resource consumption: By locking SQD tokens, consumers of data from the decentralized data lake may increase rate limits.
+
 4) Network decision making: SQD tokenholders can participate in governance, and are enabled to vote on protocol changes and other proposals.
 
 The SQD token’s innovative curation component allows the Subsquid community to delegate SQD to Node Operators of their choice, ensuring trustlessness. SQD’s utility as a tool for adjusting rate limits is unique in increasing trustless performance, by locking SQD tokens, without having to pay a centralized provider for quicker or more efficient data access.
