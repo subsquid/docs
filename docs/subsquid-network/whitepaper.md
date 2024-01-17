@@ -152,20 +152,16 @@ Since submitting each query for on-chain validation on-chain is costly and not f
 
 ## SQD Token
 
-SQD is an ERC20 token that powers Subsquid Network. It has the following functionalities:
+SQD is the ERC-20 protocol token that is native to the Subsquid Network ecosystem. The token smart contract is to be deployed on the Ethereum mainnet and bridged to Arbitrum One. This strategy seeks to ensure the blockchain serves as a reliable, censorship-resistant, and verifiably impartial ledger, facilitating reward settlements and managing access to network resources.
 
-1) Payment: serving as a payment token to pay the fees to the nodes (workers)
-running the required data pipelines of the Subsquid Protocol and the other workers serving the
-API requests.
+The SQD token is a critical component of the Subsquid ecosystem. Use cases for the SQD token are focused on streamlining and securing network operations in a permissionless manner:
 
-2) Utility/work: (a) bonding to join the network and running a node as a worker for data pipelines
-and serving API requests of the Subsquid Protocol requires staking of SQD tokens and later
-(b) the possibility to stake to access premium datasets and receive discounts on them.
+1) Alignment of incentives for infrastructure providers: SQD is used to reward node operators that contribute computation and storage resources to the network.
+2) Curation of network participants: Via delegation, the SQD token design includes built-in curation of nodes, facilitating permissionless selection of trustworthy operators for rewards.
+3) Fair resource consumption: By locking SQD tokens, consumers of data from the decentralized data lake may increase rate limits.
+4) Network decision making: SQD tokenholders can participate in governance, and are enabled to vote on protocol changes and other proposals.
 
-3) Delegation: delegated staking for the benefit of the node operator (worker) or the workers of
-the Subsquid Protocol against a share of the fees earned by such node or worker.
-
-The governance of the Subsquid Protocol may be handed over in the future to a decentralized autonomous organization (Subsquid DAO) that then governs the further development of the Subsquid Protocol. Subsquid may determine the SQD tokens as a means of voting for the Subsquid DAO.
+The SQD token’s innovative curation component allows the Subsquid community to delegate SQD to Node Operators of their choice, ensuring trustlessness. SQD’s utility as a tool for adjusting rate limits is unique in increasing trustless performance, by locking SQD tokens, without having to pay a centralized provider for quicker or more efficient data access.
 
 
 ## Appendix I -- Metadata
