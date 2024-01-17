@@ -6,7 +6,7 @@ description: >-
 
 # Factory contracts
 
-It some cases the set of contracts to be indexed by the squid is not known in advance. For example, a DEX contract typically creates a new contract for each trading pair added, and each such trading contract is of interest. 
+In some cases the set of contracts to be indexed by the squid is not known in advance. For example, a DEX contract typically creates a new contract for each trading pair added, and each such trading contract is of interest. 
 
 While the set of handler subscriptions is static and defined at the processor creation, one can leverage wildcard subscriptions and filter for contracts of interest at runtime. 
 
