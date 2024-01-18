@@ -40,4 +40,4 @@ OPTIONS
       - frontier-evm  A template for indexing Frontier EVM chains, like Moonbeam and Astar.
 ```
 
-_See code: [src/commands/explorer.ts](https://github.com/subsquid/squid-cli/tree/master/src/commands/explorer.ts)_
+_See code: [src/commands/init.ts](https://github.com/subsquid/squid-cli/tree/master/src/commands/init.ts)_
