@@ -40,6 +40,7 @@ This page lists the public EVM ArrowSquid/v2 available from the [open private ne
 | eth-mainnet           | ✓           | ✓      | `lookupArchive('eth-mainnet')`                |
 | eth-goerli            | ✓           | ✓      | `lookupArchive('eth-goerli')`                 |
 | eth-holesky           | ✓           | ✓      | `lookupArchive('eth-holesky')`                |
+| eth-sepolia           | ✓           | ✓      | `lookupArchive('eth-sepolia')`                |
 | etherlink-testnet     |             |        | `lookupArchive('etherlink-testnet')`          |
 | exosama               | ✓           | ✓      | `lookupArchive('exosama')`                    |
 | fantom                |             |        | `lookupArchive('fantom')`                     |
@@ -65,8 +66,8 @@ This page lists the public EVM ArrowSquid/v2 available from the [open private ne
 | shiden-mainnet (*)    |             |        | `lookupArchive('shiden-mainnet')`             |
 | skale-nebula          |             |        | `lookupArchive('skale-nebula')`               |
 | tanssi                |             |        | `lookupArchive('tanssi')`                     |
-| zksync-mainnet        |             | ✓      | `lookupArchive('zksync-mainnet')`             |
-| zksync-testnet        |             | ✓      | `lookupArchive('zksync-testnet')`             |
+| zksync-mainnet        |             | <FromBlockTooltip tip="15500000">✓</FromBlockTooltip> | `lookupArchive('zksync-mainnet')` |
+| zksync-sepolia        |             | ✓      | `lookupArchive('zksync-sepolia')`             |
 | zora-mainnet          | ✓           | ✓      | `lookupArchive('zora-mainnet')`               |
 | zora-goerli           | ✓           | ✓      | `lookupArchive('zora-goerli')`                |
 
@@ -91,7 +92,7 @@ const processor = new EvmBatchProcessor()
 
 ### Raw URLs
 
-Here are the raw dataset URLs (retrieved 2024-01-09):
+Here are the raw dataset URLs (retrieved 2024-01-18):
 
 | Network               | Archive endpoint URL                                         |
 |:---------------------:|:------------------------------------------------------------:|
@@ -112,6 +113,7 @@ Here are the raw dataset URLs (retrieved 2024-01-09):
 | eth-mainnet           | https://v2.archive.subsquid.io/network/ethereum-mainnet      |
 | eth-goerli            | https://v2.archive.subsquid.io/network/ethereum-goerli       |
 | eth-holesky           | https://v2.archive.subsquid.io/network/ethereum-holesky      |
+| eth-sepolia           | https://v2.archive.subsquid.io/network/ethereum-sepolia      |
 | etherlink-testnet     | https://v2.archive.subsquid.io/network/etherlink-testnet     |
 | exosama               | https://v2.archive.subsquid.io/network/exosama               |
 | fantom                | https://v2.archive.subsquid.io/network/fantom-mainnet        |
@@ -138,6 +140,6 @@ Here are the raw dataset URLs (retrieved 2024-01-09):
 | skale-nebula          | https://v2.archive.subsquid.io/network/skale-nebula          |
 | tanssi                | https://v2.archive.subsquid.io/network/tanssi                |
 | zksync-mainnet        | https://v2.archive.subsquid.io/network/zksync-mainnet        |
-| zksync-testnet        | https://v2.archive.subsquid.io/network/zksync-testnet        |
+| zksync-sepolia        | https://v2.archive.subsquid.io/network/zksync-sepolia        |
 | zora-mainnet          | https://v2.archive.subsquid.io/network/zora-mainnet          |
 | zora-goerli           | https://v2.archive.subsquid.io/network/zora-goerli           |
