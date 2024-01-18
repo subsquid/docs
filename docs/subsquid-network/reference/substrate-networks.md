@@ -49,7 +49,6 @@ The table below lists the currently available public Substrate endpoints to be u
 | foucoco              | `lookupArchive('foucoco')`                          | `lookupArchive('foucoco',` `{release: 'ArrowSquid'})`                        |
 | frequency            | `lookupArchive('frequency')`                        | `lookupArchive('frequency',` `{release: 'ArrowSquid'})`                      |
 | frequency-testnet    | `lookupArchive('frequency-testnet')`                | temporarily unavailable                                                      |
-| gear-testnet         | `lookupArchive('gear-testnet')`                     | temporarily unavailable                                                      |
 | gmordie              | `lookupArchive('gmordie')`                          | temporarily unavailable                                                      |
 | hashed               | `lookupArchive('hashed')`                           | temporarily unavailable                                                      |
 | heiko                | `lookupArchive('heiko')`                            | temporarily unavailable                                                      |
@@ -58,7 +57,6 @@ The table below lists the currently available public Substrate endpoints to be u
 | interlay             | `lookupArchive('interlay')`                         | `lookupArchive('interlay',` `{release: 'ArrowSquid'})`                       |
 | invarch-tinkernet    | `lookupArchive('invarch-tinkernet')`                | `lookupArchive('invarch-tinkernet',` `{release: 'ArrowSquid'})`              |
 | joystream            | `lookupArchive('joystream')`                        | `lookupArchive('joystream',` `{release: 'ArrowSquid'})`                      |
-| kabocha              | `lookupArchive('kabocha')`                          | temporarily unavailable                                                      |
 | karura               | `lookupArchive('karura')`                           | `lookupArchive('karura',` `{release: 'ArrowSquid'})`                         |
 | khala                | `lookupArchive('khala')`                            | `lookupArchive('khala',` `{release: 'ArrowSquid'})`                          |
 | kilt                 | `lookupArchive('kilt')`                             | `lookupArchive('kilt',` `{release: 'ArrowSquid'})`                           |
@@ -73,7 +71,6 @@ The table below lists the currently available public Substrate endpoints to be u
 | origin-trail         | `lookupArchive('origin-trail')`                     | temporarily unavailable                                                      |
 | pangolin             | `lookupArchive('pangolin')`                         | temporarily unavailable                                                      |
 | pangoro              | `lookupArchive('pangoro')`                          | temporarily unavailable                                                      |
-| parallel             | `lookupArchive('parallel')`                         | temporarily unavailable                                                      |
 | peaq                 | `lookupArchive('peaq')`                             | temporarily unavailable                                                      |
 | pendulum             | `lookupArchive('pendulum')`                         | `lookupArchive('pendulum',` `{release: 'ArrowSquid'})`                       |
 | phala-testnet        | not available                                       | `lookupArchive('phala-testnet',` `{release: 'ArrowSquid'})`                  |
@@ -97,7 +94,6 @@ The table below lists the currently available public Substrate endpoints to be u
 | t0rn                 | `lookupArchive('t0rn')`                             | temporarily unavailable                                                      |
 | tanganika            | `lookupArchive('tanganika')`                        | temporarily unavailable                                                      |
 | ternoa               | `lookupArchive('ternoa')`                           | temporarily unavailable                                                      |
-| tidechain            | `lookupArchive('tidechain')`                        | temporarily unavailable                                                      |
 | turing               | `lookupArchive('turing')`                           | unavailable                                                                  |
 | vara                 | `lookupArchive('vara')`                             | `lookupArchive('vara',` `{release: 'ArrowSquid'})`                           |
 | vara-testnet         | not available                                       | `lookupArchive('vara-testnet',` `{release: 'ArrowSquid'})`                   |
