@@ -604,6 +604,7 @@ ul, ol {
 
 .breadcrumbs__link {
     color: var(--breadcrumb-color);
+    font-size: 17px;
 }
 
 .breadcrumbs .breadcrumbs__item:first-child .breadcrumbs__link {
@@ -717,4 +718,8 @@ code, kbd, samp, pre {
 
 .table-of-contents {
     font-size: 0.9rem;
+}
+
+.theme-doc-toc-desktop{
+    top: 0 !important;
 }
