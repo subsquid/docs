@@ -77,11 +77,12 @@ The table below lists the currently available public Substrate endpoints to be u
 | phala                | `lookupArchive('phala')`                            | `lookupArchive('phala',` `{release: 'ArrowSquid'})`                          |
 | picasso              | `lookupArchive('picasso')`                          | `lookupArchive('picasso',` `{release: 'ArrowSquid'})`                        |
 | polimec              | not available                                       | `lookupArchive('polimec',` `{release: 'ArrowSquid'})`                        |
-| polkadex             | `lookupArchive('polkadex')`                         | temporarily unavailable                                                      |
+| polkadex             | `lookupArchive('polkadex')`                         | `lookupArchive('polkadex',` `{release: 'ArrowSquid'})`                       |
 | polkadot             | `lookupArchive('polkadot')`                         | `lookupArchive('polkadot',` `{release: 'ArrowSquid'})`                       |
+| polymesh             | not available                                       | `lookupArchive('polymesh',` `{release: 'ArrowSquid'})`                       |
 | reef                 | `lookupArchive('reef')`                             | `lookupArchive('reef',` `{release: 'ArrowSquid'})`                           |
 | reef-testnet         | `lookupArchive('reef-testnet')`                     | `lookupArchive('reef-testnet',` `{release: 'ArrowSquid'})`                   |
-| robonomics           | `lookupArchive('robonomics')`                       | temporarily unavailable                                                      |
+| robonomics           | `lookupArchive('robonomics')`                       | `lookupArchive('robonomics',` `{release: 'ArrowSquid'})`                     |
 | rococo               | `lookupArchive('rococo')`                           | `lookupArchive('rococo',` `{release: 'ArrowSquid'})`                         |
 | shibuya              | `lookupArchive('shibuya')`                          | `lookupArchive('shibuya',` `{release: 'ArrowSquid'})`                        |
 | shiden               | `lookupArchive('shiden')`                           | `lookupArchive('shiden',` `{release: 'ArrowSquid'})`                         |
