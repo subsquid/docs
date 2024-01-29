@@ -45,7 +45,9 @@ Dedicated squids have separate [compute profiles](/cloud/reference/scale/#servic
 - `medium`: `0.08$/hr`
 - `large`: `0.15$/hr`
 
-API and processor are configured and billed separately. For example, running a small processor plus a small API costs `0.08$/hr`.
+API and processor are configured and billed separately. Also, if you use API replicas your cost is multiplied by the number of replicas. For example, running a small processor plus two replicas of medium API costs `0.04+2*0.08=0.20$/hr`.
+
+Full profile descriptions are available [here](/cloud/reference/scale/#api) for the API and [here](/cloud/reference/scale/#processor) for the processor.
 
 #### Database
 
@@ -53,9 +55,11 @@ API and processor are configured and billed separately. For example, running a s
 - `medium`: `0.16$/hr`
 - `large`: `0.33$/hr`
 
+Profiles are described [here](/cloud/reference/pg/#scaling). Combine with the [cost of storage](/cloud/pricing/#storage) to get the full price of maintaining the database.
+
 ### Hibernated squids
 
-For hibernated squids only the storage costs are charged. 
+For hibernated squids only the [storage costs](/cloud/pricing/#storage) are charged.
 
 ### Multi-processor squids
 
