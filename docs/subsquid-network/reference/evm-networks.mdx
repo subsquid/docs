@@ -15,6 +15,17 @@ export const FromBlockTooltip = ({children, tip}) => (
   </div>
 )
 
+export const MoonbeamTooltip = ({children, tip}) => (
+  <div class="group relative">
+    <div class={`pointer-events-auto absolute -top-16 -left-3 w-max opacity-0 transition-opacity group-hover:opacity-100`}>
+      <div>up to block</div>
+      <div>5327886</div>
+      <div><a href="https://github.com/moonbeam-foundation/moonbeam/issues/2626">learn more</a></div>
+    </div>
+    <span class="underline decoration-dotted">{children}</span>
+  </div>
+)
+
 # EVM datasets
 
 ## From open private network
@@ -50,7 +61,7 @@ This page lists the public EVM ArrowSquid/v2 available from the [open private ne
 | linea-mainnet         |             | ✓      | `lookupArchive('linea-mainnet')`              |
 | mineplex-testnet      |             | ✓      | `lookupArchive('mineplex-testnet')`           |
 | moonbase (*)          |             |        | `lookupArchive('moonbase',` `{type: 'EVM'})`  |
-| moonbeam (*)          |             | ✓      | `lookupArchive('moonbeam',` `{type: 'EVM'})`  |
+| moonbeam (*)          |             | <MoonbeamTooltip>?</MoonbeamTooltip> | `lookupArchive('moonbeam',` `{type: 'EVM'})`  |
 | moonriver (*)         |             | ✓      | `lookupArchive('moonriver',` `{type: 'EVM'})` |
 | moonsama (*)          |             |        | `lookupArchive('moonsama')`                   |
 | opbnb-mainnet         |             |        | `lookupArchive('opbnb-mainnet')`              |
