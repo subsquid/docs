@@ -5,7 +5,7 @@ description: >-
 sidebar_position: 40
 ---
 
-# Subsquid ApeWorx plugin
+# ApeWorx Subsquid plugin
 
 :::info
 The `subsquid` ApeWorx plugin is currently in beta
@@ -29,16 +29,26 @@ to your data query methods. You can speed up the following calls:
 
 1. Bulk block data retrieval with `chain.blocks.query`:
    ```python
-   df = chain.blocks.query('*', start_block=18_000_000, stop_block=19_000_000, engine_to_use='subsquid')
+   df = chain.blocks.query(
+       '*',
+       start_block=18_000_000,
+       stop_block=19_000_000,
+       engine_to_use='subsquid'
+   )
    ```
    This query retrieves data on 1M blocks in about 11 minutes.
 
 2. Contract events retrieval:
    ```python
    contract = Contract('0xdac17f958d2ee523a2206206994597c13d831ec7', abi='usdt.json')
-   df = contract.Transfer.query('*', start_block=18_000_000, stop_block=18_100_000, engine_to_use='subsquid')
+   df = contract.Transfer.query(
+       '*',
+       start_block=18_000_000,
+       stop_block=18_100_000,
+       engine_to_use='subsquid'
+   )
    ```
-   This query retrieves 1.6M events that occurred over 100k block in about 17 minutes.
+   This query retrieves 1.6M events emitted over 100k block in about 17 minutes.
 
 ## Networks support
 
