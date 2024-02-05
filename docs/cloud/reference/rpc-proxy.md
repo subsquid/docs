@@ -92,11 +92,6 @@ deploy:
   addons:
     rpc:
       - eth-goerli:http
-
-scale:
-  addons:
-    rpc:
-      max-rate: 10rps
 ```
 
 ## Processor configuration
