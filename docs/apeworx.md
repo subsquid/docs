@@ -13,7 +13,7 @@ The `subsquid` ApeWorx plugin is currently in beta
 
 [ApeWorx](https://apeworx.io) is a modular Web3 development framework for Python programmers. Among other things, it is capable of [retrieving blockchain data in bulk](https://docs.apeworx.io/ape/stable/userguides/data.html). The data can come from various sources, including Subsquid Network.
 
-Install the `subsquid` plugin with
+In an existing [ApeWorx installation](https://docs.apeworx.io/ape/stable/userguides/quickstart.html#installation), run the following to install the `subsquid` plugin:
 ```bash
 ape plugins install "ape-subsquid@git+https://github.com/subsquid/ape-subsquid.git@main"
 ```
