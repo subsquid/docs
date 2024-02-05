@@ -33,7 +33,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | calamari             | `lookupArchive('calamari')`                         | temporarily unavailable                                                      |
 | centrifuge           | `lookupArchive('centrifuge')`                       | `lookupArchive('centrifuge',` `{release: 'ArrowSquid'})`                     |
 | cere                 | `lookupArchive('cere')`                             | `lookupArchive('cere',` `{release: 'ArrowSquid'})`                           |
-| clover               | `lookupArchive('clover')`                           | temporarily unavailable                                                      |
+| clover               | `lookupArchive('clover')`                           | `lookupArchive('clover',` `{release: 'ArrowSquid'})`                         |
 | collectives          | `lookupArchive('collectives')`                      | temporarily unavailable                                                      |
 | collectives-polkadot | not available                                       | `lookupArchive('collectives-polkadot',` `{release: 'ArrowSquid'})`           |
 | collectives-westend  | `lookupArchive('collectives-westend')`              | `lookupArchive('collectives-westend',` `{release: 'ArrowSquid'})`            |
