@@ -8,7 +8,7 @@ sidebar_position: 40
 # ApeWorx Subsquid plugin
 
 :::info
-The `subsquid` ApeWorx plugin is currently in beta
+The `subsquid` ApeWorx plugin is currently in beta. Please report any bugs or suggestions to [Squid Devs](https://t.me/HydraDevs) or open an issue at the [GitHub repo](https://github.com/subsquid/ape-subsquid/) of the plugin.
 :::
 
 [ApeWorx](https://apeworx.io) is a modular Web3 development framework for Python programmers. Among other things, it is capable of [retrieving blockchain data in bulk](https://docs.apeworx.io/ape/stable/userguides/data.html). The data can come from various sources, including Subsquid Network.
