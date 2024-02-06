@@ -58,6 +58,7 @@ The following networks available via plugins from `ape plugins list --all` are s
 * `avalanche`
 * `base`
 * `bsc`
+* `ethereum`
 * `fantom`
 * `optimism`
 * `polygon`
