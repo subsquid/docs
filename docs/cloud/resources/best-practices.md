@@ -10,6 +10,12 @@ Here is a list of items to check out before you deploy your squid for use in pro
 
 * Make sure that you use [batch processing](/sdk/resources/basics/batch-processing) throughout your code.
 
+* Filter your data in the batch handler. E.g. if you [request event logs](/sdk/reference/processors/evm-batch/logs) from a particular contract, do check that the `address` field of the returned data items matches the contract address before processing the data. This will make sure that any future changes in your processor configuration will not cause the newly added data to be routed to your old processing code by mistake.
+
+:::info
+Batch handler data filtering used to be compulsory before the release of `@subsquid/evm-processor@1.13.0`. Now it is optional but highly recommended.
+:::
+
 * If your squid [saves its data to a database](/sdk/resources/persisting-data/typeorm), make sure your [schema](/sdk/reference/schema-file) has [`@index` decorators](/sdk/reference/schema-file/indexes-and-constraints) for all entities that will be looked up frequently.
 
 * If your squid serves a [GraphQL API](/sdk/resources/graphql-server), consider:
