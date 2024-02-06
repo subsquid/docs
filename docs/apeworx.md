@@ -13,6 +13,10 @@ The `subsquid` ApeWorx plugin is currently in beta. Please report any bugs or su
 
 [ApeWorx](https://apeworx.io) is a modular Web3 development framework for Python programmers. Among other things, it is capable of [retrieving blockchain data in bulk](https://docs.apeworx.io/ape/stable/userguides/data.html). The data can come from various sources, including Subsquid Network.
 
+The network provides free access to blocks and event logs data. On long block ranges (>1k blocks) data retrieval is orders of magnitude (>10x) faster compared to RPC-based data sources.
+
+## Usage
+
 In an existing [ApeWorx installation](https://docs.apeworx.io/ape/stable/userguides/quickstart.html#installation), run the following to install the `subsquid` plugin:
 ```bash
 ape plugins install "ape-subsquid@git+https://github.com/subsquid/ape-subsquid.git@main"
@@ -49,6 +53,10 @@ to your data query methods. You can speed up the following calls:
    )
    ```
    This query retrieves 1.6M events emitted over 100k block in about 17 minutes.
+
+:::info
+When working with block ranges much longer than 1M blocks, the plugin may occasionally fail due to HTTP 503 errors rarely returned by the network. If you encounter this issue, split your block range into sub-1M blocks intervals and retrieve the data for each interval separately, retrying when the queries throw exceptions.
+:::
 
 ## Networks support
 
