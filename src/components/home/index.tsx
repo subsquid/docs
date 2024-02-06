@@ -157,10 +157,9 @@ export default function Home(): JSX.Element {
                 <p className="text-fg-base--muted font-light">
                    Subsquid is modular -- the on-chain data is extracted from a decentralized data layer (<a href="/subsquid-network/">Subsquid Network</a>), rather than 
                    directly from a blockchain node. It enables up to 100x faster indexing, guaranteed data consistensy and reliable indexing even for small networks.
-                   For a detailed feature comparison, see <a href="/sdk/resources/subsquid-vs-thegraph/">Subsquid vs The Graph</a>.
+                   For a detailed feature comparison, see <a href="/sdk/subsquid-vs-thegraph/">Subsquid vs The Graph</a>.
                 </p>
             </div>
-
 
             <div className="relative border border-border-color-base--default rounded-lg p-6 mb-8">
                 <h4 className="mb-4 body--m">How much does Subsquid cost?</h4>
@@ -170,7 +169,7 @@ export default function Home(): JSX.Element {
                     The Subsquid Cloud offers a free playgroud space for developing indexers and a hosted service
                     for production-ready indexing pipelines. The pay-as-you-go pricing only accounts 
                     for the actual compute and storage resources consumed by the indexer, 
-                    see <a href="/cloud/reference/pricing">for the pricing details</a>. 
+                    see <a href="/cloud/pricing">for the pricing details</a>. 
                 </p>
             </div>
 
