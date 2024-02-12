@@ -59,7 +59,7 @@ At the moment, all Subsquid Network datasets are updated only once every several
 ```python
 from ape_subsquid import get_network_height
 
-get_network_height() # currently at 19212115 while the chain is at 19213330
+get_network_height() # currently 19212115 while the chain is at 19213330
 ```
 Queries that request blocks above the current dataset height **will fail** with an `ape_subsquid.exceptions.DataRangeIsNotAvailable` exception. That includes queries without an explicitly set `stop_block`. If you don't need the recent data, you can explicitly request the data up to the block height of the Subsquid dataset, e.g.
 
