@@ -15,7 +15,7 @@ The `subsquid` ApeWorx plugin is currently in beta. Please report any bugs or su
 
 The network provides free access to blocks and event logs data. On long block ranges (>1k blocks) data retrieval is orders of magnitude (>10x) faster compared to RPC-based data sources.
 
-## Usage
+## Basic usage
 
 In an existing [ApeWorx installation](https://docs.apeworx.io/ape/stable/userguides/quickstart.html#installation), run the following to install the `subsquid` plugin:
 ```bash
@@ -53,6 +53,31 @@ to your data query methods. You can speed up the following calls:
    )
    ```
    This query retrieves 1.6M events emitted over 100k block in about 17 minutes.
+
+:::warning
+At the moment, all Subsquid Network datasets are updated only once every several thousands of blocks. The current dataset height can be retrieved with `get_network_height()`:
+```python
+from ape_subsquid import get_network_height
+
+get_network_height() # currently at 19212115 while the chain is at 19213330
+```
+Queries that request blocks above the current dataset height **will fail** with an `ape_subsquid.exceptions.DataRangeIsNotAvailable` exception. That includes queries without an explicitly set `stop_block`. If you don't need the recent data, you can explicitly request the data up to the block height of the Subsquid dataset, e.g.
+
+```python
+subsquid_height = get_network_height()
+df = chain.blocks.query(
+    '*',
+    start_block=19_000_000,
+    stop_block=subsquid_height,
+    engine_to_use='subsquid'
+)
+```
+To get the latest data, retrieve the tail with the default engine and append it to the dataframe:
+```python
+taildf = chain.blocks.query('*', start_block=subsquid_height+1)
+df = pd.concat([df, taildf], ignore_index=True, copy=False)
+```
+:::
 
 :::info
 When working with block ranges much longer than 1M blocks, the plugin may occasionally fail due to HTTP 503 errors rarely returned by the network. If you encounter this issue, split your block range into sub-1M blocks intervals and retrieve the data for each interval separately, retrying when the queries throw exceptions.
