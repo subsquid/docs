@@ -301,7 +301,11 @@ const urlList = [
     },
     {
         "from": "/deploy-squid/rpc-proxy",
-        "to": "/cloud/reference/rpc-proxy"
+        "to": "/cloud/resources/rpc-proxy"
+    },
+    {
+        "from": "/cloud/reference/rpc-proxy",
+        "to": "/cloud/resources/rpc-proxy"
     },
     {
         "from": "/deploy-squid/scale",
