@@ -1,18 +1,22 @@
 ---
 sidebar_position: 35
 title: addons.rpc section
-description: Built-in caching RPC endpoints
+description: Request a built-in RPC service
 ---
 
-# RPC proxy
+# addons.rpc manifest section
 
-Since the Arrowsquid release, Subsquid Cloud provides a built-in caching RPC proxy service. Currently, it is a premium feature, with plans to make a subset of calls available to free tier users.
-
-## Available networks
+Enable the add-on like this:
+```yaml
+deploy:
+  addons:
+    rpc:
+      - eth-goerli:http
+```
 
 <details>
 
-<summary>EVM</summary>
+<summary>Available EVM networks</summary>
 
 | Network name            | network:protocol             |
 |-------------------------|------------------------------|
@@ -53,7 +57,7 @@ Since the Arrowsquid release, Subsquid Cloud provides a built-in caching RPC pro
 
 <details>
 
-<summary>Substrate</summary>
+<summary>Available Substrate networks</summary>
 
 | Network name | network:protocol           |
 |--------------|----------------------------|
@@ -86,27 +90,4 @@ Since the Arrowsquid release, Subsquid Cloud provides a built-in caching RPC pro
 
 </details>
 
-Enable the RPC add-on like this:
-```yaml
-deploy:
-  addons:
-    rpc:
-      - eth-goerli:http
-```
-
-## Processor configuration
-
-With the add-on successfully enabled, your squid will get a unique proxied endpoint to the requested network. Subsquid Cloud will make its URL available to the deployed squid at the `RPC_${Upper(network)}_${Upper(protocol)}` environment variable. Assert it to avoid compilation errors. We also recommend rate limiting RPC proxy requests on the processor side to the same rate as was used in the manifest: 
-```ts
-import {assertNotNull} from '@subsquid/util-internal'
-
-processor.setRpcEndpoint({
-  // dash in "eth-goerli" becomes an underscore
-  url: assertNotNull(process.env.RPC_ETH_GOERLI_HTTP),
-  rateLimit: 10
-})
-```
-
-## Pricing
-
-RPC proxy requests are priced [at a flat rate](/cloud/pricing/#rpc-requests), with substantial packages included for free for all [organization types](/cloud/resources/organizations). Pricing does not depend on the call method.
+See [RPC proxy](/cloud/resources/rpc-proxy) guide for more details on the service.
