@@ -16,8 +16,8 @@ The deployment is managed by the file `squid.yaml` in the root folder of the squ
 Make sure to check our [best practices guide](/cloud/resources/best-practices) before deploying to production!
 :::
 
-:::warning
-Yarn is not supported. Use `npm` to install Squid CLI and manage your squid's dependencies.
+:::tip
+Consider our [RPC proxy service](/cloud/resources/rpc-proxy) if your squid requires an endpoint.
 :::
 
 ## 0. Install Squid CLI
