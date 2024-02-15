@@ -16,7 +16,7 @@ The data transformation and presentation is enabled by a growing list of tools a
 - Typescript based [Squid SDK](/sdk/) offers pluggable data targets for both online and offline use-cases
 - Python-based [DipDup SDK](https://dipdup.io/docs/quickstart-evm?ref=blog.subsquid.io)
 - Subgraphs (via [Subsquid Firehose adapter](/subgraphs-support/))
-
+- ApeWorx (via [ape-subsquid plugin](/apeworx))
 
 ## Feature matrix
 
@@ -25,7 +25,7 @@ The data transformation and presentation is enabled by a growing list of tools a
 |  Programming language           |     Typescript            |    AssemblyScript (complied to WASM)     |
 |  Indexing speed                 |     ~1k-50k bps           |       ~100-150 bps                       |
 |  ABI-based generator            |        Yes                |          Yes                             |
-|  Real-time indexing (unfinalized blocks)   |     Yes (*)    |          No                              |  
+|  Real-time indexing (unfinalized blocks)   |     Yes        |          No                              |  
 |  Off-chain data                 |        Yes                |        No                                |
 |  Data targets                   |     Customizable          |      Postgres-only                       |
 |  Customizable DB migrations     |        Yes                |        No                                |
@@ -38,13 +38,8 @@ The data transformation and presentation is enabled by a growing list of tools a
 |  Subscriptions                  |  Yes                      |       Via middleware                     |
 |  Hosted service                 |  Yes                      |       Yes (to be sunset)                 |
 |  Secret env variables           |  Yes                      |          No                              |
-|  Payment                        |  Fiat, subscription-based (**) |   GRT, pay-per-query                |
-|  Decentralization               |  Opt-in, via decentralized data targets (Kwil DB, Ceramic) |  The Graph network   |
-
-
-(*) to be supported by the Squid SDK in Q1 2023
-
-(**) for the Subsquid Cloud Premium plan 
+|  Payment                        |  [Fiat, subscription-based](/cloud/pricing) |   GRT, pay-per-query                     |
+|  Decentralization               |  Decentralized data sourcing via [Subsquid Network](/subsquid-network), with opt-in decentralized data targets (Kwil DB, Ceramic) and processing (via Lava, in development)  |  The Graph network   |
 
 ## Architecture difference
 
