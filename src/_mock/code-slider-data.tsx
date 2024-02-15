@@ -4,9 +4,7 @@ export default [
   {
     title: "Mine the tx data from millions of wallets",
     code: 'export const processor = new EvmBatchProcessor()\n' +
-        '  .setDataSource({\n' +
-        '    archive: lookupArchive(\'binance\'),\n' +
-        '  })\n' +
+        '  .setGateway(lookupArchive(\'binance\'))\n' +
         '  .addTransaction({})\n' +
         '\n' +
         'const wallets: Set<string> = loadWallets()\n' +
@@ -24,7 +22,7 @@ export default [
         '    }\n' +
         '  }\n' +
         '})',
-    codeCollapse: '.setDataSource({ archive: lookupArchive(\'binance\') })\n.addTransaction({})\n// ...\nif (wallets.has(txn.from)) { /* ... */ }\nif (wallets.has(txn.to)) { /* ... */ }',
+    codeCollapse: '.setGateway(lookupArchive(\'binance\'))\n.addTransaction({})\n// ...\nif (wallets.has(txn.from)) { /* ... */ }\nif (wallets.has(txn.to)) { /* ... */ }',
     link: "https://github.com/subsquid-labs/showcase00-analyzing-a-large-number-of-wallets"
   },
   {
@@ -32,10 +30,8 @@ export default [
     code: 'export const USDC_CONTRACT_ADDRESS = \'0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\'\n' +
         '\n' +
         'export const processor = new EvmBatchProcessor()\n' +
-        '  .setDataSource({\n' +
-        '    archive: lookupArchive(\'eth-mainnet\'),\n' +
-        '    chain: \'<eth_rpc_endpoint_url>\',\n' +
-        '  })\n' +
+        '  .setGateway(lookupArchive(\'eth-mainnet\'))\n' +
+        '  .setRpcEndpoint(\'<eth_rpc_endpoint_url>\')\n' +
         '  .setFinalityConfirmation(75)\n' +
         '  .addLog({\n' +
         '    range: {from: 6_082_465},\n' +
@@ -54,13 +50,10 @@ export default [
   },
   {
     title: "Extract all Transfers to/from vitalik.eth",
-    code: 'export const VITALIK_ETH_TOPIC = \'0x000000000000000000000000\' +' +
-        '\'d8da6bf26964af9d7eed9e03e53415d37aa96045\'\n' +
+    code: 'export const VITALIK_ETH_TOPIC = \'0x000000000000000000000000d8da6bf26964af9d7eed9e03e53415d37aa96045\'\n' +
         '\n' +
         'export const processor = new EvmBatchProcessor()\n' +
-        '  .setDataSource({\n' +
-        '    archive: lookupArchive(\'eth-mainnet\'),\n' +
-        '  })\n' +
+        '  .setGateway(lookupArchive(\'eth-mainnet\'))\n' +
         '  .addLog({\n' +
         '    topic0: [erc20abi.events.Transfer.topic],\n' +
         '    topic2: [VITALIK_ETH_TOPIC],\n' +
@@ -77,9 +70,7 @@ export default [
     title: "Index the AAVE Pool tx data, decoding the event logs",
     code: 'export const AAVE_CONTRACT = \'0x7d2768de32b0b80b7a3454c06bdac94a69ddc7a9\'\n' +
         'export const processor = new EvmBatchProcessor()\n' +
-        '  .setDataSource({\n' +
-        '    archive: lookupArchive(\'eth-mainnet\'),\n' +
-        '  })\n' +
+        '  .setGateway(lookupArchive(\'eth-mainnet\'))\n' +
         '  .setBlockRange({ from: 11_362_579 })\n' +
         '  .addTransaction({\n' +
         '    to: [AAVE_CONTRACT],\n' +
@@ -104,9 +95,7 @@ export default [
   {
     title: "Index all NFT mints",
     code: 'export const processor = new EvmBatchProcessor()\n' +
-        '  .setDataSource({\n' +
-        '    archive: lookupArchive(\'eth-mainnet\'),\n' +
-        '  })\n' +
+        '  .setGateway(lookupArchive(\'eth-mainnet\'))\n' +
         '  .addLog({\n' +
         '    topic0: [usdcAbi.events.Mint.topic],\n' +
         '    transaction: true,\n' +
@@ -124,16 +113,16 @@ export default [
   },
   {
     title: "Index all DEX trading pairs and Swap events",
-    code: 'export const FACTORY_ADDRESSES = [  \'0xbcfccbde45ce874adcb698cc183debcf17952812\',  \'0xca143ce32fe78f1f7019d7d551a6402fc5350c73\',\n' +
+    code: 'export const FACTORY_ADDRESSES = [\n' +
+        '  \'0xbcfccbde45ce874adcb698cc183debcf17952812\',\n' +
+        '  \'0xca143ce32fe78f1f7019d7d551a6402fc5350c73\',\n' +
         ']\n' +
         '\n' +
         'const PAIR_CREATED_TOPIC = \'0x0d3648bd0f6ba80134a33ba9275ac585d9d315f0ad8355cddefde31afa28d0e9\'\n' +
-        'const SWAP_TOPIC = \'0xd78ad95fa46c994b6551d0da85fc275 fe613ce37657fb8d5e3d130840159d822\'\n' +
+        'const SWAP_TOPIC = \'0xd78ad95fa46c994b6551d0da85fc275fe613ce37657fb8d5e3d130840159d822\'\n' +
         '\n' +
         'export const processor = new EvmBatchProcessor()\n' +
-        '  .setDataSource({\n' +
-        '    archive: lookupArchive(\'binance\'),\n' +
-        '  })\n' +
+        '  .setGateway(lookupArchive(\'binance\'))\n' +
         '  .setBlockRange({ from: 586_851 })\n' +
         '  .addLog({\n' +
         '    address: FACTORY_ADDRESSES,\n' +
@@ -156,12 +145,10 @@ export default [
   },
   {
     title: "Index internal contract calls and traces",
-    code: 'const BAYC_ADDRESS = \'0xbc4ca0eda7647a8ab7c2061c2e118 a18a936f13d\'\n' +
+    code: 'const BAYC_ADDRESS = \'0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d\'\n' +
         '\n' +
         'export const processor = new EvmBatchProcessor()\n' +
-        '  .setDataSource({\n' +
-        '    archive: lookupArchive(\'eth-mainnet\'),\n' +
-        '  })\n' +
+        '  .setGateway(lookupArchive(\'eth-mainnet\'))\n' +
         '  .setBlockRange({ from: 12_287_507 })\n' +
         '  .addTrace({\n' +
         '    type: [\'call\'],\n' +
@@ -191,9 +178,7 @@ export default [
   {
     title: "Mine all NFT contracts ever deployed",
     code: 'export const processor = new EvmBatchProcessor()\n' +
-        '  .setDataSource({\n' +
-        '    archive: lookupArchive(\'eth-mainnet\'),\n' +
-        '  })\n' +
+        '  .setGateway(lookupArchive(\'eth-mainnet\'))\n' +
         '  .addTrace({\n' +
         '    type: [\'create\'],\n' +
         '    transaction: true,\n' +
