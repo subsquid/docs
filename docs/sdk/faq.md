@@ -16,7 +16,7 @@ Here is an incomplete list:
 
 ### How does Squid SDK handle unfinalized blocks?
 
-The Subsquid Network only serves finalized blocks and is typically ~1000 blocks behind the tip. The most recent blocks, as well as the unfinalized blocks are seemlesly handled by the SDK from a complementary RPC data source, set by the `chain` config. Potential chain reorgs are automatically handled under the hood. See [Indexing unfinalized blocks](/sdk/resources/basics/unfinalized-blocks) for details.
+The Subsquid Network only serves finalized blocks and is typically ~1000 blocks behind the tip. The most recent blocks, as well as the unfinalized blocks are seamlessly handled by the SDK from a complementary RPC data source, set by the `chain` config. Potential chain reorgs are automatically handled under the hood. See [Indexing unfinalized blocks](/sdk/resources/basics/unfinalized-blocks) for details.
 
 ### What is the latency for the data served by the squid? 
 
