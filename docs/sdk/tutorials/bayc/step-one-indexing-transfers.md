@@ -42,7 +42,7 @@ Reading about [elsewhere](https://eips.ethereum.org/EIPS/eip-721) we learn that 
 
 ## Configuring the data filters
 
-A "squid processor" is the Node.js process and the [object that powers it](/sdk/overview/) that are responsible for retrieving filtered blockchain data from a specialized data lake (an [archive](/subsquid-network/overview)), transforming it and saving the result to a destination of choice. To configure the processor (object) to retrieve the `Transfer` events of the BAYC token contract, we initialize it like this:
+A "squid processor" is the Node.js process and the [object that powers it](/sdk/overview/). Together they are responsible for retrieving filtered blockchain data from a specialized data lake (a [Subsquid Network](/subsquid-network/overview) dataset), transforming it and saving the result to a destination of choice. To configure the processor (object) to retrieve the `Transfer` events of the BAYC token contract, we initialize it like this:
 ```typescript title="src/processor.ts"
 // ...
 import * as bayc from './abi/bayc'
@@ -72,8 +72,8 @@ export const processor = new EvmBatchProcessor()
 ```
 
 Here,
-* `'eth-mainnet'` is the alias for the public archive that Subsquid maintains for Ethereum mainnet. Check out `npx squid-archive-registry` for a list of public archives for all supported networks or explore the [archives documentation](/subsquid-network/overview/) to find out how to host your own archive.
-* `'<eth_rpc_endpoint_url>'` is a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within the archive. Please use a private endpoint or Subsquid Cloud's [RPC proxy service](/cloud/reference/rpc-proxy) in production.
+* `'eth-mainnet'` is the alias for the public Subsquid Network dataset endpoint for Ethereum mainnet. Check out `npx squid-archive-registry` for a list of public dataset endpoints for all supported networks.
+* `'<eth_rpc_endpoint_url>'` is a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within Subsquid Network. Please use a private endpoint or Subsquid Cloud's [RPC proxy service](/cloud/reference/rpc-proxy) in production.
 * `setFinalityConfirmation(75)` call instructs the processor to consider blocks final after 75 confirmations when ingesting data from an RPC endpoint.
 * `12_287_507` is the block at which the BAYC token contract was deployed. Can be found on the [contract's Etherscan page](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).
 * The argument of [`addLog()`](/sdk/reference/processors/evm-batch/logs) is a set of filters that tells the processor to retrieve all event logs emitted by the BAYC contract with topic0 matching the hash of the full signature of the `Transfer` event. The hash is taken from the previously generated Typescript ABI.
@@ -91,9 +91,9 @@ processor.run(db, async (ctx) => {
 ```
 Here,
 * `db` is a [`Database` implementation](/sdk/resources/persisting-data/overview/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm/) object here.
-* `ctx` is a [batch context](/sdk/overview/#batch-context) object that exposes a batch of data retrieved from an archive or a RPC endpoint (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
+* `ctx` is a [batch context](/sdk/overview/#batch-context) object that exposes a batch of data retrieved from Subsquid Network or a RPC endpoint (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
 
-Batch handler is where the raw on-chain data from the archive is decoded, transformed and persisted. This is the part we'll be concerned with for the rest of the tutorial.
+Batch handler is where the raw on-chain data is decoded, transformed and persisted. This is the part we'll be concerned with for the rest of the tutorial.
 
 We begin by defining a batch handler decoding the `Transfer` event:
 ```typescript title="src/main.ts"

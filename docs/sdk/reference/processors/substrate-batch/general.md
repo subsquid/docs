@@ -103,7 +103,7 @@ Types bundles can be specified in 2 different ways:
    })
    ```
 
-There a [mini-guide[(/archives/substrate/networks) on how to obtain type bundles for Substrate chains without relying on Subsquid tools.
+There a [mini-guide](/sdk/resources/substrate/types-bundle-miniguide) on how to obtain type bundles for Substrate chains without relying on Subsquid tools.
 
 ### `setPrometheusPort(port: string | number)` {#set-prometheus-port}
 

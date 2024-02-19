@@ -97,7 +97,7 @@ import { EvmBatchProcessor} from '@subsquid/evm-processor'
 // the events object contains typings for all events defined in the ABI
 import { events } from './abi/Gravity'
 
-// the registry of Subsquid-maintained public archives
+// the registry of datasets in the open private Subsquid Network
 import { lookupArchive } from '@subsquid/archive-registry'
 
 export const GRAVATAR_CONTRACT = '0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'.toLowerCase()

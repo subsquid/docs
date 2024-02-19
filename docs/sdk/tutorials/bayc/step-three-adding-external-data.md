@@ -19,7 +19,7 @@ Now that we have a record for each BAYC NFT, let's explore how we can retrieve m
 
 [EIP-721](https://eips.ethereum.org/EIPS/eip-721) suggests that token metadata contracts may make token data available in a JSON referred to by the output of the `tokenURI()` contract function. Upon examining `src/abi/bayc.ts`, we find that the BAYC token contract implements this function. Also, the public ABI has no obvious contract methods that may set token URI or events that may be emitted on its change. In other words, it appears that the only way to retrieve this data is by [querying the contract state](/sdk/resources/tools/typegen/state-queries/).
 
-This requires a RPC endpoint of an archive Ethereum node, but we do not need to add one here: processor will reuse the endpoint we [supplied in part one](../step-one-indexing-transfers/#configuring-the-data-filters) of the tutorial for use in [RPC ingestion](/sdk/overview/#rpc-ingestion).
+This requires a RPC endpoint of an archival Ethereum node, but we do not need to add one here: processor will reuse the endpoint we [supplied in part one](../step-one-indexing-transfers/#configuring-the-data-filters) of the tutorial for use in [RPC ingestion](/sdk/overview/#rpc-ingestion).
 
 The next step is to prepare for retrieving and parsing the metadata proper. For this, we need to understand the protocols used in the URIs and the structure of metadata JSONs. To learn that, we retrieve and inspect some URIs ahead of the main squid sync. The most straightforward way to achieve this is by adding the following to the batch handler:
 ```diff title="src/main.ts"
@@ -193,7 +193,7 @@ URI retrieval here is similar to what we did in the exploration step: we create 
 
 ## Retrieving external resources
 
-In the `fetchTokenMetadata()` implementation we first classify the URIs depending on the protocol. For IPFS links we replace `'ipfs://'` with an address of an IPFS gateway, then retrieve the metadata from all links using a regular HTTPS client. Here for the demonstration purposes we use the public [ipfs.io](https://ipfs.io) gateway, which is slow and prone to dropping requests due to rate-limiting. For production squids we recommend using a dedicated gateway, e.g. from [Filebase](https://docs.filebase.com/ipfs/about-ipfs/ipfs-gateways).
+In the `fetchTokenMetadata()` implementation we first classify the URIs depending on the protocol. For IPFS links we replace `'ipfs://'` with an address of an IPFS gateway, then retrieve the metadata from all links using a regular HTTPS client. Here for the demonstration purposes we use the public [ipfs.io](https://ipfs.io) gateway, which is slow and prone to dropping requests due to rate-limiting. For production squids we recommend using a dedicated gateway, e.g. from [Filebase](https://filebase.com/dedicated-gateways/).
 
 ```typescript
 export async function fetchTokenMetadata(

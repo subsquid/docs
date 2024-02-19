@@ -6,9 +6,9 @@ description: Reference for the archive-registry package
 
 # `@subsquid/archive-registry`
 
-### Listing the available archives
+### Listing the available datasets
 
-Use the `squid-archive-registry` executable to list aliases for the supported networks:
+Use the `squid-archive-registry` executable to list the datasets for supported networks:
 ```bash
 $ npx squid-archive-registry --help
 Usage: run [options]
@@ -33,7 +33,7 @@ npx --yes -p @subsquid/archive-registry squid-archive-registry -t evm
 interface LookupOptions {
   type?: 'Substrate' | 'EVM'
   genesis?: string // Network genesis hex string (must start with "0x...")
-  release?: 'FireSquid' | 'ArrowSquid' // Archive release
+  release?: 'FireSquid' | 'ArrowSquid' // dataset API release
   // plus some extra Substrate-only fields for technical use
 }
 ```

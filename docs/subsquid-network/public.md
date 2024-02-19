@@ -49,9 +49,9 @@ A single account can register multiple workers.
 
 Start your first squid indexer in 5 minutes! Learn more [here](/sdk/how-to-start/squid-development/#templates).
 
-### What is a Subsquid Archive?
+### What kind of datasets are available from Subsquid Network?
 
-Archive is a specialized data lake for on-chain data, optimized for batch data access. The Archive API is meant to be used as a data source for Squid SDK processors. All the Archives together, with the network of worker nodes, form the Subsquid Decentralized Data Lake.
+Historical blockchain data optimized for batch access. Network API is used by Squid SDK processors to access the datasets.
 
 ### What chains are currently supported by Subsquid’s decentralized data lake and SDK?
 

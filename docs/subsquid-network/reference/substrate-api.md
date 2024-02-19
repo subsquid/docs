@@ -10,10 +10,10 @@ description: Access the data of Substrate blockchains
 The Substrate API of Subsquid Network is currently in beta. Breaking changes may be introduced in the future releases.
 :::
 
-Since the ArrowSquid release, Subsquid Archive API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. The main archive URL now points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
+Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. The main dataset URL now points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
 
-1. Retrieve the archive height from the router with `GET /height`.
-2. Query the archive for an URL of a worker that has the data for the first block of the relevant range with `GET /${firstBlock}/worker`.
+1. Retrieve the dataset height from the router with `GET /height`.
+2. Query the router for an URL of a worker that has the data for the first block of the relevant range with `GET /${firstBlock}/worker`.
 3. Retrieve the data from the worker with `POST /`, making sure to set the `"fromBlock"` query field to `${firstBlock}`.
 4. Exclude the received blocks from the relevant range by setting `firstBlock` to the value of `header.number` of the last received block.
 5. Repeat steps 2-4 until all the required data is retrieved.
@@ -32,7 +32,7 @@ def get_text(url: str) -> str:
 
 
 def dump(
-    archive_url: str,
+    dataset_url: str,
     query: Query,
     first_block: int,
     last_block: int
@@ -40,12 +40,12 @@ def dump(
     assert 0 <= first_block <= last_block
     query = dict(query)  # copy query to mess with it later
 
-    archived_height = int(get_text(f'{archive_url}/height'))
+    dataset_height = int(get_text(f'{dataset_url}/height'))
     next_block = first_block
-    last_block = min(last_block, archived_height)
+    last_block = min(last_block, dataset_height)
 
     while next_block <= last_block:
-        worker_url = get_text(f'{archive_url}/{next_block}/worker')
+        worker_url = get_text(f'{dataset_url}/{next_block}/worker')
 
         query['fromBlock'] = next_block
         query['toBlock'] = last_block
@@ -66,7 +66,7 @@ Full code [here](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a
 
 <details>
 
-<summary><code>GET</code> <code><b>/height</b></code> <code>(get height of the archive)</code></summary>
+<summary><code>GET</code> <code><b>/height</b></code> <code>(get height of the dataset)</code></summary>
 
 **Example response:** `16576911`.
 
@@ -92,8 +92,8 @@ The returned worker will be capable of processing `POST /` requests in which the
 
 - **type**: `"substrate"`
 - **fromBlock**: Block number to start from (inclusive).
-- **toBlock**: (optional) Block number to end on (inclusive). If this is not given, the query will go on for a fixed amount of time or until it reaches the height of the archive.
-- **includeAllBlocks**: (optional) If true, the archive will include blocks that contain no data selected by data requests into its response.
+- **toBlock**: (optional) Block number to end on (inclusive). If this is not given, the query will go on for a fixed amount of time or until it reaches the height of the dataset.
+- **includeAllBlocks**: (optional) If true, Subsquid Network workers will include blocks that contain no data selected by data requests into their responses.
 - **fields**: (optional) A [selector](#data-fields-selector) of data fields to retrieve. Common for all data items.
 - **events**: (optional) A list of [event requests](#events).
 - **calls**: (optional) A list of [call requests](#calls).

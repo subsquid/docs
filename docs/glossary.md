@@ -4,25 +4,34 @@ sidebar_position: 120
 
 # Glossary
 
-### Archive
+### Archives
 
-A data source for squids that stores the historical block data in a normalized way. See [Archives](/subsquid-network/overview).
+Deprecated term used for [Subsquid Network](/subsquid-network) and for the [data sourcing service](/firesquid/archives) of the deprecated FireSquid SDK version. Occasionally refers to a specific dataset available from either source (e.g. "Ethereum archive"). The new terminology is:
+
+ - "Archives" as an abstract collection of services for some networks is replaced by "[Subsquid Network](/subsquid-network)" (when referring to data location) or "Subsquid Network gateway" (when referring to the service)
+ - "public Archives" are replaced by the [open private version](/subsquid-network/overview/#open-private-network) of Subsquid Network
+ - "an archive" for a particular network is replaced by "a Subsquid Network dataset"
+ - "an archive endpoint" becomes "a dataset endpoint"
+
+Lists of dataset endpoints for open private Subsquid Network are available in these docs ([EVM](/subsquid-network/reference/evm-networks), [Substrate](/subsquid-network/reference/substrate-networks)) and via the [`@subsquid/archive-registry` package](/subsquid-network/reference/registry).
+
+**Not to be confused with [archive blockchain nodes](https://ethereum.org/developers/docs/nodes-and-clients/archive-nodes)**.
 
 ### Cloud (former Aquarium)
 
-A cloud service to deploy and run squids in a serverless fashion maintained by Subsquid Labs GmbH. See [Deploy a Squid](/cloud)
+A [cloud service](/cloud) for deploying [squids](#squid) in a serverless fashion maintained by Subsquid Labs GmbH.
 
 ### Block
 
-A set of external transactions and execution logs that defines an atomic state transition of the chain. The chain blocks have a well-defined structure and are partially ordered by the hash references. See more details in the [Substrate docs](https://docs.substrate.io/fundamentals/transaction-types/)
+An atomic state transition of a blockchain. Typically an ordered collection of transactions.
 
 ### Call
 
-A call is a sub-routine changing the runtime state. An extrinsic consists of a root call which in turn may have sub-calls, thus calls executed by an extrinsic have parent-child relationship. For example, `util.batch` extrinsic has a single root call and multiple child calls. Subsquid processor is call-based rather than extrinsic based, as normally one is interested in specific calls changing the substrate state, no matter if it was part of a batch extrinsic, or it was wrapped in a sudo or proxy call. 
+On [Substrate](#substrate), a call is a sub-routine changing the runtime state. An extrinsic consists of a root call which in turn may have sub-calls, thus calls executed by an extrinsic have parent-child relationship. For example, `util.batch` extrinsic has a single root call and multiple child calls. Subsquid processor is call-based rather than extrinsic based, as normally one is interested in specific calls changing the substrate state, no matter if it was part of a batch extrinsic, or it was wrapped in a sudo or proxy call. 
 
 ### Contracts pallet
 
-A pallet developed by Parity to execute WASM-based smart contracts. 
+[`Contracts`](https://substrate-developer-hub.github.io/substrate-how-to-guides/docs/pallet-design/add-contracts-pallet/) is a [pallet](#pallet) developed by Parity to execute WASM-based smart contracts. 
 
 ### ETL
 
@@ -30,7 +39,7 @@ Stands for Extract-Transform-Load. A pipeline to extract data from the source, e
 
 ### Event
 
-A structured log message emitted by the Substrate runtime and stored on-chain as part of the block data.
+An operation performed during a blockchain state transition that results in emission of a structured log message. Subsequently, the message can be retrieved from blockchain nodes.
 
 ### EVM
 
@@ -38,77 +47,82 @@ Stands for the Ethereum Virtual Machine. An instruction set and the runtime spec
 
 ### Extrinsic
 
-A generalized transaction externally submitted to a Substrate runtime for execution. There are [technical nuances](https://substrate.stackexchange.com/questions/2248/is-a-transaction-an-extrinsic) differentiating transactions and extrinsics.
+On [Substrate](#substrate), a generalized transaction externally submitted to a Substrate runtime for execution. There are [technical nuances](https://substrate.stackexchange.com/questions/2248/is-a-transaction-an-extrinsic) differentiating transactions and extrinsics.
 
 ### FRAME pallets
 
-A collection of standard Substrate pallets maintained by Parity. Currently kept in the [Substrate Repo](https://github.com/paritytech/substrate/tree/master/frame)
+A collection of standard [Substrate](#substrate) pallets maintained by Parity. Currently kept in the [Substrate Repo](https://github.com/paritytech/substrate/tree/master/frame).
 
-### Frontier palette
+### Frontier pallet
 
-A Substrate palette implementing the Ethereum Virtual Machine. In particular, Substrate chains with a Frontier palette support EVM-based smart contracts. See [Parity Tech Docs page](https://paritytech.github.io/frontier/frame/evm.html)
+[Frontier](https://github.com/polkadot-evm/frontier) is a [Substrate](#substrate) [pallet](#pallet) implementing the [Ethereum Virtual Machine](#evm). In particular, Substrate chains with Frontier pallet support EVM-based smart contracts.
 
 ### GraphQL
 
-A declarative query language and an API specification developed by Facebook as an alternative to REST. See the official [GraphQL docs](https://graphql.org/) for more details.
+A declarative query language and an API specification language developed by Facebook as an alternative to REST. See the official [GraphQL docs](https://graphql.org/) for more details.
 
 ### ink!
 
-An SDK (software development kit) and a smart-contract language for developing WASM-based smart contracts, maintained by Parity. The contracts developed with ink! are compiled into a WASM blob compatible with the API exposed by the `Contracts` pallet. More details [here](https://paritytech.github.io/ink/)
+An SDK (software development kit) and a smart-contract language for developing WASM-based smart contracts, maintained by Parity. The contracts developed with ink! are compiled into a WASM blob compatible with the API exposed by the [`Contracts` pallet](#contracts-pallet). More details [here](https://use.ink).
 
 ### OpenReader
 
-An open-source GraphQL server that automatically generates an expressive API from an input schema file. See the [repo](https://github.com/subsquid/squid/tree/master/openreader) and [details](/sdk/resources/graphql-server).
+An open-source GraphQL server that automatically generates an expressive API from an input schema file.
+* [GitHub repo](https://github.com/subsquid/squid-sdk/tree/master/graphql/openreader)
+* [Server documentation](/sdk/resources/graphql-server)
+* [Schema dialect reference](/sdk/reference/schema-file)
+* [GraphQL API reference](/sdk/reference/openreader)
 
-### Palette
+### Pallet
 
-A portable module that can be added to the Substrate runtime. Typically, contains a self-contained implementation of a business logic that can be re-used across multiple chains. 
+A portable module that can be added to a [Substrate](#substrate) runtime. Typically, contains a self-contained implementation of a business logic that can be re-used across multiple chains. 
 
 ### Schema file
 
-A file describing the target data schema for a squid, normally called `schema.gql`. The file uses a GraphQL dialect to define entities, properties and relations. See [details here](/sdk/reference/schema-file).
+A file describing the target data schema for a squid, normally called `schema.graphql`. The file uses a GraphQL dialect to define entities, properties and relations. See [details here](/sdk/reference/schema-file).
 
 ### State
 
-A key-value map defining the internal world view of the Substrate runtime in a specific point of time. The consensus algorithm ensures that the honest majority of the nodes agree on the runtime state. 
+A key-value map defining the internal worldview of a EVM contract of a Substrate runtime at a specific point in time. The consensus algorithm ensures that the honest majority of the nodes agree on the runtime state. 
 
 ### Storage
 
-A persistent key-value database kept by the Substrate nodes. It is used to access the current and historical state. See details on the [Substrate docs page](https://docs.substrate.io/fundamentals/state-transitions-and-storage/)
+On [Substrate](#substrate), a persistent key-value database kept by the chain nodes. It is used to access the current and historical [state](#state). See details on the [Substrate docs page](https://docs.substrate.io/fundamentals/state-transitions-and-storage/)
 
 ### Squid
 
-A project consisting for an ETL for extracting and transforming on-chain data (squid processor), and an API to present the target (squid API)
+A project consisting of an [ETL](#etl) for extracting and transforming on-chain data (squid processor), and optionally an API to present the data (squid API).
 
 ### Squid processor
 
-The ETL part of the squid. Extracts on-chain data from an Archive, transforms, optionally enriches with external data and saves into a target database.
+The [ETL](#etl) part of the squid. Extracts on-chain data from an [Subsquid Network](/subsquid-network) dataset and/or directly from chain RPC, then transforms and optionally enriches it with external data. Saves the result into a target [data sink](/sdk/reference/store).
 
 ### Squid API
 
-The data presentation part of the squid. Typically, it's a GraphQL API auto-generated from the schema file. See details [here](/sdk/resources/graphql-server).
+The data presentation part of the squid. Typically, it's an [OpenReader](#openreader) GraphQL API auto-generated from a schema file.
 
 ### Substrate
 
-A framework for developing blockchain runtimes. Used to develop the Polkadot, Kusama chains and all the parachains.
+[Substrate](https://substrate.io) is a framework for developing blockchain runtimes. Used to develop the Polkadot, Kusama chains and all the parachains.
 
 ### Substrate Runtime
 
-The code run by the chain nodes that defines the state transitions. The runtime defines the business logic of the chain. See details on the [Substrate docs page](https://docs.substrate.io/fundamentals/architecture/).
+The code that defines the state transition logic of a blockchain, and by extention its business logic. See details on the [Substrate docs page](https://docs.substrate.io/fundamentals/architecture/).
 
-### Subsquid SDK
+### Squid SDK
 
-A collection of open-source libraries to build squids.
+[Squid SDK](/sdk) is a collection of open-source libraries for building [squids](#squid).
 
 ### Typegen
 
 A tool generating strongly typed data access classes from a metadata in some format. Subsquid SDK includes typegen tools:
-- for accessing event, extrinsics and storage data based on the substrate metadata. See [Substrate typegen[(/sdk/tutorials/batch-processor-in-action)
-- for accessing EVM smart contract data based on the contract ABI. See [EVM typegen[(/sdk/reference/typegen/state-queries)
-- for accessing ink! smart contract data based on the contract metadata. See [ink! typegen](https://github.com/subsquid/squid-sdk/tree/master/substrate/ink-typegen)
 
-[//]: # (!!!! Update the link above once ArrowSquid for Substrate is released)
+- for accessing EVM smart contract data based on the contract ABI
+- for accessing event, extrinsics and storage data based on [Substrate](#substrate) metadata
+- for accessing [ink!](#ink) smart contract data based on the contract metadata
+
+See [this section](/sdk/resources/tools/typegen) for documentation on these tools.
 
 ### WASM
 
-A portable binary code format and the execution environment specification. WASM programs enjoy deterministic outputs and near-native execution speeds, which makes WASM an attractive alternative to EVM.
+A portable binary code format and an execution environment specification. WASM programs enjoy deterministic outputs and near-native execution speeds, which makes WASM an attractive alternative to EVM.

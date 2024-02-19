@@ -30,7 +30,7 @@ export const MoonbeamTooltip = ({children, tip}) => (
 
 ## From open private network
 
-This page lists the public EVM ArrowSquid/v2 available from the [open private network](/subsquid-network/overview/#open-private-network). If you are developing a squid, use the `lookupArchive` function available from [@subsquid/archive-registry](/subsquid-network/reference/registry) to get dataset URLs to be used with the [`setGateway()`](/sdk/reference/processors/evm-batch/general/#set-gateway) `EvmBatchProcessor` configuration method.
+This page lists the public EVM datasets available from the [open private network](/subsquid-network/overview/#open-private-network). If you are developing a squid, use the `lookupArchive` function available from [@subsquid/archive-registry](/subsquid-network/reference/registry) to get dataset URLs to be used with the [`setGateway()`](/sdk/reference/processors/evm-batch/general/#set-gateway) `EvmBatchProcessor` configuration method.
 
 | Network                 | State diffs | Traces | Lookup command                                |
 |:-----------------------:|:-----------:|:------:|:---------------------------------------------:|
@@ -89,7 +89,7 @@ This page lists the public EVM ArrowSquid/v2 available from the [open private ne
 | zora-mainnet            | ✓           | ✓      | `lookupArchive('zora-mainnet')`               |
 | zora-goerli             | ✓           | ✓      | `lookupArchive('zora-goerli')`                |
 
-(*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate archive](/subsquid-network/reference/substrate-networks).
+(*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate dataset](/subsquid-network/reference/substrate-networks).
 
 (!) Genesis block for `neon-devnet` is 177455580.
 
@@ -104,7 +104,7 @@ const processor = new EvmBatchProcessor()
   // 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
   .setGateway(lookupArchive('eth-mainnet'))
 ```
-Explicit Archive endpoints:
+Explicit dataset endpoints:
 ```typescript
 const processor = new EvmBatchProcessor()
   .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
@@ -114,7 +114,7 @@ const processor = new EvmBatchProcessor()
 
 Here are the raw dataset URLs (retrieved 2024-02-15):
 
-| Network                 | Archive endpoint URL                                           |
+| Network                 | Dataset endpoint URL                                           |
 |:-----------------------:|:--------------------------------------------------------------:|
 | arbitrum                | https://v2.archive.subsquid.io/network/arbitrum-one            |
 | arbitrum-goerli         | https://v2.archive.subsquid.io/network/arbitrum-goerli         |

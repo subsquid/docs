@@ -35,4 +35,4 @@ Edit the [postgres addon](/cloud/reference/pg) section of `squid.yaml` and reque
 
 ### My squid is behind the chain, but is shows that it is in sync
 
-Check that your processor uses both `archive:` and `chain:` data sources. 
+Check that your processor uses both a RPC endpoint as one of its data sources (in addition to a Subsquid Network dataset).
