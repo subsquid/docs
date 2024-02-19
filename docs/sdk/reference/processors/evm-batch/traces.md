@@ -17,6 +17,7 @@ Subscribe to [execution traces](https://geth.ethereum.org/docs/interacting-with-
 {
   // data requests
   callTo?: string[]
+  callFrom?: string[]
   callSighash?: string[]
   createFrom?: string[]
   rewardAuthor?: string[]
@@ -32,6 +33,7 @@ Subscribe to [execution traces](https://geth.ethereum.org/docs/interacting-with-
 The data requests here are:
 + `type`: get traces of types from this set. Allowed types are `'create' | 'call' | 'suicide' | 'reward'`.
 + `callTo`: get `call` traces *to* the addresses in this set.
++ `callFrom`: get `call` traces *from* the addresses in this set.
 + `callSighash`: get `call` traces with signature hashes in this set.
 + `createFrom`: get `create` traces *from* the addresses in this set.
 + `rewardAuthor`: get `reward` traces where block authors are in this set.
