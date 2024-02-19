@@ -17,7 +17,7 @@ Developing and running [subgraphs](https://thegraph.com/docs/en/glossary/) is ha
 
 **Subsquid Firehose** is an open-source lightweight adapter run as a side-car to a graph indexer node, ingesting and filtering the data directly from Subsquid Network instead of an RPC endpoint. However, since the network does not provide the real-time blocks, the most recent and unfinalized blocks are (optionally) ingested from a complementary RPC endpoint in a seamless way.
 
-It is possible to run subgraphs against both a production-ready permissioned Subsquid Network instance (formerly known as Subsquid Archives) and a decentralized testnet (see [Subsquid Network Overview](/subsquid-network/overview) to learn more about the difference). 
+Currently it is only possible to run subgraphs against a production-ready [permissioned Subsquid Network instance](/subsquid-network/overview/#open-private-network) (formerly known as Subsquid Archives). Running against the decentralized Subsquid Network is scheduled to be supported in Q2 2024 (see [Subsquid Network Overview](/subsquid-network/overview) to learn more about the difference).
 
 The easiest way to run a subgraph with Subsquid Firehose to use our [graph-node-setup](https://github.com/subsquid-labs/graph-node-setup) repo. Here's how:
 
@@ -40,6 +40,10 @@ The easiest way to run a subgraph with Subsquid Firehose to use our [graph-node-
    Optionally you can also provide an RPC endpoint. If you do, it will be used to sync a few thousands of blocks at the chain end, so it does not have to be a paid one. However, `firehose-grpc` does not limit its request rate yet, so using a public RPC might result in a cooldown.
 
    If you do not provide an RPC endpoint, your subgraph deployments will be a few thousands of blocks behind the chain head.
+
+   :::warning
+   Running against the decentralized testnet is not currently supported. This feature will be re-enabled in Q2 2024.
+   :::
 
 3. Download and deploy your subgraph of choice! For example, if you configured the environment to use Ethereum mainnet (`eth-mainnet`), you can deploy the well known Gravatar subgraph:
    ```bash
