@@ -103,9 +103,9 @@ The results will be stored at `src/abi`. One module will be generated for each A
 
 ## Processor object and the batch handler
 
-Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to chain-specific [Subsquid archives](/subsquid-network/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to [Subsquid Network](/subsquid-network/overview) gateways at chain-specific URLs, to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-`SubstrateBatchProcessor`s [expose methods](/sdk/reference/processors/substrate-batch) that "subscribe" them to specific data such as Substrate events and calls. There are also [specialized methods](/sdk/resources/substrate/frontier-evm) for subscribing to EVM logs and transactions by address. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Archive for [*batches*](/sdk/resources/basics/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the Archive.
+`SubstrateBatchProcessor`s [expose methods](/sdk/reference/processors/substrate-batch) that "subscribe" them to specific data such as Substrate events and calls. There are also [specialized methods](/sdk/resources/substrate/frontier-evm) for subscribing to EVM logs and transactions by address. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Subsquid Network gateway for [*batches*](/sdk/resources/basics/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the gateway.
 
 It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 
@@ -148,7 +148,7 @@ contractMapping.set(astarCatsAddress, new Contract({
 
 The `src/processor.ts` file is where squids instantiate and configure their processor objects. We will use an instance of [`SubstrateBatchProcessor`](/sdk).
 
-We adapt the template code to handle two contracts instead of one and point the processor data source setting to the `astar` archive URL retrieved from the [archive registry](https://github.com/subsquid/archive-registry). Here is the end result:
+We adapt the template code to handle two contracts instead of one and point the processor data source setting to the `astar` Subsquid Network dataset URL retrieved with [`@subsquid/archive-registry`](/subsquid-network/reference/registry). Here is the end result:
 
 ```ts title="src/processor.ts"
 import {assertNotNull} from '@subsquid/util-internal'

@@ -26,7 +26,7 @@ We do provide enterprise discounts. If your use case requires a lot of resources
 
 ## Pay-as-you-go prices
 
-The pricing is based solely on the resources consumed by the squid, as the archive data is provided free of charge. 
+The pricing is based solely on the resources consumed by the squid, as the Subsquid Network data is provided free of charge. 
 The total squid price is the sum of compute and database storage prices.
 
 Data egress is not billed.
@@ -88,7 +88,7 @@ We align with the [SLAs of the Google Cloud Platform](https://cloud.google.com/c
 | 90.00% - < 95.00%       | 25%         |
 | < 90.00%          | 100%       |
 
-Note that the SLA applies only to the provisioning of the Subsquid Cloud services (API availability, provisioning of compute resources) and DOES NOT apply to client code. In particular, if a squid is stuck due to a bug or an upstream Archive/RPC issue, the SLA discounts don't apply. Similarly, the client is responsible for provisioning compute profiles adequate to the expected traffic.
+Note that the SLA applies only to the provisioning of the Subsquid Cloud services (API availability, provisioning of compute resources) and DOES NOT apply to client code. In particular, if a squid is stuck due to a bug or an upstream Subsquid Network/RPC issue, the SLA discounts don't apply. Similarly, the client is responsible for provisioning compute profiles adequate to the expected traffic.
 
 For Enterprise plan customers, individual SLA terms may be negotiated. 
 

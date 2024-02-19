@@ -8,9 +8,7 @@ description: A step-by-step migration guide for EVM
 
 This is a EVM guide. Substrate guide is available [here](/sdk/resources/migrate/migrate-to-arrowsquid-on-substrate).
 
-ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`. ArrowSquid is not compatible with the FireSquid archive endpoints, and the new `v2` archives are currently released only for a limited set of networks (see the [Supported EVM networks](/subsquid-network/reference/evm-networks/) page).
-
-[//]: # (!!!! add a link to the archives page below)
+ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`. ArrowSquid is not compatible with the FireSquid [archive](/glossary/#archives) endpoints. Instead, it uses [Subsquid Network](/subsquid-network) datasets (see the [Supported EVM networks](/subsquid-network/reference/evm-networks/) page).
 
 The main feature introduced by the ArrowSquid update on EVM is the new ability of the [processor](/sdk/overview) to ingest unfinalized blocks directly from a network node, instead of waiting for the archive to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency.
 
@@ -21,7 +19,7 @@ Another major feature introduced by ArrowSquid is the support for transaction ex
 - Observe smart contract state changes even if they are caused by internal transactions
 - Track smart contract creation and destruction
 
-The `EvmBatchProcessor` configuration and data selection interfaces has been simplified and the way in which the data is fetched from archives has been made more efficient.
+The `EvmBatchProcessor` configuration and data selection interfaces has been simplified and the way in which the data is fetched has been made more efficient.
 
 End-to-end ArrowSquid examples can be found [in the SDK repo](https://github.com/subsquid/squid-sdk/tree/master/test/eth-usdc-transfers) and in the [EVM examples](/sdk/examples) section.
 
@@ -44,7 +42,7 @@ Replace the old `setDataSource()` processor configuration call with a combinatio
 -  .setDataSource({
 -    archive: lookupArchive('eth-mainnet', {release: 'FireSquid'})
 -  })
-+  .setGateway(lookupArchive('eth-mainnet')
++  .setGateway(lookupArchive('eth-mainnet'))
 +  .setRpcEndpoint({
 +    url: '<my_eth_rpc_url>',
 +    rateLimit: 10
@@ -53,7 +51,7 @@ Replace the old `setDataSource()` processor configuration call with a combinatio
 ```
 We recommend using a private RPC endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/). For squids deployed to [Subsquid Cloud](/cloud/overview/) you may also consider using our [RPC proxies](/cloud/reference/rpc-proxy).
 
-Your squid will work without an RPC endpoint, but with a significantly increased chain latency (a few hours for most chains, roughly a day for BSC). If that works for you, you can replace the archive URL without setting an RPC here and skip [Step 7](#step-7) altogether.
+Your squid will work without an RPC endpoint, but with a significantly increased chain latency (a few hours for most chains, roughly a day for BSC). If that works for you, you can use just the Subsquid Network dataset without setting an RPC here and skip [Step 7](#step-7) altogether.
 
 ## Step 3
 
@@ -99,7 +97,7 @@ const processor = new EvmBatchProcessor()
     }
   })
 ```
-Be aware that this operation will not increase the amount of data retrieved from the archive, since previously such coalescence was done under the hood and all fields were retrieved by the processor anyway. In fact, the amount of data should decrease due to a more efficient transfer mechanism employed by ArrowSquid.
+Be aware that this operation will not increase the amount of data retrieved from Subsquid Network, since previously such coalescence was done under the hood and all fields were retrieved by the processor anyway. In fact, the amount of data should decrease due to a more efficient transfer mechanism employed by ArrowSquid.
 
 See the [Field selection](/sdk/reference/processors/evm-batch/field-selection) page for full documentation on field selectors.
 

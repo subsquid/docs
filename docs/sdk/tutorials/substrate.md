@@ -10,7 +10,7 @@ sidebar_position: 40
 
 The goal of this tutorial is to guide you through creating a simple blockchain indexer ("squid") using Squid SDK. In this example we will query the [Crust storage network](https://crust.network). Our objective will be to observe which files have been added and deleted from the network. Additionally, our squid will be able to tell us the groups joined and the storage orders placed by a given account.
 
-We will start with the `substrate` squid template, then go on to run the project, define a schema, and generate TypeScript interfaces. From there, we will be able to interact directly with the Archive, and extract a types bundle from Crust's own library. 
+We will start with the `substrate` squid template, then go on to run the project, define a schema, and generate TypeScript interfaces. From there, we will be able to interact directly with Subsquid Network, using the and the metadata service to get a Crust types bundle.
 
 We expect that experienced software developers should be able to complete this tutorial in around **10-15 minutes**.
 
@@ -119,7 +119,7 @@ We generate these using the [squid-substrate-typegen[(/sdk/tutorials/batch-proce
 2. List all Substrate pallets we will need the data from. For each pallet we list all events, calls, storage items and constants needed.
 
 :::info
-Refer to [this note[(/archives/substrate/networks) if you are unsure what Substrate data to use in your project.
+Refer to [this note](/sdk/resources/substrate/data-sourcing-miniguide) if you are unsure what Substrate data to use in your project.
 :::
 
 Our final `typegen.json` looks like this:
@@ -193,7 +193,7 @@ type Fields = SubstrateBatchProcessorFields<typeof processor>
 export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 ```
 This creates a processor that
- - Uses an Archive as its main data source and a chain RPC for [real-time updates](/sdk/overview/#rpc-ingestion). URL of the Archive endpoint is looked up in the [Archive registry](/subsquid-network/overview/#archive-registry). See [this page](/sdk/reference/processors/substrate-batch/general) for reference;
+ - Uses Subsquid Network as its main data source and a chain RPC for [real-time updates](/sdk/overview/#rpc-ingestion). URL of the Subsquid Network dataset endpoint is looked up with [`@subsquid/archive-registry`](/subsquid-network/reference/registry). See [this page](/sdk/reference/processors/substrate-batch/general) for reference;
  - [Subscribes](/sdk/reference/processors/substrate-batch/data-requests) to `Market.FileSuccess`, `Swork.JoinGroupSuccess` and `Swork.WorksReportSuccess` events emitted at heights starting at 583000;
  - Additionally subscribes to calls that emitted the events and the corresponding extrinsics;
  - [Requests](/sdk/reference/processors/substrate-batch/field-selection) the `hash` data field for all retrieved extrinsics and the `timestamp` field for all block headers.

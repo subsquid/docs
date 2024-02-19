@@ -6,7 +6,7 @@ description: Comparison of Subsquid and The Graph
 
 # Subsquid vs The Graph
 
-[The Graph](https://thegraph.com) is an indexing protocol and framework for EVM chains. In The Graph, indexing projects are called subgraphs. A Graph indexing node is a black-box that executes subgraphs compiled into WASM. The data is sourced directly from the archival blockchain node, and the processed data is stored in a built-in Postgres database.
+[The Graph](https://thegraph.com) is an indexing protocol and framework for EVM chains. In The Graph, indexing projects are called subgraphs. A Graph indexing node is a black-box that executes subgraphs compiled into WASM. The data is sourced directly from an archival blockchain node, and the processed data is stored in a built-in Postgres database.
 
 On the contrary, Subsquid employs a radically open modular architecture with: 
 - a separated layer for efficient data extraction and batch queries ([Subsquid Network](/subsquid-network/))  

@@ -124,13 +124,13 @@ The generated `src/abi/erc20.ts` module defines interfaces to represent WASM dat
 
 ## Define the processor object
 
-Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to chain-specific [Subsquid archives](/subsquid-network/overview) to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to [Subsquid Network](/subsquid-network/overview) datasets at chain-specific URLs to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
 `SubstrateBatchProcessor`s [exposes methods](/sdk/reference/processors/substrate-batch) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor [allows one](/sdk/resources/substrate/ink) to subscribe to such events emitted by a specific contract.
 
 The processor is instantiated and configured at the `src/processor.ts`. Here are the changes we need to make there:
 
-* Change the archive used to `shibuya`.
+* Change the dataset used to `shibuya`.
 * Remove the `addEvent` function call, and add `addContractsContractEmitted` instead, specifying the address of the contract we are interested in. The address should be represented as a hex string, so we need to decode our ss58 address of interest, `XnrLUQucQvzp5kaaWLG9Q3LbZw5DPwpGn69B5YcywSWVr5w`.
 
 Here is the end result:
@@ -189,9 +189,9 @@ export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 
 ## Define the batch handler
 
-Once requested, the events can be processed by calling the `.run()` function that starts generating requests to the Archive for [*batches*](/sdk/resources/basics/batch-processing) of data.
+Once requested, the events can be processed by calling the `.run()` function that starts generating requests to Subsquid Network for [*batches*](/sdk/resources/basics/batch-processing) of data.
 
-Every time a batch is returned by the Archive, it will trigger the callback function, or *batch handler* (passed to `.run()` as second argument). It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
+Every time a batch is returned by the Network, it will trigger the callback function, or *batch handler* (passed to `.run()` as second argument). It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 
 Batch handler is typically defined at the squid processor entry point, `src/main.ts`. Here is one that works for our task:
 

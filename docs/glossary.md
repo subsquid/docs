@@ -4,9 +4,18 @@ sidebar_position: 120
 
 # Glossary
 
-### Archive
+### Archives
 
-Deprecated term for a [Subsquid Network gateway](/subsquid-network/overview). Occasionally used to refer to a specific dataset (e.g. "Ethereum archive") available from the gateway.
+Deprecated term used for [Subsquid Network](/subsquid-network) and for the [data sourcing service](/firesquid/archives) of the deprecated FireSquid SDK version. Occasionally refers to a specific dataset available from either source (e.g. "Ethereum archive"). The new terminology is:
+
+ - "Archives" as an abstract collection of services for some networks is replaced by "[Subsquid Network](/subsquid-network)" (when referring to data location) or "Subsquid Network gateway" (when referring to the service)
+ - "public Archives" are replaced by the [open private version](/subsquid-network/overview/#open-private-network) of Subsquid Network
+ - "an archive" for a particular network is replaced by "a Subsquid Network dataset"
+ - "an archive endpoint" becomes "a dataset endpoint"
+
+Lists of dataset endpoints for open private Subsquid Network are available in these docs ([EVM](/subsquid-network/reference/evm-networks), [Substrate](/subsquid-network/reference/substrate-networks)) and via the [`@subsquid/archive-registry` package](/subsquid-network/reference/registry).
+
+**Not to be confused with [archive blockchain nodes](https://ethereum.org/developers/docs/nodes-and-clients/archive-nodes)**.
 
 ### Cloud (former Aquarium)
 

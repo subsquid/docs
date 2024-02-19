@@ -7,7 +7,7 @@ description: >-
 # Gear support
 
 :::info
-Use `lookupArchive('gear-testnet')` to connect to an Archive for Gear testnet. An Archive for the Gear mainnet will be added in due course when the network is launched.
+Use `lookupArchive('gear-testnet')` to connect to a Subsquid Network dataset for Gear testnet. A dataset for the Gear mainnet will be added in due course when the network is launched.
 :::
 
 Indexing [Gear Network](https://wiki.gear-tech.io/) programs is supported with [`addGearMessageQueued()`](/sdk/reference/processors/substrate-batch/data-requests/#addgearmessagequeued) and [`addGearUserMessageSent()`](/sdk/reference/processors/substrate-batch/data-requests/#addgearusermessagesent) specialized data requests. These subscribe to the events [`Gear.MessageQueued`](https://wiki.gear-tech.io/docs/api/events/#messagequeued) and [`Gear.UserMessageSent`](https://wiki.gear-tech.io/docs/api/events/#usermessagesent) emitted by a specified Gear program.
