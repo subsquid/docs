@@ -15,7 +15,7 @@ Subsquid Network API distributes the requests over a ([potentially decentralized
 1. Retrieve the dataset height from the router with `GET /height`.
 2. Query the router for an URL of a worker that has the data for the first block of the relevant range with `GET /${firstBlock}/worker`.
 3. Retrieve the data from the worker with `POST /`, making sure to set the `"fromBlock"` query field to `${firstBlock}`.
-4. Exclude the received blocks from the relevant range by setting `firstBlock` to the value of `header.number` of the last received block.
+4. Exclude the received blocks from the relevant range by setting `firstBlock` to the value of `header.number` of the last received block plus one.
 5. Repeat steps 2-4 until all the required data is retrieved.
 
 Implementation example:

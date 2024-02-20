@@ -15,7 +15,7 @@ Subsquid Network API distributes the requests over a ([potentially decentralized
 1. Retrieve the dataset height from the router with `GET /height`.
 2. Query the dataset endpoint for an URL of a worker that has the data for the first block of the relevant range with `GET /${firstBlock}/worker`.
 3. Retrieve the data from the worker with `POST /`, making sure to set the `"fromBlock"` query field to `${firstBlock}`.
-4. Exclude the received blocks from the relevant range by setting `firstBlock` to the value of `header.number` of the last received block.
+4. Exclude the received blocks from the relevant range by setting `firstBlock` to the value of `header.number` of the last received block plus one.
 5. Repeat steps 2-4 until all the required data is retrieved.
 
 Main URLs of EVM datasets are available on the [Supported networks page](/subsquid-network/reference/evm-networks/#raw-urls).
@@ -41,7 +41,7 @@ Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e0
    ```bash
    $ curl https://v2.archive.subsquid.io/network/ethereum-mainnet/16000000/worker
    ```
-   Output:
+   Output
    ```
    https://lm02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0
    ```
@@ -55,44 +55,44 @@ Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e0
        "toBlock":18593441,
        "fields":{"transaction":{"hash":true}},
        "transactions":[{"to":["0xd8da6bf26964af9d7eed9e03e53415d37aa96045"]}]
-   }' | python -m json.tool
+   }' | jq
    ```
    Note how the address in the `transactions` data request is lowercased.
 
    Output:
    ```json
    [
-       {
-           "header": {
-               "number": 16000000,
-               "hash": "0x3dc4ef568ae2635db1419c5fec55c4a9322c05302ae527cd40bff380c1d465dd",
-               "parentHash": "0x6f377dc6bd1f3e38b9ceb8c946a88c13211fa3f084622df3ee5cfcd98cc6bb16"
-           },
-           "transactions": []
+     {
+       "header": {
+         "number": 16000000,
+         "hash": "0x3dc4ef568ae2635db1419c5fec55c4a9322c05302ae527cd40bff380c1d465dd",
+         "parentHash": "0x6f377dc6bd1f3e38b9ceb8c946a88c13211fa3f084622df3ee5cfcd98cc6bb16"
        },
-       // ...
-       {
-           "header": {
-               "number": 16027977,
-               "hash": "0x4b332878deb33e963b68c8bbbea60cbca72a88c297b6800eafa82baab497c166",
-               "parentHash": "0x2b979d67d9b03394da336938ee0bcf5aedfdf87e1b5bd574d985aee749eb8b76"
-           },
-           "transactions": [
-               {
-                   "transactionIndex": 96,
-                   "hash": "0xbaede248ec6fce28e9d874f69ea70359bea0107ce9144d6838898674d9d10c8c"
-               }
-           ]
+       "transactions": []
+     },
+     // ...
+     {
+       "header": {
+         "number": 16027977,
+         "hash": "0x4b332878deb33e963b68c8bbbea60cbca72a88c297b6800eafa82baab497c166",
+         "parentHash": "0x2b979d67d9b03394da336938ee0bcf5aedfdf87e1b5bd574d985aee749eb8b76"
        },
-       // ...
-       {
-           "header": {
-               "number": 16031419,
-               "hash": "0x9cc48c9b4ad8dddb1de86a15e30a62ffd48cf9b72930930cfa5167c4e1685d0a",
-               "parentHash": "0x4ec7b4562739032f51e70d26fe5129e571e2bf0348a744c1509f8205f4381696"
-           },
-           "transactions": []
-       }
+       "transactions": [
+         {
+           "transactionIndex": 96,
+           "hash": "0xbaede248ec6fce28e9d874f69ea70359bea0107ce9144d6838898674d9d10c8c"
+         }
+       ]
+     },
+     // ...
+     {
+       "header": {
+         "number": 16031419,
+         "hash": "0x9cc48c9b4ad8dddb1de86a15e30a62ffd48cf9b72930930cfa5167c4e1685d0a",
+         "parentHash": "0x4ec7b4562739032f51e70d26fe5129e571e2bf0348a744c1509f8205f4381696"
+       },
+       "transactions": []
+     }
    ]
    ```
 
@@ -115,7 +115,7 @@ Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e0
        "toBlock":18593441,
        "fields":{"transaction":{"hash":true}},
        "transactions":[{"to":["0xd8da6bf26964af9d7eed9e03e53415d37aa96045"]}]
-   }' | python -m json.tool
+   }' | jq
    ```
    Output is similar to that of step 3.
 
