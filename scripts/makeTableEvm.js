@@ -66,7 +66,7 @@ const mainTableFieldHeaders = {
 const urlsTableFields = ['network', 'url']
 const urlsTableFieldsHeaders = {
 	network: 'Network',
-	url: 'Archive endpoint URL'
+	url: 'Dataset endpoint URL'
 }
 
 function formatTable(rows, fields, fieldsHeaders) {
