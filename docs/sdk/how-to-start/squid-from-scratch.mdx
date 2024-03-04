@@ -126,7 +126,7 @@ To make the indexer, follow these steps:
        .setGateway(lookupArchive('eth-mainnet'))
        .setRpcEndpoint({
          // set RPC endpoint in .env
-         url: process.env.RPC_ETH_HTTP`,
+         url: process.env.RPC_ETH_HTTP,
          rateLimit: 10
        })
        .setFinalityConfirmation(75) // 15 mins to finality
