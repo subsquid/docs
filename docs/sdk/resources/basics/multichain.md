@@ -73,22 +73,27 @@ Also ensure that
 
 ### Handling concurrency
 
-  - The [default isolation level](/sdk/reference/store/typeorm/#typeormdatabase-constructor-arguments) used by `TypeormDatabase` is `SERIALIZABLE`, the most secure and the most restrictive one. Another isolation level commonly used in multichain squids is `READ COMMITTED`, which guarantees that the execution is deterministic for as long as the sets of records that different processors read/write do not overlap.
-  - To avoid overlaps, use per-chain records for volatile data. E.g. if you track account balances across multiple chains you can avoid overlaps by storing the balance for each chain in a different table row.
-  - When you need to combine the records (e.g. get a total of all balaces across chains) use [custom resolvers](/sdk/resources/graphql-server/custom-resolvers) to do it on the GraphQL server side.
-  - It is OK to use cross-chain [entities](/sdk/reference/schema-file/entities) to simplify aggregation. Just don't store any data in them:
-    ```graphql
-    type Account @entity {
-      id: ID! # evm address
-      balances: [Balance!]! @derivedFrom("field": "account")
-    }
+- Cross-chain data dependencies are to be avoided. With the [default isolation level](/sdk/reference/store/typeorm/#typeormdatabase-constructor-arguments) used by `TypeormDatabase`, `SERIALIZABLE`, one of the processors will crash with an error whenever two cross-dependent transactions are submitted to the database simultaneously. It will write the correct data when restarted, but such restarts can impact performance, especially in squids that use many (>5) processors.
 
-    type Balance @entity {
-      id: ID! # chainId + evm address
-      account: Account!
-      value: BigInt!
-    }
-    ```
+- The alternative isolation level is `READ COMMITTED`. At this level data dependencies will not crush the processors, but the execution is not guaranteed to be deterministic unless the sets of records that different processors read/write do not overlap.
+
+- To avoid cross-chain data dependencies, use per-chain records for volatile data. E.g. if you track account balances across multiple chains you can avoid overlaps by storing the balance for each chain in a different table row.
+
+  When you need to combine the records (e.g. get a total of all balaces across chains) use a [custom resolver](/sdk/resources/graphql-server/custom-resolvers) to do it on the GraphQL server side.
+
+- It is OK to use cross-chain [entities](/sdk/reference/schema-file/entities) to simplify aggregation. Just don't store any data in them:
+  ```graphql
+  type Account @entity {
+    id: ID! # evm address
+    balances: [Balance!]! @derivedFrom("field": "account")
+  }
+
+  type Balance @entity {
+    id: ID! # chainId + evm address
+    account: Account!
+    value: BigInt!
+  }
+  ```
 
 ## On [file-store](/sdk/resources/persisting-data/file)
 
