@@ -1,0 +1,81 @@
+---
+sidebar_position: 72
+title: Troubleshooting
+description: Common issues arising when developing squids
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Troubleshooting
+
+Many issues can be resolved by following the [best practices guide](/cloud/resources/best-practices) of Subsquid Cloud.
+
+## Processor
+
+<details>
+<summary>`Error: data out-of-bounds` `ethers` errors on EVM</summary>
+
+* Usually this means that you're using the decoder on the wrong data. Make sure that the decoder receives _only_ the data you intend it to.
+
+  Example: suppose you want to add the processing of a `Mint` event to a squid that is currently processing only `Transfer` events. You change the processor configuration to get the `Mint` events for you, but you forget to sort the events in the batch handler and a data item with a `Mint` event finds its way into a decoder of `Transfer`s.
+
+* Another common source of this error is faulty RPC endpoints. If your EVM processor crashes during RPC ingestion on a log with `'0x'` in its data field, try switching to another RPC provider or, if you are developing locally, to another Ethereum network emulator.
+
+</details>
+
+<details>
+<summary>`BAD_DATA` when using a Multicall contract</summary>
+
+This error can occur for a variety of reasons, but one common cause is choosing a Multicall deployment that is newer than the oldest blocks that have to be indexed. When [batch state queries](/sdk/resources/tools/typegen/state-queries/#batch-state-queries) are performed on historical chain state older than the Multicall deployment, EVM detects that and refuses to run.
+
+Solutions:
+1. Use an older Multicall deployment.
+2. Delay your chain state queries until a later block.
+
+These issues are explored in [Part 4 of the BAYC tutorial](/sdk/tutorials/bayc/step-four-optimizations).
+
+</details>
+
+## Data sinks
+
+<details>
+<summary>`QueryFailedError: relation "..." does not exist`</summary>
+
+It is likely that the generated migrations in the `db/migrations` folder are outdated and do not match the schema file.
+Recreate the migrations from scratch as detailed on [this page](/sdk/resources/persisting-data/typeorm/#updating-after-schema-changes).
+
+</details>
+
+<details>
+<summary>`Query runner already released. Cannot run queries anymore`, or `too late to perform db updates, make sure you haven't forgot to await on db query`</summary>
+
+If your squid [saves its data to a database](/sdk/resources/persisting-data/typeorm), all operations with `ctx.store` are asynchronous. Make sure you `await` on all `store` operations like `upsert`, `update`, `find`, `save` etc.
+
+You may find the [require-await](https://eslint.org/docs/latest/rules/require-await) eslint rule to be helpful.
+
+</details>
+
+<details>
+<summary>`QueryFailedError: invalid byte sequence for encoding "UTF8": 0x00`</summary>
+
+PostgreSQL doesn't support storing `NULL (\0x00)` characters in text fields. Usually the error occurs when a raw bytes string (like `UIntArray` or `Bytes`) is inserted into a `String` field. If this is the case, use hex encoding, e.g. using [`util-internal-hex`](https://github.com/subsquid/squid/tree/master/util/util-internal-hex) library. For addresses, use the [`ss58` encoding library](https://github.com/subsquid/squid/tree/master/ss58).
+
+</details>
+
+## GraphQL
+
+<details>
+<summary>API queries are too slow</summary>
+
+- Make sure all the necessary fields are [indexed](/sdk/reference/schema-file/indexes-and-constraints/)
+- Annotate the schema and [set reasonable limits](/sdk/resources/graphql-server/dos-protection/) for the incoming queries to protect against DoS attacks
+
+</details>
+
+<details>
+<summary>`response might exceed the size limit`</summary>
+
+Make sure the input query has limits set or the entities are decorated with `@cardinality`. We recommend using `XXXConnection` queries for pagination. For configuring limits and max response sizes, see [DoS protection](/sdk/resources/graphql-server/dos-protection/).
+
+</details>

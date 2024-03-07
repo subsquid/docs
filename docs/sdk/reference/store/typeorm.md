@@ -26,8 +26,12 @@ The argument of the `TypeormDatabase` class constructor may have the following f
 Upsert a single or multiple entities to the database. **Does not cascade the upsert to the relations.**
 
 ```ts
-await ctx.store.save([new User({id: 'Bob'}), new User({id: 'Alice'}))])
+await ctx.store.upsert([new User({id: 'Bob'}), new User({id: 'Alice'}))])
 ```
+
+#### **`save(e: E | E[])`** {#save}
+
+Deprecated alias for [`upsert()`](#upsert).
 
 #### **`insert(e: E | E[])`** {#insert}
 

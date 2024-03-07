@@ -6,6 +6,10 @@ description: Subscription types and pay-as-you-go prices
 
 # Subsquid Cloud Pricing
 
+:::tip
+Use our [cost calculator](https://subsquid.io/subsquid-cloud#calculator) if you need a quick estimate
+:::
+
 ## Free squids
 
 Each account gets a playground [organization](/cloud/resources/organizations) where a single free squid can be deployed. Certain limitations apply; check the [playground organization](/cloud/resources/organizations/#playgrounds) section for details.

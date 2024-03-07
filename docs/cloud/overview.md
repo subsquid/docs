@@ -12,6 +12,10 @@ The deployment is managed by the file `squid.yaml` in the root folder of the squ
 - [which services should be deployed](/cloud/reference/manifest/#deploy) for the squid (e.g. postgres, processor, api, RPC proxy)
 - [what resources should be allocated](/cloud/reference/scale) by Cloud for each squid service (only configurable if you deploy to a [Professional organization](/cloud/resources/organizations/#professional-organizations))
 
+:::warning
+Squids are deployed with a collocated profile by default. This is a highly constrained configuration that's only useful when performance is not important (e.g. in development). Use the [dedicated profile](/cloud/reference/scale/#dedicated) for squids running in production.
+:::
+
 :::tip
 Make sure to check our [best practices guide](/cloud/resources/best-practices) before deploying to production!
 :::
