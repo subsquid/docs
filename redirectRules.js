@@ -728,6 +728,18 @@ const urlList = [
         "to": "/sdk/troubleshooting"
     },
     {
+        "from": "/sdk/troubleshooting/processor",
+        "to": "/sdk/troubleshooting"
+    },
+    {
+        "from": "/sdk/troubleshooting/persisting-data",
+        "to": "/sdk/troubleshooting"
+    },
+    {
+        "from": "/sdk/troubleshooting/graphql",
+        "to": "/sdk/troubleshooting"
+    },
+    {
         "from": "/basics",
         "to": "/sdk"
     },
