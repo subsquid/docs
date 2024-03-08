@@ -221,9 +221,13 @@ The rewards are allocated from the rewards pool. Each epoch, the rewards pool un
 
 ### Rewards pool
 
-The `SQD` supply is fixed for the initial pool, and the rewards are distributed from a pool, to which `10%` of the supply is allocated at TGE. The reward pool has a protective mechanism called the health factor, which halves the effective reward rate if the reward pool supply drops below the 6-month average reward. 
+The `SQD` supply is fixed for the initial pool, and the rewards are distributed from a pool, to which `10%` of the supply is allocated at TGE. The reward pool has a protective mechanism which caps the amount of rewards distributed per epoch, and it is subject to change via governance. 
 
-After the initial bootstrapping phase a governance vote should decide on the target inflation rate to replenish the rewards pool with freshly minted tokens based on the already distributed rewards and participation rate.
+During the initial 3-year bootstrapping phase, the reward cap and the total supply of `SQD` is fixed. Afterwards, the reward cap drops significantly until the governance motion concludes on the
+inflation schedule and new tokens are minted to replenish the reward pool.  
+
+Unlike most projects who fix the inflation schedule before the launch, postponing this decision leaves a lot more flexibility and allows the community to analyze the historical 3-year data to make
+and informed decision on the future issuace of `SQD`.
 
 ### Reward rate 
 
@@ -248,14 +252,26 @@ The `WORKER_CAPACITY` is a fixed storage per worker, set to `1Tb`. `CHURN` is a 
 
 The target APR (365-day-based rate) is then calculated as:
 ```
-rAPR = base_apr(u_rate) * D(stake_factor)
+rAPR = MIN(base_apr(u_rate), APR_CAP(total_staked))
 ```
-The `base_apr` is set to `20%` in the balances state and is increased up to `70%` to incentivize more workers to join if the target capacity exceeds the actual one (and decreased otherwise):
+The `base_apr` is projected to be around `20%` in the equilibrium state, when the actual worker capacity matches the desired network capacity, set externally. It is increased up to `70%` to incentivize more workers to join the network until the target capcity is reached:
 
-![image](https://user-images.githubusercontent.com/8627422/256611463-eca7ae21-e26a-47ce-b78d-c1c8d8383205.png)
+![image](https://gist.github.com/assets/8627422/39614ca9-332c-4825-8ef0-5dfb32ece1a2)
 
-The discount factor `D` lowers the final `APY` if more than `25%` of the supply is staked:
-![image](https://user-images.githubusercontent.com/8627422/256610465-386a8cbc-a57d-4575-bbbc-23eff7b8452e.png)
+The `APR_CAP` cut-off is added to cap the total rewards per epoch.
+One defines first
+```
+total_staked = bonded + delegated
+```
+to be the total amount of reward-earning `SQD` locked by workers (`bonded`) and delegators (`delegated`) respescitvely. 
+
+We then define
+
+```
+APR_CAP(total_staked) = 0.3 * INITIAL_POOL_SIZE / total_staked 
+```
+
+It is set so that after the 3 year boostrapping period at most 90% of the initial reward pool is spent.
 
 ### Worker reward rate
 
