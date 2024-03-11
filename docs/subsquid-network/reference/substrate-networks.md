@@ -54,6 +54,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | hydradx              | `lookupArchive('hydradx')`                          | `lookupArchive('hydradx',` `{release: 'ArrowSquid'})`                        |
 | integritee-network   | `lookupArchive('integritee-network')`               | `lookupArchive('integritee-network',` `{release: 'ArrowSquid'})`             |
 | interlay             | `lookupArchive('interlay')`                         | `lookupArchive('interlay',` `{release: 'ArrowSquid'})`                       |
+| invarch-parachain    | not available                                       | `lookupArchive('invarch-parachain',` `{release: 'ArrowSquid'})`              |
 | invarch-tinkernet    | `lookupArchive('invarch-tinkernet')`                | `lookupArchive('invarch-tinkernet',` `{release: 'ArrowSquid'})`              |
 | joystream            | `lookupArchive('joystream')`                        | `lookupArchive('joystream',` `{release: 'ArrowSquid'})`                      |
 | karura               | `lookupArchive('karura')`                           | `lookupArchive('karura',` `{release: 'ArrowSquid'})`                         |
@@ -85,6 +86,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | reef-testnet         | not available                                       | `lookupArchive('reef-testnet',` `{release: 'ArrowSquid'})`                   |
 | robonomics           | `lookupArchive('robonomics')`                       | `lookupArchive('robonomics',` `{release: 'ArrowSquid'})`                     |
 | rococo               | not available                                       | `lookupArchive('rococo',` `{release: 'ArrowSquid'})`                         |
+| rolimec              | not available                                       | `lookupArchive('rolimec',` `{release: 'ArrowSquid'})`                        |
 | shibuya              | `lookupArchive('shibuya')`                          | `lookupArchive('shibuya',` `{release: 'ArrowSquid'})`                        |
 | shiden               | `lookupArchive('shiden')`                           | `lookupArchive('shiden',` `{release: 'ArrowSquid'})`                         |
 | sora                 | `lookupArchive('sora')`                             | `lookupArchive('sora',` `{release: 'ArrowSquid'})`                           |
