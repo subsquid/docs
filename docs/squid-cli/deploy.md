@@ -11,7 +11,7 @@ When invoked by an account with more than one organization, this command may req
 
 Subsquid Cloud users with just one organization can omit this flag.
 
-The command will honor [`.squidignore`](/cloud/reference/squidignore) when sending squid files to the [Cloud](/cloud).
+The command honors [`.squidignore`](/cloud/reference/squidignore) when sending squid files to the [Cloud](/cloud).
 
 ## `sqd deploy SOURCE`
 
