@@ -26,6 +26,16 @@ export const MoonbeamTooltip = ({children, tip}) => (
   </div>
 )
 
+export const BitgertTooltip = ({children, tip}) => (
+  <div class="group relative">
+    <div class={`pointer-events-auto absolute -top-9 -left-3 w-max opacity-0 transition-opacity group-hover:opacity-100`}>
+      <div>up to block</div>
+      <div>4298094</div>
+    </div>
+    <span class="underline decoration-dotted">{children}</span>
+  </div>
+)
+
 # EVM datasets
 
 ## From open private network
@@ -50,7 +60,7 @@ This page lists the public EVM datasets available from the [open private network
 | binance-testnet         |             |        | `lookupArchive('binance-testnet')`            |
 | blast-l2-mainnet        | ✓           | ✓      | `lookupArchive('blast-l2-mainnet')`           |
 | blast-sepolia           |             |        | `lookupArchive('blast-sepolia')`              |
-| bitgert-mainnet         | ✓           | ✓      | `lookupArchive('bitgert-mainnet')`            |
+| bitgert-mainnet         | <BitgertTooltip>?</BitgertTooltip> | ✓      | `lookupArchive('bitgert-mainnet')`            |
 | dfk-chain               |             |        | `lookupArchive('dfk-chain')`                  |
 | dogechain-mainnet       |             |        | `lookupArchive('dogechain-mainnet')`          |
 | eth-mainnet             | ✓           | ✓      | `lookupArchive('eth-mainnet')`                |
