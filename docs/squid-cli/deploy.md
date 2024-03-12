@@ -1,7 +1,7 @@
 `sqd deploy`
 ============
 
-Deploy or update a squid version
+Deploy or update a squid version.
 
 Squid name and version are taken from the provided deployment manifest.
 
@@ -10,6 +10,8 @@ Squid name and version are taken from the provided deployment manifest.
 When invoked by an account with more than one organization, this command may require specifying an [organization](/cloud/resources/organizations) with the `-o/--org` flag. The organization has to be specified when deploying a new squid, but can be omitted when deploying a new version of an existing squid.
 
 Subsquid Cloud users with just one organization can omit this flag.
+
+The command will honor [`.squidignore`](/cloud/reference/squidignore) when sending squid files to the [Cloud](/cloud).
 
 ## `sqd deploy SOURCE`
 
