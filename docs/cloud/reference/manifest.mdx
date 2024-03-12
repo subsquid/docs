@@ -38,6 +38,7 @@ Specifies the way the squid is built into a docker image.
 |:-----------------:|:-----------------------------:|----------------------:|
 | `node_version`    | `18 \| 20 \| 21`              | `20`                  |
 | `package_manager` | `auto \| npm \| pnpm \| yarn` | `auto`                |
+| [`install`](#install) | list                      |                       |
 
 For a successful build the following files and folders **must** be present in the root folder of the squid:
 
@@ -51,6 +52,17 @@ The `db` and `assets` folders are added to the build context if present in the s
 Under the hood, Cloud builds a Docker image and runs a docker container for each service (`api`, `processor`, `migrate`) using the same image.
 See [Self-hosting](/sdk/resources/basics/self-hosting) for instructions on how to build and run the Docker image locally.
 Even though the squid services (`api`, `processor`, `migrate`) use the same single container image, the exec command is different and can is defined by the `deploy:` section as explained below.
+
+### `install:`
+
+Enables overriding the dependencies installation command, e.g.
+```yaml
+build:
+  install:
+    - npm
+    - install
+```
+The default is to use a shrinkwrap-based installation command appropriate for the detected package manager (e.g. `npm ci`).
 
 ## `deploy:`
 
