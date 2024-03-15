@@ -50,8 +50,6 @@ deploy:
 | Polygon zkEVM Testnet   | `polygon-zkevm-testnet:http` |
 | Shiden Shibuya          | `shibuya:http`               |
 | Shiden Mainnet          | `shiden:http`                |
-| StarkNet Mainnet        | `starknet:http`              |
-| Sui Testnet             | `sui-testnet:http`           |
 
 </details>
 
