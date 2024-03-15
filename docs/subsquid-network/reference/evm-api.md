@@ -390,7 +390,7 @@ Addresses in all data requests must be in lowercase. All addresses in the respon
   transaction: boolean
 }
 ```
-A log will be included in the response if it matches all the requests. An empty array matches no logs; omitted or `null` request matches any log. See [EVM logs](/sdk/reference/processors/evm-batch/logs) for a detailed description of data request fields.
+A log will be included in the response if it matches all the requests. An empty array matches no logs; omit all requests to match all logs. See [EVM logs](/sdk/reference/processors/evm-batch/logs) for a detailed description of data request fields.
 
 ### Transactions
 
@@ -404,7 +404,7 @@ A log will be included in the response if it matches all the requests. An empty 
   stateDiffs: boolean
 }
 ```
-A transaction will be included in the response if it matches all the requests. An empty array matches no transactions; omitted or `null` request matches any transaction. See [EVM transactions](/sdk/reference/processors/evm-batch/transactions) for a detailed description of data request fields.
+A transaction will be included in the response if it matches all the requests. An empty array matches no transactions; omit all requests to match all transactions. See [EVM transactions](/sdk/reference/processors/evm-batch/transactions) for a detailed description of data request fields.
 
 ### Traces
 
@@ -421,7 +421,7 @@ A transaction will be included in the response if it matches all the requests. A
   subtraces: boolean
 }
 ```
-A trace will be included in the response if it matches all the requests. An empty array matches no traces; omitted or `null` request matches any trace. See [Traces](/sdk/reference/processors/evm-batch/traces) for a detailed description of data request fields.
+A trace will be included in the response if it matches all the requests. An empty array matches no traces; omit all requests to match all traces. See [Traces](/sdk/reference/processors/evm-batch/traces) for a detailed description of data request fields.
 
 ### State diffs
 
@@ -433,7 +433,7 @@ A trace will be included in the response if it matches all the requests. An empt
   transaction: bool
 }
 ```
-A state diff will be included in the response if it matches all the requests. An empty array matches no state diffs; omitted or `undefined` request matches any state diff. See [Storage state diffs](/sdk/reference/processors/evm-batch/state-diffs) for a detailed description of data request fields.
+A state diff will be included in the response if it matches all the requests. An empty array matches no state diffs; omit all requests to match all state diffs. See [Storage state diffs](/sdk/reference/processors/evm-batch/state-diffs) for a detailed description of data request fields.
 
 ## Data fields selector
 
