@@ -73,7 +73,6 @@ The table below lists the currently available public Substrate endpoints to be u
 | pangolin             | `lookupArchive('pangolin')`                         | temporarily unavailable                                                      |
 | pangoro              | `lookupArchive('pangoro')`                          | temporarily unavailable                                                      |
 | peaq                 | `lookupArchive('peaq')`                             | temporarily unavailable                                                      |
-| peaq-parachain       | not available                                       | `lookupArchive('peaq-parachain',` `{release: 'ArrowSquid'})`                 |
 | pendulum             | `lookupArchive('pendulum')`                         | `lookupArchive('pendulum',` `{release: 'ArrowSquid'})`                       |
 | phala-testnet        | not available                                       | `lookupArchive('phala-testnet',` `{release: 'ArrowSquid'})`                  |
 | phala                | `lookupArchive('phala')`                            | `lookupArchive('phala',` `{release: 'ArrowSquid'})`                          |
