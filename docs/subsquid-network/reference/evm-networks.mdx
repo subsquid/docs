@@ -50,6 +50,7 @@ This page lists the public EVM datasets available from the [open private network
 | arbitrum-sepolia        | ✓           | ✓      | `lookupArchive('arbitrum-sepolia')`           |
 | astar (*)               |             |        | `lookupArchive('astar',` `{type: 'EVM'})`     |
 | astar-zkatana           |             |        | `lookupArchive('astar-zkatana')`              |
+| astar-zkevm-mainnet     |             |        | `lookupArchive('astar-zkevm-mainnet')`        |
 | avalanche               | ✓           | ✓      | `lookupArchive('avalanche')`                  |
 | avalanche-testnet       | ✓           | ✓      | `lookupArchive('avalanche-testnet')`          |
 | base-mainnet            | ✓           | ✓      | `lookupArchive('base-mainnet')`               |
@@ -61,6 +62,7 @@ This page lists the public EVM datasets available from the [open private network
 | blast-l2-mainnet        | ✓           | ✓      | `lookupArchive('blast-l2-mainnet')`           |
 | blast-sepolia           |             |        | `lookupArchive('blast-sepolia')`              |
 | bitgert-mainnet         | <BitgertTooltip>?</BitgertTooltip> | ✓      | `lookupArchive('bitgert-mainnet')`            |
+| bitgert-testnet         |             | ✓      | `lookupArchive('bitgert-testnet')`            |
 | dfk-chain               |             |        | `lookupArchive('dfk-chain')`                  |
 | dogechain-mainnet       |             |        | `lookupArchive('dogechain-mainnet')`          |
 | eth-mainnet             | ✓           | ✓      | `lookupArchive('eth-mainnet')`                |
@@ -127,7 +129,7 @@ const processor = new EvmBatchProcessor()
 
 ### Raw URLs
 
-Here are the raw dataset URLs (retrieved 2024-03-11):
+Here are the raw dataset URLs (retrieved 2024-03-20):
 
 | Network                 | Dataset endpoint URL                                           |
 |:-----------------------:|:--------------------------------------------------------------:|
@@ -137,6 +139,7 @@ Here are the raw dataset URLs (retrieved 2024-03-11):
 | arbitrum-sepolia        | https://v2.archive.subsquid.io/network/arbitrum-sepolia        |
 | astar                   | https://v2.archive.subsquid.io/network/astar-mainnet           |
 | astar-zkatana           | https://v2.archive.subsquid.io/network/astar-zkatana           |
+| astar-zkevm-mainnet     | https://v2.archive.subsquid.io/network/astar-zkevm-mainnet     |
 | avalanche               | https://v2.archive.subsquid.io/network/avalanche-mainnet       |
 | avalanche-testnet       | https://v2.archive.subsquid.io/network/avalanche-testnet       |
 | base-mainnet            | https://v2.archive.subsquid.io/network/base-mainnet            |
@@ -148,6 +151,7 @@ Here are the raw dataset URLs (retrieved 2024-03-11):
 | blast-l2-mainnet        | https://v2.archive.subsquid.io/network/blast-l2-mainnet        |
 | blast-sepolia           | https://v2.archive.subsquid.io/network/blast-sepolia           |
 | bitgert-mainnet         | https://v2.archive.subsquid.io/network/bitgert-mainnet         |
+| bitgert-testnet         | https://v2.archive.subsquid.io/network/bitgert-testnet         |
 | dfk-chain               | https://v2.archive.subsquid.io/network/dfk-chain               |
 | dogechain-mainnet       | https://v2.archive.subsquid.io/network/dogechain-mainnet       |
 | eth-mainnet             | https://v2.archive.subsquid.io/network/ethereum-mainnet        |
