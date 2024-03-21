@@ -42,69 +42,73 @@ export const BitgertTooltip = ({children, tip}) => (
 
 This page lists the public EVM datasets available from the [open private network](/subsquid-network/overview/#open-private-network). If you are developing a squid, use the `lookupArchive` function available from [@subsquid/archive-registry](/subsquid-network/reference/registry) to get dataset URLs to be used with the [`setGateway()`](/sdk/reference/processors/evm-batch/general/#set-gateway) `EvmBatchProcessor` configuration method.
 
-| Network                 | State diffs | Traces | Lookup command                                |
-|:-----------------------:|:-----------:|:------:|:---------------------------------------------:|
-| arbitrum                |             | ✓      | `lookupArchive('arbitrum')`                   |
-| arbitrum-goerli         |             | ✓      | `lookupArchive('arbitrum-goerli')`            |
-| arbitrum-nova           |             | ✓      | `lookupArchive('arbitrum-nova')`              |
-| arbitrum-sepolia        | ✓           | ✓      | `lookupArchive('arbitrum-sepolia')`           |
-| astar (*)               |             |        | `lookupArchive('astar',` `{type: 'EVM'})`     |
-| astar-zkatana           |             |        | `lookupArchive('astar-zkatana')`              |
-| astar-zkevm-mainnet     |             |        | `lookupArchive('astar-zkevm-mainnet')`        |
-| avalanche               | ✓           | ✓      | `lookupArchive('avalanche')`                  |
-| avalanche-testnet       | ✓           | ✓      | `lookupArchive('avalanche-testnet')`          |
-| base-mainnet            | ✓           | ✓      | `lookupArchive('base-mainnet')`               |
-| base-goerli             |             |        | `lookupArchive('base-goerli')`                |
-| base-sepolia            | ✓           | ✓      | `lookupArchive('base-sepolia')`               |
-| berachain-artio         |             |        | `lookupArchive('berachain-artio')`            |
-| binance                 | ✓           | ✓      | `lookupArchive('binance')`                    |
-| binance-testnet         |             |        | `lookupArchive('binance-testnet')`            |
-| blast-l2-mainnet        | ✓           | ✓      | `lookupArchive('blast-l2-mainnet')`           |
-| blast-sepolia           |             |        | `lookupArchive('blast-sepolia')`              |
-| bitgert-mainnet         | <BitgertTooltip>?</BitgertTooltip> | ✓      | `lookupArchive('bitgert-mainnet')`            |
-| bitgert-testnet         |             | ✓      | `lookupArchive('bitgert-testnet')`            |
-| dfk-chain               |             |        | `lookupArchive('dfk-chain')`                  |
-| dogechain-mainnet       |             |        | `lookupArchive('dogechain-mainnet')`          |
-| eth-mainnet             | ✓           | ✓      | `lookupArchive('eth-mainnet')`                |
-| eth-goerli              | ✓           | ✓      | `lookupArchive('eth-goerli')`                 |
-| eth-holesky             | ✓           | ✓      | `lookupArchive('eth-holesky')`                |
-| eth-sepolia             | ✓           | ✓      | `lookupArchive('eth-sepolia')`                |
-| etherlink-testnet       |             |        | `lookupArchive('etherlink-testnet')`          |
-| exosama                 | ✓           | ✓      | `lookupArchive('exosama')`                    |
-| fantom                  |             |        | `lookupArchive('fantom')`                     |
-| fantom-testnet          |             |        | `lookupArchive('fantom-testnet')`             |
-| flare-mainnet           |             |        | `lookupArchive('flare-mainnet')`              |
-| gnosis-mainnet          | ✓           | ✓      | `lookupArchive('gnosis-mainnet')`             |
-| immutable-zkevm-mainnet |             |        | `lookupArchive('immutable-zkevm-mainnet')`    |
-| immutable-zkevm-testnet |             |        | `lookupArchive('immutable-zkevm-testnet')`    |
-| linea-mainnet           |             | ✓      | `lookupArchive('linea-mainnet')`              |
-| mineplex-testnet        |             | ✓      | `lookupArchive('mineplex-testnet')`           |
-| moonbase (*)            |             |        | `lookupArchive('moonbase',` `{type: 'EVM'})`  |
+| Network                 | State diffs | Traces | Lookup command                                   |
+|:-----------------------:|:-----------:|:------:|:------------------------------------------------:|
+| arbitrum                |             | ✓      | `lookupArchive('arbitrum')`                      |
+| arbitrum-goerli         |             | ✓      | `lookupArchive('arbitrum-goerli')`               |
+| arbitrum-nova           |             | ✓      | `lookupArchive('arbitrum-nova')`                 |
+| arbitrum-sepolia        | ✓           | ✓      | `lookupArchive('arbitrum-sepolia')`              |
+| astar (*)               |             |        | `lookupArchive('astar',` `{type: 'EVM'})`        |
+| astar-zkatana           |             |        | `lookupArchive('astar-zkatana')`                 |
+| astar-zkevm-mainnet     |             |        | `lookupArchive('astar-zkevm-mainnet')`           |
+| avalanche               | ✓           | ✓      | `lookupArchive('avalanche')`                     |
+| avalanche-testnet       | ✓           | ✓      | `lookupArchive('avalanche-testnet')`             |
+| base-mainnet            | ✓           | ✓      | `lookupArchive('base-mainnet')`                  |
+| base-goerli             |             |        | `lookupArchive('base-goerli')`                   |
+| base-sepolia            | ✓           | ✓      | `lookupArchive('base-sepolia')`                  |
+| berachain-artio         |             |        | `lookupArchive('berachain-artio')`               |
+| binance                 | ✓           | ✓      | `lookupArchive('binance')`                       |
+| binance-testnet         |             |        | `lookupArchive('binance-testnet')`               |
+| blast-l2-mainnet        | ✓           | ✓      | `lookupArchive('blast-l2-mainnet')`              |
+| blast-sepolia           |             |        | `lookupArchive('blast-sepolia')`                 |
+| bitgert-mainnet         | <BitgertTooltip>?</BitgertTooltip> | ✓      | `lookupArchive('bitgert-mainnet')` |
+| bitgert-testnet         |             | ✓      | `lookupArchive('bitgert-testnet')`               |
+| dfk-chain               |             |        | `lookupArchive('dfk-chain')`                     |
+| dogechain-mainnet       |             |        | `lookupArchive('dogechain-mainnet')`             |
+| eth-mainnet             | ✓           | ✓      | `lookupArchive('eth-mainnet')`                   |
+| eth-goerli              | ✓           | ✓      | `lookupArchive('eth-goerli')`                    |
+| eth-holesky             | ✓           | ✓      | `lookupArchive('eth-holesky')`                   |
+| eth-sepolia             | ✓           | ✓      | `lookupArchive('eth-sepolia')`                   |
+| etherlink-testnet       |             |        | `lookupArchive('etherlink-testnet')`             |
+| exosama                 | ✓           | ✓      | `lookupArchive('exosama')`                       |
+| fantom                  |             |        | `lookupArchive('fantom')`                        |
+| fantom-testnet          |             |        | `lookupArchive('fantom-testnet')`                |
+| flare-mainnet           |             |        | `lookupArchive('flare-mainnet')`                 |
+| gnosis-mainnet          | ✓           | ✓      | `lookupArchive('gnosis-mainnet')`                |
+| immutable-zkevm-mainnet |             |        | `lookupArchive('immutable-zkevm-mainnet')`       |
+| immutable-zkevm-testnet |             |        | `lookupArchive('immutable-zkevm-testnet')`       |
+| linea-mainnet           |             | ✓      | `lookupArchive('linea-mainnet')`                 |
+| mantle-mainnet          |             |        | `lookupArchive('mantle-mainnet')`                |
+| mantle-sepolia          |             |        | `lookupArchive('mantle-sepolia')`                |
+| metis-mainnet           |             |        | `lookupArchive('metis-mainnet')`                 |
+| mineplex-testnet        |             | ✓      | `lookupArchive('mineplex-testnet')`              |
+| moonbase (*)            |             |        | `lookupArchive('moonbase',` `{type: 'EVM'})`     |
 | moonbeam (*)            |             | <MoonbeamTooltip>?</MoonbeamTooltip> | `lookupArchive('moonbeam',` `{type: 'EVM'})`  |
-| moonriver (*)           |             | ✓      | `lookupArchive('moonriver',` `{type: 'EVM'})` |
-| moonsama (*)            |             |        | `lookupArchive('moonsama')`                   |
-| neon-devnet (!)         |             |        | `lookupArchive('neon-devnet')`                |
-| opbnb-mainnet           |             |        | `lookupArchive('opbnb-mainnet')`              |
-| opbnb-testnet           |             |        | `lookupArchive('opbnb-testnet')`              |
+| moonriver (*)           |             | ✓      | `lookupArchive('moonriver',` `{type: 'EVM'})`    |
+| moonsama (*)            |             |        | `lookupArchive('moonsama')`                      |
+| neon-devnet (!)         |             |        | `lookupArchive('neon-devnet')`                   |
+| opbnb-mainnet           |             |        | `lookupArchive('opbnb-mainnet')`                 |
+| opbnb-testnet           |             |        | `lookupArchive('opbnb-testnet')`                 |
 | optimism-mainnet        | <FromBlockTooltip tip="105235063">✓</FromBlockTooltip> | ✓ | `lookupArchive('optimism-mainnet')` |
 | optimism-goerli         | <FromBlockTooltip tip="4061224">✓</FromBlockTooltip>   | ✓ | `lookupArchive('optimism-goerli')`  |
-| optimism-sepolia        |             |        | `lookupArchive('optimism-sepolia')`           |
-| polygon                 |             |        | `lookupArchive('polygon')`                    |
-| polygon-mumbai          |             |        | `lookupArchive('polygon-mumbai')`             |
-| polygon-zkevm           |             |        | `lookupArchive('polygon-zkevm')`              |
-| polygon-zkevm-testnet   |             |        | `lookupArchive('polygon-zkevm-testnet')`      |
-| scroll-mainnet          |             | ✓      | `lookupArchive('scroll-mainnet')`             |
-| scroll-sepolia          |             | ✓      | `lookupArchive('scroll-sepolia')`             |
-| sepolia                 | ✓           | ✓      | `lookupArchive('sepolia')`                    |
-| shibuya-testnet (*)     |             |        | `lookupArchive('shibuya-testnet')`            |
-| shiden-mainnet (*)      |             |        | `lookupArchive('shiden-mainnet')`             |
-| skale-nebula            |             |        | `lookupArchive('skale-nebula')`               |
-| tanssi                  |             |        | `lookupArchive('tanssi')`                     |
-| x1-testnet              |             |        | `lookupArchive('x1-testnet')`                 |
+| optimism-sepolia        |             |        | `lookupArchive('optimism-sepolia')`              |
+| peaq-mainnet            |             |        | `lookupArchive('peaq-mainnet',` `{type: 'EVM'})` |
+| polygon                 |             |        | `lookupArchive('polygon')`                       |
+| polygon-mumbai          |             |        | `lookupArchive('polygon-mumbai')`                |
+| polygon-zkevm           |             |        | `lookupArchive('polygon-zkevm')`                 |
+| polygon-zkevm-testnet   |             |        | `lookupArchive('polygon-zkevm-testnet')`         |
+| scroll-mainnet          |             | ✓      | `lookupArchive('scroll-mainnet')`                |
+| scroll-sepolia          |             | ✓      | `lookupArchive('scroll-sepolia')`                |
+| sepolia                 | ✓           | ✓      | `lookupArchive('sepolia')`                       |
+| shibuya-testnet (*)     |             |        | `lookupArchive('shibuya-testnet')`               |
+| shiden-mainnet (*)      |             |        | `lookupArchive('shiden-mainnet')`                |
+| skale-nebula            |             |        | `lookupArchive('skale-nebula')`                  |
+| tanssi                  |             |        | `lookupArchive('tanssi')`                        |
+| x1-testnet              |             |        | `lookupArchive('x1-testnet')`                    |
 | zksync-mainnet          |             | <FromBlockTooltip tip="15500000">✓</FromBlockTooltip> | `lookupArchive('zksync-mainnet')` |
-| zksync-sepolia          |             | ✓      | `lookupArchive('zksync-sepolia')`             |
-| zora-mainnet            | ✓           | ✓      | `lookupArchive('zora-mainnet')`               |
-| zora-goerli             | ✓           | ✓      | `lookupArchive('zora-goerli')`                |
+| zksync-sepolia          |             | ✓      | `lookupArchive('zksync-sepolia')`                |
+| zora-mainnet            | ✓           | ✓      | `lookupArchive('zora-mainnet')`                  |
+| zora-goerli             | ✓           | ✓      | `lookupArchive('zora-goerli')`                   |
 
 (*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate dataset](/subsquid-network/reference/substrate-networks).
 
@@ -129,7 +133,7 @@ const processor = new EvmBatchProcessor()
 
 ### Raw URLs
 
-Here are the raw dataset URLs (retrieved 2024-03-20):
+Here are the raw dataset URLs (retrieved 2024-03-22):
 
 | Network                 | Dataset endpoint URL                                           |
 |:-----------------------:|:--------------------------------------------------------------:|
@@ -167,6 +171,9 @@ Here are the raw dataset URLs (retrieved 2024-03-20):
 | immutable-zkevm-mainnet | https://v2.archive.subsquid.io/network/immutable-zkevm-mainnet |
 | immutable-zkevm-testnet | https://v2.archive.subsquid.io/network/immutable-zkevm-testnet |
 | linea-mainnet           | https://v2.archive.subsquid.io/network/linea-mainnet           |
+| mantle-mainnet          | https://v2.archive.subsquid.io/network/mantle-mainnet          |
+| mantle-sepolia          | https://v2.archive.subsquid.io/network/mantle-sepolia          |
+| metis-mainnet           | https://v2.archive.subsquid.io/network/metis-mainnet           |
 | mineplex-testnet        | https://v2.archive.subsquid.io/network/mineplex-testnet        |
 | moonbase                | https://v2.archive.subsquid.io/network/moonbase-testnet        |
 | moonbeam                | https://v2.archive.subsquid.io/network/moonbeam-mainnet        |
@@ -178,6 +185,7 @@ Here are the raw dataset URLs (retrieved 2024-03-20):
 | optimism-mainnet        | https://v2.archive.subsquid.io/network/optimism-mainnet        |
 | optimism-goerli         | https://v2.archive.subsquid.io/network/optimism-goerli         |
 | optimism-sepolia        | https://v2.archive.subsquid.io/network/optimism-sepolia        |
+| peaq-mainnet            | https://v2.archive.subsquid.io/network/peaq-mainnet            |
 | polygon                 | https://v2.archive.subsquid.io/network/polygon-mainnet         |
 | polygon-mumbai          | https://v2.archive.subsquid.io/network/polygon-testnet         |
 | polygon-zkevm           | https://v2.archive.subsquid.io/network/polygon-zkevm-mainnet   |
