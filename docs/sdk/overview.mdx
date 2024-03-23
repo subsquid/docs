@@ -78,6 +78,8 @@ Squids that store their data in PostgreSQL can subsequently make it available as
 
 The [server](/sdk/resources/graphql-server) runs as a separate process. [Core API](/sdk/reference/openreader) is automatically derived from the database schema; it is possible to extend it with [custom queries](/sdk/resources/graphql-server/custom-resolvers) and [basic access control](/sdk/resources/graphql-server/authorization).
 
+Keep in mind that `@subsquid/graphql-server` is not the only option for creating squid-based GraphQL APIs - you are free to use third-party tools like PostGraphile and Hasura.
+
 ### Misc utilities
 
 ```mdx-code-block

@@ -24,6 +24,10 @@ Make sure to check our [best practices guide](/cloud/resources/best-practices) b
 Consider our [RPC proxy service](/cloud/resources/rpc-proxy) if your squid requires an endpoint.
 :::
 
+:::info
+Squids that use [PostGraphile](https://www.graphile.org/postgraphile/) to serve their GraphQL APIs must be able to serve status queries. Visit the [PostGraphile support](/cloud/resources/postgraphile) page to learn more.
+:::
+
 ## 0. Install Squid CLI
 
 Follow [this guide](/squid-cli/installation), including the optional authentication steps.
