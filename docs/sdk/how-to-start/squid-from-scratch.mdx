@@ -28,15 +28,33 @@ We also assume the following choice of _optional_ packages:
 
 To make the indexer, follow these steps:
 
-1. Create a new folder and install the packages:
+1. Create a new folder and initialise a new project
+* create `package.json`
+```bash
+npm init
+```
+* add `.gitignore`
+```bash
+ touch .gitignore
+```
+
+```gitignore
+/node_modules
+
+package-lock.json
+
+.env
+```
+
+2. install the packages:
    ```bash
-   npm i dotenv @subsquid/evm-processor @subsquid/typeorm-store @subsquid/typeorm-migration @subsquid/graphql-server @subsquid/archive-registry
+   npm i dotenv typeorm @subsquid/evm-processor @subsquid/typeorm-store @subsquid/typeorm-migration @subsquid/graphql-server @subsquid/archive-registry
    ```
    ```bash
    npm i typescript @subsquid/typeorm-codegen @subsquid/evm-typegen --save-dev
    ```
 
-2. Add a minimal `tsconfig.json`:
+3. Add a minimal `tsconfig.json`:
    ```json title="tsconfig.json"
    {
      "compilerOptions": {
@@ -52,7 +70,7 @@ To make the indexer, follow these steps:
    }
    ```
 
-3. Define the schema for both the database and the core GraphQL API in [`schema.graphql`](/sdk/reference/schema-file):
+4. Define the schema for both the database and the core GraphQL API in [`schema.graphql`](/sdk/reference/schema-file):
    ```graphql title="schema.graphql"
    type Transfer @entity {
      id: ID!
@@ -62,13 +80,13 @@ To make the indexer, follow these steps:
    }
    ```
 
-4. Generate TypeORM classes based on the schema:
+5. Generate TypeORM classes based on the schema:
    ```bash
    npx squid-typeorm-codegen
    ```
    The TypeORM classes are now available at `src/model/index.ts`.
 
-5. Prepare the database:
+6. Prepare the database:
    * create `.env` and `docker-compose.yaml` files
      ```bash title=".env"
      DB_NAME=squid
@@ -102,7 +120,7 @@ To make the indexer, follow these steps:
      npx squid-typeorm-migration apply
      ```
 
-6. [Generate utility classes](/sdk/resources/tools/typegen/generation) for decoding [USDT contract](https://etherscan.io/address/0xdac17f958d2ee523a2206206994597c13d831ec7) data based on its ABI downloaded from Etherscan:
+7. [Generate utility classes](/sdk/resources/tools/typegen/generation) for decoding [USDT contract](https://etherscan.io/address/0xdac17f958d2ee523a2206206994597c13d831ec7) data based on its ABI downloaded from Etherscan:
    ```bash
    npx \
    squid-evm-typegen \
@@ -111,7 +129,7 @@ To make the indexer, follow these steps:
    ```
    The utility classes are now available at `src/abi/usdt.ts`
 
-7. Tie all the generated code together with a `src/main.ts` executable with the following code blocks:
+8. Tie all the generated code together with a `src/main.ts` executable with the following code blocks:
    * Imports
      ```ts
      import { EvmBatchProcessor } from '@subsquid/evm-processor'
@@ -157,7 +175,7 @@ To make the indexer, follow these steps:
      ```
      Note how supplying a `TypeormDatabase` to the function caused `ctx.store` to be a [PostgreSQL-compatible `Store` object](/sdk/reference/store/typeorm/#store-interface).
 
-8. Compile the project and start the [processor process](/sdk/overview/#processor)
+9. Compile the project and start the [processor process](/sdk/overview/#processor)
    ```bash
    npx tsc
    ```
@@ -165,7 +183,7 @@ To make the indexer, follow these steps:
    node -r dotenv/config lib/main.js
    ```
 
-9. In a separate terminal, configure the GraphQL port and start the GraphQL server:
+10. In a separate terminal, configure the GraphQL port and start the GraphQL server:
    ```diff title=".env"
     DB_NAME=squid
     DB_PORT=23798
