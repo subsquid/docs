@@ -4,11 +4,11 @@ title: Tokenomics
 description: SQD Tokenomics overview
 ---
 
-##Tokenomics 
+## Tokenomics 
 
 SQD is the ERC-20 protocol token that is native to the Subsquid Network ecosystem. The token smart contract is to be deployed on the Ethereum mainnet and bridged to Arbitrum One. This strategy seeks to ensure the blockchain serves as a reliable, censorship-resistant, and verifiably impartial ledger, facilitating reward settlements and managing access to network resources.
 
-#Token Utility
+# Token Utility
 
 The SQD token is a critical component of the Subsquid ecosystem. Use cases for the SQD token are focused on streamlining and securing network operations in a permissionless manner:
 
