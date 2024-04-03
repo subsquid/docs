@@ -54,7 +54,7 @@ maxWidths = {
 	arrowSquidCommand: Math.max(...rows.map(r => r.arrowSquidCommand.length))
 }
 
-const fields = ['network', 'fireSquidCommand', 'arrowSquidCommand']
+const fields = ['network', 'arrowSquidCommand']
 
 function padFieldContents(fieldContents, nominalWidth) {
 	return ' ' + fieldContents + ' '.repeat(nominalWidth-fieldContents.length+1)
@@ -66,7 +66,6 @@ function toTableRow(row) {
 
 const header = toTableRow({
 	network: 'Network',
-	fireSquidCommand: 'FireSquid lookup command',
 	arrowSquidCommand: 'ArrowSquid lookup command'
 }) + '\n|' + fields.map(fn => ':' + '-'.repeat(maxWidths[fn]) + ':').join('|') + '|\n'
 
