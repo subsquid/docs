@@ -3,38 +3,29 @@ registry = require('@subsquid/archive-registry')
 rows = []
 for (const arch of registry.archivesRegistrySubstrate().archives) {
 	let network = arch.network
-	let fireSquidCommand, arrowSquidCommand
+	let arrowSquidCommand
 	for (const prov of arch.providers) {
 		if (prov.release === 'FireSquid') {
+			throw new Error(`There should be no new FireSquid archives in the registry, and there is one for ${network}`)
+		}
+		else if (prov.release === 'ArrowSquid') {
 			try {
 				let url = registry.lookupArchive(network)
-				if (url !== registry.lookupArchive(network, {release: 'FireSquid'})) {
-					throw new Error(`FireSquid is not the default release for ${network}`)
+				if (url !== registry.lookupArchive(network, {release: 'ArrowSquid'})) {
+					throw new Error(`ArrowSquid is not the default release for ${network}`)
 				}
-				fireSquidCommand = `\`lookupArchive('${network}')\``
+				arrowSquidCommand = `\`lookupArchive('${network}')\``
 			}
 			catch (error) {
 				if (error.message === `There are multiple networks with name ${network}. Provide network type to disambiguate.`) {
 					let url = registry.lookupArchive(network, {type: 'Substrate'}) // no catching here
-					if (url !== registry.lookupArchive(network, {type: 'Substrate', release: 'FireSquid'})) {
-						throw new Error(`FireSquid is not the default release for ${network}`)
+					if (url !== registry.lookupArchive(network, {type: 'Substrate', release: 'ArrowSquid'})) {
+						throw new Error(`ArrowSquid is not the default release for ${network}`)
 					}
-					fireSquidCommand = `\`lookupArchive('${network}',\` \`{type: 'Substrate'})\``
+					arrowSquidCommand = `\`lookupArchive('${network}',\` \`{type: 'Substrate'})\``
 				}
 				else {
 					throw error
-				}
-			}
-		}
-		else if (prov.release === 'ArrowSquid') {
-			try {
-				let url = registry.lookupArchive(network, {release: 'ArrowSquid'})
-				arrowSquidCommand = `\`lookupArchive('${network}',\` \`{release: 'ArrowSquid'})\``
-			}
-			catch (error) {
-				if (error.message === `There are multiple networks with name ${network}. Provide network type to disambiguate.`) {
-					let url = registry.lookupArchive(network, {type: 'Substrate', release: 'ArrowSquid'}) // no catching here
-					arrowSquidCommand = `\`lookupArchive('${network}',\` \`{type: 'Substrate',\` \`release: 'ArrowSquid'})\``
 				}
 			}
 		}
@@ -42,15 +33,13 @@ for (const arch of registry.archivesRegistrySubstrate().archives) {
 			throw new Error(`unknown release ${prov.release} for network ${network}`)
 		}
 	}
-	fireSquidCommand ??= 'not available'
 	arrowSquidCommand ??= 'temporarily unavailable'
 
-	rows.push({ network, fireSquidCommand, arrowSquidCommand })
+	rows.push({ network, arrowSquidCommand })
 }
 
 maxWidths = {
 	network: Math.max(...rows.map(r => r.network.length)),
-	fireSquidCommand: Math.max(...rows.map(r => r.fireSquidCommand.length)),
 	arrowSquidCommand: Math.max(...rows.map(r => r.arrowSquidCommand.length))
 }
 
