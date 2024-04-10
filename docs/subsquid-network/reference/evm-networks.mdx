@@ -45,16 +45,14 @@ This page lists the public EVM datasets available from the [open private network
 | Network                 | State diffs | Traces | Lookup command                                   |
 |:-----------------------:|:-----------:|:------:|:------------------------------------------------:|
 | arbitrum                |             | ✓      | `lookupArchive('arbitrum')`                      |
-| arbitrum-goerli         |             | ✓      | `lookupArchive('arbitrum-goerli')`               |
 | arbitrum-nova           |             | ✓      | `lookupArchive('arbitrum-nova')`                 |
 | arbitrum-sepolia        | ✓           | ✓      | `lookupArchive('arbitrum-sepolia')`              |
 | astar (*)               |             |        | `lookupArchive('astar',` `{type: 'EVM'})`        |
-| astar-zkatana           |             |        | `lookupArchive('astar-zkatana')`                 |
+| astar-zkyoto            |             |        | `lookupArchive('astar-zkyoto')`                  |
 | astar-zkevm-mainnet     |             |        | `lookupArchive('astar-zkevm-mainnet')`           |
 | avalanche               | ✓           | ✓      | `lookupArchive('avalanche')`                     |
 | avalanche-testnet       | ✓           | ✓      | `lookupArchive('avalanche-testnet')`             |
 | base-mainnet            | ✓           | ✓      | `lookupArchive('base-mainnet')`                  |
-| base-goerli             |             |        | `lookupArchive('base-goerli')`                   |
 | base-sepolia            | ✓           | ✓      | `lookupArchive('base-sepolia')`                  |
 | berachain-artio         |             |        | `lookupArchive('berachain-artio')`               |
 | binance                 | ✓           | ✓      | `lookupArchive('binance')`                       |
@@ -66,7 +64,6 @@ This page lists the public EVM datasets available from the [open private network
 | dfk-chain               |             |        | `lookupArchive('dfk-chain')`                     |
 | dogechain-mainnet       |             |        | `lookupArchive('dogechain-mainnet')`             |
 | eth-mainnet             | ✓           | ✓      | `lookupArchive('eth-mainnet')`                   |
-| eth-goerli              | ✓           | ✓      | `lookupArchive('eth-goerli')`                    |
 | eth-holesky             | ✓           | ✓      | `lookupArchive('eth-holesky')`                   |
 | eth-sepolia             | ✓           | ✓      | `lookupArchive('eth-sepolia')`                   |
 | etherlink-testnet       |             |        | `lookupArchive('etherlink-testnet')`             |
@@ -92,12 +89,10 @@ This page lists the public EVM datasets available from the [open private network
 | opbnb-testnet           |             |        | `lookupArchive('opbnb-testnet')`                 |
 | optimism-mainnet        | <FromBlockTooltip tip="105235063">✓</FromBlockTooltip> | ✓ | `lookupArchive('optimism-mainnet')` |
 | optimism-goerli         | <FromBlockTooltip tip="4061224">✓</FromBlockTooltip>   | ✓ | `lookupArchive('optimism-goerli')`  |
-| optimism-sepolia        |             |        | `lookupArchive('optimism-sepolia')`              |
 | peaq-mainnet            |             |        | `lookupArchive('peaq-mainnet',` `{type: 'EVM'})` |
 | polygon                 |             |        | `lookupArchive('polygon')`                       |
 | polygon-mumbai          |             |        | `lookupArchive('polygon-mumbai')`                |
 | polygon-zkevm           |             |        | `lookupArchive('polygon-zkevm')`                 |
-| polygon-zkevm-testnet   |             |        | `lookupArchive('polygon-zkevm-testnet')`         |
 | prom-testnet            |             |        | `lookupArchive('prom-testnet')`                  |
 | scroll-mainnet          |             | ✓      | `lookupArchive('scroll-mainnet')`                |
 | scroll-sepolia          |             | ✓      | `lookupArchive('scroll-sepolia')`                |
@@ -110,7 +105,6 @@ This page lists the public EVM datasets available from the [open private network
 | zksync-mainnet          |             | <FromBlockTooltip tip="15500000">✓</FromBlockTooltip> | `lookupArchive('zksync-mainnet')` |
 | zksync-sepolia          |             | ✓      | `lookupArchive('zksync-sepolia')`                |
 | zora-mainnet            | ✓           | ✓      | `lookupArchive('zora-mainnet')`                  |
-| zora-goerli             | ✓           | ✓      | `lookupArchive('zora-goerli')`                   |
 
 (*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate dataset](/subsquid-network/reference/substrate-networks).
 
@@ -135,21 +129,19 @@ const processor = new EvmBatchProcessor()
 
 ### Raw URLs
 
-Here are the raw dataset URLs (retrieved 2024-04-03):
+Here are the raw dataset URLs (retrieved 2024-04-10):
 
 | Network                 | Dataset endpoint URL                                           |
 |:-----------------------:|:--------------------------------------------------------------:|
 | arbitrum                | https://v2.archive.subsquid.io/network/arbitrum-one            |
-| arbitrum-goerli         | https://v2.archive.subsquid.io/network/arbitrum-goerli         |
 | arbitrum-nova           | https://v2.archive.subsquid.io/network/arbitrum-nova           |
 | arbitrum-sepolia        | https://v2.archive.subsquid.io/network/arbitrum-sepolia        |
 | astar                   | https://v2.archive.subsquid.io/network/astar-mainnet           |
-| astar-zkatana           | https://v2.archive.subsquid.io/network/astar-zkatana           |
+| astar-zkyoto            | https://v2.archive.subsquid.io/network/astar-zkyoto            |
 | astar-zkevm-mainnet     | https://v2.archive.subsquid.io/network/astar-zkevm-mainnet     |
 | avalanche               | https://v2.archive.subsquid.io/network/avalanche-mainnet       |
 | avalanche-testnet       | https://v2.archive.subsquid.io/network/avalanche-testnet       |
 | base-mainnet            | https://v2.archive.subsquid.io/network/base-mainnet            |
-| base-goerli             | https://v2.archive.subsquid.io/network/base-goerli             |
 | base-sepolia            | https://v2.archive.subsquid.io/network/base-sepolia            |
 | berachain-artio         | https://v2.archive.subsquid.io/network/berachain-artio         |
 | binance                 | https://v2.archive.subsquid.io/network/binance-mainnet         |
@@ -161,7 +153,6 @@ Here are the raw dataset URLs (retrieved 2024-04-03):
 | dfk-chain               | https://v2.archive.subsquid.io/network/dfk-chain               |
 | dogechain-mainnet       | https://v2.archive.subsquid.io/network/dogechain-mainnet       |
 | eth-mainnet             | https://v2.archive.subsquid.io/network/ethereum-mainnet        |
-| eth-goerli              | https://v2.archive.subsquid.io/network/ethereum-goerli         |
 | eth-holesky             | https://v2.archive.subsquid.io/network/ethereum-holesky        |
 | eth-sepolia             | https://v2.archive.subsquid.io/network/ethereum-sepolia        |
 | etherlink-testnet       | https://v2.archive.subsquid.io/network/etherlink-testnet       |
@@ -186,13 +177,11 @@ Here are the raw dataset URLs (retrieved 2024-04-03):
 | opbnb-mainnet           | https://v2.archive.subsquid.io/network/opbnb-mainnet           |
 | opbnb-testnet           | https://v2.archive.subsquid.io/network/opbnb-testnet           |
 | optimism-mainnet        | https://v2.archive.subsquid.io/network/optimism-mainnet        |
-| optimism-goerli         | https://v2.archive.subsquid.io/network/optimism-goerli         |
 | optimism-sepolia        | https://v2.archive.subsquid.io/network/optimism-sepolia        |
 | peaq-mainnet            | https://v2.archive.subsquid.io/network/peaq-mainnet            |
 | polygon                 | https://v2.archive.subsquid.io/network/polygon-mainnet         |
 | polygon-mumbai          | https://v2.archive.subsquid.io/network/polygon-testnet         |
 | polygon-zkevm           | https://v2.archive.subsquid.io/network/polygon-zkevm-mainnet   |
-| polygon-zkevm-testnet   | https://v2.archive.subsquid.io/network/polygon-zkevm-testnet   |
 | prom-testnet            | https://v2.archive.subsquid.io/network/prom-testnet            |
 | scroll-mainnet          | https://v2.archive.subsquid.io/network/scroll-mainnet          |
 | scroll-sepolia          | https://v2.archive.subsquid.io/network/scroll-sepolia          |
@@ -205,4 +194,3 @@ Here are the raw dataset URLs (retrieved 2024-04-03):
 | zksync-mainnet          | https://v2.archive.subsquid.io/network/zksync-mainnet          |
 | zksync-sepolia          | https://v2.archive.subsquid.io/network/zksync-sepolia          |
 | zora-mainnet            | https://v2.archive.subsquid.io/network/zora-mainnet            |
-| zora-goerli             | https://v2.archive.subsquid.io/network/zora-goerli             |
