@@ -63,7 +63,6 @@ const config = {
         },
       }),
     ],
-
   ],
 
   themeConfig:  /** @type {import('@docusaurus/preset-classic').ThemeConfig} */ ({
@@ -141,6 +140,12 @@ const config = {
         },
       };
     },
+    [
+      '@docusaurus/plugin-google-tag-manager',
+      {
+        containerId: 'GTM-MBVP9WJH',
+      },
+    ],
   ]
 };
 
