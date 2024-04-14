@@ -29,7 +29,7 @@ Implementation examples:
 
 <summary>Manually with cURL</summary>
 
-Suppose we want data on all txs by `Layerswap`/`0x019252b1deef483477c4d30cfcc3e5ed9c82fafea44669c182a45a01b4fdb97a` starting from block 600_000. The steps are:
+Suppose we want data on all txs sent by `Layerswap`/`0x19252b1deef483477c4d30cfcc3e5ed9c82fafea44669c182a45a01b4fdb97a` starting from block 600_000. The steps are:
 
 1. Verify that the dataset has reached the required height:
    ```bash
@@ -58,13 +58,41 @@ Suppose we want data on all txs by `Layerswap`/`0x019252b1deef483477c4d30cfcc3e5
        "fromBlock":600000,
        "toBlock":632494,
        "fields":{"transaction":{"transactionHash":true}},
-       "transactions":[{"contractAddress":["0x019252b1deef483477c4d30cfcc3e5ed9c82fafea44669c182a45a01b4fdb97a"]}]
+       "transactions":[{"senderAddress":["0x19252b1deef483477c4d30cfcc3e5ed9c82fafea44669c182a45a01b4fdb97a"]}]
    }' | jq
    ```
 
    Output:
    ```json
-   []
+   [
+     {
+       "header": {
+         "number": 600000,
+         "hash": "0x898fe7f61f5d662199d223de496988f221d150ed054f2fe5e681b2988b9e2c"
+       },
+       "transactions": []
+     },
+     {
+       "header": {
+         "number": 600007,
+         "hash": "0x44aa251cee1baaf3f19accefd223ce5208815686c881bf645ffb3e3348a5ddc"
+       },
+       "transactions": [
+         {
+           "transactionIndex": 24,
+           "transactionHash": "0x6a88edb0713769de4ad4d450df70911c3e9a7e8253c135c9574d0b3542ced18"
+         }
+       ]
+     },
+     ...
+     {
+       "header": {
+         "number": 617979,
+         "hash": "0x7f6a8516a91eefa6a65972c47002cbe3851e3c4287f670c914850960d29ca29"
+       },
+       "transactions": []
+     }
+   ]
    ```
 
 4. Observe that we received the transactions up to and including block 617979. To get the rest of the data, we find a worker who has blocks from 617980 on:
@@ -86,7 +114,7 @@ Suppose we want data on all txs by `Layerswap`/`0x019252b1deef483477c4d30cfcc3e5
        "fromBlock":617980,
        "toBlock":632494,
        "fields":{"transaction":{"transactionHash":true}},
-       "transactions":[{"contractAddress":["0x019252b1deef483477c4d30cfcc3e5ed9c82fafea44669c182a45a01b4fdb97a"]}]
+       "transactions":[{"senderAddress":["0x19252b1deef483477c4d30cfcc3e5ed9c82fafea44669c182a45a01b4fdb97a"]}]
    }' | jq
    ```
    Output is similar to that of step 3.
@@ -199,7 +227,7 @@ The returned worker will be capable of processing `POST /` requests in which the
   "events": [
     {
       "fromAddress": [
-        "0x019252b1deef483477c4d30cfcc3e5ed9c82fafea44669c182a45a01b4fdb97a"
+        "0x19252b1deef483477c4d30cfcc3e5ed9c82fafea44669c182a45a01b4fdb97a"
       ],
       "transaction": true
     }
@@ -217,7 +245,91 @@ The returned worker will be capable of processing `POST /` requests in which the
 </summary>
 
 ```json
-[]
+[
+  {
+    "header": {
+      "number": 632000,
+      "hash": "0xdfebe2b6af20dfe7f27d5fe8b1b4e8ee48ad812ce9bfd9c756c9db7dbcdb22",
+      "timestamp": 1712950160
+    },
+    "transactions": [
+      {
+        "transactionIndex": 110,
+        "transactionHash": "0x151fa3c8633e6ed71301af4afc8f73a141ef39cca1d51d0f72d66a11911e2f3"
+      },
+      {
+        "transactionIndex": 306,
+        "transactionHash": "0x7e1c307624c5c78e311e2a08f0355dfef80e6fc6ed47c64ceda757e044f2c85"
+      }
+    ],
+    "events": [
+      {
+        "transactionIndex": 110,
+        "eventIndex": 1,
+        "keys": [
+          "0x1dcde06aabdbca2f80aa51392b345d7549d7757aa855f7e37f5d335ac8243b1",
+          "0x151fa3c8633e6ed71301af4afc8f73a141ef39cca1d51d0f72d66a11911e2f3"
+        ],
+        "data": [
+          "0x1",
+          "0x1",
+          "0x1"
+        ]
+      },
+      {
+        "transactionIndex": 306,
+        "eventIndex": 1,
+        "keys": [
+          "0x1dcde06aabdbca2f80aa51392b345d7549d7757aa855f7e37f5d335ac8243b1",
+          "0x7e1c307624c5c78e311e2a08f0355dfef80e6fc6ed47c64ceda757e044f2c85"
+        ],
+        "data": [
+          "0x1",
+          "0x1",
+          "0x1"
+        ]
+      }
+    ]
+  },
+  ...
+  {
+    "header": {
+      "number": 632492,
+      "hash": "0x440ee029f2a970b2546eb39ab23075659ec8e0246c94f62d21e21f912dfb58d",
+      "timestamp": 1713049189
+    },
+    "transactions": [
+      {
+        "transactionIndex": 125,
+        "transactionHash": "0x61bd3d233cfe9cb387f3b016127ffb0d66d265c2593f80a317404e2f3c334bb"
+      }
+    ],
+    "events": [
+      {
+        "transactionIndex": 125,
+        "eventIndex": 1,
+        "keys": [
+          "0x1dcde06aabdbca2f80aa51392b345d7549d7757aa855f7e37f5d335ac8243b1",
+          "0x61bd3d233cfe9cb387f3b016127ffb0d66d265c2593f80a317404e2f3c334bb"
+        ],
+        "data": [
+          "0x1",
+          "0x1",
+          "0x1"
+        ]
+      }
+    ]
+  },
+  {
+    "header": {
+      "number": 632494,
+      "hash": "0x2782c5ca3f1d3eb2e4c085fc17908b9b86bfe91807cd452374bcb40b2245925",
+      "timestamp": 1713049569
+    },
+    "transactions": [],
+    "events": []
+  }
+]
 ```
 </details>
 
