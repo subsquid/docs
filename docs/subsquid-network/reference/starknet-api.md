@@ -432,11 +432,11 @@ A selector of fields for the returned data items. Its structure is as follows:
 
 ```
 {
-  parentHash: bool
-  status: bool
-  newRoot: bool
-  timestamp: bool
-  sequencerAddress: bool
+  parentHash
+  status
+  newRoot
+  timestamp
+  sequencerAddress
 }
 ```
 A valid field selector for blocks is a JSON that has a subset of these fields as keys and `true` as values, e.g. `{"status": true, "timestamp": true}`.
@@ -445,20 +445,20 @@ A valid field selector for blocks is a JSON that has a subset of these fields as
 
 ```
 {
-  transactionHash: bool
-  contractAddress: bool
-  entryPointSelector: bool
-  calldata: bool
-  maxFee: bool
-  type: bool
-  senderAddress: bool
-  version: bool
-  signature: bool
-  nonce: bool
-  classHash: bool
-  compiledClassHash: bool
-  contractAddressSalt: bool
-  constructorCalldata: bool
+  transactionHash
+  contractAddress
+  entryPointSelector
+  calldata
+  maxFee
+  type
+  senderAddress
+  version
+  signature
+  nonce
+  classHash
+  compiledClassHash
+  contractAddressSalt
+  constructorCalldata
 }
 ```
 A valid field selector for transactions is a JSON that has a subset of these fields as keys and `true` as values, e.g. `{"transactionHash": true, "type": true, "calldata": true}`.
@@ -467,9 +467,9 @@ A valid field selector for transactions is a JSON that has a subset of these fie
 
 ```ts
 {
-  fromAddress: bool
-  keys: bool
-  data: bool
+  fromAddress
+  keys
+  data
 }
 ```
 A valid field selector for logs is a JSON that has a subset of these fields as keys and `true` as values, e.g. `{"fromAddress": true, "data": true}`.
