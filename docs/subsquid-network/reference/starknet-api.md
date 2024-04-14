@@ -29,100 +29,69 @@ Implementation examples:
 
 <summary>Manually with cURL</summary>
 
-Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` from block 16_000_000. We begin by finding the main URL for the Ethereum Mainnet dataset on the [Supported networks page](/subsquid-network/reference/evm-networks/#raw-urls). Then we have to:
+Suppose we want data on all txs by `Layerswap`/`0x019252b1deef483477c4d30cfcc3e5ed9c82fafea44669c182a45a01b4fdb97a` starting from block 600_000. The steps are:
 
 1. Verify that the dataset has reached the required height:
    ```bash
-   $ curl https://v2.archive.subsquid.io/network/ethereum-mainnet/height
+   curl https://v2.archive.subsquid.io/network/starknet-mainnet/height
    ```
    Output
    ```
-   18593441
+   632494
    ```
 
 2. Get a worker URL
    ```bash
-   $ curl https://v2.archive.subsquid.io/network/ethereum-mainnet/16000000/worker
+   curl https://v2.archive.subsquid.io/network/starknet-mainnet/600000/worker
    ```
    Output
    ```
-   https://lm02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0
+   https://rb03.sqd-archive.net/worker/query/czM6Ly9zdGFya25ldC1tYWlubmV0
    ```
 
 3. Retrieve the data from the worker
    ```bash
-   $ curl https://lm02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0 \
+   curl https://rb03.sqd-archive.net/worker/query/czM6Ly9zdGFya25ldC1tYWlubmV0 \
    -X 'POST' -H 'content-type: application/json' -H 'accept: application/json' \
    -d '{
-       "fromBlock":16000000,
-       "toBlock":18593441,
-       "fields":{"transaction":{"hash":true}},
-       "transactions":[{"to":["0xd8da6bf26964af9d7eed9e03e53415d37aa96045"]}]
+       "type": "starknet",
+       "fromBlock":600000,
+       "toBlock":632494,
+       "fields":{"transaction":{"transactionHash":true}},
+       "transactions":[{"contractAddress":["0x019252b1deef483477c4d30cfcc3e5ed9c82fafea44669c182a45a01b4fdb97a"]}]
    }' | jq
    ```
-   Note how the address in the `transactions` data request is lowercased.
 
    Output:
    ```json
-   [
-     {
-       "header": {
-         "number": 16000000,
-         "hash": "0x3dc4ef568ae2635db1419c5fec55c4a9322c05302ae527cd40bff380c1d465dd",
-         "parentHash": "0x6f377dc6bd1f3e38b9ceb8c946a88c13211fa3f084622df3ee5cfcd98cc6bb16"
-       },
-       "transactions": []
-     },
-     // ...
-     {
-       "header": {
-         "number": 16027977,
-         "hash": "0x4b332878deb33e963b68c8bbbea60cbca72a88c297b6800eafa82baab497c166",
-         "parentHash": "0x2b979d67d9b03394da336938ee0bcf5aedfdf87e1b5bd574d985aee749eb8b76"
-       },
-       "transactions": [
-         {
-           "transactionIndex": 96,
-           "hash": "0xbaede248ec6fce28e9d874f69ea70359bea0107ce9144d6838898674d9d10c8c"
-         }
-       ]
-     },
-     // ...
-     {
-       "header": {
-         "number": 16031419,
-         "hash": "0x9cc48c9b4ad8dddb1de86a15e30a62ffd48cf9b72930930cfa5167c4e1685d0a",
-         "parentHash": "0x4ec7b4562739032f51e70d26fe5129e571e2bf0348a744c1509f8205f4381696"
-       },
-       "transactions": []
-     }
-   ]
+   []
    ```
 
-4. Observe that we received the transactions up to and including block 16031419. To get the rest of the data, we find a worker who has blocks from 16031420 on:
+4. Observe that we received the transactions up to and including block 617979. To get the rest of the data, we find a worker who has blocks from 617980 on:
    ```bash
-   $ curl https://v2.archive.subsquid.io/network/ethereum-mainnet/16031420/worker
+   curl https://v2.archive.subsquid.io/network/starknet-mainnet/617980/worker
    ```
    Output:
    ```
-   https://rb02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0
+   https://lm04.sqd-archive.net/worker/query/czM6Ly9zdGFya25ldC1tYWlubmV0
    ```
    We can see that this part of the dataset is located on another host.
 
 5. Retrieve the data from the new worker
    ```bash
-   $ curl https://rb02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0 \
+   curl https://lm04.sqd-archive.net/worker/query/czM6Ly9zdGFya25ldC1tYWlubmV0 \
    -X 'POST' -H 'content-type: application/json' -H 'accept: application/json' \
    -d '{
-       "fromBlock":16031420,
-       "toBlock":18593441,
-       "fields":{"transaction":{"hash":true}},
-       "transactions":[{"to":["0xd8da6bf26964af9d7eed9e03e53415d37aa96045"]}]
+       "type": "starknet",
+       "fromBlock":617980,
+       "toBlock":632494,
+       "fields":{"transaction":{"transactionHash":true}},
+       "transactions":[{"contractAddress":["0x019252b1deef483477c4d30cfcc3e5ed9c82fafea44669c182a45a01b4fdb97a"]}]
    }' | jq
    ```
    Output is similar to that of step 3.
 
-6. Repeat steps 4 and 5 until the dataset height of 18593441 reached.
+6. Repeat steps 4 and 5 until the dataset height of 632494 reached.
 
 </details>
 
@@ -212,28 +181,29 @@ The returned worker will be capable of processing `POST /` requests in which the
 
 ```json
 {
-  "logs": [
+  "type": "starknet",
+  "fromBlock":632000,
+  "toBlock":632494,
+  "fields": {
+    "block": {
+      "timestamp": true
+    },
+    "event": {
+      "keys": true,
+      "data": true
+    },
+    "transaction": {
+      "transactionHash":true
+    }
+  },
+  "events": [
     {
-      "address": [
-        "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
-      ],
-      "topic0": [
-        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+      "fromAddress": [
+        "0x019252b1deef483477c4d30cfcc3e5ed9c82fafea44669c182a45a01b4fdb97a"
       ],
       "transaction": true
     }
-  ],
-  "fields": {
-    "block": {
-      "gasUsed": true
-    },
-    "log": {
-      "topics": true,
-      "data": true
-    }
-  },
-  "fromBlock": 16000000,
-  "toBlock": 16000000
+  ]
 }
 ```
 
@@ -247,128 +217,7 @@ The returned worker will be capable of processing `POST /` requests in which the
 </summary>
 
 ```json
-[
-  {
-    "header": {
-      "number": 16000000,
-      "hash": "0x3dc4ef568ae2635db1419c5fec55c4a9322c05302ae527cd40bff380c1d465dd",
-      "parentHash": "0x6f377dc6bd1f3e38b9ceb8c946a88c13211fa3f084622df3ee5cfcd98cc6bb16",
-      "gasUsed": "0x121cdff"
-    },
-    "transactions": [
-      {
-        "transactionIndex": 0
-      },
-      {
-        "transactionIndex": 124
-      },
-      {
-        "transactionIndex": 131
-      },
-      {
-        "transactionIndex": 140
-      },
-      {
-        "transactionIndex": 188
-      },
-      {
-        "transactionIndex": 205
-      }
-    ],
-    "logs": [
-      {
-        "logIndex": 0,
-        "transactionIndex": 0,
-        "topics": [
-          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-          "0x000000000000000000000000ffec0067f5a79cff07527f63d83dd5462ccf8ba4",
-          "0x000000000000000000000000e47872c80e3af63bd237b82c065e441fa75c4dea"
-        ],
-        "data": "0x0000000000000000000000000000000000000000000000000000000007270e00"
-      },
-      {
-        "logIndex": 30,
-        "transactionIndex": 124,
-        "topics": [
-          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-          "0x000000000000000000000000f42ed7184f3bdd07b0456952f67695683afd9044",
-          "0x0000000000000000000000009bbcfc016adcc21d8f86b30cda5e9f100ff9f108"
-        ],
-        "data": "0x0000000000000000000000000000000000000000000000000000000032430d8b"
-      },
-      {
-        "logIndex": 34,
-        "transactionIndex": 131,
-        "topics": [
-          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-          "0x0000000000000000000000001d76271fb3d5a61184ba00052caa636e666d11ec",
-          "0x00000000000000000000000074de5d4fcbf63e00296fd95d33236b9794016631"
-        ],
-        "data": "0x000000000000000000000000000000000000000000000000000000000fa56ea0"
-      },
-      {
-        "logIndex": 35,
-        "transactionIndex": 131,
-        "topics": [
-          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-          "0x00000000000000000000000074de5d4fcbf63e00296fd95d33236b9794016631",
-          "0x000000000000000000000000af0b0000f0210d0f421f0009c72406703b50506b"
-        ],
-        "data": "0x000000000000000000000000000000000000000000000000000000000fa56ea0"
-      },
-      {
-        "logIndex": 58,
-        "transactionIndex": 140,
-        "topics": [
-          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-          "0x00000000000000000000000048c04ed5691981c42154c6167398f95e8f38a7ff",
-          "0x000000000000000000000000f41d156a9bbc1fa6172a50002060cbc757035385"
-        ],
-        "data": "0x0000000000000000000000000000000000000000000000000000000026273075"
-      },
-      {
-        "logIndex": 230,
-        "transactionIndex": 188,
-        "topics": [
-          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-          "0x000000000000000000000000ba12222222228d8ba445958a75a0704d566bf2c8",
-          "0x00000000000000000000000053222470cdcfb8081c0e3a50fd106f0d69e63f20"
-        ],
-        "data": "0x00000000000000000000000000000000000000000000000000000002536916b7"
-      },
-      {
-        "logIndex": 232,
-        "transactionIndex": 188,
-        "topics": [
-          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-          "0x00000000000000000000000053222470cdcfb8081c0e3a50fd106f0d69e63f20",
-          "0x00000000000000000000000088e6a0c2ddd26feeb64f039a2c41296fcb3f5640"
-        ],
-        "data": "0x00000000000000000000000000000000000000000000000000000002536916b7"
-      },
-      {
-        "logIndex": 372,
-        "transactionIndex": 205,
-        "topics": [
-          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-          "0x0000000000000000000000001116898dda4015ed8ddefb84b6e8bc24528af2d8",
-          "0x0000000000000000000000002796317b0ff8538f253012862c06787adfb8ceb6"
-        ],
-        "data": "0x0000000000000000000000000000000000000000000000000000000018307e19"
-      },
-      {
-        "logIndex": 374,
-        "transactionIndex": 205,
-        "topics": [
-          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-          "0x0000000000000000000000002796317b0ff8538f253012862c06787adfb8ceb6",
-          "0x000000000000000000000000735b75559ebb9cd7fed7cec2372b16c3871d2031"
-        ],
-        "data": "0x0000000000000000000000000000000000000000000000000000000018307e19"
-      }
-    ]
-  }
-]
+[]
 ```
 </details>
 
@@ -473,4 +322,3 @@ A valid field selector for transactions is a JSON that has a subset of these fie
 }
 ```
 A valid field selector for logs is a JSON that has a subset of these fields as keys and `true` as values, e.g. `{"fromAddress": true, "data": true}`.
-
