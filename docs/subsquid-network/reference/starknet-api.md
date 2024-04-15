@@ -23,6 +23,10 @@ The main URL of the Starknet dataset is
 https://v2.archive.subsquid.io/network/starknet-mainnet
 ```
 
+:::warning
+Unlike in [the explorer](https://starkscan.co), addresses in this API do not have leading zeros (both in valid requests and in the returned data). For example, explorer's `0x00ce6c...0552` becomes `0xce6c...0552`. This is the format that Starknet RPC nodes use.
+:::
+
 Implementation examples:
 
 <details>
@@ -336,10 +340,6 @@ The returned worker will be capable of processing `POST /` requests in which the
 </details>
 
 ## Data requests
-
-:::warning
-Addresses in all data requests must be in lowercase. All addresses in the responses will be in lowercase, too.
-:::
 
 ### Transactions
 
