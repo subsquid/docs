@@ -33,13 +33,13 @@ The table below lists the currently available public Substrate endpoints to be u
 | cere                 | `lookupArchive('cere')`                                |
 | chainflip            | `lookupArchive('chainflip')`                           |
 | clover               | `lookupArchive('clover')`                              |
-| data-avail           | `lookupArchive('data-avail')`                          |
 | collectives-polkadot | `lookupArchive('collectives-polkadot')`                |
 | collectives-westend  | `lookupArchive('collectives-westend')`                 |
-| dancebox             | `lookupArchive('dancebox')`                            |
 | crab                 | `lookupArchive('crab')`                                |
 | crust                | `lookupArchive('crust')`                               |
+| dancebox             | `lookupArchive('dancebox')`                            |
 | darwinia             | `lookupArchive('darwinia')`                            |
+| data-avail           | `lookupArchive('data-avail')`                          |
 | eden                 | `lookupArchive('eden')`                                |
 | enjin-matrix         | `lookupArchive('enjin-matrix')`                        |
 | equilibrium          | `lookupArchive('equilibrium')`                         |
@@ -64,8 +64,8 @@ The table below lists the currently available public Substrate endpoints to be u
 | paseo                | `lookupArchive('paseo')`                               |
 | peaq-mainnet         | `lookupArchive('peaq-mainnet',` `{type: 'Substrate'})` |
 | pendulum             | `lookupArchive('pendulum')`                            |
-| phala-testnet        | `lookupArchive('phala-testnet')`                       |
 | phala                | `lookupArchive('phala')`                               |
+| phala-testnet        | `lookupArchive('phala-testnet')`                       |
 | picasso              | `lookupArchive('picasso')`                             |
 | polimec              | `lookupArchive('polimec')`                             |
 | polkadex             | `lookupArchive('polkadex')`                            |
@@ -84,6 +84,7 @@ The table below lists the currently available public Substrate endpoints to be u
 | vara                 | `lookupArchive('vara')`                                |
 | vara-testnet         | `lookupArchive('vara-testnet')`                        |
 | watr                 | `lookupArchive('watr')`                                |
+| westend              | `lookupArchive('westend')`                             |
 | xsocial              | `lookupArchive('xsocial')`                             |
 | zeitgeist            | `lookupArchive('zeitgeist')`                           |
 | zeitgeist-testnet    | `lookupArchive('zeitgeist-testnet')`                   |
