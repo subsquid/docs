@@ -12,7 +12,7 @@ export default function Home(): JSX.Element {
         <span className="h3 flex items-center gap-4">Get started <div className="icon icon-mage"></div></span>
         <div className="flex flex-col gap-2 font-light text-fg-base--muted onboarding-homepage__text">
           <span><b>Subsquid Network</b> is a decentralized query engine optimized for batch extraction of large volumes of data. It currently
-            serves historical on-chain data ingested from 100+ <a href="/subsquid-network/reference/evm-networks">EVM</a> and <a href="/subsquid-network/reference/substrate-networks">Substrate</a> networks, including event logs, transaction receipts, traces and per-transaction state diffs.</span><p/>
+            serves historical on-chain data ingested from 100+ <a href="/subsquid-network/reference/evm-networks">EVM</a> and <a href="/subsquid-network/reference/substrate-networks">Substrate</a> networks, as well as <a href="/subsquid-network/reference/starknet-api">Starknet</a>. The data is comprehensive: for example, on EVM it includes event logs, transaction receipts, traces and per-transaction state diffs.</span><p/>
           <span>This documentation covers the <b>Subsquid Network</b> itself and the complimentary products developed by Subsquid:
             <ul>
               <li><a href="/sdk/overview">Squid SDK</a> - a Typescript toolkit for high-performance batch indexing sourcing the data from the Subsquid Network, without accessing an archival RPC.</li>
