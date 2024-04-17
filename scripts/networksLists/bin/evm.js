@@ -51,7 +51,7 @@ async function evmNetworksRows(networksJson) {
 				case 'bitgert-mainnet':
 					return '<BitgertTooltip>?</BitgertTooltip>'
 				case 'optimism-mainnet':
-					return '<FromBlockTooltip tip="105235063">✓</FromBlockTooltip>'
+					return capIsPresent ? '<FromBlockTooltip tip="105235063">✓</FromBlockTooltip>' : ' '
 				default:
 					return capIsPresent ? '✓' : ' '
 			}
@@ -61,7 +61,7 @@ async function evmNetworksRows(networksJson) {
 				case 'moonbeam':
 					return '<MoonbeamTooltip>?</MoonbeamTooltip>'
 				case 'zksync-mainnet':
-					return '<FromBlockTooltip tip="15500000">✓</FromBlockTooltip>'
+					return capIsPresent ? '<FromBlockTooltip tip="15500000">✓</FromBlockTooltip>' : ' '
 				default:
 					return capIsPresent ? '✓' : ' '
 			}
