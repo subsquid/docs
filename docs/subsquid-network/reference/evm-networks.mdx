@@ -40,161 +40,79 @@ export const BitgertTooltip = ({children, tip}) => (
 
 ## From the open private network
 
-This page lists the public EVM datasets available from the [open private network](/subsquid-network/overview/#open-private-network). If you are developing a squid, use the `lookupArchive` function available from [@subsquid/archive-registry](/subsquid-network/reference/registry) to get dataset URLs to be used with the [`setGateway()`](/sdk/reference/processors/evm-batch/general/#set-gateway) `EvmBatchProcessor` configuration method.
+This page lists the public EVM datasets available from the [open private network](/subsquid-network/overview/#open-private-network). If you are developing a squid, supply the dataset URL of your network to [`setGateway()`](/sdk/reference/processors/evm-batch/general/#set-gateway) `EvmBatchProcessor` configuration method, for example:
 
-| Network                       | State diffs | Traces | Lookup command                                      |
-|:-----------------------------:|:-----------:|:------:|:---------------------------------------------------:|
-| arbitrum                      |             | ✓      | `lookupArchive('arbitrum')`                         |
-| arbitrum-nova                 |             | ✓      | `lookupArchive('arbitrum-nova')`                    |
-| arbitrum-sepolia              | ✓           | ✓      | `lookupArchive('arbitrum-sepolia')`                 |
-| astar (*)                     |             |        | `lookupArchive('astar',` `{type: 'EVM'})`           |
-| astar-zkevm-mainnet           |             |        | `lookupArchive('astar-zkevm-mainnet')`              |
-| astar-zkyoto                  |             |        | `lookupArchive('astar-zkyoto')`                     |
-| avalanche                     | ✓           | ✓      | `lookupArchive('avalanche')`                        |
-| avalanche-testnet             | ✓           | ✓      | `lookupArchive('avalanche-testnet')`                |
-| base-mainnet                  | ✓           | ✓      | `lookupArchive('base-mainnet')`                     |
-| base-sepolia                  | ✓           | ✓      | `lookupArchive('base-sepolia')`                     |
-| berachain-artio               |             |        | `lookupArchive('berachain-artio')`                  |
-| binance                       | ✓           | ✓      | `lookupArchive('binance')`                          |
-| binance-testnet               |             |        | `lookupArchive('binance-testnet')`                  |
-| bitgert-mainnet               | <BitgertTooltip>?</BitgertTooltip> | ✓ | `lookupArchive('bitgert-mainnet')` |
-| bitgert-testnet               |             | ✓      | `lookupArchive('bitgert-testnet')`                  |
-| blast-l2-mainnet              | ✓           | ✓      | `lookupArchive('blast-l2-mainnet')`                 |
-| blast-sepolia                 |             |        | `lookupArchive('blast-sepolia')`                    |
-| core-mainnet                  |             | ✓      | `lookupArchive('core-mainnet')`                     |
-| cyberconnect-l2-testnet       | ✓           | ✓      | `lookupArchive('cyberconnect-l2-testnet')`          |
-| dfk-chain                     |             |        | `lookupArchive('dfk-chain')`                        |
-| dogechain-mainnet             |             |        | `lookupArchive('dogechain-mainnet')`                |
-| eth-holesky                   | ✓           | ✓      | `lookupArchive('eth-holesky')`                      |
-| eth-mainnet                   | ✓           | ✓      | `lookupArchive('eth-mainnet')`                      |
-| eth-sepolia                   | ✓           | ✓      | `lookupArchive('eth-sepolia')`                      |
-| etherlink-testnet             |             |        | `lookupArchive('etherlink-testnet')`                |
-| exosama                       | ✓           | ✓      | `lookupArchive('exosama')`                          |
-| fantom                        |             |        | `lookupArchive('fantom')`                           |
-| fantom-testnet                |             |        | `lookupArchive('fantom-testnet')`                   |
-| flare-mainnet                 |             |        | `lookupArchive('flare-mainnet')`                    |
-| gnosis-mainnet                | ✓           | ✓      | `lookupArchive('gnosis-mainnet')`                   |
-| immutable-zkevm-mainnet       |             |        | `lookupArchive('immutable-zkevm-mainnet')`          |
-| immutable-zkevm-testnet       |             |        | `lookupArchive('immutable-zkevm-testnet')`          |
-| linea-mainnet                 |             | ✓      | `lookupArchive('linea-mainnet')`                    |
-| mantle-mainnet                |             |        | `lookupArchive('mantle-mainnet')`                   |
-| mantle-sepolia                |             |        | `lookupArchive('mantle-sepolia')`                   |
-| metis-mainnet                 |             |        | `lookupArchive('metis-mainnet')`                    |
-| moonbase (*)                  |             |        | `lookupArchive('moonbase',` `{type: 'EVM'})`        |
-| moonbeam (*)                  |             | <MoonbeamTooltip>?</MoonbeamTooltip> | `lookupArchive('moonbeam',` `{type: 'EVM'})` |
-| moonriver (*)                 |             | ✓      | `lookupArchive('moonriver',` `{type: 'EVM'})`       |
-| neon-devnet (!)               |             |        | `lookupArchive('neon-devnet')`                      |
-| neon-mainnet                  |             |        | `lookupArchive('neon-mainnet')`                     |
-| opbnb-mainnet                 |             |        | `lookupArchive('opbnb-mainnet')`                    |
-| opbnb-testnet                 |             |        | `lookupArchive('opbnb-testnet')`                    |
-| optimism-mainnet              | <FromBlockTooltip tip="105235063">✓</FromBlockTooltip> | ✓ | `lookupArchive('optimism-mainnet')` |
-| optimism-sepolia              |             |        | `lookupArchive('optimism-sepolia')`                 |
-| peaq-mainnet                  |             |        | `lookupArchive('peaq-mainnet',` `{type: 'EVM'})`    |
-| polygon                       |             |        | `lookupArchive('polygon')`                          |
-| polygon-amoy-testnet          |             |        | `lookupArchive('polygon-amoy-testnet')`             |
-| polygon-zkevm                 |             |        | `lookupArchive('polygon-zkevm')`                    |
-| polygon-zkevm-cardona-testnet |             |        | `lookupArchive('polygon-zkevm-cardona-testnet')`    |
-| prom-testnet                  |             |        | `lookupArchive('prom-testnet')`                     |
-| puppynet                      |             |        | `lookupArchive('puppynet')`                         |
-| scroll-mainnet                |             | ✓      | `lookupArchive('scroll-mainnet')`                   |
-| scroll-sepolia                |             | ✓      | `lookupArchive('scroll-sepolia')`                   |
-| shibuya-testnet (*)           |             |        | `lookupArchive('shibuya-testnet',` `{type: 'EVM'})` |
-| shiden-mainnet (*)            |             |        | `lookupArchive('shiden-mainnet')`                   |
-| skale-nebula                  |             |        | `lookupArchive('skale-nebula')`                     |
-| tanssi                        |             |        | `lookupArchive('tanssi')`                           |
-| x1-testnet                    |             |        | `lookupArchive('x1-testnet')`                       |
-| xlayer-mainnet                |             |        | `lookupArchive('xlayer-mainnet')`                   |
-| zksync-mainnet                |             | <FromBlockTooltip tip="15500000">✓</FromBlockTooltip> | `lookupArchive('zksync-mainnet')` |
-| zksync-sepolia                |             | ✓      | `lookupArchive('zksync-sepolia')`                   |
-| zora-mainnet                  | ✓           | ✓      | `lookupArchive('zora-mainnet')`                     |
-
-(*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate dataset](/subsquid-network/reference/substrate-networks).
-
-(!) Genesis block for `neon-devnet` is 177455580.
-
-### Examples
-
-Registry lookup:
-```typescript
-import { lookupArchive } from '@subsquid/archive-registry'
-
-const processor = new EvmBatchProcessor()
-  // the lookupArchive() call resolves to
-  // 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
-  .setGateway(lookupArchive('eth-mainnet'))
-```
-Explicit dataset endpoints:
-```typescript
+```ts
 const processor = new EvmBatchProcessor()
   .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
 ```
 
-### Raw URLs
+| Network                        | Chain ID   | State diffs                                            | Traces                                                | Dataset URL                                                          |
+|:------------------------------:|:----------:|:------------------------------------------------------:|:-----------------------------------------------------:|:--------------------------------------------------------------------:
+| Arbitrum One                   | 42161      |                                                        | ✓                                                     | https://v2.archive.subsquid.io/network/arbitrum-one                  |
+| Arbitrum Nova                  | 42170      |                                                        | ✓                                                     | https://v2.archive.subsquid.io/network/arbitrum-nova                 |
+| Arbitrum Sepolia               | 421614     | ✓                                                      | ✓                                                     | https://v2.archive.subsquid.io/network/arbitrum-sepolia              |
+| Astar (*)                      | 592        |                                                        |                                                       | https://v2.archive.subsquid.io/network/astar-mainnet                 |
+| Astar zkEVM                    | 3776       |                                                        |                                                       | https://v2.archive.subsquid.io/network/astar-zkevm-mainnet           |
+| Astar zKyoto                   | 6038361    |                                                        |                                                       | https://v2.archive.subsquid.io/network/astar-zkyoto                  |
+| Avalanche                      | 43114      | ✓                                                      | ✓                                                     | https://v2.archive.subsquid.io/network/avalanche-mainnet             |
+| Avalanche Testnet              | 43113      | ✓                                                      | ✓                                                     | https://v2.archive.subsquid.io/network/avalanche-testnet             |
+| Base                           | 8453       | ✓                                                      | ✓                                                     | https://v2.archive.subsquid.io/network/base-mainnet                  |
+| Base Sepolia                   | 84532      | ✓                                                      | ✓                                                     | https://v2.archive.subsquid.io/network/base-sepolia                  |
+| Berachain Artio                | 80085      |                                                        |                                                       | https://v2.archive.subsquid.io/network/berachain-artio               |
+| Binance                        | 56         | ✓                                                      | ✓                                                     | https://v2.archive.subsquid.io/network/binance-mainnet               |
+| Binance Testnet                | 97         |                                                        |                                                       | https://v2.archive.subsquid.io/network/binance-testnet               |
+| Bitgert                        | 32520      | <BitgertTooltip>?</BitgertTooltip>                     | ✓                                                     | https://v2.archive.subsquid.io/network/bitgert-mainnet               |
+| Bitgert Testnet                | 64668      |                                                        | ✓                                                     | https://v2.archive.subsquid.io/network/bitgert-testnet               |
+| Blast L2                       | 81457      | ✓                                                      | ✓                                                     | https://v2.archive.subsquid.io/network/blast-l2-mainnet              |
+| Blast Sepolia                  | 168587773  |                                                        |                                                       | https://v2.archive.subsquid.io/network/blast-sepolia                 |
+| Core Mainnet                   | 1116       |                                                        | ✓                                                     | https://v2.archive.subsquid.io/network/core-mainnet                  |
+| Cyberconnect L2 Testnet        | 111557560  | ✓                                                      | ✓                                                     | https://v2.archive.subsquid.io/network/cyberconnect-l2-testnet       |
+| DFK Chain                      | 53935      |                                                        |                                                       | https://v2.archive.subsquid.io/network/dfk-chain                     |
+| Dogechain                      | 2000       |                                                        |                                                       | https://v2.archive.subsquid.io/network/dogechain-mainnet             |
+| Ethereum Holesky               | 17000      | ✓                                                      | ✓                                                     | https://v2.archive.subsquid.io/network/ethereum-holesky              |
+| Ethereum                       | 1          | ✓                                                      | ✓                                                     | https://v2.archive.subsquid.io/network/ethereum-mainnet              |
+| Ethereum Sepolia               | 11155111   | ✓                                                      | ✓                                                     | https://v2.archive.subsquid.io/network/ethereum-sepolia              |
+| Etherlink Testnet              | 128123     |                                                        |                                                       | https://v2.archive.subsquid.io/network/etherlink-testnet             |
+| Exosama                        | 2109       | ✓                                                      | ✓                                                     | https://v2.archive.subsquid.io/network/exosama                       |
+| Fantom                         | 250        |                                                        |                                                       | https://v2.archive.subsquid.io/network/fantom-mainnet                |
+| Fantom Testnet                 | 4002       |                                                        |                                                       | https://v2.archive.subsquid.io/network/fantom-testnet                |
+| Flare                          | 14         |                                                        |                                                       | https://v2.archive.subsquid.io/network/flare-mainnet                 |
+| Gnosis                         | 100        | ✓                                                      | ✓                                                     | https://v2.archive.subsquid.io/network/gnosis-mainnet                |
+| Immutable zkEVM                | 13371      |                                                        |                                                       | https://v2.archive.subsquid.io/network/immutable-zkevm-mainnet       |
+| Immutable zkEVM Testnet        | 13473      |                                                        |                                                       | https://v2.archive.subsquid.io/network/immutable-zkevm-testnet       |
+| Linea                          | 59144      |                                                        | ✓                                                     | https://v2.archive.subsquid.io/network/linea-mainnet                 |
+| Mantle                         | 5000       |                                                        |                                                       | https://v2.archive.subsquid.io/network/mantle-mainnet                |
+| Mantle Sepolia                 | 5003       |                                                        |                                                       | https://v2.archive.subsquid.io/network/mantle-sepolia                |
+| Metis                          | 1088       |                                                        |                                                       | https://v2.archive.subsquid.io/network/metis-mainnet                 |
+| Moonbase Alpha (*)             | 1287       |                                                        |                                                       | https://v2.archive.subsquid.io/network/moonbase-testnet              |
+| Moonbeam (*)                   | 1284       |                                                        | <MoonbeamTooltip>?</MoonbeamTooltip>                  | https://v2.archive.subsquid.io/network/moonbeam-mainnet              |
+| Moonriver (*)                  | 1285       |                                                        | ✓                                                     | https://v2.archive.subsquid.io/network/moonriver-mainnet             |
+| Neon EVM Devnet (!)            | 245022934  |                                                        |                                                       | https://v2.archive.subsquid.io/network/neon-devnet                   |
+| Neon EVM                       | 245022926  |                                                        |                                                       | https://v2.archive.subsquid.io/network/neon-mainnet                  |
+| opBNB                          | 204        |                                                        |                                                       | https://v2.archive.subsquid.io/network/opbnb-mainnet                 |
+| opBNB Tetstnet                 | 5611       |                                                        |                                                       | https://v2.archive.subsquid.io/network/opbnb-testnet                 |
+| Optimism                       | 10         | <FromBlockTooltip tip="105235063">✓</FromBlockTooltip> | ✓                                                     | https://v2.archive.subsquid.io/network/optimism-mainnet              |
+| Optimism Sepolia               | 11155420   |                                                        |                                                       | https://v2.archive.subsquid.io/network/optimism-sepolia              |
+| Peaq                           | 3338       |                                                        |                                                       | https://v2.archive.subsquid.io/network/peaq-mainnet                  |
+| Polygon                        | 138        |                                                        |                                                       | https://v2.archive.subsquid.io/network/polygon-mainnet               |
+| Polygon Amoy Testnet           | 80002      |                                                        |                                                       | https://v2.archive.subsquid.io/network/polygon-amoy-testnet          |
+| Polygon zkEVM                  | 1101       |                                                        |                                                       | https://v2.archive.subsquid.io/network/polygon-zkevm-mainnet         |
+| Polygon zkEVM Cardona Testnet  | 2442       |                                                        |                                                       | https://v2.archive.subsquid.io/network/polygon-zkevm-cardona-testnet |
+| Prom Testnet                   | 97072271   |                                                        |                                                       | https://v2.archive.subsquid.io/network/prom-testnet                  |
+| Puppynet (Shibarium's Testnet) | 157        |                                                        |                                                       | https://v2.archive.subsquid.io/network/puppynet                      |
+| Scroll                         | 534352     |                                                        | ✓                                                     | https://v2.archive.subsquid.io/network/scroll-mainnet                |
+| Scroll Sepolia                 | 534351     |                                                        | ✓                                                     | https://v2.archive.subsquid.io/network/scroll-sepolia                |
+| Shibuya (*)                    | 81         |                                                        |                                                       | https://v2.archive.subsquid.io/network/shibuya-testnet               |
+| Shiden (*)                     | 336        |                                                        |                                                       | https://v2.archive.subsquid.io/network/shiden-mainnet                |
+| Skale Nebula                   | 1482601649 |                                                        |                                                       | https://v2.archive.subsquid.io/network/skale-nebula                  |
+| Tanssi                         | 5678       |                                                        |                                                       | https://v2.archive.subsquid.io/network/tanssi                        |
+| X1 Testnet                     | 195        |                                                        |                                                       | https://v2.archive.subsquid.io/network/x1-testnet                    |
+| X Layer Mainnet                | 196        |                                                        |                                                       | https://v2.archive.subsquid.io/network/xlayer-mainnet                |
+| zkSync                         | 324        |                                                        | <FromBlockTooltip tip="15500000">✓</FromBlockTooltip> | https://v2.archive.subsquid.io/network/zksync-mainnet                |
+| zkSync Sepolia                 | 300        |                                                        | ✓                                                     | https://v2.archive.subsquid.io/network/zksync-sepolia                |
+| Zora                           | 7777777    | ✓                                                      | ✓                                                     | https://v2.archive.subsquid.io/network/zora-mainnet                  |
 
-Here are the raw dataset URLs (retrieved 2024-04-16):
+(*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate dataset](/subsquid-network/reference/substrate-networks).
 
-| Network                       | Dataset endpoint URL                                                 |
-|:-----------------------------:|:--------------------------------------------------------------------:|
-| arbitrum                      | https://v2.archive.subsquid.io/network/arbitrum-one                  |
-| arbitrum-nova                 | https://v2.archive.subsquid.io/network/arbitrum-nova                 |
-| arbitrum-sepolia              | https://v2.archive.subsquid.io/network/arbitrum-sepolia              |
-| astar                         | https://v2.archive.subsquid.io/network/astar-mainnet                 |
-| astar-zkevm-mainnet           | https://v2.archive.subsquid.io/network/astar-zkevm-mainnet           |
-| astar-zkyoto                  | https://v2.archive.subsquid.io/network/astar-zkyoto                  |
-| avalanche                     | https://v2.archive.subsquid.io/network/avalanche-mainnet             |
-| avalanche-testnet             | https://v2.archive.subsquid.io/network/avalanche-testnet             |
-| base-mainnet                  | https://v2.archive.subsquid.io/network/base-mainnet                  |
-| base-sepolia                  | https://v2.archive.subsquid.io/network/base-sepolia                  |
-| berachain-artio               | https://v2.archive.subsquid.io/network/berachain-artio               |
-| binance                       | https://v2.archive.subsquid.io/network/binance-mainnet               |
-| binance-testnet               | https://v2.archive.subsquid.io/network/binance-testnet               |
-| bitgert-mainnet               | https://v2.archive.subsquid.io/network/bitgert-mainnet               |
-| bitgert-testnet               | https://v2.archive.subsquid.io/network/bitgert-testnet               |
-| blast-l2-mainnet              | https://v2.archive.subsquid.io/network/blast-l2-mainnet              |
-| blast-sepolia                 | https://v2.archive.subsquid.io/network/blast-sepolia                 |
-| core-mainnet                  | https://v2.archive.subsquid.io/network/core-mainnet                  |
-| cyberconnect-l2-testnet       | https://v2.archive.subsquid.io/network/cyberconnect-l2-testnet       |
-| dfk-chain                     | https://v2.archive.subsquid.io/network/dfk-chain                     |
-| dogechain-mainnet             | https://v2.archive.subsquid.io/network/dogechain-mainnet             |
-| eth-holesky                   | https://v2.archive.subsquid.io/network/ethereum-holesky              |
-| eth-mainnet                   | https://v2.archive.subsquid.io/network/ethereum-mainnet              |
-| eth-sepolia                   | https://v2.archive.subsquid.io/network/ethereum-sepolia              |
-| etherlink-testnet             | https://v2.archive.subsquid.io/network/etherlink-testnet             |
-| exosama                       | https://v2.archive.subsquid.io/network/exosama                       |
-| fantom                        | https://v2.archive.subsquid.io/network/fantom-mainnet                |
-| fantom-testnet                | https://v2.archive.subsquid.io/network/fantom-testnet                |
-| flare-mainnet                 | https://v2.archive.subsquid.io/network/flare-mainnet                 |
-| gnosis-mainnet                | https://v2.archive.subsquid.io/network/gnosis-mainnet                |
-| immutable-zkevm-mainnet       | https://v2.archive.subsquid.io/network/immutable-zkevm-mainnet       |
-| immutable-zkevm-testnet       | https://v2.archive.subsquid.io/network/immutable-zkevm-testnet       |
-| linea-mainnet                 | https://v2.archive.subsquid.io/network/linea-mainnet                 |
-| mantle-mainnet                | https://v2.archive.subsquid.io/network/mantle-mainnet                |
-| mantle-sepolia                | https://v2.archive.subsquid.io/network/mantle-sepolia                |
-| metis-mainnet                 | https://v2.archive.subsquid.io/network/metis-mainnet                 |
-| moonbase                      | https://v2.archive.subsquid.io/network/moonbase-testnet              |
-| moonbeam                      | https://v2.archive.subsquid.io/network/moonbeam-mainnet              |
-| moonriver                     | https://v2.archive.subsquid.io/network/moonriver-mainnet             |
-| neon-devnet                   | https://v2.archive.subsquid.io/network/neon-devnet                   |
-| neon-mainnet                  | https://v2.archive.subsquid.io/network/neon-mainnet                  |
-| opbnb-mainnet                 | https://v2.archive.subsquid.io/network/opbnb-mainnet                 |
-| opbnb-testnet                 | https://v2.archive.subsquid.io/network/opbnb-testnet                 |
-| optimism-mainnet              | https://v2.archive.subsquid.io/network/optimism-mainnet              |
-| optimism-sepolia              | https://v2.archive.subsquid.io/network/optimism-sepolia              |
-| peaq-mainnet                  | https://v2.archive.subsquid.io/network/peaq-mainnet                  |
-| polygon                       | https://v2.archive.subsquid.io/network/polygon-mainnet               |
-| polygon-amoy-testnet          | https://v2.archive.subsquid.io/network/polygon-amoy-testnet          |
-| polygon-zkevm                 | https://v2.archive.subsquid.io/network/polygon-zkevm-mainnet         |
-| polygon-zkevm-cardona-testnet | https://v2.archive.subsquid.io/network/polygon-zkevm-cardona-testnet |
-| prom-testnet                  | https://v2.archive.subsquid.io/network/prom-testnet                  |
-| puppynet                      | https://v2.archive.subsquid.io/network/puppynet                      |
-| scroll-mainnet                | https://v2.archive.subsquid.io/network/scroll-mainnet                |
-| scroll-sepolia                | https://v2.archive.subsquid.io/network/scroll-sepolia                |
-| shibuya-testnet               | https://v2.archive.subsquid.io/network/shibuya-testnet               |
-| shiden-mainnet                | https://v2.archive.subsquid.io/network/shiden-mainnet                |
-| skale-nebula                  | https://v2.archive.subsquid.io/network/skale-nebula                  |
-| tanssi                        | https://v2.archive.subsquid.io/network/tanssi                        |
-| x1-testnet                    | https://v2.archive.subsquid.io/network/x1-testnet                    |
-| xlayer-mainnet                | https://v2.archive.subsquid.io/network/xlayer-mainnet                |
-| zksync-mainnet                | https://v2.archive.subsquid.io/network/zksync-mainnet                |
-| zksync-sepolia                | https://v2.archive.subsquid.io/network/zksync-sepolia                |
-| zora-mainnet                  | https://v2.archive.subsquid.io/network/zora-mainnet                  |
+(!) Genesis block for `neon-devnet` is 177455580.
