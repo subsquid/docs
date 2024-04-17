@@ -9,96 +9,90 @@ title: Substrate networks
 
 ## From open private network
 
-The table below lists the currently available public Substrate endpoints to be used with the [`setGateway()`](/sdk/reference/processors/substrate-batch/general/#set-gateway) `SubstrateBatchProcessor` configuration method. ArrowSquid URLs are served by the [open private network](/subsquid-network/overview/#open-private-network).
-
-| Network              | ArrowSquid lookup command                              |
-|:--------------------:|:------------------------------------------------------:|
-| acala                | `lookupArchive('acala')`                               |
-| agung                | `lookupArchive('agung')`                               |
-| aleph-zero           | `lookupArchive('aleph-zero')`                          |
-| aleph-zero-testnet   | `lookupArchive('aleph-zero-testnet')`                  |
-| amplitude            | `lookupArchive('amplitude')`                           |
-| asset-hub-kusama (*) | `lookupArchive('asset-hub-kusama')`                    |
-| asset-hub-polkadot (*) | `lookupArchive('asset-hub-polkadot')`                  |
-| asset-hub-rococo     | `lookupArchive('asset-hub-rococo')`                    |
-| astar                | `lookupArchive('astar',` `{type: 'Substrate'})`        |
-| basilisk             | `lookupArchive('basilisk')`                            |
-| bifrost-kusama       | `lookupArchive('bifrost-kusama')`                      |
-| bifrost-polkadot     | `lookupArchive('bifrost-polkadot')`                    |
-| bridge-hub-kusama    | `lookupArchive('bridge-hub-kusama')`                   |
-| bridge-hub-polkadot  | `lookupArchive('bridge-hub-polkadot')`                 |
-| bridge-hub-rococo    | `lookupArchive('bridge-hub-rococo')`                   |
-| bridge-hub-westend   | `lookupArchive('bridge-hub-westend')`                  |
-| centrifuge           | `lookupArchive('centrifuge')`                          |
-| cere                 | `lookupArchive('cere')`                                |
-| chainflip            | `lookupArchive('chainflip')`                           |
-| clover               | `lookupArchive('clover')`                              |
-| collectives-polkadot | `lookupArchive('collectives-polkadot')`                |
-| collectives-westend  | `lookupArchive('collectives-westend')`                 |
-| crab                 | `lookupArchive('crab')`                                |
-| crust                | `lookupArchive('crust')`                               |
-| dancebox             | `lookupArchive('dancebox')`                            |
-| darwinia             | `lookupArchive('darwinia')`                            |
-| data-avail           | `lookupArchive('data-avail')`                          |
-| eden                 | `lookupArchive('eden')`                                |
-| enjin-matrix         | `lookupArchive('enjin-matrix')`                        |
-| equilibrium          | `lookupArchive('equilibrium')`                         |
-| foucoco              | `lookupArchive('foucoco')`                             |
-| frequency            | `lookupArchive('frequency')`                           |
-| hydradx              | `lookupArchive('hydradx')`                             |
-| integritee-network   | `lookupArchive('integritee-network')`                  |
-| interlay             | `lookupArchive('interlay')`                            |
-| invarch-parachain    | `lookupArchive('invarch-parachain')`                   |
-| invarch-tinkernet    | `lookupArchive('invarch-tinkernet')`                   |
-| joystream            | `lookupArchive('joystream')`                           |
-| karura               | `lookupArchive('karura')`                              |
-| khala                | `lookupArchive('khala')`                               |
-| kilt                 | `lookupArchive('kilt')`                                |
-| kintsugi             | `lookupArchive('kintsugi')`                            |
-| kusama               | `lookupArchive('kusama')`                              |
-| litentry             | `lookupArchive('litentry')`                            |
-| litmus               | `lookupArchive('litmus')`                              |
-| moonbase             | `lookupArchive('moonbase',` `{type: 'Substrate'})`     |
-| moonbeam             | `lookupArchive('moonbeam',` `{type: 'Substrate'})`     |
-| moonriver            | `lookupArchive('moonriver',` `{type: 'Substrate'})`    |
-| paseo                | `lookupArchive('paseo')`                               |
-| peaq-mainnet         | `lookupArchive('peaq-mainnet',` `{type: 'Substrate'})` |
-| pendulum             | `lookupArchive('pendulum')`                            |
-| phala                | `lookupArchive('phala')`                               |
-| phala-testnet        | `lookupArchive('phala-testnet')`                       |
-| picasso              | `lookupArchive('picasso')`                             |
-| polimec              | `lookupArchive('polimec')`                             |
-| polkadex             | `lookupArchive('polkadex')`                            |
-| polkadot             | `lookupArchive('polkadot')`                            |
-| polymesh             | `lookupArchive('polymesh')`                            |
-| reef                 | `lookupArchive('reef')`                                |
-| reef-testnet         | `lookupArchive('reef-testnet')`                        |
-| robonomics           | `lookupArchive('robonomics')`                          |
-| rococo               | `lookupArchive('rococo')`                              |
-| rolimec              | `lookupArchive('rolimec')`                             |
-| shibuya              | `lookupArchive('shibuya')`                             |
-| shiden               | `lookupArchive('shiden')`                              |
-| sora                 | `lookupArchive('sora')`                                |
-| subsocial-parachain  | `lookupArchive('subsocial-parachain')`                 |
-| ternoa               | `lookupArchive('ternoa')`                              |
-| vara                 | `lookupArchive('vara')`                                |
-| vara-testnet         | `lookupArchive('vara-testnet')`                        |
-| watr                 | `lookupArchive('watr')`                                |
-| westend              | `lookupArchive('westend')`                             |
-| xsocial              | `lookupArchive('xsocial')`                             |
-| zeitgeist            | `lookupArchive('zeitgeist')`                           |
-| zeitgeist-testnet    | `lookupArchive('zeitgeist-testnet')`                   |
-
-(*) Asset Hub networks for Polkadot and Kusama were formerly known as Statemint and Statemine, respectively
-
-### Example
+The table below lists public Substrate datasets served by the [open private network](/subsquid-network/overview/#open-private-network). Dataset URLs should be used with the [`setGateway()`](/sdk/reference/processors/substrate-batch/general/#set-gateway) `SubstrateBatchProcessor` configuration method, for example:
 
 ```typescript
-import { lookupArchive } from '@subsquid/archive-registry'
-
 const processor = new SubstrateBatchProcessor()
-  // the lookupArchive() call resolves to
-  // 'https://v2.archive.subsquid.io/network/phala'
-  .setGateway(lookupArchive('phala', {release: 'ArrowSquid'}))
+  .setGateway('https://v2.archive.subsquid.io/network/phala')
   .setRpcEndpoint('https://api.phala.network/rpc')
 ```
+
+| Network                | Dataset URL                                                   |
+|:----------------------:|:-------------------------------------------------------------:|
+| Acala                  | https://v2.archive.subsquid.io/network/acala                  |
+| Agung                  | https://v2.archive.subsquid.io/network/agung                  |
+| Aleph Zero             | https://v2.archive.subsquid.io/network/aleph-zero             |
+| Aleph Zero Testnet     | https://v2.archive.subsquid.io/network/aleph-zero-testnet     |
+| Amplitude              | https://v2.archive.subsquid.io/network/amplitude              |
+| Asset Hub Kusama (*)   | https://v2.archive.subsquid.io/network/asset-hub-kusama       |
+| Asset Hub Polkadot (*) | https://v2.archive.subsquid.io/network/asset-hub-polkadot     |
+| Asset Hub Rococo       | https://v2.archive.subsquid.io/network/asset-hub-rococo       |
+| Astar                  | https://v2.archive.subsquid.io/network/astar-substrate        |
+| Basilisk               | https://v2.archive.subsquid.io/network/basilisk               |
+| Bifrost Kusama         | https://v2.archive.subsquid.io/network/bifrost-kusama         |
+| Bifrost Polkadot       | https://v2.archive.subsquid.io/network/bifrost-polkadot       |
+| Bridge Hub Kusama      | https://v2.archive.subsquid.io/network/bridge-hub-kusama      |
+| Bridge Hub Polkadot    | https://v2.archive.subsquid.io/network/bridge-hub-polkadot    |
+| Bridge Hub Rococo      | https://v2.archive.subsquid.io/network/bridge-hub-rococo      |
+| Bridge Hub Westend     | https://v2.archive.subsquid.io/network/bridge-hub-westend     |
+| Centrifuge             | https://v2.archive.subsquid.io/network/centrifuge             |
+| Cere                   | https://v2.archive.subsquid.io/network/cere                   |
+| Chainfliip             | https://v2.archive.subsquid.io/network/chainflip              |
+| Clover                 | https://v2.archive.subsquid.io/network/clover                 |
+| Collectives Polkadot   | https://v2.archive.subsquid.io/network/collectives-polkadot   |
+| Collectives Westend    | https://v2.archive.subsquid.io/network/collectives-westend    |
+| Darwinia Crab          | https://v2.archive.subsquid.io/network/darwinia-crab          |
+| Crust                  | https://v2.archive.subsquid.io/network/crust                  |
+| Dancebox               | https://v2.archive.subsquid.io/network/dancebox               |
+| Darwinia               | https://v2.archive.subsquid.io/network/darwinia               |
+| Data Avail             | https://v2.archive.subsquid.io/network/data-avail             |
+| Eden                   | https://v2.archive.subsquid.io/network/eden                   |
+| Enjin Matrix           | https://v2.archive.subsquid.io/network/enjin-matrix           |
+| Equilibrium            | https://v2.archive.subsquid.io/network/equilibrium            |
+| Foucoco                | https://v2.archive.subsquid.io/network/foucoco                |
+| Frequency              | https://v2.archive.subsquid.io/network/frequency              |
+| HydraDX                | https://v2.archive.subsquid.io/network/hydradx                |
+| Integritee Network     | https://v2.archive.subsquid.io/network/integritee             |
+| Interlay               | https://v2.archive.subsquid.io/network/interlay               |
+| Invarch Parachain      | https://v2.archive.subsquid.io/network/invarch-parachain      |
+| Invarch Tinkernet      | https://v2.archive.subsquid.io/network/invarch-tinkernet      |
+| Joystream              | https://v2.archive.subsquid.io/network/joystream              |
+| Karura                 | https://v2.archive.subsquid.io/network/karura                 |
+| Khala                  | https://v2.archive.subsquid.io/network/khala                  |
+| Kilt                   | https://v2.archive.subsquid.io/network/kilt                   |
+| Kintsugi               | https://v2.archive.subsquid.io/network/kintsugi               |
+| Kusama                 | https://v2.archive.subsquid.io/network/kusama                 |
+| Litentry               | https://v2.archive.subsquid.io/network/litentry               |
+| Litmus                 | https://v2.archive.subsquid.io/network/litmus                 |
+| Moonbase               | https://v2.archive.subsquid.io/network/moonbase-substrate     |
+| Moonbeam               | https://v2.archive.subsquid.io/network/moonbeam-substrate     |
+| Moonriver              | https://v2.archive.subsquid.io/network/moonriver-substrate    |
+| Paseo                  | https://v2.archive.subsquid.io/network/paseo                  |
+| Peaq                   | https://v2.archive.subsquid.io/network/peaq-mainnet-substrate |
+| Pendulum               | https://v2.archive.subsquid.io/network/pendulum               |
+| Phala                  | https://v2.archive.subsquid.io/network/phala                  |
+| Phala Testnet          | https://v2.archive.subsquid.io/network/phala-testnet          |
+| Picasso                | https://v2.archive.subsquid.io/network/picasso                |
+| Polimec                | https://v2.archive.subsquid.io/network/polimec                |
+| Polkadex               | https://v2.archive.subsquid.io/network/polkadex               |
+| Polkadot               | https://v2.archive.subsquid.io/network/polkadot               |
+| Polymesh               | https://v2.archive.subsquid.io/network/polymesh               |
+| Reef                   | https://v2.archive.subsquid.io/network/reef                   |
+| Reef Testnet           | https://v2.archive.subsquid.io/network/reef-testnet           |
+| Robonomics             | https://v2.archive.subsquid.io/network/robonomics             |
+| Rococo                 | https://v2.archive.subsquid.io/network/rococo                 |
+| Rolimec                | https://v2.archive.subsquid.io/network/rolimec                |
+| Shibuya                | https://v2.archive.subsquid.io/network/shibuya-substrate      |
+| Shiden                 | https://v2.archive.subsquid.io/network/shiden-substrate       |
+| Sora                   | https://v2.archive.subsquid.io/network/sora-mainnet           |
+| Subsocial Parachain    | https://v2.archive.subsquid.io/network/subsocial-parachain    |
+| Ternoa                 | https://v2.archive.subsquid.io/network/ternoa                 |
+| Vara                   | https://v2.archive.subsquid.io/network/vara                   |
+| Vara Testnet           | https://v2.archive.subsquid.io/network/vara-testnet           |
+| Watr                   | https://v2.archive.subsquid.io/network/watr                   |
+| Westend                | https://v2.archive.subsquid.io/network/westend                |
+| xSocial                | https://v2.archive.subsquid.io/network/xsocial                |
+| Zeitgeist              | https://v2.archive.subsquid.io/network/zeitgeist              |
+| Zeitgeist Testnet      | https://v2.archive.subsquid.io/network/zeitgeist-testnet      |
+
+(*) Asset Hub networks for Polkadot and Kusama were formerly known as Statemint and Statemine, respectively
