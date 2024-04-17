@@ -2,19 +2,23 @@ axios = require('axios')
 
 module.exports = getArchiveCapabilities
 
+/**
+ * @param {string} archiveUrl
+ * @returns {} Capabilities of the archive
+ */
 function getArchiveCapabilities(archiveUrl) {
-	return getArchiveHeight(archiveUrl, (height) =>
-		getWorkerUrl(archiveUrl, height, (workerUrl, height) =>
+	return processArchiveHeight(archiveUrl, (height) =>
+		processWorkerUrl(archiveUrl, height, (workerUrl, height) =>
 			getWorkerCapabilities(workerUrl, height)
 		)
 	)
 }
 
-function getArchiveHeight(archiveUrl, callback) {
+function processArchiveHeight(archiveUrl, callback) {
 	return axios.get(`${archiveUrl}/height`).then(ahdata => callback(ahdata.data))
 }
 
-function getWorkerUrl(archiveUrl, height, callback) {
+function processWorkerUrl(archiveUrl, height, callback) {
 	return height>0 ?
 		axios.get(`${archiveUrl}/${height}/worker`).then(wdata => callback(wdata.data, height)) :
 		Promise.resolve(callback(undefined, height))
