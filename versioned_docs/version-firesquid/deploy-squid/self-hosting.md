@@ -68,8 +68,6 @@ services:
     environment:
       POSTGRES_DB: squid
       POSTGRES_PASSWORD: postgres
-    ports:
-      - "5432:5432"
       # Uncomment for logging all SQL statements
       # command: ["postgres", "-c", "log_statement=all"]
   api:
