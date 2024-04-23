@@ -15,17 +15,6 @@ export const FromBlockTooltip = ({children, tip}) => (
   </div>
 )
 
-export const MoonbeamTooltip = ({children, tip}) => (
-  <div class="group relative">
-    <div class={`pointer-events-auto absolute -top-16 -left-3 w-max opacity-0 transition-opacity group-hover:opacity-100`}>
-      <div>up to block</div>
-      <div>5327886</div>
-      <div><a href="https://github.com/moonbeam-foundation/moonbeam/issues/2626">learn more</a></div>
-    </div>
-    <span class="underline decoration-dotted">{children}</span>
-  </div>
-)
-
 export const BitgertTooltip = ({children, tip}) => (
   <div class="group relative">
     <div class={`pointer-events-auto absolute -top-9 -left-3 w-max opacity-0 transition-opacity group-hover:opacity-100`}>
@@ -86,7 +75,7 @@ const processor = new EvmBatchProcessor()
 | Mantle Sepolia                 | 5003       |                                                        |                                                       | https://v2.archive.subsquid.io/network/mantle-sepolia                |
 | Metis                          | 1088       |                                                        |                                                       | https://v2.archive.subsquid.io/network/metis-mainnet                 |
 | Moonbase Alpha (*)             | 1287       |                                                        |                                                       | https://v2.archive.subsquid.io/network/moonbase-testnet              |
-| Moonbeam (*)                   | 1284       |                                                        | <MoonbeamTooltip>?</MoonbeamTooltip>                  | https://v2.archive.subsquid.io/network/moonbeam-mainnet              |
+| Moonbeam (*)                   | 1284       |                                                        | ✓                                                     | https://v2.archive.subsquid.io/network/moonbeam-mainnet              |
 | Moonriver (*)                  | 1285       |                                                        | ✓                                                     | https://v2.archive.subsquid.io/network/moonriver-mainnet             |
 | Neon EVM Devnet (!)            | 245022934  |                                                        |                                                       | https://v2.archive.subsquid.io/network/neon-devnet                   |
 | Neon EVM                       | 245022926  |                                                        |                                                       | https://v2.archive.subsquid.io/network/neon-mainnet                  |
@@ -113,6 +102,7 @@ const processor = new EvmBatchProcessor()
 | zkSync                         | 324        |                                                        | <FromBlockTooltip tip="15500000">✓</FromBlockTooltip> | https://v2.archive.subsquid.io/network/zksync-mainnet                |
 | zkSync Sepolia                 | 300        |                                                        | ✓                                                     | https://v2.archive.subsquid.io/network/zksync-sepolia                |
 | Zora                           | 7777777    | ✓                                                      | ✓                                                     | https://v2.archive.subsquid.io/network/zora-mainnet                  |
+
 
 (*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate dataset](/subsquid-network/reference/substrate-networks).
 

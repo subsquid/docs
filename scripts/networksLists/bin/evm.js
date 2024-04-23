@@ -58,8 +58,6 @@ async function evmNetworksRows(networksJson) {
 		}
 		if (capName==='traces') {
 			switch (network) {
-				case 'moonbeam':
-					return '<MoonbeamTooltip>?</MoonbeamTooltip>'
 				case 'zksync-mainnet':
 					return capIsPresent ? '<FromBlockTooltip tip="15500000">✓</FromBlockTooltip>' : ' '
 				default:
