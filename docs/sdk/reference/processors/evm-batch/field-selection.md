@@ -297,7 +297,7 @@ const gravatarRegistryContract = '0x2e645469f354bb4f5c8a05b3b30a929361cf77ec'
 const gravatarTokenContract = '0xac5c7493036de60e63eb81c5e9a440b42f47ebf5'
 
 const processor = new EvmBatchProcessor()
-  .setGateway(lookupArchive('eth-mainnet'))
+  .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
   .setRpcEndpoint('<my_eth_rpc_url>')
   .setFinalityConfirmation(75)
   .setBlockRange({ from: 6_000_000 })

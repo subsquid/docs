@@ -42,7 +42,7 @@ Replace the old `setDataSource()` processor configuration call with a combinatio
 -  .setDataSource({
 -    archive: lookupArchive('eth-mainnet', {release: 'FireSquid'})
 -  })
-+  .setGateway(lookupArchive('eth-mainnet'))
++  .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
 +  .setRpcEndpoint({
 +    url: '<my_eth_rpc_url>',
 +    rateLimit: 10

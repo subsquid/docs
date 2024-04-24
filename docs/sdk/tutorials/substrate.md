@@ -161,11 +161,10 @@ import {
   SubstrateBatchProcessorFields,
   DataHandlerContext
 } from '@subsquid/substrate-processor'
-import {lookupArchive} from '@subsquid/archive-registry'
 import {events} from './types' // the wrappers generated in previous section
 
 const processor = new SubstrateBatchProcessor()
-  .setGateway(lookupArchive('crust', {release: 'ArrowSquid'}))
+  .setGateway('https://v2.archive.subsquid.io/network/crust')
   .setRpcEndpoint({
     url: 'https://crust.api.onfinality.io/public',
     rateLimit: 10
@@ -193,7 +192,7 @@ type Fields = SubstrateBatchProcessorFields<typeof processor>
 export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 ```
 This creates a processor that
- - Uses Subsquid Network as its main data source and a chain RPC for [real-time updates](/sdk/overview/#rpc-ingestion). URL of the Subsquid Network dataset endpoint is looked up with [`@subsquid/archive-registry`](/subsquid-network/reference/registry). See [this page](/sdk/reference/processors/substrate-batch/general) for reference;
+ - Uses Subsquid Network as its main data source and a chain RPC for [real-time updates](/sdk/overview/#rpc-ingestion). URLs of the Subsquid Network dataset endpoints are available on [this page](/subsquid-network/reference/substrate-networks) and via [`sqd gateways`](/squid-cli/gateways). See [this page](/sdk/reference/processors/substrate-batch/general) for the reference on data sources configuration;
  - [Subscribes](/sdk/reference/processors/substrate-batch/data-requests) to `Market.FileSuccess`, `Swork.JoinGroupSuccess` and `Swork.WorksReportSuccess` events emitted at heights starting at 583000;
  - Additionally subscribes to calls that emitted the events and the corresponding extrinsics;
  - [Requests](/sdk/reference/processors/substrate-batch/field-selection) the `hash` data field for all retrieved extrinsics and the `timestamp` field for all block headers.

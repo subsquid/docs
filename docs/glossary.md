@@ -13,13 +13,13 @@ Deprecated term used for [Subsquid Network](/subsquid-network) and for the [data
  - "an archive" for a particular network is replaced by "a Subsquid Network dataset"
  - "an archive endpoint" becomes "a dataset endpoint"
 
-Lists of dataset endpoints for open private Subsquid Network are available in these docs ([EVM](/subsquid-network/reference/evm-networks), [Substrate](/subsquid-network/reference/substrate-networks)) and via the [`@subsquid/archive-registry` package](/subsquid-network/reference/registry).
+Lists of dataset endpoints for open private Subsquid Network are available in these docs ([EVM](/subsquid-network/reference/evm-networks), [Substrate](/subsquid-network/reference/substrate-networks)) and via [`sqd gateways`](/squid-cli/gateways).
 
 **Not to be confused with [archive blockchain nodes](https://ethereum.org/developers/docs/nodes-and-clients/archive-nodes)**.
 
-### Cloud (former Aquarium)
+### `archive-registry`
 
-A [cloud service](/cloud) for deploying [squids](#squid) in a serverless fashion maintained by Subsquid Labs GmbH.
+The deprecated NPM package `@subsquid/archive-registry` that was used to look up squid data sources by network aliases (with `lookupArchive()` and a small CLI). We now recommend using raw network dataset URLs instead of `lookupArchive()` calls in processor configuration. The exploratory CLI is replaced by [`sqd gateways`](/squid-cli/gateways); lists of available network datasets are also available as [Subsquid Network reference pages](/subsquid-network/reference).
 
 ### Block
 
@@ -28,6 +28,10 @@ An atomic state transition of a blockchain. Typically an ordered collection of t
 ### Call
 
 On [Substrate](#substrate), a call is a sub-routine changing the runtime state. An extrinsic consists of a root call which in turn may have sub-calls, thus calls executed by an extrinsic have parent-child relationship. For example, `util.batch` extrinsic has a single root call and multiple child calls. Subsquid processor is call-based rather than extrinsic based, as normally one is interested in specific calls changing the substrate state, no matter if it was part of a batch extrinsic, or it was wrapped in a sudo or proxy call. 
+
+### Cloud (former Aquarium)
+
+A [cloud service](/cloud) for deploying [squids](#squid) in a serverless fashion maintained by Subsquid Labs GmbH.
 
 ### Contracts pallet
 
@@ -75,8 +79,7 @@ An open-source GraphQL server that automatically generates an expressive API fro
 
 ### Pallet
 
-A portable module that can be added to a [Substrate](#substrate) runtime. Typically, contains a self-contained implementation of a business logic that can be re-used across multiple chains. 
-
+A portable module that can be added to a [Substrate](#substrate) runtime. Typically, contains a self-contained implementation of a business logic that can be re-used across multiple chains.
 ### Schema file
 
 A file describing the target data schema for a squid, normally called `schema.graphql`. The file uses a GraphQL dialect to define entities, properties and relations. See [details here](/sdk/reference/schema-file).

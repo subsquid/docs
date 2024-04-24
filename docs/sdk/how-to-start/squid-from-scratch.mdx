@@ -24,7 +24,6 @@ Suppose the task is to track transfers of USDT on Ethereum, then save the result
 We also assume the following choice of _optional_ packages:
 
 * `@subsquid/evm-typegen` - for decoding Ethereum data and useful constants such as event topic0 values
-* `@subsquid/archive-registry` - for retrieving the URLs of [open private network](/subsquid-network/overview/#open-private-network) EVM [datasets](/subsquid-network/reference/evm-networks)
 
 To make the indexer, follow these steps:
 
@@ -48,7 +47,7 @@ To make the indexer, follow these steps:
 
 2. install the packages:
    ```bash
-   npm i dotenv typeorm @subsquid/evm-processor @subsquid/typeorm-store @subsquid/typeorm-migration @subsquid/graphql-server @subsquid/archive-registry
+   npm i dotenv typeorm @subsquid/evm-processor @subsquid/typeorm-store @subsquid/typeorm-migration @subsquid/graphql-server
    ```
    ```bash
    npm i typescript @subsquid/typeorm-codegen @subsquid/evm-typegen --save-dev
@@ -134,14 +133,13 @@ To make the indexer, follow these steps:
      ```ts
      import { EvmBatchProcessor } from '@subsquid/evm-processor'
      import { TypeormDatabase } from '@subsquid/typeorm-store'
-     import { lookupArchive } from '@subsquid/archive-registry'
      import * as usdtAbi from './abi/usdt'
      import { Transfer } from './model'
      ```
    * [`EvmBatchProcessor`](/sdk/reference/processors/evm-batch) object definition
      ```ts
      const processor = new EvmBatchProcessor()
-       .setGateway(lookupArchive('eth-mainnet'))
+       .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
        .setRpcEndpoint({
          // set RPC endpoint in .env
          url: process.env.RPC_ETH_HTTP,

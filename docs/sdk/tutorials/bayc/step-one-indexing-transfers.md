@@ -50,7 +50,7 @@ import * as bayc from './abi/bayc'
 export const CONTRACT_ADDRESS = '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
 
 export const processor = new EvmBatchProcessor()
-    .setGateway(lookupArchive('eth-mainnet'))
+    .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
     .setRpcEndpoint({
         url: '<my_eth_rpc_url>',
         rateLimit: 10
@@ -72,7 +72,7 @@ export const processor = new EvmBatchProcessor()
 ```
 
 Here,
-* `'eth-mainnet'` is the alias for the public Subsquid Network dataset endpoint for Ethereum mainnet. Check out `npx squid-archive-registry` for a list of public dataset endpoints for all supported networks.
+* `'eth-mainnet'` is the alias for the public Subsquid Network dataset endpoint for Ethereum mainnet. Check out [Subsquid reference pages](/subsquid-network/reference) for lists of public dataset endpoints for all supported networks.
 * `'<eth_rpc_endpoint_url>'` is a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within Subsquid Network. Please use a private endpoint or Subsquid Cloud's [RPC proxy service](/cloud/reference/rpc-proxy) in production.
 * `setFinalityConfirmation(75)` call instructs the processor to consider blocks final after 75 confirmations when ingesting data from an RPC endpoint.
 * `12_287_507` is the block at which the BAYC token contract was deployed. Can be found on the [contract's Etherscan page](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).

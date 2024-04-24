@@ -26,7 +26,7 @@ Contract state can also be accessed via wrapped RPC queries using the [classes p
 
 ```typescript
 const processor = new SubstrateBatchProcessor()
-  .setGateway(lookupArchive('astar', {type: 'Substrate', release: 'ArrowSquid'}))
+  .setGateway('https://v2.archive.subsquid.io/network/astar-substrate')
   .setRpcEndpoint('https://astar-rpc.dwellir.com')
   .addEvmLog({
     address: [
@@ -67,7 +67,7 @@ processor.addEthereumTransaction({sighash: ['0xa9059cbb']})
 
 ```typescript 
 const processor = new SubstrateBatchProcessor()
-  .setGateway(lookupArchive('astar', {type: 'Substrate'}))
+  .setGateway('https://v2.archive.subsquid.io/network/astar-substrate')
   .setRpcEndpoint('https://astar-rpc.dwellir.com')
   .addEthereumTransaction({})
   .addEvmLog({})

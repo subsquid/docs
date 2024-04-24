@@ -4,7 +4,9 @@ export default [
   {
     title: "Mine the tx data from millions of wallets",
     code: 'export const processor = new EvmBatchProcessor()\n' +
-        '  .setGateway(lookupArchive(\'binance\'))\n' +
+        '  .setGateway(\n' +
+        '     \'https://v2.archive.subsquid.io/network/binance-mainnet\'\n' +
+        '  )\n' +
         '  .addTransaction({})\n' +
         '\n' +
         'const wallets: Set<string> = loadWallets()\n' +
@@ -22,7 +24,7 @@ export default [
         '    }\n' +
         '  }\n' +
         '})',
-    codeCollapse: '.setGateway(lookupArchive(\'binance\'))\n.addTransaction({})\n// ...\nif (wallets.has(txn.from)) { /* ... */ }\nif (wallets.has(txn.to)) { /* ... */ }',
+    codeCollapse: '.addTransaction({})\n// ...\nif (wallets.has(txn.from)) { /* ... */ }\nif (wallets.has(txn.to)) { /* ... */ }',
     link: "https://github.com/subsquid-labs/showcase00-analyzing-a-large-number-of-wallets"
   },
   {
@@ -30,7 +32,9 @@ export default [
     code: 'export const USDC_CONTRACT_ADDRESS = \'0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\'\n' +
         '\n' +
         'export const processor = new EvmBatchProcessor()\n' +
-        '  .setGateway(lookupArchive(\'eth-mainnet\'))\n' +
+        '  .setGateway(\n' +
+        '     \'https://v2.archive.subsquid.io/network/ethereum-mainnet\'\n' +
+        '  )\n' +
         '  .setRpcEndpoint(\'<eth_rpc_endpoint_url>\')\n' +
         '  .setFinalityConfirmation(75)\n' +
         '  .addLog({\n' +
@@ -53,7 +57,9 @@ export default [
     code: 'export const VITALIK_ETH_TOPIC = \'0x000000000000000000000000d8da6bf26964af9d7eed9e03e53415d37aa96045\'\n' +
         '\n' +
         'export const processor = new EvmBatchProcessor()\n' +
-        '  .setGateway(lookupArchive(\'eth-mainnet\'))\n' +
+        '  .setGateway(\n' +
+        '     \'https://v2.archive.subsquid.io/network/ethereum-mainnet\'\n' +
+        '  )\n' +
         '  .addLog({\n' +
         '    topic0: [erc20abi.events.Transfer.topic],\n' +
         '    topic2: [VITALIK_ETH_TOPIC],\n' +
@@ -70,7 +76,9 @@ export default [
     title: "Index the AAVE Pool tx data, decoding the event logs",
     code: 'export const AAVE_CONTRACT = \'0x7d2768de32b0b80b7a3454c06bdac94a69ddc7a9\'\n' +
         'export const processor = new EvmBatchProcessor()\n' +
-        '  .setGateway(lookupArchive(\'eth-mainnet\'))\n' +
+        '  .setGateway(\n' +
+        '     \'https://v2.archive.subsquid.io/network/ethereum-mainnet\'\n' +
+        '  )\n' +
         '  .setBlockRange({ from: 11_362_579 })\n' +
         '  .addTransaction({\n' +
         '    to: [AAVE_CONTRACT],\n' +
@@ -95,7 +103,9 @@ export default [
   {
     title: "Index all NFT mints",
     code: 'export const processor = new EvmBatchProcessor()\n' +
-        '  .setGateway(lookupArchive(\'eth-mainnet\'))\n' +
+        '  .setGateway(\n' +
+        '     \'https://v2.archive.subsquid.io/network/ethereum-mainnet\'\n' +
+        '  )\n' +
         '  .addLog({\n' +
         '    topic0: [usdcAbi.events.Mint.topic],\n' +
         '    transaction: true,\n' +
@@ -122,7 +132,9 @@ export default [
         'const SWAP_TOPIC = \'0xd78ad95fa46c994b6551d0da85fc275fe613ce37657fb8d5e3d130840159d822\'\n' +
         '\n' +
         'export const processor = new EvmBatchProcessor()\n' +
-        '  .setGateway(lookupArchive(\'binance\'))\n' +
+        '  .setGateway(\n' +
+        '     \'https://v2.archive.subsquid.io/network/binance-mainnet\'\n' +
+        '  )\n' +
         '  .setBlockRange({ from: 586_851 })\n' +
         '  .addLog({\n' +
         '    address: FACTORY_ADDRESSES,\n' +
@@ -148,7 +160,9 @@ export default [
     code: 'const BAYC_ADDRESS = \'0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d\'\n' +
         '\n' +
         'export const processor = new EvmBatchProcessor()\n' +
-        '  .setGateway(lookupArchive(\'eth-mainnet\'))\n' +
+        '  .setGateway(\n' +
+        '     \'https://v2.archive.subsquid.io/network/ethereum-mainnet\'\n' +
+        '  )\n' +
         '  .setBlockRange({ from: 12_287_507 })\n' +
         '  .addTrace({\n' +
         '    type: [\'call\'],\n' +
@@ -178,7 +192,9 @@ export default [
   {
     title: "Mine all NFT contracts ever deployed",
     code: 'export const processor = new EvmBatchProcessor()\n' +
-        '  .setGateway(lookupArchive(\'eth-mainnet\'))\n' +
+        '  .setGateway(\n' +
+        '     \'https://v2.archive.subsquid.io/network/ethereum-mainnet\'\n' +
+        '  )\n' +
         '  .addTrace({\n' +
         '    type: [\'create\'],\n' +
         '    transaction: true,\n' +
@@ -202,3 +218,4 @@ export default [
     link: "https://github.com/subsquid-labs/showcase07-grab-all-nft-transfers"
   },
 ]
+
