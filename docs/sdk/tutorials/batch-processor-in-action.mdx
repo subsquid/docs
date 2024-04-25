@@ -26,9 +26,9 @@ Create or edit `schema.graphql` to define the target entities and relations. Con
 
 Update the entity classes, start a fresh database and regenerate migrations:
 ```bash
-sqd codegen
-sqd down
-sqd up
+npx squid-typeorm-codegen
+docker compose down
+docker compose up -d
 sqd migration:generate
 ```
 
@@ -122,7 +122,7 @@ The script will build the code automatically before running.
 
 In a separate terminal window, run
 ```bash
-sqd serve
+npx squid-graphql-server
 ```
 Inspect the GraphQL API at [`http://localhost:4350/graphql`](http://localhost:4350/graphql).
 

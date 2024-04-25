@@ -238,7 +238,7 @@ Update your transactions/events decoding code. The big change here is that now d
 
 ## Step 8
 
-Iteratively reconcile any type errors arising when building your squid (e.g. with `sqd build`). In case you're using `tranformContext.ts` you may find the types it exports helpful. If you need to specify the field selection generic argument explicitly, get it as a `typeof` of the `setFields` argument value:
+Iteratively reconcile any type errors arising when building your squid (e.g. with `npm run build`). In case you're using `tranformContext.ts` you may find the types it exports helpful. If you need to specify the field selection generic argument explicitly, get it as a `typeof` of the `setFields` argument value:
 
 ```ts
 import { OldBlockData } from './transformContext'

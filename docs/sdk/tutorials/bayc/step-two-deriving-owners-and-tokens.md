@@ -85,7 +85,7 @@ This addition doesn't create any new database columns, but it makes the `ownedTo
 You can find the final version of schema.graphql [here](https://github.com/subsquid-labs/bayc-squid-1/blob/6a148b1345f6c26acc2678e10b60aadcd4bbbcee/schema.graphql). Once you're finished, regenerate the Typeorm entity code with the following command:
 
 ```bash
-sqd codegen
+npx squid-typeorm-codegen
 ```
 
 We also need to regenerate the database migrations to match the new schema. However, we'll postpone this step for now: it requires recompiling the squid code and it is not possible until we fix the entity creation code.
@@ -219,13 +219,13 @@ Since `Transfer`s are unique, we can safely use `ctx.store.insert()` to persist 
 At this point, the squid has accomplished everything planned for this part of the tutorial. The only remaining task is to drop and recreate the database (if it's running) and regenerate the migrations:
 
 ```bash
-sqd down
-sqd up
+docker compose down
+docker compose up -d
 sqd migration:generate
 ```
 Full code can be found at [this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/3568f70b7ac1802fbbf80079e435a3348b0d3a62).
 
-To test it, start the processor and the GraphQL server by running `sqd process` and `sqd serve` in separate terminals. Then, visit the [GraphiQL playground](http://localhost:4350/graphql):
+To test it, start the processor and the GraphQL server by running `sqd process` and `npx squid-graphql-server` in separate terminals. Then, visit the [GraphiQL playground](http://localhost:4350/graphql):
 
 ![BAYC GraphiQL at step two](./bayc-playground-step-two.png)
 

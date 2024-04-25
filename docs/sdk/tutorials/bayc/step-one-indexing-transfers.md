@@ -116,7 +116,7 @@ This goes through all the log items in the batch, verifies that they indeed are 
 
 At this point the squid is ready for its first test run. Execute
 ```bash
-sqd up
+docker compose up -d
 sqd process
 ```
 and you should see lots of lines like these in the output:
@@ -150,11 +150,11 @@ Here,
 * `@index` decorators tell the codegen tool that the corresponding database columns should be indexed.
 * Extra fields `timestamp` and `blockNumber` are added to make the resulting GraphQL API more convenient. We will fill them using the block metadata available in `ctx`.
 
-Once we're done editing the schema, we regenerate the TypeORM code, recreate the database and regenerate the migrations. We use [`sqd`](/squid-cli/) commands for convenience:
+Once we're done editing the schema, we regenerate the TypeORM code, recreate the database and regenerate the migrations:
 ```bash
-sqd codegen
-sqd down
-sqd up
+npx squid-typeorm-codegen
+docker compose down
+docker compose up -d
 sqd migration:generate
 ```
 The generated code is in `src/model`. We can now import a `Transfer` entity class from there and use it to perform [various operations](/sdk/resources/persisting-data/typeorm/) on the corresponding database table. Let us rewrite our batch handler to save the parsed `Transfer` events data to the database:
@@ -199,7 +199,7 @@ sqd process
 ```
 then
 ```bash
-sqd serve
+npx squid-graphql-server
 ```
 in a separate terminal. If all is well, a GraphiQL playground should become available at [localhost:4350/graphql](http://localhost:4350/graphql):
 

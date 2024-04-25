@@ -33,12 +33,12 @@ Squid generation procedure is very similar for both contract types. Here are the
 
 4. Prepare your squid for launching. If it is using a database, start a PostgreSQL container and generate migrations:
    ```bash
-   sqd up
+   docker compose up -d
    sqd migration:generate
    ```
    If it is storing its data to a dataset, [strip the project folder of database-related facilities](#strip-the-squid-folder-for-file-store) that are no longer needed.
 
-5. Test the complete squid by running it locally. Start a [processor](/sdk/overview/) with `sqd process`. If your squid will be serving GraphQL also run `sqd serve` in a separate terminal. Make sure that the squid saves the requested data to its target dataset:
+5. Test the complete squid by running it locally. Start a [processor](/sdk/overview/) with `sqd process`. If your squid will be serving GraphQL also run `npx squid-graphql-server` in a separate terminal. Make sure that the squid saves the requested data to its target dataset:
    - if it is serving GraphQL, visit the local [GraphiQL playground](http://localhost:4350/graphql);
    - for PostgreSQL-based squids you can also connect to the database with `PGPASSWORD=postgres psql -U postgres -p 23798 -h localhost squid` and take a look at the contents;
    - if it is storing data to a file-based dataset, [wait for the first filesystem sync](/sdk/resources/persisting-data/file/#filesystem-syncs-and-dataset-partitioning) then verify that all the expected files are present and contain the expected data.

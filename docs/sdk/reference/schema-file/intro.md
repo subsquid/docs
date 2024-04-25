@@ -17,11 +17,10 @@ The schema file format is loosely compatible with the [subgraph schema](https://
 
 ## TypeORM codegen
 
-The [`squid-typeorm-codegen(1)`](https://github.com/subsquid/squid-sdk/tree/master/typeorm/typeorm-codegen) tool is used to generate [TypeORM entity](https://typeorm.io/) classes from the schema defined in `schema.graphql`. The most convenient way to run the tool is usually via the `sqd` wrapper:
+The [`squid-typeorm-codegen(1)`](https://github.com/subsquid/squid-sdk/tree/master/typeorm/typeorm-codegen) tool is used to generate [TypeORM entity](https://typeorm.io/) classes from the schema defined in `schema.graphql`. Invoke it with
 
 ```bash
-sqd codegen
-sqd build
+npx squid-typeorm-codegen
 ```
 
 By default the entity classes are generated in `src/model/generated`.

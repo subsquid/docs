@@ -61,14 +61,14 @@ type Gravatar @entity {
 
 Next, we generate the entities from the schema using the [`squid-typeorm-codegen`](/sdk/reference/schema-file/intro/#typeorm-codegen) tool of the Squid SDK, then build the squid:
 ```bash
-sqd codegen
-sqd build
+npx squid-typeorm-codegen
+npm run build
 ```
 This command is equivalent to running `yarn codegen` in subgraph.
 
 After that, start the local database and generate migrations from the generated entities using the [`squid-typeorm-migration`](/sdk/resources/persisting-data/typeorm) tool:
 ```bash
-sqd up
+docker compose up -d
 sqd migration:generate
 ```
 A database migration file for creating a table for `Gravatar` will appear in `db/migrations`. The migration will be automatically applied once we start the squid processor.
@@ -78,7 +78,7 @@ A database migration file for creating a table for `Gravatar` will appear in `db
 Copy `./abis/Gravity.json` from the subgraph project and paste it to `./abi` folder in the subsquid project.
 To generate the typings, run:
 ```bash
-sqd typegen
+npx squid-evm-typegen ./src/abi ./abi/*.json --multicall
 ```
 Alternatively, similar to `graph add <address> [<subgraph-manifest default: "./subgraph.yaml">]` command, to generate typings, run:
 ```bash
@@ -213,7 +213,7 @@ The processor will output the sync progress and the ETA to reach the chain head.
 
 To start an API server (at port `4350` by default) with a GraphQL schema auto-generated from the schema file, run in a new terminal window
 ```bash
-sqd serve
+npx squid-graphql-server
 ```
 and inspect the auto-generated GraphQL API using an interactive playground at [http://localhost:4350/graphql](http://localhost:4350/graphql).
 

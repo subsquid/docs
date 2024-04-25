@@ -9,7 +9,7 @@ The data indexed by a squid into a Postgres database can be automatically presen
 
 To start the API server based on the `schema.graphql` run in the squid project root:
 ```bash
-sqd serve
+npx squid-graphql-server
 ```
 or, for more options,
 ```bash

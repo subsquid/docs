@@ -171,7 +171,7 @@ Test the template locally. The procedure varies depending on the data sink:
 <Tabs>
 <TabItem value="typeorm" label="PostgreSQL+GraphQL">
 ```
-1. Launch a PostgreSQL container with `sqd up`
+1. Launch a PostgreSQL container with `docker compose up -d`
 2. Start the squid processor with `sqd process`. You should see output that contains lines like these ones:
    ```bash
    04:11:24 INFO  sqd:processor processing blocks from 6000000
@@ -179,9 +179,9 @@ Test the template locally. The procedure varies depending on the data sink:
    04:11:24 INFO  sqd:processor prometheus metrics are served at port 45829
    04:11:27 INFO  sqd:processor 6051219 / 18079056, rate: 16781 blocks/sec, mapping: 770 blocks/sec, 544 items/sec, eta: 12m
    ```
-3. Start the GraphQL server by running `sqd serve` in a separate terminal, then visit the [GraphiQL console](http://localhost:4350/graphql) to verify that the GraphQL API is up.
+3. Start the GraphQL server by running `npx squid-graphql-server` in a separate terminal, then visit the [GraphiQL console](http://localhost:4350/graphql) to verify that the GraphQL API is up.
 
-When done, shut down and erase your database with `sqd down`.
+When done, shut down and erase your database with `docker compose down`.
 
 ```mdx-code-block
 </TabItem>
@@ -234,9 +234,9 @@ The advantage of this approach is that the code remains buildable at all times, 
 <Tabs>
 <TabItem value="evm" label="EVM">
 ```
-Retrieve JSON ABIs for all contracts of interest (e.g. from Etherscan), taking care to get implementation ABIs for [proxies](/sdk/resources/evm/proxy-contracts) where appropriate. Assuming that you saved the ABI files to `./abi`, you can then regenerate the utilities with
+Retrieve JSON ABIs for all contracts of interest (e.g. from Etherscan), taking care to get ABIs for implementation contracts and not [proxies](/sdk/resources/evm/proxy-contracts) where appropriate. Assuming that you saved the ABI files to `./abi`, you can then regenerate the utilities with
 ```bash
-sqd typegen
+npx squid-evm-typegen ./src/abi ./abi/*.json --multicall
 ```
 Or if you would like the tool to retrieve the ABI from Etherscan in your stead, you can run e.g.
 ```bash
@@ -262,7 +262,11 @@ Follow the respective reference configuration pages of each typegen tool:
 
 These squids use both Substrate typegen _and_ EVM typegen. To generate all the required utilities, [configure the Substrate part](sdk/resources/tools/typegen/generation/?typegen=substrate), then save all relevant JSON ABIs to `./abi`, then run
 ```bash
-sqd typegen
+npx squid-evm-typegen ./src/abi ./abi/*.json --multicall
+```
+followed by
+```bash
+npx squid-substrate-typegen ./typegen.json
 ```
 
 </details>
@@ -430,24 +434,24 @@ At `src/main.ts`, change the [`Database`](/sdk/resources/persisting-data/overvie
 
 2. Regenerate the TypeORM model classes with
    ```bash
-   sqd codegen
+   npx squid-typeorm-codegen
    ```
    The classes will become available at `src/model`.
 
 3. Compile the models code with
    ```bash
-   sqd build
+   npm run build
    ```
 
 4. Ensure that the squid has access to a blank database. The easiest way to do so is to start PostgreSQL in a Docker container with
    ```bash
-   sqd up
+   docker compose up -d
    ```
    If the container is running, stop it and erase the database with
    ```bash
-   sqd down
+   docker compose down
    ```
-   before issuing an `sqd up`.
+   before issuing an `docker compose up -d`.
 
    The alternative is to connect to an external database. See [this section](/sdk/reference/store/typeorm/#database-connection-parameters) to learn how to specify the connection parameters.
 

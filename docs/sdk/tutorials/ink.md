@@ -25,10 +25,6 @@ Subsquid SDK only supports WASM contracts executed by the [Contracts pallet](htt
 - `AlephZero` (a standalone Substrate-based chain)
 :::
 
-:::info
-This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands.
-:::
-
 ## Pre-requisites
 
 - Familiarity with Git
@@ -46,12 +42,12 @@ and run it:
 
 ```bash
 npm ci
-sqd build
-sqd up
+npm run build
+docker compose up -d
 sqd process # should begin to ingest blocks
 
 # open a separate terminal for this next command
-sqd serve # should begin listening on port 4350
+npx squid-graphql-server # should begin listening on port 4350
 ```
 After this test, shut down both processes with Ctrl-C and proceed.
 
@@ -88,17 +84,16 @@ Note:
 * a one-to-many [relation](/sdk/reference/schema-file/entity-relations) between `Owner` and `Transfer`;
 * `@index` decorators for properties that we want to be able to filter the data by.
 
-Next, we generate `TypeORM` entity classes from the schema with the `squid-typeorm-codegen` tool. There is a handy `sqd` script for that:
-
+Next, we generate `TypeORM` entity classes from the schema with the `squid-typeorm-codegen` tool:
 ```bash
-sqd codegen
+npx squid-typeorm-codegen
 ```
 The generated entity classes can be found under `src/model/generated`.
 
 Finally, we create [database migrations](/sdk/resources/persisting-data/typeorm) to match the changed schema. We restore the database to a clean state, then replace any existing migrations with the new one:
 ```bash
-sqd down
-sqd up
+docker compose down
+docker compose up -d
 sqd migration:generate
 ```
 
@@ -327,7 +322,7 @@ sqd process
 This will block the current terminal. In a separate terminal window, launch the GraphQL server:
 
 ```bash
-sqd serve
+npx squid-graphql-server
 ```
 
 Visit [`localhost:4350/graphql`](http://localhost:4350/graphql) to access the [GraphiQl](https://github.com/graphql/graphiql) console. There you can perform queries such as this one, to find out the account owners with the biggest balances:

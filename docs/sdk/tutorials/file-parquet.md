@@ -77,11 +77,12 @@ For this project, you will need:
 Generate TypeScript code for them:
 
 ```bash
-sqd typegen 0x1f98431c8ad98523631ae4a59f267346ea31f984#factory
-sqd typegen 0xc36442b4a4522e871399cd717abdd847ab11fe88#NonfungiblePositionManager
-sqd typegen 0x390a4d096ba2cc450e73b3113f562be949127ceb#pool
+npx squid-evm-typegen ./src/abi ./abi/*.json
+npx squid-evm-typegen ./src/abi 0x1f98431c8ad98523631ae4a59f267346ea31f984#factory
+npx squid-evm-typegen ./src/abi 0xc36442b4a4522e871399cd717abdd847ab11fe88#NonfungiblePositionManager
+npx squid-evm-typegen ./src/abi 0x390a4d096ba2cc450e73b3113f562be949127ceb#pool --multicall
 ```
-This should create a few files in the `src/abi` folder for you. No need to do anything special about the `ERC20*.json` ABIs, since all files located at `./abi` are processed every time `sqd typegen` is called. The command also automatically generates a Typescript ABI for the Multicall contract due to the `--multicall` flag being specified by its entry in `commands.json`.
+This should create a few files in the `src/abi` folder for you. The last command also automatically generates a Typescript ABI for the Multicall contract due to the `--multicall` flag.
 
 ### Tables and Databases
 
@@ -280,7 +281,7 @@ To better understand how data is transformed, and how the other functions are de
 When the logic is fully implemented, to launch the project and start indexing, open a terminal and run these two commands:
 
 ```bash
-sqd build
+npm run build
 sqd process
 ```
 

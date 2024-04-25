@@ -14,13 +14,7 @@ Install with
 npm i @subsquid/typeorm-codegen --save-dev
 ```
 
-If `codegen` CLI alias is defined in the `commands.json` file in the project root, run:
-
-```sh
-sqd codegen
-```
-
-Alternatively, run:
+Invoke with
 ```sh
 npx squid-typeorm-codegen
 ```

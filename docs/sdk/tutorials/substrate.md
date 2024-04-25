@@ -41,13 +41,13 @@ Now you can follow the [quickstart](/sdk/how-to-start/squid-development) guide t
 
 ```bash
 npm ci
-sqd build
-sqd up
+npm run build
+docker compose up -d
 
 sqd process # should begin to ingest blocks
 
 # open a separate terminal for this next command
-sqd serve # should begin listening on port 4350
+npx squid-graphql-server # should begin listening on port 4350
 ```
 After this test, shut down both processes with Ctrl-C and proceed.
 
@@ -104,7 +104,7 @@ Notice that the `Account` entity is almost completely [derived](/sdk/reference/s
 To finalize this step, run the `codegen` tool:
 
 ```bash
-sqd codegen
+npx squid-typeorm-codegen
 ```
 
 This will automatically generate TypeScript entity classes for our schema. They can be found in the `src/model/generated` folder of the project.
@@ -146,10 +146,10 @@ Our final `typegen.json` looks like this:
 Once done with the configuration, we run the tool with
 
 ```bash
-sqd typegen
+npx squid-substrate-typegen ./typegen.json
 ```
 
-[//]: # (!!! See the generated Typescript wrappers at `src/types`/dead)
+The generated Typescript wrappers are at `src/types`.
 
 ## Set up the processor object
 
@@ -346,20 +346,20 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 ## Apply changes to the database
 
-Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping) provided by [TypeORM](https://typeorm.io). Previously we changed the data schema at `schema.graphql` and reflected these changes in our Typescript code using `sqd codegen`. Here, we [apply the corresponding changes to the database itself](/sdk/resources/persisting-data/typeorm).
+Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping) provided by [TypeORM](https://typeorm.io). Previously we changed the data schema at `schema.graphql` and reflected these changes in our Typescript code using `npx squid-typeorm-codegen`. Here, we [apply the corresponding changes to the database itself](/sdk/resources/persisting-data/typeorm).
 
 We begin by making sure that the database is at blank state:
 ```bash
-sqd down
-sqd up
+docker compose down
+docker compose up -d
 ```
 Then we replace any old migrations with the new one with
 ```bash
 sqd migration:generate
 ```
-The new migration will be generated from the TypeORM entity classes we previously made out of `schema.graphql` with `sqd codegen`. Optionally, we can apply the migration right away:
+The new migration will be generated from the TypeORM entity classes we previously made out of `schema.graphql` with `npx squid-typeorm-codegen`. Optionally, we can apply the migration right away:
 ```bash
-sqd migration:apply
+npx squid-typeorm-migration apply
 ```
 If we skip this step, the new migration will be applied next time we run `sqd processor`.
 
@@ -371,7 +371,7 @@ sqd process
 ```
 in one terminal, then open another one and run
 ```bash
-sqd serve
+npx squid-graphql-server
 ```
 Now you can see the results of our hard work by visiting [`localhost:4350/graphql`](http://localhost:4350/graphql) in a browser and accessing the [GraphiQL](https://github.com/graphql/graphiql) console.
 

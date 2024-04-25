@@ -219,7 +219,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 This defines a squid that retrieves all chain transactions from the local node RPC endpoint without filtering, making sure to retrieve the addresses of the deployed contracts for deployment transactions. Run the squid with
 
 ```bash
-sqd up
+docker compose up -d
 sqd process
 ```
 You should see the data of one (for Hardhat) or two (for Truffle+Ganache) contract deployment transactions printed to your terminal.

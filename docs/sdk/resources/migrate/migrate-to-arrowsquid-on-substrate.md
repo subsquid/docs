@@ -270,16 +270,12 @@ Check out the updated [Substrate typegen documentation page[(/sdk/tutorials/batc
 
 Once you're done migrating `typegen.json`, regenerate the wrapper classes with
 ```bash
-sqd typegen
-```
-or equivalently
-```bash
 npx squid-substrate-typegen typegen.json
 ```
 
 ## Step 7
 
-Iteratively reconcile any type errors arising when building your squid (e.g. with `sqd build`). If you need to specify the field selection generic type argument explicitly, get it as a `typeof` of the `setFields` argument value:
+Iteratively reconcile any type errors arising when building your squid (e.g. with `npm run build`). If you need to specify the field selection generic type argument explicitly, get it as a `typeof` of the `setFields` argument value:
 
 ```ts
 import {Block} from '@subsquid/substrate-processor'

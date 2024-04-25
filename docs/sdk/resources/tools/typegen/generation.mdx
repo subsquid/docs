@@ -21,13 +21,12 @@ The tool takes a JSON ABIs as an input. Those can be specified in three ways:
 1. as a plain JSON file(s):
 
    ```bash
-   npx squid-evm-typegen src/abi erc20.json
+   npx squid-evm-typegen src/abi abi/erc20.json
    ```
-   If you use this option, you can also place your JSON ABIs to the `abi` folder and run
+   To include all files in `./abi` and add an interface for the Multicall contract, run
    ```bash
-   sqd typegen
+   npx squid-evm-typegen ./src/abi ./abi/*.json --multicall
    ```
-   Script is available in all EVM templates.
 
 2. as a contract address (to fetch the ABI from Etherscan API). Once can pass multiple addresses at once.
 
@@ -106,13 +105,6 @@ Usage:
 ```bash
 npx squid-substrate-typegen typegen.json
 ```
-
-Within the substrate-based templates there is also an `sqd` shorthand command for executing this exact line:
-
-```bash
-sqd typegen
-```
-
 If necessary, multiple config files can be supplied:
 ```bash
 npx squid-substrate-typegen typegen0.json typegen1.json ...

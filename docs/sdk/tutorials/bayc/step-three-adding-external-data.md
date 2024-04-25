@@ -120,7 +120,7 @@ Here, `Attribute` is a [non-entity type](/sdk/reference/schema-file/unions-and-t
 Once `schema.graphql` is updated, we regenerate the TypeORM data model code::
 
 ```bash
-sqd codegen
+npx squid-typeorm-codegen
 ```
 
 To populate the new fields, let us add an extra step at the end of `createTokens()`:
@@ -250,8 +250,8 @@ and we are done with the processor code for this part of the tutorial. Full squi
 
 Recreate the database and refresh the migrations with
 ```bash
-sqd down
-sqd up
+docker compose down
+docker compose up -d
 sqd migration:generate
 ```
 and test the processor by running
@@ -260,6 +260,6 @@ sqd process
 ```
 It runs much slower than before, requiring about three hours to get through the first batch and more than a day to sync (figures out of date). This is something we will address in the next part of the tutorial.
 
-Nevertheless, the squid is already fully capable of scraping token metadata and serving it over GraphQL. Verify that by running `sqd serve` and visiting the [local GraphiQL playground](http://localhost:4350/graphql). It is now possible to retrieve image URLs and attributes for each token:
+Nevertheless, the squid is already fully capable of scraping token metadata and serving it over GraphQL. Verify that by running `npx squid-graphql-server` and visiting the [local GraphiQL playground](http://localhost:4350/graphql). It is now possible to retrieve image URLs and attributes for each token:
 
 ![BAYC GraphiQL at step three](./bayc-playground-step-three.png)

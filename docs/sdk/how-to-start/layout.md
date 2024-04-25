@@ -25,9 +25,8 @@ All files and folders except `package.json` are optional.
 - `/db` -- The designated folder with the [database migrations](/sdk/resources/persisting-data/typeorm).
 - `/lib` -- The output folder for the compiled squid code.
 - `/assets` -- A designated folder for custom user-provided files (e.g. static data files to seed the squid processor with).
-- `/abi` -- A designated folder for JSON ABI files used as input by the EVM [typegen](/sdk/resources/tools/typegen/) when it's called via `sqd typegen`.
+- `/abi` -- A designated folder for JSON ABI files used as input by the EVM [typegen](/sdk/resources/tools/typegen/).
 - `docker-compose.yml` -- A Docker compose file for local runs. Has a Postgres service definition by default.
 - `.env` -- Defines environment variables used by `docker-compose.yml` and when the squid is run locally.
 - `typegen.json` -- The config file for the Substrate [typegen](/sdk/resources/tools/typegen/) tool.
-- `commands.json` -- User-defined scripts picked up by [Squid CLI](/squid-cli). See also the [CLI cheatsheet](/sdk/how-to-start/cli-cheatsheet/).
-
+- `commands.json` -- User-defined scripts picked up by [Squid CLI](/squid-cli/commands-json). See also the [CLI cheatsheet](/sdk/how-to-start/cli-cheatsheet/).

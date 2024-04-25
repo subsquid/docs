@@ -69,9 +69,9 @@ type Transfer @entity {
 }
 ```
 
-After modifying `commands.json` GraphQL server with subscriptions can be started with
+After modifying `commands.json` start the GraphQL server with subscriptions with
 ```bash
-sqd serve
+npx squid-graphql-server
 ```
 
 The following sample [script](https://github.com/subsquid/squid-substrate-template/blob/main/scripts/sub-client.js) will subscribe to the most recent transfers (by `timestamp`).
