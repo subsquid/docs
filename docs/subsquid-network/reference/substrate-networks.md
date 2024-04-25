@@ -31,6 +31,7 @@ const processor = new SubstrateBatchProcessor()
 | Basilisk               | https://v2.archive.subsquid.io/network/basilisk               |
 | Bifrost Kusama         | https://v2.archive.subsquid.io/network/bifrost-kusama         |
 | Bifrost Polkadot       | https://v2.archive.subsquid.io/network/bifrost-polkadot       |
+| Bittensor              | https://v2.archive.subsquid.io/network/bittensor              |
 | Bridge Hub Kusama      | https://v2.archive.subsquid.io/network/bridge-hub-kusama      |
 | Bridge Hub Polkadot    | https://v2.archive.subsquid.io/network/bridge-hub-polkadot    |
 | Bridge Hub Rococo      | https://v2.archive.subsquid.io/network/bridge-hub-rococo      |

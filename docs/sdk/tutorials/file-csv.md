@@ -128,7 +128,7 @@ export const contractAddress =
   '0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0'.toLowerCase();
 
 const processor = new EvmBatchProcessor()
-  .setGateway(lookupArchive('eth-mainnet'))
+  .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
   .setRpcEndpoint({
     url: process.env.RPC_ENDPOINT,
     rateLimit: 10

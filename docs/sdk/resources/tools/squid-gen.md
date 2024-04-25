@@ -49,7 +49,7 @@ At this point your squid is ready. You can run it on your own infrastructure or 
 
 A valid config for the `squid-gen config` is a YAML file with the following sections:
 
-* **archive** is an alias or an endpoint URL of a [Subsquid Network](/subsquid-network/overview/) dataset. Find an appropriate dataset at the [Supported networks](/subsquid-network/reference/evm-networks/) page or with [`@subsquid/archive-registry`](/subsquid-network/reference/registry).
+* **archive** is an alias or an endpoint URL of a [Subsquid Network](/subsquid-network/overview/) dataset. Find an appropriate dataset at the [Supported networks](/subsquid-network/reference/evm-networks/) page or with [`sqd gateways`](/squid-cli/gateways).
 
 * **target** section describes how the scraped data should be stored. Set
    ```yaml

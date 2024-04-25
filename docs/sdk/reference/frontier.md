@@ -27,7 +27,7 @@ See also the [Frontier EVM guide](/sdk/resources/substrate/frontier-evm).
 
 ```typescript 
 const processor = new SubstrateBatchProcessor()
-  .setGateway(lookupArchive('astar', {type: 'Substrate'}))
+  .setGateway('https://v2.archive.subsquid.io/network/astar-substrate')
   .setRpcEndpoint('https://astar-rpc.dwellir.com')
   .addEthereumTransaction({})
   .addEvmLog({})

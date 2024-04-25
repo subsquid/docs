@@ -205,7 +205,6 @@ The orchestration of the indexing logic is defined in the file named `src/proces
 
 ```typescript
 import {EvmBatchProcessor} from '@subsquid/evm-processor'
-import {lookupArchive} from '@subsquid/archive-registry'
 import * as positionsAbi from './abi/NonfungiblePositionManager'
 import * as factoryAbi from './abi/factory'
 import * as poolAbi from './abi/pool'
@@ -217,7 +216,7 @@ import {processPositions} from './mappings/positions'
 
 let processor = new EvmBatchProcessor()
     .setBlockRange({from: 12369621})
-    .setGateway(lookupArchive('eth-mainnet'))
+    .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
     .setRpcEndpoint({
         url: process.env.ETH_CHAIN_NODE,
         rateLimit: 10

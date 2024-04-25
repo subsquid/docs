@@ -36,7 +36,7 @@ import {SubstrateBatchProcessor} from '@subsquid/substrate-processor'
 import {TypeormDatabase} from '@subsquid/typeorm-store'
 
 const processor = new SubstrateBatchProcessor()
-  .setGateway(lookupArchive('kusama', {release: 'ArrowSquid'}))
+  .setGateway('https://v2.archive.subsquid.io/network/kusama')
   .setRpcEndpoint('https://kusama-rpc.polkadot.io')
   .setBlockRange({from: 19_600_000})
   .addCall({

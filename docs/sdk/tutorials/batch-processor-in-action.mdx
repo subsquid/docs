@@ -45,7 +45,7 @@ See [Configuration section](/sdk/reference/processors/evm-batch) for more detail
 
 ```ts
 const processor = new EvmBatchProcessor()
-  .setGateway(lookupArchive('eth-mainnet'))
+  .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
   .setRpcEndpoint('<my_eth_rpc_url>')
   .setFinalityConfirmation(75)
   .setBlockRange({ from: 6175243 })
@@ -149,7 +149,7 @@ import {
 
 export const processor = new SubstrateBatchProcessor()
   // set the data source
-  .setGateway(lookupArchive('kusama', {release: 'ArrowSquid'}))
+  .setGateway('https://v2.archive.subsquid.io/network/kusama')
   .setRpcEndpoint('https://kusama-rpc.dwellir.com')
   // add data requests
   .addEvent({

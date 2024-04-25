@@ -148,11 +148,10 @@ contractMapping.set(astarCatsAddress, new Contract({
 
 The `src/processor.ts` file is where squids instantiate and configure their processor objects. We will use an instance of [`SubstrateBatchProcessor`](/sdk).
 
-We adapt the template code to handle two contracts instead of one and point the processor data source setting to the `astar` Subsquid Network dataset URL retrieved with [`@subsquid/archive-registry`](/subsquid-network/reference/registry). Here is the end result:
+We adapt the template code to handle two contracts instead of one and point the processor data source setting to the `astar` [Subsquid Network dataset URL](/subsquid-network/reference/substrate-networks). Here is the end result:
 
 ```ts title="src/processor.ts"
 import {assertNotNull} from '@subsquid/util-internal'
-import {lookupArchive} from '@subsquid/archive-registry'
 import {
     BlockHeader,
     DataHandlerContext,
@@ -168,12 +167,7 @@ import {astarDegensAddress, astarCatsAddress} from './contracts'
 
 const processor = new SubstrateBatchProcessor()
   .setBlockRange({ from: 442693 })
-  .setGateway(lookupArchive(
-    'astar', {
-      type: 'Substrate',
-      release: 'ArrowSquid'
-    }
-  ))
+  .setGateway('https://v2.archive.subsquid.io/network/astar-substrate')
   .setRpcEndpoint({
     url: assertNotNull(process.env.RPC_ENDPOINT),
     rateLimit: 10,

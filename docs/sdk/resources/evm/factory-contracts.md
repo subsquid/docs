@@ -14,7 +14,7 @@ Let's consider how it works in a DEX example, with a contract emitting `PoolCrea
 
 ```typescript title="src/processor.ts"
 export const processor = new EvmBatchProcessor()
-  .setGateway(lookupArchive('eth-mainnet'))
+  .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
   .setRpcEndpoint('<my_eth_rpc_url>')
   .setBlockRange({
     from: 12_369_621,
@@ -78,7 +78,7 @@ The idea is to retrieve the list of the contracts that the factory deploys up to
 const { preloadHeight, preloadedPools } = loadPools() // e.g. from a filesystem
 
 export const processor = new EvmBatchProcessor()
-  .setGateway(lookupArchive('eth-mainnet'))
+  .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
   .setRpcEndpoint('<eth_rpc_endpoint_url>')
   .setBlockRange({
     from: 12_369_621,

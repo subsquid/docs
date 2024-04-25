@@ -37,7 +37,7 @@ You can read more about the testnet [here](/subsquid-network/public).
 
 Subsquid's private data lake (formerly known as Archives) is a production-ready fork of early Subsquid Network that runs on Subsquid infrastructure. It provides a stand-in for the permissionless Subsquid Network until it matures; its [API](/subsquid-network/reference) is identical to that of p2p gateways of the public network.
 
-The gateway of this private network is public and free to query. URLs for datasets of supported networks are available via [`@subsquid/archive-registry`](https://www.npmjs.com/package/@subsquid/archive-registry):
+The gateway of this private network is public and free to query. URLs for datasets of supported networks are available via [`sqd gateways ls`](/squid-cli/gateways) and on the [Subsquid Network reference pages](/subsquid-network/reference).
 
 ```mdx-code-block
 <Tabs>
@@ -46,20 +46,16 @@ The gateway of this private network is public and free to query. URLs for datase
 
 List all supported networks:
 ```bash
-npx --yes -p @subsquid/archive-registry squid-archive-registry -t evm
+sqd gateways ls -t evm
 ```
 Usage in [squids](/sdk) within [`EvmBatchProcessor` configuration](/sdk/reference/processors/evm-batch/general/#set-gateway):
 
 ```ts
-import { lookupArchive } from '@subsquid/archive-registry'
-
 const processor = new EvmBatchProcessor()
-  .setGateway(lookupArchive('eth-mainnet'))
-  // the `lookupArchive` call resolves to
-  // 'https://v2.archive.subsquid.io/network/ethereum-mainnet'
+  .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
 ```
 
-See the [EVM datasets](/subsquid-network/reference/evm-networks/) page for exact lookup calls for all supported networks.
+See the [EVM datasets](/subsquid-network/reference/evm-networks/) page for dataset URLs for all supported networks.
 
 
 ```mdx-code-block
@@ -69,25 +65,19 @@ See the [EVM datasets](/subsquid-network/reference/evm-networks/) page for exact
 
 List all supported networks:
 ```bash
-npx --yes -p @subsquid/archive-registry squid-archive-registry -t substrate
+sqd gateways ls -t substrate
 ```
 Usage in [squids](/sdk) within [`SubstrateBatchProcessor` configuration](/sdk/reference/processors/substrate-batch/general):
 
 ```ts
-import { lookupArchive } from '@subsquid/archive-registry'
-
 const processor = new SubstrateBatchProcessor()
-  .setGateway(lookupArchive('phala', {release: 'ArrowSquid'}))
-  // the `lookupArchive` call resolves to
-  // 'https://v2.archive.subsquid.io/network/phala'
+  .setGateway('https://v2.archive.subsquid.io/network/phala')
 ```
 
-See the [Substrate datasets](/subsquid-network/reference/substrate-networks/) page for exact lookup calls for all supported networks.
+See the [Substrate datasets](/subsquid-network/reference/substrate-networks/) page for dataset URLs for all supported networks.
 
 
 ```mdx-code-block
 </TabItem>
 </Tabs>
 ```
-
-See also [`archive-registry` reference documentation](/subsquid-network/reference/registry).

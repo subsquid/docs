@@ -32,7 +32,7 @@ npm i @subsquid/substrate-processor@latest @subsquid/typeorm-store@latest
 ```bash
 npm i --save-dev @subsquid/substrate-typegen@latest
 ```
-We recommend that you also have `@subsquid/archive-registry` installed. If your squid uses [`file-store`](/sdk/resources/persisting-data/file), please update any related packages to the `@latest` version.
+If your squid uses [`file-store`](/sdk/resources/persisting-data/file), please update any related packages to the `@latest` version.
 
 ## Step 2
 
@@ -42,7 +42,7 @@ Replace the old `setDataSource()` processor configuration call with a combinatio
 -  .setDataSource({
 -    archive: 'https://aleph-zero.archive.subsquid.io/graphql'
 -  })
-+  .setGateway(lookupArchive('aleph-zero', {release: 'ArrowSquid'}))
++  .setGateway('https://v2.archive.subsquid.io/network/aleph-zero')
 +  .setRpcEndpoint({
 +    url: 'https://aleph-zero-rpc.dwellir.com',
 +    rateLimit: 10

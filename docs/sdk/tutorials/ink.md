@@ -139,7 +139,6 @@ Here is the end result:
 import {assertNotNull} from '@subsquid/util-internal'
 import {toHex} from '@subsquid/util-internal-hex'
 import * as ss58 from '@subsquid/ss58'
-import {lookupArchive} from '@subsquid/archive-registry'
 import {
     BlockHeader,
     DataHandlerContext,
@@ -156,7 +155,7 @@ const CONTRACT_ADDRESS_SS58 = 'XnrLUQucQvzp5kaaWLG9Q3LbZw5DPwpGn69B5YcywSWVr5w'
 export const CONTRACT_ADDRESS = ss58.codec(SS58_NETWORK).decode(CONTRACT_ADDRESS_SS58)
 
 export const processor = new SubstrateBatchProcessor()
-    .setGateway(lookupArchive('shibuya', {release: 'ArrowSquid'}))
+    .setGateway('https://v2.archive.subsquid.io/network/shibuya-substrate')
     .setRpcEndpoint({
         url: assertNotNull(process.env.RPC_ENDPOINT),
         rateLimit: 10

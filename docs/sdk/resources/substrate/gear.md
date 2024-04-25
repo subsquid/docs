@@ -7,10 +7,16 @@ description: >-
 # Gear support
 
 :::info
-Use `lookupArchive('gear-testnet')` to connect to a Subsquid Network dataset for Gear testnet. A dataset for the Gear mainnet will be added in due course when the network is launched.
+Subsquid Network serves datasets for two networks that use Gear Protocol: **Vara** and **Vara Testnet**. Here are their dataset endopint URLs:
+```
+https://v2.archive.subsquid.io/network/vara
+```
+```
+https://v2.archive.subsquid.io/network/vara-testnet
+```
 :::
 
-Indexing [Gear Network](https://wiki.gear-tech.io/) programs is supported with [`addGearMessageQueued()`](/sdk/reference/processors/substrate-batch/data-requests/#addgearmessagequeued) and [`addGearUserMessageSent()`](/sdk/reference/processors/substrate-batch/data-requests/#addgearusermessagesent) specialized data requests. These subscribe to the events [`Gear.MessageQueued`](https://wiki.gear-tech.io/docs/api/events/#messagequeued) and [`Gear.UserMessageSent`](https://wiki.gear-tech.io/docs/api/events/#usermessagesent) emitted by a specified Gear program.
+Indexing [Gear](https://gear-tech.io/) programs is supported with [`addGearMessageQueued()`](/sdk/reference/processors/substrate-batch/data-requests/#addgearmessagequeued) and [`addGearUserMessageSent()`](/sdk/reference/processors/substrate-batch/data-requests/#addgearusermessagesent) specialized data requests. These subscribe to the events [`Gear.MessageQueued`](https://wiki.gear-tech.io/docs/api/events/#messagequeued) and [`Gear.UserMessageSent`](https://wiki.gear-tech.io/docs/api/events/#usermessagesent) emitted by a specified Gear program.
 
 The processor can also subscribe to any other event with [`addEvent()`](/sdk/reference/processors/substrate-batch/data-requests/#events) and filter by program ID in the batch handler, if so necessary. 
 

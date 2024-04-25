@@ -86,7 +86,7 @@ processor
 const VITALIK_ETH = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'.toLowerCase()
 
 const processor = new EvmBatchProcessor()
-  .setGateway(lookupArchive('eth-mainnet'))
+  .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
   .setRpcEndpoint('<my_eth_rpc_url>')
   .setFinalityConfirmation(75)
   .addTransaction({
