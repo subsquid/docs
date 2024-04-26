@@ -13,11 +13,12 @@ Explore data sources for a squid
 List available gateways
 
 USAGE
-  $ sqd gateways ls [-t evm|substrate] [-s <value>]
+  $ sqd gateways ls [-t evm|substrate] [-n <value>] [-c <value>]
 
 FLAGS
-  -s, --search=<value>        Search gateways
-  -t, --type=<evm|substrate>  Filter gateways by network type
+  -c, --chain=<number>        Filter by chain ID or SS58 prefix
+  -n, --name=<regex>          Filter by network name
+  -t, --type=<evm|substrate>  Filter by network type
 
 DESCRIPTION
   List available gateways
