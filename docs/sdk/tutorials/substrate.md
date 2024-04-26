@@ -22,10 +22,6 @@ We expect that experienced software developers should be able to complete this t
 - A properly set up [development environment](/sdk/how-to-start/development-environment-set-up) consisting of Node.js, Git and Docker
 - [Squid CLI](/squid-cli/installation)
 
-:::info
-This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands.
-:::
-
 ## Scaffold with `sqd init`
 
 Use [`sqd init`](/squid-cli/init) and come up with some unique name for your squid. This tutorial will index data on Crust, a Substrate-based network, so use the `substrate` template:
@@ -43,9 +39,12 @@ Now you can follow the [quickstart](/sdk/how-to-start/squid-development) guide t
 npm ci
 npm run build
 docker compose up -d
-
-sqd process # should begin to ingest blocks
-
+npx squid-typeorm-migration apply
+```
+```bash
+node -r dotenv/config lib/main.js # will begin ingesting blocks
+```
+```bash
 # open a separate terminal for this next command
 npx squid-graphql-server # should begin listening on port 4350
 ```
@@ -355,19 +354,21 @@ docker compose up -d
 ```
 Then we replace any old migrations with the new one with
 ```bash
-sqd migration:generate
+rm -r db/migrations
 ```
-The new migration will be generated from the TypeORM entity classes we previously made out of `schema.graphql` with `npx squid-typeorm-codegen`. Optionally, we can apply the migration right away:
+```bash
+npx squid-typeorm-migration generate
+```
+The new migration will be generated from the TypeORM entity classes we previously made out of `schema.graphql`. Apply it with:
 ```bash
 npx squid-typeorm-migration apply
 ```
-If we skip this step, the new migration will be applied next time we run `sqd processor`.
 
 ## Launch the project
 
 It's finally time to run the project! Run
 ```bash
-sqd process
+node -r dotenv/config lib/main.js
 ```
 in one terminal, then open another one and run
 ```bash

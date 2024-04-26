@@ -44,7 +44,9 @@ and run it:
 npm ci
 npm run build
 docker compose up -d
-sqd process # should begin to ingest blocks
+npx squid-typeorm-migration apply
+
+node -r dotenv/config lib/main.js # should begin to ingest blocks
 
 # open a separate terminal for this next command
 npx squid-graphql-server # should begin listening on port 4350
@@ -94,7 +96,12 @@ Finally, we create [database migrations](/sdk/resources/persisting-data/typeorm)
 ```bash
 docker compose down
 docker compose up -d
-sqd migration:generate
+rm -r db/migrations
+npx squid-typeorm-migration generate
+```
+Apply the migration with
+```bash
+npx squid-typeorm-migration apply
 ```
 
 ## WASM ABI Tools
@@ -314,10 +321,12 @@ In the `getTransferRecords` function we loop over the blocks and over the events
 
 ## Launch the Project
 
-Launch the processor with
-
+Build, then launch the processor with
 ```bash
-sqd process
+npm run build
+```
+```bash
+node -r dotenv/config lib/main.js
 ```
 This will block the current terminal. In a separate terminal window, launch the GraphQL server:
 

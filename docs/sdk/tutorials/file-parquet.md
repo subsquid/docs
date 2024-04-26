@@ -45,7 +45,7 @@ Here, `local-parquet-indexing` is the name of the project, and can be changed to
 :::info
 **Note:** The template actually has more than what we need for this project. Unnecessary packages have been removed in the tutorial repository. You can grab [`package.json`](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/package.json) from there to do the same.
 
-Files-wise, `docker-compose.yml`, `schema.graphql` and `squid.yaml` were removed. `commands.json`, the list of local `sqd` scripts, has been significantly shortened ([here is the updated version](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/commands.json)).
+Files-wise, `docker-compose.yml`, `schema.graphql` and `squid.yaml` were removed. [`commands.json`](/squid-cli/commands-json), the list of local `sqd` scripts, has been significantly shortened ([here is the updated version](https://github.com/subsquid-labs/squid-parquet-storage/blob/main/commands.json)).
 :::
 
 Finally, make sure to install the dependencies:
@@ -278,11 +278,13 @@ To better understand how data is transformed, and how the other functions are de
 
 ### Launch the project
 
-When the logic is fully implemented, to launch the project and start indexing, open a terminal and run these two commands:
+When the logic is fully implemented, to launch the project and start indexing, open a terminal and run these three commands:
 
 ```bash
 npm run build
-sqd process
+```
+```bash
+node -r dotenv/config lib/main.js
 ```
 
 The indexer should be able to catch up with the Ethereum blockchain, and **reach the chain's head in a very short time**. 

@@ -216,16 +216,27 @@ function createTransfers(
 ```
 Since `Transfer`s are unique, we can safely use `ctx.store.insert()` to persist them.
 
-At this point, the squid has accomplished everything planned for this part of the tutorial. The only remaining task is to drop and recreate the database (if it's running) and regenerate the migrations:
+At this point, the squid has accomplished everything planned for this part of the tutorial. The only remaining task is to drop and recreate the database (if it's running), then regenerate and apply the migrations:
 
 ```bash
+npm run build
 docker compose down
 docker compose up -d
-sqd migration:generate
+rm -r db/migrations
+npx squid-typeorm-migration generate
+npx squid-typeorm-migration apply
 ```
 Full code can be found at [this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/3568f70b7ac1802fbbf80079e435a3348b0d3a62).
 
-To test it, start the processor and the GraphQL server by running `sqd process` and `npx squid-graphql-server` in separate terminals. Then, visit the [GraphiQL playground](http://localhost:4350/graphql):
+To test it, start the processor and the GraphQL server by running
+```bash
+node -r dotenv/config lib/main.js
+```
+and
+```bash
+npx squid-graphql-server
+```
+in separate terminals. Then, visit the [GraphiQL playground](http://localhost:4350/graphql):
 
 ![BAYC GraphiQL at step two](./bayc-playground-step-two.png)
 

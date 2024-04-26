@@ -117,7 +117,9 @@ This goes through all the log items in the batch, verifies that they indeed are 
 At this point the squid is ready for its first test run. Execute
 ```bash
 docker compose up -d
-sqd process
+npm run build
+npx squid-typeorm-migration apply
+node -r dotenv/config lib/main.js
 ```
 and you should see lots of lines like these in the output:
 ```
@@ -153,9 +155,11 @@ Here,
 Once we're done editing the schema, we regenerate the TypeORM code, recreate the database and regenerate the migrations:
 ```bash
 npx squid-typeorm-codegen
+npm run build
 docker compose down
 docker compose up -d
-sqd migration:generate
+rm -r db/migrations
+npx squid-typeorm-migration generate
 ```
 The generated code is in `src/model`. We can now import a `Transfer` entity class from there and use it to perform [various operations](/sdk/resources/persisting-data/typeorm/) on the corresponding database table. Let us rewrite our batch handler to save the parsed `Transfer` events data to the database:
 ```typescript title="src/main.ts"
@@ -195,7 +199,9 @@ Note a few things here:
 
 At this point we have a squid that indexes the data on BAYC token transfers and is capable of serving it over a GraphQL API. Full code is available at [this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/aeb6268168385cc605ce04fe09d0159f708efe47). Test it by running
 ```bash
-sqd process
+npm run build
+npx squid-typeorm-migration apply
+node -r dotenv/config lib/main.js
 ```
 then
 ```bash

@@ -220,7 +220,9 @@ This defines a squid that retrieves all chain transactions from the local node R
 
 ```bash
 docker compose up -d
-sqd process
+npm run build
+npx squid-typeorm-migration apply
+node -r dotenv/config lib/main.js
 ```
 You should see the data of one (for Hardhat) or two (for Truffle+Ganache) contract deployment transactions printed to your terminal.
 

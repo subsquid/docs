@@ -248,15 +248,18 @@ Then all that is left is to import the relevant parts in `src/main.ts`:
 ```
 and we are done with the processor code for this part of the tutorial. Full squid code at this point is available at [this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/ab5f094ae34e8822dfb912f6e6116df2cfa800b5).
 
-Recreate the database and refresh the migrations with
+Recreate the database, rebuild the code and refresh the migrations with
 ```bash
 docker compose down
 docker compose up -d
-sqd migration:generate
+npm run build
+rm -r db/migrations
+npx squid-typeorm-migration generate
+npx squid-typeorm-migration apply
 ```
 and test the processor by running
 ```bash
-sqd process
+node -r dotenv/config lib/main.js
 ```
 It runs much slower than before, requiring about three hours to get through the first batch and more than a day to sync (figures out of date). This is something we will address in the next part of the tutorial.
 

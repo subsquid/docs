@@ -39,7 +39,7 @@ Here are some useful commands:
 npx squid-typeorm-migration apply # Apply the DB migrations
 ```
 ```bash
-sqd migration:generate # Generate a DB migration matching the TypeORM entities
+npx squid-typeorm-migration generate # Generate a DB migration matching the TypeORM entities
 ```
 ```bash
 rm -r db/migrations # Clean the migrations folder
@@ -69,24 +69,30 @@ npx squid-typeorm-codegen
 ```bash
 # drop the database
 docker compose down
+```
+```bash
 # start a blank database
 docker compose up -d
 ```
 Note that without dropping the database the next step will generate a migration only for the schema difference.
 
-**4. Create the new database migration**
+**4. Build the squid code**
 ```bash
-# builds the code,
-# removes the old migrations and
-# generates new scripts in db/migrations
-sqd migration:generate
+npm run build
 ```
 
-**5. Apply the database migration**
+**5. Recreate the database migration**
+```bash
+rm -r db/migrations
+```
+```bash
+npx squid-typeorm-migration generate
+```
+
+**6. Apply the database migration**
 ```bash
 npx squid-typeorm-migration apply
 ```
-If you skip this step the migrations will be applied automatially when you start the processor with `sqd process`.
 
 ### Updating a deployed squid schema
 

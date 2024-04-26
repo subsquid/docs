@@ -366,10 +366,19 @@ Squid projects automatically manage the database connection and schema via an [O
     ```
     Skip this step if you haven't used your database since the last `docker compose up -d`.
 
-3. Generate the new migration (this will wipe any old migrations):
+3. Regenerate the DB migration:
 
     ```bash
-    sqd migration:generate
+    rm -r db/migrations
+    ```
+    ```bash
+    npx squid-typeorm-migration generate
+    ```
+
+4. Apply the migration:
+
+    ```bash
+    npx squid-typeorm-migration apply
     ```
 
 ## Launch the Project
@@ -377,7 +386,7 @@ Squid projects automatically manage the database connection and schema via an [O
 To launch the processor run the following command (this will block the current terminal):
 
 ```bash
-sqd process
+node -r dotenv/config lib/main.js
 ```
 Finally, in a separate terminal window, launch the GraphQL server:
 

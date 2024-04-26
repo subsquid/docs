@@ -8,7 +8,7 @@ description: Enable caching for faster queries
 
 The GraphQL API server provided by `@subsquid/graphql-server` supports caching via additional flags. It is done on a per-query basis. The whole response is cached for a specified amount of time (`maxAge`).
 
-To enable caching when deploying to Subsquid Cloud, add the caching flags to the `serve:prod` command definition at `commands.json`, then use that command to run the server in the [deployment manifest](/cloud/reference/manifest/#deploy). Cloud currently supports only in-memory cache.
+To enable caching when deploying to Subsquid Cloud, add the caching flags to the `serve:prod` command definition at [`commands.json`](/squid-cli/commands-json), then use that command to run the server in the [deployment manifest](/cloud/reference/manifest/#deploy). Cloud currently supports only in-memory cache.
 For example, snippets below will deploy a GraphQL API server with a `100Mb` in-memory cache and invalidation time of `5` seconds:
 
 ```json title="commands.json"

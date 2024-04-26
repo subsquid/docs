@@ -20,7 +20,7 @@ Note that despite being [deprecated](/sdk/resources/graphql-server/overview/#sup
 
 ## Local runs
 
-To enable subscriptions, add the `--subscriptions` flag to `serve` and `serve:prod` commands at `commands.json`:
+To enable subscriptions, add the `--subscriptions` flag to `serve` and `serve:prod` commands at [`commands.json`](/squid-cli/commands-json):
 ```json title="commands.json"
 ...
   "serve": {

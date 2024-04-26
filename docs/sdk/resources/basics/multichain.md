@@ -24,7 +24,7 @@ To do this, run one [processor](/sdk/overview) per source network:
   Alternatively, parameterize your processor using environment variables: you can [set these on a per-processor basis](/cloud/reference/manifest/#processor) if you use a deployment manifest to run your squid.
 
 2. Arrange for running the processors alongside each other conveniently:
-   - Add `sqd` commands for running each processor to `commands.json`, e.g.
+   - Add `sqd` commands for running each processor to [`commands.json`](/squid-cli/commands-json), e.g.
      ```json title="commands.json"
      ...
        "process:eth": {

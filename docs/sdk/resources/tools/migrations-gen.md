@@ -17,7 +17,7 @@ Here are some useful commands:
 npx squid-typeorm-migration apply # apply pending migrations
 ```
 ```bash
-sqd migration:generate # generate the migration for the schema defined in schema.graphql
+npx squid-typeorm-migration generate # generate the migration for the schema defined in schema.graphql
 ```
 ```bash
 rm -r db/migrations # clean the db/migrations folder

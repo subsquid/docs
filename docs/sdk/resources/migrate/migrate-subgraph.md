@@ -66,12 +66,20 @@ npm run build
 ```
 This command is equivalent to running `yarn codegen` in subgraph.
 
-After that, start the local database and generate migrations from the generated entities using the [`squid-typeorm-migration`](/sdk/resources/persisting-data/typeorm) tool:
+After that, start the local database and regenerate migrations based on the generated entities using the [`squid-typeorm-migration`](/sdk/resources/persisting-data/typeorm) tool:
 ```bash
 docker compose up -d
-sqd migration:generate
 ```
-A database migration file for creating a table for `Gravatar` will appear in `db/migrations`. The migration will be automatically applied once we start the squid processor.
+```bash
+rm -r db/migrations
+```
+```bash
+npx squid-typeorm-migration generate
+```
+A database migration file for creating a table for `Gravatar` will appear in `db/migrations`. Apply it with
+```bash
+npx squid-typeorm-migration apply
+```
 
 ### 4. Generate typings from ABI
 
@@ -205,9 +213,12 @@ The implementation is straightforward -- the newly created and/or updated gravat
 
 ### 7. Run the processor and GraphQL API
 
-To start the indexing, run
+To start the indexing, (re)build the project and run the processor:
 ```bash
-sqd process
+npm run build
+```
+```bash
+node -r dotenv/config lib/main.js
 ```
 The processor will output the sync progress and the ETA to reach the chain head. After it reaches the head it will continue indexing new blocks until stopped.
 

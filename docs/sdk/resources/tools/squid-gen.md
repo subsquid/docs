@@ -26,19 +26,33 @@ Squid generation procedure is very similar for both contract types. Here are the
 
 2. Write the [configuration](#configuration) of the future squid to `squidgen.yaml`. Retrieve any necessary contract ABIs and store them at `./abi`. For simple use cases that only involve one contract and a database consider using CLI instead (documented in `npx squid-gen abi --help`).
 
-3. Generate the squid code:
+3. Generate and build the squid code:
    ```bash
    npx squid-gen config squidgen.yaml
    ```
+   ```bash
+   npm run build
+   ```
 
-4. Prepare your squid for launching. If it is using a database, start a PostgreSQL container and generate migrations:
+4. Prepare your squid for launching. If it is using a database, start a PostgreSQL container, then regenerate and apply migrations:
    ```bash
    docker compose up -d
-   sqd migration:generate
+   ```
+   ```bash
+   rm -r db/migrations
+   ```bash
+   npx squid-typeorm-migration generate
+   ```
+   ```bash
+   npx squid-typeorm-migration apply
    ```
    If it is storing its data to a dataset, [strip the project folder of database-related facilities](#strip-the-squid-folder-for-file-store) that are no longer needed.
 
-5. Test the complete squid by running it locally. Start a [processor](/sdk/overview/) with `sqd process`. If your squid will be serving GraphQL also run `npx squid-graphql-server` in a separate terminal. Make sure that the squid saves the requested data to its target dataset:
+5. Test the complete squid by running it locally. Start a [processor](/sdk/overview/) with
+   ```bash
+   node -r dotenv/config lib/main.js
+   ```
+   If your squid will be serving GraphQL also run `npx squid-graphql-server` in a separate terminal. Make sure that the squid saves the requested data to its target dataset:
    - if it is serving GraphQL, visit the local [GraphiQL playground](http://localhost:4350/graphql);
    - for PostgreSQL-based squids you can also connect to the database with `PGPASSWORD=postgres psql -U postgres -p 23798 -h localhost squid` and take a look at the contents;
    - if it is storing data to a file-based dataset, [wait for the first filesystem sync](/sdk/resources/persisting-data/file/#filesystem-syncs-and-dataset-partitioning) then verify that all the expected files are present and contain the expected data.

@@ -41,7 +41,7 @@ Here, `local-csv-indexing` is the name of the project, and can be changed to any
 :::info
 **Note:** The template actually has more than what we need for this project. Unnecessary packages have been removed in the tutorial repository. You can grab [`package.json`](https://github.com/subsquid-labs/local-csv-indexing/blob/main/package.json) from there to do the same.
 
-Files-wise, `docker-compose.yml`, `schema.graphql` and `squid.yaml` were removed. `commands.json`, the list of local `sqd` scripts, has been significantly shortened ([here is the updated version](https://github.com/subsquid-labs/local-csv-indexing/blob/main/commands.json)).
+Files-wise, `docker-compose.yml`, `schema.graphql` and `squid.yaml` were removed. [`commands.json`](/squid-cli/commands-json), the list of local `sqd` scripts, has been significantly shortened ([here is the updated version](https://github.com/subsquid-labs/local-csv-indexing/blob/main/commands.json)).
 :::
 
 ### ERC-20 token ABI
@@ -190,10 +190,12 @@ The file in the GitHub repository is slightly different, as there's some added l
 
 ### Launch the project
 
-To launch the project, run:
-
+Build, then launch the project with
 ```bash
-sqd process
+npm run build
+```
+```bash
+node -r dotenv/config lib/main.js
 ```
 And in a few minutes, a few sub-folders (whose names are the block ranges where the data is coming from) should be created under the `data` directory, each containing a `transfer.csv` file.
 ![multiple folders containing CSV files](</img/csv-files.png>)
