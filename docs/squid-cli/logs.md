@@ -16,15 +16,22 @@ USAGE
 ARGUMENTS
   NAME  name@version
 
-OPTIONS
-  -c, --container=processor|api|db-migrate|db
-  -f, --follow
-  -l, --level=error|debug|info|warning
-  -p, --pageSize=pageSize                                 [default: 100]
-  --since=since                                           [default: 1d]
+FLAGS
+  -c, --container=<option>...  Container name
+                               <options: processor|query-node|api|db-migrate|db>
+  -f, --follow                 Follow
+  -l, --level=<option>...      Log level
+                               <options: error|debug|info|warning>
+  -o, --org=<value>            Organization
+  -p, --pageSize=<value>       [default: 100] Logs page size
+  -s, --search=<value>         Filter by content
+      --since=<value>          [default: 1d] Filter by date/interval
+
+DESCRIPTION
+  Fetch logs from a squid deployed to the Cloud
 
 ALIASES
-  $ sqd squid:logs
+  $ sqd squid logs
 ```
 
 _See code: [src/commands/logs.ts](https://github.com/subsquid/squid-cli/tree/master/src/commands/logs.ts)_
