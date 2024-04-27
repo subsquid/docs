@@ -51,7 +51,7 @@ Start your first squid indexer in 5 minutes! Learn more [here](/sdk/how-to-start
 
 ### What kind of datasets are available from Subsquid Network?
 
-Historical blockchain data optimized for batch access. Network API is used by Squid SDK processors to access the datasets.
+Historical blockchain data optimized for batch access. Network API used by Squid SDK processors to access the datasets via chain-specific gateways.
 
 ### What chains are currently supported by Subsquid’s decentralized data lake and SDK?
 

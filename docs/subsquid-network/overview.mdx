@@ -37,7 +37,7 @@ You can read more about the testnet [here](/subsquid-network/public).
 
 Subsquid's private data lake (formerly known as Archives) is a production-ready fork of early Subsquid Network that runs on Subsquid infrastructure. It provides a stand-in for the permissionless Subsquid Network until it matures; its [API](/subsquid-network/reference) is identical to that of p2p gateways of the public network.
 
-The gateway of this private network is public and free to query. URLs for datasets of supported networks are available via [`sqd gateways ls`](/squid-cli/gateways) and on the [Subsquid Network reference pages](/subsquid-network/reference).
+The gateway of this private network is public and free to query. URLs of gateways of supported networks are available via [`sqd gateways ls`](/squid-cli/gateways) and on the [Subsquid Network reference pages](/subsquid-network/reference).
 
 ```mdx-code-block
 <Tabs>
@@ -55,7 +55,7 @@ const processor = new EvmBatchProcessor()
   .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
 ```
 
-See the [EVM datasets](/subsquid-network/reference/evm-networks/) page for dataset URLs for all supported networks.
+See the [EVM gateways](/subsquid-network/reference/evm-networks/) page.
 
 
 ```mdx-code-block
@@ -74,7 +74,7 @@ const processor = new SubstrateBatchProcessor()
   .setGateway('https://v2.archive.subsquid.io/network/phala')
 ```
 
-See the [Substrate datasets](/subsquid-network/reference/substrate-networks/) page for dataset URLs for all supported networks.
+See the [Substrate gateways](/subsquid-network/reference/substrate-networks/) page.
 
 
 ```mdx-code-block

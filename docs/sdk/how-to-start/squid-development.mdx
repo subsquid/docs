@@ -338,8 +338,8 @@ See [reference documentation](/sdk/reference/processors/evm-batch) for more info
 Edit the definition of `const processor` to
 
 1. Use a data source appropriate for your chain and task
-   - [Use](/sdk/reference/processors/substrate-batch/general/#set-gateway) a [Subsquid Network dataset](/subsquid-network/reference/substrate-networks) whenever it is available. [RPC](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint) is still required in this case.
-   - For networks without a dataset use just the RPC.
+   - [Use](/sdk/reference/processors/substrate-batch/general/#set-gateway) a [Subsquid Network gateway](/subsquid-network/reference/substrate-networks) whenever it is available. [RPC](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint) is still required in this case.
+   - For networks without a gateway use just the RPC.
 
 2. Request all [events](/sdk/reference/processors/substrate-batch/data-requests/#events) and [calls](/sdk/reference/processors/substrate-batch/data-requests/#calls) that your task requires, with any necessary related data (e.g. parent extrinsics).
 

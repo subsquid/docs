@@ -28,7 +28,7 @@ function substrateNetworksList(networksJson) {
 	}))
 	const header = {
 		network: 'Network',
-		url: 'Dataset URL'
+		url: 'Gateway URL'
 	}
 	return require('../lib/formatTable')(rows, header, ['network', 'url'])
 }

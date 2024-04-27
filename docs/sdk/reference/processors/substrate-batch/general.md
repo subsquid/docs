@@ -13,20 +13,20 @@ The method documentation is also available inline and can be accessed via sugges
 
 The following setters configure the global settings of `SubstrateBatchProcessor`. They return the modified instance and can be chained.
 
-Calling [`setRpcEndpoint()`](#set-rpc-endpoint) is a hard requirement on Substrate, as chain RPC is used to retrieve chain metadata. Adding a [Subsquid Network dataset](/subsquid-network/reference/substrate-networks) with [`setGateway()`](#set-gateway) is optional but highly recommended, as it greatly reduces RPC usage.
+Calling [`setRpcEndpoint()`](#set-rpc-endpoint) is a hard requirement on Substrate, as chain RPC is used to retrieve chain metadata. Adding a [Subsquid Network gateway](/subsquid-network/reference/substrate-networks) with [`setGateway()`](#set-gateway) is optional but highly recommended, as it greatly reduces RPC usage.
 
 To reduce it further, you can explicitly disable [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) by calling [`setRpcDataIngestionSettings({ disabled: true })`](#set-rpc-data-ingestion-settings): in this scenario the RPC will only be used for metadata retrieval and to perform any [direct RPC queries](/sdk/resources/tools/typegen/state-queries/?typegen=substrate) you might be doing in your squid code. This will, however, introduce a delay of a few thousands of blocks between the chain head and the highest block available to your squid.
 
 ### `setGateway(url: string | GatewaySettings)` {#set-gateway}
 
-Adds a [Subsquid Network](/subsquid-network) data source. The argument is either a string URL of a dataset served by a Subsquid Network gateway or
+Adds a [Subsquid Network](/subsquid-network) data source. The argument is either a string URL of a Subsquid Network gateway or
 ```ts
 {
-  url: string // dataset URL
+  url: string // gateway URL
   requestTimeout?: number // in milliseconds
 }
 ```
-See [Substrate datasets](/subsquid-network/reference/substrate-networks) for public dataset URLs.
+See [Substrate gateways](/subsquid-network/reference/substrate-networks).
 
 ### `setRpcEndpoint(rpc: ChainRpc)` {#set-rpc-endpoint}
 

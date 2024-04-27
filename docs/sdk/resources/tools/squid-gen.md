@@ -52,7 +52,7 @@ Squid generation procedure is very similar for both contract types. Here are the
    ```bash
    node -r dotenv/config lib/main.js
    ```
-   If your squid will be serving GraphQL also run `npx squid-graphql-server` in a separate terminal. Make sure that the squid saves the requested data to its target dataset:
+   If your squid will be serving GraphQL also run `npx squid-graphql-server` in a separate terminal. Make sure that the squid saves the requested data to its target:
    - if it is serving GraphQL, visit the local [GraphiQL playground](http://localhost:4350/graphql);
    - for PostgreSQL-based squids you can also connect to the database with `PGPASSWORD=postgres psql -U postgres -p 23798 -h localhost squid` and take a look at the contents;
    - if it is storing data to a file-based dataset, [wait for the first filesystem sync](/sdk/resources/persisting-data/file/#filesystem-syncs-and-dataset-partitioning) then verify that all the expected files are present and contain the expected data.
@@ -63,7 +63,7 @@ At this point your squid is ready. You can run it on your own infrastructure or 
 
 A valid config for the `squid-gen config` is a YAML file with the following sections:
 
-* **archive** is an alias or an endpoint URL of a [Subsquid Network](/subsquid-network/overview/) dataset. Find an appropriate dataset at the [Supported networks](/subsquid-network/reference/evm-networks/) page or with [`sqd gateways`](/squid-cli/gateways).
+* **archive** is an endpoint URL of a [Subsquid Network](/subsquid-network/overview/) gateway. Find an appropriate gateway at the [Supported networks](/subsquid-network/reference/evm-networks/) page or with [`sqd gateways`](/squid-cli/gateways).
 
 * **target** section describes how the scraped data should be stored. Set
    ```yaml

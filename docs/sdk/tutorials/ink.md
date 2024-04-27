@@ -126,13 +126,13 @@ The generated `src/abi/erc20.ts` module defines interfaces to represent WASM dat
 
 ## Define the processor object
 
-Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to [Subsquid Network](/subsquid-network/overview) datasets at chain-specific URLs to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to [Subsquid Network](/subsquid-network/overview) gateways at chain-specific URLs to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
 `SubstrateBatchProcessor`s [exposes methods](/sdk/reference/processors/substrate-batch) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor [allows one](/sdk/resources/substrate/ink) to subscribe to such events emitted by a specific contract.
 
 The processor is instantiated and configured at the `src/processor.ts`. Here are the changes we need to make there:
 
-* Change the dataset used to `shibuya`.
+* Change the gateway used to `https://v2.archive.subsquid.io/network/shibuya-substrate`.
 * Remove the `addEvent` function call, and add `addContractsContractEmitted` instead, specifying the address of the contract we are interested in. The address should be represented as a hex string, so we need to decode our ss58 address of interest, `XnrLUQucQvzp5kaaWLG9Q3LbZw5DPwpGn69B5YcywSWVr5w`.
 
 Here is the end result:

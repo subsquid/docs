@@ -22,21 +22,21 @@ Certain configuration methods are required:
 
 Here's how to choose the data sources depending on your use case:
 
- * If you need real-time data and your network [has a Subsquid Network dataset](/subsquid-network/reference/evm-networks), use both [`setGateway()`](#set-gateway) and [`setRpcEndpoint()`](#set-rpc-endpoint). The processor will obtain as much data as is currently available from the dataset, then switch to ingesting recent data from the RPC endpoint.
- * If you can tolerate your data being several thousands of blocks behind the chain head, you do not want to use a RPC endpoint and your network [has a Subsquid Network dataset](/subsquid-network/reference/evm-networks), use [`setGateway()`](#set-gateway) only.
- * If your EVM network does not have a Subsquid Network dataset, use [`setRpcEndpoint()`](#set-rpc-endpoint) only. You can use this regime to [work with local development nodes](/sdk/tutorials/evm-local).
+ * If you need real-time data and your network [has a Subsquid Network gateway](/subsquid-network/reference/evm-networks), use both [`setGateway()`](#set-gateway) and [`setRpcEndpoint()`](#set-rpc-endpoint). The processor will obtain as much data as is currently available from the network, then switch to ingesting recent data from the RPC endpoint.
+ * If you can tolerate your data being several thousands of blocks behind the chain head, you do not want to use a RPC endpoint and your network [has a Subsquid Network gateway](/subsquid-network/reference/evm-networks), use [`setGateway()`](#set-gateway) only.
+ * If your EVM network does not have a Subsquid Network gateway, use [`setRpcEndpoint()`](#set-rpc-endpoint) only. You can use this regime to [work with local development nodes](/sdk/tutorials/evm-local).
  * If your squid uses [direct RPC queries](/sdk/resources/tools/typegen/state-queries/?typegen=evm) then [`setRpcEndpoint()`](#set-rpc-endpoing) is a hard requirement. You can reduce the RPC usage by adding a Network data source with [`setGateway()`](#set-gateway). Further, if you can tolerate a latency of a few thousands of blocks, you can disable RPC ingestion with [`setRpcDataIngestionSettings({ disabled: true })`](#set-rpc-data-ingestion-settings). In this scenario RPC will only be used for the queries you explicitly make in your code.
 
 ### `setGateway(url: string | GatewaySettings)` {#set-gateway}
 
-Adds a [Subsquid Network](/subsquid-network) data source. The argument is either a string URL of a dataset served by a Subsquid Network gateway or
+Adds a [Subsquid Network](/subsquid-network) data source. The argument is either a string URL of a Subsquid Network gateway or
 ```ts
 {
-  url: string // dataset URL
+  url: string // gateway URL
   requestTimeout?: number // in milliseconds
 }
 ```
-See [EVM datasets](/subsquid-network/reference/evm-networks) for public dataset URLs.
+See [EVM gateways](/subsquid-network/reference/evm-networks).
 
 ### `setRpcEndpoint(rpc: ChainRpc)` {#set-rpc-endpoint}
 

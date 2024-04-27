@@ -1,7 +1,7 @@
 ---
 sidebar_position: 10
 description: >-
-  Public EVM datasets
+  Public EVM gateways
 title: EVM networks
 ---
 
@@ -25,18 +25,18 @@ export const BitgertTooltip = ({children, tip}) => (
   </div>
 )
 
-# EVM datasets
+# EVM gateways
 
 ## From the open private network
 
-This page lists the public EVM datasets available from the [open private network](/subsquid-network/overview/#open-private-network). If you are developing a squid, supply the dataset URL of your network to [`setGateway()`](/sdk/reference/processors/evm-batch/general/#set-gateway) `EvmBatchProcessor` configuration method, for example:
+This page lists the public EVM gateways available from the [open private network](/subsquid-network/overview/#open-private-network). If you are developing a squid, supply the gateway URL of your network to [`setGateway()`](/sdk/reference/processors/evm-batch/general/#set-gateway) `EvmBatchProcessor` configuration method, for example:
 
 ```ts
 const processor = new EvmBatchProcessor()
   .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
 ```
 
-| Network                        | Chain ID   | State diffs                                            | Traces                                                | Dataset URL                                                          |
+| Network                        | Chain ID   | State diffs                                            | Traces                                                | Gateway URL                                                          |
 |:------------------------------:|:----------:|:------------------------------------------------------:|:-----------------------------------------------------:|:--------------------------------------------------------------------:|
 | Arbitrum One                   | 42161      |                                                        | ✓                                                     | https://v2.archive.subsquid.io/network/arbitrum-one                  |
 | Arbitrum Nova                  | 42170      |                                                        | ✓                                                     | https://v2.archive.subsquid.io/network/arbitrum-nova                 |
@@ -104,6 +104,6 @@ const processor = new EvmBatchProcessor()
 | Zora                           | 7777777    | ✓                                                      | ✓                                                     | https://v2.archive.subsquid.io/network/zora-mainnet                  |
 
 
-(*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate dataset](/subsquid-network/reference/substrate-networks).
+(*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate gateway](/subsquid-network/reference/substrate-networks).
 
 (!) Genesis block for `neon-devnet` is 177455580.

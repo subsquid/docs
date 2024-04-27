@@ -10,15 +10,15 @@ description: Access the Starknet data
 The Starknet API of Subsquid Network is currently in beta. Breaking changes may be introduced in the future releases.
 :::
 
-Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. The main dataset URL now points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
+Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. The main gateway URL now points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
 
 1. Retrieve the dataset height from the router with `GET /height`.
-2. Query the dataset endpoint for an URL of a worker that has the data for the first block of the relevant range with `GET /${firstBlock}/worker`.
+2. Query the router for an URL of a worker that has the data for the first block of the relevant range with `GET /${firstBlock}/worker`.
 3. Retrieve the data from the worker with `POST /`, making sure to set the `"fromBlock"` query field to `${firstBlock}`.
 4. Exclude the received blocks from the relevant range by setting `firstBlock` to the value of `header.number` of the last received block plus one.
 5. Repeat steps 2-4 until all the required data is retrieved.
 
-The main URL of the Starknet dataset is
+The main URL of the Starknet gateway is
 ```
 https://v2.archive.subsquid.io/network/starknet-mainnet
 ```
@@ -138,7 +138,7 @@ def get_text(url: str) -> str:
     return res.text
 
 def dump(
-    dataset_url: str,
+    gateway_url: str,
     query: Query,
     first_block: int,
     last_block: int
@@ -146,12 +146,12 @@ def dump(
     assert 0 <= first_block <= last_block
     query = dict(query)  # copy query to mess with it later
 
-    dataset_height = int(get_text(f'{dataset_url}/height'))
+    dataset_height = int(get_text(f'{gateway_url}/height'))
     next_block = first_block
     last_block = min(last_block, dataset_height)
 
     while next_block <= last_block:
-        worker_url = get_text(f'{dataset_url}/{next_block}/worker')
+        worker_url = get_text(f'{gateway_url}/{next_block}/worker')
 
         query['fromBlock'] = next_block
         query['toBlock'] = last_block
