@@ -1,0 +1,12 @@
+{
+  "position": 20,
+  "label": "Solana",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "slug": "/sdk/reference/processors/solana-batch",
+    "title": "SolanaBatchProcessor reference documentation"
+  }
+}
