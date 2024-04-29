@@ -55,7 +55,7 @@ to your data query methods. You can speed up the following calls:
    This query retrieves 1.6M events emitted over 100k block in about 17 minutes.
 
 :::warning
-At the moment, all Subsquid Network gateways are updated only once every several thousands of blocks. The current dataset height can be retrieved with `get_network_height()`:
+At the moment, all Subsquid Network datasets are updated only once every several thousands of blocks. The current dataset height can be retrieved with `get_network_height()`:
 ```python
 from ape_subsquid import get_network_height
 
