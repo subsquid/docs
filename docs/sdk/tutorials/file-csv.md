@@ -106,17 +106,12 @@ export const db = new Database({
     Transfers,
   },
   dest: new LocalDest('./data'),
-  chunkSizeMb: 100,
-  syncIntervalBlocks: 10000
+  chunkSizeMb: 100
 })
 ```
 
 :::info
-Note the `chunkSizeMb` and `syncIntervalBlocks` option. `file-store-csv` chunks its output into multiple files, and these options are used to control that. A new chunk (that is, a new folder with a new CSV file in it) will be written when either
-1. the amount of data stored in the processor buffer exceeds `chunkSizeMb`, or
-2. there is some data to the buffer and the blockchain head is reached in the sync process, or
-3. there is some data in the buffer and more than `syncIntervalBlocks` blocks has been processed since the last write.
-See [this section](/sdk/resources/persisting-data/file/#filesystem-syncs-and-dataset-partitioning) for details.
+Note the `chunkSizeMb` option. A new chunk (that is, a new folder with a new CSV file in it) will be written when either the amount of data stored in the processor buffer exceeds `chunkSizeMb`, or at the end of the batch during which [`ctx.store.setForceFlush()`](/sdk/resources/persisting-data/file/#setforceflush) was called.
 :::
 
 ### Data indexing

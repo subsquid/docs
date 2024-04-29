@@ -125,8 +125,7 @@ const dbOptions = {
     )
   },
   dest: new LocalDest('./data'),
-  chunkSizeMb: 10,
-  syncIntervalBlocks: undefined
+  chunkSizeMb: 10
 }
 
 processor.run(new Database(dbOptions), async (ctx) => {
