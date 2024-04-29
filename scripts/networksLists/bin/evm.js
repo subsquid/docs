@@ -17,7 +17,7 @@ async function main(evmJsonUrl) {
 		chainId: 'Chain ID',
 		stateDiffs: 'State diffs',
 		traces: 'Traces',
-		url: 'Dataset URL'
+		url: 'Gateway URL'
 	}
 	console.log(require('../lib/formatTable')(rows, header, ['network', 'chainId', 'stateDiffs', 'traces', 'url']))
 }

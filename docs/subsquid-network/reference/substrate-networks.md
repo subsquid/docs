@@ -1,15 +1,15 @@
 ---
 sidebar_position: 20
 description: >-
-  Public Substrate datasets
+  Public Substrate gateways
 title: Substrate networks
 ---
 
-# Substrate datasets
+# Substrate gateways
 
 ## From open private network
 
-The table below lists public Substrate datasets served by the [open private network](/subsquid-network/overview/#open-private-network). Dataset URLs should be used with the [`setGateway()`](/sdk/reference/processors/substrate-batch/general/#set-gateway) `SubstrateBatchProcessor` configuration method, for example:
+The table below lists public Substrate gateways of the [open private network](/subsquid-network/overview/#open-private-network). Gateway URLs should be used with the [`setGateway()`](/sdk/reference/processors/substrate-batch/general/#set-gateway) `SubstrateBatchProcessor` configuration method, for example:
 
 ```typescript
 const processor = new SubstrateBatchProcessor()
@@ -17,7 +17,7 @@ const processor = new SubstrateBatchProcessor()
   .setRpcEndpoint('https://api.phala.network/rpc')
 ```
 
-| Network                | Dataset URL                                                   |
+| Network                | Gateway URL                                                   |
 |:----------------------:|:-------------------------------------------------------------:|
 | Acala                  | https://v2.archive.subsquid.io/network/acala                  |
 | Agung                  | https://v2.archive.subsquid.io/network/agung                  |

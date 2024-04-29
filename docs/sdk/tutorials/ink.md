@@ -25,10 +25,6 @@ Subsquid SDK only supports WASM contracts executed by the [Contracts pallet](htt
 - `AlephZero` (a standalone Substrate-based chain)
 :::
 
-:::info
-This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands.
-:::
-
 ## Pre-requisites
 
 - Familiarity with Git
@@ -46,12 +42,14 @@ and run it:
 
 ```bash
 npm ci
-sqd build
-sqd up
-sqd process # should begin to ingest blocks
+npm run build
+docker compose up -d
+npx squid-typeorm-migration apply
+
+node -r dotenv/config lib/main.js # should begin to ingest blocks
 
 # open a separate terminal for this next command
-sqd serve # should begin listening on port 4350
+npx squid-graphql-server # should begin listening on port 4350
 ```
 After this test, shut down both processes with Ctrl-C and proceed.
 
@@ -88,18 +86,22 @@ Note:
 * a one-to-many [relation](/sdk/reference/schema-file/entity-relations) between `Owner` and `Transfer`;
 * `@index` decorators for properties that we want to be able to filter the data by.
 
-Next, we generate `TypeORM` entity classes from the schema with the `squid-typeorm-codegen` tool. There is a handy `sqd` script for that:
-
+Next, we generate `TypeORM` entity classes from the schema with the `squid-typeorm-codegen` tool:
 ```bash
-sqd codegen
+npx squid-typeorm-codegen
 ```
 The generated entity classes can be found under `src/model/generated`.
 
 Finally, we create [database migrations](/sdk/resources/persisting-data/typeorm) to match the changed schema. We restore the database to a clean state, then replace any existing migrations with the new one:
 ```bash
-sqd down
-sqd up
-sqd migration:generate
+docker compose down
+docker compose up -d
+rm -r db/migrations
+npx squid-typeorm-migration generate
+```
+Apply the migration with
+```bash
+npx squid-typeorm-migration apply
 ```
 
 ## WASM ABI Tools
@@ -124,13 +126,13 @@ The generated `src/abi/erc20.ts` module defines interfaces to represent WASM dat
 
 ## Define the processor object
 
-Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to [Subsquid Network](/subsquid-network/overview) datasets at chain-specific URLs to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to [Subsquid Network](/subsquid-network/overview) gateways at chain-specific URLs to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
 `SubstrateBatchProcessor`s [exposes methods](/sdk/reference/processors/substrate-batch) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor [allows one](/sdk/resources/substrate/ink) to subscribe to such events emitted by a specific contract.
 
 The processor is instantiated and configured at the `src/processor.ts`. Here are the changes we need to make there:
 
-* Change the dataset used to `shibuya`.
+* Change the gateway used to `https://v2.archive.subsquid.io/network/shibuya-substrate`.
 * Remove the `addEvent` function call, and add `addContractsContractEmitted` instead, specifying the address of the contract we are interested in. The address should be represented as a hex string, so we need to decode our ss58 address of interest, `XnrLUQucQvzp5kaaWLG9Q3LbZw5DPwpGn69B5YcywSWVr5w`.
 
 Here is the end result:
@@ -319,15 +321,17 @@ In the `getTransferRecords` function we loop over the blocks and over the events
 
 ## Launch the Project
 
-Launch the processor with
-
+Build, then launch the processor with
 ```bash
-sqd process
+npm run build
+```
+```bash
+node -r dotenv/config lib/main.js
 ```
 This will block the current terminal. In a separate terminal window, launch the GraphQL server:
 
 ```bash
-sqd serve
+npx squid-graphql-server
 ```
 
 Visit [`localhost:4350/graphql`](http://localhost:4350/graphql) to access the [GraphiQl](https://github.com/graphql/graphiql) console. There you can perform queries such as this one, to find out the account owners with the biggest balances:

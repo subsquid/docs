@@ -8,7 +8,7 @@ description: >-
 # Filesystem store
 
 :::warning
-Make sure you set the options described in the [Filesystem Syncs and Dataset Partitioning](#filesystem-syncs-and-dataset-partitioning) section. Failure to do so may cause the processor to output an empty dataset.
+Make sure you understand and use the [`chunkSizeMb` setting](#overview) and the [`setForceFlush()`](#setforceflush) store method. Failure to do so may cause the processor to output an empty dataset.
 :::
 
 ## Overview
@@ -112,7 +112,7 @@ For each `Table` supplied via the `tables` field of the constructor argument, `D
 
 Here, `T` is a `Table` implementation-specific data row type. See the [documentation pages on specific file formats](/sdk/reference/store/file) for details.
 
-These synchronous methods add rows of data to an in-memory buffer and perform no actual filesystem writes. Instead, the write [happens automatically when a new dataset partition is created](#filesystem-syncs-and-dataset-partitioning). The methods return the table writer instance and can be chained.
+These synchronous methods add rows of data to an in-memory buffer and perform no actual filesystem writes. Instead, the write happens automatically when the internal buffer reaches [`chunkSizeMb`](#overview) or at the end of the batch during which [`setForceFlush()`](#setforceflush) was called. The methods return the table writer instance and can be chained.
 
 For example, with a `Database` defined like this:
 ```ts

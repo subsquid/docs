@@ -105,4 +105,4 @@ services:
       - db
 ```
 
-Note that `sqd serve:prod` and `sqd process:prod` commands are defined in `commands.json` file.
+Note that `sqd serve:prod` and `sqd process:prod` commands are defined in the [`commands.json` file](/squid-cli/commands-json).

@@ -26,10 +26,23 @@ Create or edit `schema.graphql` to define the target entities and relations. Con
 
 Update the entity classes, start a fresh database and regenerate migrations:
 ```bash
-sqd codegen
-sqd down
-sqd up
-sqd migration:generate
+npx squid-typeorm-codegen
+```
+```bash
+docker compose down
+```
+```bash
+docker compose up -d
+```
+```bash
+rm -r db/migrations
+```
+```bash
+npx squid-typeorm-migration generate
+```
+Apply the migrations with
+```bash
+npx squid-typeorm-migration apply
 ```
 
 ## 2. Generate Typescript ABI modules
@@ -116,13 +129,13 @@ function extractData(evmLog: any): { id: ethers.BigNumber, owner: string, displa
 
 Run the processor with
 ```bash
-sqd process
+node -r dotenv/config lib/main.js
 ```
 The script will build the code automatically before running.
 
 In a separate terminal window, run
 ```bash
-sqd serve
+npx squid-graphql-server
 ```
 Inspect the GraphQL API at [`http://localhost:4350/graphql`](http://localhost:4350/graphql).
 

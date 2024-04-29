@@ -61,24 +61,32 @@ type Gravatar @entity {
 
 Next, we generate the entities from the schema using the [`squid-typeorm-codegen`](/sdk/reference/schema-file/intro/#typeorm-codegen) tool of the Squid SDK, then build the squid:
 ```bash
-sqd codegen
-sqd build
+npx squid-typeorm-codegen
+npm run build
 ```
 This command is equivalent to running `yarn codegen` in subgraph.
 
-After that, start the local database and generate migrations from the generated entities using the [`squid-typeorm-migration`](/sdk/resources/persisting-data/typeorm) tool:
+After that, start the local database and regenerate migrations based on the generated entities using the [`squid-typeorm-migration`](/sdk/resources/persisting-data/typeorm) tool:
 ```bash
-sqd up
-sqd migration:generate
+docker compose up -d
 ```
-A database migration file for creating a table for `Gravatar` will appear in `db/migrations`. The migration will be automatically applied once we start the squid processor.
+```bash
+rm -r db/migrations
+```
+```bash
+npx squid-typeorm-migration generate
+```
+A database migration file for creating a table for `Gravatar` will appear in `db/migrations`. Apply it with
+```bash
+npx squid-typeorm-migration apply
+```
 
 ### 4. Generate typings from ABI
 
 Copy `./abis/Gravity.json` from the subgraph project and paste it to `./abi` folder in the subsquid project.
 To generate the typings, run:
 ```bash
-sqd typegen
+npx squid-evm-typegen ./src/abi ./abi/*.json --multicall
 ```
 Alternatively, similar to `graph add <address> [<subgraph-manifest default: "./subgraph.yaml">]` command, to generate typings, run:
 ```bash
@@ -97,11 +105,11 @@ import { EvmBatchProcessor} from '@subsquid/evm-processor'
 // the events object contains typings for all events defined in the ABI
 import { events } from './abi/Gravity'
 
-// the registry of datasets in the open private Subsquid Network
-export const GRAVATAR_CONTRACT = '0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'.toLowerCase()
+export const GRAVATAR_CONTRACT =
+  '0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'.toLowerCase()
 
 export const processor = new EvmBatchProcessor()
-  // change the dataset URL to run against other EVM networks, e.g.
+  // change the gateway URL to run against other EVM networks, e.g.
   // 'https://v2.archive.subsquid.io/network/polygon-mainnet'
   // 'https://v2.archive.subsquid.io/network/binance-mainnet'
   .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
@@ -205,15 +213,18 @@ The implementation is straightforward -- the newly created and/or updated gravat
 
 ### 7. Run the processor and GraphQL API
 
-To start the indexing, run
+To start the indexing, (re)build the project and run the processor:
 ```bash
-sqd process
+npm run build
+```
+```bash
+node -r dotenv/config lib/main.js
 ```
 The processor will output the sync progress and the ETA to reach the chain head. After it reaches the head it will continue indexing new blocks until stopped.
 
 To start an API server (at port `4350` by default) with a GraphQL schema auto-generated from the schema file, run in a new terminal window
 ```bash
-sqd serve
+npx squid-graphql-server
 ```
 and inspect the auto-generated GraphQL API using an interactive playground at [http://localhost:4350/graphql](http://localhost:4350/graphql).
 

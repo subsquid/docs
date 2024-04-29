@@ -42,7 +42,7 @@ Reading about [elsewhere](https://eips.ethereum.org/EIPS/eip-721) we learn that 
 
 ## Configuring the data filters
 
-A "squid processor" is the Node.js process and the [object that powers it](/sdk/overview/). Together they are responsible for retrieving filtered blockchain data from a specialized data lake (a [Subsquid Network](/subsquid-network/overview) dataset), transforming it and saving the result to a destination of choice. To configure the processor (object) to retrieve the `Transfer` events of the BAYC token contract, we initialize it like this:
+A "squid processor" is the Node.js process and the [object that powers it](/sdk/overview/). Together they are responsible for retrieving filtered blockchain data from a specialized data lake ([Subsquid Network](/subsquid-network/overview)), transforming it and saving the result to a destination of choice. To configure the processor (object) to retrieve the `Transfer` events of the BAYC token contract, we initialize it like this:
 ```typescript title="src/processor.ts"
 // ...
 import * as bayc from './abi/bayc'
@@ -72,7 +72,7 @@ export const processor = new EvmBatchProcessor()
 ```
 
 Here,
-* `'eth-mainnet'` is the alias for the public Subsquid Network dataset endpoint for Ethereum mainnet. Check out [Subsquid reference pages](/subsquid-network/reference) for lists of public dataset endpoints for all supported networks.
+* `'https://v2.archive.subsquid.io/network/ethereum-mainnet'` is the URL the public Subsquid Network gateway for Ethereum mainnet. Check out [Subsquid Network reference pages](/subsquid-network/reference) for lists of public gateways for all supported networks.
 * `'<eth_rpc_endpoint_url>'` is a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within Subsquid Network. Please use a private endpoint or Subsquid Cloud's [RPC proxy service](/cloud/reference/rpc-proxy) in production.
 * `setFinalityConfirmation(75)` call instructs the processor to consider blocks final after 75 confirmations when ingesting data from an RPC endpoint.
 * `12_287_507` is the block at which the BAYC token contract was deployed. Can be found on the [contract's Etherscan page](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).
@@ -116,8 +116,10 @@ This goes through all the log items in the batch, verifies that they indeed are 
 
 At this point the squid is ready for its first test run. Execute
 ```bash
-sqd up
-sqd process
+docker compose up -d
+npm run build
+npx squid-typeorm-migration apply
+node -r dotenv/config lib/main.js
 ```
 and you should see lots of lines like these in the output:
 ```
@@ -150,12 +152,14 @@ Here,
 * `@index` decorators tell the codegen tool that the corresponding database columns should be indexed.
 * Extra fields `timestamp` and `blockNumber` are added to make the resulting GraphQL API more convenient. We will fill them using the block metadata available in `ctx`.
 
-Once we're done editing the schema, we regenerate the TypeORM code, recreate the database and regenerate the migrations. We use [`sqd`](/squid-cli/) commands for convenience:
+Once we're done editing the schema, we regenerate the TypeORM code, recreate the database and regenerate the migrations:
 ```bash
-sqd codegen
-sqd down
-sqd up
-sqd migration:generate
+npx squid-typeorm-codegen
+npm run build
+docker compose down
+docker compose up -d
+rm -r db/migrations
+npx squid-typeorm-migration generate
 ```
 The generated code is in `src/model`. We can now import a `Transfer` entity class from there and use it to perform [various operations](/sdk/resources/persisting-data/typeorm/) on the corresponding database table. Let us rewrite our batch handler to save the parsed `Transfer` events data to the database:
 ```typescript title="src/main.ts"
@@ -195,11 +199,13 @@ Note a few things here:
 
 At this point we have a squid that indexes the data on BAYC token transfers and is capable of serving it over a GraphQL API. Full code is available at [this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/aeb6268168385cc605ce04fe09d0159f708efe47). Test it by running
 ```bash
-sqd process
+npm run build
+npx squid-typeorm-migration apply
+node -r dotenv/config lib/main.js
 ```
 then
 ```bash
-sqd serve
+npx squid-graphql-server
 ```
 in a separate terminal. If all is well, a GraphiQL playground should become available at [localhost:4350/graphql](http://localhost:4350/graphql):
 

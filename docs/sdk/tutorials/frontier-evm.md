@@ -19,10 +19,6 @@ A somewhat outdated version of the final result can be browsed [here](https://gi
 - A properly set up [development environment](/sdk/how-to-start/development-environment-set-up) consisting of Node.js, Git and Docker
 - [Squid CLI](/squid-cli/installation)
 
-:::info
-This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands.
-:::
-
 ## Scaffold using `sqd init`
 
 We will start with the [`frontier-evm` squid template](https://github.com/subsquid-labs/squid-frontier-evm-template/) available through [`sqd init`](/squid-cli/init). It is built to index EVM smart contracts deployed on Astar/Shiden, but it is also capable of indexing Substrate events. To retrieve the template and install the dependencies, run
@@ -82,10 +78,9 @@ It's worth noting a couple of things in this [schema definition](/sdk/reference/
 * **`@derivedFrom`**: Signals that the field will not be persisted in the database. Instead, it will be [derived from](/sdk/reference/schema-file/entity-relations) the entity relations.
 * **type references** (e.g. `from: Owner`): When used on entity types, they establish a relation between two entities.
 
-TypeScript entity classes have to be regenerated whenever the schema is changed, and to do that we use the `squid-typeorm-codegen` tool. The pre-packaged `commands.json` already comes with a `codegen` shortcut, so we can invoke it with `sqd`:
-
+TypeScript entity classes have to be regenerated whenever the schema is changed, and to do that we use the `squid-typeorm-codegen` tool:
 ```bash
-sqd codegen
+npx squid-typeorm-codegen
 ```
 The (re)generated entity classes can then be browsed at `src/model/generated`.
 
@@ -95,9 +90,9 @@ Subsquid maintains [tools[(/sdk/reference/typegen/state-queries) for automated g
 
 For our squid we will need such a module for the [ERC-721](https://eips.ethereum.org/EIPS/eip-721)-compliant part of the contracts' interfaces. Once again, the template repository already includes it, but it is still important to explain what needs to be done in case one wants to index a different type of contract.
 
-The procedure uses an `sqd` script from the template that uses `squid-evm-typegen` to generate Typescript facades for JSON ABIs stored in the `abi` folder. Place any ABIs you requre for interfacing your contracts there and run
+Place any ABIs you requre for interfacing your contracts at `./abi` and run
 ```bash
-sqd typegen
+npx squid-evm-typegen ./src/abi ./abi/*.json --multicall
 ```
 The results will be stored at `src/abi`. One module will be generated for each ABI file, and it will include constants useful for filtering and functions for decoding EVM events and functions defined in the ABI.
 
@@ -148,7 +143,7 @@ contractMapping.set(astarCatsAddress, new Contract({
 
 The `src/processor.ts` file is where squids instantiate and configure their processor objects. We will use an instance of [`SubstrateBatchProcessor`](/sdk).
 
-We adapt the template code to handle two contracts instead of one and point the processor data source setting to the `astar` [Subsquid Network dataset URL](/subsquid-network/reference/substrate-networks). Here is the end result:
+We adapt the template code to handle two contracts instead of one and point the processor data source setting to the `astar` [Subsquid Network gateway URL](/subsquid-network/reference/substrate-networks). Here is the end result:
 
 ```ts title="src/processor.ts"
 import {assertNotNull} from '@subsquid/util-internal'
@@ -352,7 +347,7 @@ The `contract.tokenURI` call is accessing the **state** of the contract via a ch
 Before giving your squid processor a local test, launch a PostgreSQL container with
 
 ```bash
-sqd up
+docker compose up -d
 ```
 
 Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping). In this approach the schema is managed through migration files. Since we've made changes to the schema, we need to remove the existing migration(s) and create a new one. This involves the following steps:
@@ -360,21 +355,30 @@ Squid projects automatically manage the database connection and schema via an [O
 1. Build the code:
 
     ```bash
-    sqd build
+    npm run build
     ```
 
 2. Make sure you start with a clean Postgres database. The following commands drop-create the Postgres instance in Docker:
 
     ```bash
-    sqd down
-    sqd up
+    docker compose down
+    docker compose up -d
     ```
-    Skip this step if you haven't used your database since the last `sqd up`.
+    Skip this step if you haven't used your database since the last `docker compose up -d`.
 
-3. Generate the new migration (this will wipe any old migrations):
+3. Regenerate the DB migration:
 
     ```bash
-    sqd migration:generate
+    rm -r db/migrations
+    ```
+    ```bash
+    npx squid-typeorm-migration generate
+    ```
+
+4. Apply the migration:
+
+    ```bash
+    npx squid-typeorm-migration apply
     ```
 
 ## Launch the Project
@@ -382,12 +386,12 @@ Squid projects automatically manage the database connection and schema via an [O
 To launch the processor run the following command (this will block the current terminal):
 
 ```bash
-sqd process
+node -r dotenv/config lib/main.js
 ```
 Finally, in a separate terminal window, launch the GraphQL server:
 
 ```bash
-sqd serve
+npx squid-graphql-server
 ```
 
 Visit [`localhost:4350/graphql`](http://localhost:4350/graphql) to access the [GraphiQL](https://github.com/graphql/graphiql) console. From this window, you can perform queries such as this one, to find out the account owners with the biggest balances:

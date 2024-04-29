@@ -6,20 +6,19 @@ sidebar_position: 120
 
 ### Archives
 
-Deprecated term used for [Subsquid Network](/subsquid-network) and for the [data sourcing service](/firesquid/archives) of the deprecated FireSquid SDK version. Occasionally refers to a specific dataset available from either source (e.g. "Ethereum archive"). The new terminology is:
+Deprecated term used for [Subsquid Network](/subsquid-network) and for the [data sourcing service](/firesquid/archives) of the deprecated FireSquid SDK version. Occasionally refers to a chain-specific endpoint available from either source (e.g. "an Ethereum archive"). The new terminology is:
 
  - "Archives" as an abstract collection of services for some networks is replaced by "[Subsquid Network](/subsquid-network)" (when referring to data location) or "Subsquid Network gateway" (when referring to the service)
  - "public Archives" are replaced by the [open private version](/subsquid-network/overview/#open-private-network) of Subsquid Network
- - "an archive" for a particular network is replaced by "a Subsquid Network dataset"
- - "an archive endpoint" becomes "a dataset endpoint"
+ - "an archive" for a particular network is replaced by "a Subsquid Network gateway"
 
-Lists of dataset endpoints for open private Subsquid Network are available in these docs ([EVM](/subsquid-network/reference/evm-networks), [Substrate](/subsquid-network/reference/substrate-networks)) and via [`sqd gateways`](/squid-cli/gateways).
+Lists of gateways for open private Subsquid Network are available in these docs ([EVM](/subsquid-network/reference/evm-networks), [Substrate](/subsquid-network/reference/substrate-networks)) and via [`sqd gateways`](/squid-cli/gateways).
 
 **Not to be confused with [archive blockchain nodes](https://ethereum.org/developers/docs/nodes-and-clients/archive-nodes)**.
 
 ### `archive-registry`
 
-The deprecated NPM package `@subsquid/archive-registry` that was used to look up squid data sources by network aliases (with `lookupArchive()` and a small CLI). We now recommend using raw network dataset URLs instead of `lookupArchive()` calls in processor configuration. The exploratory CLI is replaced by [`sqd gateways`](/squid-cli/gateways); lists of available network datasets are also available as [Subsquid Network reference pages](/subsquid-network/reference).
+The deprecated NPM package `@subsquid/archive-registry` that was used to look up squid data sources by network aliases (with `lookupArchive()` and a small CLI). We now recommend using raw gateway URLs instead of `lookupArchive()` calls in processor configuration. The exploratory CLI is replaced by [`sqd gateways`](/squid-cli/gateways); lists of available network-specific gateways are also available as [Subsquid Network reference pages](/subsquid-network/reference).
 
 ### Block
 
@@ -98,7 +97,7 @@ A project consisting of an [ETL](#etl) for extracting and transforming on-chain 
 
 ### Squid processor
 
-The [ETL](#etl) part of the squid. Extracts on-chain data from an [Subsquid Network](/subsquid-network) dataset and/or directly from chain RPC, then transforms and optionally enriches it with external data. Saves the result into a target [data sink](/sdk/reference/store).
+The [ETL](#etl) part of the squid. Extracts on-chain data from an [Subsquid Network](/subsquid-network) gateway and/or directly from chain RPC, then transforms and optionally enriches it with external data. Saves the result into a target [data sink](/sdk/reference/store).
 
 ### Squid API
 

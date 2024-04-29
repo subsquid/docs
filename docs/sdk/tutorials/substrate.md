@@ -22,10 +22,6 @@ We expect that experienced software developers should be able to complete this t
 - A properly set up [development environment](/sdk/how-to-start/development-environment-set-up) consisting of Node.js, Git and Docker
 - [Squid CLI](/squid-cli/installation)
 
-:::info
-This tutorial uses custom scripts defined in `commands.json`. The scripts are automatically picked up as `sqd` sub-commands.
-:::
-
 ## Scaffold with `sqd init`
 
 Use [`sqd init`](/squid-cli/init) and come up with some unique name for your squid. This tutorial will index data on Crust, a Substrate-based network, so use the `substrate` template:
@@ -41,13 +37,16 @@ Now you can follow the [quickstart](/sdk/how-to-start/squid-development) guide t
 
 ```bash
 npm ci
-sqd build
-sqd up
-
-sqd process # should begin to ingest blocks
-
+npm run build
+docker compose up -d
+npx squid-typeorm-migration apply
+```
+```bash
+node -r dotenv/config lib/main.js # will begin ingesting blocks
+```
+```bash
 # open a separate terminal for this next command
-sqd serve # should begin listening on port 4350
+npx squid-graphql-server # should begin listening on port 4350
 ```
 After this test, shut down both processes with Ctrl-C and proceed.
 
@@ -104,7 +103,7 @@ Notice that the `Account` entity is almost completely [derived](/sdk/reference/s
 To finalize this step, run the `codegen` tool:
 
 ```bash
-sqd codegen
+npx squid-typeorm-codegen
 ```
 
 This will automatically generate TypeScript entity classes for our schema. They can be found in the `src/model/generated` folder of the project.
@@ -146,10 +145,10 @@ Our final `typegen.json` looks like this:
 Once done with the configuration, we run the tool with
 
 ```bash
-sqd typegen
+npx squid-substrate-typegen ./typegen.json
 ```
 
-[//]: # (!!! See the generated Typescript wrappers at `src/types`/dead)
+The generated Typescript wrappers are at `src/types`.
 
 ## Set up the processor object
 
@@ -192,7 +191,7 @@ type Fields = SubstrateBatchProcessorFields<typeof processor>
 export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 ```
 This creates a processor that
- - Uses Subsquid Network as its main data source and a chain RPC for [real-time updates](/sdk/overview/#rpc-ingestion). URLs of the Subsquid Network dataset endpoints are available on [this page](/subsquid-network/reference/substrate-networks) and via [`sqd gateways`](/squid-cli/gateways). See [this page](/sdk/reference/processors/substrate-batch/general) for the reference on data sources configuration;
+ - Uses Subsquid Network as its main data source and a chain RPC for [real-time updates](/sdk/overview/#rpc-ingestion). URLs of the Subsquid Network gateways are available on [this page](/subsquid-network/reference/substrate-networks) and via [`sqd gateways`](/squid-cli/gateways). See [this page](/sdk/reference/processors/substrate-batch/general) for the reference on data sources configuration;
  - [Subscribes](/sdk/reference/processors/substrate-batch/data-requests) to `Market.FileSuccess`, `Swork.JoinGroupSuccess` and `Swork.WorksReportSuccess` events emitted at heights starting at 583000;
  - Additionally subscribes to calls that emitted the events and the corresponding extrinsics;
  - [Requests](/sdk/reference/processors/substrate-batch/field-selection) the `hash` data field for all retrieved extrinsics and the `timestamp` field for all block headers.
@@ -346,32 +345,34 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 ## Apply changes to the database
 
-Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping) provided by [TypeORM](https://typeorm.io). Previously we changed the data schema at `schema.graphql` and reflected these changes in our Typescript code using `sqd codegen`. Here, we [apply the corresponding changes to the database itself](/sdk/resources/persisting-data/typeorm).
+Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping) provided by [TypeORM](https://typeorm.io). Previously we changed the data schema at `schema.graphql` and reflected these changes in our Typescript code using `npx squid-typeorm-codegen`. Here, we [apply the corresponding changes to the database itself](/sdk/resources/persisting-data/typeorm).
 
 We begin by making sure that the database is at blank state:
 ```bash
-sqd down
-sqd up
+docker compose down
+docker compose up -d
 ```
 Then we replace any old migrations with the new one with
 ```bash
-sqd migration:generate
+rm -r db/migrations
 ```
-The new migration will be generated from the TypeORM entity classes we previously made out of `schema.graphql` with `sqd codegen`. Optionally, we can apply the migration right away:
 ```bash
-sqd migration:apply
+npx squid-typeorm-migration generate
 ```
-If we skip this step, the new migration will be applied next time we run `sqd processor`.
+The new migration will be generated from the TypeORM entity classes we previously made out of `schema.graphql`. Apply it with:
+```bash
+npx squid-typeorm-migration apply
+```
 
 ## Launch the project
 
 It's finally time to run the project! Run
 ```bash
-sqd process
+node -r dotenv/config lib/main.js
 ```
 in one terminal, then open another one and run
 ```bash
-sqd serve
+npx squid-graphql-server
 ```
 Now you can see the results of our hard work by visiting [`localhost:4350/graphql`](http://localhost:4350/graphql) in a browser and accessing the [GraphiQL](https://github.com/graphql/graphiql) console.
 

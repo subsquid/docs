@@ -8,7 +8,7 @@ description: Enforce limits in the queries
 
 The squid [GraphQL API server](https://github.com/subsquid/squid-sdk/tree/master/graphql/graphql-server) accepts the following optional start arguments to fend off heavy queries. 
 
-To enable the protection, add the corresponding flags to `serve` and `serve:prod` command definitions at `commands.json`:
+To enable the protection, add the corresponding flags to `serve` and `serve:prod` command definitions at [`commands.json`](/squid-cli/commands-json):
 
 ```json
 ...

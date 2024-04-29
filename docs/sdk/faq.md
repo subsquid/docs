@@ -38,7 +38,7 @@ drop schema squid_processor cascade;
 ```
 to reset the processor status.
 
-Squids that store their data in [file-based datasets](/sdk/resources/persisting-data/file) store their status in `status.txt` by default. This can be overridden by defining custom [database hooks](/sdk/resources/persisting-data/file/#filesystem-syncs-and-dataset-partitioning).
+Squids that store their data in [file-based datasets](/sdk/resources/persisting-data/file) store their status in `status.txt` by default. This can be overridden by defining custom [database hooks](/sdk/resources/persisting-data/file/#hooks).
 
 ### Is there a healthcheck endpoint for the indexer?
 

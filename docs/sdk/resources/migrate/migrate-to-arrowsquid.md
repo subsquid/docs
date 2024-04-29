@@ -8,7 +8,7 @@ description: A step-by-step migration guide for EVM
 
 This is a EVM guide. Substrate guide is available [here](/sdk/resources/migrate/migrate-to-arrowsquid-on-substrate).
 
-ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`. ArrowSquid is not compatible with the FireSquid [archive](/glossary/#archives) endpoints. Instead, it uses [Subsquid Network](/subsquid-network) datasets (see the [Supported EVM networks](/subsquid-network/reference/evm-networks/) page).
+ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`. ArrowSquid is not compatible with the FireSquid [archive](/glossary/#archives) endpoints. Instead, it uses [Subsquid Network](/subsquid-network) gateways (see the [Supported EVM networks](/subsquid-network/reference/evm-networks/) page).
 
 The main feature introduced by the ArrowSquid update on EVM is the new ability of the [processor](/sdk/overview) to ingest unfinalized blocks directly from a network node, instead of waiting for the archive to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency.
 
@@ -36,7 +36,7 @@ If your squid uses [`file-store`](/sdk/resources/persisting-data/file), please u
 
 ## Step 2
 
-Replace the old `setDataSource()` processor configuration call with a combination of [setGateway()](/sdk/reference/processors/evm-batch/general/#set-gateway) and [setRpcEndpoint()](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint). Use a [public Subsquid Network gateway+dataset URL for your network](/subsquid-network/reference/evm-networks). If your squid did not use an RPC endpoint before, find one for your network and set it with [setRpcEndpoint()](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint). Also [configure](/sdk/reference/processors/evm-batch/general/#set-finality-confirmation) the network-specific number of transaction confirmations sufficient for finality. For Ethereum mainnet your edit might look like this:
+Replace the old `setDataSource()` processor configuration call with a combination of [setGateway()](/sdk/reference/processors/evm-batch/general/#set-gateway) and [setRpcEndpoint()](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint). Use a [public Subsquid Network gateway URL for your network](/subsquid-network/reference/evm-networks). If your squid did not use an RPC endpoint before, find one for your network and set it with [setRpcEndpoint()](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint). Also [configure](/sdk/reference/processors/evm-batch/general/#set-finality-confirmation) the network-specific number of transaction confirmations sufficient for finality. For Ethereum mainnet your edit might look like this:
 ```diff
  processor
 -  .setDataSource({
@@ -51,7 +51,7 @@ Replace the old `setDataSource()` processor configuration call with a combinatio
 ```
 We recommend using a private RPC endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/). For squids deployed to [Subsquid Cloud](/cloud/overview/) you may also consider using our [RPC proxies](/cloud/reference/rpc-proxy).
 
-Your squid will work without an RPC endpoint, but with a significantly increased chain latency (a few hours for most chains, roughly a day for BSC). If that works for you, you can use just the Subsquid Network dataset without setting an RPC here and skip [Step 7](#step-7) altogether.
+Your squid will work without an RPC endpoint, but with a significantly increased chain latency (a few hours for most chains, roughly a day for BSC). If that works for you, you can use just the Subsquid Network gateway without setting an RPC here and skip [Step 7](#step-7) altogether.
 
 ## Step 3
 
@@ -238,7 +238,7 @@ Update your transactions/events decoding code. The big change here is that now d
 
 ## Step 8
 
-Iteratively reconcile any type errors arising when building your squid (e.g. with `sqd build`). In case you're using `tranformContext.ts` you may find the types it exports helpful. If you need to specify the field selection generic argument explicitly, get it as a `typeof` of the `setFields` argument value:
+Iteratively reconcile any type errors arising when building your squid (e.g. with `npm run build`). In case you're using `tranformContext.ts` you may find the types it exports helpful. If you need to specify the field selection generic argument explicitly, get it as a `typeof` of the `setFields` argument value:
 
 ```ts
 import { OldBlockData } from './transformContext'

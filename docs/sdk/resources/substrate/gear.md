@@ -7,7 +7,7 @@ description: >-
 # Gear support
 
 :::info
-Subsquid Network serves datasets for two networks that use Gear Protocol: **Vara** and **Vara Testnet**. Here are their dataset endopint URLs:
+Subsquid Network has gateways for two networks that use Gear Protocol: **Vara** and **Vara Testnet**. Here are their endopint URLs:
 ```
 https://v2.archive.subsquid.io/network/vara
 ```
