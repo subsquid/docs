@@ -1,0 +1,12 @@
+{
+  "position": 90,
+  "label": "Solana Indexing",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "slug": "/solana_indexing",
+    "title": "Index Solana with Subsquid"
+  }
+}
