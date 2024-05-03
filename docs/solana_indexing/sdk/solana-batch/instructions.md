@@ -1,5 +1,5 @@
 ---
-sidebar_position: 40
+sidebar_position: 50
 description: >-
   Track storage changes with addStateDiff()
 ---
