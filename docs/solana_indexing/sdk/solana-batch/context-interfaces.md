@@ -6,7 +6,7 @@ description: >-
 
 # Block data for Solana
 
-`SolanaBatchProcessor` follows the common [squid processor architecture](/sdk/overview), in which data processing happens within the [batch handler](/sdk/overview/#processorrun), a function repeatedly called on batches of on-chain data. The function takes a single argument called "batch context". Its structure follows the [common batch context layout](/sdk/overview/#batch-context), with `ctx.blocks` being an array of `Block` objects containing the data to be processed, aligned at the block level.
+Solana Squid SDK consists of `DataSourceBuilder` and `SolanaBatchProcessor`, in which data processing happens within the [batch handler](/sdk/overview/#processorrun), a function repeatedly called on batches of on-chain data. `ctx.blocks` is an array of `Block` objects containing the data to be processed, aligned at the block level.
 
 For `SolanaBatchProcessor` the `Block` interface is defined as follows:
 
@@ -32,6 +32,7 @@ export interface Block<F extends FieldSelection = {}> {
 
 The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [field selection](/sdk/reference/processors/solana-batch/field-selection) page:
 
+<!--
 - [transactions section](/sdk/reference/processors/solana-batch/field-selection/#transactions);
 - [logs section](/sdk/reference/processors/solana-batch/field-selection/#logs);
 - [traces section](/sdk/reference/processors/solana-batch/field-selection/#traces);
@@ -78,4 +79,4 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 One can experiment with the [`setFields()`](/sdk/reference/processors/evm-batch/field-selection) argument and see how the output changes.
 
-For more elaborate examples, check [Solana Examples](/sdk/examples).
+For more elaborate examples, check [Solana Examples](/sdk/examples). -->

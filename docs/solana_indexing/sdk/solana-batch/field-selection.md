@@ -17,13 +17,17 @@ Set the fields to be retrieved for data items of each supported type. The `optio
 }
 ```
 
-Every field selector is a collection of boolean fields, typically mapping one-to-one to the fields of data items within the batch context [iterables](/sdk/reference/processors/evm-batch/context-interfaces). Defining a field of a field selector of a given type and setting it to true will cause the processor to populate the corresponding field of all data items of that type. Here is a definition of a processor that requests `signatures` and `err` fields for transactions:
+Every field selector is a collection of boolean fields, typically mapping one-to-one to the fields of data items within the batch context [iterables](/sdk/reference/processors/solana-batch/context-interfaces). Defining a field of a field selector of a given type and setting it to true will cause the processor to populate the corresponding field of all data items of that type. Here is a definition of a processor that requests `signatures` and `err` fields for transactions:
 
 ```ts
-let processor = new EvmBatchProcessor().setFields({
+const dataSource = new DataSourceBuilder().setFields({
+  block: {
+    // block header fields
+    timestamp: true,
+  },
   transaction: {
+    // transaction fields
     signatures: true,
-    err: true,
   },
 });
 ```
@@ -56,15 +60,12 @@ processor.run(db, async ctx => {
 Some data fields, like `signatures` for transactions, are enabled by default but can be disabled by setting a field of a field selector to `false`. For example, this code will not compile:
 
 ```ts
-let processor = new EvmBatchProcessor()
-  .setFields({
-    transaction: {
-      signatures: false,
-    },
-  })
-  .addTransaction({
-    // some transaction data requests
-  });
+const dataSource = new DataSourceBuilder().setFields({
+  transaction: {
+    // transaction fields
+    signatures: false,
+  },
+});
 
 run(dataSource, database, async (ctx) => {
   for (let block of ctx.blocks) {
@@ -149,7 +150,7 @@ See the [block headers section](#block-headers) for the definition of `BlockHead
 `Instruction` data items may have the following fields:
 
 ```ts
-StateDiff {
+Instruction {
   // independent of field selectors
     programId: Base58Bytes
     accounts: Base58Bytes[]
