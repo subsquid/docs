@@ -11,49 +11,53 @@ description: >-
 The method documentation is also available inline and can be accessed via suggestions in most IDEs.
 :::
 
-The following setters configure the global settings of `EvmBatchProcessor`. They return the modified instance and can be chained.
+The following setters configure the global settings of `DataSourceBuilder` for Solana Procesor. They return the modified instance and can be chained.
 
 Certain configuration methods are required:
 
- * one or both of [`setGateway()`](#set-gateway) and [`setRpcEndpoint()`](#set-rpc-endpoint)
- * [`setFinalityConfirmation()`](#set-finality-confirmation) whenever [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) is enabled, namely when
-   - a RPC endpoint was configured with [`setRpcEndpoint()`](#set-rpc-endpoint)
-   - RPC ingestion has **NOT** been explicitly disabled by calling [`setRpcDataIngestionSettings({ disabled: true })`](#set-rpc-data-ingestion-settings)
+- one or both of [`setGateway()`](#set-gateway) and [`setRpcEndpoint()`](#set-rpc-endpoint)
+- [`setFinalityConfirmation()`](#set-finality-confirmation) whenever [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) is enabled, namely when
+  - a RPC endpoint was configured with [`setRpcEndpoint()`](#set-rpc-endpoint)
+  - RPC ingestion has **NOT** been explicitly disabled by calling [`setRpcDataIngestionSettings({ disabled: true })`](#set-rpc-data-ingestion-settings)
 
 Here's how to choose the data sources depending on your use case:
 
- * If you need real-time data and your network [has a Subsquid Network dataset](/subsquid-network/reference/evm-networks), use both [`setGateway()`](#set-gateway) and [`setRpcEndpoint()`](#set-rpc-endpoint). The processor will obtain as much data as is currently available from the dataset, then switch to ingesting recent data from the RPC endpoint.
- * If you can tolerate your data being several thousands of blocks behind the chain head, you do not want to use a RPC endpoint and your network [has a Subsquid Network dataset](/subsquid-network/reference/evm-networks), use [`setGateway()`](#set-gateway) only.
- * If your EVM network does not have a Subsquid Network dataset, use [`setRpcEndpoint()`](#set-rpc-endpoint) only. You can use this regime to [work with local development nodes](/sdk/tutorials/evm-local).
- * If your squid uses [direct RPC queries](/sdk/resources/tools/typegen/state-queries/?typegen=evm) then [`setRpcEndpoint()`](#set-rpc-endpoing) is a hard requirement. You can reduce the RPC usage by adding a Network data source with [`setGateway()`](#set-gateway). Further, if you can tolerate a latency of a few thousands of blocks, you can disable RPC ingestion with [`setRpcDataIngestionSettings({ disabled: true })`](#set-rpc-data-ingestion-settings). In this scenario RPC will only be used for the queries you explicitly make in your code.
+- If you need real-time data use both [`setGateway()`](#set-gateway) and [`setRpcEndpoint()`](#set-rpc-endpoint). The processor will obtain as much data as is currently available from the dataset, then switch to ingesting recent data from the RPC endpoint.
+- If you can tolerate your data being several thousands of blocks behind the chain head, you do not want to use a RPC endpoint, use [`setGateway()`](#set-gateway) only.
+
+- If you can tolerate a latency of a few thousands of blocks, you can disable RPC ingestion with [`setRpcDataIngestionSettings({ disabled: true })`](#set-rpc-data-ingestion-settings). In this scenario RPC will only be used for the queries you explicitly make in your code.
 
 ### `setGateway(url: string | GatewaySettings)` {#set-gateway}
 
 Adds a [Subsquid Network](/subsquid-network) data source. The argument is either a string URL of a dataset served by a Subsquid Network gateway or
+
 ```ts
 {
   url: string // dataset URL
   requestTimeout?: number // in milliseconds
 }
 ```
-See [EVM datasets](/subsquid-network/reference/evm-networks) for public dataset URLs.
 
 ### `setRpcEndpoint(rpc: ChainRpc)` {#set-rpc-endpoint}
 
 Adds a RPC data source. If added, it will be used for
- - [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) (unless explicitly disabled with [`setRpcDataIngestionSettings()`](#set-rpc-data-ingestion-settings))
- - any [direct RPC queries](/sdk/resources/tools/typegen/state-queries/?typegen=evm) you make in your squid code
+
+- [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) (unless explicitly disabled with [`setRpcDataIngestionSettings()`](#set-rpc-data-ingestion-settings))
 
 A node RPC endpoint can be specified as a string URL or as an object:
+
 ```ts
-type ChainRpc = string | {
-  url: string // http, https, ws and wss are supported
-  capacity?: number // num of concurrent connections, default 10
-  maxBatchCallSize?: number // default 100
-  rateLimit?: number // requests per second, default is no limit
-  requestTimeout?: number // in milliseconds, default 30_000
-}
+type ChainRpc =
+  | string
+  | {
+      url: string; // http, https, ws and wss are supported
+      capacity?: number; // num of concurrent connections, default 10
+      maxBatchCallSize?: number; // default 100
+      rateLimit?: number; // requests per second, default is no limit
+      requestTimeout?: number; // in milliseconds, default 30_000
+    };
 ```
+
 Setting `maxBatchCallSize` to `1` disables batching completely.
 
 :::tip
@@ -67,27 +71,24 @@ Replaced by [`setGateway()`](#set-gateway) and [`setRpcEndpoint()`](#set-rpc-end
 ### `setRpcDataIngestionSetting(settings: RpcDataIngestionSettings)` {#set-rpc-data-ingestion-settings}
 
 Specify the [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) settings.
+
 ```ts
 type RpcDataIngestionSettings = {
-  disabled?: boolean
-  preferTraceApi?: boolean
-  useDebugApiForStateDiffs?: boolean
-  debugTraceTimeout?: string
-  headPollInterval?: number
-  newHeadTimeout?: number
-}
+  disabled?: boolean;
+  preferTraceApi?: boolean;
+  useDebugApiForStateDiffs?: boolean;
+  debugTraceTimeout?: string;
+  headPollInterval?: number;
+  newHeadTimeout?: number;
+};
 ```
+
 Here,
- * `disabled`: Explicitly disables data ingestion from an RPC endpoint.
- * `preferTraceApi`: By default, [`debug_traceBlockByHash`](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-debug#debugtraceblockbyhash) is used to obtain [call traces](../traces). This flag instructs the processor to utilize [`trace_` methods](https://openethereum.github.io/JSONRPC-trace-module) instead. This setting is only effective for finalized blocks.
- * `useDebugApiForStateDiffs`: By default, [`trace_replayBlockTransactions`](https://openethereum.github.io/JSONRPC-trace-module#trace_replayblocktransactions) is used to obtain [state diffs](../state-diffs) for finalized blocks. This flag instructs the processor to utilize [`debug_traceBlockByHash`](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-debug#debugtraceblockbyhash) instead. This setting is only effective for finalized blocks. **WARNING:** this will significantly increase the amount of data retrieved from the RPC endpoint. Expect download rates in the megabytes per second range.
- * `debugTraceTimeout`: If set, the processor will pass the `timeout` parameter to [debug trace config](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-debug#traceconfig).
- * `headPollInterval`: Poll interval for new blocks in milliseconds. Poll mechanism is used to get new blocks via HTTP connections. Default: 5000.
- * `newHeadTimeout`: When ingesting from a websocket, this setting specifies the timeout in milliseconds after which the connection will be reset and subscription re-initiated if no new blocks were received. Default: no timeout.
 
-### `setFinalityConfirmation(nBlocks: number)` {#set-finality-confirmation}
-
-Sets the number of blocks after which the processor will consider the consensus data final. Use a value appropriate for your network. For example, for Ethereum mainnet a widely cited value is 15 minutes/75 blocks.
+- `disabled`: Explicitly disables data ingestion from an RPC endpoint.
+- `preferTraceApi`: By default, [`debug_traceBlockByHash`](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-debug#debugtraceblockbyhash) is used to obtain [call traces](../traces). This flag instructs the processor to utilize [`trace_` methods](https://openethereum.github.io/JSONRPC-trace-module) instead. This setting is only effective for finalized blocks.
+- `headPollInterval`: Poll interval for new blocks in milliseconds. Poll mechanism is used to get new blocks via HTTP connections. Default: 5000.
+- `newHeadTimeout`: When ingesting from a websocket, this setting specifies the timeout in milliseconds after which the connection will be reset and subscription re-initiated if no new blocks were received. Default: no timeout.
 
 ### `setBlockRange({from: number, to?: number})` {#set-block-range}
 
@@ -98,7 +99,3 @@ Note that block ranges can also be specified separately for each data request. T
 ### `includeAllBlocks(range?: {from: number, to?: number})` {#include-all-blocks}
 
 By default, processor will fetch only blocks which contain requested items. This method modifies such behavior to fetch all chain blocks. Optionally a range of blocks can be specified for which the setting should be effective.
-
-### `setPrometheusPort(port: string | number)` {#set-prometheus-port}
-
-Sets the port for a built-in prometheus health metrics server (serving at `http://localhost:${port}/metrics`). By default, the value of PROMETHEUS_PORT environment variable is used. When it is not set, processor will pick an ephemeral port.

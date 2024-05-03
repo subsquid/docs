@@ -32,30 +32,35 @@ const dataSource = new DataSourceBuilder().setFields({
 });
 ```
 
-<!-- Same fields will be available for all data items of any given type, including nested items. Suppose we used the processor defined above to subscribe to some transactions as well as some logs, and for each log we requested a parent transaction:
+Same fields will be available for all data items of any given type, including nested items. Suppose we used the processor defined above to subscribe to some transactions as well as some logs, and for each log we requested a parent transaction:
+
 ```ts
 processor
   .addLog({
     // some log data requests
-    transaction: true
+    transaction: true,
   })
   .addTransaction({
     // some transaction data requests
-  })
+    logs: true,
+  });
 ```
-As a result, `gas` and `value` fields would be available both within the transaction items of the `transactions` iterable of [block data](/sdk/reference/processors/evm-batch/context-interfaces) and within the transaction items that provide parent transaction information for the logs:
+
+As a result, `signatures` and `err` fields would be available both within the transaction items of the `transactions` iterable of [block data](/sdk/reference/processors/solana-batch/context-interfaces) and within the transaction items that provide parent transaction information for the logs:
+
 ```ts
-processor.run(db, async ctx => {
-  for (let block of ctx.blocks) {
+run(dataSource, database, async (ctx) => {
+  let blocks = ctx.blocks.map(augmentBlock);
+  for (let block of blocks) {
     for (let txn of block.transactions) {
-      let txnGas = txn.gas // OK
+      let sig = txn.signature; // OK
     }
     for (let log of block.logs) {
-      let parentTxnGas = log.transaction.gas // also OK!
+      let parentTxSig = log.transaction.signature; // also OK!
     }
   }
-})
-``` -->
+});
+```
 
 Some data fields, like `signatures` for transactions, are enabled by default but can be disabled by setting a field of a field selector to `false`. For example, this code will not compile:
 
@@ -200,7 +205,7 @@ See the [block headers section](#block-headers) for the definition of `BlockHead
 
 ### TokenBalances
 
-Field selection for token balances data items is somewhat more involved because depending on the subtype of the token balance some fields may be `undefined`. `PostTokenBalance` and `PreTokenBalance` both represent token balances, however `PreTokenBalance` will have `postProgramId, postMint, postDecimals, postOwner and postAmount` as `undefined`.
+Field selection for token balances data items is more nuanced because depending on the subtype of the token balance some fields may be `undefined`. `PostTokenBalance` and `PreTokenBalance` both represent token balances, however `PreTokenBalance` will have `postProgramId, postMint, postDecimals, postOwner and postAmount` as `undefined`.
 
 `PostTokenBalance` will have `preProgramId, preMint, preDecimals, preOwner and preAmount` as `undefined`.
 
