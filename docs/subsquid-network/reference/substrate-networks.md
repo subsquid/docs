@@ -48,6 +48,7 @@ const processor = new SubstrateBatchProcessor()
 | Darwinia               | https://v2.archive.subsquid.io/network/darwinia               |
 | Data Avail             | https://v2.archive.subsquid.io/network/data-avail             |
 | Eden                   | https://v2.archive.subsquid.io/network/eden                   |
+| Enjin Canary Matrix    | https://v2.archive.subsquid.io/network/enjin-canary-matrix    |
 | Enjin Matrix           | https://v2.archive.subsquid.io/network/enjin-matrix           |
 | Equilibrium            | https://v2.archive.subsquid.io/network/equilibrium            |
 | Foucoco                | https://v2.archive.subsquid.io/network/foucoco                |
@@ -88,6 +89,8 @@ const processor = new SubstrateBatchProcessor()
 | Sora                   | https://v2.archive.subsquid.io/network/sora-mainnet           |
 | Subsocial Parachain    | https://v2.archive.subsquid.io/network/subsocial-parachain    |
 | Ternoa                 | https://v2.archive.subsquid.io/network/ternoa                 |
+| Turing                 | https://v2.archive.subsquid.io/network/turing-mainnet         |
+| Turing Avail           | https://v2.archive.subsquid.io/network/turing-avail           |
 | Vara                   | https://v2.archive.subsquid.io/network/vara                   |
 | Vara Testnet           | https://v2.archive.subsquid.io/network/vara-testnet           |
 | Watr                   | https://v2.archive.subsquid.io/network/watr                   |
