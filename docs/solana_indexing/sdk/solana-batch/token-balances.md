@@ -4,7 +4,7 @@ description: >-
   Track storage changes with addStateDiff()
 ---
 
-# TokenBalances
+# Token Balances
 
 #### `addTokenBalance(options)` {#add-token-balance}
 

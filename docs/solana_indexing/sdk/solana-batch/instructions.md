@@ -43,7 +43,7 @@ The data requests here are:
 
 - `programId`: the set of addresses of contracts to track. Leave undefined or set to `[]` to subscribe to state changes of all contracts from the whole network.
 - `d1` through `d8`: instruction discriminators
-- `a1` through `a9`:
+- `a1` through `a9`: arrays of Base58 encoded bytes, potentially representing additional data or parameters associated with the program or instructions.
 - `isCommitted`: `true` to request only instructions that did not revert.
 
 Enabling the `transaction` flag will cause the processor to retrieve the transaction that gave rise to instruction and add it to the [`transactions` iterable of block data](/sdk/reference/processors/solana-batch/context-interfaces).

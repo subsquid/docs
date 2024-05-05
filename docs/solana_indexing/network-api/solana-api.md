@@ -367,8 +367,8 @@ Instruction will be included in the response if it matches all the requests. An 
 }
 ```
 
-A token balance will be included in the response if it matches all the requests. An empty array matches no state diffs; omit all requests to match all state diffs. See [Storage state diffs](/sdk/reference/processors/solana-batch/token-balances) for a detailed description of data request fields.
+A token balance will be included in the response if it matches all the requests. An empty array matches no state diffs; omit all requests to match all state diffs. See [Token balances](/solana_indexing/sdk/solana-batch/token-balances) for a detailed description of data request fields.
 
 ## Data fields selector
 
-A JSON selector of fields for the returned data items. Documented in the [Field selectors](/solana-indexing/sdk/field-selection/#field-selectors) section.
+A JSON selector of fields for the returned data items. Documented in the [Field selectors](/solana_indexing/sdk/solana-batch/field-selection/) section.

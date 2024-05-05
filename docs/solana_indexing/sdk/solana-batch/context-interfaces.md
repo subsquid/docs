@@ -4,7 +4,7 @@ description: >-
   Block data for Solana
 ---
 
-# Block data for Solana
+# Block Data for Solana
 
 Solana Squid SDK consists of `DataSourceBuilder` and `SolanaBatchProcessor`, in which data processing happens within the [batch handler](/sdk/overview/#processorrun), a function repeatedly called on batches of on-chain data. `ctx.blocks` is an array of `Block` objects containing the data to be processed, aligned at the block level.
 
