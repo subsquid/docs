@@ -1,12 +1,12 @@
 {
   "position": 100,
-  "label": "Reference",
+  "label": "Network API",
   "collapsible": true,
   "collapsed": true,
   "className": "red",
   "link": {
     "type": "generated-index",
-    "slug": "/subsquid-network/reference",
-    "title": "Subsquid Network reference documentation for Solana"
+    "slug": "/network-api",
+    "title": "Subsquid Network API documentation for Solana"
   }
 }

@@ -1,6 +1,6 @@
 {
   "position": 20,
-  "label": "Solana",
+  "label": "Solana Batch Processor",
   "collapsible": true,
   "collapsed": true,
   "className": "red",
