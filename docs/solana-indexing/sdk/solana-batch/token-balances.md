@@ -38,7 +38,7 @@ The data requests here are:
 - `transaction`: `true` to request transactions.
 - `transactionInstructions`: `true` to request instructions.
 
-Enabling the `transaction` flag will cause the processor to retrieve the transaction that gave rise to instruction and add it to the [`transactions` iterable of block data](/sdk/reference/processors/solana-batch/context-interfaces).
+Enabling the `transaction` flag will cause the processor to retrieve the transaction that gave rise to instruction and add it to the [`transactions` iterable of block data](/solana-indexing/sdk/solana-batch/context-interfaces).
 
 Selection of the exact data to be retrieved for each instruction item and its optional parent transaction is done with the `setFields()` method documented on the [Field selection](../field-selection) page.
 

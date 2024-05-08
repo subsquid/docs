@@ -22,7 +22,7 @@ export interface Block<F extends FieldSelection = {}> {
 }
 ```
 
-`F` here is the type of the argument of the [`setFields()`](/sdk/reference/processors/solana-batch/field-selection) processor method.
+`F` here is the type of the argument of the [`setFields()`](/solana-indexing/sdk/solana-batch/field-selection) processor method.
 
 `BlockData.header` contains the block header data. The rest of the fields are iterables containing four kinds of blockchain data. The canonical ordering within each iterable depends on the data kind:
 
@@ -30,14 +30,14 @@ export interface Block<F extends FieldSelection = {}> {
 - `instructions` follow the order of transactions that gave rise to them;
 - `tokenBalances` are ordered in a deterministic but otherwise unspecified way.
 
-The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [field selection](/sdk/reference/processors/solana-batch/field-selection) page:
+The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [field selection](/solana-indexing/sdk/solana-batch/field-selection) page:
 
 <!--
-- [transactions section](/sdk/reference/processors/solana-batch/field-selection/#transactions);
-- [logs section](/sdk/reference/processors/solana-batch/field-selection/#logs);
-- [traces section](/sdk/reference/processors/solana-batch/field-selection/#traces);
-- [state diffs section](/sdk/reference/processors/solana-batch/field-selection/#state-diffs);
-- [block header section](/sdk/reference/processors/solana-batch/field-selection/#block-headers).
+- [transactions section](/solana-indexing/sdk/solana-batch/field-selection#transactions);
+- [logs section](/solana-indexing/sdk/solana-batch/field-selection#logs);
+- [traces section](/solana-indexing/sdk/solana-batch/field-selection#traces);
+- [state diffs section](/solana-indexing/sdk/solana-batch/field-selection#state-diffs);
+- [block header section](/solana-indexing/sdk/solana-batch/field-selection#block-headers).
 
 ## Example
 

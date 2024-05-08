@@ -38,57 +38,37 @@ Adds a [Subsquid Network](/subsquid-network) data source. The argument is either
 }
 ```
 
-### `setRpcEndpoint(rpc: ChainRpc)` {#set-rpc-endpoint}
+### `setRpc(settings?: RpcSettings)` {#set-rpc}
 
 Adds a RPC data source. If added, it will be used for
 
-- [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) (unless explicitly disabled with [`setRpcDataIngestionSettings()`](#set-rpc-data-ingestion-settings))
+- [RPC ingestion](/sdk/resources/basics/unfinalized-blocks)
 
-A node RPC endpoint can be specified as a string URL or as an object:
-
-```ts
-type ChainRpc =
-  | string
-  | {
-      url: string; // http, https, ws and wss are supported
-      capacity?: number; // num of concurrent connections, default 10
-      maxBatchCallSize?: number; // default 100
-      rateLimit?: number; // requests per second, default is no limit
-      requestTimeout?: number; // in milliseconds, default 30_000
-    };
-```
-
-Setting `maxBatchCallSize` to `1` disables batching completely.
-
-:::tip
-We recommend using private endpoints for better performance and stability of your squids. For Subsquid Cloud deployments you can use the [RPC proxy](/cloud/reference/rpc-proxy). If you use an external private RPC, keep the endpoint URL in a [Cloud secret](/cloud/resources/env-variables#secrets).
-:::
-
-### `setDataSource(ds: {archive?: string, chain?: ChainRpc})` (deprecated) {#set-data-source}
-
-Replaced by [`setGateway()`](#set-gateway) and [`setRpcEndpoint()`](#set-rpc-endpoint).
-
-### `setRpcDataIngestionSetting(settings: RpcDataIngestionSettings)` {#set-rpc-data-ingestion-settings}
-
-Specify the [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) settings.
+A node RPC endpoint can be specified as an object:
 
 ```ts
-type RpcDataIngestionSettings = {
-  disabled?: boolean;
-  preferTraceApi?: boolean;
-  useDebugApiForStateDiffs?: boolean;
-  debugTraceTimeout?: string;
-  headPollInterval?: number;
-  newHeadTimeout?: number;
+type ChainRpc = {
+  client: SolanaRpcClient;
+  strideSize?: number; // `getBlock` batch call size, default 5
+  strideConcurrency?: number; // num of concurrent connections, default 10
+  concurrentFetchThreshold?: number; // min distance from head that triggers a fetch, default 50
 };
 ```
 
-Here,
-
-- `disabled`: Explicitly disables data ingestion from an RPC endpoint.
-- `preferTraceApi`: By default, [`debug_traceBlockByHash`](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-debug#debugtraceblockbyhash) is used to obtain [call traces](../traces). This flag instructs the processor to utilize [`trace_` methods](https://openethereum.github.io/JSONRPC-trace-module) instead. This setting is only effective for finalized blocks.
-- `headPollInterval`: Poll interval for new blocks in milliseconds. Poll mechanism is used to get new blocks via HTTP connections. Default: 5000.
-- `newHeadTimeout`: When ingesting from a websocket, this setting specifies the timeout in milliseconds after which the connection will be reset and subscription re-initiated if no new blocks were received. Default: no timeout.
+`SolanaRpcClient` class is exported by `@subsquid/solana-stream`. Its constructor arg type is
+```ts
+{
+  url: string; // http, https, ws and wss are supported
+  capacity?: number; // num of concurrent connections, default 10
+  rateLimit?: number; // requests per second, default is no limit
+  requestTimeout?: number; // in milliseconds, default 30_000
+  retryAttempts?: number, // num of retries on failed RPC calls, default 0
+  retrySchedule?: number, // retry pauses in ms
+  maxBatchCallSize?: number; // default 100
+  headers?: Record<string, string>, // http headers
+  log?: Logger | null // customize or disable RPC client logs
+}
+```
 
 ### `setBlockRange({from: number, to?: number})` {#set-block-range}
 

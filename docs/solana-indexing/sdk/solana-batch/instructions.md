@@ -46,7 +46,7 @@ The data requests here are:
 - `a1` through `a9`: arrays of Base58 encoded bytes, potentially representing additional data or parameters associated with the program or instructions.
 - `isCommitted`: `true` to request only instructions that did not revert.
 
-Enabling the `transaction` flag will cause the processor to retrieve the transaction that gave rise to instruction and add it to the [`transactions` iterable of block data](/sdk/reference/processors/solana-batch/context-interfaces).
+Enabling the `transaction` flag will cause the processor to retrieve the transaction that gave rise to instruction and add it to the [`transactions` iterable of block data](/solana-indexing/sdk/solana-batch/context-interfaces).
 
 Selection of the exact data to be retrieved for each instruction item and its optional parent transaction is done with the `setFields()` method documented on the [Field selection](../field-selection) page.
 

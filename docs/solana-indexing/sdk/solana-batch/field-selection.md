@@ -17,7 +17,7 @@ Set the fields to be retrieved for data items of each supported type. The `optio
 }
 ```
 
-Every field selector is a collection of boolean fields, typically mapping one-to-one to the fields of data items within the batch context [iterables](/sdk/reference/processors/solana-batch/context-interfaces). Defining a field of a field selector of a given type and setting it to true will cause the processor to populate the corresponding field of all data items of that type. Here is a definition of a processor that requests `signatures` and `err` fields for transactions:
+Every field selector is a collection of boolean fields, typically mapping one-to-one to the fields of data items within the batch context [iterables](/solana-indexing/sdk/solana-batch/context-interfaces). Defining a field of a field selector of a given type and setting it to true will cause the processor to populate the corresponding field of all data items of that type. Here is a definition of a processor that requests `signatures` and `err` fields for transactions:
 
 ```ts
 const dataSource = new DataSourceBuilder().setFields({
@@ -46,7 +46,7 @@ processor
   });
 ```
 
-As a result, `signatures` and `err` fields would be available both within the transaction items of the `transactions` iterable of [block data](/sdk/reference/processors/solana-batch/context-interfaces) and within the transaction items that provide parent transaction information for the logs:
+As a result, `signatures` and `err` fields would be available both within the transaction items of the `transactions` iterable of [block data](/solana-indexing/sdk/solana-batch/context-interfaces) and within the transaction items that provide parent transaction information for the logs:
 
 ```ts
 run(dataSource, database, async (ctx) => {

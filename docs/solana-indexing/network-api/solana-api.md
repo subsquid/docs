@@ -295,7 +295,7 @@ Addresses in all data requests must be in lowercase. All addresses in the respon
 }
 ```
 
-A log will be included in the response if it matches all the requests. An empty array matches no logs; omit all requests to match all logs. See [Solana logs](/sdk/reference/processors/solana-batch/logs) for a detailed description of data request fields.
+A log will be included in the response if it matches all the requests. An empty array matches no logs; omit all requests to match all logs. See [Solana logs](/solana-indexing/sdk/solana-batch/logs) for a detailed description of data request fields.
 
 ### Transactions
 
@@ -323,7 +323,7 @@ A log will be included in the response if it matches all the requests. An empty 
 }
 ```
 
-A transaction will be included in the response if it matches all the requests. An empty array matches no transactions; omit all requests to match all transactions. See [Solana transactions](/sdk/reference/processors/solana-batch/transactions) for a detailed description of data request fields.
+A transaction will be included in the response if it matches all the requests. An empty array matches no transactions; omit all requests to match all transactions. See [Solana transactions](/solana-indexing/sdk/solana-batch/transactions) for a detailed description of data request fields.
 
 ### Instructions
 
@@ -345,7 +345,7 @@ A transaction will be included in the response if it matches all the requests. A
 }
 ```
 
-Instruction will be included in the response if it matches all the requests. An empty array matches no instructions; omit all requests to match all instructions. See [Instructions](/sdk/reference/processors/solana-batch/instructions) for a detailed description of data request fields.
+Instruction will be included in the response if it matches all the requests. An empty array matches no instructions; omit all requests to match all instructions. See [Instructions](/solana-indexing/sdk/solana-batch/instructions) for a detailed description of data request fields.
 
 ### Token Balances
 
@@ -367,8 +367,8 @@ Instruction will be included in the response if it matches all the requests. An 
 }
 ```
 
-A token balance will be included in the response if it matches all the requests. An empty array matches no state diffs; omit all requests to match all state diffs. See [Token balances](/solana_indexing/sdk/solana-batch/token-balances) for a detailed description of data request fields.
+A token balance will be included in the response if it matches all the requests. An empty array matches no state diffs; omit all requests to match all state diffs. See [Token balances](/solana-indexing/sdk/solana-batch/token-balances) for a detailed description of data request fields.
 
 ## Data fields selector
 
-A JSON selector of fields for the returned data items. Documented in the [Field selectors](/solana_indexing/sdk/solana-batch/field-selection/) section.
+A JSON selector of fields for the returned data items. Documented in the [Field selectors](/solana-indexing/sdk/solana-batch/field-selection) section.

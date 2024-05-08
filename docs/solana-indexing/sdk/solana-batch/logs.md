@@ -26,7 +26,7 @@ Data requests:
 - `programId`: the set of addresses of contracts emitting the logs. Omit to subscribe to events from all contracts in the network.
 - `kind`: the set of values of `kind`.
 
-With `transaction = true` the processor will retrieve all parent transactions and add them to the `transactions` iterable within the [block data](/sdk/reference/processors/solana-batch/context-interfaces). Additionally it will expose them via the `.transaction` field of each log item.
+With `transaction = true` the processor will retrieve all parent transactions and add them to the `transactions` iterable within the [block data](/solana-indexing/sdk/solana-batch/context-interfaces). Additionally it will expose them via the `.transaction` field of each log item.
 
 Note that logs can also be requested by the [`addTransaction()`](../transactions) method as related data.
 

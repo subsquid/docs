@@ -5,7 +5,7 @@ description: >-
 sidebar_position: 10
 ---
 
-# Step 1: Indexing Transfer events
+# Indexing the Orca DEX
 
 In this step-by-step tutorial we will look into a squid that gets data about [Orca Exchange](https://www.orca.so/) NFTs, their transfers and owners from the [Solana blockchain](https://solana.com).
 
@@ -19,11 +19,10 @@ git clone https://github.com/subsquid-labs/solana-example
 cd solana-example
 npm i
 ```
-The resulting code can be found in [this repository](https://github.com/subsquid-labs/solana-example).
 
 ## Interfacing with the contract IDL
 
-First, we inspect which data is available for indexing. For Solana programs written with [Anchor framework](https://www.anchor-lang.com/), the metadata descrbing the shape of the instructions, transactions and contract variables is distributed as an [Interface Definition Language](https://www.quicknode.com/guides/solana-development/anchor/what-is-an-idl) (IDL) JSON file. For many popular programs IDL files are published on Solscan (as in the case of the Whirlpool program). Subsquid provides a [tool[(/sdk/reference/typegen/state-queries) for retrieving contract ABIs from Etherscan-like APIs and generating the boilerplate for retrieving and decoding the data. For the contract of interest, this can be done with
+First, we inspect which data is available for indexing. For Solana programs written with [Anchor framework](https://www.anchor-lang.com/), the metadata descrbing the shape of the instructions, transactions and contract variables is distributed as an [Interface Definition Language](https://www.quicknode.com/guides/solana-development/anchor/what-is-an-idl) (IDL) JSON file. For many popular programs IDL files are published on [Solscan](https://solscan.io) (as in the case of the Whirlpool program). Subsquid provides a [tool](/sdk/reference/typegen/state-queries) for retrieving contract ABIs from Etherscan-like APIs and generating the boilerplate for retrieving and decoding the data. For the contract of interest, this can be done with
 ```bash
 npx squid-evm-typegen src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#bayc
 ```
@@ -113,9 +112,9 @@ Here,
 * `'https://v2.archive.subsquid.io/network/solana-mainnet'` is the address for the public Subsquid Network dataset endpoint for Solana mainnet. Check out [Subsquid reference pages](/subsquid-network/reference) for lists of public dataset endpoints for all supported networks.
 * `'process.env.SOLANA_NODE'` is an environment variable pointing at a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within Subsquid Network.
 * `240_000_000` first Solana block currently indexed by Subsquid.
-* The argument of [`addInstruction()`](/sdk/reference/processors/solana-batch/instructions) is a set of filters that tells the processor to retrieve all swap instructions in the Whirlpool program with discriminator matching the hash of the `<namespace>:<instruction>` of the swap instruction.
-* The argument of [`setFields()`](/sdk/reference/processors/solana-batch/field-selection/) specifies the exact data we need on every event to be retrieved. 
-See [configuration](/sdk/reference/processors/solana-batch) for more options.
+* The argument of [`addInstruction()`](/solana-indexing/sdk/solana-batch/instructions) is a set of filters that tells the processor to retrieve all swap instructions in the Whirlpool program with discriminator matching the hash of the `<namespace>:<instruction>` of the swap instruction.
+* The argument of [`setFields()`](/solana-indexing/sdk/solana-batch/field-selection) specifies the exact data we need on every event to be retrieved. 
+See [configuration](/solana-indexing/sdk/solana-batch) for more options.
 
 ## Decoding the event data
 

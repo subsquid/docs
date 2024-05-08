@@ -24,7 +24,7 @@ Data requests:
 
 - `feePayer` sets the addresses of the fee payers. Omit to subscribe to transactions from/to any address.
 
-Enabling the `instructions` and/or `logs` flags will cause the processor to retrieve [instructions](/sdk/reference/processors/solana-batch/instructions/) and [logs](/sdk/reference/processors/solana-batch/logs/) that occured as a result of each selected transaction. The data will be added to the appropriate iterables within the [block data](/sdk/reference/processors/solana-batch/context-interfaces).
+Enabling the `instructions` and/or `logs` flags will cause the processor to retrieve [instructions](/solana-indexing/sdk/solana-batch/instructions) and [logs](/solana-indexing/sdk/solana-batch/logs) that occured as a result of each selected transaction. The data will be added to the appropriate iterables within the [block data](/solana-indexing/sdk/solana-batch/context-interfaces).
 
 Note that transactions can also be requested by [`addInstructions()`](../instructions) and [`addLog()`](../logs) as related data.
 
