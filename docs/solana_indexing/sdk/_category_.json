@@ -6,7 +6,7 @@
   "className": "red",
   "link": {
     "type": "generated-index",
-    "slug": "/sdk",
+    "slug": "/solana-sdk",
     "title": "Index Solana with Subsquid"
   }
 }
