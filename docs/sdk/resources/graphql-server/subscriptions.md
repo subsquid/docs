@@ -46,7 +46,7 @@ deploy:
   api:
     cmd: [ "sqd", "serve:prod" ]
 ```
-The subscription `wss` endpoint will be available at the canonical API endpoint `wss://squid.subsquid.io/{name}/v/v{version}/graphql`.
+The subscription `wss` endpoint will be available at the canonical API endpoint `wss://{org}.subsquid.io/{name}/v/v{version}/graphql`.
 
 ## Example
 
