@@ -1,0 +1,12 @@
+{
+  "position": 90,
+  "label": "SDK",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "slug": "/sdk",
+    "title": "Index Solana with Subsquid"
+  }
+}

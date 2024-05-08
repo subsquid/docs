@@ -29,24 +29,31 @@ Implementation examples:
 Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` from block 16_000_000. We begin by finding the main URL for the Ethereum Mainnet gateway on the [Supported networks page](/subsquid-network/reference/evm-networks/#raw-urls). Then we have to:
 
 1. Verify that the dataset has reached the required height:
+
    ```bash
    $ curl https://v2.archive.subsquid.io/network/ethereum-mainnet/height
    ```
+
    Output
+
    ```
    18593441
    ```
 
 2. Get a worker URL
+
    ```bash
    $ curl https://v2.archive.subsquid.io/network/ethereum-mainnet/16000000/worker
    ```
+
    Output
+
    ```
    https://lm02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0
    ```
 
 3. Retrieve the data from the worker
+
    ```bash
    $ curl https://lm02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0 \
    -X 'POST' -H 'content-type: application/json' -H 'accept: application/json' \
@@ -57,9 +64,11 @@ Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e0
        "transactions":[{"to":["0xd8da6bf26964af9d7eed9e03e53415d37aa96045"]}]
    }' | jq
    ```
+
    Note how the address in the `transactions` data request is lowercased.
 
    Output:
+
    ```json
    [
      {
@@ -97,16 +106,21 @@ Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e0
    ```
 
 4. Observe that we received the transactions up to and including block 16031419. To get the rest of the data, we find a worker who has blocks from 16031420 on:
+
    ```bash
    $ curl https://v2.archive.subsquid.io/network/ethereum-mainnet/16031420/worker
    ```
+
    Output:
+
    ```
    https://rb02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0
    ```
+
    We can see that this part of the dataset is located on another host.
 
 5. Retrieve the data from the new worker
+
    ```bash
    $ curl https://rb02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0 \
    -X 'POST' -H 'content-type: application/json' -H 'accept: application/json' \
@@ -117,6 +131,7 @@ Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e0
        "transactions":[{"to":["0xd8da6bf26964af9d7eed9e03e53415d37aa96045"]}]
    }' | jq
    ```
+
    Output is similar to that of step 3.
 
 6. Repeat steps 4 and 5 until the dataset height of 18593441 reached.
@@ -160,6 +175,7 @@ def dump(
         for block in blocks:
             print(json.dumps(block))
 ```
+
 Full code [here](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a7d).
 
 </details>
@@ -206,15 +222,14 @@ The returned worker will be capable of processing `POST /` requests in which the
 <summary>
 
 ##### Example Request
+
 </summary>
 
 ```json
 {
   "logs": [
     {
-      "address": [
-        "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
-      ],
+      "address": ["0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"],
       "topic0": [
         "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
       ],
@@ -242,6 +257,7 @@ The returned worker will be capable of processing `POST /` requests in which the
 <summary>
 
 ##### Example Response
+
 </summary>
 
 ```json
@@ -368,6 +384,7 @@ The returned worker will be capable of processing `POST /` requests in which the
   }
 ]
 ```
+
 </details>
 
 </details>
@@ -390,6 +407,7 @@ Addresses in all data requests must be in lowercase. All addresses in the respon
   transaction: boolean
 }
 ```
+
 A log will be included in the response if it matches all the requests. An empty array matches no logs; omit all requests to match all logs. See [EVM logs](/sdk/reference/processors/evm-batch/logs) for a detailed description of data request fields.
 
 ### Transactions
@@ -404,6 +422,7 @@ A log will be included in the response if it matches all the requests. An empty 
   stateDiffs: boolean
 }
 ```
+
 A transaction will be included in the response if it matches all the requests. An empty array matches no transactions; omit all requests to match all transactions. See [EVM transactions](/sdk/reference/processors/evm-batch/transactions) for a detailed description of data request fields.
 
 ### Traces
@@ -421,6 +440,7 @@ A transaction will be included in the response if it matches all the requests. A
   subtraces: boolean
 }
 ```
+
 A trace will be included in the response if it matches all the requests. An empty array matches no traces; omit all requests to match all traces. See [Traces](/sdk/reference/processors/evm-batch/traces) for a detailed description of data request fields.
 
 ### State diffs
@@ -433,6 +453,7 @@ A trace will be included in the response if it matches all the requests. An empt
   transaction: bool
 }
 ```
+
 A state diff will be included in the response if it matches all the requests. An empty array matches no state diffs; omit all requests to match all state diffs. See [Storage state diffs](/sdk/reference/processors/evm-batch/state-diffs) for a detailed description of data request fields.
 
 ## Data fields selector
