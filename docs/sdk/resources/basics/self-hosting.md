@@ -56,8 +56,13 @@ ENV PROCESSOR_PROMETHEUS_PORT 3000
 
 Then build an image with 
 ```bash
+docker buildx build . -t my-squid
+```
+or with
+```bash
 docker build . -t my-squid
 ```
+if you're using an older Docker version.
 
 ## Sample compose file
 
@@ -72,10 +77,14 @@ services:
     environment:
       POSTGRES_DB: squid
       POSTGRES_PASSWORD: postgres
-    ports:
-      - "5432:5432"
-      # Uncomment for logging all SQL statements
-      # command: ["postgres", "-c", "log_statement=all"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "db_prod"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
+    # Uncomment for logging all SQL statements
+    # command: ["postgres", "-c", "log_statement=all"]
   api:
     image: my-squid
     environment:

@@ -42,6 +42,7 @@ type ChainRpc = string | {
   maxBatchCallSize?: number // default 100
   rateLimit?: number // requests per second, default is no limit
   requestTimeout?: number // in milliseconds, default 30_000
+  headers: Record<string, string> // http headers
 }
 ```
 Setting `maxBatchCallSize` to `1` disables batching completely.

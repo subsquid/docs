@@ -27,7 +27,9 @@ Subscribe to [execution traces](https://geth.ethereum.org/docs/interacting-with-
 
   // related data retrieval
   transaction?: boolean
+  transactionLogs?: boolean
   subtraces?: boolean
+  parents?: boolean
 }
 ```
 The data requests here are:
@@ -40,13 +42,15 @@ The data requests here are:
 + `suicideRefundAddress`: get `suicide` traces where refund addresses in this set.
 + `range`: get traces from transactions from this range of blocks.
 
-[//]: # (!!!! Update when the data requests set stabilizes)
+Related data retrieval:
++ `transaction = true` will cause the processor to retrieve transactions that the traces belong to.
++ `transactionLogs = true` will cause the processor to retrieve all logs emitted by transactions that the traces belong to.
++ `subtraces = true` will cause the processor to retrieve downstream traces in addition to those that matched the data requests.
++ `parents = true` will cause the processor to retrieve upstream traces in addition to those that matched the data requests.
 
-Enabling the  `transaction` flag will cause the processor to retrieve transactions that the traces belong to. Enabling `subtraces` will cause the processor to retrieve the downstream traces in addition to those that matched the data requests. These extra data items will be added to the appropriate iterables within the [block data](/sdk/reference/processors/evm-batch/context-interfaces).
+These extra data items will be added to the appropriate iterables within the [block data](/sdk/reference/processors/evm-batch/context-interfaces).
 
-Note that traces can also be requested by the [`addTransaction()`](../transactions) method as related data.
-
-[//]: # (???? Check whether the final version adds the transactions / subtraces to the items, too)
+Note that traces can also be requested by [`addTransaction()`](../transactions) and [`addLog()`](../logs) method as related data.
 
 Selection of the exact data to be retrieved for each trace item is done with the `setFields()` method documented on the [Field selection](../field-selection) page. Be aware that field selectors for traces do not share their names with the fields of trace data items, unlike field selectors for other data item types. This is due to traces varying their structure depending on the value of the `type` field.
 

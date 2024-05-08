@@ -9,7 +9,7 @@ description: Switch between versions without downtime
 Version aliasing is used to switch between squid versions without a downtime and updates of the downstream clients. 
 Each squid has a canonical production endpoint URL of the form
 ```bash
-https://squid.subsquid.io/<squid name>/graphql
+https://<org name>.subsquid.io/<squid name>/graphql
 ```
 
 To alias a squid version to the production endpoint, use [`sqd prod`](/squid-cli/prod):
@@ -19,16 +19,17 @@ sqd prod <squid name>@<version>
 
 Note that after promoting to the production the version-specific endpoint URL of the form
 ```bash
-https://squid.subsquid.io/<squid name>/v/<version>/graphql
+https://<org name>.subsquid.io/<squid name>/v/v<version>/graphql
 ```
 remains to be available.
 
 
 ## Example
 
-Run
+Assuming your organization is called `my-org`, running
+
 ```bash
 sqd prod my-squid@v1
 ```
 
-The squid endpoint will be accessible at `https://squid.subsquid.io/my-squid/graphql`.
+will make the endpoint of the v1 of `my-squid` accessible at `https://my-org.subsquid.io/my-squid/graphql`.
