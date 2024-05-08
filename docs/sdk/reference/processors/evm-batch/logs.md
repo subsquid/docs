@@ -21,6 +21,8 @@ Get event logs emitted by some _or all_ contracts in the network. `options` has 
 
   // related data retrieval
   transaction?: boolean
+  transactionLogs?: boolean
+  transactionTraces?: boolean
 }
 ```
 Data requests:
@@ -28,9 +30,12 @@ Data requests:
 + `topicN`: the set of values of topicN.
 + `range`: the range of blocks to consider.
 
-With `transaction = true` the processor will retrieve all parent transactions and add them to the `transactions` iterable within the [block data](/sdk/reference/processors/evm-batch/context-interfaces). Additionally it will expose them via the `.transaction` field of each log item.
+Related data retrieval:
++ `transaction = true`: the processor will retrieve all parent transactions and add them to the `transactions` iterable within the [block data](/sdk/reference/processors/evm-batch/context-interfaces). Additionally it will expose them via the `.transaction` field of each log item.
++ `transactionLogs = true`: the processor will retrieve all "sibling" logs, that is, all logs emitted by transactions that emitted at least one matching log. The logs will be exposed through the regular `logs` block data iterable and via `.transaction.logs` for matching logs.
++ `transactionTraces = true`: the processor will retrieve the traces for all transactions that emitted at least one matching log. The traces will be exposed through the regular `traces` block data iterable and via `.transaction.traces`.
 
-Note that logs can also be requested by the [`addTransaction()`](../transactions) method as related data.
+Note that logs can also be requested by [`addTransaction()`](../transactions) and [`addTrace()`](../traces) method as related data.
 
 Selection of the exact data to be retrieved for each log and its optional parent transaction is done with the `setFields()` method documented on the [Field selection](../field-selection) page. Some examples are available below.
 
