@@ -6,7 +6,7 @@
   "className": "red",
   "link": {
     "type": "generated-index",
-    "slug": "/network-api",
+    "slug": "/solana-indexing/network-api",
     "title": "Subsquid Network API documentation for Solana"
   }
 }

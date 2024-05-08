@@ -6,7 +6,7 @@
   "className": "red",
   "link": {
     "type": "generated-index",
-    "slug": "/sdk/reference/processors/solana-batch",
+    "slug": "/solana-indexing/sdk/solana-batch",
     "title": "SolanaBatchProcessor reference documentation"
   }
 }
