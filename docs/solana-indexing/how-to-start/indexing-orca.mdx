@@ -110,9 +110,9 @@ const dataSource = new DataSourceBuilder()
       // were executed by the Whirlpool program, and
       programId: [whirlpool.programId],
       // have the first eight bytes of .data equal to swap descriptor, and
-      d8: [whirlpool.instructions.swap.d8],
+      d8: [whirlpool.swap.d8],
       // limiting to USDC-SOL pair only
-      ...whirlpool.instructions.swap.accountSelection({
+      ...whirlpool.swap.accountSelection({
         whirlpool: ['7qbRF6YsyGuLUVs6Y1q64bdVrfe4ZcUUz1JRdoVNUJnm']
       }),
       // were successfully committed
@@ -177,7 +177,7 @@ run(dataSource, database, async ctx => {
     for (let ins of block.instructions) {
       // https://read.cryptodatabytes.com/p/starter-guide-to-solana-data-analysis
       if (ins.programId === whirlpool.programId &&
-          ins.d8 === whirlpool.instructions.swap.d8) {
+          ins.d8 === whirlpool.swap.d8) {
 
         let exchange = new Exchange({
           id: ins.id,
@@ -187,10 +187,6 @@ run(dataSource, database, async ctx => {
         })
 
         assert(ins.inner.length == 2)
-        // Note how the tokenProgram ABI has a slightly different
-        // interface compared to the whirlpool ABI.
-        // This is because it was written manually with earlier
-        // conventions in mind. This will be corrected in the future.
         let srcTransfer = tokenProgram.transfer.decode(ins.inner[0])
         let destTransfer = tokenProgram.transfer.decode(ins.inner[1])
 

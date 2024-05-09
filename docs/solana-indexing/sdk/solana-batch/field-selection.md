@@ -175,16 +175,16 @@ Transaction {
 `LogMessage` data items may have the following fields:
 
 ```ts
- LogMessage {
-    // independent of field selectors
-    transactionIndex: number
-    logIndex: number
-    instructionAddress: number[]
+LogMessage {
+  // independent of field selectors
+  transactionIndex: number
+  logIndex: number
+  instructionAddress: number[]
 
-    // can be disabled with field selectors
-    programId: string
-    kind: 'log' | 'data' | 'other'
-    message: string
+  // can be disabled with field selectors
+  programId: string
+  kind: 'log' | 'data' | 'other'
+  message: string
 }
 ```
 
@@ -213,24 +213,24 @@ Field selection for token balances data items is more nuanced, as depending on t
 `TokenBalance` data items may have the following fields:
 
 ```ts
- TokenBalance {
-    // independent of field selectors
-    transactionIndex: number
-    account: string
+TokenBalance {
+  // independent of field selectors
+  transactionIndex: number
+  account: string
 
-    // can be disabled with field selectors
-    preMint: string
-    preDecimals: number
-    preOwner?: string
-    preAmount: bigint
-    postMint: string
-    postDecimals: number
-    postOwner?: string
-    postAmount: bigint
+  // can be disabled with field selectors
+  preMint: string
+  preDecimals: number
+  preOwner?: string
+  preAmount: bigint
+  postMint: string
+  postDecimals: number
+  postOwner?: string
+  postAmount: bigint
 
-    // can be enabled by field selectors
-    postProgramId?: string
-    preProgramId?: string
+  // can be enabled by field selectors
+  postProgramId?: string
+  preProgramId?: string
 }
 ```
 
@@ -312,7 +312,7 @@ const dataSource = new DataSourceBuilder()
       // were executed by the Whirlpool program
       programId: [whirlpool.programId],
       // have the first 8 bytes of .data equal to swap descriptor
-      d8: [whirlpool.instructions.swap.d8],
+      d8: [whirlpool.swap.d8],
       // were successfully committed
       isCommitted: true,
     },
