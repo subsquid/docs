@@ -10,13 +10,18 @@ description: Access the data of Solana blockchain
 The Solana API of Subsquid Network is currently in beta. Breaking changes may be introduced in the future releases.
 :::
 
-Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. The main dataset URL now points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
+Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. Gateway URL points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
 
 1. Retrieve the dataset height from the router with `GET /height`.
-2. Query the dataset endpoint for an URL of a worker that has the data for the first block of the relevant range with `GET /${firstBlock}/worker`.
+2. Query the gateway for an URL of a worker that has the data for the first block of the relevant range with `GET /${firstBlock}/worker`.
 3. Retrieve the data from the worker with `POST /`, making sure to set the `"fromBlock"` query field to `${firstBlock}`.
 4. Exclude the received blocks from the relevant range by setting `firstBlock` to the value of `header.number` of the last received block plus one.
 5. Repeat steps 2-4 until all the required data is retrieved.
+
+The main URL of the Starknet gateway is
+```
+https://v2.archive.subsquid.io/network/solana-mainnet
+```
 
 Implementation examples:
 
@@ -29,19 +34,19 @@ Suppose we want data on Solana transactions from block 241974500. We begin by fi
 1. Verify that the dataset has reached the required height:
 
    ```bash
-   $ curl https://v2.archive.subsquid.io/network/solana-mainnet/height
+   curl https://v2.archive.subsquid.io/network/solana-mainnet/height
    ```
 
    Output
 
    ```
-   241974599
+   243004249
    ```
 
 2. Get a worker URL
 
    ```bash
-   $ curl https://v2.archive.subsquid.io/network/solana-mainnet/241974500/worker
+   curl https://v2.archive.subsquid.io/network/solana-mainnet/241974500/worker
    ```
 
    Output
@@ -53,13 +58,14 @@ Suppose we want data on Solana transactions from block 241974500. We begin by fi
 3. Retrieve the data from the worker
 
    ```bash
-   $ curl https://rb04.sqd-archive.net/worker/query/czM6Ly9zb2xhbmEtbWFpbm5ldC1kZW1v \
+   curl https://rb04.sqd-archive.net/worker/query/czM6Ly9zb2xhbmEtbWFpbm5ldC1kZW1v \
    -X 'POST' -H 'content-type: application/json' -H 'accept: application/json' \
    -d '{
-       "type": "solana","fromBlock":241974500,
-       "toBlock":241974599,
-       "fields":{"instruction":{"programId":true, "data": true}}, "instructions":[ {"isCommitted": true}]
-
+       "type": "solana",
+       "fromBlock":241974500,
+       "toBlock": 243004249,
+       "fields":{"instruction":{"programId":true, "data": true}},
+       "instructions":[ {"isCommitted": true} ]
    }' | jq
    ```
 
@@ -97,7 +103,7 @@ Suppose we want data on Solana transactions from block 241974500. We begin by fi
 4. Observe that we received the transactions up to and including block 16031419. To get the rest of the data, we find a worker who has blocks from 16031420 on:
 
    ```bash
-   $ curl https://v2.archive.subsquid.io/network/solana-mainnet/16031420/worker
+   curl https://v2.archive.subsquid.io/network/solana-mainnet/16031420/worker
    ```
 
    Output:
@@ -111,7 +117,7 @@ Suppose we want data on Solana transactions from block 241974500. We begin by fi
 5. Retrieve the data from the new worker
 
    ```bash
-   $ curl https://rb02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0 \
+   curl https://rb02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0 \
    -X 'POST' -H 'content-type: application/json' -H 'accept: application/json' \
    -d '{
        "type": "solana","fromBlock":241974500,
@@ -123,7 +129,7 @@ Suppose we want data on Solana transactions from block 241974500. We begin by fi
 
    Output is similar to that of step 3.
 
-6. Repeat steps 4 and 5 until the dataset height of 18593441 reached.
+6. Repeat steps 4 and 5 until the dataset height of 243004249 reached.
 
 </details>
 
@@ -138,7 +144,7 @@ def get_text(url: str) -> str:
     return res.text
 
 def dump(
-    dataset_url: str,
+    gateway_url: str,
     query: Query,
     first_block: int,
     last_block: int
@@ -146,12 +152,12 @@ def dump(
     assert 0 <= first_block <= last_block
     query = dict(query)  # copy query to mess with it later
 
-    dataset_height = int(get_text(f'{dataset_url}/height'))
+    dataset_height = int(get_text(f'{gateway_url}/height'))
     next_block = first_block
     last_block = min(last_block, dataset_height)
 
     while next_block <= last_block:
-        worker_url = get_text(f'{dataset_url}/{next_block}/worker')
+        worker_url = get_text(f'{gateway_url}/{next_block}/worker')
 
         query['fromBlock'] = next_block
         query['toBlock'] = last_block
@@ -278,96 +284,102 @@ The returned worker will be capable of processing `POST /` requests in which the
 
 ## Data requests
 
-:::warning
-Addresses in all data requests must be in lowercase. All addresses in the responses will be in lowercase, too.
-:::
-
-### Logs
+### Instructions
 
 ```ts
 {
-  transactionIndex: number
-    logIndex: number
-    instructionAddress: number[]
-    programId: Base58Bytes
-    kind: 'log' | 'data' | 'other'
-    message: string
+  programId?: string[]
+  d1?: string[]
+  d2?: string[]
+  d3?: string[]
+  d4?: string[]
+  d8?: string[]
+  a0?: string[]
+  a1?: string[]
+  a2?: string[]
+  a3?: string[]
+  a4?: string[]
+  a5?: string[]
+  a6?: string[]
+  a7?: string[]
+  a8?: string[]
+  a9?: string[]
+  isCommitted?: boolean
+
+  transaction?: boolean
+  transactionTokenBalances?: boolean
+  logs?: boolean
+  innerInstructions?: boolean
 }
 ```
 
-A log will be included in the response if it matches all the requests. An empty array matches no logs; omit all requests to match all logs. See [Solana logs](/solana-indexing/sdk/solana-batch/logs) for a detailed description of data request fields.
+Instruction will be included in the response if it matches all the requests. An empty array matches no instructions; omit all requests to match all instructions. See also [Instruction fields](solana-indexing/sdk/solana-batch/field-selection/#instruction).
 
 ### Transactions
 
 ```ts
 {
-   transactionIndex: number
-    version: 'legacy' | number
-    // transaction message
-    accountKeys: Base58Bytes[]
-    addressTableLookups: AddressTableLookup[]
-    numReadonlySignedAccounts: number
-    numReadonlyUnsignedAccounts: number
-    numRequiredSignatures: number
-    recentBlockhash: Base58Bytes
-    signatures: Base58Bytes[]
-    // meta fields
-    err: null | object
-    computeUnitsConsumed: bigint
-    fee: bigint
-    loadedAddresses: {
-        readonly: Base58Bytes[]
-        writable: Base58Bytes[]
-    }
-    hasDroppedLogMessages: boolean
+  feePayer?: string[]
+
+  instructions?: boolean
+  logs?: boolean
 }
 ```
 
-A transaction will be included in the response if it matches all the requests. An empty array matches no transactions; omit all requests to match all transactions. See [Solana transactions](/solana-indexing/sdk/solana-batch/transactions) for a detailed description of data request fields.
+A transaction will be included in the response if it matches all the requests. An empty array matches no transactions; omit all requests to match all transactions. See also [Transaction fields](/solana-indexing/sdk/solana-batch/field-selection/#transaction) for a detailed description of data request fields.
 
-### Instructions
+### Log messages
 
 ```ts
 {
-  transactionIndex: number
-    instructionAddress: number[]
-    programId: Base58Bytes
-    accounts: Base58Bytes[]
-    data: Base58Bytes
-    // execution result extracted from logs
-    computeUnitsConsumed?: bigint
-    error?: string
-    /**
-     * `true` when transaction completed successfully, `false` otherwise
-     */
-    isCommitted: boolean
-    hasDroppedLogMessages: boolean
+  programId?: string[]
+  kind?: ('log' | 'data' | 'other')[]
+
+  transaction?: boolean
+  instruction?: boolean
 }
 ```
 
-Instruction will be included in the response if it matches all the requests. An empty array matches no instructions; omit all requests to match all instructions. See [Instructions](/solana-indexing/sdk/solana-batch/instructions) for a detailed description of data request fields.
+A log message will be included in the response if it matches all the requests. An empty array matches no logs; omit all requests to match all logs. See also [Log message fields](/solana-indexing/sdk/solana-batch/field-selection/#logmessage).
+
+### Balances
+
+```ts
+{
+  account?: string[]
+
+  transaction?: boolean
+  transactionInstructions?: boolean
+}
+```
+Balance update will be included in the response if it matches all the requests. An empty array matches no balance updates; omit all requests to match all balance updates. See also [Balance fields](/solana-indexing/sdk/solana-batch/field-selection/#balance).
 
 ### Token Balances
 
 ```ts
 {
-    transactionIndex: number
-    account: Base58Bytes
-    preProgramId?: Base58Bytes
-    preMint: Base58Bytes
-    preDecimals: number
-    preOwner?: Base58Bytes
-    preAmount: bigint
+  account?: string[]
+  preProgramId?: string[]
+  postProgramId?: string[]
+  preMint?: string[]
+  postMint?: string[]
+  preOwner?: string[]
+  postOwner?: string[]
 
-    postProgramId?: Base58Bytes
-    postMint: Base58Bytes
-    postDecimals: number
-    postOwner?: Base58Bytes
-    postAmount: bigint
+  transaction?: boolean
+  transactionInstructions?: boolean
 }
 ```
+Token balance update will be included in the response if it matches all the requests. An empty array matches no token balance updates; omit all requests to match all token balance updates. See also [Token balance fields](/solana-indexing/sdk/solana-batch/field-selection/#tokenbalance).
 
-A token balance will be included in the response if it matches all the requests. An empty array matches no state diffs; omit all requests to match all state diffs. See [Token balances](/solana-indexing/sdk/solana-batch/token-balances) for a detailed description of data request fields.
+### Rewards
+
+```ts
+{
+  pubkey?: string[]
+}
+```
+Reward will be included in the response if it matches all the requests. An empty array matches no rewards; omit all requests to match all rewards. See also [Reward fields](/solana-indexing/sdk/solana-batch/field-selection/#reward).
 
 ## Data fields selector
 
