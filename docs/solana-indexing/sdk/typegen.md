@@ -20,7 +20,7 @@ Install with
   $ npm install @subsquid/solana-typegen
 ```
 
-The `squid-solana-typegen` tool generates TypeScript facades for EVM transactions, logs and instruction queries.
+The `squid-solana-typegen` tool generates TypeScript facades for Solana transactions, logs and instruction queries.
 
 The generated facades are assumed to be used by squids indexing Solana data.
 
@@ -36,6 +36,12 @@ The tool takes a JSON IDLs as an input. Those can be specified in three ways:
 
    ```bash
    $ sqd typegen
+   ```
+
+2. load IDL from Solscan and generate types:
+
+   ```bash
+   $  npx squid-solana-typegen src/abi whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc#whirlpool
    ```
 
 ## Usage
