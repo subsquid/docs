@@ -188,8 +188,6 @@ See the [block headers section](#block-headers) for the definition of `BlockHead
 
 ### LogMessage
 
-`LogMessage` data items may have the following fields:
-
 ```ts
  LogMessage {
     // independent of field selectors
@@ -228,6 +226,39 @@ Field selection for token balances data items is more nuanced because depending 
     // can be enabled by field selectors
     transactionIndex: number
     account: Base58Bytes
+}
+```
+
+### Rewards
+
+`Reward` data items may have the following fields:
+
+```ts
+Reward{
+  // independent of field selectors
+  pubkey: Base58Bytes
+  lamports: bigint
+  postBalance: bigint
+  // can be enabled by field selectors
+  rewardType?: string
+  commission?: number
+
+}
+```
+
+### Balance
+
+`Balance` data items may have the following fields:
+
+```ts
+Balance{
+  // independent of field selectors
+  transactionIndex: number
+  account:  Base58Bytes[]
+  // can be enabled by field selectors
+  pre: bigint
+  post: bigint
+
 }
 ```
 
