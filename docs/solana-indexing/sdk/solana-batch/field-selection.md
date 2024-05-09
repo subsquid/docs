@@ -164,8 +164,6 @@ Instruction {
 }
 ```
 
-### Balance
-
 ### TokenBalance
 
 Field selection for token balances data items is more nuanced because depending on the subtype of the token balance some fields may be `undefined`. `PostTokenBalance` and `PreTokenBalance` both represent token balances, however `PreTokenBalance` will have `postProgramId, postMint, postDecimals, postOwner and postAmount` as `undefined`.
