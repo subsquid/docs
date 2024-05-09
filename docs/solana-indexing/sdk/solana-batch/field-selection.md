@@ -151,8 +151,6 @@ Instruction {
 
 ### LogMessage
 
-`LogMessage` data items may have the following fields:
-
 ```ts
  LogMessage {
     // independent of field selectors
@@ -165,8 +163,6 @@ Instruction {
     instructionAddress: number[]
 }
 ```
-
-### Balance
 
 ### TokenBalance
 
@@ -196,9 +192,40 @@ Field selection for token balances data items is more nuanced because depending 
 }
 ```
 
-### Reward
+### Rewards
 
-### BlockHeader
+`Reward` data items may have the following fields:
+
+```ts
+Reward{
+  // independent of field selectors
+  pubkey: Base58Bytes
+  lamports: bigint
+  postBalance: bigint
+  // can be enabled by field selectors
+  rewardType?: string
+  commission?: number
+
+}
+```
+
+### Balance
+
+`Balance` data items may have the following fields:
+
+```ts
+Balance{
+  // independent of field selectors
+  transactionIndex: number
+  account:  Base58Bytes[]
+  // can be enabled by field selectors
+  pre: bigint
+  post: bigint
+
+}
+```
+
+### Block headers
 
 `BlockHeader` data items may have the following fields:
 
