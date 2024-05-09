@@ -1,0 +1,12 @@
+{
+  "position": 20,
+  "label": "SolanaDataSource",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "slug": "/solana-indexing/sdk/solana-batch",
+    "title": "SolanaDataSource reference documentation"
+  }
+}

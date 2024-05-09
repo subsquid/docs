@@ -1,0 +1,233 @@
+---
+title: "Indexing Orca Whirlpool"
+description: >-
+  Indexing Orca Whirlpool transactions on Solana
+sidebar_position: 10
+---
+
+# Indexing the Orca DEX
+
+In this step-by-step tutorial we will look into a squid that gets data about the [Orca Exchange](https://www.orca.so/) NFTs, their transfers and owners from the [Solana blockchain](https://solana.com).
+
+Pre-requisites: Node.js **v20 or newer**, Git, Docker.
+
+## Download the project
+
+Begin by retrieving the template and installing the dependencies:
+```bash
+git clone https://github.com/subsquid-labs/solana-example
+cd solana-example
+npm ci
+```
+
+## Interfacing with the Whirlpool program
+
+First, we inspect the data available for indexing. In Solana, most programs use the [Anchor framework](https://www.anchor-lang.com/). Anchor makes the metadata describing the shape of the instructions, transactions and contract variables available as an [Interface Definition Language](https://www.quicknode.com/guides/solana-development/anchor/what-is-an-idl) (IDL) JSON file. For many popular programs (including Whirlpool) IDL files are published on-chain. Subsquid provides a [tool](/solana-indexing/sdk/typegen) for retrieving program IDLs and generating boilerplate ABI code for data decoding. This can be done with
+
+```bash
+npx squid-solana-typegen src/abi whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc#whirlpool
+```
+Here, `src/abi` is the destination folder and the `whirlpool` suffix sets the base name for the generated file.
+
+Checking out the generated `src/abi/whirlpool/instructions.ts` file. It exports an `instruction` instance for every instruction in the ABI. Here's how it is initialized for `swap`:
+
+```typescript
+export const swap = instruction(
+  {
+    d8: '0xf8c69e91e17587c8',
+  },
+  {
+    tokenProgram: 0,
+    tokenAuthority: 1,
+    whirlpool: 2,
+    tokenOwnerAccountA: 3,
+    tokenVaultA: 4,
+    tokenOwnerAccountB: 5,
+    tokenVaultB: 6,
+    tickArray0: 7,
+    tickArray1: 8,
+    tickArray2: 9,
+    oracle: 10,
+  },
+  struct({
+    amount: u64,
+    otherAmountThreshold: u64,
+    sqrtPriceLimit: u128,
+    amountSpecifiedIsInput: bool,
+    aToB: bool,
+  }),
+)
+```
+Here, `d8` are the eight bytes that the relevant instruction data starts with.
+
+## Configuring the data source
+
+"Data source" is a component that defines what data should be retrieved and where to get it. To configure the data source to retrieve the data produced by the `swap` instruction of the Whirlpool program, we initialize it like this:
+```typescript title="src/main.ts"
+// ...
+import {run} from '@subsquid/batch-processor'
+import {augmentBlock} from '@subsquid/solana-objects'
+import {DataSourceBuilder, SolanaRpcClient} from '@subsquid/solana-stream'
+import {TypeormDatabase} from '@subsquid/typeorm-store'
+import assert from 'assert'
+import * as tokenProgram from './abi/token-program'
+import * as whirlpool from './abi/whirpool'
+import {Exchange} from './model'
+
+const dataSource = new DataSourceBuilder()
+  // Provide Subsquid Network Gateway URL.
+  .setGateway('https://v2.archive.subsquid.io/network/solana-mainnet')
+  .setRpc(process.env.SOLANA_NODE == null ? undefined : {
+    client: new SolanaRpcClient({
+      url: process.env.SOLANA_NODE,
+      // rateLimit: 100 // requests per sec
+    }),
+    strideConcurrency: 10 // max concurrent RPC connections
+  })
+  .setBlockRange({from: 240_000_000})
+  .setFields({
+    block: {
+      timestamp: true
+    },
+    transaction: {
+      signatures: true
+    },
+    instruction: {
+      programId: true,
+      accounts: true,
+      data: true
+    },
+    tokenBalance: {
+      preAmount: true,
+      postAmount: true,
+      preOwner: true,
+      postOwner: true
+    }
+  })
+  .addInstruction({
+    // select instructions that:
+    where: {
+      // were executed by the Whirlpool program, and
+      programId: [whirlpool.programId],
+      // have the first eight bytes of .data equal to swap descriptor, and
+      d8: [whirlpool.swap.d8],
+      // limiting to USDC-SOL pair only
+      ...whirlpool.swap.accountSelection({
+        whirlpool: ['7qbRF6YsyGuLUVs6Y1q64bdVrfe4ZcUUz1JRdoVNUJnm']
+      }),
+      // were successfully committed
+      isCommitted: true
+    },
+    // for each instruction data item selected above
+    // make sure to also include:
+    include: {
+      // inner instructions
+      innerInstructions: true,
+      // transaction that executed the instruction
+      transaction: true,
+      // all token balance records of that transaction
+      transactionTokenBalances: true,
+    }
+  }).build()
+```
+
+Here,
+* `'https://v2.archive.subsquid.io/network/solana-mainnet'` is the address for the public Subsquid Network gateway for Solana mainnet. Check out [Subsquid Networks reference pages](/subsquid-network/reference) for lists of public gateways for all supported networks.
+* `'process.env.SOLANA_NODE'` is an environment variable pointing at a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within Subsquid Network.
+* `240_000_000` is first Solana block currently indexed by Subsquid.
+* The argument of [`addInstruction()`](/solana-indexing/sdk/solana-batch/instructions) is a set of filters that tells the processor to retrieve all data on the swap instruction of the Whirlpool program with discriminator matching the hash of the `<namespace>:<instruction>` of the swap instruction.
+* The argument of [`setFields()`](/solana-indexing/sdk/solana-batch/field-selection) specifies the exact fields we need for every data item type.
+
+See [`SolanaDataSource` reference](/solana-indexing/sdk/solana-batch) for more options.
+
+With a data source it becomes possible to retrieve filtered blockchain data from [Subsquid Network](/subsquid-network/overview), transform it and save the result to a destination of choice.
+## Decoding the event data
+
+The other part the squid processor (the ingester process of the indexer) is the callback function used to process batches of the filtered data, the [batch handler](/sdk/overview/#processorrun). In Solana Squid SDK it is typically defined within a `run()` call, like this:
+```typescript
+import {run} from '@subsquid/batch-processor'
+
+run(dataSource, database, async ctx => {
+    // data transformation and persistence code here
+})
+```
+Here,
+* `dataSource` is the data source object described in the previous section
+* `database` is a [`Database` implementation](/sdk/resources/persisting-data/overview/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm/) object here.
+* `ctx` is a [batch context](/sdk/overview/#batch-context) object that exposes a batch of data (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`). See [Block data for Solana](/solana-indexing/sdk/solana-batch/context-interfaces/) for details on how the data batches are presented.
+
+Batch handler is where the raw on-chain data is decoded, transformed and persisted. This is the part we'll be concerned with for the rest of the tutorial.
+
+We begin by defining a database and starting the data processing:
+```typescript title="src/main.ts"
+const database = new TypeormDatabase()
+
+// Now we are ready to start data processing
+run(dataSource, database, async ctx => {
+  // Block items that we get from `ctx.blocks` are flat JS objects.
+  //
+  // We can use `augmentBlock()` function from `@subsquid/solana-objects`
+  // to enrich block items with references to related objects and
+  // with convenient getters for derived data (e.g. `Instruction.d8`).
+  let blocks = ctx.blocks.map(augmentBlock)
+
+  let exchanges: Exchange[] = []
+
+  for (let block of blocks) {
+    for (let ins of block.instructions) {
+      // https://read.cryptodatabytes.com/p/starter-guide-to-solana-data-analysis
+      if (ins.programId === whirlpool.programId &&
+          ins.d8 === whirlpool.swap.d8) {
+
+        let exchange = new Exchange({
+          id: ins.id,
+          slot: block.header.slot,
+          tx: ins.getTransaction().signatures[0],
+          timestamp: new Date(block.header.timestamp * 1000)
+        })
+
+        assert(ins.inner.length == 2)
+        let srcTransfer = tokenProgram.transfer.decode(ins.inner[0])
+        let destTransfer = tokenProgram.transfer.decode(ins.inner[1])
+
+        let srcBalance = ins.getTransaction().tokenBalances.find(tb => tb.account == srcTransfer.accounts.source)
+        let destBalance = ins.getTransaction().tokenBalances.find(tb => tb.account === destTransfer.accounts.destination)
+
+        let srcMint = ins.getTransaction().tokenBalances.find(tb => tb.account === srcTransfer.accounts.destination)?.preMint
+        let destMint = ins.getTransaction().tokenBalances.find(tb => tb.account === destTransfer.accounts.source)?.preMint
+
+        assert(srcMint)
+        assert(destMint)
+
+        exchange.fromToken = srcMint
+        exchange.fromOwner = srcBalance?.preOwner || srcTransfer.accounts.source
+        exchange.fromAmount = srcTransfer.data.amount
+
+        exchange.toToken = destMint
+        exchange.toOwner = destBalance?.postOwner || destBalance?.preOwner || destTransfer.accounts.destination
+        exchange.toAmount = destTransfer.data.amount
+
+        exchanges.push(exchange)
+      }
+    }
+  }
+
+  await ctx.store.insert(exchanges)
+})
+```
+This goes through all the instructions in the block, verifies that they indeed are `swap` instruction from the Whirlpool program and decodes the data of each inner instruction.
+Then it retrieves the transaction from the decoded inner instruction and source and destination accounts.
+The decoding is done with the `tokenProgram.transfer.decode` function from the Typescript ABI provided in the project.
+
+At this point the squid is ready for its first test run. Execute
+```bash
+npx tsc
+docker compose up -d
+npx squid-typeorm-migration apply
+node -r dotenv/config lib/main.js
+```
+You can verify that the data is being stored in the database by running
+```bash
+docker exec "$(basename "$(pwd)")-db-1" psql -U postgres -c "SELECT * FROM exchange"
+```
+The full code can be found [here](https://github.com/subsquid-labs/solana-example).

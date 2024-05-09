@@ -1,0 +1,48 @@
+---
+sidebar_position: 50
+title: Cheatsheet
+description: Commonly used CLI commands
+---
+
+# CLI cheatsheet
+
+This quide provides a quick reference to the commands needed to launch the squid and manage the database.
+
+### Install dependencies
+
+```sh
+npm i
+```
+
+### Compile the project
+
+```sh
+npx tsc
+```
+
+### Launch Postgres database to store the data
+
+```sh
+docker compose up -d
+```
+
+###  Apply database migrations to create the target schema
+
+```sh
+npx squid-typeorm-migration apply
+```
+###   Run indexer
+
+```sh
+node -r dotenv/config lib/main.js
+```
+
+###   Check out the indexed swaps
+
+
+```sh
+docker exec "$(basename "$(pwd)")-db-1" psql -U postgres \
+  -c "SELECT slot, from_token, to_token, from_amount, to_amount FROM exchange ORDER BY id LIMIT 10"
+```
+
+Notice that this project doesn't utilize `sqd` commands.

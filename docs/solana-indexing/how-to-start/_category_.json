@@ -1,0 +1,12 @@
+{
+  "position": 90,
+  "label": "How to start",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "slug": "/solana-indexing/how-to-start",
+    "title": "How to Start with Solana Indexing SDK"
+  }
+}
