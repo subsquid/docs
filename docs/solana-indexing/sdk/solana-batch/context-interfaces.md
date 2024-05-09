@@ -6,7 +6,7 @@ description: >-
 
 # Block data for Solana
 
-Solana Squid SDK consists of `DataSourceBuilder` and `SolanaBatchProcessor`, in which data processing happens within the [batch handler](/sdk/overview/#processorrun), a function repeatedly called on batches of on-chain data. `ctx.blocks` is an array of `Block` objects containing the data to be processed, aligned at the block level.
+In Solana Squid SDK, the data is processed by repeatedly calling the user-defined [batch handler](/sdk/overview/#processorrun) function on batches of on-chain data. The sole argument of the batch handler is its context `ctx`, and `ctx.blocks` is an array of `Block` objects containing the data to be processed, aligned at the block level.
 
 For `SolanaBatchProcessor` the `Block` interface is defined as follows:
 
@@ -24,7 +24,7 @@ export interface Block<F extends FieldSelection = {}> {
 
 `F` here is the type of the argument of the [`setFields()`](/solana-indexing/sdk/solana-batch/field-selection) processor method.
 
-`BlockData.header` contains the block header data. The rest of the fields are iterables containing four kinds of blockchain data. The canonical ordering within each iterable depends on the data kind:
+`BlockData.header` contains the block header data. The rest of the fields are iterables containing the six kinds of blockchain data. Canonical ordering within each iterable depends on the data kind:
 
 - `transactions` are ordered in the same way as they are within blocks;
 - `instructions` follow the order of transactions that gave rise to them;
@@ -32,13 +32,15 @@ export interface Block<F extends FieldSelection = {}> {
 
 The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [field selection](/solana-indexing/sdk/solana-batch/field-selection) page:
 
-<!--
-- [transactions section](/solana-indexing/sdk/solana-batch/field-selection#transactions);
-- [logs section](/solana-indexing/sdk/solana-batch/field-selection#logs);
-- [traces section](/solana-indexing/sdk/solana-batch/field-selection#traces);
-- [state diffs section](/solana-indexing/sdk/solana-batch/field-selection#state-diffs);
-- [block header section](/solana-indexing/sdk/solana-batch/field-selection#block-headers).
+- [`Transaction` section](/solana-indexing/sdk/solana-batch/field-selection#transaction);
+- [`Instruction` section](/solana-indexing/sdk/solana-batch/field-selection#instruction);
+- [`LogMessage` section](/solana-indexing/sdk/solana-batch/field-selection#logmessage);
+- [`Balance` section](/solana-indexing/sdk/solana-batch/field-selection#balance);
+- [`TokenBalance` section](/solana-indexing/sdk/solana-batch/field-selection#tokenbalance);
+- [`Reward` section](/solana-indexing/sdk/solana-batch/field-selection#reward);
+- [`BlockHeader` section](/solana-indexing/sdk/solana-batch/field-selection#blockheader).
 
+<!--
 ## Example
 
 The handler below simply outputs all the log items emitted by the contract `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC` in [real time](/sdk/resources/basics/unfinalized-blocks):
