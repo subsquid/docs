@@ -1,7 +1,7 @@
 ---
 sidebar_position: 20
 description: >-
-  Track storage changes with addStateDiff()
+  Track instruction execution with addInstruction()
 ---
 
 # Instructions
@@ -53,8 +53,8 @@ This allows for tracking program instructions. `options` has the following struc
 
 The data requests here are:
 
-- `programId`: the set of program addresses to track. Leave undefined or set to `[]` to subscribe to instructions data of all contracts from the whole network.
-- `d1` through `d8`: sets of 1, 2, 4 and 8-byte instruction discriminators correspondingly.
+- `programId`: the set of program addresses to track. Leave undefined to subscribe to instructions data of all programs from the whole network.
+- `d1` through `d8`: sets of 1, 2, 3, 4 and 8-byte instruction discriminators, correspondingly.
 - `a0` through `a9`: sets of base58-encoded account inputs to the instruction, at positions 0-9 correspondingly.
 - `isCommitted`: `true` to request only instructions that did not revert.
 

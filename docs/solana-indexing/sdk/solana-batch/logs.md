@@ -1,7 +1,7 @@
 ---
-sidebar_position: 30
+sidebar_position: 40
 description: >-
-  Subscribe to event data with addLog()
+  Subscribe to log messages with addLog()
 ---
 
 # Log messages
@@ -33,18 +33,18 @@ Get log messages emitted by some _or all_ programs in the network. `options` has
 
 Data requests:
 
-- `programId`: the set of addresses of programs emitting the logs. Omit to subscribe to logs from all programs in the network.
+- `programId`: the set of addresses of programs emitting the logs. Leave it undefined to subscribe to logs from all programs in the network.
 - `kind`: the set of values of `kind`.
 
 With `transaction = true` the processor will retrieve all parent transactions and add them to the `transactions` iterable within the [block data](/solana-indexing/sdk/solana-batch/context-interfaces). You can also call `augmentBlock()` from `@subsquid/solana-objects` on the block data to populate the convenience reference fields like `log.transaction`.
 
 Note that logs can also be requested by the other `SolanaDataSource` methods as related data.
 
-Selection of the exact fields to be retrieved for each log and its optional parent transaction is done with the `setFields()` method documented on the [Field selection](../field-selection) page. Some examples are available below.
+Selection of the exact fields to be retrieved for each log and its optional parent transaction is done with the `setFields()` method documented on the [Field selection](../field-selection) page.
 
 ## Examples
 
-1. Fetch all event logs emitted by Orca Whirlpool.
+Fetch all event logs emitted by Orca Whirlpool.
 
 ```ts
 const dataSource = new DataSourceBuilder()
