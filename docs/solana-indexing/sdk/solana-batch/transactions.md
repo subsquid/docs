@@ -1,5 +1,5 @@
 ---
-sidebar_position: 30
+sidebar_position: 40
 description: >-
   Subscribe to txn data with addTransaction()
 ---
@@ -13,35 +13,46 @@ Get some _or all_ transactions on the network. `options` has the following struc
 ```typescript
 {
   // data requests
-  feePayer?: Base58Bytes[]
+  where?: {
+    feePayer?: string[]
+  }
+
   // related data retrieval
-  instructions?: boolean
-  logs?: boolean
+  include?: {
+    instructions?: boolean
+    logs?: boolean
+  }
+
+  range?: {
+    from: number
+    to?: number
+  }
 }
 ```
 
 Data requests:
+- `feePayer` sets the addresses of the fee payers. Omit to subscribe to all transactions.
 
-- `feePayer` sets the addresses of the fee payers. Omit to subscribe to transactions from/to any address.
+Enabling the `instructions` and/or `logs` flags will cause the processor to retrieve [instructions](/solana-indexing/sdk/solana-batch/instructions) and [logs](/solana-indexing/sdk/solana-batch/logs) that occured as a result of each selected transaction. The data will be added to the appropriate iterables within the [block data](/solana-indexing/sdk/solana-batch/context-interfaces). You can also call `augmentBlock()` from `@subsquid/solana-objects` on the block data to populate the convenience reference fields like `transaction.logs`.
 
-Enabling the `instructions` and/or `logs` flags will cause the processor to retrieve [instructions](/solana-indexing/sdk/solana-batch/instructions) and [logs](/solana-indexing/sdk/solana-batch/logs) that occured as a result of each selected transaction. The data will be added to the appropriate iterables within the [block data](/solana-indexing/sdk/solana-batch/context-interfaces).
+Note that transactions can also be requested by the other `SolanaDataSource` methods as related data.
 
-Note that transactions can also be requested by [`addInstructions()`](../instructions) and [`addLog()`](../logs) as related data.
-
-Selection of the exact data to be retrieved for each transaction and the optional related data items is done with the `setFields()` method documented on the [Field selection](../field-selection) page. Some examples are available below.
+Selection of the exact fields to be retrieved for each transaction and the optional related data items is done with the `setFields()` method documented on the [Field selection](../field-selection) page. Some examples are available below.
 
 ## Examples
 
-1. Request all Transactions with fee payer `rec5EKMGg6MxZYaMdyBfgwp4d5rB9T1VQH5pJv5LtFJ` and include logs and instructions:
+1. Request all transactions with fee payer `rec5EKMGg6MxZYaMdyBfgwp4d5rB9T1VQH5pJv5LtFJ` and include logs and instructions:
 
 ```ts
-processor.addTransaction({where:{
-
-  feePayer: ["rec5EKMGg6MxZYaMdyBfgwp4d5rB9T1VQH5pJv5LtFJ"],
-
-}
-logs: true,
-instructions: true
-
-});
+processor
+  .addTransaction({
+    where: {
+      feePayer: ['rec5EKMGg6MxZYaMdyBfgwp4d5rB9T1VQH5pJv5LtFJ'],
+    },
+    include: {
+      logs: true,
+      instructions: true
+    }
+  })
+  .build()
 ```

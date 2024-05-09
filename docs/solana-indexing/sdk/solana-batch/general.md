@@ -13,41 +13,27 @@ The method documentation is also available inline and can be accessed via sugges
 
 The following setters configure the global settings of `DataSourceBuilder` for Solana Procesor. They return the modified instance and can be chained.
 
-Certain configuration methods are required:
-
-- one or both of [`setGateway()`](#set-gateway) and [`setRpcEndpoint()`](#set-rpc-endpoint)
-- [`setFinalityConfirmation()`](#set-finality-confirmation) whenever [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) is enabled, namely when
-  - a RPC endpoint was configured with [`setRpcEndpoint()`](#set-rpc-endpoint)
-  - RPC ingestion has **NOT** been explicitly disabled by calling [`setRpcDataIngestionSettings({ disabled: true })`](#set-rpc-data-ingestion-settings)
-
-Here's how to choose the data sources depending on your use case:
-
-- If you need real-time data use both [`setGateway()`](#set-gateway) and [`setRpcEndpoint()`](#set-rpc-endpoint). The processor will obtain as much data as is currently available from the dataset, then switch to ingesting recent data from the RPC endpoint.
-- If you can tolerate your data being several thousands of blocks behind the chain head, you do not want to use a RPC endpoint, use [`setGateway()`](#set-gateway) only.
-
-- If you can tolerate a latency of a few thousands of blocks, you can disable RPC ingestion with [`setRpcDataIngestionSettings({ disabled: true })`](#set-rpc-data-ingestion-settings). In this scenario RPC will only be used for the queries you explicitly make in your code.
+The only required configuration method is [`setGateway()`](#set-gateway). If you need real-time data, please also use [`setRpcEndpoint()`](#set-rpc-endpoint).
+ - If you add both a Subsquid Network gateway and an RPC endpoint, the processor will obtain as much data as is currently available from the gateway, then switch to ingesting recent data via RPC.
+ - If you only add a Subsquid Network gateway, your data will be being several thousands of blocks behind the chain head most of the time.
 
 ### `setGateway(url: string | GatewaySettings)` {#set-gateway}
 
-Adds a [Subsquid Network](/subsquid-network) data source. The argument is either a string URL of a dataset served by a Subsquid Network gateway or
+Use a [Subsquid Network](/subsquid-network) gateway. The argument is either a string URL of the gateway or
 
 ```ts
 {
-  url: string // dataset URL
+  url: string // gateway URL
   requestTimeout?: number // in milliseconds
 }
 ```
 
 ### `setRpc(settings?: RpcSettings)` {#set-rpc}
 
-Adds a RPC data source. If added, it will be used for
-
-- [RPC ingestion](/sdk/resources/basics/unfinalized-blocks)
-
-A node RPC endpoint can be specified as an object:
+Adds a RPC data source. If added, it will be used for [RPC ingestion](/sdk/resources/basics/unfinalized-blocks). The argument format is:
 
 ```ts
-type ChainRpc = {
+type RpcSettings = {
   client: SolanaRpcClient;
   strideSize?: number; // `getBlock` batch call size, default 5
   strideConcurrency?: number; // num of concurrent connections, default 10
@@ -56,6 +42,7 @@ type ChainRpc = {
 ```
 
 `SolanaRpcClient` class is exported by `@subsquid/solana-stream`. Its constructor arg type is
+
 ```ts
 {
   url: string; // http, https, ws and wss are supported

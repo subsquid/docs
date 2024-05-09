@@ -13,8 +13,8 @@ For `SolanaBatchProcessor` the `Block` interface is defined as follows:
 ```ts
 export interface Block<F extends FieldSelection = {}> {
   header: BlockHeader<F>;
-  transactions: Transaction<F>[];
   instructions: Instruction<F>[];
+  transactions: Transaction<F>[];
   logs: LogMessage<F>[];
   balances: Balance<F>[];
   tokenBalances: TokenBalance<F>[];
@@ -32,8 +32,8 @@ export interface Block<F extends FieldSelection = {}> {
 
 The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [field selection](/solana-indexing/sdk/solana-batch/field-selection) page:
 
-- [`Transaction` section](/solana-indexing/sdk/solana-batch/field-selection#transaction);
 - [`Instruction` section](/solana-indexing/sdk/solana-batch/field-selection#instruction);
+- [`Transaction` section](/solana-indexing/sdk/solana-batch/field-selection#transaction);
 - [`LogMessage` section](/solana-indexing/sdk/solana-batch/field-selection#logmessage);
 - [`Balance` section](/solana-indexing/sdk/solana-batch/field-selection#balance);
 - [`TokenBalance` section](/solana-indexing/sdk/solana-batch/field-selection#tokenbalance);
