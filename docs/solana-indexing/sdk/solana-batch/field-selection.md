@@ -93,25 +93,7 @@ Here we describe the data item types as functions of the field selectors. Unless
 
 - Fields that can be disabled by `setFields()`. E.g. a `signatures` field will be fetched for transactions by default, but can be disabled by setting `signatures: false` within the `log` field selector.
 
-[//]: # "!!!! update with final defaults and capabilities"
-
-### Logs
-
-`Log` data items may have the following fields:
-
-```ts
-Log {
-  // independent of field selectors
-  programId: string
-  kind: string
-  message: string
-
-}
-```
-
-See the [block headers section](#block-headers) for the definition of `BlockHeader` and the [transactions section](#transactions) for the definition of `Transaction`.
-
-### Transactions
+### Transaction
 
 `Transaction` data items may have the following fields:
 
@@ -122,33 +104,28 @@ Transaction {
   err: null | object
 
   // can be requested with field selectors
-    transactionIndex: number
-    version: 'legacy' | number
-    // transaction message
-    accountKeys: Base58Bytes[]
-    addressTableLookups: AddressTableLookup[]
-    numReadonlySignedAccounts: number
-    numReadonlyUnsignedAccounts: number
-    numRequiredSignatures: number
-    recentBlockhash: Base58Bytes
-    signatures: Base58Bytes[]
-    // meta fields
-    err: null | object
-    computeUnitsConsumed: bigint
-    fee: bigint
-    loadedAddresses: {
-        readonly: Base58Bytes[]
-        writable: Base58Bytes[]
-    }
-    hasDroppedLogMessages: boolean
+  transactionIndex: number
+  version: 'legacy' | number
+  // transaction message
+  accountKeys: Base58Bytes[]
+  addressTableLookups: AddressTableLookup[]
+  numReadonlySignedAccounts: number
+  numReadonlyUnsignedAccounts: number
+  numRequiredSignatures: number
+  recentBlockhash: Base58Bytes
+
+  signatures: Base58Bytes[]
+  // meta fields
+  err: null | object
+  computeUnitsConsumed: bigint
+  fee: bigint
+  loadedAddresses: {
+    readonly: Base58Bytes[]
+    writable: Base58Bytes[]
+  }
+  hasDroppedLogMessages: boolean
 }
 ```
-
-<!-- `status` field contains the value returned by [`eth_getTransactionReceipt`](https://geth.ethereum.org/docs/interacting-with-geth/rpc/batch): `1` for successful transactions, `0` for failed ones and `undefined` for chains and block ranges not compliant with the post-Byzantinum hard fork EVM specification (e.g. 0-4,369,999 on Ethereum).
-
-`type` field is populated similarly. For example, on Ethereum `0` is returned for Legacy txs, `1` for EIP-2930 and `2` for EIP-1559. Other networks may have a different set of types.
-
-See the [block headers section](#block-headers) for the definition of `BlockHeader`. -->
 
 ### Instruction
 
@@ -157,34 +134,20 @@ See the [block headers section](#block-headers) for the definition of `BlockHead
 ```ts
 Instruction {
   // independent of field selectors
-    programId: Base58Bytes
-    accounts: Base58Bytes[]
-    data: Base58Bytes
-    /**
-     * `true` when transaction completed successfully, `false` otherwise
-     */
-    isCommitted: boolean
+  programId: Base58Bytes
+  accounts: Base58Bytes[]
+  data: Base58Bytes
+  isCommitted: boolean
 
   // can be enabled with field selectors
-    transactionIndex: number
-    instructionAddress: number[]
-    // execution result extracted from logs
-    computeUnitsConsumed?: bigint
-    error?: string
-    hasDroppedLogMessages: boolean
+  transactionIndex: number
+  instructionAddress: number[]
+  // execution result extracted from logs
+  computeUnitsConsumed?: bigint
+  error?: string
+  hasDroppedLogMessages: boolean
 }
 ```
-
-<!-- The meaning of the `kind` field values is as follows:
-
-- `'='`: no change has occured;
-- `'+'`: a value was added;
-- `'*'`: a value was changed;
-- `'-'`: a value was removed.
-
-The values of the `key` field are regular hexadecimal contract storage key strings or one of the special keys `'balance' | 'code' | 'nonce'` denoting ETH balance, contract code and nonce value associated with the state diff.
-
-See the [block headers section](#block-headers) for the definition of `BlockHeader` and the [transactions section](#transactions) for the definition of `Transaction`. -->
 
 ### LogMessage
 
@@ -201,7 +164,9 @@ See the [block headers section](#block-headers) for the definition of `BlockHead
 }
 ```
 
-### TokenBalances
+### Balance
+
+### TokenBalance
 
 Field selection for token balances data items is more nuanced because depending on the subtype of the token balance some fields may be `undefined`. `PostTokenBalance` and `PreTokenBalance` both represent token balances, however `PreTokenBalance` will have `postProgramId, postMint, postDecimals, postOwner and postAmount` as `undefined`.
 
@@ -288,9 +253,6 @@ import { DataSourceBuilder, SolanaRpcClient } from "@subsquid/solana-stream";
 import { TypeormDatabase } from "@subsquid/typeorm-store";
 import * as whirlpool from "./abi/whirpool";
 
-const gravatarRegistryContract = "0x2e645469f354bb4f5c8a05b3b30a929361cf77ec";
-const gravatarTokenContract = "0xac5c7493036de60e63eb81c5e9a440b42f47ebf5";
-
 const dataSource = new DataSourceBuilder()
   .setGateway("https://v2.archive.subsquid.io/network/solana-mainnet")
   .setRpc(
@@ -305,29 +267,29 @@ const dataSource = new DataSourceBuilder()
         }
   )
   .setBlockRange({ from: 240_000_000 });
-setFields({
-  block: {
-    // block header fields
-    timestamp: true,
-  },
-  transaction: {
-    // transaction fields
-    signatures: true,
-  },
-  instruction: {
-    // instruction fields
-    programId: true,
-    accounts: true,
-    data: true,
-  },
-  tokenBalance: {
-    // token balance record fields
-    preAmount: true,
-    postAmount: true,
-    preOwner: true,
-    postOwner: true,
-  },
-})
+  .setFields({
+    block: {
+      // block header fields
+      timestamp: true,
+    },
+    transaction: {
+      // transaction fields
+      signatures: true,
+    },
+    instruction: {
+      // instruction fields
+      programId: true,
+      accounts: true,
+      data: true,
+    },
+    tokenBalance: {
+      // token balance record fields
+      preAmount: true,
+      postAmount: true,
+      preOwner: true,
+      postOwner: true,
+    },
+  })
   .addInstruction({
     // select instructions, that:
     where: {
