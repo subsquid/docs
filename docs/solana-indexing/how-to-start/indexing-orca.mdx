@@ -24,20 +24,37 @@ npm i
 
 First, we inspect which data is available for indexing. For Solana programs written with [Anchor framework](https://www.anchor-lang.com/), the metadata descrbing the shape of the instructions, transactions and contract variables is distributed as an [Interface Definition Language](https://www.quicknode.com/guides/solana-development/anchor/what-is-an-idl) (IDL) JSON file. For many popular programs IDL files are published on [Solscan](https://solscan.io) (as in the case of the Whirlpool program). Subsquid provides a [tool](/sdk/reference/typegen/state-queries) for retrieving contract ABIs from Etherscan-like APIs and generating the boilerplate for retrieving and decoding the data. For the contract of interest, this can be done with
 ```bash
-npx squid-evm-typegen src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#bayc
-```
-Here, `src/abi` is the destination folder and the `bayc` suffix sets the base name for the generated file.
+ npx squid-solana-typegen src/abi whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc#whirlpool
+ ```
+Here, `src/abi` is the destination folder and the `whirlpool` suffix sets the base name for the generated file.
 
-Checking out the generated `src/abi/bayc.ts` file we see all events and contract functions listed in the ABI. Among them there is the `Transfer` event:
+Checking out the generated `src/abi/whirlpool.ts` file we see all events and contract functions listed in the IDL. Among them there is the `swap` instruction:
 ```typescript
-export const events = {
-    ...
-    Transfer: new LogEvent<([from: string, to: string, tokenId: bigint] & {from: string, to: string, tokenId: bigint})>(
-        abi, '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
-    ),
-}
+export const swap = instruction(
+    {d8: '0xf8c69e91e17587c8'},
+    {
+        tokenProgram: 0,
+        tokenAuthority: 1,
+        whirlpool: 2,
+        tokenOwnerAccountA: 3,
+        tokenVaultA: 4,
+        tokenOwnerAccountB: 5,
+        tokenVaultB: 6,
+        tickArray0: 7,
+        tickArray1: 8,
+        tickArray2: 9,
+        oracle: 10
+    },
+    struct({
+        amount: u64,
+        otherAmountThreshold: u64,
+        sqrtPriceLimit: u128,
+        amountSpecifiedIsInput: bool,
+        aToB: bool
+    })
+)
+
 ```
-Reading about [elsewhere](https://eips.ethereum.org/EIPS/eip-721) we learn that it is emitted every time an NFT changes hand and that its [logs](https://medium.com/mycrypto/understanding-event-logs-on-the-ethereum-blockchain-f4ae7ba50378) contain the addresses of both involved parties, as well the unique ID of the token. This is the data we need, so we proceed to configure our squid to retrieve it.
 
 ## Configuring the data source
 
