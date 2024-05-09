@@ -93,7 +93,7 @@ Here we describe the data item types as functions of the field selectors. Unless
 
 - Fields that can be disabled by `setFields()`. E.g. a `signatures` field will be fetched for transactions by default, but can be disabled by setting `signatures: false` within the `log` field selector.
 
-### Transactions
+### Transaction
 
 `Transaction` data items may have the following fields:
 
