@@ -187,8 +187,8 @@ run(dataSource, database, async ctx => {
         })
 
         assert(ins.inner.length == 2)
-        let srcTransfer = tokenProgram.transfer.decode(ins.inner[0])
-        let destTransfer = tokenProgram.transfer.decode(ins.inner[1])
+        let srcTransfer = tokenProgram.instructions.transfer.decode(ins.inner[0])
+        let destTransfer = tokenProgram.instructions.transfer.decode(ins.inner[1])
 
         let srcBalance = ins.getTransaction().tokenBalances.find(tb => tb.account == srcTransfer.accounts.source)
         let destBalance = ins.getTransaction().tokenBalances.find(tb => tb.account === destTransfer.accounts.destination)
@@ -217,7 +217,7 @@ run(dataSource, database, async ctx => {
 ```
 This goes through all the instructions in the block, verifies that they indeed are `swap` instruction from the Whirlpool program and decodes the data of each inner instruction.
 Then it retrieves the transaction from the decoded inner instruction and source and destination accounts.
-The decoding is done with the `tokenProgram.transfer.decode` function from the Typescript ABI provided in the project.
+The decoding is done with the `tokenProgram.instructions.transfer.decode` function from the Typescript ABI provided in the project.
 
 At this point the squid is ready for its first test run. Execute
 ```bash
