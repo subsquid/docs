@@ -55,7 +55,7 @@ The generated utility modules have three intended uses:
      .addInstruction({
        where: {
          programId: [whirlpool.programId],
-         d8: [whirlpool.swap.d8]
+         d8: [whirlpool.instructions.swap.d8]
        }
      })
      .build();
@@ -72,11 +72,11 @@ The generated utility modules have three intended uses:
    for (let block of blocks) {
      for (let ins of block.instructions) {
        if (ins.programId === whirlpool.programId &&
-           ins.d8 === whirlpool.swap.d8) {
+           ins.d8 === whirlpool.instructions.swap.d8) {
 
-         let decodedSwap = whirlpool.swap.decode(ins)
-         let decodedAccounts = whirlpool.swap.decodeAccounts(ins.accounts)
-         let decodedData = whirlpool.swap.decodeData(ins.data)
+         let decodedSwap = whirlpool.instructions.swap.decode(ins)
+         let decodedAccounts = whirlpool.instructions.swap.decodeAccounts(ins.accounts)
+         let decodedData = whirlpool.instructions.swap.decodeData(ins.data)
        }
      }
    }
@@ -88,9 +88,9 @@ The generated utility modules have three intended uses:
    .addInstruction({
      where: {
        programId: [whirlpool.programId],
-       d8: [whirlpool.swap.d8],
+       d8: [whirlpool.instructions.swap.d8],
        // select instructions for the USDC-SOL pair only
-       ...whirlpool.swap.accountSelection({
+       ...whirlpool.instructions.swap.accountSelection({
          whirlpool: ['7qbRF6YsyGuLUVs6Y1q64bdVrfe4ZcUUz1JRdoVNUJnm']
        })
      }

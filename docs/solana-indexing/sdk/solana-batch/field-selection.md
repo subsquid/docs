@@ -312,7 +312,7 @@ const dataSource = new DataSourceBuilder()
       // were executed by the Whirlpool program
       programId: [whirlpool.programId],
       // have the first 8 bytes of .data equal to swap descriptor
-      d8: [whirlpool.swap.d8],
+      d8: [whirlpool.instructions.swap.d8],
       // were successfully committed
       isCommitted: true,
     },
