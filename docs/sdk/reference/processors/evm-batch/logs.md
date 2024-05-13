@@ -106,3 +106,14 @@ const processor = new EvmBatchProcessor()
     }
   })
 ```
+
+:::tip
+As you may observe, the address in the `topic2` is a bit longer than usual (`0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045`, 42 chars).
+This is caused by the fact that SubSquid SDK expects `Bytes32[]`; therefore, the length has to be 66 chars long.
+The possible quick fix is to pad the original address with zeros and prepend `0x`.
+
+```ts
+  const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+  const topic = '0x' + address.replace('x', '0').padStart(64, '0').toLowerCase()
+```
+:::
