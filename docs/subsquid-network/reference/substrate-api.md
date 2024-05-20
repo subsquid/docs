@@ -98,7 +98,7 @@ The returned worker is capable of processing `POST /` requests in which the `"fr
 
 <details>
 
-<summary><code>POST</code> <code><b>/</b></code> <code>(query logs and transactions)</code></summary>
+<summary><code>POST</code> <code><b>/</b></code> <code>(query Substrate data)</code></summary>
 
 ##### Query Fields
 
