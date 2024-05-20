@@ -19,7 +19,7 @@ A playground organization is created for each account on its first login. There,
 
 Playground squids cannot be used in production, as they are [collocated](/cloud/reference/scale/#dedicated) and run on [spot VMs](https://cloud.google.com/spot-vms). Expect 3-5 minutes of downtime once every few days. Other limitations include:
  - 10 GB of database storage;
- - 500k monthly requests to the [RPC proxy](/cloud/reference/rpc-proxy) service.
+ - 500k monthly requests to the [RPC proxy](/cloud/resources/rpc-proxy) service.
 
 Unlike other organizations, playgrounds cannot be shared or billed. 
 

@@ -73,7 +73,7 @@ export const processor = new EvmBatchProcessor()
 
 Here,
 * `'https://v2.archive.subsquid.io/network/ethereum-mainnet'` is the URL the public Subsquid Network gateway for Ethereum mainnet. Check out [Subsquid Network reference pages](/subsquid-network/reference) for lists of public gateways for all supported networks.
-* `'<eth_rpc_endpoint_url>'` is a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within Subsquid Network. Please use a private endpoint or Subsquid Cloud's [RPC proxy service](/cloud/reference/rpc-proxy) in production.
+* `'<eth_rpc_endpoint_url>'` is a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within Subsquid Network. Please use a private endpoint or Subsquid Cloud's [RPC proxy service](/cloud/resources/rpc-proxy) in production.
 * `setFinalityConfirmation(75)` call instructs the processor to consider blocks final after 75 confirmations when ingesting data from an RPC endpoint.
 * `12_287_507` is the block at which the BAYC token contract was deployed. Can be found on the [contract's Etherscan page](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).
 * The argument of [`addLog()`](/sdk/reference/processors/evm-batch/logs) is a set of filters that tells the processor to retrieve all event logs emitted by the BAYC contract with topic0 matching the hash of the full signature of the `Transfer` event. The hash is taken from the previously generated Typescript ABI.
