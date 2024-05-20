@@ -115,7 +115,7 @@ Suppose we want data on all txs sent by `Layerswap`/`0x19252b1deef483477c4d30cfc
    - Grab the network data you requested from the list items with non-empty data fields (`transactions`, `events`). For the example above, this data will include the txn `0x6a88...`.
    - Observe that we received the data up to and including block 617979.
 
-6. To get the rest of the data, update the current height to 617979 and go to step 3.
+6. To get the rest of the data, update the current height to 617980 and go to step 3.
    - Note how the worker URL you're getting while repeating step 3 points to a different host than before. This is how data storage and reads are distributed across the Subsquid Network.
 
 7. Repeat steps 3 through 6 until the dataset height of 632494 is reached.
@@ -187,7 +187,7 @@ The returned worker is capable of processing `POST /` requests in which the `"fr
 
 <details>
 
-<summary><code>POST</code> <code><b>/</b></code> <code>(query logs and transactions)</code></summary>
+<summary><code>POST</code> <code><b>/</b></code> <code>(query transactions and events)</code></summary>
 
 ##### Query Fields
 
