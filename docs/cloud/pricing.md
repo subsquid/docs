@@ -21,7 +21,7 @@ Subsquid bills [organizations](/cloud/resources/organizations) for the resources
  - unmetered GraphQL API requests
  - deploying any number of pay-as-you-go [dedicated](/cloud/reference/scale/#dedicated) squids
  - deploying any number of pay-as-you-go [collocated](/cloud/reference/scale/#dedicated) squids
- - free 2M [RPC proxy](/cloud/reference/rpc-proxy) requests monthly + just `$2/1M` afterwards
+ - free 2M [RPC proxy](/cloud/resources/rpc-proxy) requests monthly + just `$2/1M` afterwards
  - priority support 
 
 Other resources used by squids are priced as described below. Billing typically occurs on the first day of each month.
@@ -185,5 +185,5 @@ While we do our best to ensure that the resources are shared fairly, we strongly
 
 **Q**: How can I use the provided RPC package? How do I set the rate limits for it?
  
-**A**: Please look at the [RPC proxy docs](/cloud/reference/rpc-proxy/).
+**A**: Please look at the [RPC proxy docs](/cloud/resources/rpc-proxy/).
 

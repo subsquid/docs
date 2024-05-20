@@ -48,7 +48,7 @@ Replace the old `setDataSource()` processor configuration call with a combinatio
 +    rateLimit: 10
 +  })
 ```
-We recommend using a private RPC endpoint for the best performance, e.g. from [Dwellir](https://www.dwellir.com). For squids deployed to [Subsquid Cloud](/cloud/overview) you may also consider using our [RPC proxies](/cloud/reference/rpc-proxy).
+We recommend using a private RPC endpoint for the best performance, e.g. from [Dwellir](https://www.dwellir.com). For squids deployed to [Subsquid Cloud](/cloud/overview) you may also consider using our [RPC proxies](/cloud/resources/rpc-proxy).
 
 Your squid will work with just an RPC endpoint, but it will sync significantly slower. With a Subsquid Network gateway available the processor will only use RPC to retrieve metadata **and** sync the few most recent blocks not yet made available by the gateway; without it it will retrieve all data from the endpoint.
 

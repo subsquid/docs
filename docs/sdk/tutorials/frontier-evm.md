@@ -187,7 +187,7 @@ export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 ```
 
 :::warning
-This code expects to find an URL of a working Astar RPC endpoint in the `RPC_ENDPOINT` environment variable. Set it in the `.env` file and in [Subsquid Cloud secrets](/cloud/resources/env-variables) if and when you deploy your squid there. We tested the code using a public endpoint available at `wss://astar.public.blastapi.io`; for production, we recommend using private endpoints or our [RPC proxy](/cloud/reference/rpc-proxy) service.
+This code expects to find an URL of a working Astar RPC endpoint in the `RPC_ENDPOINT` environment variable. Set it in the `.env` file and in [Subsquid Cloud secrets](/cloud/resources/env-variables) if and when you deploy your squid there. We tested the code using a public endpoint available at `wss://astar.public.blastapi.io`; for production, we recommend using private endpoints or our [RPC proxy](/cloud/resources/rpc-proxy) service.
 :::
 
 ## Define the batch handler

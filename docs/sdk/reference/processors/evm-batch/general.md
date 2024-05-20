@@ -58,7 +58,7 @@ type ChainRpc = string | {
 Setting `maxBatchCallSize` to `1` disables batching completely.
 
 :::tip
-We recommend using private endpoints for better performance and stability of your squids. For Subsquid Cloud deployments you can use the [RPC proxy](/cloud/reference/rpc-proxy). If you use an external private RPC, keep the endpoint URL in a [Cloud secret](/cloud/resources/env-variables#secrets).
+We recommend using private endpoints for better performance and stability of your squids. For Subsquid Cloud deployments you can use the [RPC proxy](/cloud/resources/rpc-proxy). If you use an external private RPC, keep the endpoint URL in a [Cloud secret](/cloud/resources/env-variables#secrets).
 :::
 
 ### `setDataSource(ds: {archive?: string, chain?: ChainRpc})` (deprecated) {#set-data-source}

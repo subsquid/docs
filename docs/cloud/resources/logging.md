@@ -6,10 +6,7 @@ description: Inspect the deployment logs
 
 # Logging
 
-**Since `@subsquid/cli@2.0.0`**
-
-Subsquid Cloud automatically collects the squid logs emitted by the processor, API server and the database pods. For more details on how to use the built-in logger in the squid processor, logging namespaces and severity flags (via environment variables `SQD_DEBUG`, `SQD_TRACE`, `SQD_INFO`), see the [Logging](/sdk/reference/logger) page. The environment variables can be passed to the squids during the deployment to the Cloud, see [Environment Variables](/cloud/resources/env-variables/#environment-variables-1) for details.
-
+Subsquid Cloud automatically collects the logs emitted by the squid processor, its API server and its database. Please use the [built-in SDK logger](/sdk/reference/logger) throughout your code when developing for Subsquid Cloud. You can set the severity flags for squids running in the Cloud via `SQD_DEBUG`, `SQD_TRACE` or `SQD_INFO` - see [Environment Variables](/cloud/resources/env-variables).
 
 To inspect and follow the squid logs from all the squid services, use [`sqd logs`](/squid-cli/logs):
 ```bash
