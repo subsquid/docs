@@ -120,7 +120,6 @@ Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e0
    - Grab the network data you requested from the list items with non-empty data fields (`logs`, `transactions`, `stateDiffs`, `traces`). For the example above, this data will include the txn `0xcbf7...`.
    - Observe that we received the data up to and including block 16031419.
 
-
 6. To get the rest of the data, update the current height to 16031420 and go to step 3.
    - Note how the worker URL you're getting while repeating step 3 points to a different host than before. This is how data storage and reads are distributed across the Subsquid Network.
 
@@ -200,7 +199,7 @@ https://rb02.sqd-archive.net/worker/query/czM6Ly9uZW9uLWRldm5ldC10cmFjZWxlc3MtMQ
 
 <details>
 
-<summary><code>POST</code> <code><b>/</b></code> <code>(query logs and transactions)</code></summary>
+<summary><code>POST</code> <code><b>/</b></code> <code>(query EVM data)</code></summary>
 
 ##### Query Fields
 
