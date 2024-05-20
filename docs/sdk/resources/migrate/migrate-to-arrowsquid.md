@@ -49,7 +49,7 @@ Replace the old `setDataSource()` processor configuration call with a combinatio
 +  })
 +  .setFinalityConfirmation(75)
 ```
-We recommend using a private RPC endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/). For squids deployed to [Subsquid Cloud](/cloud/overview/) you may also consider using our [RPC proxies](/cloud/reference/rpc-proxy).
+We recommend using a private RPC endpoint for the best performance, e.g. from [BlastAPI](https://blastapi.io/). For squids deployed to [Subsquid Cloud](/cloud/overview/) you may also consider using our [RPC proxies](/cloud/resources/rpc-proxy).
 
 Your squid will work without an RPC endpoint, but with a significantly increased chain latency (a few hours for most chains, roughly a day for BSC). If that works for you, you can use just the Subsquid Network gateway without setting an RPC here and skip [Step 7](#step-7) altogether.
 
