@@ -104,10 +104,6 @@ Disabling unused fields will improve sync performance, as the disabled fields wi
 Most IDEs support smart suggestions to show the possible field selectors. For VS Code, press `Ctrl+Space`.
 :::
 
-:::info
-All addresses and pubkeys are represented as base58-encoded strings.
-:::
-
 Here we describe the data item types as functions of the field selectors. Unless otherwise mentioned, each data item type field maps to the eponymous field of its corresponding field selector. Item fields are divided into three categories:
 
 - Fields that are always added regardless of the `setFields()` call.
