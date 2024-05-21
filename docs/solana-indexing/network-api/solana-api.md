@@ -211,7 +211,7 @@ The returned worker is capable of processing `POST /` requests in which the `"fr
 - **fields**: (optional) A [selector](#data-fields-selector) of data fields to retrieve. Common for all data items.
 - **instructions**: (optional) A list of [intructions requests](#instructions). An empty list requests no data.
 - **transactions**: (optional) A list of [transaction requests](#transactions). An empty list requests no data.
-- **logs**: (optional) A list of [log requests](#logs). An empty list requests no data.
+- **logs**: (optional) A list of [log requests](#log-messages). An empty list requests no data.
 - **balances**: (optional) A list of [balances requests](#balances). An empty list requests no data.
 - **tokenBalances**: (optional) A list of [token balances requests](#token-balances). An empty list requests no data.
 - **rewards**: (optional) A list of [rewards requests](#rewards). An empty list requests no data.

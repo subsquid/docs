@@ -3,7 +3,7 @@
 
 Authenticate to deploy and manage squids 🦑
 
-* [`sqd auth`](#sqd-auth)
+* [`sqd auth`](#sqd-auth-1)
 
 ## `sqd auth`
 

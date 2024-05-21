@@ -143,7 +143,7 @@ See [`SolanaDataSource` reference](/solana-indexing/sdk/solana-batch) for more o
 With a data source it becomes possible to retrieve filtered blockchain data from [Subsquid Network](/subsquid-network/overview), transform it and save the result to a destination of choice.
 ## Decoding the event data
 
-The other part the squid processor (the ingester process of the indexer) is the callback function used to process batches of the filtered data, the [batch handler](/sdk/overview/#processorrun). In Solana Squid SDK it is typically defined within a `run()` call, like this:
+The other part the squid processor (the ingester process of the indexer) is the callback function used to process batches of the filtered data, the [batch handler](/sdk/reference/processors/architecture/#processorrun). In Solana Squid SDK it is typically defined within a `run()` call, like this:
 ```typescript
 import {run} from '@subsquid/batch-processor'
 
@@ -154,7 +154,7 @@ run(dataSource, database, async ctx => {
 Here,
 * `dataSource` is the data source object described in the previous section
 * `database` is a [`Database` implementation](/sdk/resources/persisting-data/overview/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm/) object here.
-* `ctx` is a [batch context](/sdk/overview/#batch-context) object that exposes a batch of data (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`). See [Block data for Solana](/solana-indexing/sdk/solana-batch/context-interfaces/) for details on how the data batches are presented.
+* `ctx` is a [batch context](/sdk/reference/processors/architecture/#batch-context) object that exposes a batch of data (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`). See [Block data for Solana](/solana-indexing/sdk/solana-batch/context-interfaces/) for details on how the data batches are presented.
 
 Batch handler is where the raw on-chain data is decoded, transformed and persisted. This is the part we'll be concerned with for the rest of the tutorial.
 

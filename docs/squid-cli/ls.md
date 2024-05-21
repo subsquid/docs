@@ -3,7 +3,7 @@
 
 List squids and squid versions
 
-* [`sqd ls`](#sqd-ls)
+* [`sqd ls`](#sqd-ls-1)
 
 The command requires specifying an [organization](/cloud/resources/organizations) with the `-o/--org` flag when invoked by accounts with more than one organization. Subsquid Cloud users with just one organization can omit this flag.
 

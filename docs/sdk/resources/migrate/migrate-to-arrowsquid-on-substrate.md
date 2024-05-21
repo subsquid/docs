@@ -221,7 +221,7 @@ const processor = new SubstrateBatchProcessor()
 
 ## Step 5
 
-Finally, update the batch handler to use the new [batch context](/sdk/overview/#batch-context). The main change here is that now `block.items` is split into three separate iterables: `block.calls`, `block.events` and `block.extrinsics`. There are two ways to migrate:
+Finally, update the batch handler to use the new [batch context](/sdk/reference/processors/architecture/#batch-context). The main change here is that now `block.items` is split into three separate iterables: `block.calls`, `block.events` and `block.extrinsics`. There are two ways to migrate:
 
 1. If you're in a hurry, use the `orderItems(block: Block)` function from [this snippet](https://gist.github.com/belopash/5d61dcce7739f60d55c4faaec0148282):
    ```typescript title="src/main.ts"
@@ -239,7 +239,7 @@ Finally, update the batch handler to use the new [batch context](/sdk/overview/#
    })
    ```
 
-2. Alternatively, rewrite your batch handler using the [new batch context interface](/sdk/overview/#batch-context).
+2. Alternatively, rewrite your batch handler using the [new batch context interface](/sdk/reference/processors/architecture/#batch-context).
 
 See [Block data for Substrate](/sdk/reference/processors/substrate-batch/context-interfaces) for the documentation on Substrate-specific part of batch context.
 
