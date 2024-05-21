@@ -46,7 +46,7 @@ deploy:
 
 ## 2. (Optional) Add secrets and env variables
 
-If the squid expects additional environment variables to be set by the Cloud via [secrets](/cloud/resources/env-variables/#secrets) or at the [deployment time](/cloud/resources/env-variables/#environment-variables-1) add them in the `deploy` section:
+If the squid expects additional environment variables to be set by the Cloud via [secrets](/cloud/resources/env-variables/#secrets) or at the [deployment time](/cloud/resources/env-variables), add them in the `deploy` section:
 
 ```yml
 #...

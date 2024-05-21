@@ -6,7 +6,7 @@ description: >-
 
 # Block data for Solana
 
-In Solana Squid SDK, the data is processed by repeatedly calling the user-defined [batch handler](/sdk/overview/#processorrun) function on batches of on-chain data. The sole argument of the batch handler is its context `ctx`, and `ctx.blocks` is an array of `Block` objects containing the data to be processed, aligned at the block level.
+In Solana Squid SDK, the data is processed by repeatedly calling the user-defined [batch handler](/sdk/reference/processors/architecture/#processorrun) function on batches of on-chain data. The sole argument of the batch handler is its context `ctx`, and `ctx.blocks` is an array of `Block` objects containing the data to be processed, aligned at the block level.
 
 For `SolanaBatchProcessor` the `Block` interface is defined as follows:
 
@@ -38,7 +38,7 @@ The exact fields available in each data item type are inferred from the `setFiel
 - [`Balance` section](/solana-indexing/sdk/solana-batch/field-selection#balance);
 - [`TokenBalance` section](/solana-indexing/sdk/solana-batch/field-selection#tokenbalance);
 - [`Reward` section](/solana-indexing/sdk/solana-batch/field-selection#reward);
-- [`BlockHeader` section](/solana-indexing/sdk/solana-batch/field-selection#blockheader).
+- [`BlockHeader` section](/solana-indexing/sdk/solana-batch/field-selection#block-header).
 
 <!--
 ## Example
