@@ -28,9 +28,9 @@ Get some _or all_ outputs on the network. `options` has the following structure:
 Data requests:
 TODO Links
 
-- `type` sets the type of the output. Output type has the following options: `CoinOutput' | 'ContractOutput' | 'ChangeOutput' | 'VariableOutput' | 'ContractCreated'`. Leave it undefined to subscribe to all receipts.
+- `type` sets the type of the output. Output type has the following options: `'CoinOutput' | 'ContractOutput' | 'ChangeOutput' | 'VariableOutput' | 'ContractCreated'`. Leave it undefined to subscribe to all outputs.
 
-Enabling the `transaction` flag will cause the processor to retrieve [transactions](/solana-indexing/sdk/solana-batch/instructions) that occured as a result of each selected receipt. The data will be added to the appropriate iterables within the [block data](/solana-indexing/sdk/solana-batch/context-interfaces). You can also call `augmentBlock()` from `@subsquid/fuel-objects` on the block data to populate the convenience reference fields like `receipt.transaction`.
+Enabling the `transaction` flag will cause the processor to retrieve transactions where the selected outputs have occurred. The data will be added to the appropriate iterables within the [block data](/fuel-indexing/fuel-datasource/context-interfaces). You can also call `augmentBlock()` from `@subsquid/fuel-objects` on the block data to populate the convenience reference fields like `output.transaction`.
 
 Note that receipts can also be requested by the other `FuelDataSource` methods as related data.
 
@@ -38,7 +38,7 @@ Selection of the exact fields to be retrieved for each transaction and the optio
 
 ## Examples
 
-Request all outputs with `ChangeOutput` type and include transaction:
+Request all outputs with `ChangeOutput` type and include transactions:
 
 ```ts
 processor
