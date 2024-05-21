@@ -110,7 +110,7 @@ This will automatically generate TypeScript entity classes for our schema. They 
 
 ## Generate TypeScript wrappers for events
 
-We generate these using the [squid-substrate-typegen[(/sdk/tutorials/batch-processor-in-action) tool. Its configuration file is `typegen.json`; there, we need to
+We generate these using the [squid-substrate-typegen](/sdk/tutorials/batch-processor-in-action) tool. Its configuration file is `typegen.json`; there, we need to
 1. Set the `"specVersions"` field to a valid source of Crust chain runtime metadata. We'll use an URL of Subsquid-maintained metadata service:
    ```json
    "specVersions": "https://v2.archive.subsquid.io/metadata/crust",
