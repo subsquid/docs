@@ -1,0 +1,168 @@
+---
+title: "Indexing Fuel Network Data"
+description: >-
+  Indexing Fuel Network data with Subsquid SDK.
+sidebar_position: 10
+---
+
+# Indexing the Orca DEX
+
+In this step-by-step tutorial we will look into a squid that indexes [Fuel Network](https://fuel.network/) data.
+
+Pre-requisites: Node.js **v20 or newer**, Git, Docker.
+
+## Download the project
+
+Begin by retrieving the template and installing the dependencies:
+```bash
+git clone https://github.com/subsquid-labs/fuel-example
+cd fuel-example
+npm ci
+```
+
+
+## Configuring the data source
+
+"Data source" is a component that defines what data should be retrieved and where to get it. To configure the data source to retrieve the data produced by the `swap` instruction of the Whirlpool program, we initialize it like this:
+```typescript title="src/main.ts"
+// ...
+import { run } from "@subsquid/batch-processor";
+import { augmentBlock } from "@subsquid/fuel-objects";
+import { DataSourceBuilder } from "@subsquid/fuel-stream";
+import { TypeormDatabase } from "@subsquid/typeorm-store";
+import { Contract } from "./model";
+
+// First we create a DataSource - component,
+// that defines where to get the data and what data should we get.
+const dataSource = new DataSourceBuilder()
+  // Provide Subsquid Network Gateway URL.
+  .setGateway("https://v2.archive.subsquid.io/network/fuel-stage-5")
+  // Subsquid Network is always about 10000 blocks behind the head.
+  // We must use regular GraphQL endpoint to get through the last mile
+  // and stay on top of the chain.
+  // This is a limitation, and we promise to lift it in the future!
+  .setGraphql({
+    url: "https://beta-5.fuel.network/graphql",
+    strideConcurrency: 2,
+    strideSize: 50,
+  })
+  // Block data returned by the data source has the following structure:
+  //
+  // interface Block {
+  //     header: BlockHeader
+  //     transactions: Transaction[]
+  //     inputs: Input[]
+  //     outputs: Output[]
+  // }
+  //
+  // For each block item we can specify a set of fields we want to fetch via `.setFields()` method.
+  // Think about it as of SQL projection.
+  //
+  // Accurate selection of only required fields can have a notable positive impact
+  // on performance when data is sourced from Subsquid Network.
+  //
+  // We do it below only for illustration as all fields we've selected
+  // are fetched by default.
+  //
+  // It is possible to override default selection by setting undesired fields to `false`.
+  .setFields({
+    receipt: {
+      contract: true,
+      receiptType: true,
+    },
+  })
+  // By default, block can be skipped if it doesn't contain explicitly requested items.
+  //
+  // We request items via `.addXxx()` methods.
+  //
+  // Each `.addXxx()` method accepts item selection criteria
+  // and also allows to request related items.
+  //
+  .addReceipt({
+    type: ["LOG_DATA"],
+  })
+  .build();
+```
+
+Here,
+* `'https://v2.archive.subsquid.io/network/fuel-stage-5'` is the address for the public Subsquid Network gateway for Fuel mainnet. Check out [Subsquid Networks reference pages](/subsquid-network/reference) for lists of public gateways for all supported networks.
+* The argument of [`addReceipt()`](/solana-indexing/sdk/solana-batch/instructions) is a set of filters that tells the processor to retrieve all data of type `LOG`.
+* The argument of [`setFields()`](/solana-indexing/sdk/solana-batch/field-selection) specifies the exact fields we need for every data item type.
+
+See [`FuelDataSource` reference](/solana-indexing/sdk/fuel-data-source) for more options.
+
+With a data source it becomes possible to retrieve filtered blockchain data from [Subsquid Network](/subsquid-network/overview), transform it and save the result to a destination of choice.
+## Decoding the event data
+
+The other part the squid processor (the ingester process of the indexer) is the callback function used to process batches of the filtered data, the [batch handler](/sdk/overview/#processorrun). In Solana Squid SDK it is typically defined within a `run()` call, like this:
+```typescript
+import {run} from '@subsquid/batch-processor'
+
+run(dataSource, database, async ctx => {
+    // data transformation and persistence code here
+})
+```
+Here,
+* `dataSource` is the data source object described in the previous section
+* `database` is a [`Database` implementation](/sdk/resources/persisting-data/overview/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm/) object here.
+* `ctx` is a [batch context](/sdk/overview/#batch-context) object that exposes a batch of data (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`). See [Block data for Solana](/solana-indexing/sdk/solana-batch/context-interfaces/) for details on how the data batches are presented.
+
+Batch handler is where the raw on-chain data is decoded, transformed and persisted. This is the part we'll be concerned with for the rest of the tutorial.
+
+We begin by defining a database and starting the data processing:
+```typescript title="src/main.ts"
+const database = new TypeormDatabase();
+
+// Now we are ready to start data processing
+run(dataSource, database, async (ctx) => {
+  // Block items that we get from `ctx.blocks` are flat JS objects.
+  //
+  // We can use `augmentBlock()` function from `@subsquid/fuel-objects`
+  // to enrich block items with references to related objects.
+  let contracts: Map<String, Contract> = new Map();
+
+  let blocks = ctx.blocks.map(augmentBlock);
+
+  for (let block of blocks) {
+    for (let receipt of block.receipts) {
+      console.log(receipt);
+      if (receipt.receiptType == "LOG_DATA" && receipt.contract != null) {
+        let contract = contracts.get(receipt.contract);
+
+        console.log(receipt.contract);
+        if (!contract) {
+          contract = await ctx.store.findOne(Contract, {
+            where: { id: receipt.contract },
+          });
+          if (!contract) {
+            contract = new Contract({
+              id: receipt.contract,
+              logsCount: 0,
+              foundAt: block.header.height,
+            });
+          }
+        }
+        contract.logsCount += 1;
+        contracts.set(contract.id, contract);
+      }
+    }
+  }
+
+  ctx.store.upsert([...contracts.values()]);
+});
+
+```
+This goes through all the receipts in the block, verifies that they have type `LOG`, fetches the contract from the receipt and saves it to the database.
+
+At this point the squid is ready for its first test run. Execute
+```bash
+npx tsc
+docker compose up -d
+npx squid-typeorm-migration apply
+node -r dotenv/config lib/main.js
+```
+You can verify that the data is being stored in the database by running
+```bash
+docker exec "$(basename "$(pwd)")-db-1" psql -U postgres -c "SELECT * FROM exchange"
+```
+The full code can be found [here](https://github.com/subsquid-labs/fuel-example).
