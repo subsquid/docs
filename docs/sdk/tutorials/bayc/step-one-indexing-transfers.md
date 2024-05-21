@@ -83,7 +83,7 @@ See [configuration](/sdk/reference/processors/evm-batch) for more options.
 
 ## Decoding the event data
 
-The other part of processor configuration is the callback function used to process batches of the filtered data, the [batch handler](/sdk/overview/#processorrun). It is typically defined at the `processor.run()` call at `src/main.ts`, like this:
+The other part of processor configuration is the callback function used to process batches of the filtered data, the [batch handler](/sdk/reference/processors/architecture/#processorrun). It is typically defined at the `processor.run()` call at `src/main.ts`, like this:
 ```typescript
 processor.run(db, async (ctx) => {
     // data transformation and persistence code here
@@ -91,7 +91,7 @@ processor.run(db, async (ctx) => {
 ```
 Here,
 * `db` is a [`Database` implementation](/sdk/resources/persisting-data/overview/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm/) object here.
-* `ctx` is a [batch context](/sdk/overview/#batch-context) object that exposes a batch of data retrieved from Subsquid Network or a RPC endpoint (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
+* `ctx` is a [batch context](/sdk/reference/processors/architecture/#batch-context) object that exposes a batch of data retrieved from Subsquid Network or a RPC endpoint (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
 
 Batch handler is where the raw on-chain data is decoded, transformed and persisted. This is the part we'll be concerned with for the rest of the tutorial.
 

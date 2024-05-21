@@ -212,7 +212,7 @@ const processor = new EvmBatchProcessor()
 
 ## Step 6
 
-Finally, update the batch handler to use the new [batch context](/sdk/overview/#batch-context). There are two ways to do that:
+Finally, update the batch handler to use the new [batch context](/sdk/reference/processors/architecture/#batch-context). There are two ways to do that:
 
 1. If you're in a hurry, use the [`transformContext.ts`](https://gist.github.com/belopash/aa6b67dc374add44b9bdff1c9c1eee17) module. Download it with
    ```bash
@@ -230,7 +230,7 @@ Finally, update the batch handler to use the new [batch context](/sdk/overview/#
    })
    ```
 
-2. Alternatively, rewrite your batch handler using the [new batch context interface](/sdk/overview/#batch-context). Consult the [block data](/sdk/reference/processors/evm-batch/context-interfaces) page for EVM-specific details on the new context format.
+2. Alternatively, rewrite your batch handler using the [new batch context interface](/sdk/reference/processors/architecture/#batch-context). Consult the [block data](/sdk/reference/processors/evm-batch/context-interfaces) page for EVM-specific details on the new context format.
 
 ## Step 7
 

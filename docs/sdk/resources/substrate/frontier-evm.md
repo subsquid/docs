@@ -128,4 +128,4 @@ While the set of handler subscriptions is static and defined at the processor cr
   .addEvmLog({}) // selects all events
   ```
 
-* If contract address(es) supplied to the processor configuration methods are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/sdk/overview/#processorrun) for item filtration, and all contract addresses in the items are **always** in flat lower case.
+* If contract address(es) supplied to the processor configuration methods are stored in any wide-scope variables, it is recommended to convert them to flat lower case. This precaution is necessary because same variable(s) are often reused in the [batch handler](/sdk/reference/processors/architecture/#processorrun) for item filtration, and all contract addresses in the items are **always** in flat lower case.

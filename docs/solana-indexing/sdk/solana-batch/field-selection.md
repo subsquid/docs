@@ -234,7 +234,7 @@ TokenBalance {
 }
 ```
 
-### Rewards
+### Reward
 
 `Reward` data items may have the following fields:
 
@@ -253,7 +253,7 @@ Reward{
 }
 ```
 
-### Block headers
+### Block header
 
 `BlockHeader` data items may have the following fields:
 

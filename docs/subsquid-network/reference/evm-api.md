@@ -36,7 +36,7 @@ Implementation examples:
 
 <summary>Manual fetch with cURL</summary>
 
-Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` from block 16_000_000. We begin by finding the main URL for the Ethereum Mainnet gateway on the [Supported networks page](/subsquid-network/reference/evm-networks/#raw-urls). Then we have to:
+Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` from block 16_000_000. We begin by finding the main URL for the Ethereum Mainnet gateway on the [Supported networks page](/subsquid-network/reference/evm-networks). Then we have to:
 
 1. Verify that the dataset has reached the required height:
 
@@ -658,4 +658,4 @@ See [`addStateDiff()` SDK function reference](/sdk/reference/processors/evm-batc
 
 ## Data fields selector
 
-A JSON selector of fields for the returned data items. Documented in the [Field selectors](/sdk/reference/processors/evm-batch/field-selection/#field-selectors) section.
+A JSON selector of fields for the returned data items. Documented in the [Field selection](/sdk/reference/processors/evm-batch/field-selection) section.
