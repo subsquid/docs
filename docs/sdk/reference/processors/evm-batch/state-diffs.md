@@ -26,8 +26,8 @@ Subscribe to changes in the [contract storage](https://coinsbench.com/solidity-l
 }
 ```
 The data requests here are:
-+ `address`: the set of addresses of contracts to track. Leave undefined or set to `[]` to subscribe to state changes of all contracts from the whole network.
-+ `key`: the set of storage keys that should be tracked. Regular hexadecimal contract storage keys and [special keys](/sdk/reference/processors/evm-batch/field-selection/#state-diffs) (`'balance'`, `'code'`, `'nonce'`) are allowed. Leave undefined or set to `[]` to subscribe to all state changes.
++ `address`: the set of addresses of contracts to track. Leave undefined to subscribe to state changes of all contracts from the whole network.
++ `key`: the set of storage keys that should be tracked. Regular hexadecimal contract storage keys and [special keys](/sdk/reference/processors/evm-batch/field-selection/#state-diffs) (`'balance'`, `'code'`, `'nonce'`) are allowed. Leave undefined to subscribe to all state changes.
 + `kind`: the set of diff kinds that should be tracked. Refer to the [`StateDiff` section](/sdk/reference/processors/evm-batch/field-selection/#state-diffs) of data items documentation for an explanation of the meaning of the permitted values.
 + `range`: the range of blocks within which the storage changes should be tracked.
 
