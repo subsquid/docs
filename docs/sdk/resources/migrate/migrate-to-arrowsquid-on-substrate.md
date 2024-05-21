@@ -266,7 +266,7 @@ Note the changes:
 1. Archive URL as `"specVersions"` is replaced with an URL of our new metadata service (`"https://v2.archive.subsquid.io/metadata/kusama"`)
 2. Requests for data wrappers are now made on a per-pallet basis.
 
-Check out the updated [Substrate typegen documentation page[(/sdk/tutorials/batch-processor-in-action). If you used any storage calls, consult [this documentation page](/sdk/resources/tools/typegen/state-queries) for guidance.
+Check out the updated [Substrate typegen documentation page](/sdk/tutorials/batch-processor-in-action). If you used any storage calls, consult [this documentation page](/sdk/resources/tools/typegen/state-queries) for guidance.
 
 Once you're done migrating `typegen.json`, regenerate the wrapper classes with
 ```bash

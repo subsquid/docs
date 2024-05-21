@@ -22,7 +22,7 @@ A few scenarios are possible when indexing a proxy contract:
    # 0xa232...bDCF is the implementation contract address
    npx squid-evm-typegen src/abi 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF#fiatToken
    ```
-   That retrieves the ABI from Etherscan API and uses it to create [TypeScript wrapper classes[(/sdk/reference/typegen/state-queries) for implementation functions and events at './src/abi/fiatToken.ts`. Use these to subscribe to and decode the data of the proxy contract:
+   That retrieves the ABI from Etherscan API and uses it to create [TypeScript wrapper classes](/sdk/resources/tools/typegen/state-queries/?typegen=evm) for implementation functions and events at './src/abi/fiatToken.ts`. Use these to subscribe to and decode the data of the proxy contract:
    ```ts title="./src/processor.ts"
    import * as fiatToken from './abi/fiatToken'
    export const processor = new EvmBatchProcessor()

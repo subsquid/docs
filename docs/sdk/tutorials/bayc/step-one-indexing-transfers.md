@@ -23,7 +23,7 @@ The resulting code can be found at [this commit](https://github.com/subsquid-lab
 
 ## Interfacing with the contract ABI
 
-First, we inspect which data is available for indexing. For EVM contracts, the metadata descrbing the shape of the smart contract logs, transactions and contract state methods is distributed as an [Application Binary Interface](https://docs.soliditylang.org/en/latest/abi-spec.html) (ABI) JSON file. For many popular contracts ABI files are published on Etherscan (as in the case of the BAYC NFT contract). Subsquid provides a [tool[(/sdk/reference/typegen/state-queries) for retrieving contract ABIs from Etherscan-like APIs and generating the boilerplate for retrieving and decoding the data. For the contract of interest, this can be done with
+First, we inspect which data is available for indexing. For EVM contracts, the metadata descrbing the shape of the smart contract logs, transactions and contract state methods is distributed as an [Application Binary Interface](https://docs.soliditylang.org/en/latest/abi-spec.html) (ABI) JSON file. For many popular contracts ABI files are published on Etherscan (as in the case of the BAYC NFT contract). Subsquid provides a [tool](/sdk/resources/tools/typegen/state-queries/?typegen=evm) for retrieving contract ABIs from Etherscan-like APIs and generating the boilerplate for retrieving and decoding the data. For the contract of interest, this can be done with
 ```bash
 npx squid-evm-typegen src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#bayc
 ```
