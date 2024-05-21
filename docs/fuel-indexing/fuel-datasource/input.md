@@ -14,11 +14,11 @@ Get some _or all_ inputs on the network. `options` has the following structure:
 {
   // data requests
     type?: InputType[]
-    coinOwner?: Bytes[]
-    coinAssetId?: Bytes[]
-    contractContract?: Bytes[]
-    messageSender?: Bytes[]
-    messageRecipient?: Bytes[]
+    coinOwner?: string[]
+    coinAssetId?: string[]
+    contractContract?: string[]
+    messageSender?: string[]
+    messageRecipient?: string[]
   // related data retrieval
   include?: {
     transaction?: boolean

@@ -116,44 +116,44 @@ Transaction {
   index: number
 
   // can be disabled with field selectors
-  hash: Bytes
+  hash: string
   type: TransactionType
   status: Status
 
   // can be enabled with field selectors
-  inputAssetIds?: Bytes[]
-  inputContracts?: Bytes[]
+  inputAssetIds?: string[]
+  inputContracts?: string[]
   inputContract?: {
-    utxoId: Bytes
-    balanceRoot: Bytes
-    stateRoot: Bytes
+    utxoId: string
+    balanceRoot: string
+    stateRoot: string
     txPointer: string
-    contract: Bytes
+    contract: string
   }
   policies?: Policies
   gasPrice?: bigint
   scriptGasLimit?: bigint
   maturity?: number
   mintAmount?: bigint
-  mintAssetId?: Bytes
+  mintAssetId?: string
   txPointer?: string
   isScript: boolean
   isCreate: boolean
   isMint: boolean
   outputContract?: {
     inputIndex: number
-    balanceRoot: Bytes
-    stateRoot: Bytes
+    balanceRoot: string
+    stateRoot: string
   }
-  witnesses?: Bytes[]
-  receiptsRoot?: Bytes
-  script?: Bytes
-  scriptData?: Bytes
+  witnesses?: string[]
+  receiptsRoot?: string
+  script?: string
+  scriptData?: string
   bytecodeWitnessIndex?: number
   bytecodeLength?: bigint
-  salt?: Bytes
-  storageSlots?: Bytes[]
-  rawPayload?: Bytes
+  salt?: string
+  storageSlots?: string[]
+  rawPayload?: string
 }
 ```
 
@@ -180,19 +180,19 @@ Receipt {
   // can be disabled with field selectors
   transactionIndex: number
   // can be requested with field selectors
-  contract?: Bytes
+  contract?: string
     pc?: bigint
     is?: bigint
-    to?: Bytes
-    toAddress?: Bytes
+    to?: string
+    toAddress?: string
     amount?: bigint
-    assetId?: Bytes
+    assetId?: string
     gas?: bigint
     param1?: bigint
     param2?: bigint
     val?: bigint
     ptr?: bigint
-    digest?: Bytes
+    digest?: string
     reason?: bigint
     ra?: bigint
     rb?: bigint
@@ -202,12 +202,12 @@ Receipt {
     receiptType: ReceiptType
     result?: bigint
     gasUsed?: bigint
-    data?: Bytes
-    sender?: Bytes
-    recipient?: Bytes
-    nonce?: Bytes
-    contractId?: Bytes
-    subId?: Bytes
+    data?: string
+    sender?: string
+    recipient?: string
+    nonce?: string
+    contractId?: string
+    subId?: string
 }
 ```
 
@@ -241,16 +241,16 @@ export interface InputCoin {
   type: "InputCoin";
   index: number;
   transactionIndex: number;
-  utxoId: Bytes;
-  owner: Bytes;
+  utxoId: string;
+  owner: string;
   amount: bigint;
-  assetId: Bytes;
+  assetId: string;
   txPointer: string;
   witnessIndex: number;
   maturity: number;
   predicateGasUsed: bigint;
-  predicate: Bytes;
-  predicateData: Bytes;
+  predicate: string;
+  predicateData: string;
 }
 ```
 
@@ -261,11 +261,11 @@ export interface InputContract {
   type: "InputContract";
   index: number;
   transactionIndex: number;
-  utxoId: Bytes;
-  balanceRoot: Bytes;
-  stateRoot: Bytes;
+  utxoId: string;
+  balanceRoot: string;
+  stateRoot: string;
   txPointer: string;
-  contract: Bytes;
+  contract: string;
 }
 ```
 
@@ -276,15 +276,15 @@ InputMessage {
   type: "InputMessage";
   index: number;
   transactionIndex: number;
-  sender: Bytes;
-  recipient: Bytes;
+  sender: string;
+  recipient: string;
   amount: bigint;
-  nonce: Bytes;
+  nonce: string;
   witnessIndex: number;
   predicateGasUsed: bigint;
-  data: Bytes;
-  predicate: Bytes;
-  predicateData: Bytes;
+  data: string;
+  predicate: string;
+  predicateData: string;
 }
 ```
 
@@ -309,9 +309,9 @@ CoinOutput {
     type: 'CoinOutput'
     index: number
     transactionIndex: number
-    to: Bytes
+    to: string
     amount: bigint
-    assetId: Bytes
+    assetId: string
 }
 ```
 
@@ -323,8 +323,8 @@ ContractOutput {
   index: number;
   transactionIndex: number;
   inputIndex: number;
-  balanceRoot: Bytes;
-  stateRoot: Bytes;
+  balanceRoot: string;
+  stateRoot: string;
 }
 ```
 
@@ -335,9 +335,9 @@ ChangeOutput {
     type: 'ChangeOutput'
     index: number
     transactionIndex: number
-    to: Bytes
+    to: string
     amount: bigint
-    assetId: Bytes
+    assetId: string
 }
 
 ```
@@ -349,9 +349,9 @@ VariableOutput {
     type: 'VariableOutput'
     index: number
     transactionIndex: number
-    to: Bytes
+    to: string
     amount: bigint
-    assetId: Bytes
+    assetId: string
 }
 ```
 

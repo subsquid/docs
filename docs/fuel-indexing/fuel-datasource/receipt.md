@@ -14,7 +14,7 @@ Get some _or all_ transactions on the network. `options` has the following struc
 {
   // data requests
    type?: ReceiptType[]
-   contract?: Bytes[]
+   contract?: string[]
   // related data retrieval
   include?: {
     transaction?: boolean
