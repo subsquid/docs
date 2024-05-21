@@ -41,22 +41,6 @@ type RpcSettings = {
 };
 ```
 
-`SolanaRpcClient` class is exported by `@subsquid/solana-stream`. Its constructor arg type is
-
-```ts
-{
-  url: string; // http, https, ws and wss are supported
-  capacity?: number; // num of concurrent connections, default 10
-  rateLimit?: number; // requests per second, default is no limit
-  requestTimeout?: number; // in milliseconds, default 30_000
-  retryAttempts?: number, // num of retries on failed RPC calls, default 0
-  retrySchedule?: number, // retry pauses in ms
-  maxBatchCallSize?: number; // default 100
-  headers?: Record<string, string>, // http headers
-  log?: Logger | null // customize or disable RPC client logs
-}
-```
-
 ### `setBlockRange({from: number, to?: number})` {#set-block-range}
 
 Limits the range of blocks to be processed. When the upper bound is specified, processor will terminate with exit code 0 once it reaches it.
