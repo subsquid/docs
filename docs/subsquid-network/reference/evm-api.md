@@ -10,13 +10,23 @@ description: Access the data of EVM blockchains
 The EVM API of Subsquid Network is currently in beta. Breaking changes may be introduced in the future releases.
 :::
 
-Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. The main gateway URL now points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
+Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. The main gateway URL points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks on each dataset it serves.
 
-1. Retrieve the dataset height from the router with `GET /height`.
-2. Query the router for an URL of a worker that has the data for the first block of the relevant range with `GET /${firstBlock}/worker`.
-3. Retrieve the data from the worker with `POST /`, making sure to set the `"fromBlock"` query field to `${firstBlock}`.
-4. Exclude the received blocks from the relevant range by setting `firstBlock` to the value of `header.number` of the last received block plus one.
-5. Repeat steps 2-4 until all the required data is retrieved.
+Suppose you want to retrieve an output of some [query](#worker-api) on a block range starting at `firstBlock` (can be the genesis block) and ending at the highest available block. Proceed as follows:
+
+1. Retrieve the dataset height from the router with `GET /height` and make sure it's above `firstBlock`.
+
+2. Save the value of `firstBlock` to some variable, say `currentBlock`.
+
+3. Query the router for an URL of a worker that has the data for `currentBlock` with `GET /${currentBlock}/worker`.
+
+4. Retrieve the data from the worker by [posting the query](#worker-api) (`POST /`), setting the `"fromBlock"` query field to `${currentBlock}`.
+
+5. Parse the retrieved data to get a batch of query data **plus** the height of the last block available from the current worker. Take the `header.number` field of the last element of the retrieved JSON array - it is the height you want. Even if your query returns no data, you'll still get the block data for the last block in the range, so this procedure is safe.
+
+6. Set `currentBlock` to the height from the previous step **plus one**.
+
+7. Repeat steps 3-6 until all the required data is retrieved.
 
 Main URLs of EVM gateways are available on the [Supported networks page](/subsquid-network/reference/evm-networks).
 
@@ -24,42 +34,43 @@ Implementation examples:
 
 <details>
 
-<summary>Manually with cURL</summary>
+<summary>Manual fetch with cURL</summary>
 
-Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` from block 16_000_000. We begin by finding the main URL for the Ethereum Mainnet gateway on the [Supported networks page](/subsquid-network/reference/evm-networks/#raw-urls). Then we have to:
+Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` from block 16_000_000. We begin by finding the main URL for the Ethereum Mainnet gateway on the [Supported networks page](/subsquid-network/reference/evm-networks). Then we have to:
 
 1. Verify that the dataset has reached the required height:
 
    ```bash
-   $ curl https://v2.archive.subsquid.io/network/ethereum-mainnet/height
+   curl https://v2.archive.subsquid.io/network/ethereum-mainnet/height
    ```
 
-   Output
+   Output:
 
    ```
    18593441
    ```
 
-2. Get a worker URL
+2. Remember that your current height is 16000000.
+
+3. Get a worker URL for the current height:
 
    ```bash
-   $ curl https://v2.archive.subsquid.io/network/ethereum-mainnet/16000000/worker
+   curl https://v2.archive.subsquid.io/network/ethereum-mainnet/16000000/worker
    ```
 
-   Output
+   Output:
 
    ```
-   https://lm02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0
+   https://rb05.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0
    ```
 
-3. Retrieve the data from the worker
+4. Retrieve the data available from the current worker
 
    ```bash
-   $ curl https://lm02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0 \
+   curl https://rb05.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0 \
    -X 'POST' -H 'content-type: application/json' -H 'accept: application/json' \
    -d '{
        "fromBlock":16000000,
-       "toBlock":18593441,
        "fields":{"transaction":{"hash":true}},
        "transactions":[{"to":["0xd8da6bf26964af9d7eed9e03e53415d37aa96045"]}]
    }' | jq
@@ -82,59 +93,37 @@ Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e0
      // ...
      {
        "header": {
-         "number": 16027977,
-         "hash": "0x4b332878deb33e963b68c8bbbea60cbca72a88c297b6800eafa82baab497c166",
-         "parentHash": "0x2b979d67d9b03394da336938ee0bcf5aedfdf87e1b5bd574d985aee749eb8b76"
+         "number": 16004961,
+         "hash": "0x9edecebf424558386879fe7f1b79550b6ab7d94ae9a953b2ac552c5ec99ad061",
+         "parentHash": "0xffcb16149563c7ea48c398693141c2024645d83e768d37ed6cbd283a609475af"
        },
        "transactions": [
          {
-           "transactionIndex": 96,
-           "hash": "0xbaede248ec6fce28e9d874f69ea70359bea0107ce9144d6838898674d9d10c8c"
+           "transactionIndex": 126,
+           "hash": "0xcbf7ff2e3f0cb52f436eca83ba540a526c855c1e28253ba42b3b46cc791a40ca"
          }
        ]
      },
      // ...
      {
        "header": {
-         "number": 16031419,
-         "hash": "0x9cc48c9b4ad8dddb1de86a15e30a62ffd48cf9b72930930cfa5167c4e1685d0a",
-         "parentHash": "0x4ec7b4562739032f51e70d26fe5129e571e2bf0348a744c1509f8205f4381696"
+         "number": 16039119,
+         "hash": "0x6c7a394c01931704bc850fa82ab21fe51b086b1afcedae61885abace1bc1e7e9",
+         "parentHash": "0xeef4364766af5b838ff8059de4229b7a3381746d0046e390150f31d56f1163af"
        },
        "transactions": []
      }
    ]
    ```
 
-4. Observe that we received the transactions up to and including block 16031419. To get the rest of the data, we find a worker who has blocks from 16031420 on:
+5. Parse the retrieved data:
+   - Grab the network data you requested from the list items with non-empty data fields (`logs`, `transactions`, `stateDiffs`, `traces`). For the example above, this data will include the txn `0xcbf7...`.
+   - Observe that we received the data up to and including block 16031419.
 
-   ```bash
-   $ curl https://v2.archive.subsquid.io/network/ethereum-mainnet/16031420/worker
-   ```
+6. To get the rest of the data, update the current height to 16031420 and go to step 3.
+   - Note how the worker URL you're getting while repeating step 3 points to a different host than before. This is how data storage and reads are distributed across the Subsquid Network.
 
-   Output:
-
-   ```
-   https://rb02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0
-   ```
-
-   We can see that this part of the dataset is located on another host.
-
-5. Retrieve the data from the new worker
-
-   ```bash
-   $ curl https://rb02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0 \
-   -X 'POST' -H 'content-type: application/json' -H 'accept: application/json' \
-   -d '{
-       "fromBlock":16031420,
-       "toBlock":18593441,
-       "fields":{"transaction":{"hash":true}},
-       "transactions":[{"to":["0xd8da6bf26964af9d7eed9e03e53415d37aa96045"]}]
-   }' | jq
-   ```
-
-   Output is similar to that of step 3.
-
-6. Repeat steps 4 and 5 until the dataset height of 18593441 reached.
+7. Repeat steps 3 through 6 until the dataset height of 18593441 is reached.
 
 </details>
 
@@ -186,7 +175,10 @@ Full code [here](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a
 
 <summary><code>GET</code> <code><b>/height</b></code> <code>(get height of the dataset)</code></summary>
 
-**Example response:** `16576911`.
+**Example response:**
+```
+16576911
+```
 
 </details>
 
@@ -194,9 +186,12 @@ Full code [here](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a
 
 <summary><code>GET</code> <code><b>$&#123;firstBlock&#125;/worker</b></code> <code>(get a suitable worker URL)</code></summary>
 
-The returned worker will be capable of processing `POST /` requests in which the `"fromBlock"` field is equal to `${firstBlock}`.
+The returned worker is capable of processing `POST /` requests in which the `"fromBlock"` field is equal to `${firstBlock}`.
 
-**Example response:** `https://v2.archive.subsquid.io/worker/1/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0`.
+**Example response:**
+```
+https://rb02.sqd-archive.net/worker/query/czM6Ly9uZW9uLWRldm5ldC10cmFjZWxlc3MtMQ
+```
 
 </details>
 
@@ -204,7 +199,7 @@ The returned worker will be capable of processing `POST /` requests in which the
 
 <details>
 
-<summary><code>POST</code> <code><b>/</b></code> <code>(query logs and transactions)</code></summary>
+<summary><code>POST</code> <code><b>/</b></code> <code>(query EVM data)</code></summary>
 
 ##### Query Fields
 
@@ -217,11 +212,17 @@ The returned worker will be capable of processing `POST /` requests in which the
 - **traces**: (optional) A list of [traces requests](#traces). An empty list requests no data.
 - **stateDiffs**: (optional) A list of [state diffs requests](#state-diffs). An empty list requests no data.
 
+The response is a JSON array of per-block data items that covers a block range starting from `fromBlock`. The last block of the range is determined by the worker. You can find it by looking at the `header.number` field of the last element in the response array.
+
+The first and the last block in the range are returned even if all data requests return no data for the range.
+
+In most cases the returned range will not contain all the range requested by the user (i.e. the last block of the range will not be `toBlock`). To continue, [retrieve a new worker URL](#router-api) for blocks starting at the end of the current range *plus one block* and repeat the query with an updated value of `fromBlock`.
+
 <details>
 
 <summary>
 
-##### Example Request
+##### Example Request 1
 
 </summary>
 
@@ -250,15 +251,23 @@ The returned worker will be capable of processing `POST /` requests in which the
 }
 ```
 
+Gets all `Transfer(address,address,address)` event logs emitted by the [USDC contract](https://etherscan.io/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48) on block 16000000, plus their parent transactions. Run
+```bash
+curl https://v2.archive.subsquid.io/network/eth-mainnet/16000000/worker
+```
+to get an URL of a worker capable of processing this query.
+
 </details>
 
 <details>
 
 <summary>
 
-##### Example Response
+##### Example Response 1
 
 </summary>
+
+Since the request was for one block, the response contains exactly one block:
 
 ```json
 [
@@ -387,6 +396,75 @@ The returned worker will be capable of processing `POST /` requests in which the
 
 </details>
 
+<details>
+
+<summary>
+
+##### Example Request 2
+
+</summary>
+
+```json
+{
+  "logs": [
+    {
+      "address": ["0xb0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"]
+    }
+  ],
+  "fields": {
+    "log": {
+      "topics": true,
+      "data": true
+    }
+  },
+  "fromBlock": 16000000
+}
+```
+
+Attempts to gets all event logs emitted by a [nonexistent contract](https://etherscan.io/address/0xb0b86991c6218b36c1d19d4a2e9eb0ce3606eb48) on blocks starting at 16000000. Run
+```bash
+curl https://v2.archive.subsquid.io/network/eth-mainnet/16000000/worker
+```
+to get an URL of a worker capable of processing this query.
+
+</details>
+
+<details>
+
+<summary>
+
+##### Example Response 2
+
+</summary>
+
+The query matches no data, so the data field `"logs"` is an empty array for all the returned block data items:
+
+```json
+[
+  {
+    "header": {
+      "number": 16000000,
+      "hash": "0x3dc4ef568ae2635db1419c5fec55c4a9322c05302ae527cd40bff380c1d465dd",
+      "parentHash": "0x6f377dc6bd1f3e38b9ceb8c946a88c13211fa3f084622df3ee5cfcd98cc6bb16"
+    },
+    "logs": []
+  },
+  ... (a bunch of similar items for different block heights,
+       all with "logs": []) ...
+  {
+    "header": {
+      "number": 16039119,
+      "hash": "0x6c7a394c01931704bc850fa82ab21fe51b086b1afcedae61885abace1bc1e7e9",
+      "parentHash": "0xeef4364766af5b838ff8059de4229b7a3381746d0046e390150f31d56f1163af"
+    },
+    "logs": []
+  }
+]
+```
+16039119 is the highest block that the worker could process. For the data beyond that block [request a new worker](#router-api) from the router and repeat the request with `"fromBlock": 16039120`.
+
+</details>
+
 </details>
 
 ## Data requests
@@ -404,11 +482,71 @@ Addresses in all data requests must be in lowercase. All addresses in the respon
   topic1: string[],
   topic2: string[],
   topic3: string[],
-  transaction: boolean
+  transaction: boolean,
+  transactionTraces: boolean,
+  transactionLogs: boolean
 }
 ```
 
-A log will be included in the response if it matches all the requests. An empty array matches no logs; omit all requests to match all logs. See [EVM logs](/sdk/reference/processors/evm-batch/logs) for a detailed description of data request fields.
+A log will be included in the response if it matches all the requests. A request with an empty array (e.g. `{ address: [] }`) matches no logs; omit all requests/pass an empty object to match all logs.
+
+See [`addLog()` SDK function reference](/sdk/reference/processors/evm-batch/logs) for a detailed description of the fields of this data request; also see [Field selection](/sdk/reference/processors/evm-batch/field-selection).
+
+<details>
+
+<summary>
+
+Get all `Transfer(address,address,uint256)` event logs emitted by the [USDC contract](https://etherscan.io/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48) on blocks starting at 16_000_000, plus their parent transactions. Get `topics` and `data` for each log item and `hash` for each transaction.
+
+</summary>
+
+```json
+{
+  "logs": [
+    {
+      "address": ["0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"],
+      "topic0": [
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+      ],
+      "transaction": true
+    }
+  ],
+  "fields": {
+    "transaction": {
+      "hash": true
+    },
+    "log": {
+      "topics": true,
+      "data": true
+    }
+  },
+  "fromBlock": 16000000
+}  
+```
+
+</details>
+
+<details>
+
+<summary>
+
+Get all event logs network-wide on blocks starting from block 0. Get topics for each log.
+
+</summary>
+
+```json
+{
+  "logs": [{}],
+  "fields": {
+    "log": {
+      "topics": true
+    }
+  },
+  "fromBlock": 0
+}  
+```
+
+</details>
 
 ### Transactions
 
@@ -423,7 +561,63 @@ A log will be included in the response if it matches all the requests. An empty 
 }
 ```
 
-A transaction will be included in the response if it matches all the requests. An empty array matches no transactions; omit all requests to match all transactions. See [EVM transactions](/sdk/reference/processors/evm-batch/transactions) for a detailed description of data request fields.
+A transaction will be included in the response if it matches all the requests. A request with an empty array (e.g. `{ from: [] }`) matches no transactions; omit all requests/pass an empty object to match all transactions.
+
+See [`addTransaction()` SDK function reference](/sdk/reference/processors/evm-batch/transactions) for a detailed description of the fields of this data request; also see [Field selection](/sdk/reference/processors/evm-batch/field-selection).
+
+<details>
+
+<summary>
+
+Get all transactions directly calling the `transfer(address,uint256)` method of the [USDC contract](https://etherscan.io/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48) on blocks starting at 16_000_000, plus the logs they emitted. Get `hash` and `gas` for each transaction and `data` for all logs.
+
+</summary>
+
+```json
+{
+  "transactions": [
+    {
+      "to": ["0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"],
+      "sighash": ["0xa9059cbb"],
+      "logs": true
+    }
+  ],
+  "fields": {
+    "transaction": {
+      "hash": true,
+      "gas": true
+    },
+    "log": {
+      "data": true
+    }
+  },
+  "fromBlock": 16000000
+}  
+```
+
+</details>
+
+<details>
+
+<summary>
+
+Get all transactions on the network starting from 0. Get hash for each transaction.
+
+</summary>
+
+```json
+{
+  "transactions": [{}],
+  "fields": {
+    "transaction": {
+      "hash": true
+    }
+  },
+  "fromBlock": 0
+}  
+```
+
+</details>
 
 ### Traces
 
@@ -437,11 +631,15 @@ A transaction will be included in the response if it matches all the requests. A
   suicideRefundAddress: string[],
   rewardAuthor: string[]
   transaction: boolean,
-  subtraces: boolean
+  transactionLogs: boolean,
+  subtraces: boolean,
+  parents: boolean
 }
 ```
 
-A trace will be included in the response if it matches all the requests. An empty array matches no traces; omit all requests to match all traces. See [Traces](/sdk/reference/processors/evm-batch/traces) for a detailed description of data request fields.
+A trace will be included in the response if it matches all the requests. A request with an empty array (e.g. `{ callTo: [] }`) matches no traces; omit all requests/pass an empty object to match all traces.
+
+See [`addTrace()` SDK function reference](/sdk/reference/processors/evm-batch/traces) for a detailed description of the fields of this data request; also see [Field selection](/sdk/reference/processors/evm-batch/field-selection).
 
 ### State diffs
 
@@ -454,8 +652,10 @@ A trace will be included in the response if it matches all the requests. An empt
 }
 ```
 
-A state diff will be included in the response if it matches all the requests. An empty array matches no state diffs; omit all requests to match all state diffs. See [Storage state diffs](/sdk/reference/processors/evm-batch/state-diffs) for a detailed description of data request fields.
+A state diff will be included in the response if it matches all the requests. A request with an empty array (e.g. `{ address: [] }`) matches no state diffs; omit all requests/pass an empty object to match all state diffs.
+
+See [`addStateDiff()` SDK function reference](/sdk/reference/processors/evm-batch/traces) for a detailed description of the fields of this data request; also see [Field selection](/sdk/reference/processors/evm-batch/field-selection).
 
 ## Data fields selector
 
-A JSON selector of fields for the returned data items. Documented in the [Field selectors](/sdk/reference/processors/evm-batch/field-selection/#field-selectors) section.
+A JSON selector of fields for the returned data items. Documented in the [Field selection](/sdk/reference/processors/evm-batch/field-selection) section.

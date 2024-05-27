@@ -6,6 +6,8 @@ description: Built-in RPC endpoints
 
 # RPC proxy service
 
+[List of available networks](/cloud/reference/rpc-proxy-networks) and their aliases is available on the reference page.
+
 Subsquid Cloud provides a built-in RPC proxy service. The service is available to all squids deployed to the Cloud, although [playground](/cloud/resources/organizations/#playgrounds) squids only have access to a limited number of calls.
 
 [Professional organizations](/cloud/resources/organizations/#professional-organizations) do not have that limitation and [can access](#external-access) their RPC proxy endpoints from outside of the Cloud.
@@ -17,7 +19,6 @@ deploy:
     rpc:
       - eth-goerli:http
 ```
-See the [reference page](/cloud/reference/rpc-proxy-networks) for a list of available networks and their aliases (`eth-goerli:http` in this example).
 
 ## Processor configuration
 

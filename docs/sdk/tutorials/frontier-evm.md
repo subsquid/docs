@@ -86,7 +86,7 @@ The (re)generated entity classes can then be browsed at `src/model/generated`.
 
 ## ABI Definition and Wrapper
 
-Subsquid maintains [tools[(/sdk/reference/typegen/state-queries) for automated generation of TypeScript classes for handling EVM logs and transactions based on a [JSON ABI](https://docs.ethers.io/v5/api/utils/abi/) of the contract.
+Subsquid maintains [tools](/sdk/resources/tools/typegen/state-queries/?typegen=evm) for automated generation of TypeScript classes for handling EVM logs and transactions based on a [JSON ABI](https://docs.ethers.io/v5/api/utils/abi/) of the contract.
 
 For our squid we will need such a module for the [ERC-721](https://eips.ethereum.org/EIPS/eip-721)-compliant part of the contracts' interfaces. Once again, the template repository already includes it, but it is still important to explain what needs to be done in case one wants to index a different type of contract.
 
@@ -187,7 +187,7 @@ export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 ```
 
 :::warning
-This code expects to find an URL of a working Astar RPC endpoint in the `RPC_ENDPOINT` environment variable. Set it in the `.env` file and in [Subsquid Cloud secrets](/cloud/resources/env-variables) if and when you deploy your squid there. We tested the code using a public endpoint available at `wss://astar.public.blastapi.io`; for production, we recommend using private endpoints or our [RPC proxy](/cloud/reference/rpc-proxy) service.
+This code expects to find an URL of a working Astar RPC endpoint in the `RPC_ENDPOINT` environment variable. Set it in the `.env` file and in [Subsquid Cloud secrets](/cloud/resources/env-variables) if and when you deploy your squid there. We tested the code using a public endpoint available at `wss://astar.public.blastapi.io`; for production, we recommend using private endpoints or our [RPC proxy](/cloud/resources/rpc-proxy) service.
 :::
 
 ## Define the batch handler

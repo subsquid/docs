@@ -23,7 +23,7 @@ The resulting code can be found at [this commit](https://github.com/subsquid-lab
 
 ## Interfacing with the contract ABI
 
-First, we inspect which data is available for indexing. For EVM contracts, the metadata descrbing the shape of the smart contract logs, transactions and contract state methods is distributed as an [Application Binary Interface](https://docs.soliditylang.org/en/latest/abi-spec.html) (ABI) JSON file. For many popular contracts ABI files are published on Etherscan (as in the case of the BAYC NFT contract). Subsquid provides a [tool[(/sdk/reference/typegen/state-queries) for retrieving contract ABIs from Etherscan-like APIs and generating the boilerplate for retrieving and decoding the data. For the contract of interest, this can be done with
+First, we inspect which data is available for indexing. For EVM contracts, the metadata descrbing the shape of the smart contract logs, transactions and contract state methods is distributed as an [Application Binary Interface](https://docs.soliditylang.org/en/latest/abi-spec.html) (ABI) JSON file. For many popular contracts ABI files are published on Etherscan (as in the case of the BAYC NFT contract). Subsquid provides a [tool](/sdk/resources/tools/typegen/state-queries/?typegen=evm) for retrieving contract ABIs from Etherscan-like APIs and generating the boilerplate for retrieving and decoding the data. For the contract of interest, this can be done with
 ```bash
 npx squid-evm-typegen src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#bayc
 ```
@@ -73,7 +73,7 @@ export const processor = new EvmBatchProcessor()
 
 Here,
 * `'https://v2.archive.subsquid.io/network/ethereum-mainnet'` is the URL the public Subsquid Network gateway for Ethereum mainnet. Check out [Subsquid Network reference pages](/subsquid-network/reference) for lists of public gateways for all supported networks.
-* `'<eth_rpc_endpoint_url>'` is a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within Subsquid Network. Please use a private endpoint or Subsquid Cloud's [RPC proxy service](/cloud/reference/rpc-proxy) in production.
+* `'<eth_rpc_endpoint_url>'` is a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within Subsquid Network. Please use a private endpoint or Subsquid Cloud's [RPC proxy service](/cloud/resources/rpc-proxy) in production.
 * `setFinalityConfirmation(75)` call instructs the processor to consider blocks final after 75 confirmations when ingesting data from an RPC endpoint.
 * `12_287_507` is the block at which the BAYC token contract was deployed. Can be found on the [contract's Etherscan page](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).
 * The argument of [`addLog()`](/sdk/reference/processors/evm-batch/logs) is a set of filters that tells the processor to retrieve all event logs emitted by the BAYC contract with topic0 matching the hash of the full signature of the `Transfer` event. The hash is taken from the previously generated Typescript ABI.
@@ -83,7 +83,7 @@ See [configuration](/sdk/reference/processors/evm-batch) for more options.
 
 ## Decoding the event data
 
-The other part of processor configuration is the callback function used to process batches of the filtered data, the [batch handler](/sdk/overview/#processorrun). It is typically defined at the `processor.run()` call at `src/main.ts`, like this:
+The other part of processor configuration is the callback function used to process batches of the filtered data, the [batch handler](/sdk/reference/processors/architecture/#processorrun). It is typically defined at the `processor.run()` call at `src/main.ts`, like this:
 ```typescript
 processor.run(db, async (ctx) => {
     // data transformation and persistence code here
@@ -91,7 +91,7 @@ processor.run(db, async (ctx) => {
 ```
 Here,
 * `db` is a [`Database` implementation](/sdk/resources/persisting-data/overview/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm/) object here.
-* `ctx` is a [batch context](/sdk/overview/#batch-context) object that exposes a batch of data retrieved from Subsquid Network or a RPC endpoint (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
+* `ctx` is a [batch context](/sdk/reference/processors/architecture/#batch-context) object that exposes a batch of data retrieved from Subsquid Network or a RPC endpoint (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
 
 Batch handler is where the raw on-chain data is decoded, transformed and persisted. This is the part we'll be concerned with for the rest of the tutorial.
 

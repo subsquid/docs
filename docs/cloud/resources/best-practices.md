@@ -8,7 +8,7 @@ description: Checklist for going to production
 
 Here is a list of items to check out before you deploy your squid for use in production:
 
-* Make sure that you use [batch processing](/sdk/resources/basics/batch-processing) throughout your code.
+* Make sure that you use [batch processing](/sdk/resources/basics/batch-processing) throughout your code. Consider using [`@belopash/typeorm-store`](/external-tools/#belopashtypeorm-store) for large projects with extensive [entity relations](/sdk/reference/schema-file/entity-relations) and frequent [database reads](/sdk/reference/store/typeorm/#typeorm-methods).
 
 * Filter your data in the batch handler. E.g. if you [request event logs](/sdk/reference/processors/evm-batch/logs) from a particular contract, do check that the `address` field of the returned data items matches the contract address before processing the data. This will make sure that any future changes in your processor configuration will not cause the newly added data to be routed to your old processing code by mistake.
 

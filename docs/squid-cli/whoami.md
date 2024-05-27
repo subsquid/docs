@@ -3,7 +3,7 @@
 
 Return user and context
 
-* [`sqd whoami`](#sqd-whoami)
+* [`sqd whoami`](#sqd-whoami-1)
 
 ## `sqd whoami`
 

@@ -6,7 +6,7 @@ description: >-
 
 # Block data for Fuel Network
 
-In Fuel Squid SDK, the data is processed by repeatedly calling the user-defined [batch handler](/sdk/overview/#processorrun) function on batches of on-chain data. The sole argument of the batch handler is its context `ctx`, and `ctx.blocks` is an array of `Block` objects containing the data to be processed, aligned at the block level.
+In Fuel Squid SDK, the data is processed by repeatedly calling the user-defined [batch handler](/sdk/reference/processors/architecture/#processorrun) function on batches of on-chain data. The sole argument of the batch handler is its context `ctx`, and `ctx.blocks` is an array of `Block` objects containing the data to be processed, aligned at the block level.
 
 For Fuel `DataSource` the `Block` interface is defined as follows:
 
@@ -20,14 +20,9 @@ export interface Block {
 }
 ```
 
-`Block.header` contains the block header data. The rest of the fields are iterables containing the six kinds of blockchain data. Canonical ordering within each iterable depends on the data kind:
+`Block.header` contains the block header data. The rest of the fields are iterables containing the four kinds of blockchain data. The items within each iterable are ordered in the same way as they are within blocks.
 
-- `transactions` are ordered in the same way as they are within blocks;
-- `inputs` are ordered in the same way as they are within blocks;
-- `outputs` are ordered in the same way as they are within blocks.
-- `receipts` are ordered in the same way as they are within blocks.
-
-The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [field selection](/fuel-indexing/sdk/fuel-batch/field-selection) page:
+The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [field selection](/fuel-indexing/fuel-datasource/field-selection) page:
 
 - [`Input` section](/fuel-indexing/fuel-datasource/field-selection#input);
 - [`Transaction` section](/fuel-indexing/fuel-datasource/field-selection#transaction);

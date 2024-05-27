@@ -374,7 +374,7 @@ In templates, the batch handler is defined at the [`processor.run()`](/sdk/refer
 - at `ctx.store`: the means to save the processed data
 - at `ctx.log`: a [`Logger`](/sdk/reference/logger/)
 - at `ctx.isHead`: a boolean indicating whether the batch is at the current chain head
-- at `ctx._chain`: the means to access RPC for [state calls](#extras-state-calls)
+- at `ctx._chain`: the means to access RPC for [state calls](#external-data)
 
 This structure ([reference](/sdk/reference/processors/architecture/#batch-context)) is common for all processors; the structure of `ctx.blocks` items varies.
 

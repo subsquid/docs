@@ -6,7 +6,7 @@ description: >-
 
 # Block data for Substrate
 
-`SubstrateBatchProcessor` follows the common [squid processor architecture](/sdk/overview), in which data processing happens within the [batch handler](/sdk/overview/#processorrun), a function repeatedly called on batches of on-chain data. The function takes a single argument called "batch context". Its structure follows the [common batch context layout](/sdk/overview/#batch-context), with `ctx.blocks` being an array of `Block` objects containing the data to be processed, aligned at the block level.
+`SubstrateBatchProcessor` follows the common [squid processor architecture](/sdk/overview), in which data processing happens within the [batch handler](/sdk/reference/processors/architecture/#processorrun), a function repeatedly called on batches of on-chain data. The function takes a single argument called "batch context". Its structure follows the [common batch context layout](/sdk/reference/processors/architecture/#batch-context), with `ctx.blocks` being an array of `Block` objects containing the data to be processed, aligned at the block level.
 
 For `SubstrateBatchProcessor` the `Block` interface is defined as follows:
 ```ts

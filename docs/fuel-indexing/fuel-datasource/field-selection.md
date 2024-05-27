@@ -12,25 +12,24 @@ Set the fields to be retrieved for data items of each supported type. The `optio
 
 ```ts
 {
-
-  block?:        // field selector for block headers
+  block?:       // field selector for block headers
   transaction?: // field selector for transactions
-  receipt?: // field selector for receipts
-  input?: // field selector for inputs
-  output?: // field selector for output
+  receipt?:     // field selector for receipts
+  input?:       // field selector for inputs
+  output?:      // field selector for output
 }
 ```
 
-Every field selector is a collection of boolean fields, typically mapping one-to-one to the fields of data items within the batch context [iterables](/fuel-indexing/sdk/fuel-datasource/context-interfaces). Defining a field of a field selector of a given type and setting it to true will cause the processor to populate the corresponding field of all data items of that type. Here is a definition of a processor that requests `receipts` and `inputs` fields for transactions and the `transaction` field for receipt:
+Every field selector is a collection of boolean fields, typically mapping one-to-one to the fields of data items within the batch context [iterables](/fuel-indexing/fuel-datasource/context-interfaces). Defining a field of a field selector of a given type and setting it to true will cause the processor to populate the corresponding field of all data items of that type. Here is a definition of a processor that requests `hash` and `status` fields for transactions and the `contract` field for receipts:
 
 ```ts
 const dataSource = new DataSourceBuilder().setFields({
   transaction: {
-    receipts: true,
-    inputs: true,
+    hash: true,
+    status: true,
   },
   receipt: {
-    transaction: true,
+    contract: true,
   },
 });
 ```
@@ -40,25 +39,19 @@ Same fields will be available for all data items of any given type, including th
 ```ts
 dataSource
   .addTransaction({
-
     // some transaction data requests
-    ,
+
     include: {
       receipt: true,
     },
   })
   .addReceipt({
-
-    // some transaction data requests
-    ,
-    include: {
-      transaction: true,
-    },
+    // some receipt data requests
   })
   .build();
 ```
 
-After populating the convenience reference fields with `augmentBlock()` from `@subsquid/fuel-objects`, `receipt` fields would be available both within the receipt items of the `receipts` iterable of [block data](/fuel-indexing/sdk/fuel-datasource/context-interfaces) and within the receipt items that provide parent receipt information for the transactions matching the `addTransaction()` data request:
+After populating the convenience reference fields with `augmentBlock()` from `@subsquid/fuel-objects`, `receipt` fields would be available both within the receipt items of the `receipts` iterable of [block data](/fuel-indexing/fuel-datasource/context-interfaces) and within the receipt items that provide parent receipt information for the transactions matching the `addTransaction()` data request:
 
 ```ts
 run(dataSource, database, async (ctx) => {
@@ -68,7 +61,7 @@ run(dataSource, database, async (ctx) => {
       let parentReceipt = txn.receipt; // OK
     }
     for (let rec of block.receipts) {
-      if (/* ins matches the data request */) {
+      if (/* rec matches the data request */) {
         let receipt = rec; // also OK!
       }
     }
@@ -96,7 +89,7 @@ run(dataSource, database, async (ctx) => {
 });
 ```
 
-Disabling unused fields will improve sync performance, as the disabled fields will not be fetched from the Subsquid Network gateway.
+Disabling unused fields will improve sync performance, as the fields' data will not be fetched from the Subsquid Network gateway.
 
 ## Data item types and field selectors
 
@@ -112,7 +105,7 @@ Here we describe the data item types as functions of the field selectors. Unless
 
 ### Transaction
 
-`Instruction` data items may have the following fields:
+`Transaction` data items may have the following fields:
 
 ```ts
 Transaction {
@@ -120,43 +113,44 @@ Transaction {
   index: number
 
   // can be disabled with field selectors
-  hash: Bytes
+  hash: string
+  type: TransactionType
+  status: Status
+
   // can be enabled with field selectors
-  inputAssetIds?: Bytes[]
-    inputContracts?: Bytes[]
-    inputContract?: {
-        utxoId: Bytes
-        balanceRoot: Bytes
-        stateRoot: Bytes
-        txPointer: string
-        contract: Bytes
-    }
-    policies?: Policies
-    gasPrice?: bigint
-    scriptGasLimit?: bigint
-    maturity?: number
-    mintAmount?: bigint
-    mintAssetId?: Bytes
-    txPointer?: string
-    isScript: boolean
-    isCreate: boolean
-    isMint: boolean
-    type: TransactionType
-    outputContract?: {
-        inputIndex: number
-        balanceRoot: Bytes
-        stateRoot: Bytes
-    }
-    witnesses?: Bytes[]
-    receiptsRoot?: Bytes
-    status: Status
-    script?: Bytes
-    scriptData?: Bytes
-    bytecodeWitnessIndex?: number
-    bytecodeLength?: bigint
-    salt?: Bytes
-    storageSlots?: Bytes[]
-    rawPayload?: Bytes
+  inputAssetIds?: string[]
+  inputContracts?: string[]
+  inputContract?: {
+    utxoId: string
+    balanceRoot: string
+    stateRoot: string
+    txPointer: string
+    contract: string
+  }
+  policies?: Policies
+  gasPrice?: bigint
+  scriptGasLimit?: bigint
+  maturity?: number
+  mintAmount?: bigint
+  mintAssetId?: string
+  txPointer?: string
+  isScript: boolean
+  isCreate: boolean
+  isMint: boolean
+  outputContract?: {
+    inputIndex: number
+    balanceRoot: string
+    stateRoot: string
+  }
+  witnesses?: string[]
+  receiptsRoot?: string
+  script?: string
+  scriptData?: string
+  bytecodeWitnessIndex?: number
+  bytecodeLength?: bigint
+  salt?: string
+  storageSlots?: string[]
+  rawPayload?: string
 }
 ```
 
@@ -183,19 +177,19 @@ Receipt {
   // can be disabled with field selectors
   transactionIndex: number
   // can be requested with field selectors
-  contract?: Bytes
+  contract?: string
     pc?: bigint
     is?: bigint
-    to?: Bytes
-    toAddress?: Bytes
+    to?: string
+    toAddress?: string
     amount?: bigint
-    assetId?: Bytes
+    assetId?: string
     gas?: bigint
     param1?: bigint
     param2?: bigint
     val?: bigint
     ptr?: bigint
-    digest?: Bytes
+    digest?: string
     reason?: bigint
     ra?: bigint
     rb?: bigint
@@ -205,12 +199,12 @@ Receipt {
     receiptType: ReceiptType
     result?: bigint
     gasUsed?: bigint
-    data?: Bytes
-    sender?: Bytes
-    recipient?: Bytes
-    nonce?: Bytes
-    contractId?: Bytes
-    subId?: Bytes
+    data?: string
+    sender?: string
+    recipient?: string
+    nonce?: string
+    contractId?: string
+    subId?: string
 }
 ```
 
@@ -244,16 +238,16 @@ export interface InputCoin {
   type: "InputCoin";
   index: number;
   transactionIndex: number;
-  utxoId: Bytes;
-  owner: Bytes;
+  utxoId: string;
+  owner: string;
   amount: bigint;
-  assetId: Bytes;
+  assetId: string;
   txPointer: string;
   witnessIndex: number;
   maturity: number;
   predicateGasUsed: bigint;
-  predicate: Bytes;
-  predicateData: Bytes;
+  predicate: string;
+  predicateData: string;
 }
 ```
 
@@ -264,11 +258,11 @@ export interface InputContract {
   type: "InputContract";
   index: number;
   transactionIndex: number;
-  utxoId: Bytes;
-  balanceRoot: Bytes;
-  stateRoot: Bytes;
+  utxoId: string;
+  balanceRoot: string;
+  stateRoot: string;
   txPointer: string;
-  contract: Bytes;
+  contract: string;
 }
 ```
 
@@ -279,15 +273,15 @@ InputMessage {
   type: "InputMessage";
   index: number;
   transactionIndex: number;
-  sender: Bytes;
-  recipient: Bytes;
+  sender: string;
+  recipient: string;
   amount: bigint;
-  nonce: Bytes;
+  nonce: string;
   witnessIndex: number;
   predicateGasUsed: bigint;
-  data: Bytes;
-  predicate: Bytes;
-  predicateData: Bytes;
+  data: string;
+  predicate: string;
+  predicateData: string;
 }
 ```
 
@@ -312,9 +306,9 @@ CoinOutput {
     type: 'CoinOutput'
     index: number
     transactionIndex: number
-    to: Bytes
+    to: string
     amount: bigint
-    assetId: Bytes
+    assetId: string
 }
 ```
 
@@ -326,8 +320,8 @@ ContractOutput {
   index: number;
   transactionIndex: number;
   inputIndex: number;
-  balanceRoot: Bytes;
-  stateRoot: Bytes;
+  balanceRoot: string;
+  stateRoot: string;
 }
 ```
 
@@ -338,9 +332,9 @@ ChangeOutput {
     type: 'ChangeOutput'
     index: number
     transactionIndex: number
-    to: Bytes
+    to: string
     amount: bigint
-    assetId: Bytes
+    assetId: string
 }
 
 ```
@@ -352,9 +346,9 @@ VariableOutput {
     type: 'VariableOutput'
     index: number
     transactionIndex: number
-    to: Bytes
+    to: string
     amount: bigint
-    assetId: Bytes
+    assetId: string
 }
 ```
 

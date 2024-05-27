@@ -10,13 +10,23 @@ description: Access the Starknet data
 The Starknet API of Subsquid Network is currently in beta. Breaking changes may be introduced in the future releases.
 :::
 
-Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. The main gateway URL now points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
+Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. The main gateway URL points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks on each dataset it serves.
 
-1. Retrieve the dataset height from the router with `GET /height`.
-2. Query the router for an URL of a worker that has the data for the first block of the relevant range with `GET /${firstBlock}/worker`.
-3. Retrieve the data from the worker with `POST /`, making sure to set the `"fromBlock"` query field to `${firstBlock}`.
-4. Exclude the received blocks from the relevant range by setting `firstBlock` to the value of `header.number` of the last received block plus one.
-5. Repeat steps 2-4 until all the required data is retrieved.
+Suppose you want to retrieve an output of some [query](#worker-api) on a block range starting at `firstBlock` (can be the genesis block) and ending at the highest available block. Proceed as follows:
+
+1. Retrieve the dataset height from the router with `GET /height` and make sure it's above `firstBlock`.
+
+2. Save the value of `firstBlock` to some variable, say `currentBlock`.
+
+3. Query the router for an URL of a worker that has the data for `currentBlock` with `GET /${currentBlock}/worker`.
+
+4. Retrieve the data from the worker by [posting the query](#worker-api) (`POST /`), setting the `"fromBlock"` query field to `${currentBlock}`.
+
+5. Parse the retrieved data to get a batch of query data **plus** the height of the last block available from the current worker. Take the `header.number` field of the last element of the retrieved JSON array - it is the height you want. Even if your query returns no data, you'll still get the block data for the last block in the range, so this procedure is safe.
+
+6. Set `currentBlock` to the height from the previous step **plus one**.
+
+7. Repeat steps 3-6 until all the required data is retrieved.
 
 The main URL of the Starknet gateway is
 ```
@@ -44,7 +54,9 @@ Suppose we want data on all txs sent by `Layerswap`/`0x19252b1deef483477c4d30cfc
    632494
    ```
 
-2. Get a worker URL
+2. Remember that your current height is 600000.
+
+3. Get a worker URL for the current height:
    ```bash
    curl https://v2.archive.subsquid.io/network/starknet-mainnet/600000/worker
    ```
@@ -53,7 +65,7 @@ Suppose we want data on all txs sent by `Layerswap`/`0x19252b1deef483477c4d30cfc
    https://rb03.sqd-archive.net/worker/query/czM6Ly9zdGFya25ldC1tYWlubmV0
    ```
 
-3. Retrieve the data from the worker
+4. Retrieve the data from the current worker
    ```bash
    curl https://rb03.sqd-archive.net/worker/query/czM6Ly9zdGFya25ldC1tYWlubmV0 \
    -X 'POST' -H 'content-type: application/json' -H 'accept: application/json' \
@@ -99,31 +111,14 @@ Suppose we want data on all txs sent by `Layerswap`/`0x19252b1deef483477c4d30cfc
    ]
    ```
 
-4. Observe that we received the transactions up to and including block 617979. To get the rest of the data, we find a worker who has blocks from 617980 on:
-   ```bash
-   curl https://v2.archive.subsquid.io/network/starknet-mainnet/617980/worker
-   ```
-   Output:
-   ```
-   https://lm04.sqd-archive.net/worker/query/czM6Ly9zdGFya25ldC1tYWlubmV0
-   ```
-   We can see that this part of the dataset is located on another host.
+5. Parse the retrieved data:
+   - Grab the network data you requested from the list items with non-empty data fields (`transactions`, `events`). For the example above, this data will include the txn `0x6a88...`.
+   - Observe that we received the data up to and including block 617979.
 
-5. Retrieve the data from the new worker
-   ```bash
-   curl https://lm04.sqd-archive.net/worker/query/czM6Ly9zdGFya25ldC1tYWlubmV0 \
-   -X 'POST' -H 'content-type: application/json' -H 'accept: application/json' \
-   -d '{
-       "type": "starknet",
-       "fromBlock":617980,
-       "toBlock":632494,
-       "fields":{"transaction":{"transactionHash":true}},
-       "transactions":[{"senderAddress":["0x19252b1deef483477c4d30cfcc3e5ed9c82fafea44669c182a45a01b4fdb97a"]}]
-   }' | jq
-   ```
-   Output is similar to that of step 3.
+6. To get the rest of the data, update the current height to 617980 and go to step 3.
+   - Note how the worker URL you're getting while repeating step 3 points to a different host than before. This is how data storage and reads are distributed across the Subsquid Network.
 
-6. Repeat steps 4 and 5 until the dataset height of 632494 reached.
+7. Repeat steps 3 through 6 until the dataset height of 632494 is reached.
 
 </details>
 
@@ -182,7 +177,7 @@ Full code [here](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a
 
 <summary><code>GET</code> <code><b>$&#123;firstBlock&#125;/worker</b></code> <code>(get a suitable worker URL)</code></summary>
 
-The returned worker will be capable of processing `POST /` requests in which the `"fromBlock"` field is equal to `${firstBlock}`.
+The returned worker is capable of processing `POST /` requests in which the `"fromBlock"` field is equal to `${firstBlock}`.
 
 **Example response:** `https://rb06.sqd-archive.net/worker/query/czM6Ly9zdGFya25ldC1tYWlubmV0`.
 
@@ -192,17 +187,23 @@ The returned worker will be capable of processing `POST /` requests in which the
 
 <details>
 
-<summary><code>POST</code> <code><b>/</b></code> <code>(query logs and transactions)</code></summary>
+<summary><code>POST</code> <code><b>/</b></code> <code>(query transactions and events)</code></summary>
 
 ##### Query Fields
 
-- **type**: `starknet`.
+- **type**: `"starknet"`.
 - **fromBlock**: Block number to start from (inclusive).
 - **toBlock**: (optional) Block number to end on (inclusive). If this is not given, the query will go on for a fixed amount of time or until it reaches the height of the dataset.
 - **includeAllBlocks**: (optional) If true, the Network will include blocks that contain no data selected by data requests into its response.
 - **fields**: (optional) A [selector](#data-fields-selector) of data fields to retrieve. Common for all data items.
 - **transactions**: (optional) A list of [transaction requests](#transactions). An empty list requests no data.
 - **events**: (optional) A list of [event requests](#events). An empty list requests no data.
+
+The response is a JSON array of per-block data items that covers a block range starting from `fromBlock`. The last block of the range is determined by the worker. You can find it by looking at the `header.number` field of the last element in the response array.
+
+The first and the last block in the range are returned even if all data requests return no data for the range.
+
+In most cases the returned range will not contain all the range requested by the user (i.e. the last block of the range will not be `toBlock`). To continue, [retrieve a new worker URL](#router-api) for blocks starting at the end of the current range *plus one block* and repeat the query with an updated value of `fromBlock`.
 
 <details>
 
@@ -357,7 +358,7 @@ A transaction will be included in the response if it matches all the requests. A
 
 All events emitted by the selected transactions will be included into the response if `events` is set to `true`.
 
-See [Data field selector](#data-field-selector) for info on field selection.
+See [Data fields selector](#data-fields-selector) for info on field selection.
 
 ### Events
 
@@ -375,7 +376,7 @@ An event will be included in the response if it matches all the requests. An emp
 
 If `transaction` is set to `true`, all parent transactions will be included into the response.
 
-See [Data field selector](#data-field-selector) for info on field selection.
+See [Data fields selector](#data-fields-selector) for info on field selection.
 
 ## Data fields selector
 

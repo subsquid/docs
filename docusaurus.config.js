@@ -42,14 +42,6 @@ const config = {
             current: {
               label: 'Current',
               path: '/'
-            },
-            arrowsquidV0: {
-              label: 'Old ArrowSquid docs',
-              path: '/arrowsquid-docs-v0'
-            },
-            firesquid: {
-              label: 'FireSquid',
-              path: '/firesquid'
             }
           },
           sidebarPath: require.resolve('./sidebars.js'),

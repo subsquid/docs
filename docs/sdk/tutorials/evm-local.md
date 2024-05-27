@@ -35,7 +35,7 @@ npm i @subsquid/evm-processor@next @subsquid/typeorm-store@next
 
 Next, we set up a local EVM development environment. We consider two common options: [Hardhat](#hardhat) and [Ganache](#ganache).
 
-## If you chose Hardhat
+## If you chose Hardhat {#hardhat}
 
 [Install the package](https://hardhat.org/hardhat-runner/docs/getting-started#installation).
 
@@ -111,7 +111,7 @@ Lock with 1 ETH and unlock timestamp 1704810454 deployed to 0x5FbDB2315678afecb3
 ```
 Take note of the contract address, **you'll need it later**.
 
-## If you chose Ganache
+## If you chose Ganache {#ganache}
 
 Install [Truffle](https://trufflesuite.com/docs/truffle/how-to/install/) and [Ganache](https://trufflesuite.com/docs/ganache/quickstart/#1-install-ganache) packages.
 
@@ -226,7 +226,7 @@ node -r dotenv/config lib/main.js
 ```
 You should see the data of one (for Hardhat) or two (for Truffle+Ganache) contract deployment transactions printed to your terminal.
 
-Now you can develop a Subsquid-based indexer alongside your contracts. Head over to the [dedicated tutorial](/sdk/tutorials/bayc) for guidance on squid development. Use the **contract's ABI** ([here](#3-sample-contract) or [here](#1-truffle-project-sample-contract)) and contract **address** ([here](#5-deploy-the-contract) and [here](#3-deploy-smart-contract)) from previous steps and be mindful that the data source of the processor class needs to be set to the local node RPC endpoint, as in the example above:
+Now you can develop a Subsquid-based indexer alongside your contracts. Head over to the [dedicated tutorial](/sdk/tutorials/bayc) for guidance on squid development. Use the **contract's ABI** ([here](#3-sample-contract) or [here](#1-truffle-project-sample-contract)) and contract **address** ([here](#5-deploy-the-contract) and [here](#3-deploy-a-smart-contract)) from previous steps and be mindful that the data source of the processor class needs to be set to the local node RPC endpoint, as in the example above:
 
 ```typescript
 // ...

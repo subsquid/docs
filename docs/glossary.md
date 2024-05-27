@@ -6,7 +6,7 @@ sidebar_position: 120
 
 ### Archives
 
-Deprecated term used for [Subsquid Network](/subsquid-network) and for the [data sourcing service](/firesquid/archives) of the deprecated FireSquid SDK version. Occasionally refers to a chain-specific endpoint available from either source (e.g. "an Ethereum archive"). The new terminology is:
+Deprecated term used for [Subsquid Network](/subsquid-network) and for the data sourcing service of the deprecated FireSquid SDK version. Occasionally refers to a chain-specific endpoint available from either source (e.g. "an Ethereum archive"). The new terminology is:
 
  - "Archives" as an abstract collection of services for some networks is replaced by "[Subsquid Network](/subsquid-network)" (when referring to data location) or "Subsquid Network gateway" (when referring to the service)
  - "public Archives" are replaced by the [open private version](/subsquid-network/overview/#open-private-network) of Subsquid Network

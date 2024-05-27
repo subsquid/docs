@@ -14,11 +14,11 @@ Get some _or all_ inputs on the network. `options` has the following structure:
 {
   // data requests
     type?: InputType[]
-    coinOwner?: Bytes[]
-    coinAssetId?: Bytes[]
-    contractContract?: Bytes[]
-    messageSender?: Bytes[]
-    messageRecipient?: Bytes[]
+    coinOwner?: string[]
+    coinAssetId?: string[]
+    contractContract?: string[]
+    messageSender?: string[]
+    messageRecipient?: string[]
   // related data retrieval
   include?: {
     transaction?: boolean
@@ -33,9 +33,9 @@ Get some _or all_ inputs on the network. `options` has the following structure:
 Data requests:
 TODO Links
 
-- `type` sets the type of the receipt. Receipt type has the following options: `'InputCoin' | 'InputContract' | 'InputMessage'`. Leave it undefined to subscribe to all inputs.
+- `type` sets the type of the input. Receipt type has the following options: `'InputCoin' | 'InputContract' | 'InputMessage'`. Leave it undefined to subscribe to all inputs.
 
-Enabling the `transaction` flag will cause the processor to retrieve [transactions](/fuel-indexing/fuel-datasource/transactions),[inputs](//fuel-indexing/fuel-datasource/inputs) that occured as a result of each selected receipt. The data will be added to the appropriate iterables within the [block data](/fuel-indexing/fuel-datasource/context-interfaces). You can also call `augmentBlock()` from `@subsquid/fuel-objects` on the block data to populate the convenience reference fields like `receipt.transaction`.
+Enabling the `transaction` flag will cause the processor to retrieve transactions where the selected inputs have occurred. The data will be added to the appropriate iterables within the [block data](/fuel-indexing/fuel-datasource/context-interfaces). You can also call `augmentBlock()` from `@subsquid/fuel-objects` on the block data to populate the convenience reference fields like `input.transaction`.
 
 Note that inputs can also be requested by the other `FuelDataSource` methods as related data.
 
@@ -43,7 +43,7 @@ Selection of the exact fields to be retrieved for each transaction and the optio
 
 ## Examples
 
-Request all inputs with `InputCoin` type and include transaction:
+Request all inputs with `InputCoin` type and include transactions:
 
 ```ts
 processor

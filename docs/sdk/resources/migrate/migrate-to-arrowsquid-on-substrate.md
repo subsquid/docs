@@ -48,7 +48,7 @@ Replace the old `setDataSource()` processor configuration call with a combinatio
 +    rateLimit: 10
 +  })
 ```
-We recommend using a private RPC endpoint for the best performance, e.g. from [Dwellir](https://www.dwellir.com). For squids deployed to [Subsquid Cloud](/cloud/overview) you may also consider using our [RPC proxies](/cloud/reference/rpc-proxy).
+We recommend using a private RPC endpoint for the best performance, e.g. from [Dwellir](https://www.dwellir.com). For squids deployed to [Subsquid Cloud](/cloud/overview) you may also consider using our [RPC proxies](/cloud/resources/rpc-proxy).
 
 Your squid will work with just an RPC endpoint, but it will sync significantly slower. With a Subsquid Network gateway available the processor will only use RPC to retrieve metadata **and** sync the few most recent blocks not yet made available by the gateway; without it it will retrieve all data from the endpoint.
 
@@ -221,7 +221,7 @@ const processor = new SubstrateBatchProcessor()
 
 ## Step 5
 
-Finally, update the batch handler to use the new [batch context](/sdk/overview/#batch-context). The main change here is that now `block.items` is split into three separate iterables: `block.calls`, `block.events` and `block.extrinsics`. There are two ways to migrate:
+Finally, update the batch handler to use the new [batch context](/sdk/reference/processors/architecture/#batch-context). The main change here is that now `block.items` is split into three separate iterables: `block.calls`, `block.events` and `block.extrinsics`. There are two ways to migrate:
 
 1. If you're in a hurry, use the `orderItems(block: Block)` function from [this snippet](https://gist.github.com/belopash/5d61dcce7739f60d55c4faaec0148282):
    ```typescript title="src/main.ts"
@@ -239,7 +239,7 @@ Finally, update the batch handler to use the new [batch context](/sdk/overview/#
    })
    ```
 
-2. Alternatively, rewrite your batch handler using the [new batch context interface](/sdk/overview/#batch-context).
+2. Alternatively, rewrite your batch handler using the [new batch context interface](/sdk/reference/processors/architecture/#batch-context).
 
 See [Block data for Substrate](/sdk/reference/processors/substrate-batch/context-interfaces) for the documentation on Substrate-specific part of batch context.
 
@@ -266,7 +266,7 @@ Note the changes:
 1. Archive URL as `"specVersions"` is replaced with an URL of our new metadata service (`"https://v2.archive.subsquid.io/metadata/kusama"`)
 2. Requests for data wrappers are now made on a per-pallet basis.
 
-Check out the updated [Substrate typegen documentation page[(/sdk/tutorials/batch-processor-in-action). If you used any storage calls, consult [this documentation page](/sdk/resources/tools/typegen/state-queries) for guidance.
+Check out the updated [Substrate typegen documentation page](/sdk/tutorials/batch-processor-in-action). If you used any storage calls, consult [this documentation page](/sdk/resources/tools/typegen/state-queries) for guidance.
 
 Once you're done migrating `typegen.json`, regenerate the wrapper classes with
 ```bash

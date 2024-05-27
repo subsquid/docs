@@ -10,15 +10,25 @@ description: Access the data of Solana blockchain
 The Solana API of Subsquid Network is currently in beta. Breaking changes may be introduced in the future releases.
 :::
 
-Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. Gateway URL points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
+Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. The main gateway URL points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks on each dataset it serves.
 
-1. Retrieve the dataset height from the router with `GET /height`.
-2. Query the gateway for an URL of a worker that has the data for the first block of the relevant range with `GET /${firstBlock}/worker`.
-3. Retrieve the data from the worker with `POST /`, making sure to set the `"fromBlock"` query field to `${firstBlock}`.
-4. Exclude the received blocks from the relevant range by setting `firstBlock` to the value of `header.number` of the last received block plus one.
-5. Repeat steps 2-4 until all the required data is retrieved.
+Suppose you want to retrieve an output of some [query](#worker-api) on a block range starting at `firstBlock` (can be the genesis block) and ending at the highest available block. Proceed as follows:
 
-The main URL of the Starknet gateway is
+1. Retrieve the dataset height from the router with `GET /height` and make sure it's above `firstBlock`.
+
+2. Save the value of `firstBlock` to some variable, say `currentBlock`.
+
+3. Query the router for an URL of a worker that has the data for `currentBlock` with `GET /${currentBlock}/worker`.
+
+4. Retrieve the data from the worker by [posting the query](#worker-api) (`POST /`), setting the `"fromBlock"` query field to `${currentBlock}`.
+
+5. Parse the retrieved data to get a batch of query data **plus** the height of the last block available from the current worker. Take the `header.number` field of the last element of the retrieved JSON array - it is the height you want. Even if your query returns no data, you'll still get the block data for the last block in the range, so this procedure is safe.
+
+6. Set `currentBlock` to the height from the previous step **plus one**.
+
+7. Repeat steps 3-6 until all the required data is retrieved.
+
+The main URL of the Solana gateway is
 ```
 https://v2.archive.subsquid.io/network/solana-mainnet
 ```
@@ -29,7 +39,7 @@ Implementation examples:
 
 <summary>Manually with cURL</summary>
 
-Suppose we want data on Solana transactions from block 241974500. We begin by finding the main URL for the Solana Mainnet dataset. Then we have to:
+Suppose we want data on all successful Solana instructions starting block 241974500. We begin by finding the main URL for the Solana Mainnet dataset. Then we have to:
 
 1. Verify that the dataset has reached the required height:
 
@@ -43,7 +53,9 @@ Suppose we want data on Solana transactions from block 241974500. We begin by fi
    243004249
    ```
 
-2. Get a worker URL
+2. Remember that our current height is 241974500.
+
+3. Get a worker URL for the current height:
 
    ```bash
    curl https://v2.archive.subsquid.io/network/solana-mainnet/241974500/worker
@@ -52,10 +64,10 @@ Suppose we want data on Solana transactions from block 241974500. We begin by fi
    Output
 
    ```
-   https://rb04.sqd-archive.net/worker/query/czM6Ly9zb2xhbmEtbWFpbm5ldC1kZW1v
+   https://lm02.sqd-archive.net/worker/query/czM6Ly9zb2xhbmEtbWFpbm5ldC0w
    ```
 
-3. Retrieve the data from the worker
+4. Retrieve the data from the current worker
 
    ```bash
    curl https://rb04.sqd-archive.net/worker/query/czM6Ly9zb2xhbmEtbWFpbm5ldC1kZW1v \
@@ -74,62 +86,51 @@ Suppose we want data on Solana transactions from block 241974500. We begin by fi
    ```json
    [
      {
-       "transactionIndex": 176,
-       "instructionAddress": [2, 0],
-       "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-       "data": "3DUnaFFJfjwV"
+       "header": {
+         "number": 241974500,
+         "hash": "3pnS5TEVvbG7gnhnfNWkppm2ufgxhqB8z6jsdjNPhgQi"
+       },
+       "instructions": [
+         {
+           "transactionIndex": 24,
+           "instructionAddress": [
+             0
+           ],
+           "programId": "ComputeBudget111111111111111111111111111111",
+           "data": "GtQyqR"
+         },
+         ...
+         {
+           "transactionIndex": 1577,
+           "instructionAddress": [
+             2
+           ],
+           "programId": "mineJKQoyEbSiyjooEVMGSbHMaDdv7Cnf8rhkKLgyVb",
+           "data": "SSX8YzgXGaUDonrMFeCc1SJXnE2PpHo6Ak41asTZA4MRLaKTLyauDdy"
+         }
+       ]
      },
+     ...
      {
-       "transactionIndex": 177,
-       "instructionAddress": [0],
-       "programId": "ComputeBudget111111111111111111111111111111",
-       "data": "JC3gyu"
-     },
-     {
-       "transactionIndex": 177,
-       "instructionAddress": [1],
-       "programId": "11111111111111111111111111111111",
-       "data": "3Bxs4PckVVt51W8w"
-     },
-     {
-       "transactionIndex": 177,
-       "instructionAddress": [2],
-       "programId": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
-       "data": "GHtpPniXKj7w1cJepxVj14syWib24D1Ceff7hEw5GNiWhb9Rut9mcCSc2KVwx1YFVkhzXrbEoEgLPfSR5upe6sf8jPfuiTnVDHUGmYgatuZ8RACvKXyvMMN1opc6tDX1Yny9VGmCp8mPTtWbuX5CXkaiToB5HwRiexoAyc1a"
+       "header": {
+         "number": 241974599,
+         "hash": "BUeG7rcpfTd8oo5vjnVfgdWTm72fycz7YoozqD1y13XQ"
+       },
+       "instructions": [
+         ...
+       ]
      }
    ]
    ```
 
-4. Observe that we received the transactions up to and including block 16031419. To get the rest of the data, we find a worker who has blocks from 16031420 on:
+5. Parse the retrieved data:
+   - Grab the network data you requested from the list items with non-empty data fields (`instructions`, `transactions`, `logs`, `balances`, `tokenBalances`, `rewards`).
+   - Observe that we received the data up to and including block 241974599. **Note:** the last block of the batch will be returned even if it has no matching data.
 
-   ```bash
-   curl https://v2.archive.subsquid.io/network/solana-mainnet/16031420/worker
-   ```
+6. To get the rest of the data, update the current height to 241974600 and go to step 3.
+   - Note how the worker URL you're getting while repeating step 3 occasionally points to a different host than before. This is how data storage and reads are distributed across the Subsquid Network.
 
-   Output:
-
-   ```
-   https://rb02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0
-   ```
-
-   We can see that this part of the dataset is located on another host.
-
-5. Retrieve the data from the new worker
-
-   ```bash
-   curl https://rb02.sqd-archive.net/worker/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0 \
-   -X 'POST' -H 'content-type: application/json' -H 'accept: application/json' \
-   -d '{
-       "type": "solana","fromBlock":241974500,
-       "toBlock":241974599,
-       "fields":{"instruction":{"programId":true, "data": true}}, "instructions":[ {"isCommitted": true}]
-
-   }' | jq
-   ```
-
-   Output is similar to that of step 3.
-
-6. Repeat steps 4 and 5 until the dataset height of 243004249 reached.
+7. Repeat steps 3 through 6 until the dataset height of 243004249 reached.
 
 </details>
 
@@ -181,7 +182,7 @@ Full code [here](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a
 
 <summary><code>GET</code> <code><b>/height</b></code> <code>(get height of the dataset)</code></summary>
 
-**Example response:** `16576911`.
+**Example response:** `243004249`.
 
 </details>
 
@@ -189,7 +190,7 @@ Full code [here](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a
 
 <summary><code>GET</code> <code><b>$&#123;firstBlock&#125;/worker</b></code> <code>(get a suitable worker URL)</code></summary>
 
-The returned worker will be capable of processing `POST /` requests in which the `"fromBlock"` field is equal to `${firstBlock}`.
+The returned worker is capable of processing `POST /` requests in which the `"fromBlock"` field is equal to `${firstBlock}`.
 
 **Example response:** `https://v2.archive.subsquid.io/worker/1/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0`.
 
@@ -199,18 +200,27 @@ The returned worker will be capable of processing `POST /` requests in which the
 
 <details>
 
-<summary><code>POST</code> <code><b>/</b></code> <code>(query logs and transactions)</code></summary>
+<summary><code>POST</code> <code><b>/</b></code> <code>(query Solana data)</code></summary>
 
 ##### Query Fields
 
+- **type**: `"solana"`
 - **fromBlock**: Block number to start from (inclusive).
 - **toBlock**: (optional) Block number to end on (inclusive). If this is not given, the query will go on for a fixed amount of time or until it reaches the height of the dataset.
 - **includeAllBlocks**: (optional) If true, the Network will include blocks that contain no data selected by data requests into its response.
 - **fields**: (optional) A [selector](#data-fields-selector) of data fields to retrieve. Common for all data items.
-- **logs**: (optional) A list of [log requests](#logs). An empty list requests no data.
-- **transactions**: (optional) A list of [transaction requests](#transactions). An empty list requests no data.
 - **instructions**: (optional) A list of [intructions requests](#instructions). An empty list requests no data.
+- **transactions**: (optional) A list of [transaction requests](#transactions). An empty list requests no data.
+- **logs**: (optional) A list of [log requests](#log-messages). An empty list requests no data.
+- **balances**: (optional) A list of [balances requests](#balances). An empty list requests no data.
 - **tokenBalances**: (optional) A list of [token balances requests](#token-balances). An empty list requests no data.
+- **rewards**: (optional) A list of [rewards requests](#rewards). An empty list requests no data.
+
+The response is a JSON array of per-block data items that covers a block range starting from `fromBlock`. The last block of the range is determined by the worker. You can find it by looking at the `header.number` field of the last element in the response array.
+
+The first and the last block in the range are returned even if all data requests return no data for the range.
+
+In most cases the returned range will not contain all the range requested by the user (i.e. the last block of the range will not be `toBlock`). To continue, [retrieve a new worker URL](#router-api) for blocks starting at the end of the current range *plus one block* and repeat the query with an updated value of `fromBlock`.
 
 <details>
 
@@ -223,13 +233,12 @@ The returned worker will be capable of processing `POST /` requests in which the
 ```json
 {
   "type": "solana",
-  "fromBlock": 241974500,
-  "toBlock": 241974599,
+  "fromBlock":241974500,
+  "toBlock": 243004249,
   "fields": {
-    "instruction": { "programId": true, "data": true },
-    "log": { "programId": true }
+    "instruction": { "programId":true, "data": true }
   },
-  "instructions": [{ "isCommitted": true }]
+  "instructions":[ {"isCommitted": true} ]
 }
 ```
 
@@ -243,37 +252,44 @@ The returned worker will be capable of processing `POST /` requests in which the
 
 </summary>
 
+Note: the first and the last block in the range are included even if they have no matching data.
+
 ```json
 [
   {
-    "transactionIndex": 1009,
-    "instructionAddress": [2],
-    "programId": "BGUMAp9Gq7iTEuizy4pqaxsTyUCBK68MDfK752saRPUY",
-    "data": "2ZenJuK2YLQXxmR6RhCDBFmYeXKR8fAtg8FHoUiwrNZXLwG7MrMkfiRhDGvhsSKr2W47vCLTLBsigZ5hGQzXazVoz35cyL5LHgezJTAoi8f81HugigF16VFNtM38fU4t9sy9ceHhdn1md2xmgJEpxnhwfgM5547wrTA8hkQzKNoacqCCYgP5N37Fy5NaBG8iG7mGhFNhcfChFHXnh2kg9nUxe7Q8h1"
+    "header": {
+      "number": 241974500,
+      "hash": "3pnS5TEVvbG7gnhnfNWkppm2ufgxhqB8z6jsdjNPhgQi"
+    },
+    "instructions": [
+      {
+        "transactionIndex": 24,
+        "instructionAddress": [
+          0
+        ],
+        "programId": "ComputeBudget111111111111111111111111111111",
+        "data": "GtQyqR"
+      },
+      ...
+      {
+        "transactionIndex": 1577,
+        "instructionAddress": [
+          2
+        ],
+        "programId": "mineJKQoyEbSiyjooEVMGSbHMaDdv7Cnf8rhkKLgyVb",
+        "data": "SSX8YzgXGaUDonrMFeCc1SJXnE2PpHo6Ak41asTZA4MRLaKTLyauDdy"
+      }
+    ]
   },
+  ...
   {
-    "transactionIndex": 1009,
-    "instructionAddress": [2, 0],
-    "programId": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
-    "data": "TvFbJqcQ3CiB"
-  },
-  {
-    "transactionIndex": 1009,
-    "instructionAddress": [2, 1],
-    "programId": "noopb9bkMVfRPU8AsbpTUg8AQkHtKwMYZiFUjNRtMmV",
-    "data": "2GJh7oUmkZKomMt3bwcNnzjXhq11v37kEraess4g4VxyZKut3Kq9QCt8Z3ZtPvMn9sSgKWA7StrHkZVeoC61vPvBqBZJmXbzCGg8fsVqWkBshm9YoREe4hZqmhat84fo6fTNzRCGpxiN1gw1UZNUUChYYT2R3pmJpEkoopxgeWtDjgud9hvKyUBJreEsDAPBCt4TyWxepqcxUutcCNzWwR6vCQaLn65TxMtAAUU5VdjMGRNvNiyfFo1hj1qNX79nJTXn25QjQaJUouBupuT7xScehbmmE"
-  },
-  {
-    "transactionIndex": 1009,
-    "instructionAddress": [2, 2],
-    "programId": "cmtDvXumGCrqC1Age74AVPhSRVXJMd8PJS91L8KbNCK",
-    "data": "8RkZ9BWdS73Ey9DR5C8vgB6FYXCjQ3VprDot476gAKkPGPZ6zv5vXfi"
-  },
-  {
-    "transactionIndex": 1009,
-    "instructionAddress": [2, 2, 0],
-    "programId": "noopb9bkMVfRPU8AsbpTUg8AQkHtKwMYZiFUjNRtMmV",
-    "data": "11sv4oEoEnm721QeSwTL34C93xZBMA1mqG6K5tzidA6hPMjiNQxFX6rpYQMrBiJYQk67mDR5XcgkqwtViMMhP9AJZSx62uYSczuTD8FfZKV8nJZVZALxBsm3cCsNWjqfMpqvuktb8nNwiy2Mh3mGqic1nqGMrgphUiRLcjBjLLYwrnAHbTpq9abpqXDngmKgSDwVAK4m1AnAGNWpSsiCnBc4xyyFqwCcsp1FW7JqwFFiGkbBaWkNoiJvhidLXhP8dEg8gMn5oovcuznpQc8vknGHUXvGP8V8GmM8WFVEzEsFqTZxhdU1eje4rV4vByUjyqAZpZPAj9pvEnqq3yCxs2YKyz1qPVLrbDNySBr88oqLutQBMoeFBURLkNBaqSEBbDdZBr3G9GXaJcF4hjdi3vBMhkyxVJqBtR3gRYAh8o2k7EFp8eQwcpZHhX6zo4JzKENnWFqKBEhss5UfrzbMgT2Jwdq79feU6CatYrEs3RkJtfk8KkUyvCqRqXBk8ZSzkdrR6t8Ea8P9qN1rMK6oJBtLwrbgjXWJkVqiwzieHQSeQy98BpgTjwcFsdHpor17iwz6jUvvYDrgdKQopp7d1Zj6gMg2Gqa2CaBg2HD4nEYxLKFEqXcqR1bHa2j1BTbJxAcTc24ak8WHF9ZhncNEkJNRFwaY8jcDuqDr4qBD3PFAV9RXUD7WD2rtxe7pxf7qC9RNrRZBEWeNpJdVWMvWeAe3WBxxt5zLQxK3GfkSNn5WDyERGH93x7t39TLT4FtwxqVCG1YiMiUMMkdUfKjYAbzdSQVxe7ok5ioXpdEXo7hGjmefZbrmeE3r43xkh2QU4abGsecQPekg7bv9p1ECriHLAjE2Wso67zoQ57xm3NEnfVWqiAh8epkQJzP3MXmmk22oUFT3B9u4LSnKhGQBBmbgJwC8XitEK43Q75Mrhf4oxvZiXKhVfRNst3w3SFxqWueGG2NxvUvZWgnmFb8THqH3MJWoAS1dj1yzHfS41VbkUTGeYSVMQJM9y6nH8oEYjE6WwiTvKcpBP8LMpFYjYeyMg2U7Gt3ztVaazeSMYLwdpkicKFVFET9AeLyKqNqiwYPFoorVfcUf"
+    "header": {
+      "number": 241974599,
+      "hash": "BUeG7rcpfTd8oo5vjnVfgdWTm72fycz7YoozqD1y13XQ"
+    },
+    "instructions": [
+      ...
+    ]
   }
 ]
 ```
@@ -313,7 +329,9 @@ The returned worker will be capable of processing `POST /` requests in which the
 }
 ```
 
-Instruction will be included in the response if it matches all the requests. An empty array matches no instructions; omit all requests to match all instructions. See also [Instruction fields](solana-indexing/sdk/solana-batch/field-selection/#instruction).
+An instruction will be included in the response if it matches all the requests. A request with an empty array (e.g. `{ a4: [] }`) matches no instructions; omit all requests/pass an empty object to match all instructions.
+
+See [`addInstruction()` SDK function reference](/solana-indexing/sdk/solana-batch/instructions) for a detailed description of the fields of this data request; also see [Field selection](/solana-indexing/sdk/solana-batch/field-selection).
 
 ### Transactions
 
@@ -326,7 +344,9 @@ Instruction will be included in the response if it matches all the requests. An 
 }
 ```
 
-A transaction will be included in the response if it matches all the requests. An empty array matches no transactions; omit all requests to match all transactions. See also [Transaction fields](/solana-indexing/sdk/solana-batch/field-selection/#transaction) for a detailed description of data request fields.
+A transaction will be included in the response if it matches all the requests. A request with an empty array (e.g. `{ feePayer: [] }`) matches no transactions; omit all requests/pass an empty object to match all transactions.
+
+See [`addTransaction()` SDK function reference](/solana-indexing/sdk/solana-batch/transactions) for a detailed description of the fields of this data request; also see [Field selection](/solana-indexing/sdk/solana-batch/field-selection).
 
 ### Log messages
 
@@ -340,7 +360,9 @@ A transaction will be included in the response if it matches all the requests. A
 }
 ```
 
-A log message will be included in the response if it matches all the requests. An empty array matches no logs; omit all requests to match all logs. See also [Log message fields](/solana-indexing/sdk/solana-batch/field-selection/#logmessage).
+A log message will be included in the response if it matches all the requests. A request with an empty array (e.g. `{ kind: [] }`) matches no log messages; omit all requests/pass an empty object to match all log messages.
+
+See [`addLog()` SDK function reference](/solana-indexing/sdk/solana-batch/logs) for a detailed description of the fields of this data request; also see [Field selection](/solana-indexing/sdk/solana-batch/field-selection).
 
 ### Balances
 
@@ -352,7 +374,10 @@ A log message will be included in the response if it matches all the requests. A
   transactionInstructions?: boolean
 }
 ```
-Balance update will be included in the response if it matches all the requests. An empty array matches no balance updates; omit all requests to match all balance updates. See also [Balance fields](/solana-indexing/sdk/solana-batch/field-selection/#balance).
+
+A balance update message will be included in the response if it matches all the requests. A request with an empty array (e.g. `{ account: [] }`) matches no balance update messages; omit all requests/pass an empty object to match all balance update messages.
+
+See [`addBalance()` SDK function reference](/solana-indexing/sdk/solana-batch/balances) for a detailed description of the fields of this data request; also see [Field selection](/solana-indexing/sdk/solana-batch/field-selection).
 
 ### Token Balances
 
@@ -370,7 +395,9 @@ Balance update will be included in the response if it matches all the requests. 
   transactionInstructions?: boolean
 }
 ```
-Token balance update will be included in the response if it matches all the requests. An empty array matches no token balance updates; omit all requests to match all token balance updates. See also [Token balance fields](/solana-indexing/sdk/solana-batch/field-selection/#tokenbalance).
+A token balance update message will be included in the response if it matches all the requests. A request with an empty array (e.g. `{ preProgramId: [] }`) matches no token balance update messages; omit all requests/pass an empty object to match all token balance update messages.
+
+See [`addTokenBalance()` SDK function reference](/solana-indexing/sdk/solana-batch/token-balances) for a detailed description of the fields of this data request; also see [Field selection](/solana-indexing/sdk/solana-batch/field-selection).
 
 ### Rewards
 
@@ -379,7 +406,10 @@ Token balance update will be included in the response if it matches all the requ
   pubkey?: string[]
 }
 ```
-Reward will be included in the response if it matches all the requests. An empty array matches no rewards; omit all requests to match all rewards. See also [Reward fields](/solana-indexing/sdk/solana-batch/field-selection/#reward).
+
+A reward message will be included in the response if it matches all the requests. A request with an empty array (e.g. `{ pubkey: [] }`) matches no reward messages; omit all requests/pass an empty object to match all reward messages.
+
+See [`addReward()` SDK function reference](/solana-indexing/sdk/solana-batch/rewards) for a detailed description of the fields of this data request; also see [Field selection](/solana-indexing/sdk/solana-batch/field-selection).
 
 ## Data fields selector
 

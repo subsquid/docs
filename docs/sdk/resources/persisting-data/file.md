@@ -123,7 +123,7 @@ const db = new Database({
   // ...dest and dataset partitioning options
 })
 ```
-the following calls become available in the [batch handler](/sdk/overview/#processorrun):
+the following calls become available in the [batch handler](/sdk/reference/processors/architecture/#processorrun):
 ```ts
 processor.run(db, async ctx => {
   let record = // row in a format specific to Table implementation
