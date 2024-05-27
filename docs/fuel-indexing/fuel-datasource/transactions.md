@@ -32,7 +32,7 @@ TODO Links
 
 - `type` sets the type of the transaction. Transaction type has the following options: `'Script' | 'Create' | 'Mint'`. Leave it undefined to subscribe to all transactions.
 
-Enabling the `receipts` and/or `inputs` and `outputs` flags will cause the processor to retrieve [receipts](/solana-indexing/sdk/solana-batch/instructions),[inputs](/solana-indexing/sdk/solana-batch/logs) and [outputs](/solana-indexing/sdk/solana-batch/logs) that occured as a result of each selected transaction. The data will be added to the appropriate iterables within the [block data](/solana-indexing/sdk/solana-batch/context-interfaces). You can also call `augmentBlock()` from `@subsquid/fuel-objects` on the block data to populate the convenience reference fields like `transaction.logs`.
+Enabling the `receipts` and/or `inputs` and `outputs` flags will cause the processor to retrieve [receipts](/fuel-indexing/fuel-datasource/receipts),[inputs](/fuel-indexing/fuel-datasource/inputs) and [outputs](//fuel-indexing/fuel-datasource/outputs) that occured as a result of each selected transaction. The data will be added to the appropriate iterables within the [block data](/fuel-indexing/fuel-datasource/context-interfaces). You can also call `augmentBlock()` from `@subsquid/fuel-objects` on the block data to populate the convenience reference fields like `transaction.logs`.
 
 Note that transactions can also be requested by the other `FuelDataSource` methods as related data.
 

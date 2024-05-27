@@ -35,7 +35,7 @@ TODO Links
 
 - `type` sets the type of the receipt. Receipt type has the following options: `'InputCoin' | 'InputContract' | 'InputMessage'`. Leave it undefined to subscribe to all inputs.
 
-Enabling the `transaction` flag will cause the processor to retrieve [transactions](/solana-indexing/sdk/solana-batch/instructions),[inputs](/solana-indexing/sdk/solana-batch/logs) that occured as a result of each selected receipt. The data will be added to the appropriate iterables within the [block data](/solana-indexing/sdk/solana-batch/context-interfaces). You can also call `augmentBlock()` from `@subsquid/fuel-objects` on the block data to populate the convenience reference fields like `receipt.transaction`.
+Enabling the `transaction` flag will cause the processor to retrieve [transactions](/fuel-indexing/fuel-datasource/transactions),[inputs](//fuel-indexing/fuel-datasource/inputs) that occured as a result of each selected receipt. The data will be added to the appropriate iterables within the [block data](/fuel-indexing/fuel-datasource/context-interfaces). You can also call `augmentBlock()` from `@subsquid/fuel-objects` on the block data to populate the convenience reference fields like `receipt.transaction`.
 
 Note that inputs can also be requested by the other `FuelDataSource` methods as related data.
 

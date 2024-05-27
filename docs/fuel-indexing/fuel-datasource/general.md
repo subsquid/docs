@@ -11,7 +11,7 @@ description: >-
 The method documentation is also available inline and can be accessed via suggestions in most IDEs.
 :::
 
-The following setters configure the global settings of `DataSourceBuilder` for Solana Procesor. They return the modified instance and can be chained.
+The following setters configure the global settings of `DataSourceBuilder` for Fuel Procesor. They return the modified instance and can be chained.
 
 The only required configuration method is [`setGateway()`](#set-gateway). If you need real-time data, please also use [`setRpcEndpoint()`](#set-rpc-endpoint).
 
