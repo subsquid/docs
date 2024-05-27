@@ -117,7 +117,7 @@ Suppose we want data on Fuel receipts from block 1000000. We begin by finding th
    https://gr02.sqd-archive.net/worker/query/czM6Ly9mdWVsLXN0YWdlLTU
    ```
 
-   We can see that this part of the dataset is located on the same worker.
+   We now can see that this part of the dataset is located on the same worker.
 
 5. Retrieve the data from the new worker
 
