@@ -1,0 +1,12 @@
+{
+  "position": 50,
+  "label": "Participate",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "slug": "/subsquid-network/participate",
+    "title": "Run a node - a worker or a gateway - or simply delegate your tokens"
+  }
+}
