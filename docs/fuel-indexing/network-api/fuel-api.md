@@ -30,9 +30,9 @@ Implementation examples:
 
 <summary>Manually with cURL</summary>
 
-Suppose we want data on Fuel receipts from block 1000000. We begin by finding the main URL for the Fuel Network dataset. Then we have to:
+Suppose we want data on Fuel receipts from block `1000000`. We begin by finding the main URL for the Fuel Network dataset. Then we have to:
 
-1. Verify that the dataset has reached the required height:
+1. Retrieve the dataset height from the router with
 
    ```bash
    curl https://v2.archive.subsquid.io/network/fuel-stage-5/height
@@ -44,7 +44,8 @@ Suppose we want data on Fuel receipts from block 1000000. We begin by finding th
    13280654
    ```
 
-2. Get a worker URL
+2. Save the value `1000000` to some variable, say `currentBlock`.
+3. Query the router for an URL of a worker that has the data for`currentBlock`
 
    ```bash
    curl https://v2.archive.subsquid.io/network/fuel-stage-5/1000000/worker
@@ -56,7 +57,7 @@ Suppose we want data on Fuel receipts from block 1000000. We begin by finding th
    https://gr02.sqd-archive.net/worker/query/czM6Ly9mdWVsLXN0YWdlLTU
    ```
 
-3. Retrieve the data from the worker
+4. Retrieve the data from the worker
 
    ```bash
    curl https://gr02.sqd-archive.net/worker/query/czM6Ly9mdWVsLXN0YWdlLTU \
@@ -105,37 +106,11 @@ Suppose we want data on Fuel receipts from block 1000000. We begin by finding th
    ]
    ```
 
-4. Observe that we received the transactions up to and including block 20000000. To get the rest of the data, we find a worker who has blocks from 2000000 on:
+5. Parse the retrieved data to get a batch of query data plus the height of the last block available from the current worker. Take the `header.number` field of the last element of the retrieved JSON array - it is the height you want. Even if your query returns no data, you'll still get the block data for the last block in the range, so this procedure is safe.
 
-   ```bash
-   curl https://v2.archive.subsquid.io/network/fuel-stage-5/2000000/worker
-   ```
+6. Set `currentBlock` to the height from the previous step plus one.
 
-   Output:
-
-   ```
-   https://gr02.sqd-archive.net/worker/query/czM6Ly9mdWVsLXN0YWdlLTU
-   ```
-
-   We now can see that this part of the dataset is located on the same worker.
-
-5. Retrieve the data from the new worker
-
-   ```bash
-   curl https://gr02.sqd-archive.net/worker/query/czM6Ly9mdWVsLXN0YWdlLTU \
-   -X 'POST' -H 'content-type: application/json' -H 'accept: application/json' \
-   -d '{
-       "type": "fuel","fromBlock":2000000,
-       "toBlock":3000000,
-       "fields":{"receipt":{"contract":true, "receiptType": true}},
-       "receipts":[ {"type": ["LOG_DATA"]} ]
-
-   }' | jq
-   ```
-
-   Output is similar to that of step 3.
-
-6. Repeat steps 4 and 5 until the desired height is reached.
+7. Repeat steps 3-6 until all the required data is retrieved.
 
 </details>
 

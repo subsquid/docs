@@ -27,10 +27,9 @@ Get some _or all_ transactions on the network. `options` has the following struc
 ```
 
 Data requests:
-TODO Links
 
 - `type` sets the type of the receipt. Receipt type has the following options: `'CALL' | 'RETURN' | 'RETURN_DATA' | 'PANIC' | 'REVERT' | 'LOG' | 'LOG_DATA' | 'TRANSFER' | 'TRANSFER_OUT' | 'SCRIPT_RESULT' | 'MESSAGE_OUT' | 'MINT' | 'BURN'`. Leave it undefined to subscribe to all receipts.
-- TODO log data contract (A.B. - looks like it was renamed to just "contract")
+- `contract` sets the contract addresses to track. Leave it undefined to subscribe to all receipts.
 
 Enabling the `transaction` flag will cause the processor to retrieve transactions that gave rise to the matching receipts. The data will be added to the appropriate iterables within the [block data](/fuel-indexing/fuel-datasource/context-interfaces). You can also call `augmentBlock()` from `@subsquid/fuel-objects` on the block data to populate the convenience reference fields like `receipt.transaction`.
 
