@@ -31,7 +31,6 @@ Get some _or all_ inputs on the network. `options` has the following structure:
 ```
 
 Data requests:
-TODO Links
 
 - `type` sets the type of the input. Receipt type has the following options: `'InputCoin' | 'InputContract' | 'InputMessage'`. Leave it undefined to subscribe to all inputs.
 

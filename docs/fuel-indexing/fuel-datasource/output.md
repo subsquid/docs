@@ -26,7 +26,6 @@ Get some _or all_ outputs on the network. `options` has the following structure:
 ```
 
 Data requests:
-TODO Links
 
 - `type` sets the type of the output. Output type has the following options: `'CoinOutput' | 'ContractOutput' | 'ChangeOutput' | 'VariableOutput' | 'ContractCreated'`. Leave it undefined to subscribe to all outputs.
 

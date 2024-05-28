@@ -28,7 +28,6 @@ Get some _or all_ transactions on the network. `options` has the following struc
 ```
 
 Data requests:
-TODO Links
 
 - `type` sets the type of the transaction. Transaction type has the following options: `'Script' | 'Create' | 'Mint'`. Leave it undefined to subscribe to all transactions.
 
