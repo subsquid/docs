@@ -30,11 +30,11 @@ You can run a worker from a Docker image or from its source code.
 
 1. Create a new directory and save the [`run_worker.sh`](https://gist.githubusercontent.com/Wiezzel/604a0d812c40ae64899ed2361b43b0e5/raw/run_worker.sh) script in it.
 
-2. Generate your `key` file by running
+2. Generate your key file by running
    ```bash
    docker run --rm subsquid/rpc-node:0.2.5 keygen > <KEY_PATH>
    ```
-   in a newly created directory. It will display your peer ID:
+   The command display your peer ID:
    ```
    Your peer ID: <THIS IS WHAT YOU NEED TO COPY>
    ```
@@ -83,7 +83,7 @@ You can run a worker from a Docker image or from its source code.
    ```bash
    cargo run --bin keygen > <KEY_PATH>
    ```
-   It will display your peer ID:
+   The command display your peer ID:
    ```
    Your peer ID: <THIS IS WHAT YOU NEED TO COPY>
    ```
@@ -145,9 +145,9 @@ You can run a worker from a Docker image or from its source code.
 
 Before you run a worker node, you need to register it on-chain using our web application. Here are the steps to do this:
 
-1. Go to [https://network.subsquid.io](https://network.subsquid.io)
+1. Go to [https://network.subsquid.io](https://network.subsquid.io).
 
-2. Connect your EVM wallet (we recommend using Metamask). Use the Primary address linked to the vesting contract with funds.
+2. Connect your EVM wallet (we recommend using Metamask). Use the Primary Wallet holding the tokens or linked to the vesting contract.
    ![Connect wallet button](./worker_registration_wallet.png)
 
 3. Go Profile -> My Workers -> Add Worker
