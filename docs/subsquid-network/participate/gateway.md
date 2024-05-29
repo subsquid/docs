@@ -22,10 +22,16 @@ All gateways have to be registered on-chain and have a `SQD` stake associated wi
 
 The exact rate limiting mechanism is based on partitioning time into _epochs_. Currently an epoch spans 1200 Ethereum blocks. Workers periodically [checks](https://arbiscan.io/address/0x4cf58097d790b193d22ed633bf8b15c9bc4f0da7#readContract#F4) if a new epoch has started (once every 30 seconds by default). When a worker receives its first (on the current epoch) request from a gateway, it makes an [on-chain query](https://arbiscan.io/address/0x8a90a1ce5fa8cf71de9e6f76b7d3c0b72feb8c4b#readProxyContract#F6) for how many _compute units_ (CUs) are allocated to the worker due to any stakes associated with the gateway. The worker keeps the number and decrements it every time it receives more requests from the same gateway. When the CUs are exhausted it begins replying to any new requests from the gateway with HTTP 429 errors. The cycle repeats once the worker detects that a new epoch has begun.
 
-At present, any single data request to worker spends 1 CU. See e.g. [EVM worker API](/subsquid-network/reference/evm-api/#worker-api) to get an idea as to what the requests may look like. By default, the contract allocates the same amount of CUs for each worker, namely `SQD_AMOUNT*EPOCH_LENGTH*BOOST_FACTOR` per epoch. Here, `EPOCH_LENGTH` is 1200 and `BOOST_FACTOR` depends on the duration of staking. It and varies from 1 (stakes under 60 days) to 3 (720 or more days). See [Data consumers](/subsquid-network/whitepaper/#data-consumers) and [Boosters](/subsquid-network/whitepaper/#boosters) sections of the whitepaper for details.
+At present, any single data request to worker spends 1 CU. See e.g. [EVM worker API](/subsquid-network/reference/evm-api/#worker-api) to get an idea as to what the requests may look like. By default, the contract allocates the same amount of CUs for each worker, namely
+```
+SQD_AMOUNT*EPOCH_LENGTH*BOOST_FACTOR
+```
+per epoch. Here,
+ * `EPOCH_LENGTH` is 1200 and
+ * `BOOST_FACTOR` depends on the duration of staking, varying from 1 (stakes under 60 days) to 3 (720 or more days). See [Data consumers](/subsquid-network/whitepaper/#data-consumers) and [Boosters](/subsquid-network/whitepaper/#boosters) sections of the whitepaper.
 
 :::info
-It is possible to allocate CUs to workers selectively, e.g. to get more bandwidth on some datasets that are served by few workers. Currently there's only a low-level interface for this feature. If you're interested, please let us know in [SquidDevs Telegram chat](https://t.me/HydraDevs).
+It is possible to allocate CUs to workers selectively, e.g. to get more bandwidth on some datasets that are served by a subset workers. Currently there's only a low-level interface for this feature. If you're interested, please let us know in [SquidDevs Telegram chat](https://t.me/HydraDevs).
 :::
 
 For example, if you expect your gateway to make up to 36k requests to any worker at any epoch, you will need to stake 30 SQD if you choose the shortest staking duration and 10 SQD if you stake for two years or more.
