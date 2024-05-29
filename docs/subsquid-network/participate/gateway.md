@@ -11,54 +11,30 @@ Running a gateway enables you to access Subsquid Network data without relying on
 In either scenario you will need
 
 * a working Docker installation
-* some `SQD` tokens (in your wallet, not in a vesting contract)
+* some `SQD` tokens (in your wallet or in a special vesting contract)
 * some Arbitrum ETH (for gas)
 
 Hardware requirements depend on how the gateway will be used. A private gateway with a single user can run on a laptop; see [High throughput gateways](#high-throughput-gateways) for a discussion of requirements of these setups.
 
 ## Staking requirements and compute units
 
-All gateways have to be registered on-chain and have a `SQD` stake associated with them to begin serving requests.
+All gateways have to be registered on-chain and have a `SQD` stake associated with them to begin serving requests. Size and duration of the stake determine the rate at which the gateway can serve requests.
 
-Once every _epoch_ (currently ??? Arbitrum??? blocks) every worker fetches the list of gateways from the blockchain and allocates _compute units_ (CUs) to gateways based on their stakes. The allocation is decremented every time the gateway makes a request to the worker. If it reaches zero, the worker will reply with an HTTP 429 error instead of sending the data.
+The exact rate limiting mechanism is based on partitioning time into _epochs_. Currently an epoch spans 1200 Ethereum blocks. Workers periodically [checks](https://arbiscan.io/address/0x4cf58097d790b193d22ed633bf8b15c9bc4f0da7#readContract#F4) if a new epoch has started (once every 30 seconds by default). When a worker receives its first (on the current epoch) request from a gateway, it makes an [on-chain query](https://arbiscan.io/address/0x8a90a1ce5fa8cf71de9e6f76b7d3c0b72feb8c4b#readProxyContract#F6) for how many _compute units_ (CUs) are allocated to the worker due to any stakes associated with the gateway. The worker keeps the number and decrements it every time it receives more requests from the same gateway. When the CUs are exhausted it begins replying to any new requests from the gateway with HTTP 429 errors. The cycle repeats once the worker detects that a new epoch has begun.
 
-At present, any worker query spends 1 CU (see e.g. [EVM worker API](/subsquid-network/reference/evm-api/#worker-api) to get an idea as to what the queries may look like). The amount of CU allocated at each epoch is calculated as `4000*SQD_AMOUNT*BOOST_FACTOR`, where `BOOST_FACTOR` is depends on the duration of staking and varies from 1 (stakes under 60 days) to 3 (720 or more days). See [Data consumers](/subsquid-network/whitepaper/#data-consumers) and [Boosters](/subsquid-network/whitepaper/#boosters) sections of the whitepaper for details.
+At present, any single data request to worker spends 1 CU. See e.g. [EVM worker API](/subsquid-network/reference/evm-api/#worker-api) to get an idea as to what the requests may look like. By default, the contract allocates the same amount of CUs for each worker, namely `SQD_AMOUNT*EPOCH_LENGTH*BOOST_FACTOR` per epoch. Here, `EPOCH_LENGTH` is 1200 and `BOOST_FACTOR` depends on the duration of staking. It and varies from 1 (stakes under 60 days) to 3 (720 or more days). See [Data consumers](/subsquid-network/whitepaper/#data-consumers) and [Boosters](/subsquid-network/whitepaper/#boosters) sections of the whitepaper for details.
 
-For example, if you expect your gateway to make up to 12k requests to any worker at any epoch, you will need to stake 3 SQD if you choose the shortest staking duration and 1 SQD if you stake for two years or more.
-
-:::tip
-By default, your gateway will go down at the end of the staking period. To prevent that, enable the "Auto-extension" option when staking. This will cause your `SQD` to be immediately restaked once the staking period ends. In this setup you have to unstake, then wait for the end of the current staking period to withdraw your tokens.
+:::info
+It is possible to allocate CUs to workers selectively, e.g. to get more bandwidth on some datasets that are served by few workers. Currently there's only a low-level interface for this feature. If you're interested, please let us know in [SquidDevs Telegram chat](https://t.me/HydraDevs).
 :::
 
-See [Registering your gateway](#registering-your-gateway) for details on how to use our [Network app](https://network.subsquid.io) to get your gateway registered on-chain and stake your `SQD` on it.
+For example, if you expect your gateway to make up to 36k requests to any worker at any epoch, you will need to stake 30 SQD if you choose the shortest staking duration and 10 SQD if you stake for two years or more.
 
-## Installation
+:::tip
+By default, your gateway will go down at the end of the staking period. To prevent that, enable the "Auto-extension" option when staking. This will cause your `SQD` to be immediately restaked once the staking period ends. In this setup you have to unstake then wait for the end of the current staking period to withdraw your tokens.
+:::
 
-### Docker image
-
-Prebuilt `query-gateway` images are [available from Docker Hub](https://hub.docker.com/r/subsquid/query-gateway). Fetch it with
-```bash
-docker pull subsquid/query-gateway:1.0.0
-```
-
-### Building from the source
-
-Install Rust, e.g. with
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
-Then, clone the repo and build the `query-gateway` binary:
-```bash
-git clone https://github.com/subsquid/query-gateway
-cd query-gateway
-cargo build --release --bin query-gateway 
-```
-This creates the binary at `./target/release/query-gateway`. You can keep it there or install it to `~/.cargo/bin` with
-```bash
-cargo install --path .
-```
-
-## Registering your gateway
+## Running a local gateway
 
 1. Generate your key file by running
    ```bash
@@ -70,11 +46,11 @@ cargo install --path .
    ```
    Please copy this ID, as it will be needed for further steps.
 
-   ⚠ **Note:** Please make sure that the generated file is safe and secure at `<KEY_PATH>` (i.e. it will not be deleted accidentally and cannot be accessed by unauthorized parties).
+   ⚠️ **Note:** Please make sure that the generated file is safe and secure at `<KEY_PATH>` (i.e. it will not be deleted accidentally and cannot be accessed by unauthorized parties).
 
 2. Go to [https://network.subsquid.io](https://network.subsquid.io).
 
-3. Connect your EVM wallet (we recommend using Metamask). Use the Primary Wallet holding the tokens or linked to the vesting contract.
+3. Connect your EVM wallet (we recommend using Metamask). Use the wallet holding the tokens or linked to the vesting contract.
 
 4. Go to the "Gateways" tab and click the "Add gateway" button.
    ![Add gateway button](./gateway_registration_button.png)
@@ -91,6 +67,32 @@ cargo install --path .
 
 7. Wait for your stake to become active. This will happen at the beginning of the next epoch (in ~??? minutes at most).
 
-## Running your gateway
+8. Clone the gateway repo and enter the folder.
+   ```bash
+   git clone git clone https://github.com/subsquid/query-gateway
+   cd query-gateway
+   ```
+
+9. Prepare the environment. Begin with
+   ```bash
+   cp mainnet.env .env # use tethys.env for the testnet
+   ```
+   then set the path to your key file:
+   ```bash
+   echo KEY_PATH=<KEY_PATH> >> .env
+   ```
+
+   ⚠️ **Warning:** Be careful when supplying the path to the key you created at step 4. If you make a mistake here, a new random key will be automatically created there and your node will attempt to operate with a new (unregistered) peer ID - unsuccessfully.
+
+10. Run your gateway. You can either utilize a pre-built Docker image:
+    ```bash
+    docker compose up -d
+    ```
+    or build it from source:
+    ```bash
+    cargo run --release
+    ```
 
 ## High throughput gateways
+
+TBA
