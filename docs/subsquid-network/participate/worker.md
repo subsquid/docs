@@ -105,13 +105,13 @@ You can run a worker from a Docker image or from its source code.
    ```
    The command uses `nohup`, but you may also consider daemonizing it with `systemd`. The libp2p address+port combination, specified by the `--p2p-listen-addr` flag, should be available for external connections. In the reference command above the node listens on `12345`.
 
-    If you see the following error, ignore it.
+   If you see the following error, ignore it.
 
-    ```
-    2023-06-21T08:59:52.427Z ERROR [subsquid_network_transport::transport] Error broadcasting message: InsufficientPeers
-    ```
+   ```
+   2023-06-21T08:59:52.427Z ERROR [subsquid_network_transport::transport] Error broadcasting message: InsufficientPeers
+   ```
 
-   ⚠️  **Warning:** Be careful when supplying the path to the key you created at step 4 via `--key`. If you supply the wrong path, a new random key will be automatically created there and your node will attempt to operate with a new (unregistered) peer ID - unsuccessfully.
+   ⚠️ **Warning:** Be careful when supplying the path to the key you created at step 4 via `--key`. If you make a mistake here, a new random key will be automatically created there and your node will attempt to operate with a new (unregistered) peer ID - unsuccessfully.
 
 7. Set up the credentials for read-only S3 access, sentry, and RPC via env variables:
 
@@ -210,3 +210,5 @@ This is a Docker issue, not a problem with the worker. Look at [this GitHub issu
 ### How do I check if my worker is up-to-date and running?
 
 Copy your peer ID and look for an entry on [this page](https://scheduler.testnet.subsquid.io/workers/pings). If the last ping timestamp is 1 minute ago, and the listed version is the most recent one, you should be good. Alternatively, you can use [this Python script](https://gist.github.com/Wiezzel/6e7577ee439b055a28d6980b0a217aa4).
+
+   ⚠  
