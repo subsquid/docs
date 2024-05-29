@@ -79,7 +79,7 @@ You can run a worker from a Docker image or from its source code.
     pip install -U "subsquid-eth-archive[p2p-worker] @ git+https://github.com/subsquid/archive.py.git@0.2.4"
     ```
 
-4. Enter the `subsquid-network/transport` directory and generate your `key` file by running
+4. Enter the `subsquid-network/transport` directory and generate your key file by running
    ```bash
    cargo run --bin keygen > <KEY_PATH>
    ```
