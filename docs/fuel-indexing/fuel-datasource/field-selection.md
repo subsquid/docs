@@ -471,6 +471,33 @@ ContractCreated {
 }
 ```
 
+### Block header
+
+`BlockHeader` data items may have the following fields:
+```ts
+export interface BlockHeader {
+	// independent of field selectors
+  hash: string
+  height: number
+
+  // can be disabled with field selectors
+  time: bigint
+
+  // can be enabled with field selectors
+  daHeight: bigint
+  transactionsRoot: string
+  transactionsCount: number
+  messageReceiptCount: number
+  prevRoot: string
+  applicationHash: string
+  eventInboxRoot: string
+  consensusParametersVersion: number
+  stateTransitionBytecodeVersion: number
+  messageOutboxRoot: string
+}
+```
+Request the fields with eponymous field request flags.
+
 ### A complete example
 
 ```ts
@@ -501,6 +528,9 @@ const dataSource = new DataSourceBuilder()
     output: {
       coinTo: true,
       contractCreatedStateRoot: true,
+    },
+    block: {
+      daHeight: true
     }
   })
   .addTransaction({
