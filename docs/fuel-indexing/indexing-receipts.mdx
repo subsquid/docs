@@ -25,22 +25,22 @@ npm ci
 "Data source" is a component that defines what data should be retrieved and where to get it. To configure the data source to retrieve the data produced by the `receipt` field of the fuel transaction, we initialize it like this:
 ```typescript title="src/main.ts"
 const dataSource = new DataSourceBuilder()
-    .setGateway('https://v2.archive.subsquid.io/network/fuel-testnet')
-    .setGraphql({
-        url: 'https://testnet.fuel.network/v1/graphql',
-        strideConcurrency: 3,
-        strideSize: 50
-    })
-    .setFields({
-        receipt: {
-            contract: true,
-            receiptType: true
-        }
-    })
-    .addReceipt({
-        type: ['LOG_DATA']
-    })
-    .build()
+  .setGateway('https://v2.archive.subsquid.io/network/fuel-testnet')
+  .setGraphql({
+    url: 'https://testnet.fuel.network/v1/graphql',
+    strideConcurrency: 3,
+    strideSize: 50
+  })
+  .setFields({
+    receipt: {
+      contract: true,
+      receiptType: true
+    }
+  })
+  .addReceipt({
+    type: ['LOG_DATA']
+  })
+  .build()
 ```
 
 Here,
@@ -58,7 +58,7 @@ The other part the squid processor (the ingester process of the indexer) is the 
 import {run} from '@subsquid/batch-processor'
 
 run(dataSource, database, async ctx => {
-    // data transformation and persistence code here
+  // data transformation and persistence code here
 })
 ```
 Here,
@@ -71,35 +71,35 @@ Batch handler is where the raw on-chain data is decoded, transformed and persist
 We begin by defining a database and starting the data processing:
 ```typescript title="src/main.ts"
 run(dataSource, database, async ctx => {
-    // Block items that we get from `ctx.blocks` are flat JS objects.
-    //
-    // We can use `augmentBlock()` function from `@subsquid/fuel-objects`
-    // to enrich block items with references to related objects.
-    let contracts: Map<String, Contract> = new Map()
+  // Block items that we get from `ctx.blocks` are flat JS objects.
+  //
+  // We can use `augmentBlock()` function from `@subsquid/fuel-objects`
+  // to enrich block items with references to related objects.
+  let contracts: Map<String, Contract> = new Map()
 
-    let blocks = ctx.blocks.map(augmentBlock)
+  let blocks = ctx.blocks.map(augmentBlock)
 
-    for (let block of blocks) {
-        for (let receipt of block.receipts) {
-            if (receipt.receiptType == 'LOG_DATA' && receipt.contract != null) {
-                let contract = contracts.get(receipt.contract)
-                if (!contract) {
-                    contract = await ctx.store.findOne(Contract, {where: {id: receipt.contract}})
-                    if (!contract) {
-                        contract = new Contract({
-                            id: receipt.contract,
-                            logsCount: 0,
-                            foundAt: block.header.height
-                        })
-                    }
-                }
-                contract.logsCount += 1
-                contracts.set(contract.id, contract)
-            }
+  for (let block of blocks) {
+    for (let receipt of block.receipts) {
+      if (receipt.receiptType == 'LOG_DATA' && receipt.contract != null) {
+        let contract = contracts.get(receipt.contract)
+        if (!contract) {
+          contract = await ctx.store.findOne(Contract, {where: {id: receipt.contract}})
+          if (!contract) {
+            contract = new Contract({
+              id: receipt.contract,
+              logsCount: 0,
+              foundAt: block.header.height
+            })
+          }
         }
+        contract.logsCount += 1
+        contracts.set(contract.id, contract)
+      }
     }
+  }
 
-    ctx.store.upsert([...contracts.values()])
+  ctx.store.upsert([...contracts.values()])
 })
 ```
 This goes through all the receipts in the block, verifies that they have type `LOG_DATA"`, reads the contract field from the receipt and saves it to the database.
