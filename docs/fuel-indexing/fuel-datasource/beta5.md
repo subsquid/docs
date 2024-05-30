@@ -1,7 +1,7 @@
 ---
 sidebar_position: 5
 description: >-
-Fuel Beta 5 vs Testnet
+  Fuel Beta 5 vs Testnet
 ---
 
 # Fuel Network Beta 5
@@ -9,20 +9,21 @@ Fuel Beta 5 vs Testnet
 In Fuel Squid SDK, Fuel testnet and beta 5 data require different package versions.
 To work with Fuel beta 5, you need to set the following versions in your `package.json`:
 
-````json
+```json
 {
   "dependencies": {
     "@subsquid/fuel-objects": "0.0.3",
     "@subsquid/fuel-stream": "0.0.3"
   }
 }
+```
 
 and run:
 
 ```bash
 rm -rf package-lock.json node_modules
 npm i
-````
+```
 
 ## Gateway
 
@@ -60,4 +61,4 @@ where `contract` sets the contract addresses to track instead of `logDataContrac
 
 ## Field Selection
 
-`Output` data in beta 5 version do have an option of `'ContractCreated'` for `type`field.
+`Output` data in beta 5 version do have an option of `'ContractCreated'` for `type` field.
