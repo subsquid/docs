@@ -20,7 +20,7 @@ Set the fields to be retrieved for data items of each supported type. The `optio
 }
 ```
 
-Every field selector is a collection of boolean fields, typically mapping one-to-one to the fields of data items within the batch context [iterables](/fuel-indexing/fuel-datasource/context-interfaces). Defining a field of a field selector of a given type and setting it to true will cause the processor to populate the corresponding field of all data items of that type. Here is a definition of a processor that requests `hash` and `status` fields for transactions and the `contract` field for receipts:
+Every field selector is a collection of boolean fields, typically mapping one-to-one to the fields of data items within the batch context [iterables](/fuel-indexing/fuel-datasource/testnet/context-interfaces). Defining a field of a field selector of a given type and setting it to true will cause the processor to populate the corresponding field of all data items of that type. Here is a definition of a processor that requests `hash` and `status` fields for transactions and the `contract` field for receipts:
 
 ```ts
 const dataSource = new DataSourceBuilder().setFields({
@@ -49,7 +49,7 @@ dataSource
   .build();
 ```
 
-After populating the convenience reference fields with `augmentBlock()` from `@subsquid/fuel-objects`, `receipt` fields would be available both within the receipt items of the `receipts` iterable of [block data](/fuel-indexing/fuel-datasource/context-interfaces) and within the receipt items that provide parent receipt information for the transactions matching the `addTransaction()` data request:
+After populating the convenience reference fields with `augmentBlock()` from `@subsquid/fuel-objects`, `receipt` fields would be available both within the receipt items of the `receipts` iterable of [block data](/fuel-indexing/fuel-datasource/testnet/context-interfaces) and within the receipt items that provide parent receipt information for the transactions matching the `addTransaction()` data request:
 
 ```ts
 run(dataSource, database, async (ctx) => {

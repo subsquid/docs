@@ -1,12 +1,12 @@
 {
   "position": 20,
-  "label": "FuelDataSource",
+  "label": "Testnet",
   "collapsible": true,
   "collapsed": true,
   "className": "red",
   "link": {
     "type": "generated-index",
-    "slug": "/fuel-indexing/fuel-datasource",
-    "title": "FuelDataSource reference documentation"
+    "slug": "/fuel-indexing/fuel-datasource/testnet",
+    "title": "FuelDataSource testnet reference documentation"
   }
 }

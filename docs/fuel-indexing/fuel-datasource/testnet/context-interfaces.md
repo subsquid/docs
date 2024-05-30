@@ -22,12 +22,12 @@ export interface Block {
 
 `Block.header` contains the block header data. The rest of the fields are iterables containing the four kinds of blockchain data. The items within each iterable are ordered in the same way as they are within blocks.
 
-The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [field selection](/fuel-indexing/fuel-datasource/field-selection) page:
+The exact fields available in each data item type are inferred from the `setFields()` call argument. They are documented on the [field selection](/fuel-indexing/fuel-datasource/testnet/field-selection) page:
 
-- [`Input` section](/fuel-indexing/fuel-datasource/field-selection#input);
-- [`Transaction` section](/fuel-indexing/fuel-datasource/field-selection#transaction);
-- [`Output` section](/fuel-indexing/fuel-datasource/field-selection#output);
-- [`Receipt` section](/fuel-indexing/fuel-datasource/field-selection#receipt);
+- [`Input` section](/fuel-indexing/fuel-datasource/testnet/field-selection#input);
+- [`Transaction` section](/fuel-indexing/fuel-datasource/testnet/field-selection#transaction);
+- [`Output` section](/fuel-indexing/fuel-datasource/testnet/field-selection#output);
+- [`Receipt` section](/fuel-indexing/fuel-datasource/testnet/field-selection#receipt);
 
 <!--
 ## Example

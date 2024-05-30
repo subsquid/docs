@@ -20,9 +20,9 @@ Get some _or all_ inputs on the network. `options` has the following structure:
     messageSender?: string[]
     messageRecipient?: string[]
   // related data retrieval
-  include?: {
-    transaction?: boolean
-  }
+
+  transaction?: boolean
+
   range?: {
     from: number
     to?: number
