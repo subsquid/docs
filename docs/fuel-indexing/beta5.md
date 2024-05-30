@@ -25,40 +25,58 @@ rm -rf package-lock.json node_modules
 npm i
 ```
 
-## Gateway
+## Data sources
 
-To access beta 5 data, you need to set the following gateway URL:
+To access beta 5 data, you need to set the gateway URL as follows:
 
 ```typescript
 const dataSource = new DataSourceBuilder()
-  // Provide Subsquid Network Gateway URL.
   .setGateway("https://v2.archive.subsquid.io/network/fuel-stage-5");
 ```
-
-## Data Requests
-
-For Fuel `DataSource` the `Block` interface is defined the same as in the testnet version.
-
-`Input` and `Output` data requests are the same as in the testnet version.
-
-`Receipt` interface in the beta 5 version has the following structure:
-
-```typescript
-{
-  // data requests
-   type?: ReceiptType[]
-   contract?: string[] // logDataContract in the testnet version
-  // related data retrieval
-
-  transaction?: boolean
-
-}
+You may also want to use a Beta 5 GraphQL endpoint for real-time data:
+```ts
+dataSource.setGraphql({
+  url: 'https://beta-5.fuel.network/graphql'
+})
 ```
 
-where `contract` sets the contract addresses to track instead of `logDataContract` in the testnet version.
+## Data requests
 
-`Transaction` data requests are the same as in the testnet version. link
+Data requests are the same as they are in the testnet version:
+* [`addInput`](/fuel-indexing/fuel-datasource/input)
+* [`addOutput`](/fuel-indexing/fuel-datasource/output)
+* [`addReceipt`](/fuel-indexing/fuel-datasource/receipt)
+* [`addTransaction`](/fuel-indexing/fuel-datasource/transactions)
 
 ## Field Selection
 
-`Output` data in beta 5 version do have an option of `'ContractCreated'` for `type` field.
+For Fuel `DataSource` the top-level [`Block` interface](/fuel-indexing/fuel-datasource/context-interfaces) is defined the same as in the testnet version.
+
+Here are the differences in Beta 5 data structures, compared to Testnet:
+
+* In [`Transaction` fields](/fuel-indexing/fuel-datasource/field-selection/#transaction):
+  - there are fewer transaction types: `'Script' | 'Create' | 'Mint'`
+  - `mintGasPrice`, `isUpgrade`, `isUpload`, `bytecodeRoot`, `subsectionIndex`, `subsectionsNumber`, `proofSet`, `upgradePurpose` fields are missing
+  - `gasPrice?: bigint` and `bytecodeLength?: bigint` fields are added
+  - `inputContract.contractId` subfield is called `inputContract.contract`
+  - interface `Policies` lacks the `tip` field, but has an extra `gasPrice?: bigint` field
+  - interfaces `SuccessStatus` and `FailureStatus` lack `totalGas` and `totalFee` fields
+
+* In [`Input` fields](/fuel-indexing/fuel-datasource/field-selection/#input):
+  - `InputCoin` type has an added `maturity: number` field
+  - `InputContract` type field `contractId` is called `contract`
+
+* In [`Output` fields](/fuel-indexing/fuel-datasource/field-selection/#output):
+	- `ContractCreated` type's `contract` field instead of a string contains an object:
+    ```ts
+    contract: {
+      id: Bytes
+      bytecode: Bytes
+      salt: Bytes
+    }
+    ```
+
+* In [`BlockHeader` fields](/fuel-indexing/fuel-datasource/field-selection/#block-header):
+	- `eventInboxRoot`, `consensusParametersVersion`, `stateTransitionBytecodeVersion` and `messageOutboxRoot` fields are missing
+  - `transactionsCount` and `messageReceiptCount` have type `bigint` instead of `number`
+  - `messageReceiptRoot: string` field is added
