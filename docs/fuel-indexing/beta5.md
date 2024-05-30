@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 80
 description: >-
   Fuel Beta 5 vs Testnet
 ---
