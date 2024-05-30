@@ -17,153 +17,127 @@ To run a single worker you'll need:
 * a public IP and two ports open for incoming traffic:
   - one UDP port for p2p communication (default 12345)
   - one TCP port for Prometheus metrics (default 9090)
+* Docker + Docker Compose
 * `100_000` `SQD` tokens (in your wallet or in a special vesting contract)
 * some Arbitrum ETH (for gas)
 
-A _Primary Wallet_ is your wallet that has the tokens or owns a vesting contract. With enough funds you can use one Primary Wallet to register multiple workers.
+The `SQD` tokens should be available to your _Primary Wallet_ - either directly or through a vesting contract. With enough funds you can use one Primary Wallet to register multiple workers.
 
-You can run a worker from a Docker image or from its source code.
+Your Primary Wallet should have browser support. We recommend Metamask.
 
-## Running in a container
+You can run a worker from a Docker image or from its source code. Note that you'll need Docker either way, as our configuration script uses it.
 
-**Prerequisites:** Docker, Docker Compose (tested with version TBA)
+## Configuring your setup {#configuration}
 
-1. Create a new directory and save the [`run_worker.sh`](https://gist.githubusercontent.com/Wiezzel/604a0d812c40ae64899ed2361b43b0e5/raw/run_worker.sh) script in it.
+1. Pick a location for the worker data. It should be able to accommodate at least 1Tb. Do not create the data folder manually, just find a place for it.
 
-2. Generate your key file by running
+2. Pick a location for your Subsquid Network key file. The location must be outside of the data directory.
+
+   ⚠️  **Warning:** Ensure that that the key will not be deleted accidentally and cannot be accessed by unauthorized parties.
+
+3. Create a new directory for installation files and save the [`setup_worker.sh`](https://cdn.subsquid.io/worker/setup_worker.sh) script in it:
    ```bash
-   docker run --rm subsquid/rpc-node:0.2.5 keygen > <KEY_PATH>
+   curl -fO https://cdn.subsquid.io/worker/setup_worker.sh
    ```
-   The command display your peer ID:
-   ```
-   Your peer ID: <THIS IS WHAT YOU NEED TO COPY>
-   ```
-   Please copy this ID, as it will be needed for [on-chain worker registration](#on-chain-registration).
-
-   ⚠️ **Note:** Please make sure that the generated file is safe and secure at `<KEY_PATH>` (i.e. it will not be deleted accidentally and cannot be accessed by unauthorized parties).
-
-3. [Register your worker](#on-chain-registration) by logging into [network.subsquid.io](https://network.subsquid.io) with the Primary Wallet you provided in the onboarding form. You will need the Peer ID from the previous step.
-
-4. Make the `run_worker.sh` script executable and run
+   Make the script executable:
    ```bash
-   PUBLIC_IP=<YOUR_PUBLIC_IP> ./run_worker.sh <DATA_DIR> up -d
+   chmod +x ./setup_worker.sh
    ```
-   to start the node. `<DATA_DIR>` is a directory where the downloaded data will be stored – please make sure it exists and can accommodate up to 1 TB of data. If you want to use a different port than the default 12345, also set the `LISTEN_PORT` environment variable.
 
-   ⚠️ **Note:** Setting `PUBLIC_IP` is currently required for the node to be publicly discoverable.
-
-5. Check the status of the containers with `docker container ls`. Check the worker logs using `docker logs -f worker-1`. After some time the worker should output some info on the downloaded data chunks. See [Docker docs](https://docs.docker.com/engine/reference/commandline/logs/) for a reference of Docker commands.
-
-## Building from the source
-
-1. Install prerequisites (Python, Rust, Protobuf).
-
-    ```bash
-    apt install python3.11 python3.11-venv gcc protobuf-compiler
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    ```
-
-2. Clone & build a network node.
-
-    ```bash
-    git clone https://github.com/subsquid/subsquid-network
-    cd subsquid-network/transport
-    cargo build --release --bin node
-    ```
-
-3. Create a new Python virtual env and install the worker package.
-
-    ```bash
-    python3.11 -m venv env
-    . env/bin/activate
-    pip install -U "subsquid-eth-archive[p2p-worker] @ git+https://github.com/subsquid/archive.py.git@0.2.4"
-    ```
-
-4. Enter the `subsquid-network/transport` directory and generate your key file by running
+4. Run the setup script. Supply the data directory path and the key path to it:
    ```bash
-   cargo run --bin keygen > <KEY_PATH>
+   ./setup_worker.sh <DATA_DIR_PATH> <KEY_PATH>
    ```
-   The command display your peer ID:
+   The script will prompt you for your public IP address and the UDP port you would like to use for P2P communication. Here's what it does:
+    - creates a directory at `<DATA_DIR_PATH>`
+    - generates a key file at `<KEY_PATH>`
+    - generates a `.env` file in the current directory and populates it with reasonable defaults
+    - downloads a `.mainnet.env` file
+    - downloads a `docker-compose.yaml` file for running prebuilt worker images
+
+   The last line of the script's output should look like this:
    ```
-   Your peer ID: <THIS IS WHAT YOU NEED TO COPY>
+   Your peer ID is: 12D3KooWPfotj6qQapKeWg4RZysUjEeswLEpiSjgv16LgNTyYFTW. Now you can register it on chain.
    ```
-   Please copy this ID, as it will be needed for [on-chain worker registration](#on-chain-registration).
+   **Please copy your peer ID**, as it will be needed for [on-chain worker registration](#registration).
 
-   ⚠️ **Note:** Please make sure that the generated file is safe and secure at `<KEY_PATH>` (i.e. it will not be deleted accidentally and cannot be accessed by unauthorized parties).
+5. (optional) Feel free to edit the generated `.env` and `.mainnet.env` files if you'd like, e.g., to set a custom Prometheus port or use your own RPC provider.
 
-5. [Register your worker](#on-chain-registration) by logging into [network.subsquid.io](https://network.subsquid.io) with the Primary Wallet you provided in the onboarding form. You will need the Peer ID from the previous step.
+Proceed to [Worker registration](#registration).
 
-6. Make sure you're at `subsquid-network/transport` and run the network node:
-   ```bash
-   nohup cargo run --release --bin node -- \
-       --p2p-listen-addrs /ip4/0.0.0.0/udp/12345/quic-v1 \
-       --key <KEY_PATH> \
-       --boot-nodes '12D3KooWSRvKpvNbsrGbLXGFZV7GYdcrYNh4W2nipwHHMYikzV58 /dns4/testnet.subsquid.io/udp/22445/quic-v1' \
-       --boot-nodes '12D3KooWQC9tPzj2ShLn39RFHS5SGbvbP2pEd7bJ61kSW2LwxGSB /dns4/testnet.subsquid.io/udp/22446/quic-v1' \
-       --bootstrap \
-       > network.log 2>&1 &
-   ```
-   The command uses `nohup`, but you may also consider daemonizing it with `systemd`. The libp2p address+port combination, specified by the `--p2p-listen-addr` flag, should be available for external connections. In the reference command above the node listens on `12345`.
-
-   If you see the following error, ignore it.
-
-   ```
-   2023-06-21T08:59:52.427Z ERROR [subsquid_network_transport::transport] Error broadcasting message: InsufficientPeers
-   ```
-
-   ⚠️ **Warning:** Be careful when supplying the path to the key you created at step 4 via `--key`. If you make a mistake here, a new random key will be automatically created there and your node will attempt to operate with a new (unregistered) peer ID - unsuccessfully.
-
-7. Set up the credentials for read-only S3 access, sentry, and RPC via env variables:
-
-    ```bash
-    cat <<EOF > .worker-env
-    export AWS_ACCESS_KEY_ID=66dfc7705583f6fd9520947ac10d7e9f
-    export AWS_SECRET_ACCESS_KEY=a68fdd7253232e30720a4c125f35a81bd495664a154b1643b5f5d4a4a5280a4f
-    export AWS_S3_ENDPOINT=https://7a28e49ec5f4a60c66f216392792ac38.r2.cloudflarestorage.com
-    export AWS_REGION=auto
-    export SENTRY_DSN=https://3d427b41736042ae85010ec2dc864f05@o1149243.ingest.sentry.io/4505589334081536
-    EOF
-
-    source .worker-env
-    ```
-
-8. Run the worker process in a terminal where you have your virtualenv active. You may run it with `systemd` instead of `nohup` to tolerate server restarts.
-
-    ```bash
-    nohup python -m sqa.worker.p2p \
-        --scheduler-id 12D3KooWQER7HEpwsvqSzqzaiV36d3Bn6DZrnwEunnzS76pgZkMU \
-        --logs-collector-id 12D3KooWC3GvQVqnvPwWz23sTW8G8HVokMnox62A7mnL9wwaSujk \
-        --data-dir </path/where/you/want/to/store/downloaded/data> \
-        --proxy localhost:50051 \
-        --prometheus-port <port_on_which_you_want_to_expose_prometheus_metrics> \
-        --rpc-url https://sepolia-rollup.arbitrum.io/rpc \
-        > worker.log 2>&1 &
-    ```
-   The `--data-dir` path must be able to accommodate up to 1Tb of data.
-
-## On-chain registration
+## Worker registration {#registration}
 
 Before you run a worker node, you need to register it on-chain using our web application. Here are the steps to do this:
 
 1. Go to [https://network.subsquid.io](https://network.subsquid.io).
 
-2. Connect your EVM wallet (we recommend using Metamask). Use the Primary Wallet holding the tokens or linked to the vesting contract.
+2. Connect your Primary Wallet.
+
    ![Connect wallet button](./worker_registration_wallet.png)
 
-3. Go Profile -> My Workers -> Add Worker
+3. Go to the Workers tab and press the "Add Worker" button. You should see a worker registration form:
 
-4. You should see a vesting contract owned by your primary wallet and pre-funded with tSQD
    ![Worker registration form](./worker_registration_form.png)
 
-5. Fill the form and submit it by signing a transaction. Use the PeerID of the worker you are registering
+4. Fill the form and submit it by signing a transaction:
+   - In the top drop down menu, choose either "Wallet" (to use `SQD`s from your wallet directly) or "Vesting" (to use `SQD`s from a vesting contract).
+   - Use the peer ID you copied at step 4 of [Configuring your setup](#configuration).
 
-6. Repeat steps 3-5 if you want to run more workers
+5. Go to the "Workers" tab and wait until the status of the registered worker changes to "Offline" or "Active". Since the workers can only be activated at a beginning of an epoch, you may have to wait for a few minutes.
 
-7. Go to "My Workers" tabs and wait until the status of all registered workers changes to "Active". Since the workers can only be activated at a beginning of an epoch, you may have to wait for a few minutes
+Proceed to [Running a worker](#running).
+
+## Running a worker {#running}
+
+Make sure you're still in the folder where you executed `setup_worker.sh` during [configuration](#configuration) before proceeding.
+
+### Using a pre-built Docker image
+
+Run
+```bash
+docker compose up -d
+```
+then find the worker container in the output of `docker container ls` and check its logs with `docker logs -f <worker_container_id>`. After some time the worker should output some info on the downloaded data chunks.
+
+### Building from the source
+
+1. Install prerequisites (Rust, Git, Protobuf, etc), e.g. with
+
+    ```bash
+    apt install curl git build-essential pkg-config protobuf-compiler libssl-dev libsqlite3-dev
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    ```
+
+2. Load the config generated during the [setup](#configuration).
+    ```bash
+    source .mainnet.env
+    source .env
+    ```
+
+3. Clone the worker repo.
+   ```bash
+   git clone --depth 1 --branch v1.0.0 https://github.com/subsquid/worker-rs.git
+   ```
+   This may take a few minutes.
+
+4. Build the worker.
+
+    ```bash
+    cd worker-rs
+    cargo build --release
+    ```
+
+4. Run the worker using the command below. It uses `nohup`, but you may also consider daemonizing it with `systemd` or `openrc` to tolerate server restarts.
+
+    ```bash
+    nohup cargo run --release -- --port $PROMETHEUS_PORT p2p
+    ```
+
+6. After some time the worker should start downloading data and serving queries.
 
 ## Troubleshooting
 
-### Where do I find my peer ID ?
+#### Where do I find my peer ID ?
 
 It is printed when you run `keygen` (see the steps for running worker).
 
@@ -177,38 +151,52 @@ In both cases, the log line you are looking for should look like this
 INFO  [subsquid_network_transport::transport] Local peer ID: <THIS IS WHAT YOU NEED TO COPY>
 ```
 
-[//]: # (## How do I get `SQD` tokens ?)
+[//]: # (### How do I get `SQD` tokens ?)
 
-### I see `Insufficient peers...` error in the worker logs
+#### I see `Failed to download chunk ... operation timed out` in the worker logs
+
+Depending on your connection quality, you might want to tune the `S3_TIMEOUT` and `CONCURRENT_DOWNLOADS` environment variables in the `.env` file. If you encounter this error frequently,  try to set `S3_TIMEOUT` to `180`. If it still doesn't help, set `CONCURRENT_DOWNLOADS` to `1` and `S3_READ_TIMEOUT` to `30`.
+
+#### Worker crashes with the message `Trying to collect logs up to ...`
+
+Something is wrong with your local data. Stop the worker, remove the entire data directory, and start it again.
+
+#### I see an `Insufficient peers...` error in the worker logs
 
 Just ignore it
 
-### Can I move my worker to another server
+#### Can I move my worker to another server?
 
-Yes, copy the key file (at `<KEY_PATH>`) to the new working directory before starting. You don't need to re-register your worker.
+Yes, copy the key file (at `<KEY_PATH>`) to the new working directory before starting. You don't need to re-register your worker. Don't forget to update the data directory on the new server.
 
-### I have just started my worker but see no logs
+#### I have just started my worker but see no logs
 
 This is normal. Wait for a few minutes and the logs should show some data being downloaded.
 
-### Should I build it from source or run with Docker?
+#### Should I build it from source or run with Docker?
 
 Docker makes for an easier setup. Building from sources is suitable only for experienced Linux/Unix users.
 
-### How do I check that my worker is updated to the latest version?
+#### How do I check that my worker is updated to the latest version?
 
-Check the [pings endpoint](https://scheduler.testnet.subsquid.io/workers/pings) and locate the version by your PeerID.
+Check the [pings endpoint](https://scheduler.mainnet.subsquid.io/workers/pings) and locate the version by your peer ID.
 
-### Which Linux distro is recommended?
+#### Which Linux distro is recommended?
 
 We recommend Ubuntu 22.04 LTS.
 
-### I see `error from daemon in stream: Error grabbing logs`
+#### I see `error from daemon in stream: Error grabbing logs`
 
 This is a Docker issue, not a problem with the worker. Look at [this GitHub issue](https://github.com/docker/for-linux/issues/140) and [this Stackoverflow thread](https://stackoverflow.com/questions/46843711/docker-error-grabbing-logs-invalid-character-x00-looking-for-beginning-of-v) for more context.
 
-### How do I check if my worker is up-to-date and running?
+#### How do I check if my worker is up-to-date and running?
 
-Copy your peer ID and look for an entry on [this page](https://scheduler.testnet.subsquid.io/workers/pings). If the last ping timestamp is 1 minute ago, and the listed version is the most recent one, you should be good. Alternatively, you can use [this Python script](https://gist.github.com/Wiezzel/6e7577ee439b055a28d6980b0a217aa4).
+Copy your peer ID and look for an entry on [this page](https://scheduler.mainnet.subsquid.io/workers/pings). If the last ping timestamp is 1 minute ago, and the listed version is the most recent one, you should be good.
 
-   ⚠  
+#### I'm getting `Clone succeeded, but checkout failed` when cloning the worker repo
+
+Enter the repo folder and check out v1.0.0 manually:
+```bash
+cd worker-rs
+git checkout v1.0.0
+```
