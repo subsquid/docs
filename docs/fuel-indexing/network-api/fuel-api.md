@@ -269,7 +269,7 @@ The returned worker will be capable of processing `POST /` requests in which the
 }
 ```
 
-Receipts will be included in the response if it matches all the requests. An empty array matches no instructions; omit all requests to match all receipts. See also [Receipt fields](../../fuel-datasource/field-selection/#receipts).
+Receipts will be included in the response if it matches all the requests. An empty array matches no instructions; omit all requests to match all receipts. See also [Receipt fields](../../fuel-datasource/field-selection/#receipt).
 
 ### Transactions
 
@@ -284,7 +284,7 @@ Receipts will be included in the response if it matches all the requests. An emp
 
 A transaction will be included in the response if it matches all the requests. An empty array matches no transactions; omit all requests to match all transactions. See also [Transaction fields](../../fuel-datasource/field-selection/#transaction) for a detailed description of data request fields.
 
-### Input Request
+### Inputs
 
 ```ts
 {
@@ -300,7 +300,7 @@ A transaction will be included in the response if it matches all the requests. A
 
 An input will be included in the response if it matches all the requests. An empty array matches no logs; omit all requests to match all logs. See also [Input fields](../../fuel-datasource/field-selection/#input).
 
-### Output Request
+### Outputs
 
 ```ts
 {
