@@ -1,7 +1,7 @@
 ---
 sidebar_position: 5
 description: >-
-Fuel Beta 5
+Fuel Beta 5 vs Testnet
 ---
 
 # Fuel Network Beta 5
