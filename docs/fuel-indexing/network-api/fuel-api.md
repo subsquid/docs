@@ -10,19 +10,32 @@ description: Access the data of Fuel Network
 The Fuel API of Subsquid Network is currently in beta. Breaking changes may be introduced in the future releases.
 :::
 
-Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. Gateway URL points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks that it serves. The recommended data retrieval procedure is as follows:
+Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. The main gateway URL points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks on each dataset it serves.
 
-1. Retrieve the dataset height from the router with `GET /height`.
-2. Query the gateway for an URL of a worker that has the data for the first block of the relevant range with `GET /${firstBlock}/worker`.
-3. Retrieve the data from the worker with `POST /`, making sure to set the `"fromBlock"` query field to `${firstBlock}`.
-4. Exclude the received blocks from the relevant range by setting `firstBlock` to the value of `header.number` of the last received block plus one.
-5. Repeat steps 2-4 until all the required data is retrieved.
+Suppose you want to retrieve an output of some [query](#worker-api) on a block range starting at `firstBlock` (can be the genesis block) and ending at the highest available block. Proceed as follows:
 
-The main URL of the Starknet gateway is
+1. Retrieve the dataset height from the router with `GET /height` and make sure it's above `firstBlock`.
+
+2. Save the value of `firstBlock` to some variable, say `currentBlock`.
+
+3. Query the router for an URL of a worker that has the data for `currentBlock` with `GET /${currentBlock}/worker`.
+
+4. Retrieve the data from the worker by [posting the query](#worker-api) (`POST /`), setting the `"fromBlock"` query field to `${currentBlock}`.
+
+5. Parse the retrieved data to get a batch of query data **plus** the height of the last block available from the current worker. Take the `header.number` field of the last element of the retrieved JSON array - it is the height you want. Even if your query returns no data, you'll still get the block data for the last block in the range, so this procedure is safe.
+
+6. Set `currentBlock` to the height from the previous step **plus one**.
+
+7. Repeat steps 3-6 until all the required data is retrieved.
+
+The main gateway URL for Fuel Testnet is
 
 ```
-https://v2.archive.subsquid.io/network/fuel-stage-5
+https://v2.archive.subsquid.io/network/fuel-testnet
 ```
+:::tip
+Consult the [Beta 5 page](/fuel-indexing/beta5) for gateway URL and info on differences in data fields if you want data for that network.
+:::
 
 Implementation examples:
 
@@ -30,78 +43,78 @@ Implementation examples:
 
 <summary>Manually with cURL</summary>
 
-Suppose we want data on Fuel receipts from block `1000000`. We begin by finding the main URL for the Fuel Network dataset. Then we have to:
+Suppose we want data on Fuel receipts from block `1000000`. We begin by finding the main URL for the Fuel Testnet dataset. Then we have to:
 
 1. Retrieve the dataset height from the router with
 
    ```bash
-   curl https://v2.archive.subsquid.io/network/fuel-stage-5/height
+   curl https://v2.archive.subsquid.io/network/fuel-testnet/height
    ```
 
    Output
 
    ```
-   13280654
+   1211611
    ```
 
 2. Save the value `1000000` to some variable, say `currentBlock`.
+
 3. Query the router for an URL of a worker that has the data for`currentBlock`
 
    ```bash
-   curl https://v2.archive.subsquid.io/network/fuel-stage-5/1000000/worker
+   curl https://v2.archive.subsquid.io/network/fuel-testnet/1000000/worker
    ```
 
    Output
 
    ```
-   https://gr02.sqd-archive.net/worker/query/czM6Ly9mdWVsLXN0YWdlLTU
+   https://rb03.sqd-archive.net/worker/query/czM6Ly9mdWVsLXRlc3RuZXQ
    ```
 
 4. Retrieve the data from the worker
 
    ```bash
-   curl https://gr02.sqd-archive.net/worker/query/czM6Ly9mdWVsLXN0YWdlLTU \
+   curl https://rb03.sqd-archive.net/worker/query/czM6Ly9mdWVsLXRlc3RuZXQ \
    -X 'POST' -H 'content-type: application/json' -H 'accept: application/json' \
    -d '{
        "type": "fuel",
        "fromBlock":1000000,
-       "toBlock": 2000000,
        "fields":{"receipt":{"contract":true, "receiptType": true}},
        "receipts":[ {"type": ["LOG_DATA"]} ]
    }' | jq
    ```
 
    Output:
-
    ```json
    [
      {
        "header": {
-         "number": 1772883,
-         "hash": "0x1fb1134bf0ce3dff927ad9b4f47f6e63617f930beb9af331c704b5e7d5d55590"
+         "number": 1000000,
+         "hash": "0xdc31db7fa3c1fb4f3e0910dc5abf927e64cc985eb2eb13418a9f2e00c4b7ad23"
+       },
+       "receipts": []
+     },
+     {
+       "header": {
+         "number": 1002527,
+         "hash": "0x649f045675405f9d4ee34bb19479d0e5706ed14615e8f97da9f34dd166e37f35"
        },
        "receipts": [
          {
            "transactionIndex": 0,
-           "index": 3,
-           "contract": "0x84233a3696f4ca759e7f07348f33efa98e1dc1fe65bc1cc5ea693a1368b0f9e9",
+           "index": 1,
+           "contract": "0xe637b4c254aa07baa9845eb9f8c7ad0965fad5c5b1194cb37193f956be0ce6f3",
            "receiptType": "LOG_DATA"
          }
        ]
      },
+     ...
      {
        "header": {
-         "number": 1772952,
-         "hash": "0xf4e7a12f2c8c16ab8da036d5870554ae527c3316d1593c5f7334222c9e57a071"
+         "number": 1211611,
+         "hash": "0x04c9ef60f2b54d32569a410477c136f11b692c1d3eadaa5b946a0295b526223e"
        },
-       "receipts": [
-         {
-           "transactionIndex": 0,
-           "index": 3,
-           "contract": "0x84233a3696f4ca759e7f07348f33efa98e1dc1fe65bc1cc5ea693a1368b0f9e9",
-           "receiptType": "LOG_DATA"
-         }
-       ]
+       "receipts": []
      }
    ]
    ```
@@ -172,7 +185,7 @@ Full code [here](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a
 
 The returned worker will be capable of processing `POST /` requests in which the `"fromBlock"` field is equal to `${firstBlock}`.
 
-**Example response:** `https://v2.archive.subsquid.io/worker/1/query/czM6Ly9ldGhlcmV1bS1tYWlubmV0`.
+**Example response:** `https://rb03.sqd-archive.net/worker/query/czM6Ly9mdWVsLXRlc3RuZXQ`.
 
 </details>
 
@@ -204,8 +217,8 @@ The returned worker will be capable of processing `POST /` requests in which the
 ```json
 {
   "type": "fuel",
-  "fromBlock": 2000000,
-  "toBlock": 3000000,
+  "fromBlock": 1000000,
+  "toBlock": 1100000,
   "fields": { "receipt": { "contract": true, "receiptType": true } },
   "receipts": [{ "type": ["LOG_DATA"] }],
   "inputs": [{ "type": ["InputCoin"] }]
@@ -226,29 +239,40 @@ The returned worker will be capable of processing `POST /` requests in which the
 [
   {
     "header": {
-      "number": 2974282,
-      "hash": "0xf8c8d1dfc0dff5113d62bc777f23f8294af961999c87d71de107f9ea8a004788"
+      "number": 1000000,
+      "hash": "0xdc31db7fa3c1fb4f3e0910dc5abf927e64cc985eb2eb13418a9f2e00c4b7ad23"
     },
     "receipts": [],
-    "inputs": [
-      {
-        "transactionIndex": 0,
-        "index": 0
-      }
-    ]
+    "inputs": []
   },
   {
     "header": {
-      "number": 2974527,
-      "hash": "0x21e135a28489d113f0a746813e9d086a3f7f32a85b1588420ea2f8b6b07b65b5"
+      "number": 1002527,
+      "hash": "0x649f045675405f9d4ee34bb19479d0e5706ed14615e8f97da9f34dd166e37f35"
     },
-    "receipts": [],
+    "receipts": [
+      {
+        "transactionIndex": 0,
+        "index": 1,
+        "contract": "0xe637b4c254aa07baa9845eb9f8c7ad0965fad5c5b1194cb37193f956be0ce6f3",
+        "receiptType": "LOG_DATA"
+      }
+    ],
     "inputs": [
       {
         "transactionIndex": 0,
-        "index": 0
+        "index": 1
       }
     ]
+  },
+  ...
+  {
+    "header": {
+      "number": 1100000,
+      "hash": "0x4e1420d7c2cd973842ef1ce919560f15e5461376b7533c371fb895034c85dfd3"
+    },
+    "receipts": [],
+    "inputs": []
   }
 ]
 ```
@@ -263,53 +287,60 @@ The returned worker will be capable of processing `POST /` requests in which the
 
 ```ts
 {
-   type?: ReceiptType[]
-    logDataContract?: Bytes[]
-    transaction?: boolean
+  type?: ReceiptType[]
+  contract?: string[]
+  transaction?: boolean
 }
 ```
+Receipts will be included in the response if it matches all the requests. An empty array matches no instructions; omit all requests to match all receipts.
 
-Receipts will be included in the response if it matches all the requests. An empty array matches no instructions; omit all requests to match all receipts. See also [Receipt fields](../../fuel-datasource/field-selection/#receipt).
+See [addReceipt()](/fuel-indexing/fuel-datasource/receipt) SDK data request method for details on this request; also see [Receipt fields](../../fuel-datasource/field-selection/#receipt).
 
 ### Transactions
 
 ```ts
 {
   type?: TransactionType[]
-    receipts?: boolean
-    inputs?: boolean
-    outputs?: boolean
+  receipts?: boolean
+  inputs?: boolean
+  outputs?: boolean
 }
 ```
 
-A transaction will be included in the response if it matches all the requests. An empty array matches no transactions; omit all requests to match all transactions. See also [Transaction fields](../../fuel-datasource/field-selection/#transaction) for a detailed description of data request fields.
+A transaction will be included in the response if it matches all the requests. An empty array matches no transactions; omit all requests to match all transactions.
+
+See [addTransaction()](/fuel-indexing/fuel-datasource/transaction) SDK data request method for details on this request; also see [Transaction fields](../../fuel-datasource/field-selection/#transaction).
 
 ### Inputs
 
 ```ts
 {
   type?: InputType[]
-    coinOwner?: Bytes[]
-    coinAssetId?: Bytes[]
-    contractContract?: Bytes[]
-    messageSender?: Bytes[]
-    messageRecipient?: Bytes[]
-    transaction?: boolean
+  coinOwner?: Bytes[]
+  coinAssetId?: Bytes[]
+  contractContract?: Bytes[]
+  messageSender?: Bytes[]
+  messageRecipient?: Bytes[]
+  transaction?: boolean
 }
 ```
 
-An input will be included in the response if it matches all the requests. An empty array matches no logs; omit all requests to match all logs. See also [Input fields](../../fuel-datasource/field-selection/#input).
+An input will be included in the response if it matches all the requests. An empty array matches no inputs; omit all requests to match all inputs.
+
+See [addInput()](/fuel-indexing/fuel-datasource/input) SDK data request method for details on this request; also see [Input fields](../../fuel-datasource/field-selection/#input).
 
 ### Outputs
 
 ```ts
 {
- type?: OutputType[]
+  type?: OutputType[]
   transaction?: boolean
 }
 ```
 
-Balance update will be included in the response if it matches all the requests. An empty array matches no balance updates; omit all requests to match all balance updates. See also [Output fields](../../fuel-datasource/field-selection/#output).
+An output will be included in the response if it matches all the requests. An empty array matches no outputs; omit all requests to match all outputs.
+
+See [addOutput()](/fuel-indexing/fuel-datasource/output) SDK data request method for details on this request; also see [Output fields](../../fuel-datasource/field-selection/#output).
 
 ## Data fields selector
 
