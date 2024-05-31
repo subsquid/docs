@@ -1,0 +1,12 @@
+{
+  "position": 28,
+  "label": "Fuel indexing",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "slug": "/fuel-indexing",
+    "title": "Index Fuel with Subsquid"
+  }
+}
