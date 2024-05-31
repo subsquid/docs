@@ -13,11 +13,11 @@ Get some _or all_ outputs on the network. `options` has the following structure:
 ```typescript
 {
   // data requests
-   type?: OutputType[]
+  type?: OutputType[]
+
   // related data retrieval
-  include?: {
-    transaction?: boolean
-  }
+  transaction?: boolean
+
   range?: {
     from: number
     to?: number

@@ -13,12 +13,12 @@ Get some _or all_ transactions on the network. `options` has the following struc
 ```typescript
 {
   // data requests
-   type?: ReceiptType[]
-   contract?: string[]
+  type?: ReceiptType[]
+  contract?: string[]
+
   // related data retrieval
-  include?: {
-    transaction?: boolean
-  }
+  transaction?: boolean
+
   range?: {
     from: number
     to?: number
@@ -39,7 +39,7 @@ Selection of the exact fields to be retrieved for each transaction and the optio
 
 ## Examples
 
-Request all transactions with `LOG_DATA` type and include transaction:
+Request all receipts of the `LOG_DATA` type and include parent transactions:
 
 ```ts
 processor

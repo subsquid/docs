@@ -13,14 +13,14 @@ Get some _or all_ inputs on the network. `options` has the following structure:
 ```typescript
 {
   // data requests
-    type?: InputType[]
-    coinOwner?: string[]
-    coinAssetId?: string[]
-    contractContract?: string[]
-    messageSender?: string[]
-    messageRecipient?: string[]
-  // related data retrieval
+  type?: InputType[]
+  coinOwner?: string[]
+  coinAssetId?: string[]
+  contractContract?: string[]
+  messageSender?: string[]
+  messageRecipient?: string[]
 
+  // related data retrieval
   transaction?: boolean
 
   range?: {
@@ -32,7 +32,7 @@ Get some _or all_ inputs on the network. `options` has the following structure:
 
 Data requests:
 
-- `type` sets the type of the input. Receipt type has the following options: `'InputCoin' | 'InputContract' | 'InputMessage'`. Leave it undefined to subscribe to all inputs.
+- `type` sets the type of the input. You can request one or more of `'InputCoin' | 'InputContract' | 'InputMessage'`. Leave it undefined to subscribe to all inputs.
 
 Enabling the `transaction` flag will cause the processor to retrieve transactions where the selected inputs have occurred. The data will be added to the appropriate iterables within the [block data](/fuel-indexing/fuel-datasource/context-interfaces). You can also call `augmentBlock()` from `@subsquid/fuel-objects` on the block data to populate the convenience reference fields like `input.transaction`.
 
