@@ -4,7 +4,7 @@ description: >-
   Subscribe to outputs data with addOutput()
 ---
 
-# Output
+# Outputs
 
 #### `addOutput(options)` {#add-output}
 

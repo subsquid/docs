@@ -4,7 +4,7 @@ description: >-
   Subscribe to Input data with addInput()
 ---
 
-# Input
+# Inputs
 
 #### `addInput(options)` {#add-input}
 

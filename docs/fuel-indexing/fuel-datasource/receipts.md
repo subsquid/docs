@@ -4,7 +4,7 @@ description: >-
   Subscribe to txn data with addTransaction()
 ---
 
-# Receipt
+# Receipts
 
 #### `addReceipt(options)` {#add-receipt}
 

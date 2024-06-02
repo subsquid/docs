@@ -43,9 +43,9 @@ dataSource.setGraphql({
 ## Data requests
 
 Data requests are the same as they are in the testnet version:
-* [`addInput`](/fuel-indexing/fuel-datasource/input)
-* [`addOutput`](/fuel-indexing/fuel-datasource/output)
-* [`addReceipt`](/fuel-indexing/fuel-datasource/receipt)
+* [`addInput`](/fuel-indexing/fuel-datasource/inputs)
+* [`addOutput`](/fuel-indexing/fuel-datasource/outputs)
+* [`addReceipt`](/fuel-indexing/fuel-datasource/receipts)
 * [`addTransaction`](/fuel-indexing/fuel-datasource/transactions)
 
 ## Field Selection

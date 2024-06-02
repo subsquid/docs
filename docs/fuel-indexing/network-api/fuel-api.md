@@ -294,7 +294,7 @@ The returned worker will be capable of processing `POST /` requests in which the
 ```
 Receipts will be included in the response if it matches all the requests. An empty array matches no instructions; omit all requests to match all receipts.
 
-See [addReceipt()](/fuel-indexing/fuel-datasource/receipt) SDK data request method for details on this request; also see [Receipt fields](../../fuel-datasource/field-selection/#receipt).
+See [addReceipt()](/fuel-indexing/fuel-datasource/receipts) SDK data request method for details on this request; also see [Receipt fields](../../fuel-datasource/field-selection/#receipt).
 
 ### Transactions
 
@@ -309,7 +309,7 @@ See [addReceipt()](/fuel-indexing/fuel-datasource/receipt) SDK data request meth
 
 A transaction will be included in the response if it matches all the requests. An empty array matches no transactions; omit all requests to match all transactions.
 
-See [addTransaction()](/fuel-indexing/fuel-datasource/transaction) SDK data request method for details on this request; also see [Transaction fields](../../fuel-datasource/field-selection/#transaction).
+See [addTransaction()](/fuel-indexing/fuel-datasource/transactions) SDK data request method for details on this request; also see [Transaction fields](../../fuel-datasource/field-selection/#transaction).
 
 ### Inputs
 
@@ -327,7 +327,7 @@ See [addTransaction()](/fuel-indexing/fuel-datasource/transaction) SDK data requ
 
 An input will be included in the response if it matches all the requests. An empty array matches no inputs; omit all requests to match all inputs.
 
-See [addInput()](/fuel-indexing/fuel-datasource/input) SDK data request method for details on this request; also see [Input fields](../../fuel-datasource/field-selection/#input).
+See [addInput()](/fuel-indexing/fuel-datasource/inputs) SDK data request method for details on this request; also see [Input fields](../../fuel-datasource/field-selection/#input).
 
 ### Outputs
 
@@ -340,7 +340,7 @@ See [addInput()](/fuel-indexing/fuel-datasource/input) SDK data request method f
 
 An output will be included in the response if it matches all the requests. An empty array matches no outputs; omit all requests to match all outputs.
 
-See [addOutput()](/fuel-indexing/fuel-datasource/output) SDK data request method for details on this request; also see [Output fields](../../fuel-datasource/field-selection/#output).
+See [addOutput()](/fuel-indexing/fuel-datasource/outputs) SDK data request method for details on this request; also see [Output fields](../../fuel-datasource/field-selection/#output).
 
 ## Data fields selector
 
