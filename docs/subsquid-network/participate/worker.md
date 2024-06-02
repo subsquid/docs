@@ -29,7 +29,7 @@ You can run a worker from a Docker image or from its source code. Note that you'
 
 ## Configuring your setup {#configuration}
 
-1. Pick a location for the worker data. It should be able to accommodate at least 1Tb. Do not create the data folder manually, just find a place for it.
+1. Pick a location for worker data. It should be able to accommodate at least 1Tb. Do not create the data folder manually, just find a place for it.
 
 2. Pick a location for your Subsquid Network key file. The location must be outside of the data directory.
 
@@ -80,10 +80,10 @@ Before you run a worker node, you need to register it on-chain using our web app
    ![Worker registration form](./worker_registration_form.png)
 
 4. Fill the form and submit it by signing a transaction:
-   - In the top drop down menu, choose either "Wallet" (to use `SQD`s from your wallet directly) or "Vesting" (to use `SQD`s from a vesting contract).
+   - In the top drop down menu, choose either "Wallet" (to use `SQD`s from your wallet directly) or "Vesting contract" (to use `SQD`s from a vesting contract).
    - Use the peer ID you copied at step 4 of [Configuring your setup](#configuration).
 
-5. Go to the "Workers" tab and wait until the status of the registered worker changes to "Offline" or "Active". Since the workers can only be activated at a beginning of an epoch, you may have to wait for a few minutes.
+5. Go to the "Workers" tab and wait until the status of the registered worker changes to "Offline" or "Active". Since workers can only be activated at the beginning of an [epoch](/subsquid-network/faq/#epoch), you may have to wait for a few minutes.
 
 Proceed to [Running a worker](#running).
 
@@ -139,7 +139,7 @@ then find the worker container in the output of `docker container ls` and check 
 
 #### Where do I find my peer ID ?
 
-It is printed when you run `keygen` (see the steps for running worker).
+It is printed when you run `setup_worker.sh` (see [Configuring your setup](#configuration)).
 
 It is also in the first line of the worker log output. For the docker setup, list the containers with `docker container ls` and inspect the `rpc_node` container logs with `docker logs -f <rpc_node_container_id>`.
 

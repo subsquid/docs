@@ -96,3 +96,7 @@ Of course, we can’t make the cost of hosting indexers or GraphQL free-of-charg
 ### How does Subsquid ensure the security and privacy of the data accessed through the network?
 
 Subsquid Network employs validators who listen to the logs of the executed queries and resubmit them to validate the response. There's also an arbitration process to handle any discrepancies.
+
+### What is "an epoch" in the context of Subsquid Network? {#epoch}
+
+"Epoch" is a unit of time that Subsquid Network uses for internal settlement. It is [defined on-chain](https://arbiscan.io/address/0x4cf58097d790b193d22ed633bf8b15c9bc4f0da7#readContract#F3) and is currently set to be 100 L1 (Ethereum) blocks, or roughly 20 minutes.
