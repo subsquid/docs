@@ -746,6 +746,10 @@ const urlList = [
     {
         "from": "/basics/overview",
         "to": "/overview"
+    },
+    {
+        "from": "/subsquid-network/public",
+        "to": "/subsquid-network/faq"
     }
 ]
 
