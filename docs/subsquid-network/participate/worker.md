@@ -33,8 +33,7 @@ You can run a worker from a Docker image or from its source code. Note that you'
 
 2. Pick a location for your Subsquid Network key file. The location must be outside of the data directory.
 
-   ⚠️  **Warning:** Ensure that that the key will not be deleted accidentally and cannot be accessed by unauthorized parties.
-
+   ⚠️  **Warning:** Ensure that that the key will not be deleted accidentally and cannot be accessed by unauthorized parties. [Or else](#key-loss).
 3. Create a new directory for installation files and save the [`setup_worker.sh`](https://cdn.subsquid.io/worker/setup_worker.sh) script in it:
    ```bash
    curl -fO https://cdn.subsquid.io/worker/setup_worker.sh
@@ -54,6 +53,8 @@ You can run a worker from a Docker image or from its source code. Note that you'
     - generates a `.env` file in the current directory and populates it with reasonable defaults
     - downloads a `.mainnet.env` file
     - downloads a `docker-compose.yaml` file for running prebuilt worker images
+
+   You can take a look at the files that the script downloads [here](https://github.com/subsquid/cdn/tree/main/src/worker).
 
    The last line of the script's output should look like this:
    ```
@@ -97,7 +98,7 @@ Run
 ```bash
 docker compose up -d
 ```
-then find the worker container in the output of `docker container ls` and check its logs with `docker logs -f <worker_container_id>`. After some time the worker should output some info on the downloaded data chunks.
+then check the logs of the worker container with `docker compose logs`. After some time the worker should output some info on the downloaded data chunks.
 
 ### Building from the source
 
@@ -127,7 +128,7 @@ then find the worker container in the output of `docker container ls` and check 
     cargo build --release
     ```
 
-4. Run the worker using the command below. It uses `nohup`, but you may also consider daemonizing it with `systemd` or `openrc` to tolerate server restarts.
+5. Run the worker using the command below. It uses `nohup`, but you may also consider daemonizing it with `systemd` or `openrc` to tolerate server restarts.
 
     ```bash
     nohup cargo run --release -- --port $PROMETHEUS_PORT p2p
@@ -135,20 +136,38 @@ then find the worker container in the output of `docker container ls` and check 
 
 6. After some time the worker should start downloading data and serving queries.
 
+## Updating a worker
+
+Sometimes you will need to update your worker. Here's the default procedure:
+
+1. Back up your key file.
+
+2. Erase the following:
+   - worker data folder
+   - installation files folder
+
+3. Repeat the steps from [Configuring your setup](#configuration), using the path to your primary key file (not the backup).
+
+4. Skip [registering a worker](#registration).
+
+5. Proceed to [run the new worker version](#running).
+
+Some releases may require that you deviate from this procedure, so please read release notes carefully.
+
 ## Troubleshooting
 
 #### Where do I find my peer ID ?
 
 It is printed when you run `setup_worker.sh` (see [Configuring your setup](#configuration)).
 
-It is also in the first line of the worker log output. For the docker setup, list the containers with `docker container ls` and inspect the `rpc_node` container logs with `docker logs -f <rpc_node_container_id>`.
+It is also in the first line of the worker log output. For the docker setup, inspect the worker container logs with `docker compose logs`.
 
 If you installed your worker from source, check the `network.log` file.
 
 In both cases, the log line you are looking for should look like this
 
 ```
-INFO  [subsquid_network_transport::transport] Local peer ID: <THIS IS WHAT YOU NEED TO COPY>
+2024-05-28T07:43:55.591440Z  INFO subsquid_worker::transport::p2p: Local peer ID: <PEER_ID>
 ```
 
 [//]: # (### How do I get `SQD` tokens ?)
@@ -200,3 +219,11 @@ Enter the repo folder and check out v1.0.0 manually:
 cd worker-rs
 git checkout v1.0.0
 ```
+
+#### What are the consequences of losing my key file / getting it stolen? {#key-loss}
+
+If you lose your key file you won't be able to run your worker until you get a new one and register it.
+
+If your key file get stolen the perpetrator will be able to cause connectivity issues for your worker.
+
+If any of that happens, unregister your worker (on the ["Workers" tab of network.subsquid.io](https://network.subsquid.io/workers)), [generate](#configuration) a new key file and [register](#registration) your new peer ID.

@@ -54,8 +54,7 @@ By default, your gateway will go down at the end of the staking period. To preve
    ```
    Please copy this ID, as it will be needed for further steps.
 
-   ⚠️ **Note:** Please make sure that the generated file is safe and secure at `<KEY_PATH>` (i.e. it will not be deleted accidentally and cannot be accessed by unauthorized parties).
-
+   ⚠️ **Note:** Please make sure that the generated file is safe and secure at `<KEY_PATH>` (i.e. it will not be deleted accidentally and cannot be accessed by unauthorized parties). [Or else](#key-loss).
 2. Go to [https://network.subsquid.io](https://network.subsquid.io).
 
 3. Connect your EVM wallet (we recommend using Metamask). Use the wallet that holds the tokens.
@@ -83,7 +82,7 @@ By default, your gateway will go down at the end of the staking period. To preve
 
 9. Prepare the environment. Begin with
    ```bash
-   cp mainnet.env .env # use tethys.env for the testnet
+   cp mainnet.env .env
    ```
    then set the path to your key file:
    ```bash
@@ -110,3 +109,13 @@ The recommended way to make a gateway that can serve a large number of requests 
 3. Run gateways in parallel, balancing traffic between the instances.
 
 If you plan to automate running your gateway instances, you may find [this helm chart](https://github.com/subsquid/query-gateway/tree/master/chart) useful.
+
+## Troubleshooting
+
+#### What are the consequences of losing my key file / getting it stolen? {#key-loss}
+
+If you lose your key file you won't be able to run your gateway until you get a new one and register it.
+
+If your key file get stolen the perpetrator will be able to cause connectivity issues for your gateway, effectively causing a downtime.
+
+If any of that happens, unregister your gateway (on the ["Gateways" tab of network.subsquid.io](https://network.subsquid.io/gateways)), then generate a new key file and register the new gateway peer ID.
