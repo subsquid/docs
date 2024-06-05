@@ -171,10 +171,13 @@ If your squid uses environment variables, stored in `.env` file, you need to set
 ## Deploy the squid
 
 To deploy the squid to the cloud, open `Squids` in the sidebar and press the `Deploy a squid` button in the Subsquid cloud.
+![deploy tab](/img/deploy2.png)
 You will be prompted to install the Subsquid CLI if you haven't already. Follow the instructions to install the CLI.
 Next, set up your auth key as shown in the Subsquid cloud.
-
 Type the squid name to be the same as in the `squid.yaml` file.
+
+![deploy tab](/img/deploy1.png)
+
 Finally, copy and paste the command provided in the Subsquid cloud to deploy the squid:
 
 ```bash
