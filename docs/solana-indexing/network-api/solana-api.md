@@ -32,6 +32,10 @@ The main URL of the Solana gateway is
 ```
 https://v2.archive.subsquid.io/network/solana-mainnet
 ```
+We also serve a dataset for Eclipse Testnet at
+```
+https://v2.archive.subsquid.io/network/eclipse-testnet
+```
 
 Implementation examples:
 
