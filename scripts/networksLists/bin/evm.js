@@ -60,6 +60,8 @@ async function evmNetworksRows(networksJson) {
 			switch (network) {
 				case 'zksync-mainnet':
 					return capIsPresent ? '<FromBlockTooltip tip="15500000">✓</FromBlockTooltip>' : ' '
+        case 'metis-mainnet':
+          return capIsPresent ? '<ExceptOnBlocksTooltip gapStart="16861274" gapEnd="16861286">✓</ExceptOnBlocksTooltip>' : ' '
 				default:
 					return capIsPresent ? '✓' : ' '
 			}
