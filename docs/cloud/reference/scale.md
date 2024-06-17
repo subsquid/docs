@@ -6,7 +6,11 @@ description: Scale the squid with the deployment manifest
 
 # Scale the deployment
 
-The `scale:` section of the [deployment manifest](/cloud/reference/manifest) allows allocating additional computing resources for the squid add-ons and services. This option is only available for Premium Cloud accounts. To apply for a Premium account, fill the [form](https://docs.google.com/forms/d/e/1FAIpQLSchqvWxRhlw7yfBlfiudizLJI9hEfeCEuaSlk3wOcwB1HQf6g/viewform?usp=sf_link).
+The `scale:` section of the [deployment manifest](/cloud/reference/manifest) allows allocating additional computing resources for the squid add-ons and services. This option is only available for paid squids deployed in [professional organizations](/cloud/resources/organizations/#professional-organizations).
+
+:::info
+Visit the [Pricing page](/cloud/pricing) and/or our [costs calculator](https://subsquid.io/subsquid-cloud#calculator) if you're looking for an estimate.
+:::
 
 The manifest supports the following scaling options:
 
