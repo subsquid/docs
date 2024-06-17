@@ -47,7 +47,9 @@ You can run a worker from a Docker image or from its source code. Note that you'
    ```bash
    ./setup_worker.sh <DATA_DIR_PATH> <KEY_PATH>
    ```
-   The script will prompt you for your public IP address and the UDP port you would like to use for P2P communication. Here's what it does:
+   The script will prompt you for an UDP port to use for P2P communication and give you an option to set your public IP address in worker config statically. *Most users should not set the IP address here* since setups with automatic IP discovery are more robust.
+
+   Here's what the script does:
     - creates a directory at `<DATA_DIR_PATH>`
     - generates a key file at `<KEY_PATH>`
     - generates a `.env` file in the current directory and populates it with reasonable defaults
@@ -60,7 +62,7 @@ You can run a worker from a Docker image or from its source code. Note that you'
    ```
    Your peer ID is: 12D3KooWPfotj6qQapKeWg4RZysUjEeswLEpiSjgv16LgNTyYFTW. Now you can register it on chain.
    ```
-   **Please copy your peer ID**, as it will be needed for [on-chain worker registration](#registration).
+   *Please copy your peer ID*, as it will be needed for [on-chain worker registration](#registration).
 
 5. (optional) Feel free to edit the generated `.env` and `.mainnet.env` files if you'd like, e.g., to set a custom Prometheus port or use your own RPC provider.
 
@@ -142,15 +144,37 @@ Sometimes you will need to update your worker. Here's the default procedure:
 
 1. Back up your key file.
 
-2. Erase the following:
-   - worker data folder
-   - installation files folder
+2. If you are running a docker image:
+   - go to your installation files folder
+   - fetch the updated `docker-compose.yaml`:
+     ```bash
+     curl -fO https://cdn.subsquid.io/worker/docker-compose.yaml
+     ```
+   - run
+     ```bash
+     docker compose up
+     ```
+     to apply the update.
 
-3. Repeat the steps from [Configuring your setup](#configuration), using the path to your primary key file (not the backup).
+3. If you're running a binary built from source:
+   - note the new worker version in the announcement
+   - go to your installation files folder
+   - enter the `worker-rs` subfolder
+   - fetch the new commits:
+     ```bash
+     git fetch --unshallow
+     ```
+   - check out the new worker version:
+     ```bash
+     git checkout <new_version_tag>
+     ```
+   - rebuild the worker:
+     ```bash
+     cargo build --release
+     ```
+   - restart the worker process
 
-4. Skip [registering a worker](#registration).
-
-5. Proceed to [run the new worker version](#running).
+No need to erase the data folder or re-register your worker.
 
 Some releases may require that you deviate from this procedure, so please read release notes carefully.
 
