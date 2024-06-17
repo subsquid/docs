@@ -39,3 +39,8 @@ The easiest way to participate in Subsquid Network is to delegate your `SQD` tok
    ![Undelegation form](./delegate_undelegate.png)
 
 5. Enter the `SQD` amount you want to withdraw, click the large new "Undelegate" button and confirm the transaction.
+
+## Maximizing the rewards
+
+- You'll get most rewards if you delegate to high quality but obscure workers. Look for workers with high uptime percentage and a lot of free delegation capacity.
+- Currently, both the worker and its delegators are rewarded the most when the total delegated `SQD` count is around `30_000`. Anything more or less means less rewards.
