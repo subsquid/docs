@@ -67,6 +67,12 @@ squid-evm-typegen src/abi 0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413#my-contract
 |  `--clean`                | delete output directory before the run                   |
 |  `-h, --help`             | display help for command                                 |
 
+:::warning
+The generated modules depend on `@subsquid/evm-abi`. Please add it to your `package.json` as a peer dependency if it's not there already:
+```bash
+npm i @subsquid/evm-abi
+```
+:::
 
 ## Usage
 
