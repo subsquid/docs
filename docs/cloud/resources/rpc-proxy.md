@@ -17,7 +17,7 @@ Enable the RPC add-on in the [manifest](/cloud/reference/manifest) like this:
 deploy:
   addons:
     rpc:
-      - eth-goerli:http
+      - eth-goerli.http
 ```
 
 ## Processor configuration
@@ -54,7 +54,7 @@ Among other things, this enables a development process that uses the proxy for b
    deploy:
      addons:
        rpc:
-         - eth:http
+         - eth.http
    ```
    This will add and populate the `RPC_ETH_HTTP` variable for Cloud deployments.
 
