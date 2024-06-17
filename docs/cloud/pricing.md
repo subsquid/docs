@@ -166,10 +166,6 @@ The grace period ends on October 1st, 2023 with the payment rails enabled in the
 
 ## FAQ
 
-**Q**: What happens if I am on a free plan now and have more than one squid?
-
-**A**: Only a single collocated squid is included in the free plan. Please apply for Premium or some of your squids will be at risk of hibernation.
-
 **Q**: What is the difference between collocated and dedicated squids? Why are collocated squids much cheaper?
 
 **A**: Collocated squids share compute resources which means that it may be unresponsive if the neighbour squid is under high load. 

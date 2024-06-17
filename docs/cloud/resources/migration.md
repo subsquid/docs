@@ -61,7 +61,7 @@ You may want to add additional flags to `api.cmd`, e.g. to enable [caching](/sdk
 
 ## 4. (Optional) Add `scale:` options
 
-Subsquid Cloud Premium users may request additional storage for the Postgres database and multiple gateway replicas for the `api` by adding the `scale` section to the manifest:
+If you deploy to a [professional organization](/cloud/resources/organizations/#professional-organizations) you can request additional storage for the Postgres database and multiple gateway replicas for the `api` by adding the `scale` section to the manifest:
 
 ```yml
 scale:
@@ -71,8 +71,6 @@ scale:
   api:
     replicas: 3
 ```
-
-Apply for a Premium account by filling this [form](https://t.ly/Uh_S).
 
 ## 5. Create or update the deployment
 
