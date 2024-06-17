@@ -16,7 +16,7 @@ process.stdin.on('data', chunk => {
 	inputChunks.push(chunk)
 })
 process.stdin.on('end', () => {
-	const inputJSON = inputChunks.join()
+	const inputJSON = inputChunks.join('')
 	try {
 		const parsedData = JSON.parse(inputJSON)
 		console.log(makeRpcProxyTables(parsedData.payload))

@@ -19,42 +19,53 @@ See the [RPC proxy guide](/cloud/resources/rpc-proxy) for details.
 
 <summary>Available EVM networks</summary>
 
-| Network name          | network.protocol             |
-|:---------------------:|:----------------------------:|
-| Arbitrum One          | `arbitrum-one.http`          |
-| Arbitrum One Goerli   | `arbitrum-goerli.http`       |
-| Arbitrum One Sepolia  | `arbitrum-sepolia.http`      |
-| Arbitrum Nova         | `arbitrum-nova.http`         |
-| Astar                 | `astar.http`                 |
-| AVA                   | `ava.http`                   |
-| AVA Testnet           | `ava-testnet.http`           |
-| Base                  | `base.http`                  |
-| Base Goerli           | `base-goerli.http`           |
-| Base Sepolia          | `base-sepolia.http`          |
-| BSC                   | `bsc.http`                   |
-| BSC Testnet           | `bsc-testnet.http`           |
-| Ethereum              | `eth.http`                   |
-| Ethereum Goerli       | `eth-goerli.http`            |
-| Ethereum Holesky      | `eth-holesky.http`           |
-| Ethereum Sepolia      | `eth-sepolia.http`           |
-| Evmos                 | `evmos.http`                 |
-| Fantom                | `fantom.http`                |
-| Fantom Testnet        | `fantom-testnet.http`        |
-| Gnosis                | `gnosis.http`                |
-| Mantle                | `mantle.http`                |
-| Metis                 | `metis.http`                 |
-| Moonbase              | `moonbase-alpha.http`        |
-| Moonbeam              | `moonbeam.http`              |
-| Moonriver             | `moonriver.http`             |
-| OKTC                  | `undefined.http`             |
-| Optimism              | `optimism.http`              |
-| Optimism Goerli       | `optimism-goerli.http`       |
-| Polygon               | `polygon.http`               |
-| Polygon Testnet       | `polygon-testnet.http`       |
-| Polygon zkEVM         | `polygon-zkevm.http`         |
-| Polygon zkEVM Testnet | `polygon-zkevm-testnet.http` |
-| Shibuya               | `shibuya.http`               |
-| Shiden                | `shiden.http`                |
+| Network name          | network.protocol                     |
+|:---------------------:|:------------------------------------:|
+| Arbitrum One          | `arbitrum-one.http`                  |
+| Arbitrum One Goerli   | `arbitrum-goerli.http`               |
+| Arbitrum One Sepolia  | `arbitrum-sepolia.http`              |
+| Arbitrum Nova         | `arbitrum-nova.http`                 |
+| Astar                 | `astar.http`                         |
+| AVA                   | `ava.http`                           |
+| AVA Testnet           | `ava-testnet.http`                   |
+| Base                  | `base.http`                          |
+| Base Goerli           | `base-goerli.http`                   |
+| Base Sepolia          | `base-sepolia.http`                  |
+| Blast L2              | `blast-l2.http`                      |
+| BSC                   | `bsc.http`                           |
+| BSC Testnet           | `bsc-testnet.http`                   |
+| Ethereum              | `eth.http`                           |
+| Ethereum Goerli       | `eth-goerli.http`                    |
+| Ethereum Holesky      | `eth-holesky.http`                   |
+| Ethereum Sepolia      | `eth-sepolia.http`                   |
+| Evmos                 | `evmos.http`                         |
+| Fantom                | `fantom.http`                        |
+| Fantom Testnet        | `fantom-testnet.http`                |
+| Gnosis                | `gnosis.http`                        |
+| Linea                 | `linea.http`                         |
+| Mantle                | `mantle.http`                        |
+| Mantle                | `mantle-sepolia.http`                |
+| Metis                 | `metis.http`                         |
+| Moonbase              | `moonbase-alpha.http`                |
+| Moonbeam              | `moonbeam.http`                      |
+| Moonriver             | `moonriver.http`                     |
+| OKTC                  | `oktc.http`                          |
+| opBNB                 | `opbnb.http`                         |
+| opBNB                 | `opbnb-testnet.http`                 |
+| Optimism              | `optimism.http`                      |
+| Optimism Goerli       | `optimism-goerli.http`               |
+| Polygon               | `polygon.http`                       |
+| Polygon Amoy          | `polygon-amoy-testnet.http`          |
+| Polygon Testnet       | `polygon-testnet.http`               |
+| Polygon zkEVM         | `polygon-zkevm.http`                 |
+| Polygon zkEVM Cardona | `polygon-zkevm-cardona-testnet.http` |
+| Polygon zkEVM Testnet | `polygon-zkevm-testnet.http`         |
+| Scroll                | `scroll.http`                        |
+| Scroll Sepolia        | `scroll-sepolia.http`                |
+| Shibuya               | `shibuya.http`                       |
+| Shiden                | `shiden.http`                        |
+| zkSync                | `zksync.http`                        |
+| zkSync Sepolia        | `zksync-sepolia.http`                |
 
 </details>
 
@@ -93,7 +104,7 @@ See the [RPC proxy guide](/cloud/resources/rpc-proxy) for details.
 | Kilt                 | `kilt.http`                 |
 | Kintsugi             | `kintsugi.http`             |
 | Kusama               | `kusama.http`               |
-| Mainnet              | `litentry.http`             |
+| Litentry             | `litentry.http`             |
 | Moonbase             | `moonbase.http`             |
 | Moonbeam             | `moonbeam-substrate.http`   |
 | Moonriver            | `moonriver-substrate.http`  |
