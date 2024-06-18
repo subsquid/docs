@@ -248,6 +248,6 @@ git checkout v1.0.0
 
 If you lose your key file you won't be able to run your worker until you get a new one and register it.
 
-If your key file get stolen the perpetrator will be able to cause connectivity issues for your worker.
+If your key file gets stolen the perpetrator will be able to cause connectivity issues for your worker.
 
 If any of that happens, unregister your worker (on the ["Workers" tab of network.subsquid.io](https://network.subsquid.io/workers)), [generate](#configuration) a new key file and [register](#registration) your new peer ID.
