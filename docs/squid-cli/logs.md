@@ -34,4 +34,7 @@ ALIASES
   $ sqd squid logs
 ```
 
+Notes:
+ * `--since` accepts the notation of the [`ms` library](https://www.npmjs.com/package/ms): 1d, 10h, 1m.
+
 _See code: [src/commands/logs.ts](https://github.com/subsquid/squid-cli/tree/master/src/commands/logs.ts)_
