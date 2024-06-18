@@ -26,12 +26,7 @@ Consider our [RPC proxy service](/cloud/resources/rpc-proxy) if your squid requi
 
 ## 0. Install Squid CLI
 
-Follow [this guide](/squid-cli/installation), including the optional authentication steps.
-
-:::info 
-The manifest-based deployment flow below was introduced in `@subsquid/cli` version `2.x`. 
-Follow the [migration guide](/cloud/resources/migration) to upgrade from older versions of `@subsquid/cli`.
-:::
+Follow [this guide](/squid-cli/installation). Make sure to do the optional authentication steps.
 
 ## 1. Inspect and deploy using the manifest
 

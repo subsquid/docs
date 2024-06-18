@@ -280,10 +280,6 @@ const urlList = [
         "to": "/cloud/resources/monitoring"
     },
     {
-        "from": "/deploy-squid/migration",
-        "to": "/cloud/resources/migration"
-    },
-    {
         "from": "/deploy-squid/pg-addon",
         "to": "/cloud/reference/pg"
     },
