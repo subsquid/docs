@@ -21,7 +21,7 @@ Any of the following variables set globally or for `api` or `processor` squid se
 
 ## Config options
 
-The add=on supports additional PG config options:
+The addon supports additional PG config options:
 
 | Name                                 | Description                                                            | Type      | Default value  | Optional   |  
 |:------------------------------------:|:----------------------------------------------------------------------:|:---------:|:--------------:|:----------:|
