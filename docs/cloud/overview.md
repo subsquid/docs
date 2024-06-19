@@ -53,6 +53,7 @@ deploy:
 
 Subsquid provides RPC and database addons that can be used with your squid deployment. Enable your addons in the `deploy.addons` section.
 
+
 #### `rpc` addon
 
 For real time data you can use the [`rpc` addon](/cloud/resources/rpc-proxy). First, open the `RPC endpoints` tab in the Subsquid cloud sidebar and copy the URL of the chosen endpoint.
