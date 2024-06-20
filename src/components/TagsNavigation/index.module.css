@@ -210,6 +210,16 @@
     grid-gap: 20px;
     border-radius: 10px;
     background: #FFFFFF;
+    position: relative;
+}
+
+.tagsResultCard__link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    right: 0;
+    bottom: 0;
 }
 
 .tagsResultCard__header {

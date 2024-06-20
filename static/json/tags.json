@@ -129,7 +129,8 @@
         "DEX",
         "ERC20",
         "Two-pass indexing"
-      ]
+      ],
+      "url": "https://github.com/subsquid-labs/uniswapv3-abridged-squid"
     },
     {
       "title": "Uniswap v3 full",
@@ -142,7 +143,8 @@
         "ERC20",
         "Two-pass indexing",
         "Direct RPC calls"
-      ]
+      ],
+      "url": "https://github.com/subsquid-labs/uniswapv3-squid"
     },
     {
       "title": "Substrate template",
@@ -151,7 +153,8 @@
         "Substrate",
         "PostgreSQL",
         "GraphQL"
-      ]
+      ],
+      "url": "https://github.com/subsquid-labs/squid-substrate-template"
     },
     {
       "title": "ink! template",
@@ -161,7 +164,8 @@
         "PostgreSQL",
         "GraphQL",
         "ink!"
-      ]
+      ],
+      "url": "https://github.com/subsquid-labs/squid-ink-template"
     },
     {
       "title": "BigQuery template",
@@ -170,7 +174,8 @@
         "EVM",
         "ERC20",
         "BigQuery"
-      ]
+      ],
+      "url": "https://github.com/subsquid-labs/squid-bigquery-example"
     },
     {
       "title": "CSV template",
@@ -179,7 +184,8 @@
         "EVM",
         "ERC20",
         "CSV"
-      ]
+      ],
+      "url": "https://github.com/subsquid-labs/file-store-csv-example"
     },
     {
       "title": "S3 template",
@@ -189,7 +195,8 @@
         "ERC20",
         "CSV",
         "S3"
-      ]
+      ],
+      "url": "https://github.com/subsquid-labs/file-store-s3-example"
     },
     {
       "title": "Parquet template",
@@ -198,7 +205,8 @@
         "EVM",
         "ERC20",
         "Parquet"
-      ]
+      ],
+      "url": "https://github.com/subsquid-labs/file-store-parquet-example"
     },
     {
       "title": "Fuel example",
@@ -207,7 +215,8 @@
         "Fuel",
         "PostgreSQL",
         "GraphQL"
-      ]
+      ],
+      "url": "https://github.com/subsquid-labs/fuel-example"
     },
     {
       "title": "Solana example",
@@ -216,7 +225,8 @@
         "Solana",
         "PostgreSQL",
         "GraphQL"
-      ]
+      ],
+      "url": "https://github.com/subsquid-labs/solana-example"
     }
   ]
 }

@@ -13,6 +13,7 @@ interface DataCard {
     title: string
     description: string
     tags: string[]
+    url: string
 }
 
 interface DataCategory {
@@ -275,6 +276,7 @@ export default function TagsNavigation({tags}: { tags: string }): JSX.Element {
                             <div key={colIndex} className={s.tagsResult__column}>
                                 {column.map(card => (
                                     <div className={s.tagsResultCard} key={card.title}>
+                                        <a className={s.tagsResultCard__link} href={card.url} target="_blank"></a>
                                         <div className={s.tagsResultCard__header}>
                                             <span className={s.tagsResultCard__title}>{card.title}</span>
                                             <span className={s.tagsResultCard__desc}>{card.description}</span>
