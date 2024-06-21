@@ -1,0 +1,232 @@
+{
+  "tags": [
+    {
+      "id": "EVM",
+      "description": "Ethereum-compatible networks such as Binance and Core"
+    },
+    {
+      "id": "Substrate",
+      "description": "Networks running on <a href=\"https://substrate.io\">Substrate</a> such as Polkadot and Kusama"
+    },
+    {
+      "id": "Solana",
+      "description": "Solana and compatible networks"
+    },
+    {
+      "id": "Fuel",
+      "description": "<a href=\"https://fuel.network\">Fuel Network</a>"
+    },
+    {
+      "id": "Tron",
+      "description": "<a href=\"https://tron.network\">Tron Network</a>"
+    },
+    {
+      "id": "PostgreSQL",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod"
+    },
+    {
+      "id": "GraphQL",
+      "description": "Lorem ipsum dolor sit amet"
+    },
+    {
+      "id": "CSV",
+      "description": "Writing to CSV files"
+    },
+    {
+      "id": "Parquet",
+      "description": "Writing to <a href=\"https://parquet.apache.org\">Parquet</a> files"
+    },
+    {
+      "id": "S3",
+      "description": "Saving data files to S3-compatible cloud storage"
+    },
+    {
+      "id": "BigQuery",
+      "description": "Writing to Google BigQuery"
+    },
+    {
+      "id": "Multichain",
+      "description": "Indexers that use data from multiple chains"
+    },
+    {
+      "id": "ERC20",
+      "description": "Indexing fungible tokens on EVM"
+    },
+    {
+      "id": "ERC721",
+      "description": "Indexing NFTs on EVM"
+    },
+    {
+      "id": "IPFS",
+      "description": "Getting data from <a href=\"https://ipfs.tech\">Interplanetary File System</a>"
+    },
+    {
+      "id": "DEX",
+      "description": "Indexing decentralized exchanges such as Uniswap"
+    },
+    {
+      "id": "Two-pass indexing",
+      "description": "Pattern that increases data efficiency of squids that index deployments by factory contracts"
+    },
+    {
+      "id": "Traces",
+      "description": "Call traces for EVM"
+    },
+    {
+      "id": "Direct RPC calls",
+      "description": "Getting data by directly calling chain node RPCs"
+    },
+    {
+      "id": "ink!",
+      "description": "Indexing <a href=\"https://use.ink\">ink!</a> smart contracts"
+    }
+  ],
+  "categories": [
+    {
+      "title": "Tech stack",
+      "tags": [
+        "EVM",
+        "Substrate",
+        "Solana",
+        "Fuel",
+        "Tron"
+      ]
+    },
+    {
+      "title": "Target",
+      "tags": [
+        "PostgreSQL",
+        "GraphQL",
+        "CSV",
+        "Parquet",
+        "S3",
+        "BigQuery"
+      ]
+    },
+    {
+      "title": "Misc",
+      "tags": [
+        "Multichain",
+        "ERC20",
+        "ERC721",
+        "IPFS",
+        "DEX",
+        "Two-pass indexing",
+        "Traces",
+        "Direct RPC calls",
+        "ink!"
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "title": "Uniswap v3 abridged",
+      "description": "Data on factory, pools and liquidity positions. No aggregates.",
+      "tags": [
+        "EVM",
+        "PostgreSQL",
+        "GraphQL",
+        "DEX",
+        "ERC20",
+        "Two-pass indexing"
+      ],
+      "url": "https://github.com/subsquid-labs/uniswapv3-abridged-squid"
+    },
+    {
+      "title": "Uniswap v3 full",
+      "description": "Data on factory, pools and liquidity positions. Aggregates + RPC data.",
+      "tags": [
+        "EVM",
+        "PostgreSQL",
+        "GraphQL",
+        "DEX",
+        "ERC20",
+        "Two-pass indexing",
+        "Direct RPC calls"
+      ],
+      "url": "https://github.com/subsquid-labs/uniswapv3-squid"
+    },
+    {
+      "title": "Substrate template",
+      "description": "Template for Substrate-based squids",
+      "tags": [
+        "Substrate",
+        "PostgreSQL",
+        "GraphQL"
+      ],
+      "url": "https://github.com/subsquid-labs/squid-substrate-template"
+    },
+    {
+      "title": "ink! template",
+      "description": "Template for indexing ink! contracts",
+      "tags": [
+        "Substrate",
+        "PostgreSQL",
+        "GraphQL",
+        "ink!"
+      ],
+      "url": "https://github.com/subsquid-labs/squid-ink-template"
+    },
+    {
+      "title": "BigQuery template",
+      "description": "Saves USDC transfers data to a Google BigQuery dataset",
+      "tags": [
+        "EVM",
+        "ERC20",
+        "BigQuery"
+      ],
+      "url": "https://github.com/subsquid-labs/squid-bigquery-example"
+    },
+    {
+      "title": "CSV template",
+      "description": "Saves USDC transafers data to local CSV files",
+      "tags": [
+        "EVM",
+        "ERC20",
+        "CSV"
+      ],
+      "url": "https://github.com/subsquid-labs/file-store-csv-example"
+    },
+    {
+      "title": "S3 template",
+      "description": "Saves USDC transafers data to CSV files on S3",
+      "tags": [
+        "EVM",
+        "ERC20",
+        "CSV",
+        "S3"
+      ],
+      "url": "https://github.com/subsquid-labs/file-store-s3-example"
+    },
+    {
+      "title": "Parquet template",
+      "description": "Saves USDC transafers data to local Apache Parquet files",
+      "tags": [
+        "EVM",
+        "ERC20",
+        "Parquet"
+      ],
+      "url": "https://github.com/subsquid-labs/file-store-parquet-example"
+    },
+    {
+      "title": "Fuel example",
+      "description": "An example Fuel squid",
+      "tags": [
+        "Fuel",
+        "PostgreSQL",
+        "GraphQL"
+      ],
+      "url": "https://github.com/subsquid-labs/fuel-example"
+    },
+    {
+      "title": "Solana example",
+      "description": "An example Fuel squid",
+      "tags": [
+        "Solana",
+        "PostgreSQL",
+        "GraphQL"
+      ],
+      "url": "https://github.com/subsquid-labs/solana-example"
+    }
+  ]
+}
