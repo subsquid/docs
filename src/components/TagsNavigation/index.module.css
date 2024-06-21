@@ -6,7 +6,15 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 16px;
+    margin-bottom: 16px;
+}
+
+.tagsButton {
     margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
 }
 
 .tagsCategory {

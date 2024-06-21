@@ -227,6 +227,36 @@ export default function TagsNavigation({tags}: { tags: string }): JSX.Element {
         setActiveTags(initialTags);
     };
 
+    function selectAllTags() {
+        if (data) {
+            const allTags = [];
+            data.categories.forEach(category => {
+                category.tags.forEach(tag => {
+                    allTags.push(tag);
+                    if (checkboxesRef.current[tag]) {
+                        checkboxesRef.current[tag].checked = true;
+                    }
+                });
+            });
+
+            setActiveTags(allTags);
+            const checkedTags = {}
+
+            allTags.forEach((t) => {
+                checkedTags[t] = true
+            })
+
+            setCheckedTags(checkedTags);
+
+            // Обновление URL после изменения состояния
+            setTimeout(() => {
+                const queryParams = new URLSearchParams(window.location.search);
+                queryParams.set('tags', JSON.stringify(allTags));
+                history.push({ search: queryParams.toString() });
+            }, 0);
+        }
+    }
+
     const columns = [[], [], []];
     results.forEach((card, index) => {
         columns[index % 3].push(card);
@@ -266,6 +296,16 @@ export default function TagsNavigation({tags}: { tags: string }): JSX.Element {
                         </div>
                     </div>
                 })}
+            </div>
+
+            <div className={s.tagsButton}>
+                {activeTags.length < tagsData.length && <button className={s.tagsCategory__clear} type={"button"} onClick={() => {
+                    selectAllTags()
+                }}>Select all
+                </button>}
+                {activeTags.length > 0 && <button className={s.tagsCategory__clear} type={"button"} onClick={() => {
+                    resetTags(activeTags)
+                }}>Clear all</button>}
             </div>
 
             <div className={s.tagsResult}>
