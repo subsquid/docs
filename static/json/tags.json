@@ -251,17 +251,6 @@
       "url": "https://github.com/subsquid-labs/squid-evm-template"
     },
     {
-      "title": "Multichain template",
-      "description": "Captures USDC transfers on Ethereum and BSC and stores them in the same database.",
-      "tags": [
-        "EVM",
-        "Postgres+GraphQL",
-        "ERC20",
-        "Multichain"
-      ],
-      "url": "https://github.com/subsquid-labs/squid-multichain-template"
-    },
-    {
       "title": "Substrate template",
       "description": "Indexes Balances.Transfer events on Kusama, ties them to accs.",
       "tags": [
