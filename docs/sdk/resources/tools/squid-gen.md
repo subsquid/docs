@@ -21,7 +21,7 @@ Squid generation procedure is very similar for both contract types. Here are the
    Enter the squid folder and install the dependencies:
    ```bash
    cd my-squid
-   npm i
+   npm ci
    ```
 
 2. Write the [configuration](#configuration) of the future squid to `squidgen.yaml`. Retrieve any necessary contract ABIs and store them at `./abi`.
