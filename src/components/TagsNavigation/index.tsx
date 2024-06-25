@@ -2,7 +2,6 @@ import React, {useEffect, useState, useRef} from 'react';
 import s from './index.module.css'
 import axios from "axios";
 import {useHistory} from 'react-router-dom';
-import BrowserOnly from '@docusaurus/BrowserOnly';
 
 interface Data {
     cards: DataCard[]
@@ -33,18 +32,7 @@ interface Tags {
     color: string
 }
 
-export default function TagsNavigation(props: {tags: string}): JSX.Element {
-    return (
-        <BrowserOnly fallback={<div>Loading...</div>}>
-            {() => {
-                return <TagsNavigationBase {...props} />
-            }}
-        </BrowserOnly>
-    );
-}
-
-
-function TagsNavigationBase({tags}: { tags: string }): JSX.Element {
+export default function TagsNavigation({tags}: { tags: string }): JSX.Element {
     const [data, setData] = useState<Data>(undefined)
     const [activeTags, setActiveTags] = useState<string[]>([])
     const [checkedTags, setCheckedTags] = useState<{ [key: string]: boolean }>({});

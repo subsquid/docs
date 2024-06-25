@@ -77,10 +77,6 @@
       "description": "Indexing <a href=\"https://use.ink\">ink!</a> smart contracts"
     },
     {
-      "id": "Showcase",
-      "description": "Squids from the processor configuration showcase: a representative set of data request examples"
-    },
-    {
       "id": "Outdated",
       "description": "Squids that use deprecated architecture and/or packages, but are still useful as illustrations of select features"
     }
@@ -119,7 +115,6 @@
         "Two-pass",
         "Traces",
         "Direct RPC calls",
-        "Showcase",
         "Outdated"
       ]
     }
@@ -144,12 +139,12 @@
       "tags": [
         "EVM",
         "Postgres+GraphQL",
-        "Hot blocks",
+				"Hot blocks",
         "DEX",
         "ERC20",
         "Two-pass",
         "Direct RPC calls",
-        "Outdated"
+				"Outdated"
       ],
       "url": "https://github.com/subsquid-labs/uniswapv3-squid"
     },
@@ -158,8 +153,7 @@
       "description": "Fetching txs data in bulk, filtering the output.",
       "tags": [
         "EVM",
-        "Postgres+GraphQL",
-        "Showcase"
+        "Postgres+GraphQL"
       ],
       "url": "https://github.com/subsquid-labs/showcase00-analyzing-a-large-number-of-wallets"
     },
@@ -169,9 +163,8 @@
       "tags": [
         "EVM",
         "Postgres+GraphQL",
-        "ERC20",
-        "Hot blocks",
-        "Showcase"
+				"ERC20",
+				"Hot blocks"
       ],
       "url": "https://github.com/subsquid-labs/showcase01-all-usdc-transfers"
     },
@@ -181,8 +174,7 @@
       "tags": [
         "EVM",
         "Postgres+GraphQL",
-        "ERC20",
-        "Showcase"
+				"ERC20"
       ],
       "url": "https://github.com/subsquid-labs/showcase02-all-transfers-to-a-wallet"
     },
@@ -191,8 +183,7 @@
       "description": "Fetches all transactions addressed to the AAVE contract plus all event logs emitted.",
       "tags": [
         "EVM",
-        "Postgres+GraphQL",
-        "Showcase"
+        "Postgres+GraphQL"
       ],
       "url": "https://github.com/subsquid-labs/showcase03-all-events-caused-by-contract-calls"
     },
@@ -201,8 +192,7 @@
       "description": "Fetches all Mint(address,address,uint256) event logs plus parent txs.",
       "tags": [
         "EVM",
-        "Postgres+GraphQL",
-        "Showcase"
+        "Postgres+GraphQL"
       ],
       "url": "https://github.com/subsquid-labs/showcase04-all-mint-events"
     },
@@ -212,8 +202,7 @@
       "tags": [
         "EVM",
         "Postgres+GraphQL",
-        "DEX",
-        "Showcase"
+				"DEX"
       ],
       "url": "https://github.com/subsquid-labs/showcase05-dex-pair-creation-and-swaps"
     },
@@ -223,9 +212,8 @@
       "tags": [
         "EVM",
         "Postgres+GraphQL",
-        "ERC721",
-        "Traces",
-        "Showcase"
+				"ERC721",
+				"Traces"
       ],
       "url": "https://github.com/subsquid-labs/showcase06-all-bayc-call-traces"
     },
@@ -235,9 +223,8 @@
       "tags": [
         "EVM",
         "Postgres+GraphQL",
-        "ERC721",
-        "Traces",
-        "Showcase"
+				"ERC721",
+				"Traces"
       ],
       "url": "https://github.com/subsquid-labs/showcase07-grab-all-nft-transfers/"
     },
