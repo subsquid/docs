@@ -43,7 +43,7 @@ export default function TagsNavigation(props: {tags: string}): JSX.Element {
     );
 }
 
-
+let firstLoad = false
 function TagsNavigationBase({tags}: { tags: string }): JSX.Element {
     const [data, setData] = useState<Data>(undefined)
     const [activeTags, setActiveTags] = useState<string[]>([])
@@ -126,6 +126,44 @@ function TagsNavigationBase({tags}: { tags: string }): JSX.Element {
     // Select tag
     function selectTag(e: React.ChangeEvent<HTMLInputElement>) {
         const target = e.target;
+
+        if(!firstLoad) {
+            firstLoad = true
+
+            resetTags(activeTags)
+
+            setTimeout(() => {
+                if (checkboxesRef.current[target.name]) {
+                    checkboxesRef.current[target.name].checked = true;
+                }
+
+                setCheckedTags((prevCheckedTags) => ({
+                    ...prevCheckedTags,
+                    [target.name]: target.checked
+                }));
+
+                setActiveTags((prevState) => {
+                    let newTags;
+                    if (target.checked) {
+                        newTags = [target.name, ...prevState];
+                    } else {
+                        newTags = prevState.filter(a => a !== target.name);
+                    }
+
+                    // Обновление URL после изменения состояния
+                    setTimeout(() => {
+                        const queryParams = new URLSearchParams(window.location.search);
+                        queryParams.set('tags', JSON.stringify(newTags));
+                        history.push({search: queryParams.toString()});
+                    }, 0);
+
+                    return newTags;
+                });
+            }, 0)
+
+            return e.preventDefault()
+        }
+
 
         setCheckedTags((prevCheckedTags) => ({
             ...prevCheckedTags,
