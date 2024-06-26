@@ -43,7 +43,6 @@ export default function TagsNavigation(props: {tags: string}): JSX.Element {
     );
 }
 
-let firstLoad = false
 function TagsNavigationBase({tags}: { tags: string }): JSX.Element {
     const [data, setData] = useState<Data>(undefined)
     const [activeTags, setActiveTags] = useState<string[]>([])
@@ -127,9 +126,7 @@ function TagsNavigationBase({tags}: { tags: string }): JSX.Element {
     function selectTag(e: React.ChangeEvent<HTMLInputElement>) {
         const target = e.target;
 
-        if(!firstLoad) {
-            firstLoad = true
-
+        if(activeTags.length - 1 === tagsData.length) {
             resetTags(activeTags)
 
             setTimeout(() => {
@@ -180,6 +177,12 @@ function TagsNavigationBase({tags}: { tags: string }): JSX.Element {
 
             // Обновление URL после изменения состояния
             setTimeout(() => {
+                if(newTags.length > tagsData.length) {
+                    const queryParams = new URLSearchParams(window.location.search);
+                    queryParams.delete('tags');
+                    return history.push({search: queryParams.toString()});
+                }
+
                 const queryParams = new URLSearchParams(window.location.search);
                 queryParams.set('tags', JSON.stringify(newTags));
                 history.push({search: queryParams.toString()});
@@ -301,8 +304,8 @@ function TagsNavigationBase({tags}: { tags: string }): JSX.Element {
             // Обновление URL после изменения состояния
             setTimeout(() => {
                 const queryParams = new URLSearchParams(window.location.search);
-                queryParams.set('tags', JSON.stringify(allTags));
-                history.push({ search: queryParams.toString() });
+                queryParams.delete('tags');
+                return history.push({search: queryParams.toString()});
             }, 0);
         }
     }
