@@ -36,7 +36,7 @@
 }
 
 .tagsCategory__wrapper {
-    border: 1px solid #D9D9D9;
+    border: 1px solid var(--tags-navigation-bl);
     padding: 10px;
     border-radius: 8px;
     display: grid;
@@ -64,8 +64,8 @@
 .tagsCategory__tooltip {
     visibility: hidden;
     width: 180px; /* Ширина подсказки */
-    background-color: #fff; /* Цвет фона подсказки */
-    color: #000; /* Цвет текста */
+    background: var(--tags-navigation-tooltip-bg); /* Цвет фона подсказки */
+    color: var(--tags-navigation-tooltip-cl); /* Цвет текста */
     text-align: center;
     padding: 10px;
     border-radius: 6px;
@@ -99,7 +99,7 @@
 
 .tagsCategory__tooltip::after {
     top: calc(100% - 1px); /* Позиционирование стрелочки */
-    border-color: #fff transparent transparent transparent; /* Цвет стрелочки */
+    border-color: var(--tags-navigation-tooltip-bg) transparent transparent transparent; /* Цвет стрелочки */
 }
 
 .tagsCategory__tag:hover .tagsCategory__tooltip {
@@ -112,7 +112,6 @@
 }
 
 .tagsCategory__tag > span {
-
     padding: 4px 12px 4px 12px;
     border-radius: 4px;
     height: 25px;
@@ -131,17 +130,22 @@
     line-height: 14px;
     font-family: inherit;
     white-space: nowrap;
+    color: var(--tags-navigation-cl-text);
 }
 
 .tagsCategory__tag input:not(:checked) + span {
-    border-color:  #D9D9D9;
+    border-color:  var(--tags-navigation-bl);
+}
+
+.tagsCategory__tag input:not(:checked) + span > span {
+    color: var(--tags-navigation-cl-nonactive-text);
 }
 
 .tagsCategory__clear {
     padding: 4px 12px 4px 12px;
     gap: 10px;
     border-radius: 120px;
-    background: #F2F2F2;
+    background: var(--tags-navigation-bg);
     font-size: 14px;
     font-weight: 700;
     line-height: 14px;
@@ -167,7 +171,7 @@
 
 .tagsResult__wrapper {
     border-radius: 10px;
-    background: #F8F8F8;
+    background: var(--tags-navigation-bg);
     padding: 10px 10px 10px 24px;
 }
 
@@ -217,7 +221,7 @@
     padding: 20px;
     grid-gap: 20px;
     border-radius: 10px;
-    background: #FFFFFF;
+    background: var(--bg-nav-bar);
     position: relative;
 }
 
@@ -271,4 +275,5 @@
     line-height: 17px;
     white-space: nowrap;
     min-width: max-content;
+    color: var(--tags-navigation-cl-text);
 }
