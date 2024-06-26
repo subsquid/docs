@@ -82,6 +82,9 @@ By default, your gateway will go down at the end of the staking period. To preve
 
 9. Prepare the environment. Begin with
    ```bash
+   cp config.yml.mainnet config.yml
+   ```
+   ```bash
    cp mainnet.env .env
    ```
    then set the path to your key file:
