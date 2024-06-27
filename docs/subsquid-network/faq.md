@@ -55,7 +55,7 @@ Historical blockchain data optimized for batch access. Network API is used by Sq
 
 ### What chains are currently supported by Subsquid’s decentralized data lake and SDK?
 
-Subsquid Network currently supports EVM- and Substrate-based chains, with plans to support Cosmos-based chains and Solana in the relatively near future. 
+Subsquid Network currently supports EVM ([full list](/subsquid-network/reference/evm-networks/)), Substrate-based chains ([full list](/subsquid-network/reference/substrate-networks/)), [Solana](/solana-indexing/), [Fuel](/fuel-indexing/), [Starknet](/subsquid-network/reference/starknet-api/) and Tron (in beta). More ecosystems will be integrated in the near future -- feel free to request in [SquidDevs](https://t.me/HydraDevs). 
 
 ### How can I add a new chain to be indexed by Subsquid Network?
 
