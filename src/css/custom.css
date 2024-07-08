@@ -7,6 +7,18 @@
 @tailwind components;
 @tailwind utilities;
 
+html[class*="docs-doc-id-sdk/examples"] .col{
+    max-width: 100% !important;
+}
+
+html[class*="docs-doc-id-sdk/examples"] .pagination-nav {
+    max-width: 75% !important;
+
+    @media (max-width: 996px) {
+        max-width: 100% !important;
+    }
+}
+
 @font-face {
     font-family: 'Archia';
     src: local('Archia'),
