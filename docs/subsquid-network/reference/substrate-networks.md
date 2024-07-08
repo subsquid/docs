@@ -20,6 +20,7 @@ const processor = new SubstrateBatchProcessor()
 | Network                     | Gateway URL                                                   |
 |:---------------------------:|:-------------------------------------------------------------:|
 | Acala                       | https://v2.archive.subsquid.io/network/acala                  |
+| Acurast Canary              | https://v2.archive.subsquid.io/network/acurast-canary         |
 | Agung                       | https://v2.archive.subsquid.io/network/agung                  |
 | Aleph Zero                  | https://v2.archive.subsquid.io/network/aleph-zero             |
 | Aleph Zero Testnet          | https://v2.archive.subsquid.io/network/aleph-zero-testnet     |
