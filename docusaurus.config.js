@@ -13,7 +13,7 @@ const config = {
   baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.png',
   staticDirectories: ['static'],
 
   // GitHub pages deployment config.
@@ -64,8 +64,8 @@ const config = {
     navbar: {
       logo: {
         alt: 'Subsquids',
-        src: 'img/logo-light.svg',
-        srcDark: 'img/logo-dark.svg',
+        src: 'img/logo-dark.svg',
+        srcDark: 'img/logo-light.svg',
       },
       items: [
         {

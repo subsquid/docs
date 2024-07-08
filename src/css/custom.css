@@ -519,8 +519,14 @@ html {
     display: none !important;
 }
 
+.navbar__logo {
+    display: flex;
+    align-items: center;
+}
+
 .navbar__logo img {
-    display: block !important;
+    display: block;
+    height: auto;
 }
 
 ul, ol {
