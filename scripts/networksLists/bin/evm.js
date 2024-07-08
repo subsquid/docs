@@ -49,7 +49,7 @@ async function evmNetworksRows(networksJson) {
 		if (capName==='stateDiffs') {
 			switch (network) {
 				case 'bitgert-mainnet':
-					return '<BitgertTooltip>?</BitgertTooltip>'
+					return '<UpToBlockTooltip tip="4298094">?</UpToBlockTooltip>'
 				case 'optimism-mainnet':
 					return capIsPresent ? '<FromBlockTooltip tip="105235063">✓</FromBlockTooltip>' : ' '
 				default:
@@ -58,6 +58,8 @@ async function evmNetworksRows(networksJson) {
 		}
 		if (capName==='traces') {
 			switch (network) {
+				case 'arbitrum-sepolia':
+					return '<UpToBlockTooltip tip="55667987">?</UpToBlockTooltip>'
 				case 'zksync-mainnet':
 					return capIsPresent ? '<FromBlockTooltip tip="15500000">✓</FromBlockTooltip>' : ' '
         case 'metis-mainnet':

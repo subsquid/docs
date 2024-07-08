@@ -7,8 +7,18 @@ title: EVM networks
 
 export const FromBlockTooltip = ({children, tip}) => (
   <div class="group relative">
-    <div class={`pointer-events-auto absolute -top-9 -left-3 w-max opacity-0 transition-opacity group-hover:opacity-100`}>
+    <div class={`pointer-events-auto absolute -top-12 -left-3 w-max opacity-0 transition-opacity group-hover:opacity-100`}>
       <div>from block</div>
+      <div>{tip}</div>
+    </div>
+    <span class="underline decoration-dotted">{children}</span>
+  </div>
+)
+
+export const UpToBlockTooltip = ({children, tip}) => (
+  <div class="group relative">
+    <div class={`pointer-events-auto absolute -top-12 -left-3 w-max opacity-0 transition-opacity group-hover:opacity-100`}>
+      <div>up to block</div>
       <div>{tip}</div>
     </div>
     <span class="underline decoration-dotted">{children}</span>
@@ -21,16 +31,6 @@ export const ExceptOnBlocksTooltip = ({children, gapStart, gapEnd}) => (
       <div>except on blocks</div>
       <div>{gapStart}-{gapEnd}</div>
       <div>inclusive</div>
-    </div>
-    <span class="underline decoration-dotted">{children}</span>
-  </div>
-)
-
-export const BitgertTooltip = ({children, tip}) => (
-  <div class="group relative">
-    <div class={`pointer-events-auto absolute -top-9 -left-3 w-max opacity-0 transition-opacity group-hover:opacity-100`}>
-      <div>up to block</div>
-      <div>4298094</div>
     </div>
     <span class="underline decoration-dotted">{children}</span>
   </div>
@@ -52,7 +52,7 @@ const processor = new EvmBatchProcessor()
 | 0g Testnet                     | 16600       |                                                        |                                                                                        | https://v2.archive.subsquid.io/network/0g-testnet                    |
 | Arbitrum One                   | 42161       |                                                        | ✓                                                                                      | https://v2.archive.subsquid.io/network/arbitrum-one                  |
 | Arbitrum Nova                  | 42170       |                                                        | ✓                                                                                      | https://v2.archive.subsquid.io/network/arbitrum-nova                 |
-| Arbitrum Sepolia               | 421614      | ✓                                                      | ✓                                                                                      | https://v2.archive.subsquid.io/network/arbitrum-sepolia              |
+| Arbitrum Sepolia               | 421614      |                                                        | <UpToBlockTooltip tip="55667987">?</UpToBlockTooltip>                                  | https://v2.archive.subsquid.io/network/arbitrum-sepolia              |
 | Astar (*)                      | 592         |                                                        |                                                                                        | https://v2.archive.subsquid.io/network/astar-mainnet                 |
 | Astar zkEVM                    | 3776        |                                                        |                                                                                        | https://v2.archive.subsquid.io/network/astar-zkevm-mainnet           |
 | Astar zKyoto                   | 6038361     |                                                        |                                                                                        | https://v2.archive.subsquid.io/network/astar-zkyoto                  |
@@ -63,7 +63,7 @@ const processor = new EvmBatchProcessor()
 | Berachain Artio                | 80085       |                                                        |                                                                                        | https://v2.archive.subsquid.io/network/berachain-artio               |
 | Binance                        | 56          | ✓                                                      | ✓                                                                                      | https://v2.archive.subsquid.io/network/binance-mainnet               |
 | Binance Testnet                | 97          |                                                        |                                                                                        | https://v2.archive.subsquid.io/network/binance-testnet               |
-| Bitgert                        | 32520       | <BitgertTooltip>?</BitgertTooltip>                     | ✓                                                                                      | https://v2.archive.subsquid.io/network/bitgert-mainnet               |
+| Bitgert                        | 32520       | <UpToBlockTooltip tip="4298094">?</UpToBlockTooltip>   | ✓                                                                                      | https://v2.archive.subsquid.io/network/bitgert-mainnet               |
 | Bitgert Testnet                | 64668       |                                                        | ✓                                                                                      | https://v2.archive.subsquid.io/network/bitgert-testnet               |
 | Blast L2                       | 81457       | ✓                                                      | ✓                                                                                      | https://v2.archive.subsquid.io/network/blast-l2-mainnet              |
 | Blast Sepolia                  | 168587773   |                                                        |                                                                                        | https://v2.archive.subsquid.io/network/blast-sepolia                 |
