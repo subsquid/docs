@@ -53,10 +53,6 @@
       "description": "Indexing NFTs on EVM"
     },
     {
-      "id": "IPFS",
-      "description": "Getting data from <a href=\"https://ipfs.tech\">Interplanetary File System</a>"
-    },
-    {
       "id": "DEX",
       "description": "Indexing decentralized exchanges such as Uniswap"
     },
@@ -92,8 +88,7 @@
         "EVM",
         "Substrate",
         "Solana",
-        "Fuel",
-        "Tron"
+        "Fuel"
       ]
     },
     {
@@ -114,7 +109,6 @@
         "ink!",
         "Multichain",
         "Hot blocks",
-        "IPFS",
         "DEX",
         "Two-pass",
         "Traces",
