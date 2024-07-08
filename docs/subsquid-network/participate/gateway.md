@@ -11,7 +11,7 @@ Running a gateway enables you to access Subsquid Network data without relying on
 In either scenario you will need
 
 * a working Docker installation
-* some `SQD` tokens (in your wallet)
+* some `SQD` tokens (in your wallet or in a special vesting contract)
 * some Arbitrum ETH (for gas)
 
 Hardware requirements depend on how the gateway will be used. A private gateway with a single user can run on a laptop.
@@ -42,7 +42,7 @@ For example, if you expect your gateway to make up to 36k requests to any worker
 By default, your gateway will go down at the end of the staking period. To prevent that, enable the "Auto-extension" option when staking. This will cause your `SQD` to be immediately restaked once the staking period ends. In this setup you have to unstake then wait for the end of the current staking period to withdraw your tokens.
 :::
 
-## Running a local gateway
+## Running a gateway
 
 1. Generate your key file by running
    ```bash
@@ -57,7 +57,7 @@ By default, your gateway will go down at the end of the staking period. To preve
    ⚠️ **Note:** Please make sure that the generated file is safe and secure at `<KEY_PATH>` (i.e. it will not be deleted accidentally and cannot be accessed by unauthorized parties). [Or else](#key-loss).
 2. Go to [https://network.subsquid.io](https://network.subsquid.io).
 
-3. Connect your EVM wallet (we recommend using Metamask). Use the wallet that holds the tokens.
+3. Connect your EVM wallet (we recommend using Metamask). Use the wallet that holds the tokens or is the beneficiary of your vesting contract.
 
 4. Go to the "Gateways" tab and click the "Add gateway" button.
    ![Add gateway button](./gateway_registration_button.png)
@@ -70,17 +70,20 @@ By default, your gateway will go down at the end of the staking period. To preve
 
    Once done, click "Register" and confirm the transaction.
 
-6. Go to the "Gateways" tab and click the "Get CU" button. Make a `SQD` stake of size and duration appropriate for the planned bandwidth of your gateway (see [Staking requirements and compute units](#staking-requirements-and-compute-units)).
+6. Go to the "Gateways" tab and click the `Add lock` button. Make a `SQD` stake of size and duration appropriate for the planned bandwidth of your gateway (see [Staking requirements and compute units](#staking-requirements-and-compute-units)).
 
 7. Wait for your stake to become active. This will happen at the beginning of the next [epoch](/subsquid-network/faq/#epoch).
 
 8. Clone the gateway repo and enter the folder.
    ```bash
-   git clone git clone https://github.com/subsquid/query-gateway
+   git clone https://github.com/subsquid/query-gateway
    cd query-gateway
    ```
 
 9. Prepare the environment. Begin with
+   ```bash
+   cp config.yml.mainnet config.yml
+   ```
    ```bash
    cp mainnet.env .env
    ```
@@ -98,6 +101,11 @@ By default, your gateway will go down at the end of the staking period. To preve
     or build it from source:
     ```bash
     cargo run --release
+    ```
+
+11. If you're running the Docker image you can watch the logs with
+    ```bash
+    docker compose logs -f
     ```
 
 ## High throughput gateways

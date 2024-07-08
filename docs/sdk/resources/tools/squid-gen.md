@@ -21,10 +21,12 @@ Squid generation procedure is very similar for both contract types. Here are the
    Enter the squid folder and install the dependencies:
    ```bash
    cd my-squid
-   npm i
+   npm ci
    ```
 
-2. Write the [configuration](#configuration) of the future squid to `squidgen.yaml`. Retrieve any necessary contract ABIs and store them at `./abi`. For simple use cases that only involve one contract and a database consider using CLI instead (documented in `npx squid-gen abi --help`).
+2. Write the [configuration](#configuration) of the future squid to `squidgen.yaml`. Retrieve any necessary contract ABIs and store them at `./abi`.
+
+   Alternatively, skip to the next step and specify the configuration via CLI. **Note:** some features will not be available.
 
 3. Generate and build the squid code:
    ```bash
@@ -33,13 +35,22 @@ Squid generation procedure is very similar for both contract types. Here are the
    ```bash
    npm run build
    ```
+   If you chose to configure the tool via CLI instead, do so now. Here's an example:
+   ```bash
+   npx squid-gen-abi \
+     --address 0x2E645469f354BB4F5c8a05B3b30A929361cf77eC \
+     --archive https://v2.archive.subsquid.io/network/ethereum-mainnet \
+     --event NewGravatar \
+     --event UpdatedGravatar \
+     --function '*' \
+     --from 6000000
+   ```
+   See `npx squid-gen-abi --help` for all options.
 
 4. Prepare your squid for launching. If it is using a database, start a PostgreSQL container, then regenerate and apply migrations:
    ```bash
    docker compose up -d
    ```
-   ```bash
-   rm -r db/migrations
    ```bash
    npx squid-typeorm-migration generate
    ```
