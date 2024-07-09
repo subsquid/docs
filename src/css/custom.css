@@ -7,6 +7,18 @@
 @tailwind components;
 @tailwind utilities;
 
+html[class*="docs-doc-id-sdk/examples"] .col{
+    max-width: 100% !important;
+}
+
+html[class*="docs-doc-id-sdk/examples"] .pagination-nav {
+    max-width: 75% !important;
+
+    @media (max-width: 996px) {
+        max-width: 100% !important;
+    }
+}
+
 @font-face {
     font-family: 'Archia';
     src: local('Archia'),
@@ -113,6 +125,13 @@
     --ifm-list-item-margin: 0.5rem;
     --fg-role--pagination: #aaaaaa;
     --fg-role--pagination-active: #1C1E21;
+
+    --tags-navigation-bg: #F8F8F8;
+    --tags-navigation-cl-text: #424242;
+    --tags-navigation-bl: #D9D9D9;
+    --tags-navigation-cl-nonactive-text: #424242;
+    --tags-navigation-tooltip-bg: #ffffff;
+    --tags-navigation-tooltip-cl: #000000;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -185,6 +204,13 @@
 
     --fg-role--pagination: #cecece;
     --fg-role--pagination-active: #ffffff;
+
+    --tags-navigation-bg: #242428;
+    --tags-navigation-cl-text: #424242;
+    --tags-navigation-bl: #606770;
+    --tags-navigation-cl-nonactive-text: #F1F2F6;
+    --tags-navigation-tooltip-bg: #242428;
+    --tags-navigation-tooltip-cl: #FFFFFF;
 }
 
 
