@@ -526,7 +526,7 @@ html {
 
 .navbar__logo img {
     display: block;
-    height: auto;
+    height: 28px;
 }
 
 ul, ol {
