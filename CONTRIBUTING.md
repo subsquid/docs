@@ -15,7 +15,9 @@ The last command should open the dev version of the docs in your browser; if it 
 
 ## Making edits
 
-The general procedure is straightforward: make edits, observe the change in the rendered HTML in the dev server, commit and make a PR.
+The general procedure is straightforward: make edits, observe the changes as they are rendered by the dev server, commit and make a PR. The two extra things to keep in mind are:
+ - following the style, and
+ - running certain checks before committing.
 
 ### Style
 
@@ -47,9 +49,9 @@ Almost all style conventions of this repo are there to make any future page resh
    ![RPC proxy tab](./overview-rpc-page.png)
    ```
 
-3. Indent code examples with two spaces wherever possible. Exceptions can be made when indenting the code that way impair readability for noticeable fraction of users, e.g. in Python code.
+3. Indent code examples with two spaces whenever possible. Exceptions can be made when indenting the code that way can impair readability for a noticeable fraction of users, e.g. in Python code.
 
-### Run pre-flight checks
+### Run the pre-flight checks
 
 1. If you move any pages around, make sure you have added any appropriate redirects to `./redirectRules.js`.
 
