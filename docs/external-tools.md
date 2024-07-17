@@ -29,3 +29,28 @@ See [this repository](https://github.com/subsquid-labs/belopash-typeorm-store-ex
 Development workflow uses the `dipdup` tool to generate a stub project. Once done with that, all you have to do is to define the data schema and the handlers. Take a look at their [quickstart](https://dipdup.io/docs/quickstart-evm) for more details.
 
 With its handler-based architecture and the choice of Python as the transform logic language, DipDup is easier to develop for than [Squid SDK](/sdk), but has higher requirements on database IO bandwith and CPU. The IO bandwidth issue is partially solved by DipDup's caching layer used for database access.
+
+### Hosting in Subsquid Cloud
+
+DipDup support in [Subsquid Cloud](/cloud) is currently in beta. Here's an example [manifest](/cloud/reference/manifest):
+```yaml
+manifestVersion: subsquid.io/v0.1
+name: dipdup-starknet-subsquid
+version: 1
+description: |-
+  The very first dipdup from manifest
+build:
+deploy:
+  env:
+    HASURA_GRAPHQL_ADMIN_SECRET: "${{ secrets.HASURA_SECRET }}"
+    HASURA_GRAPHQL_UNAUTHORIZED_ROLE: user
+    HASURA_GRAPHQL_STRINGIFY_NUMERIC_TYPES: "true"
+  addons:
+    postgres:
+    hasura:
+  processor:
+    cmd: ["dipdup", "-c", "dipdup.yaml", "-c", "configs/dipdup.subsquid-cloud.yaml", "run"]
+  init:
+    cmd: ["echo", "dipdup"]
+```
+Note how it uses a [`hasura` addon](/cloud/reference/hasura) and a [Cloud secret](/cloud/resources/env-variables/#secrets).
