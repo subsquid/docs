@@ -95,7 +95,6 @@ const processor = new SubstrateBatchProcessor()
 | Turing Avail                | https://v2.archive.subsquid.io/network/turing-avail           |
 | Vara                        | https://v2.archive.subsquid.io/network/vara                   |
 | Vara Testnet                | https://v2.archive.subsquid.io/network/vara-testnet           |
-| Watr                        | https://v2.archive.subsquid.io/network/watr                   |
 | Westend                     | https://v2.archive.subsquid.io/network/westend                |
 | xSocial                     | https://v2.archive.subsquid.io/network/xsocial                |
 | Zeitgeist                   | https://v2.archive.subsquid.io/network/zeitgeist              |
