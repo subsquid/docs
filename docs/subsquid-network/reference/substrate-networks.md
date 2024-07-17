@@ -34,6 +34,7 @@ const processor = new SubstrateBatchProcessor()
 | Bifrost Kusama              | https://v2.archive.subsquid.io/network/bifrost-kusama         |
 | Bifrost Polkadot            | https://v2.archive.subsquid.io/network/bifrost-polkadot       |
 | Bittensor                   | https://v2.archive.subsquid.io/network/bittensor              |
+| Bittensor Testnet           | https://v2.archive.subsquid.io/network/bittensor-testnet      |
 | Bridge Hub Kusama           | https://v2.archive.subsquid.io/network/bridge-hub-kusama      |
 | Bridge Hub Polkadot         | https://v2.archive.subsquid.io/network/bridge-hub-polkadot    |
 | Bridge Hub Rococo           | https://v2.archive.subsquid.io/network/bridge-hub-rococo      |
@@ -55,6 +56,7 @@ const processor = new SubstrateBatchProcessor()
 | Equilibrium                 | https://v2.archive.subsquid.io/network/equilibrium            |
 | Foucoco                     | https://v2.archive.subsquid.io/network/foucoco                |
 | Frequency                   | https://v2.archive.subsquid.io/network/frequency              |
+| Gemini 3h                   | https://v2.archive.subsquid.io/network/gemini-3h              |
 | HydraDX                     | https://v2.archive.subsquid.io/network/hydradx                |
 | Integritee Network          | https://v2.archive.subsquid.io/network/integritee             |
 | Interlay                    | https://v2.archive.subsquid.io/network/interlay               |
