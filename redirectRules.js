@@ -293,7 +293,7 @@ const urlList = [
     },
     {
         "from": "/deploy-squid/quickstart",
-        "to": "/quickstart"
+        "to": "/cloud/overview"
     },
     {
         "from": "/deploy-squid/rpc-proxy",
@@ -497,15 +497,19 @@ const urlList = [
     },
     {
         "from": "/quickstart/quickstart-substrate",
-        "to": "/quickstart"
+        "to": "/sdk/how-to-start/squid-development"
     },
     {
         "from": "/quickstart/quickstart-ethereum",
-        "to": "/quickstart"
+        "to": "/sdk/how-to-start/squid-development"
     },
     {
         "from": "/quickstart/quickstart-abi",
         "to": "/sdk/resources/tools/squid-gen"
+    },
+    {
+        "from": "/quickstart",
+        "to": "/sdk/how-to-start/squid-development"
     },
     {
         "from": "/store/postgres/schema-file/entities",
