@@ -18,8 +18,8 @@ Here we cover one possible way of integrating PostGraphile into a squid project 
 
 ## Hasura
 
-Although it is possible to run Hasura in Subsquid Cloud, we expect most Hasura setups to host their GraphQL servers elsewhere to avoid unnecessary credentials sharing. If you want to run it in Subsquid Cloud, let us know in [SquidDevs Telegram chat](https://t.me/HydraDevs).
+If you want to run Hasura in [Subsquid Cloud](/cloud), visit the [`hasura` addon page](/cloud/reference/hasura).
 
-Otherwise, simply supply the database credentials from the [Subsquid Cloud console](https://app.subsquid.io/squids/) in your Hasura configuration.
+When running it elsewhere, simply supply database credentials in your Hasura configuration. For squids running in Subsquid Cloud you can find the credentials in [the Cloud app](https://app.subsquid.io/squids).
 
 ![database creds](database-creds.png)
