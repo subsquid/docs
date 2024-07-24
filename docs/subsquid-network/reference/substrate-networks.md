@@ -29,7 +29,7 @@ const processor = new SubstrateBatchProcessor()
 | Asset Hub Polkadot (*)      | https://v2.archive.subsquid.io/network/asset-hub-polkadot     |
 | Asset Hub Rococo            | https://v2.archive.subsquid.io/network/asset-hub-rococo       |
 | Astar                       | https://v2.archive.subsquid.io/network/astar-substrate        |
-| Avail Mainnet               | https://v2.archive.subsquid.io/network/avail                  |
+| Avail Mainnet (**)          | https://v2.archive.subsquid.io/network/avail                  |
 | Basilisk                    | https://v2.archive.subsquid.io/network/basilisk               |
 | Bifrost Kusama              | https://v2.archive.subsquid.io/network/bifrost-kusama         |
 | Bifrost Polkadot            | https://v2.archive.subsquid.io/network/bifrost-polkadot       |
@@ -103,3 +103,5 @@ const processor = new SubstrateBatchProcessor()
 | Zeitgeist Testnet           | https://v2.archive.subsquid.io/network/zeitgeist-testnet      |
 
 (*) Asset Hub networks for Polkadot and Kusama were formerly known as Statemint and Statemine, respectively
+
+(**) The Avail Mainnet dataset starts at block 1

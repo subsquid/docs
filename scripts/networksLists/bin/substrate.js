@@ -18,6 +18,8 @@ function substrateNetworksList(networksJson) {
 			case 'asset-hub-kusama':
 			case 'asset-hub-polkadot':
 				return `${arch.chainName} (*)`
+			case 'avail':
+				return `${arch.chainName} (**)`
 			default:
 				return arch.chainName
 		}
