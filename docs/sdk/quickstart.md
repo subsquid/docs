@@ -11,7 +11,7 @@ This is a 5 min quickstart on how to build an indexer using Squid SDK.
 [//]: # (It is based on a EVM-template. For other chains, inspect the Solana Quickstart, the Fuel Quickstart...)
 
 The indexer (squid) will:
-- Fetch all historical USDT transfers on Ethereum from the Subsquid Network
+- Fetch all historical USDC transfers on Ethereum from the Subsquid Network
 - Decode it
 - Save it to a local Postgres database
 - Start a GraphQL server with a rich API to query the historical USDC transfers.
