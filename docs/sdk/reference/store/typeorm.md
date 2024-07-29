@@ -12,7 +12,7 @@ This page describes the interface of the classes from the `@subsquid/typeorm-sto
 ## `TypeormDatabase` constructor arguments
 
 The argument of the `TypeormDatabase` class constructor may have the following fields:
-* `stateSchema: string`: the name of the [database schema](https://www.postgresql.org/docs/current/sql-createschema.html) that the processor uses to persist its status (currently just the highest reached block number). Useful for making sure that each processor uses its own state schema when running multiple processors against the same database (e.g. in a multichain setting). Default: `'squid_processor'`.
+* `stateSchema: string`: the name of the [database schema](https://www.postgresql.org/docs/current/sql-createschema.html) that the processor uses to persist its status (hash + height of the highest reached block). Useful for making sure that each processor uses its own state schema when running multiple processors against the same database (e.g. in a multichain setting). Default: `'squid_processor'`.
 * `isolationLevel: 'SERIALIZABLE' | 'READ COMMITTED' | 'REPEATABLE READ'`: sets the [transaction isolation level](https://www.postgresql.org/docs/current/transaction-iso.html) of processor transactions. Default: `'SERIALIZABLE'`.
 * `supportHotBlocks: boolean`: controls the support for hot blocks. Necessary in all squids that must be able to handle short-lived [blockchain forks](https://en.wikipedia.org/wiki/Fork_(blockchain)). That includes all squids that index chain data in near-real time using RPC endpoints. Default: `true`.
 * `projectDir: string`: the folder where `TypeormDatabase` will look for the TypeORM model definition (at `lib/model`) and for migrations (at `db/migrations`). Default: `process.cwd()`.

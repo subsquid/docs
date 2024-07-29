@@ -75,7 +75,7 @@ Also ensure that
 
 - Cross-chain data dependencies are to be avoided. With the [default isolation level](/sdk/reference/store/typeorm/#typeormdatabase-constructor-arguments) used by `TypeormDatabase`, `SERIALIZABLE`, one of the processors will crash with an error whenever two cross-dependent transactions are submitted to the database simultaneously. It will write the correct data when restarted, but such restarts can impact performance, especially in squids that use many (>5) processors.
 
-- The alternative isolation level is `READ COMMITTED`. At this level data dependencies will not crush the processors, but the execution is not guaranteed to be deterministic unless the sets of records that different processors read/write do not overlap.
+- The alternative isolation level is `READ COMMITTED`. At this level data dependencies will not cause the processors to crash, but the execution is not guaranteed to be deterministic unless the sets of records that different processors read/write do not overlap.
 
 - To avoid cross-chain data dependencies, use per-chain records for volatile data. E.g. if you track account balances across multiple chains you can avoid overlaps by storing the balance for each chain in a different table row.
 
