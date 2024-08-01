@@ -69,7 +69,7 @@ type Transfer @entity {
 }
 ```
 
-Here `Tranfer` defines owns the two relations and `Account` defines the corresponding inverse lookup properties. This is implemented as follows:
+Here `Transfer` defines owns the two relations and `Account` defines the corresponding inverse lookup properties. This is implemented as follows:
 - On the database side: the `from` and `to` properties of the `Transfer` entity map to `from_id` and `to_id` foreign key columns of the `transfer` table referencing the `account` table.
 - On the TypeORM side: properties `to` and `from` of the `Transfer` entity class get decorated with `@ManyToOne`. Properties `transfersTo` and `transfersFrom` decorated with `@OneToMany` get added to the `Account` entity class.
 - On the GraphQL side: sub-selection of all relation-defined properties is made available in the schema.
