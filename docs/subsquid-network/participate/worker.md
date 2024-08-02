@@ -178,6 +178,17 @@ No need to erase the data folder or re-register your worker.
 
 Some releases may require that you deviate from this procedure, so please read release notes carefully.
 
+## On jailing
+
+Jailing is a scheduler-side mechanism that ensures that every data chunk is available for querying. The scheduler tries to predict which workers are "unreliable" and makes the best effort to guarantee that each chunk is available on at least several "reliable" worker nodes.
+However, even if a worker is marked as unreliable, it continues serving queries from the chunks it had downloaded and getting the rewards. And it's only temporary — the worker will get unjailed automatically within ~3 hours. If the reason for jailing is gone, it won't be jailed next time.
+
+If the worker constantly gets jailed, it may affect its rewards, so it shouldn't be ignored. There are multiple reasons why the worker can be marked as unreliable (see worker's logs to find out which one applies):
+
+- **Worker didn't download any of the assigned chunks in last 900 seconds** (`stale` in our internal terminology) — this one is the most popular. The cause of the problem should be found in the worker's logs. The most probable one is the [download timeouts](#download-timeouts).
+- **Worker didn't send pings for over 600 seconds** (`inactive`) — it may occur for example when a worker got back after a long downtime. If the scheduler doesn't receive pings from the worker, it considers it offline and doesn't assign any chunks to it.
+- **Worker could not be reached on a public address** (`unreachable`). This was our attempt to determine which nodes are not reachable through the p2p network, but the correct implementation turned out harder than it seemed, so it is disabled right now.
+
 ## Troubleshooting
 
 #### Where do I find my peer ID ?
@@ -196,7 +207,7 @@ In both cases, the log line you are looking for should look like this
 
 [//]: # (### How do I get `SQD` tokens ?)
 
-#### I see `Failed to download chunk ... operation timed out` in the worker logs
+#### I see `Failed to download chunk ... operation timed out` in the worker logs {#download-timeouts}
 
 Depending on your connection quality, you might want to tune the `S3_TIMEOUT` and `CONCURRENT_DOWNLOADS` environment variables in the `.env` file. If you encounter this error frequently,  try to set `S3_TIMEOUT` to `180`. If it still doesn't help, set `CONCURRENT_DOWNLOADS` to `1` and `S3_READ_TIMEOUT` to `30`.
 
