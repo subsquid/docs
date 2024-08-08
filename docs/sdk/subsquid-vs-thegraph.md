@@ -22,7 +22,7 @@ The data transformation and presentation is enabled by a growing list of tools a
 
 |                                 |  Subsquid Network + Squid SDK     |            The Graph                     |
 |:-------------------------------:|:-------------------------:|:----------------------------------------:|
-|  Programming language           |     Typescript            |    AssemblyScript (complied to WASM)     |
+|  Programming language           |     Typescript            |    AssemblyScript (compiled to WASM)     |
 |  Indexing speed                 |     ~1k-50k bps           |       ~100-150 bps                       |
 |  ABI-based generator            |        Yes                |          Yes                             |
 |  Real-time indexing (unfinalized blocks)   |     Yes        |          No                              |  
