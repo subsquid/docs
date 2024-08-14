@@ -29,12 +29,12 @@ Use a [Subsquid Network](/subsquid-network) gateway. The argument is either a st
 }
 ```
 
-### `setGraphql(settings?: RpcSettings)` {#set-graphql}
+### `setGraphql(settings?: GraphqlSettings)` {#set-graphql}
 
 We must use regular GraphQL endpoint to get through the last mile and stay on top of the chain. This is a limitation, and we promise to lift it in the future.
 
 ```ts
-type RpcSettings = {
+type GraphqlSettings = {
   url: "https://testnet.fuel.network/v1/graphql";
   strideSize?: number; // `getBlock` batch call size, default 5
   strideConcurrency?: number; // num of concurrent connections, default 10
