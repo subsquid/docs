@@ -332,6 +332,17 @@
         "Postgres+GraphQL"
       ],
       "url": "https://github.com/subsquid-labs/fuel-example"
+    },
+    {
+      "title": "All ERC20 contracts and transfers on Base",
+      "description": "Gets the data on all contract deployments, inc bytecode. Detects ERC20-compliant contracts and filters out their Transfer events.",
+      "tags": [
+        "EVM",
+        "Postgres+GraphQL",
+        "ERC20",
+        "Traces"
+      ],
+      "url": "https://github.com/subsquid-labs/base-transfers-erc20"
     }
   ]
 }
