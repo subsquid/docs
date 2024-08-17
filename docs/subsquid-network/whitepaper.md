@@ -4,8 +4,11 @@ title: Whitepaper
 description: A fairly detailed design overview
 ---
 
-## Intro 
+:::warning
+The SQD whitepaper and any other documents attached or linked to this statement are intended only to provide a broad overview of the general direction of SQD and the SQD Network. The whitepaper and these documents are intended for information purposes only and may not be incorporated into any contract. These materials are not and should not be considered to offer a commitment to deliver any material, code, functionality, token, and should not be relied upon in making token purchase decisions or any kind of investment. All details related to the development, timing, or issue of any SQD feature or token remain at the sole discretion of Subsquid Labs GmbH.
+:::
 
+## Intro 
 
 Blockchain, while initially designed solely for peer-to-peer transfers (Bitcoin), has since evolved into a general 
 purpose global execution runtime. The introduction of smart contract blockchains (Ethereum being the first) has enabled the creation of decentralized Apps (dApps) that are now catering to users in countless verticals, including:  
