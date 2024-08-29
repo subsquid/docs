@@ -98,7 +98,6 @@ const processor = new SubstrateBatchProcessor()
 | Vara                        | https://v2.archive.subsquid.io/network/vara                   |
 | Vara Testnet                | https://v2.archive.subsquid.io/network/vara-testnet           |
 | Westend                     | https://v2.archive.subsquid.io/network/westend                |
-| xSocial                     | https://v2.archive.subsquid.io/network/xsocial                |
 | Zeitgeist                   | https://v2.archive.subsquid.io/network/zeitgeist              |
 | Zeitgeist Testnet           | https://v2.archive.subsquid.io/network/zeitgeist-testnet      |
 
