@@ -132,6 +132,14 @@ html[class*="docs-doc-id-sdk/examples"] .pagination-nav {
     --tags-navigation-cl-nonactive-text: #424242;
     --tags-navigation-tooltip-bg: #ffffff;
     --tags-navigation-tooltip-cl: #000000;
+
+    --ifm-pre-line-height: 1.2;
+    --ifm-pre-padding: 0.7rem;
+}
+
+/* A hack for tweaking the font size in code blocks. --ifm-code-font-size does not work with the rest of the configuration. */
+.token-line span {
+    font-size: 15px;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -220,6 +228,10 @@ html, body, #__docusaurus {
 
 body p, body span {
     font-size: 17px;
+}
+
+body code {
+    font-size: 15px;
 }
 
 .markdown h1:not(:where(.onboarding-homepage *)) {
