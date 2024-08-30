@@ -9,7 +9,7 @@ const { urlList } = require('./redirectRules');
 const config = {
   title: 'Subsquid',
   tagline: 'This documentation provides information for all degrees of expertise, varying from complete beginner, to those who only need a refresher on specific commands.',
-  url: 'https://docs.subsquid.io/',
+  url: 'https://docs.sqd.dev/',
   baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',

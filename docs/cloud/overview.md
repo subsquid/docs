@@ -58,7 +58,7 @@ Subsquid provides RPC and database addons that can be used with your squid deplo
 
 For real time data you can use the [`rpc` addon](/cloud/resources/rpc-proxy). First, open the `RPC endpoints` tab in the Subsquid cloud sidebar and copy the URL of the chosen endpoint.
 
-![RPC proxy tab](./overview-rpc-page.png)
+![RPC addon tab](./overview-rpc-page.png)
 
 Add it to the `.env` file:
 

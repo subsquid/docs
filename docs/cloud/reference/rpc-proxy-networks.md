@@ -13,7 +13,7 @@ deploy:
     rpc:
       - eth-goerli.http
 ```
-See the [RPC proxy guide](/cloud/resources/rpc-proxy) for details.
+See the [RPC addon guide](/cloud/resources/rpc-proxy) for details.
 
 <details>
 
@@ -85,6 +85,8 @@ See the [RPC proxy guide](/cloud/resources/rpc-proxy) for details.
 | Asset Hub Westend    | `asset-hub-westend.http`    |
 | Astar                | `astar-substrate.http`      |
 | Basilisk             | `basilisk.http`             |
+| Bittensor            | `bittensor.http`            |
+| Bittensor Testnet    | `bittensor-testnet.http`    |
 | Bridge Hub Kusama    | `bridge-hub-kusama.http`    |
 | Bridge Hub Polkadot  | `bridge-hub-polkadot.http`  |
 | Bridge Hub Rococo    | `bridge-hub-rococo.http`    |
