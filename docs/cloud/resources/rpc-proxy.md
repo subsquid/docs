@@ -1,16 +1,16 @@
 ---
 sidebar_position: 70
-title: RPC proxy service
+title: RPC addon
 description: Built-in RPC endpoints
 ---
 
-# RPC proxy service
+# RPC addon
 
 [List of available networks](/cloud/reference/rpc-proxy-networks) and their aliases is available on the reference page.
 
-Subsquid Cloud provides a built-in RPC proxy service. The service is available to all squids deployed to the Cloud, although [playground](/cloud/resources/organizations/#playgrounds) squids only have access to a limited number of calls.
+Subsquid Cloud provides a built-in RPC service. The service is available as an addon to all squids deployed to the Cloud, although [playground](/cloud/resources/organizations/#playgrounds) squids only have access to a limited number of calls.
 
-[Professional organizations](/cloud/resources/organizations/#professional-organizations) do not have that limitation and [can access](#external-access) their RPC proxy endpoints from outside of the Cloud.
+[Professional organizations](/cloud/resources/organizations/#professional-organizations) do not have that limitation and [can access](#external-access) their RPC endpoints from outside of the Cloud.
 
 Enable the RPC add-on in the [manifest](/cloud/reference/manifest) like this:
 ```yaml
@@ -22,7 +22,7 @@ deploy:
 
 ## Processor configuration
 
-With the add-on successfully enabled, your squid will get a unique proxied endpoint to the requested network. Subsquid Cloud will make its URL available to the deployed squid at the `RPC_${Upper(network)}_${Upper(protocol)}` environment variable. Assert it to avoid compilation errors. We also recommend rate limiting RPC proxy requests on the processor side to the same rate as was used in the manifest: 
+With the add-on successfully enabled, your squid will get a unique proxied endpoint to the requested network. Subsquid Cloud will make its URL available to the deployed squid at the `RPC_${Upper(network)}_${Upper(protocol)}` environment variable. Assert it to avoid compilation errors. We also recommend rate limiting RPC addon requests on the processor side to the same rate as was used in the manifest:
 ```ts
 import {assertNotNull} from '@subsquid/util-internal'
 
@@ -37,7 +37,7 @@ processor.setRpcEndpoint({
 
 [Professional organizations](/cloud/resources/organizations/#professional-organizations) can [access their RPC proxies from outside](https://app.subsquid.io/rpc) of the Subsquid Cloud.
 
-Among other things, this enables a development process that uses the proxy for both local and Cloud runs transparently. Here an example configuration for Ethereum Mainnet:
+Among other things, this enables a development process that uses the service for both local and Cloud runs transparently. Here an example configuration for Ethereum Mainnet:
 
 <details>
 
@@ -46,10 +46,10 @@ Among other things, this enables a development process that uses the proxy for b
 1. Add the following variable to `.env`:
    ```bash
    # get the url from https://app.subsquid.io/rpc/chains/eth
-   RPC_ETH_HTTP=<your_external_proxy_url>
+   RPC_ETH_HTTP=<your_rpc_url_for_external_use>
    ```
 
-2. Enable the RPC proxy in squid.yaml:
+2. Enable the RPC addon in squid.yaml:
    ```yaml
    deploy:
      addons:
@@ -73,4 +73,4 @@ Among other things, this enables a development process that uses the proxy for b
 
 ## Pricing
 
-RPC proxy requests are priced [at a flat rate](/cloud/pricing/#rpc-requests), with substantial packages included for free for all [organization types](/cloud/resources/organizations). Pricing does not depend on the call method.
+RPC addon requests are priced [at a flat rate](/cloud/pricing/#rpc-requests), with substantial packages included for free for all [organization types](/cloud/resources/organizations). Pricing does not depend on the call method.

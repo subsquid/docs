@@ -13,7 +13,7 @@ deploy:
     rpc:
       - eth-goerli.http
 ```
-See the [RPC proxy guide](/cloud/resources/rpc-proxy) for details.
+See the [RPC addon guide](/cloud/resources/rpc-proxy) for details.
 
 <details>
 

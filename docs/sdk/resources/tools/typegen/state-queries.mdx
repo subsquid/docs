@@ -14,7 +14,7 @@ import TabItem from '@theme/TabItem';
 <TabItem value="evm" label="squid-evm-typegen">
 ```
 
-In order to make on-chain calls, one must set up a JSON-RPC endpoint using [setRpcEndpoint()](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint). We recommend using a private endpoint from e.g. [BlastAPI](https://blastapi.io/) or the Subsquid Cloud's [RPC proxy](/cloud/resources/rpc-proxy) service, and set it via an environment variable:
+In order to make on-chain calls, one must set up a JSON-RPC endpoint using [setRpcEndpoint()](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint). We recommend using a private endpoint from e.g. [BlastAPI](https://blastapi.io/) or the Subsquid Cloud's [RPC addon](/cloud/resources/rpc-proxy), and set it via an environment variable:
 
 ```ts
 //...
@@ -24,7 +24,7 @@ In order to make on-chain calls, one must set up a JSON-RPC endpoint using [setR
 You can define the `RPC_ETH_HTTP` in three ways:
  - for local runs, simply update the local `.env` file;
  - for squids deployed to Cloud define it as a [secret](/cloud/resources/env-variables) on your Cloud account;
- - if you are using the [RPC proxy service](/cloud/resources/rpc-proxy), leave it to the Cloud to define it for you.
+ - if you are using the [RPC addon](/cloud/resources/rpc-proxy), leave it to the Cloud to define it for you.
 
 ## `Contract` class
 
