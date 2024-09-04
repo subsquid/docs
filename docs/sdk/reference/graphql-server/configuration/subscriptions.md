@@ -4,7 +4,11 @@ title: Subscriptions
 description: Subscribe to updates over a websocket
 ---
 
-# Query subscriptions
+# Subscriptions
+
+:::danger
+Implementation of subscriptions by the SQD GraphQL server [leaks memory under load](/sdk/reference/graphql-server/overview/#known-issues). Do not use it in scenarios where more than a few users simultaneously maintain connections to the server. This includes most production usage scenarios.
+:::
 
 OpenReader supports [GraphQL subscriptions](https://www.apollographql.com/docs/react/data/subscriptions/) via live queries. To use these, a client opens a websocket connection to the server and sends a `subscription` query there. The query body is then repeatedly executed (every 5 seconds by default) and the results are sent to the client whenever they change.
 
