@@ -1,0 +1,12 @@
+{
+  "position": 30,
+  "label": "Core API",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "slug": "/sdk/reference/graphql-server/openreader",
+    "title": "Core queries exposed by the SQD GraphQL server API"
+  }
+}

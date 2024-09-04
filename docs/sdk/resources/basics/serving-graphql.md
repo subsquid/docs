@@ -1,10 +1,10 @@
 ---
-sidebar_position: 90
-title: Alternatives
-description: Using Squid SDK with PostGraphile or Hasura
+sidebar_position: 80
+title: Serving GraphQL
+description: Options available for serving GraphQL APIs
 ---
 
-# Alternatives to the SDK GraphQL server
+# Options available for serving GraphQL APIs
 
 We encourage using squids with third-party GraphQL tools like [PostGraphile](https://www.graphile.org/postgraphile/) and [Hasura](https://hasura.io). No special configuration is required and there aren't any constraints on running them in [Subsquid Cloud](/cloud).
 
@@ -22,4 +22,4 @@ If you want to run Hasura in [Subsquid Cloud](/cloud), visit the [`hasura` addon
 
 When running it elsewhere, simply supply database credentials in your Hasura configuration. For squids running in Subsquid Cloud you can find the credentials in [the Cloud app](https://app.subsquid.io/squids).
 
-![database creds](database-creds.png)
+![database creds](serving-graphql-database-creds.png)
