@@ -13,7 +13,7 @@ Our GraphQL implementation offers a vast selection of tools to filter and sectio
 
 In our GraphQL server implementation, we included logical operators to be used in the `where` clause, allowing to group multiple parameters in the same `where` argument using the `AND` and `OR` operators to filter results based on more than one criteria.
 
-Note that the [newer](/sdk/resources/basics/serving-graphql/#supported-queries) and [more advanced](/sdk/reference/graphql-server/openreader/paginate-query-results) `{entityName}sConnection` queries support exactly the same format of the `where` argument as the older `{entityName}s` queries used in the examples provided here.
+Note that the [newer](/sdk/reference/graphql-server/overview/#supported-queries) and [more advanced](/sdk/reference/graphql-server/openreader/paginate-query-results) `{entityName}sConnection` queries support exactly the same format of the `where` argument as the older `{entityName}s` queries used in the examples provided here.
 
 ### Example of an `OR` clause:
 

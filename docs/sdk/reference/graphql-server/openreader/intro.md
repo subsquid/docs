@@ -6,12 +6,12 @@ description: >-
 ---
 
 :::info
-At the moment, [Squid SDK GraphQL server](/sdk/resources/basics/serving-graphql) can only be used with squids that use Postgres as their target database.
+At the moment, [Squid SDK GraphQL server](/sdk/reference/graphql-server) can only be used with squids that use Postgres as their target database.
 :::
 
 GraphQL is an API query language, and a server-side runtime for executing queries using a custom type system. Head over to the [official documentation website](https://graphql.org/learn/) for more info.
 
-A GraphQL API served by the [GraphQL server](/sdk/resources/basics/serving-graphql) has two components:
+A GraphQL API served by the [GraphQL server](/sdk/reference/graphql-server) has two components:
 
 1. Core API is defined by the [schema file](/sdk/reference/schema-file).
 2. Extensions added via [custom resolvers](/sdk/reference/graphql-server/configuration/custom-resolvers).

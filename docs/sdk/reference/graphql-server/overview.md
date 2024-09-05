@@ -6,7 +6,7 @@ description: The SQD GraphQL server, built in-house
 # Overview
 
 :::info
-SQD GraphQL server is no longer recommended for use in new squid projects [relying on PostgreSQL](/sdk/resources/persisting-data/typeorm). See [Serving GraphQL](/resources/basics/serving-graphql) to learn about the new options and the [Known issues](#known-issues) section to understand our motivation.
+SQD GraphQL server is no longer recommended for use in new squid projects [relying on PostgreSQL](/sdk/resources/persisting-data/typeorm). See [Serving GraphQL](/sdk/resources/basics/serving-graphql) to learn about the new options and the [Known issues](#known-issues) section to understand our motivation.
 :::
 
 The data indexed by a squid into a Postgres database can be automatically presented with a GraphQL API service powered by the [OpenReader](https://github.com/subsquid/squid-sdk/tree/master/graphql/openreader) lib of the Squid SDK. The OpenReader GraphQL server takes [schema file](/sdk/reference/schema-file) as an input and serves a GraphQL API supporting [OpenCRUD](https://www.opencrud.org/) queries for the entities defined in the schema.
