@@ -18,9 +18,11 @@ Batch handler data filtering used to be compulsory before the release of `@subsq
 
 * If your squid [saves its data to a database](/sdk/resources/persisting-data/typeorm), make sure your [schema](/sdk/reference/schema-file) has [`@index` decorators](/sdk/reference/schema-file/indexes-and-constraints) for all entities that will be looked up frequently.
 
-* If your squid serves a [GraphQL API](/sdk/resources/graphql-server), consider:
-  1. configuring the built-in [DoS protection](/sdk/resources/graphql-server/dos-protection) against heavy queries;
-  2. configuring [caching](/sdk/resources/graphql-server/caching).
+* If your squid serves a [GraphQL API](/sdk/resources/basics/serving-graphql)
+  1. Do not use the [SQD GraphQL server](/sdk/resources/basics/serving-graphql/#the-sqd-graphql-server) if your application uses subscriptions. Instead, use [PostGraphile](/sdk/resources/basics/serving-graphql/#postgraphile) or [Hasura](/sdk/resources/basics/serving-graphql/#hasura).
+  2. If you do use the SQD GraphQL server:
+     - configure the built-in [DoS protection](/sdk/reference/graphql-server/configuration/dos-protection) against heavy queries;
+     - configure [caching](/sdk/reference/graphql-server/configuration/caching).
 
 * If you deploy your squid to Subsquid Cloud:
   1. Deploy your squid to a [Professional organization](/cloud/resources/organizations/#professional-organizations).
