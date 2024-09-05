@@ -44,6 +44,6 @@ The OpenReader GraphQL API defines the following custom scalar types:
 
 ## Known issues
 
-- [Subscriptions](/sdk/reference/graphql-server/configuration/subscriptions) leak memory under load and are thus unsuitable for use in production.
+- RAM usage of [subscriptions](/sdk/reference/graphql-server/configuration/subscriptions) scales poorly under high load, making the feature unsuitable for most production uses. There are currently no plans to fix this issue.
 - Setting up custom resolvers for subscriptions is unreasonably hard.
 - `@subsquid/graphql-server` depends on the deprecated Apollo Server v3.
