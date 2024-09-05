@@ -48,7 +48,7 @@ Here,
 
 ## Sending user data to resolvers
 
-Authentication data such as user name can be passed from `requestCheck()` to a [custom resolver](/sdk/resources/graphql-server/custom-resolvers/) through Openreader context:
+Authentication data such as user name can be passed from `requestCheck()` to a [custom resolver](/sdk/reference/graphql-server/configuration/custom-resolvers/) through Openreader context:
 ```typescript
 export async function requestCheck(req: RequestCheckContext): Promise<boolean | string> {
   ...
@@ -100,7 +100,7 @@ export class UserCommentResolver {
 ```
 See full code in [this branch](https://github.com/subsquid-labs/access-control-example/tree/interacting-with-resolver).
 
-This approach does not work with [subscriptions](/sdk/resources/graphql-server/subscriptions/).
+This approach does not work with [subscriptions](/sdk/reference/graphql-server/configuration/subscriptions/).
 
 ## Examples
 
