@@ -75,9 +75,9 @@ Install these with `--save-dev`.
 
 ### GraphQL server
 
-Squids that store their data in PostgreSQL can subsequently make it available as a GraphQL API. To use this functionality, install [`@subsquid/graphql-server`](https://www.npmjs.com/package/@subsquid/graphql-server).
+Squids that store their data in PostgreSQL can subsequently make it available as a GraphQL API via a variety of supported servers. See [Serving GraphQL](/sdk/resources/basics/serving-graphql).
 
-The [server](/sdk/resources/graphql-server) runs as a separate process. [Core API](/sdk/reference/openreader) is automatically derived from the database schema; it is possible to extend it with [custom queries](/sdk/resources/graphql-server/custom-resolvers) and [basic access control](/sdk/resources/graphql-server/authorization).
+Among other alternatives, SQD provides its own server via the [`@subsquid/graphql-server`](https://www.npmjs.com/package/@subsquid/graphql-server) package. The server runs as a separate process. [Core API](/sdk/reference/graphql-server/openreader) is automatically derived from the schema file; it is possible to extend it with [custom queries](/sdk/reference/graphql-server/configuration/custom-resolvers) and [basic access control](/sdk/reference/graphql-server/configuration/authorization).
 
 ### Misc utilities
 

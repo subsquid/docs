@@ -27,7 +27,7 @@ See also the [Environment set up](/sdk/how-to-start/development-environment-set-
 Consider your business requirements and find out
 
 1. How the data should be delivered. Options:
-   - [PostgreSQL](/sdk/resources/persisting-data/typeorm) with an optional [GraphQL API](/sdk/resources/graphql-server) - can be real-time
+   - [PostgreSQL](/sdk/resources/persisting-data/typeorm) with an optional [GraphQL API](/sdk/resources/basics/serving-graphql) - can be real-time
    - [file-based dataset](/sdk/resources/persisting-data/file) - local or on S3
    - [Google BigQuery](/sdk/resources/persisting-data/bigquery/)
 2. What data should be delivered
@@ -57,10 +57,10 @@ Suppose you want to train a prototype ML model on all trades done on Uniswap Pol
 <details>
 <summary>NFT ownership on Ethereum</summary>
 
-Suppose you want to make a website that shows the image and ownership history for ERC721 NFTs from a certain Polygon contract.
+Suppose you want to make a website that shows the image and ownership history for ERC721 NFTs from a certain Ethereum contract.
 
 1. For this application it makes sense to deliver a GraphQL API.
-2. Output data might have `Token`, `Owner` and `Transfer` [entities](/sdk/reference/openreader/queries), with e.g. `Token` supplying all the fields necessary to show ownership history and the image.
+2. Output data might have `Token`, `Owner` and `Transfer` database tables / [entities](/sdk/reference/schema-file/entities), with e.g. `Token` supplying all the fields necessary to show ownership history and the image.
 3. Ethereum is an EVM chain.
 4. Data on token mints and ownership history can be derived from `Transfer(address,address,uint256)` EVM event logs emitted by the contract. To render images, you will also need token metadata URLs that are only available by [querying the contract state](/sdk/resources/tools/typegen/state-queries) with the `tokenURI(uint256)` function.
 5. You'll need to retrieve the off-chain token metadata (usually from IPFS).
@@ -464,7 +464,7 @@ At `src/main.ts`, change the [`Database`](/sdk/resources/persisting-data/overvie
 <TabItem value="typeorm" label="PostgreSQL+GraphQL">
 ```
 
-1. Define the schema of the database (and the [core schema of the GraphQL API](/sdk/reference/openreader) if it is used) at [`schema.graphql`](/sdk/reference/schema-file).
+1. Define the schema of the database (and the [core schema of the GraphQL API](/sdk/reference/graphql-server/openreader) if it is used) at [`schema.graphql`](/sdk/reference/schema-file).
 
 2. Regenerate the TypeORM model classes with
    ```bash
@@ -641,4 +641,4 @@ For complete examples of complex squids take a look at the [Giant Squid Explorer
 ## Next steps
 
 * Deploy your squid [on own infrastructure](/sdk/resources/basics/self-hosting) or to [Subsquid Cloud](/cloud)
-* If your squid serves a GraphQL API, consult the [Core GraphQL API reference](/sdk/reference/openreader) while writing your frontend
+* If your squid serves a [SQD GraphQL server](/sdk/reference/graphql-server/)-compatible API, consult the [core GraphQL API reference](/sdk/reference/graphql-server/openreader) while writing your frontend application.

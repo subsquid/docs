@@ -24,7 +24,7 @@ Since the ArrowSquid release, the Squid SDK has the option to ingest unfinalized
 
 ### How do I enable GraphQL subscriptions for local runs?
 
-Add `--subscription` flag to the `serve` command defined in `commands.json`. See [Subscriptions](/sdk/resources/graphql-server/subscriptions) for details.
+Add `--subscription` flag to the `serve` command defined in `commands.json`. See [Subscriptions](/sdk/reference/graphql-server/configuration/subscriptions) for details.
 
 ### How do squids keep track of their sync progress?
 

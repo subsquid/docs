@@ -70,11 +70,14 @@ An SDK (software development kit) and a smart-contract language for developing W
 
 ### OpenReader
 
-An open-source GraphQL server that automatically generates an expressive API from an input schema file.
+The GraphQL schema generation library at the heart of the open-source [SQD GraphQL server](/sdk/reference/graphql-server).
+
 * [GitHub repo](https://github.com/subsquid/squid-sdk/tree/master/graphql/openreader)
-* [Server documentation](/sdk/resources/graphql-server)
+* [Server documentation](/sdk/reference/graphql-server/overview)
 * [Schema dialect reference](/sdk/reference/schema-file)
-* [GraphQL API reference](/sdk/reference/openreader)
+* [GraphQL API reference](/sdk/reference/graphql-server/openreader)
+
+See [Serving GraphQL](/sdk/resources/basics/serving-graphql) to learn more.
 
 ### Pallet
 
