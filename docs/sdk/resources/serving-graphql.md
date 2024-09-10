@@ -31,9 +31,13 @@ As per usual with PostGraphile installations, you can freely extend it with plug
 
 2. **Run a dedicated Hasura instance for serving the data just from your squid.**
 
-   A complete example implementing this approach is available in [this repository](https://github.com/subsquid-labs/squid-hasura-example). More TBA.
+   A complete example implementing this approach is available in [this repository](https://github.com/subsquid-labs/squid-hasura-example). Here's how it works:
 
-<!-- If you want to run Hasura in [Subsquid Cloud](/cloud), visit the [`hasura` addon page](/cloud/reference/hasura). -->
+    * Locally, Hasura runs in a [Docker container](https://github.com/subsquid-labs/squid-hasura-example/blob/70bb6d703dc90c1bb00b47f3fef7f388ab54e565/docker-compose.yml#L14C1-L28C20). In the Cloud it is managed via the [Hasura addon](/cloud/reference/hasura).
+    * Hasura metadata is shared among all squid instances by means of the [Hasura configuration tool](/sdk/resources/tools/hasura-configuration). The tool can automatically create an initial configuration based on your [TypeORM models](/sdk/reference/schema-file/intro/#typeorm-codegen), then persist any changes you might make with the web GUI and metadata exports.
+    * Admin authentication secret is set via the `HASURA_GRAPHQL_ADMIN_SECRET`. The variable is set in `.env` locally and from a [secret](/cloud/resources/env-variables/#secrets) in Cloud deployments.
+
+   See the [configuration tool page](/sdk/resources/tools/hasura-configuration) and the [repo readme](https://github.com/subsquid-labs/squid-hasura-example#readme) for more details.
 
 ## OpenReader
 
