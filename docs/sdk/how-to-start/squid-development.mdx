@@ -464,7 +464,7 @@ At `src/main.ts`, change the [`Database`](/sdk/resources/persisting-data/overvie
 <TabItem value="typeorm" label="PostgreSQL+GraphQL">
 ```
 
-1. Define the schema of the database (and the [core schema of the GraphQL API](/sdk/reference/openreader-server/api) if it is used) at [`schema.graphql`](/sdk/reference/schema-file).
+1. Define the schema of the database (and the [core schema of the OpenReader GraphQL API](/sdk/reference/openreader-server/api) if it is used) at [`schema.graphql`](/sdk/reference/schema-file).
 
 2. Regenerate the TypeORM model classes with
    ```bash
@@ -626,6 +626,10 @@ The alternative is to do the same steps in a different order:
 5. [Retrieve any external data](#external-data) if necessary
 6. [Add the persistence code for the transformed data](#batch-handler-persistence)
 
+## GraphQL options
+
+[Store your data to PostgreSQL](/sdk/resources/persisting-data/typeorm), then consult [Serving GraphQL](/sdk/resources/serving-graphql) for options.
+
 ## Scaling up
 
 If you're developing a large squid, make sure to use [batch processing](/sdk/resources/batch-processing) throughout your code.
@@ -640,5 +644,8 @@ For complete examples of complex squids take a look at the [Giant Squid Explorer
 
 ## Next steps
 
-* Deploy your squid [on own infrastructure](/sdk/resources/self-hosting) or to [Subsquid Cloud](/cloud)
-* If your squid serves an [OpenReader](/sdk/reference/openreader-server/)-compatible API, consult [core API reference](/sdk/reference/openreader-server/api) while writing your frontend application.
+* Learn about [batch processing](/sdk/resources/batch-processing).
+* Learn how squid deal with [unfinalized blocks](/sdk/resources/unfinalized-blocks).
+* [Use external APIs and IPFS](/sdk/resources/external-api) in your squid.
+* See how squid should be set up for the [multichain setting](/sdk/resources/multichain).
+* Deploy your squid [on own infrastructure](/sdk/resources/self-hosting) or to [Subsquid Cloud](/cloud).
