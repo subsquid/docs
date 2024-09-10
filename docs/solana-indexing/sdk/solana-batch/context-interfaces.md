@@ -43,7 +43,7 @@ The exact fields available in each data item type are inferred from the `setFiel
 <!--
 ## Example
 
-The handler below simply outputs all the log items emitted by the contract `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC` in [real time](/sdk/resources/basics/unfinalized-blocks):
+The handler below simply outputs all the log items emitted by the contract `0x2E645469f354BB4F5c8a05B3b30A929361cf77eC` in [real time](/sdk/resources/unfinalized-blocks):
 
 ```ts
 import { TypeormDatabase } from "@subsquid/typeorm-store";

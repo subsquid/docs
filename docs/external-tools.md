@@ -9,7 +9,7 @@ sidebar_position: 90
 
 ## `@belopash/typeorm-store`
 
-[`@belopash/typeorm-store`](https://github.com/belopash/squid-typeorm-store) is a [fork](/sdk/resources/persisting-data/overview/#custom-database) of [`@subsquid/typeorm-store`](/sdk/reference/store/typeorm) that automates collecting read and write database requests into [batches](/sdk/resources/basics/batch-processing) and caches the available entity records in RAM. Unlike the [standard `typeorm-store`](/sdk/resources/persisting-data/typeorm), @belopash's store is intended to be used with declarative code: it makes it easy to write mapping functions (e.g. event handlers) that explicitly define
+[`@belopash/typeorm-store`](https://github.com/belopash/squid-typeorm-store) is a [fork](/sdk/resources/persisting-data/overview/#custom-database) of [`@subsquid/typeorm-store`](/sdk/reference/store/typeorm) that automates collecting read and write database requests into [batches](/sdk/resources/batch-processing) and caches the available entity records in RAM. Unlike the [standard `typeorm-store`](/sdk/resources/persisting-data/typeorm), @belopash's store is intended to be used with declarative code: it makes it easy to write mapping functions (e.g. event handlers) that explicitly define
 
  - what data you're going to need from the database
  - what code has to be executed once the data is available

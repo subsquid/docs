@@ -70,14 +70,9 @@ An SDK (software development kit) and a smart-contract language for developing W
 
 ### OpenReader
 
-The GraphQL schema generation library at the heart of the open-source [SQD GraphQL server](/sdk/reference/graphql-server).
+1. SQD's own open source [GraphQL server](/sdk/reference/openreader-server/overview), built in-house. No longer recommended for new projects running PostgreSQL due to its [longstanding issues](/sdk/reference/openreader-server/overview/#known-issues). See [Serving GraphQL](/sdk/resources/serving-graphql) to learn more.
 
-* [GitHub repo](https://github.com/subsquid/squid-sdk/tree/master/graphql/openreader)
-* [Server documentation](/sdk/reference/graphql-server/overview)
-* [Schema dialect reference](/sdk/reference/schema-file)
-* [GraphQL API reference](/sdk/reference/graphql-server/openreader)
-
-See [Serving GraphQL](/sdk/resources/basics/serving-graphql) to learn more.
+2. The GraphQL [schema generation library](https://github.com/subsquid/squid-sdk/tree/master/graphql/openreader) at the heart of 1. Implements [OpenCRUD](https://www.opencrud.org/).
 
 ### Pallet
 

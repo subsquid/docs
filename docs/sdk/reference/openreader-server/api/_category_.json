@@ -6,7 +6,7 @@
   "className": "red",
   "link": {
     "type": "generated-index",
-    "slug": "/sdk/reference/graphql-server/openreader",
-    "title": "Core queries exposed by the SQD GraphQL server API"
+    "slug": "/sdk/reference/openreader-server/api",
+    "title": "Core queries exposed by the OpenReader API"
   }
 }

@@ -190,7 +190,7 @@ export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 
 ## Define the batch handler
 
-Once requested, the events can be processed by calling the `.run()` function that starts generating requests to Subsquid Network for [*batches*](/sdk/resources/basics/batch-processing) of data.
+Once requested, the events can be processed by calling the `.run()` function that starts generating requests to Subsquid Network for [*batches*](/sdk/resources/batch-processing) of data.
 
 Every time a batch is returned by the Network, it will trigger the callback function, or *batch handler* (passed to `.run()` as second argument). It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 

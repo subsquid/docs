@@ -191,7 +191,7 @@ type Fields = SubstrateBatchProcessorFields<typeof processor>
 export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 ```
 This creates a processor that
- - Uses Subsquid Network as its main data source and a chain RPC for [real-time updates](/sdk/resources/basics/unfinalized-blocks). URLs of the Subsquid Network gateways are available on [this page](/subsquid-network/reference/substrate-networks) and via [`sqd gateways`](/squid-cli/gateways). See [this page](/sdk/reference/processors/substrate-batch/general) for the reference on data sources configuration;
+ - Uses Subsquid Network as its main data source and a chain RPC for [real-time updates](/sdk/resources/unfinalized-blocks). URLs of the Subsquid Network gateways are available on [this page](/subsquid-network/reference/substrate-networks) and via [`sqd gateways`](/squid-cli/gateways). See [this page](/sdk/reference/processors/substrate-batch/general) for the reference on data sources configuration;
  - [Subscribes](/sdk/reference/processors/substrate-batch/data-requests) to `Market.FileSuccess`, `Swork.JoinGroupSuccess` and `Swork.WorksReportSuccess` events emitted at heights starting at 583000;
  - Additionally subscribes to calls that emitted the events and the corresponding extrinsics;
  - [Requests](/sdk/reference/processors/substrate-batch/field-selection) the `hash` data field for all retrieved extrinsics and the `timestamp` field for all block headers.
@@ -200,7 +200,7 @@ We also export the `ProcessorContext` type to be able to pass the sole argument 
 
 ## Define the batch handler
 
-Squids [batch process](/sdk/resources/basics/batch-processing) chain data from multiple blocks. Compared to the [handlers](/sdk/resources/basics/batch-processing/#migrate-from-handlers) approach this results in a much lower database load. Batch processing is fully defined by processor's [batch handler](/sdk/reference/processors/architecture/#processorrun), the callback supplied to the `processor.run()` call at the entry point of each processor (`src/main.ts` by convention).
+Squids [batch process](/sdk/resources/batch-processing) chain data from multiple blocks. Compared to the [handlers](/sdk/resources/batch-processing/#migrate-from-handlers) approach this results in a much lower database load. Batch processing is fully defined by processor's [batch handler](/sdk/reference/processors/architecture/#processorrun), the callback supplied to the `processor.run()` call at the entry point of each processor (`src/main.ts` by convention).
 
 We begin defining our batch handler by importing the entity model classes and Crust event types that we generated in previous sections. We also import the processor and its types:
 

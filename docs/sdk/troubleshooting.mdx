@@ -69,13 +69,13 @@ PostgreSQL doesn't support storing `NULL (\0x00)` characters in text fields. Usu
 <summary>API queries are too slow</summary>
 
 - Make sure all the necessary fields are [indexed](/sdk/reference/schema-file/indexes-and-constraints/)
-- Annotate the schema and [set reasonable limits](/sdk/reference/graphql-server/configuration/dos-protection/) for the incoming queries to protect against DoS attacks
+- Annotate the schema and [set reasonable limits](/sdk/reference/openreader-server/configuration/dos-protection/) for the incoming queries to protect against DoS attacks
 
 </details>
 
 <details>
 <summary>`response might exceed the size limit`</summary>
 
-Make sure the input query has limits set or the entities are decorated with `@cardinality`. We recommend using `XXXConnection` queries for pagination. For configuring limits and max response sizes, see [DoS protection](/sdk/reference/graphql-server/configuration/dos-protection/).
+Make sure the input query has limits set or the entities are decorated with `@cardinality`. We recommend using `XXXConnection` queries for pagination. For configuring limits and max response sizes, see [DoS protection](/sdk/reference/openreader-server/configuration/dos-protection/).
 
 </details>

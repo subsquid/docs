@@ -1,12 +1,12 @@
 {
     "position": 80,
-    "label": "GraphQL server",
+    "label": "OpenReader",
     "collapsible": true,
     "collapsed": true,
     "className": "red",
     "link": {
       "type": "generated-index",
-      "slug": "/sdk/reference/graphql-server",
-      "title": "The SQD GraphQL server, built in-house"
+      "slug": "/sdk/reference/openreader-server",
+      "title": "An open source GraphQL server built by SQD"
     }
 }
