@@ -7,6 +7,6 @@
   "link": {
     "type": "generated-index",
     "slug": "/sdk/reference/openreader-server/api",
-    "title": "Core queries exposed by the SQD GraphQL server API"
+    "title": "Core queries exposed by the OpenReader API"
   }
 }
