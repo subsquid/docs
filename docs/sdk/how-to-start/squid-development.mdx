@@ -27,7 +27,7 @@ See also the [Environment set up](/sdk/how-to-start/development-environment-set-
 Consider your business requirements and find out
 
 1. How the data should be delivered. Options:
-   - [PostgreSQL](/sdk/resources/persisting-data/typeorm) with an optional [GraphQL API](/sdk/resources/basics/serving-graphql) - can be real-time
+   - [PostgreSQL](/sdk/resources/persisting-data/typeorm) with an optional [GraphQL API](/sdk/resources/serving-graphql) - can be real-time
    - [file-based dataset](/sdk/resources/persisting-data/file) - local or on S3
    - [Google BigQuery](/sdk/resources/persisting-data/bigquery/)
 2. What data should be delivered
@@ -35,9 +35,9 @@ Consider your business requirements and find out
    - Ethereum Virtual Machine (EVM) chains like [Ethereum](https://ethereum.org) - [supported networks](/subsquid-network/reference/evm-networks)
    - [Substrate](https://substrate.io)-powered chains like [Polkadot](https://polkadot.network) and [Kusama](https://kusama.network) - [supported networks](/subsquid-network/reference/substrate-networks)
 
-   Note that you can use Subsquid via [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) even if your network is not listed.
+   Note that you can use Subsquid via [RPC ingestion](/sdk/resources/unfinalized-blocks) even if your network is not listed.
 4. What exact data should be retrieved from blockchain(s)
-5. Whether you need to mix in any [off-chain data](/sdk/resources/basics/external-api)
+5. Whether you need to mix in any [off-chain data](/sdk/resources/external-api)
 
 #### Example requirements
 
@@ -103,7 +103,7 @@ Although it is possible to [compose a squid from individual packages](/sdk/how-t
   ```bash
   sqd init my-squid-name -t gravatar
   ```
-- A template showing how to [combine data from multiple chains](/sdk/resources/basics/multichain). Indexes USDC transfers on Ethereum and Binance.
+- A template showing how to [combine data from multiple chains](/sdk/resources/multichain). Indexes USDC transfers on Ethereum and Binance.
   ```bash
   sqd init my-squid-name -t multichain
   ```
@@ -323,7 +323,7 @@ Edit the definition of `const processor` to
 1. Use a data source appropriate for your chain and task.
    - It is possible to [use RPC](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint) as the only data source, but [adding](/sdk/reference/processors/evm-batch/general/#set-gateway) a [Subsquid Network](/subsquid-network/reference/evm-networks) data source will make your squid sync much faster.
    - RPC is a hard requirement if you're building a real-time API.
-   - If you're using RPC as one of your data sources, make sure to [set the number of finality confirmations](/sdk/reference/processors/evm-batch/general/#set-finality-confirmation) so that [hot blocks ingestion](/sdk/resources/basics/unfinalized-blocks) works properly.
+   - If you're using RPC as one of your data sources, make sure to [set the number of finality confirmations](/sdk/reference/processors/evm-batch/general/#set-finality-confirmation) so that [hot blocks ingestion](/sdk/resources/unfinalized-blocks) works properly.
 2. Request all [event logs](/sdk/reference/processors/evm-batch/logs/), [transactions](/sdk/reference/processors/evm-batch/transactions/), [execution traces](/sdk/reference/processors/evm-batch/traces) and [state diffs](/sdk/reference/processors/evm-batch/state-diffs/) that your task requires, with any necessary related data (e.g. parent transactions for event logs).
 
 3. [Select all data fields](/sdk/reference/processors/evm-batch/field-selection) necessary for your task (e.g. `gasUsed` for transactions).
@@ -451,7 +451,7 @@ You can also decode the data of certain pallet-specific events and transactions 
 
 ### (Optional) IV. Mix in external data and chain state calls output {#external-data}
 
-If you need external (i.e. non-blockchain) data in your transformation, take a look at the [External APIs and IPFS](/sdk/resources/basics/external-api) page.
+If you need external (i.e. non-blockchain) data in your transformation, take a look at the [External APIs and IPFS](/sdk/resources/external-api) page.
 
 If any of the on-chain data you need is unavalable from the processor or incovenient to retrieve with it, you have an option to get it via [direct chain queries](/sdk/resources/tools/typegen/state-queries).
 
@@ -464,7 +464,7 @@ At `src/main.ts`, change the [`Database`](/sdk/resources/persisting-data/overvie
 <TabItem value="typeorm" label="PostgreSQL+GraphQL">
 ```
 
-1. Define the schema of the database (and the [core schema of the GraphQL API](/sdk/reference/graphql-server/openreader) if it is used) at [`schema.graphql`](/sdk/reference/schema-file).
+1. Define the schema of the database (and the [core schema of the GraphQL API](/sdk/reference/openreader-server/api) if it is used) at [`schema.graphql`](/sdk/reference/schema-file).
 
 2. Regenerate the TypeORM model classes with
    ```bash
@@ -587,7 +587,7 @@ It will often make sense to keep the entity instances in maps rather than arrays
 
 If you perform any [database lookups](/sdk/reference/store/typeorm/#typeorm-methods), try to do so in batches and make sure that the entity fields that you're searching over are [indexed](/sdk/reference/schema-file/indexes-and-constraints).
 
-See also the [patterns](/sdk/resources/basics/batch-processing/#patterns) and [anti-pattens](/sdk/resources/basics/batch-processing/#anti-patterns) sections of the Batch processing guide.
+See also the [patterns](/sdk/resources/batch-processing/#patterns) and [anti-pattens](/sdk/resources/batch-processing/#anti-patterns) sections of the Batch processing guide.
 
 
 ```mdx-code-block
@@ -628,7 +628,7 @@ The alternative is to do the same steps in a different order:
 
 ## Scaling up
 
-If you're developing a large squid, make sure to use [batch processing](/sdk/resources/basics/batch-processing) throughout your code.
+If you're developing a large squid, make sure to use [batch processing](/sdk/resources/batch-processing) throughout your code.
 
 A common mistake is to make handlers for individual event logs or transactions; for updates that require data retrieval that results in lots of small database lookups and ultimately in poor syncing performance. Collect all the relevant data and process it at once. A simple architecture of that type is discussed in the [BAYC tutorial](/sdk/tutorials/bayc).
 
@@ -640,5 +640,5 @@ For complete examples of complex squids take a look at the [Giant Squid Explorer
 
 ## Next steps
 
-* Deploy your squid [on own infrastructure](/sdk/resources/basics/self-hosting) or to [Subsquid Cloud](/cloud)
-* If your squid serves a [SQD GraphQL server](/sdk/reference/graphql-server/)-compatible API, consult the [core GraphQL API reference](/sdk/reference/graphql-server/openreader) while writing your frontend application.
+* Deploy your squid [on own infrastructure](/sdk/resources/self-hosting) or to [Subsquid Cloud](/cloud)
+* If your squid serves a [SQD GraphQL server](/sdk/reference/openreader-server/)-compatible API, consult the [core GraphQL API reference](/sdk/reference/openreader-server/api) while writing your frontend application.

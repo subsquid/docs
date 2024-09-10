@@ -16,7 +16,7 @@ The following setters configure the global settings of `EvmBatchProcessor`. They
 Certain configuration methods are required:
 
  * one or both of [`setGateway()`](#set-gateway) and [`setRpcEndpoint()`](#set-rpc-endpoint)
- * [`setFinalityConfirmation()`](#set-finality-confirmation) whenever [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) is enabled, namely when
+ * [`setFinalityConfirmation()`](#set-finality-confirmation) whenever [RPC ingestion](/sdk/resources/unfinalized-blocks) is enabled, namely when
    - a RPC endpoint was configured with [`setRpcEndpoint()`](#set-rpc-endpoint)
    - RPC ingestion has **NOT** been explicitly disabled by calling [`setRpcDataIngestionSettings({ disabled: true })`](#set-rpc-data-ingestion-settings)
 
@@ -41,7 +41,7 @@ See [EVM gateways](/subsquid-network/reference/evm-networks).
 ### `setRpcEndpoint(rpc: ChainRpc)` {#set-rpc-endpoint}
 
 Adds a RPC data source. If added, it will be used for
- - [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) (unless explicitly disabled with [`setRpcDataIngestionSettings()`](#set-rpc-data-ingestion-settings))
+ - [RPC ingestion](/sdk/resources/unfinalized-blocks) (unless explicitly disabled with [`setRpcDataIngestionSettings()`](#set-rpc-data-ingestion-settings))
  - any [direct RPC queries](/sdk/resources/tools/typegen/state-queries/?typegen=evm) you make in your squid code
 
 A node RPC endpoint can be specified as a string URL or as an object:
@@ -67,7 +67,7 @@ Replaced by [`setGateway()`](#set-gateway) and [`setRpcEndpoint()`](#set-rpc-end
 
 ### `setRpcDataIngestionSetting(settings: RpcDataIngestionSettings)` {#set-rpc-data-ingestion-settings}
 
-Specify the [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) settings.
+Specify the [RPC ingestion](/sdk/resources/unfinalized-blocks) settings.
 ```ts
 type RpcDataIngestionSettings = {
   disabled?: boolean
