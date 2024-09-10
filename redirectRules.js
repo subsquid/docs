@@ -97,11 +97,11 @@ const urlList = [
     },
     {
         "from": "/run-squid/run-in-docker",
-        "to": "/sdk/resources/basics/self-hosting"
+        "to": "/sdk/resources/self-hosting"
     },
     {
         "from": "/run-squid/run-in-production",
-        "to": "/sdk/resources/basics/self-hosting"
+        "to": "/sdk/resources/self-hosting"
     },
     {
         "from": "/basics/store/typeorm-store",
@@ -221,15 +221,15 @@ const urlList = [
     },
     {
         "from": "/basics/batch-processing",
-        "to": "/sdk/resources/basics/batch-processing"
+        "to": "/sdk/resources/batch-processing"
     },
     {
         "from": "/basics/external-api",
-        "to": "/sdk/resources/basics/external-api"
+        "to": "/sdk/resources/external-api"
     },
     {
         "from": "/basics/multichain",
-        "to": "/sdk/resources/basics/multichain"
+        "to": "/sdk/resources/multichain"
     },
     {
         "from": "/basics/logging",
@@ -253,7 +253,7 @@ const urlList = [
     },
     {
         "from": "/basics/unfinalized-blocks",
-        "to": "/sdk/resources/basics/unfinalized-blocks"
+        "to": "/sdk/resources/unfinalized-blocks"
     },
     {
         "from": "/deploy-squid/best-practices",
@@ -309,7 +309,7 @@ const urlList = [
     },
     {
         "from": "/deploy-squid/self-hosting",
-        "to": "/sdk/resources/basics/self-hosting"
+        "to": "/sdk/resources/self-hosting"
     },
     {
         "from": "/deploy-squid/troubleshooting",
@@ -818,6 +818,34 @@ const urlList = [
     {
         "from": "/sdk/reference/openreader/sorting",
         "to": "/sdk/reference/openreader-server/api/sorting"
+    },
+    {
+        "from": "/sdk/resources/basics",
+        "to": "/sdk/resources"
+    },
+    {
+        "from": "/sdk/resources/basics/serving-graphql",
+        "to": "/sdk/resources/serving-graphql"
+    },
+    {
+        "from": "/sdk/resources/basics/batch-processing",
+        "to": "/sdk/resources/batch-processing"
+    },
+    {
+        "from": "/sdk/resources/basics/external-api",
+        "to": "/sdk/resources/external-api"
+    },
+    {
+        "from": "/sdk/resources/basics/multichain",
+        "to": "/sdk/resources/multichain"
+    },
+    {
+        "from": "/sdk/resources/basics/self-hosting",
+        "to": "/sdk/resources/self-hosting"
+    },
+    {
+        "from": "/sdk/resources/basics/unfinalized-blocks",
+        "to": "/sdk/resources/unfinalized-blocks"
     }
 ]
 
