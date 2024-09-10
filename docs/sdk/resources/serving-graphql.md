@@ -6,7 +6,7 @@ description: GraphQL servers commonly used in squids
 
 # Serving GraphQL
 
-It is common (although not required) for squids to serve GraphQL APIs. Historically, the most common way to do that was to [persist the squid data to PostgreSQL](/sdk/resources/persisting-data/typeorm), then attach the [SQD GraphQL server](#the-sqd-graphql-server) to it. Although this is still supported, we encourage using [PostGraphile](#postgraphile) or [Hasura](#hasura) in new PostgreSQD-based projects. See [SQD GraphQL server known issues](/sdk/reference/graphql-server/overview/#known-issues) if you're curious about our motivation.
+It is common (although not required) for squids to serve GraphQL APIs. Historically, the most common way to do that was to [persist the squid data to PostgreSQL](/sdk/resources/persisting-data/typeorm), then attach the [SQD GraphQL server](#the-sqd-graphql-server) to it. Although this is still supported, we encourage using [PostGraphile](#postgraphile) or [Hasura](#hasura) in new PostgreSQD-based projects. See [SQD GraphQL server known issues](/sdk/reference/openreader-server/overview/#known-issues) if you're curious about our motivation.
 
 ## PostGraphile
 
@@ -37,6 +37,6 @@ As per usual with PostGraphile installations, you can freely extend it with plug
 
 ## The SQD GraphQL server
 
-The [SQD GraphQL server](/sdk/reference/graphql-server) is a GraphQL server developed by the SQD team. Although still supported, it's not recommeded for new PostgreSQL-powered projects due to its [known issues](/sdk/reference/graphql-server/overview/#known-issues), especially for APIs implementing GraphQL subscriptions.
+The [SQD GraphQL server](/sdk/reference/openreader-server) is a GraphQL server developed by the SQD team. Although still supported, it's not recommeded for new PostgreSQL-powered projects due to its [known issues](/sdk/reference/openreader-server/overview/#known-issues), especially for APIs implementing GraphQL subscriptions.
 
-The server uses the [schema file](/sdk/reference/schema-file) to produce its [core API](/sdk/reference/graphql-server/openreader) that can be extended with [custom resolvers](/sdk/reference/graphql-server/configuration/custom-resolvers). Extra features include [DoS protection](/sdk/reference/graphql-server/configuration/dos-protection).
+The server uses the [schema file](/sdk/reference/schema-file) to produce its [core API](/sdk/reference/openreader-server/api) that can be extended with [custom resolvers](/sdk/reference/openreader-server/configuration/custom-resolvers). Extra features include [DoS protection](/sdk/reference/openreader-server/configuration/dos-protection).

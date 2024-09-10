@@ -10,7 +10,7 @@ description: >-
 The schema file `schema.graphql` uses a GraphQL dialect to model the target entities and entity relations. The tooling around the schema file is then used to:
 - Generate TypeORM entities (with `squid-typeorm-codegen(1)`, see below)
 - Generate the database schema from the TypeORM entities (see [db migrations](/sdk/resources/persisting-data/typeorm))
-- Optionally, the schema can be used to present the target data with a [GraphQL API](/sdk/resources/basics/serving-graphql).
+- Optionally, the schema can be used to present the target data with a [GraphQL API](/sdk/resources/serving-graphql).
 
 The schema file format is loosely compatible with the [subgraph schema](https://thegraph.com/docs/en/developing/creating-a-subgraph/) file, see [Migrate from subgraph](/sdk/resources/migrate/migrate-subgraph) section for details.
 

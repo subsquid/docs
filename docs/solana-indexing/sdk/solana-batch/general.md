@@ -30,7 +30,7 @@ Use a [Subsquid Network](/subsquid-network) gateway. The argument is either a st
 
 ### `setRpc(settings?: RpcSettings)` {#set-rpc}
 
-Adds a RPC data source. If added, it will be used for [RPC ingestion](/sdk/resources/basics/unfinalized-blocks). The argument format is:
+Adds a RPC data source. If added, it will be used for [RPC ingestion](/sdk/resources/unfinalized-blocks). The argument format is:
 
 ```ts
 type RpcSettings = {

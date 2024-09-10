@@ -9,7 +9,7 @@ description: >-
 
 ## Introduction
 
-The [previous section](/sdk/reference/graphql-server/openreader/nested-field-queries) has already demonstrated that queries can return not just scalars such as a String, but also fields that refer to object or entity types. What's even more interesting is that queries can leverage fields of related objects to filter results.
+The [previous section](/sdk/reference/openreader-server/api/nested-field-queries) has already demonstrated that queries can return not just scalars such as a String, but also fields that refer to object or entity types. What's even more interesting is that queries can leverage fields of related objects to filter results.
 
 Let's take this sample schema with two entity types and a one-to-many relationship between them:
 
