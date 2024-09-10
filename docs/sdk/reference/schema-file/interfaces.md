@@ -6,7 +6,9 @@ description: Queriable interfaces
 
 # Interfaces
 
-The schema file supports [GraphQL Interfaces](https://graphql.org/learn/schema/#interfaces) for modelling complex types sharing common traits. Interfaces are annotated with `@query` at the type level and do not affect the database schema, only enriching the [API queries](/sdk/reference/openreader-server/api) of the [SQD GraphQL server](/sdk/reference/openreader-server) with [inline fragments](https://graphql.org/learn/queries/#inline-fragments). 
+The schema file supports [GraphQL Interfaces](https://graphql.org/learn/schema/#interfaces) for modelling complex types sharing common traits. Interfaces are annotated with `@query` at the type level and do not affect the database schema, only enriching the GraphQL API queries with [inline fragments](https://graphql.org/learn/queries/#inline-fragments).
+
+Currently, only [OpenReader](/sdk/reference/openreader-server) supports GraphQL interfaces defined in the schema file.
 
 ### Examples
 
