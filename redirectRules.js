@@ -25,7 +25,7 @@ const urlList = [
     },
     {
         "from": "/develop-a-squid/graphql-api",
-        "to": "/sdk/resources/basics/serving-graphql"
+        "to": "/sdk/resources/serving-graphql"
     },
     {
         "from": "/develop-a-squid/typegen/squid-substrate-typegen",
@@ -409,31 +409,31 @@ const urlList = [
     },
     {
         "from": "/graphql-api/authorization",
-        "to": "/sdk/reference/graphql-server/configuration/authorization"
+        "to": "/sdk/reference/openreader-server/configuration/authorization"
     },
     {
         "from": "/graphql-api/caching",
-        "to": "/sdk/reference/graphql-server/configuration/caching"
+        "to": "/sdk/reference/openreader-server/configuration/caching"
     },
     {
         "from": "/graphql-api/custom-resolvers",
-        "to": "/sdk/reference/graphql-server/configuration/custom-resolvers"
+        "to": "/sdk/reference/openreader-server/configuration/custom-resolvers"
     },
     {
         "from": "/graphql-api/dos-protection",
-        "to": "/sdk/reference/graphql-server/configuration/dos-protection"
+        "to": "/sdk/reference/openreader-server/configuration/dos-protection"
     },
     {
         "from": "/graphql-api/overview",
-        "to": "/sdk/resources/basics/serving-graphql"
+        "to": "/sdk/resources/serving-graphql"
     },
     {
         "from": "/graphql-api/subscriptions",
-        "to": "/sdk/reference/graphql-server/configuration/subscriptions"
+        "to": "/sdk/reference/openreader-server/configuration/subscriptions"
     },
     {
         "from": "/graphql-api",
-        "to": "/sdk/resources/basics/serving-graphql"
+        "to": "/sdk/resources/serving-graphql"
     },
     {
         "from": "/migrate/subsquid-vs-thegraph",
@@ -457,43 +457,43 @@ const urlList = [
     },
     {
         "from": "/query-squid/nested-field-queries",
-        "to": "/sdk/reference/graphql-server/openreader/nested-field-queries"
+        "to": "/sdk/reference/openreader-server/api/nested-field-queries"
     },
     {
         "from": "/query-squid/sorting",
-        "to": "/sdk/reference/graphql-server/openreader/sorting"
+        "to": "/sdk/reference/openreader-server/api/sorting"
     },
     {
         "from": "/query-squid/intro",
-        "to": "/sdk/reference/graphql-server/openreader/intro"
+        "to": "/sdk/reference/openreader-server/api/intro"
     },
     {
         "from": "/query-squid/and-or-filters",
-        "to": "/sdk/reference/graphql-server/openreader/and-or-filters"
+        "to": "/sdk/reference/openreader-server/api/and-or-filters"
     },
     {
         "from": "/query-squid/resolve-union-types-interfaces",
-        "to": "/sdk/reference/graphql-server/openreader/resolve-union-types-interfaces"
+        "to": "/sdk/reference/openreader-server/api/resolve-union-types-interfaces"
     },
     {
         "from": "/query-squid/cross-relation-field-queries",
-        "to": "/sdk/reference/graphql-server/openreader/cross-relation-field-queries"
+        "to": "/sdk/reference/openreader-server/api/cross-relation-field-queries"
     },
     {
         "from": "/query-squid/json-queries",
-        "to": "/sdk/reference/graphql-server/openreader/json-queries"
+        "to": "/sdk/reference/openreader-server/api/json-queries"
     },
     {
         "from": "/query-squid/queries",
-        "to": "/sdk/reference/graphql-server/openreader/queries"
+        "to": "/sdk/reference/openreader-server/api/queries"
     },
     {
         "from": "/query-squid/paginate-query-results",
-        "to": "/sdk/reference/graphql-server/openreader/paginate-query-results"
+        "to": "/sdk/reference/openreader-server/api/paginate-query-results"
     },
     {
         "from": "/query-squid",
-        "to": "/sdk/reference/graphql-server/openreader"
+        "to": "/sdk/reference/openreader-server/api"
     },
     {
         "from": "/quickstart/quickstart-substrate",
@@ -749,75 +749,75 @@ const urlList = [
     },
     {
         "from": "/sdk/resources/graphql-server/alternatives",
-        "to": "/sdk/resources/basics/serving-graphql"
+        "to": "/sdk/resources/serving-graphql"
     },
     {
         "from": "/sdk/resources/graphql-server/overview",
-        "to": "/sdk/resources/basics/serving-graphql"
+        "to": "/sdk/resources/serving-graphql"
     },
     {
         "from": "/sdk/resources/graphql-server",
-        "to": "/sdk/resources/basics/serving-graphql"
+        "to": "/sdk/resources/serving-graphql"
     },
     {
         "from": "/sdk/resources/graphql-server/authorization",
-        "to": "/sdk/reference/graphql-server/configuration/authorization"
+        "to": "/sdk/reference/openreader-server/configuration/authorization"
     },
     {
         "from": "/sdk/resources/graphql-server/caching",
-        "to": "/sdk/reference/graphql-server/configuration/caching"
+        "to": "/sdk/reference/openreader-server/configuration/caching"
     },
     {
         "from": "/sdk/resources/graphql-server/custom-resolvers",
-        "to": "/sdk/reference/graphql-server/configuration/custom-resolvers"
+        "to": "/sdk/reference/openreader-server/configuration/custom-resolvers"
     },
     {
         "from": "/sdk/resources/graphql-server/dos-protection",
-        "to": "/sdk/reference/graphql-server/configuration/dos-protection"
+        "to": "/sdk/reference/openreader-server/configuration/dos-protection"
     },
     {
         "from": "/sdk/resources/graphql-server/subscriptions",
-        "to": "/sdk/reference/graphql-server/configuration/subscriptions"
+        "to": "/sdk/reference/openreader-server/configuration/subscriptions"
     },
     {
         "from": "/sdk/reference/openreader",
-        "to": "/sdk/reference/graphql-server/openreader"
+        "to": "/sdk/reference/openreader-server/api"
     },
     {
         "from": "/sdk/reference/openreader/intro",
-        "to": "/sdk/reference/graphql-server/openreader/intro"
+        "to": "/sdk/reference/openreader-server/api/intro"
     },
     {
         "from": "/sdk/reference/openreader/and-or-filters",
-        "to": "/sdk/reference/graphql-server/openreader/and-or-filters"
+        "to": "/sdk/reference/openreader-server/api/and-or-filters"
     },
     {
         "from": "/sdk/reference/openreader/cross-relation-field-queries",
-        "to": "/sdk/reference/graphql-server/openreader/cross-relation-field-queries"
+        "to": "/sdk/reference/openreader-server/api/cross-relation-field-queries"
     },
     {
         "from": "/sdk/reference/openreader/json-queries",
-        "to": "/sdk/reference/graphql-server/openreader/json-queries"
+        "to": "/sdk/reference/openreader-server/api/json-queries"
     },
     {
         "from": "/sdk/reference/openreader/nested-field-queries",
-        "to": "/sdk/reference/graphql-server/openreader/nested-field-queries"
+        "to": "/sdk/reference/openreader-server/api/nested-field-queries"
     },
     {
         "from": "/sdk/reference/openreader/paginate-query-results",
-        "to": "/sdk/reference/graphql-server/openreader/paginate-query-results"
+        "to": "/sdk/reference/openreader-server/api/paginate-query-results"
     },
     {
         "from": "/sdk/reference/openreader/queries",
-        "to": "/sdk/reference/graphql-server/openreader/queries"
+        "to": "/sdk/reference/openreader-server/api/queries"
     },
     {
         "from": "/sdk/reference/openreader/resolve-union-types-interfaces",
-        "to": "/sdk/reference/graphql-server/openreader/resolve-union-types-interfaces"
+        "to": "/sdk/reference/openreader-server/api/resolve-union-types-interfaces"
     },
     {
         "from": "/sdk/reference/openreader/sorting",
-        "to": "/sdk/reference/graphql-server/openreader/sorting"
+        "to": "/sdk/reference/openreader-server/api/sorting"
     }
 ]
 
