@@ -4,51 +4,71 @@ sidebar_class_name: hidden
 
 # Deployments 2.0 - Сhangelog
 
-This page outlines SQD Cloud Deployments, a new and improved method for deploying and managing your Squids. 
+Deployments 2.0 simplify [the deployment process](/cloud/overview) with several key changes:
 
-Deployments 2.0 simplify [the process](/cloud/overview) with several key changes:
+* **Slots:** Replace versions with unique deployment identifiers called slots. All distinct deployments with the same name and [organization](/cloud/resources/organizations) are assigned to distinct slots.
+* **Tags:** Organize deployments with descriptive tags for better clarity. Each tag can be assigned to only one deployment among those that have the same name + organization. Multiple tags can be assigned to any one deployment.
 
-* **Slots:** Replace versions with unique identifiers called slots. 
-* **Tags:** Organize deployments with descriptive tags for better clarity.
+## Before vs after
 
-**Before vs. After**
+### Concepts
 
-| Feature                 | Before                                    | After                                         |
-|-------------------------|-------------------------------------------|----------------------------------------------|
-| Version concept         | Existed                                    | Removed (replaced with slots)                  |
-| Slot concept             | Did not exist                               | Introduced (unique identifier for configs)     |
-| Existing squids          | -                                          | Prefixed with "v" during migration (e.g., "v1") |
-| Canonical URL format     | `https://subsquid.squids.live/my-squid/v/v1/graphql` | `https://subsquid.squids.live/my-squid@v1/api/graphql` |
-| Production alias        | Existed                                    | Deprecated (use tags)                         |
-| Tags                     | Did not exist                               | Introduced (user-defined labels for deployments) |
+| Concepts                | Before                                    | After                                              |
+|-------------------------|-------------------------------------------|----------------------------------------------------|
+| Version                 | Existed                                   | Removed (replaced with slots)                      |
+| Slot                    | Did not exist                             | Introduced (unique identifier for configs)         |
+| Production alias        | Existed                                   | Deprecated (use tags)                              |
+| Tag                     | Did not exist                             | Introduced (user-defined labels for deployments)   |
+| Reference               | Existed                                   | Exists, but the format has changed                 |
 
-**Manifest and CLI Updates**
+### Format changes
 
-The manifest file and SQD CLI have been updated to reflect the new deployment approach. 
+| Value         | Before                                                  | After                                                 |
+|---------------|---------------------------------------------------------|-------------------------------------------------------|
+| Version       | Must be a number                                        | Deprecated                                            |
+| Slot          | Did not exist                        | A string of up to six lower case alphanumeric characters, dashes allowed |
+| Tag           | Did not exist                                   | A string of lowercase alphanumeric characters, dashes allowed |
+| Reference     | `<name>@v<version>`                                     | `[<org>/]<name>(@<slot>\|:<tag>)`                     |
+| Canonical URL | `https://<org>.squids.live/<name>/v/v<version>/graphql` | `https://<org>.squids.live/<name>@<slot>/api/graphql` |
+| [Production URL](/cloud/resources/production-alias) | `https://<org>.squids.live/<name>/graphql` | Deprecated. See also [backwards compatibility](#backwards-compatibility). |
+| Tag URL       | Did not exist                                           | `https://<org>.squids.live/<name>:<tag>/api/graphql`  |
 
-**Manifest Changes:**
+## Manifest changes
 
-| Field      | Before | After |
-|-----------|--------|--------|
-| manifestVersion | Present | Present |
-| name        | Present | Present |
-| version     | Present | Deprecated (mapped to slot) |
-| slot        | Absent  | New field (unique identifier) |
+| Field       | Before  | After                          |
+|-------------|---------|--------------------------------|
+| name        | Present | Present                        |
+| version     | Present | Deprecated (mapped to slot)    |
+| slot        | Absent  | New field (unique identifier)  |
 | tag         | Absent  | New field (user-defined label) |
 
-**CLI Changes:**
+## CLI changes
 
-| Feature                                               | Before                                    | After                                         |
+Changes to CLI behavior are rather extensive:
+
+* New flags `--name/-n`, `--tag/-t`, `--slot/-s`, `--reference/-r` have been added to nearly all commands. For `sqd deploy` they now can override their corresponding [manifest fields](#manifest-changes).
+* New commands `sqd tags add` and `sqd tags remove` have been added.
+* The `sqd prod` command has been removed.
+
+Here's what the new commands look like for some common tasks:
+
+| Action                                                  | Before                                    | After                                        |
 |---------------------------------------------------------|-------------------------------------------|----------------------------------------------|
-| Deploying prod version                                 | `sqd deploy .`<br>`sqd prod my-squid@v1`     | `sqd deploy . --add-tag prod`                |
-| Promoting to prod                                       | `sqd prod my-squid@v1`                       | `sqd tags add -n my-squid -s v1`              |
-| Fetching logs                                          | `sqd logs my-squid@v1`                       | `sqd logs -n my-squid -s v1`                   |
-| New flags                                               | NAMEVERSION argument                        | `--name`, `--tag`, `--slot`, `--reference`     |
-| New commands                                            | N/A                                          | `tags add`, `tags remove`                    |
-| Deprecated command                                      | `prod`                                       | N/A                                          |
+| Deploying prod version                                  | `sqd deploy . && sqd prod my-squid@v1`    | `sqd deploy . --add-tag prod`                |
+| Promoting to prod                                       | `sqd prod my-squid@v1`                    | `sqd tags add prod -n my-squid -s v1`        |
+| Marking a deployment as a "dev" version                 | Was not possible                          | `sqd tags add dev -n my-squid -s v1`         |
+| Updating a "dev" version                                | Was not possible                          | `sqd deploy . -t dev`                        |
+| Fetching logs                                           | `sqd logs my-squid@v1`                    | `sqd logs -n my-squid -s v1`                 |
 
+## Backwards compatibility
 
-### Getting Started with SQD Cloud Deployments
+Here are the measures we've taken to make the migration smoother:
+
+* Existing deployments lose their versions; instead, they are assigned to the corresponding `v<version>` slots. New deployments that specify `version:` in the manifest will be assigned to the `v<version>` slot, too.
+* Tag `prod` has a special meaning for the duration of the transition period: deployments that have it are made available via old-style [production URLs](/cloud/resources/production-alias).
+* Tag `prod` is assigned to all existing deployments with [production aliases](/cloud/resources/production-alias).
+
+## Getting started with Deployments 2.0
 
 **Prerequisites:**
 
@@ -64,52 +84,54 @@ npm install -g @subsquid/cli@beta
 sqd --version
 ```
 
-3. Enable preview on SQD Cloud 
-
-    https://app.subsquid.io/preview
-
+3. Enable preview on SQD Cloud https://app.subsquid.io/preview
 
 **Deployment Process:**
 
-1. **Create a New Squid:** Follow the existing procedures.
-2. **Deploy the Squid:** Use `sqd deploy` to deploy your Squid directly.
-3. **Test Deployment Functionality:** Ensure everything works as expected.
-4. **Manage Slots and Tags (New):** Utilize slots and tags for advanced organization. 
+1. **Create a new squid:** Follow the existing procedures.
+2. **Deploy the squid:** Use `sqd deploy` to deploy your squid.
+3. **Test deployment functionality:** Ensure everything works as expected using the canonical URL `https://<org>.squids.live/<name>@<slot>/api/graphql`.
+4. **Organize your deployment(s):**
+   - Use slots to control whether you deploy or redeploy. Deploying without specifying the slot always creates a new deployment, which is helpful in CI/CD setting.
+   - Use tags to create URLs that persist across deployments. Reassign tags to switch between API versions with zero downtime.
 
+## FAQ
 
-### FAQs
+#### Why use tags?
 
-***Q: What are Slots and Tags?***
-* **Slots:** Unique environments within a Squid deployment, each with its own configuration and data.
-* **Tags:** User-defined labels attached to specific slots for easier organization and identification.
+Tags create URLs that persist across deployments. Reassign tags to switch between API versions with zero downtime.
 
-***Q: Why Use Tags?***
-* **Improved Organization:** Categorize Squids for better management.
-* **Enhanced Collaboration:** Clearly define ownership and purpose of different versions.
-* **Simplified Identification:** Use descriptive tags instead of complex identifiers.
+You can have multiple tags per squid name. This aids in organizing your deployments and in collaborative development.
 
-***Q: How can I add a tag to my already existing squid?***
-To add a tag to an existing Squid, use the `--add-tag` flag in the `sqd deploy` command. For example:
+#### How can I add a tag to my already existing squid?
+
+Use the `sqd tags add` command:
+```bash
+sqd tags add tsttag -n my-squid -s v1
+```
+
+#### How can I assign a tag at the deployment time?
+
+Use the `--add-tag` flag with `sqd deploy`. For example:
 
 ```bash
-sqd deploy . -n evm-squid --add-tag test
+sqd deploy . --add-tag tsttag
 ```
-This adds the "test" tag to the "evm-squid" Squid.
 
-***Q: How can I create a new slot to my already existing squid?***
-To create a new slot for an existing Squid, use the `-s` flag in the `sqd deploy` command, specifying the desired slot identifier. For example:
+This deploys a squid using the manifest from the local folder and adds the "tsttag" tag to the new deployment.
 
+#### How can I create a new slot to my already existing squid?
+
+Slots are automatically assigned to all new deployments that do not specify them explicitly (either in manifest or via `-s/--slot`). If you specify a slot and it doesn't exist, it'll be created; if it exists, the deployment in that slot will be updated.
+
+#### I've been using the 'prod' command and it worked great! What's next?
+
+You can [keep using the existing prod URLs](#backwards-compatibility) for your squids. We'll keep this feature up for a while, but ultimately you'll have to migrate to [tag-based URLs](#format-changes).
+
+#### I want to add an old-style production URL to a deployment that does not have it. Is that possible?
+
+For now, yes. Just assign a `prod` tag to it:
 ```bash
-sqd deploy . -n evm-squid -s asmzf5
+sqd tags add prod -n my-squid -s v1
 ```
-This creates a new slot with the identifier "asmzf5" for the "evm-squid" Squid.
-
-**Q: I played around with the 'prod' command and it worked great! What's next?**
-
-No worries, you can keep using the existing URLs for your Squid.  Think of tags like labels. Here's the good news: you can continue using the existing URLs for your Squid. To make things even smoother, you can add a "prod" tag to your current Squid. This won't change the URL format, which remains:
-
-```
-https://<org-code>-squids.subsquid.io/<squid-name>/graphql
-```
-
-This way, you have the added benefit of easily identifying your production environment with the "prod" tag and being able to assign more tags or using slots.
+See [Backwards compatibility](#backwards-compatibility) for details.
