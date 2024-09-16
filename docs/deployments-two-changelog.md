@@ -45,7 +45,7 @@ Deployments 2.0 simplify [the deployment process](/cloud/overview) with several 
 ## CLI changes
 
 Changes to CLI behavior are rather extensive:
-'
+
 * New flags `--name/-n`, `--tag/-t`, `--slot/-s`, `--reference/-r` have been added to nearly all commands. For `sqd deploy` they now can override their corresponding [manifest fields](#manifest-changes).
 * New commands `sqd tags add` and `sqd tags remove` have been added.
 * The `sqd prod` command has been removed.
@@ -126,4 +126,12 @@ Slots are automatically assigned to all new deployments that do not specify them
 
 #### I've been using the 'prod' command and it worked great! What's next?
 
-No worries, you can [keep using the existing URLs](#backwards-compatibility) for your squid.
+You can [keep using the existing prod URLs](#backwards-compatibility) for your squids. We'll keep this feature up for a while, but ultimately you'll have to migrate to [tag-based URLs](#format-changes).
+
+#### I want to add an old-style production URL to a deployment that does not have it. Is that possible?
+
+For now, yes. Just assign a `prod` tag to it:
+```bash
+sqd tags add prod -n my-squid -s v1
+```
+See [Backwards compatibility](#backwards-compatibility) for details.
