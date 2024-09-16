@@ -46,7 +46,9 @@ Deployments 2.0 simplify [the deployment process](/cloud/overview) with several 
 
 Changes to CLI behavior are rather extensive:
 
-* New flags `--name/-n`, `--tag/-t`, `--slot/-s`, `--reference/-r` have been added to nearly all commands. For `sqd deploy` they now can override their corresponding [manifest fields](#manifest-changes).
+* New flags `--name/-n`, `--tag/-t`, `--slot/-s`, `--reference/-r` have been added to nearly all commands.
+  - For `sqd deploy` they now can override their corresponding [manifest fields](#manifest-changes). **Tag specification takes priority over slot specification.**
+  - For other commands (`sqd logs`, `sqd restart` etc) they allow for flexible specification of deployment.
 * New commands `sqd tags add` and `sqd tags remove` have been added.
 * The `sqd prod` command has been removed.
 
