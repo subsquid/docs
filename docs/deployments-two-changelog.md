@@ -64,7 +64,15 @@ Here's what the new commands look like for some common tasks:
 
 Here are the measures we've taken to make the migration smoother:
 
-* Existing deployments lose their versions; instead, they are assigned to the corresponding `v<version>` slots. New deployments that specify `version:` in the manifest will be assigned to the `v<version>` slot, too.
+* Existing deployments lose their versions; instead, they are assigned to the corresponding `v<version>` slots. New deployments that specify `version:` in the manifest will be assigned to the `v<version>` slot, too. Hence, for the time being the lines
+  ```yaml
+  version: 42
+  ```
+  and
+  ```yaml
+  slot: v42
+  ```
+  in the manifest file are equivalent.
 * Tag `prod` has a special meaning for the duration of the transition period: deployments that have it are made available via old-style [production URLs](/cloud/resources/production-alias).
 * Tag `prod` is assigned to all existing deployments with [production aliases](/cloud/resources/production-alias).
 
