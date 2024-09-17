@@ -2,18 +2,18 @@
 sidebar_class_name: hidden
 ---
 
-# SQD Cloud Deployments, now upgraded!
+# SQD Cloud deployments, now upgraded!
 
-**What's new?**
+## What's new?
 
-Over the last 6 months we've seen hundreds of team deploy thousands of squids to SQD Cloud. Many of you have given us feedback that you'd like to see a more flexible and collaborative set of tools for your deployment flow. We hear you. We agree. So today we're introducing two new features 
+Over the last 6 months we've seen hundreds of teams deploy thousands of squids to [SQD Cloud](/cloud). Many of you have given us feedback that you'd like to see a more flexible and collaborative set of tools for your deployment flow. We hear you. We agree. So today we're introducing two new features:
 
 * **Slots:** Forget incrementing a single version number! Versions will be retired and replaced by slots, a customisable identifier for each deployment.
-* **Tags:** Remembering which squid is which just got a lot easier! Now you can create and assign multiple custom tags to any deployment. As a result we'll be retiring the Set Production URL feature. Now tags act as aliases, making it possible to create, identify and consume endpoints.
+* **Tags:** Remembering which squid is which just got a lot easier! Now you can create and assign multiple custom tags to any deployment. As a result we'll be retiring the [Production alias](/cloud/resources/production-alias) feature. Now tags act as aliases, making it possible to create, identify and consume endpoints.
 
 [Here's a detailed changelog.](/deployments-two-changelog)
 
-**Why the change?**
+## Why the change?
 
 When we initially built the original deployment flow versions felt appropriate. A simple number you could increment on each deployment if necessary. This worked well in simple scenarios, but over time this gradually became more difficult to manage for those of you with any kind of deployment complexity.
 
@@ -21,7 +21,7 @@ At the same time it became clear that our solution to endpoint management, allow
 
 It became clear that was lacking here was the ability for larger teams to collaborate effectively. Our goal with these changes is to provide the power and flexibility that more complex deployment flows need.
 
-**How does it work?**
+## How does it work?
 
 Let's take an example, we want to create and test a squid, and then over time gradually promote it to production.
 
@@ -29,7 +29,7 @@ In our old workflow we can either keep redeploying over our v1 squid as we devel
 
 Now let's walk through our new workflow with a common example!
 
-Let's start with the first developer on the team deploying a squid called `ethprice` into a slot of our choosing `4f5sfc`. Here's the (shortened) manifest file they configure
+Let's start with the first developer on the team deploying a squid called `ethprice` into a slot of our choosing `4f5sfc`. Here's the (shortened) manifest file they configure:
 
 ```bash
 ...
@@ -38,13 +38,13 @@ slot: 4f5sfc
 ...
 ```
 
-And now deploying it to the cloud
+And now deploying it to the cloud:
 
 ```bash
 sqd deploy .
 ```
 
-Next, let's imagine they tag the cloud deployment as `test`
+Next, let's imagine they tag the cloud deployment as `test`.
 
 ```bash
 sqd tags add test -n ethprice -s 4f5sfc
@@ -64,25 +64,25 @@ At a glance they can see what each deployment contains and the stage of developm
 
 The tagging system can be used for any custom workflow that your team needs. We can't wait to see how you use it!
 
-**FAQs**
+## FAQs
 
-_Q : We really like versions, they work well for us, do we need to change our workflow?_
+#### We really like versions, they work well for us, do we need to change our workflow?
 
 No, you don't need to change your workflow at all! Your version will be migrated into the new slot field, and slots are a just an arbitrary string between 2 and 6 characters in length. Our goal was to expand functionality rather than remove it.
 
-_Q: Do I need to use tags?_
+#### Do I need to use tags?
 
 No, they are completely optional, and purely to identify and alias the squids endpoint. Each deployment can always be consumed from it's immutable endpoint, which is based on it's slot. 
 
-*Q: Why should I use tags? Convince me.*
+#### Why should I use tags? Convince me.
 
 Tags serve two key roles. Firstly as a labelling mechanism, this allows teams to explicitly describe what each squid does and what stage it's at in development. Secondly as a way to preserve urls across slots. Tags act as an alias by creating a unqiue endpoint for each tag. This allows you to migrate a consistent endpoint across slots with ease.
 
-_Q: Will any of my endpoints change when this is released?_
+#### Will any of my endpoints change when this is released?
 
 No. Every endpoint will remain unchanged.
 
-**How to get started?**
+#### How to get started?
 
 The upgrades are available in Preview today. To make use of them you will need to
 
@@ -96,8 +96,8 @@ The upgrades are available in Preview today. To make use of them you will need t
 
 3. Try breaking all the new features!
 
-**Where can I learn more about these updates?**
+#### Where can I learn more about these updates?
 
-To read about the indepth details of the changes please head [here](/deployments-two-changelog)
+To read about the indepth details of the changes please head [here](/deployments-two-changelog).
 
 We'd love to hear your feedback on these changes. Tag us on twitter [@helloSQD](https://x.com/helloSQD) or come talk to us in [Telegram](https://t.me/HydraDevs).
