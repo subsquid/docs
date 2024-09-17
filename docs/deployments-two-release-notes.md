@@ -11,7 +11,7 @@ Over the last 6 months we've seen hundreds of teams deploy thousands of squids t
 * **Slots:** Forget incrementing a single version number! Versions will be retired and replaced by slots, a customisable identifier for each deployment.
 * **Tags:** Remembering which squid is which just got a lot easier! Now you can create and assign multiple custom tags to any deployment. As a result we'll be retiring the [Production alias](/cloud/resources/production-alias) feature. Now tags act as aliases, making it possible to create, identify and consume endpoints.
 
-[Here's a detailed changelog.](/deployments-two-changelog)
+[I’ll read the story later, let me see the change log!](/deployments-two-changelog/#before-vs-after)
 
 ## Why the change?
 

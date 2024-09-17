@@ -11,6 +11,8 @@ Deployments 2.0 simplify [the deployment process](/cloud/overview) with several 
 
 ## Before vs after
 
+[These changes are also described in release notes.](/deployments-two-release-notes)
+
 ### Concepts
 
 | Concepts                | Before                                    | After                                              |
@@ -33,7 +35,7 @@ Deployments 2.0 simplify [the deployment process](/cloud/overview) with several 
 | [Production URL](/cloud/resources/production-alias) | `https://<org>.squids.live/<name>/graphql` | Deprecated. See also [backwards compatibility](#backwards-compatibility). |
 | Tag URL       | Did not exist                                           | `https://<org>.squids.live/<name>:<tag>/api/graphql`  |
 
-## Manifest changes
+### Manifest changes
 
 | Field       | Before  | After                          |
 |-------------|---------|--------------------------------|
@@ -42,7 +44,7 @@ Deployments 2.0 simplify [the deployment process](/cloud/overview) with several 
 | slot        | Absent  | New field (unique identifier)  |
 | tag         | Absent  | New field (user-defined label) |
 
-## CLI changes
+### CLI changes
 
 Changes to CLI behavior are rather extensive:
 
@@ -62,7 +64,7 @@ Here's what the new commands look like for some common tasks:
 | Updating a "dev" version                                | Was not possible                          | `sqd deploy . -t dev`                        |
 | Fetching logs                                           | `sqd logs my-squid@v1`                    | `sqd logs -n my-squid -s v1`                 |
 
-## Backwards compatibility
+### Backwards compatibility
 
 Here are the measures we've taken to make the migration smoother:
 
