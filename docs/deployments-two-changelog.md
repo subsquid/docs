@@ -11,8 +11,6 @@ Deployments 2.0 simplify [the deployment process](/cloud/overview) with several 
 
 ## Before vs after
 
-[These changes are also described in release notes.](/deployments-two-release-notes)
-
 ### Concepts
 
 | Concepts                | Before                                    | After                                              |
@@ -147,3 +145,7 @@ For now, yes. Just assign a `prod` tag to it:
 sqd tags add prod -n my-squid -s v1
 ```
 See [Backwards compatibility](#backwards-compatibility) for details.
+
+## Why did you make these changes?
+
+[Take a look at release notes.](/deployments-two-release-notes)
