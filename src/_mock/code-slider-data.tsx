@@ -48,7 +48,7 @@ export default [
         '    },\n' +
         '  })',
     codeCollapse: '.addLog({\n   address: [USDC_CONTRACT_ADDRESS],\n   topic0: [usdcAbi.events.Transfer.topic],\n})\n',
-    caption: <>Real time data is fetched from a chain node RPC; a Database object with hot blocks support is
+    caption: <>Real time data is fetched from a chain node RPC; a Database object with unfinalized blocks support is
       required to store it (see <a href="@site/src/_mock/examples#">this page</a> for more details).</>,
     link: "https://github.com/subsquid-labs/showcase01-all-usdc-transfers"
   },

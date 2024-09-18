@@ -64,6 +64,10 @@ A collection of standard [Substrate](#substrate) pallets maintained by Parity. C
 
 A declarative query language and an API specification language developed by Facebook as an alternative to REST. See the official [GraphQL docs](https://graphql.org/) for more details.
 
+### Hot blocks
+
+An alternative term for [unfinalized blocks](/sdk/resources/unfinalized-blocks) that emphasizes the fact that the data extracted from these blocks is volatile. Sometimes used in Squid SDK code and comments.
+
 ### ink!
 
 An SDK (software development kit) and a smart-contract language for developing WASM-based smart contracts, maintained by Parity. The contracts developed with ink! are compiled into a WASM blob compatible with the API exposed by the [`Contracts` pallet](#contracts-pallet). More details [here](https://use.ink).

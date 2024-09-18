@@ -1,7 +1,7 @@
 ---
 sidebar_position: 12
-title: RPC ingestion and hot blocks
-description: Data from chain and network consensus
+title: RPC ingestion and reorgs
+description: Data from chains and network consensus
 ---
 
 import Tabs from '@theme/Tabs';
@@ -13,10 +13,12 @@ RPC ingestion can create a heavy load on node endpoints. The load is typically s
 
 ## Indexing unfinalized blocks
 
-When ingesting from RPC, Squid SDK can index blocks before they are [finalized](https://info.etherscan.com/epoch-in-ethereum/), enabling real-time use cases. To take advantage of this feature, a squid processor must
+When ingesting from RPC, Squid SDK can index blocks before they are [finalized](https://info.etherscan.com/epoch-in-ethereum/), enabling real-time use cases. If a blockhain reorganization happens, [processor](/sdk/reference/processors/architecture) will roll back any changes to the database made due to orphaned blocks, then re-run its batch handler on consensus blocks.
+
+To take advantage of this feature, a squid processor must
 
 1. have a [node RPC endpoint](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint) as one of its data sources and
-2. use a [`Database`](/sdk/resources/persisting-data/overview) with hot blocks support (e.g. [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm)) in its [`processor.run()`](/sdk/reference/processors/architecture/#processorrun) call, and
+2. use a [`Database`](/sdk/resources/persisting-data/overview) with unfinalized blocks support (e.g. [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm)) in its [`processor.run()`](/sdk/reference/processors/architecture/#processorrun) call, and
 3. not disable RPC ingestion explicitly with [`setRpcDataIngestionSettings({ disabled: true })`](/sdk/reference/processors/evm-batch/general/#set-rpc-data-ingestion-settings).
 
 With this, the processor will consider some blocks to be "hot":
