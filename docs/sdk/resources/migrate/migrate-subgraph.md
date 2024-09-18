@@ -180,7 +180,7 @@ function extractData(evmLog: any): { id: bigint, owner: string, displayName: str
 }
 ```
 
-Next, we make a [batch handler](/sdk/reference/processors/architecture/#processorrun) collecting the updates from a single batch of EVM logs. To convert a `0x...` string into a byte array we use the `decodeHex` utility from Subsquid SDK.
+Next, we make a [batch handler](/sdk/reference/processors/architecture/#processorrun) collecting the updates from a single batch of EVM logs. To convert a `0x...` string into a byte array we use the `decodeHex` utility from Squid SDK.
 
 ```ts title="src/main.ts"
 import { TypeormDatabase } from '@subsquid/typeorm-store'

@@ -115,7 +115,7 @@ The code that defines the state transition logic of a blockchain, and by extenti
 
 ### Typegen
 
-A tool generating strongly typed data access classes from a metadata in some format. Subsquid SDK includes typegen tools:
+A tool generating strongly typed data access classes from a metadata in some format. Squid SDK includes typegen tools:
 
 - for accessing EVM smart contract data based on the contract ABI
 - for accessing event, extrinsics and storage data based on [Substrate](#substrate) metadata

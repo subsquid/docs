@@ -9,7 +9,7 @@ sidebar_position: 20
 
 This is the second part of the tutorial in which we build a squid that indexes [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers, and owners from the [Ethereum blockchain](https://ethereum.org), fetches the metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores all the data in a database, and serves it over a GraphQL API. In the [first part](../step-one-indexing-transfers) we created a simple squid that scraped Transfer events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d). Here, we go a step further and derive separate entities for the NFTs and their owners from the transfers. The new entities will reference the corresponding `Transfer` entities. It will be automatically translated into primary key-foreign key references in the new database schema, and enable efficient cross-entity GraphQL queries. 
 
-Prerequisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker, a project folder with the code from the first part ([this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/aeb6268168385cc605ce04fe09d0159f708efe47)).
+Prerequisites: Node.js, [Squid CLI](/squid-cli/installation), Docker, a project folder with the code from the first part ([this commit](https://github.com/subsquid-labs/bayc-squid-1/tree/aeb6268168385cc605ce04fe09d0159f708efe47)).
 
 ## Writing `schema.graphql`
 

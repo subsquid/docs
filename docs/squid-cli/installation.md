@@ -17,7 +17,7 @@ To install Squid CLI, follow the steps below.
 
 ## 0. Install and setup Squid CLI
 
-First, install the latest version of Subsquid CLI as a global `npm` package:
+First, install the latest version of Squid CLI as a global `npm` package:
 ```bash
 npm i -g @subsquid/cli@latest
 ```

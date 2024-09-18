@@ -9,7 +9,7 @@ sidebar_position: 10
 
 In this step-by-step tutorial we will build a squid that gets data about [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), indexes the NFT metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores all the data in a database and serves it over a GraphQL API. Here we do the first step: build a squid that indexes only the `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).
 
-Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker.
+Pre-requisites: Node.js, [Squid CLI](/squid-cli/installation), Docker.
 
 ## Starting with a template
 

@@ -9,7 +9,7 @@ description: >-
 
 Here we show how to deploy a production-ready indexer ("squid") to Subsquid Cloud. See [Development flow](/sdk/how-to-start/squid-development) and the rest of the [Indexing SDK](/sdk) section for more info on how to develop one of these.
 
-**Pre-requisites:** Docker, [Subsquid CLI](/squid-cli/installation)
+**Pre-requisites:** Docker, [Squid CLI](/squid-cli/installation)
 
 ## 1. Prepare the squid for deployment
 
@@ -203,7 +203,7 @@ To deploy the squid to the cloud, open `Squids` in the sidebar and press the `De
 
 ![deploy tab](./overview-deploy2.png)
 
-You will be prompted to install the Subsquid CLI if you haven't already. Follow the instructions to install the CLI.
+You will be prompted to install the Squid CLI if you haven't already. Follow the instructions to install the CLI.
 Next, set up your auth key as shown in the Subsquid cloud.
 Type the squid name to be the same as in the `squid.yaml` file.
 

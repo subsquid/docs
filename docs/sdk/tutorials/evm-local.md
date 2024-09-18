@@ -14,7 +14,7 @@ Here we show how it is possible to index an Ethereum development node running lo
 ## Pre-requisites
 
 - Either one of [Ganache](https://trufflesuite.com/ganache/) or [Hardhat](https://hardhat.org/)
-- [Subsquid CLI](/squid-cli/installation)
+- [Squid CLI](/squid-cli/installation)
 - Docker
 
 ## Setup

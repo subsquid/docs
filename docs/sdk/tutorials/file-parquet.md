@@ -9,7 +9,7 @@ sidebar_position: 26
 
 ## Objective
 
-This tutorial describes how to use the Subsquid indexing framework to save the processed blockchain data to [Parquet files](https://parquet.apache.org/) instead of a database. The intent is to show how Subsquid SDK can be used for data analytics, this time with focus on tools suitable for larger datasets.
+This tutorial describes how to use the Subsquid indexing framework to save the processed blockchain data to [Parquet files](https://parquet.apache.org/) instead of a database. The intent is to show how Squid SDK can be used for data analytics, this time with focus on tools suitable for larger datasets.
 
 File-based data formats like [CSV](/sdk/tutorials/file-csv) are convenient for data analysis, especially in the early prototyping stages. However, when working with large datasets the ability to read data files partially is a common requirement. This is rarely possible with CSV.
 
@@ -29,7 +29,7 @@ As of 2023-12-17, the `squid-parquet-storage` repo is mostly still sound, but al
 
 ## Pre-requisites
 
-- [Subsquid CLI](/squid-cli/installation)
+- [Squid CLI](/squid-cli/installation)
 - (optional) Python
 
 ## Setup

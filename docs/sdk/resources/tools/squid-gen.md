@@ -6,7 +6,7 @@ description: Tools that generate squids from ABIs
 
 # Squid generation tools
 
-Subsquid provides [tools](https://github.com/subsquid/squid-gen) for generating ready-to-use squids that index events and function calls of smart contracts. EVM/Solidity and WASM/ink! smart contracts are supported. The tools can be configured to make squids that save data to a [PostgreSQL database](/sdk/resources/persisting-data/typeorm/) or to a [file-based dataset](/sdk/resources/persisting-data/file/). All that is required is NodeJS, [Subsquid CLI](/squid-cli/installation/) and, if your squid will be using a database, Docker.
+Subsquid provides [tools](https://github.com/subsquid/squid-gen) for generating ready-to-use squids that index events and function calls of smart contracts. EVM/Solidity and WASM/ink! smart contracts are supported. The tools can be configured to make squids that save data to a [PostgreSQL database](/sdk/resources/persisting-data/typeorm/) or to a [file-based dataset](/sdk/resources/persisting-data/file/). All that is required is NodeJS, [Squid CLI](/squid-cli/installation/) and, if your squid will be using a database, Docker.
 
 Squid generation procedure is very similar for both contract types. Here are the steps:
 

@@ -9,7 +9,7 @@ sidebar_position: 25
 
 ## Objective
 
-This tutorial describes how to use the Subsquid indexing framework for saving processed blockchain data to local CSV files. The intent is to show how Subsquid SDK can be used for data analytics prototyping.
+This tutorial describes how to use the Subsquid indexing framework for saving processed blockchain data to local CSV files. The intent is to show how Squid SDK can be used for data analytics prototyping.
 
 File-based data formats like CSV are convenient for data analysis, especially in the early prototyping stages. This convenience motivated Subsquid Team to develop some extensions to allow saving processed data to file-based storage.
 
@@ -25,7 +25,7 @@ As of 2023-12-17, the `local-csv-indexing` repo is mostly still sound, but alrea
 
 ## Pre-requisites
 
-- [Subsquid CLI](/squid-cli/installation)
+- [Squid CLI](/squid-cli/installation)
 - (optional) Python
 
 ## Setup
@@ -50,7 +50,7 @@ To be able to index transfers of a token, it's necessary to know the address and
 
 Luckily, both of these can be found on block explorers like [Etherscan](https://medium.com/r/?url=https%3A%2F%2Fetherscan.io%2Ftoken%2F0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0).
 
-The indexer needs the ABI for locating the contract events or functions in the EVM execution trace and decoding their inputs. Subsquid SDK has a handy command to generate some boilerplate TypeScript code to achieve this:
+The indexer needs the ABI for locating the contract events or functions in the EVM execution trace and decoding their inputs. Squid SDK has a handy command to generate some boilerplate TypeScript code to achieve this:
 
 ```bash
 npx squid-evm-typegen src/abi 0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0#matic
