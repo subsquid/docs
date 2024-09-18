@@ -6,7 +6,7 @@ description: An open source GraphQL server built by SQD
 # Overview
 
 :::info
-OpenReader is no longer recommended for use in new squid projects [relying on PostgreSQL](/sdk/resources/persisting-data/typeorm). See [Serving GraphQL](/sdk/resources/serving-graphql) to learn about the new options and the [Known issues](#known-issues) section to understand our motivation.
+OpenReader is no longer recommended for use in new squid projects [relying on PostgreSQL](/sdk/resources/persisting-data/typeorm). See [Serving GraphQL](/sdk/resources/serving-graphql) to learn about the new options and the [Limitations](#limitations) section to understand our motivation.
 :::
 
 OpenReader is a server that presents data of PostgreSQL-powered squids as a GraphQL API. It relies on the [eponymous library](https://github.com/subsquid/squid-sdk/tree/master/graphql/openreader) lib of the Squid SDK for schema generation. [Schema file](/sdk/reference/schema-file) is used as an input; the resulting API supports [OpenCRUD](https://www.opencrud.org/) queries for the entities defined in the schema.
@@ -42,7 +42,7 @@ The OpenReader GraphQL API defines the following custom scalar types:
 - `Bytes` entity field values are presented as hex-encoded strings prefixed with `0x`
 - `BigInt` entity field values are presented as strings
 
-## Known issues
+## Limitations
 
 - RAM usage of [subscriptions](/sdk/reference/openreader-server/configuration/subscriptions) scales poorly under high load, making the feature unsuitable for most production uses. There are currently no plans to fix this issue.
 - Setting up custom resolvers for subscriptions is unreasonably hard.
