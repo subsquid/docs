@@ -126,7 +126,7 @@ The generated `src/abi/erc20.ts` module defines interfaces to represent WASM dat
 
 ## Define the processor object
 
-Squid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to [Subsquid Network](/subsquid-network/overview) gateways at chain-specific URLs to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Squid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to [SQD Network](/subsquid-network/overview) gateways at chain-specific URLs to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
 `SubstrateBatchProcessor`s [exposes methods](/sdk/reference/processors/substrate-batch) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor [allows one](/sdk/resources/substrate/ink) to subscribe to such events emitted by a specific contract.
 
@@ -190,7 +190,7 @@ export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 
 ## Define the batch handler
 
-Once requested, the events can be processed by calling the `.run()` function that starts generating requests to Subsquid Network for [*batches*](/sdk/resources/batch-processing) of data.
+Once requested, the events can be processed by calling the `.run()` function that starts generating requests to SQD Network for [*batches*](/sdk/resources/batch-processing) of data.
 
 Every time a batch is returned by the Network, it will trigger the callback function, or *batch handler* (passed to `.run()` as second argument). It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 

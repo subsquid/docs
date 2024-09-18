@@ -25,7 +25,7 @@ Batch handler data filtering used to be compulsory before the release of `@subsq
      - configure [caching](/sdk/reference/openreader-server/configuration/caching).
   3. If you use PostGraphile or Hasura, follow their docs to harden your service in a similar way.
 
-* If you deploy your squid to Subsquid Cloud:
+* If you deploy your squid to SQD Cloud:
   1. Deploy your squid to a [Professional organization](/cloud/resources/organizations/#professional-organizations).
   2. Use [`dedicated: true`](/cloud/reference/scale/#dedicated) in the `scale:` section of the manifest.
   3. Make sure that your [`scale:` section](/cloud/reference/scale) requests a sufficient but not excessive amount of resources.

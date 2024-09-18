@@ -13,13 +13,13 @@ The method documentation is also available inline and can be accessed via sugges
 
 The following setters configure the global settings of `SubstrateBatchProcessor`. They return the modified instance and can be chained.
 
-Calling [`setRpcEndpoint()`](#set-rpc-endpoint) is a hard requirement on Substrate, as chain RPC is used to retrieve chain metadata. Adding a [Subsquid Network gateway](/subsquid-network/reference/substrate-networks) with [`setGateway()`](#set-gateway) is optional but highly recommended, as it greatly reduces RPC usage.
+Calling [`setRpcEndpoint()`](#set-rpc-endpoint) is a hard requirement on Substrate, as chain RPC is used to retrieve chain metadata. Adding a [SQD Network gateway](/subsquid-network/reference/substrate-networks) with [`setGateway()`](#set-gateway) is optional but highly recommended, as it greatly reduces RPC usage.
 
 To reduce it further, you can explicitly disable [RPC ingestion](/sdk/resources/unfinalized-blocks) by calling [`setRpcDataIngestionSettings({ disabled: true })`](#set-rpc-data-ingestion-settings): in this scenario the RPC will only be used for metadata retrieval and to perform any [direct RPC queries](/sdk/resources/tools/typegen/state-queries/?typegen=substrate) you might be doing in your squid code. This will, however, introduce a delay of a few thousands of blocks between the chain head and the highest block available to your squid.
 
 ### `setGateway(url: string | GatewaySettings)` {#set-gateway}
 
-Adds a [Subsquid Network](/subsquid-network) data source. The argument is either a string URL of a Subsquid Network gateway or
+Adds a [SQD Network](/subsquid-network) data source. The argument is either a string URL of a SQD Network gateway or
 ```ts
 {
   url: string // gateway URL
@@ -48,7 +48,7 @@ type ChainRpc = string | {
 Setting `maxBatchCallSize` to `1` disables batching completely.
 
 :::tip
-We recommend using private endpoints for better performance and stability of your squids. For Subsquid Cloud deployments you can use the [RPC addon](/cloud/resources/rpc-proxy). If you use an external private RPC, keep the endpoint URL in a [Cloud secret](/cloud/resources/env-variables#secrets).
+We recommend using private endpoints for better performance and stability of your squids. For SQD Cloud deployments you can use the [RPC addon](/cloud/resources/rpc-proxy). If you use an external private RPC, keep the endpoint URL in a [Cloud secret](/cloud/resources/env-variables#secrets).
 :::
 
 ### `setDataSource(ds: {archive?: string, chain?: ChainRpc})` (deprecated) {#set-data-source}
@@ -86,7 +86,7 @@ Sets a [types bundle](https://substrate.stackexchange.com/a/1231/4655).
 
 Types bundle is only required for historical blocks which have metadata version below 14 and only if we don't have built-in support for the chain in question. Most chains listed in the [polkadot.js app](https://polkadot.js.org/apps/#/explorer) are supported.
 
-Subsquid project has its own types bundle format, however, most of polkadotjs types bundles will work as well.
+SQD project has its own types bundle format, however, most of polkadotjs types bundles will work as well.
 
 Types bundles can be specified in 2 different ways:
 
@@ -104,7 +104,7 @@ Types bundles can be specified in 2 different ways:
    })
    ```
 
-There a [mini-guide](/sdk/resources/substrate/types-bundle-miniguide) on how to obtain type bundles for Substrate chains without relying on Subsquid tools.
+There a [mini-guide](/sdk/resources/substrate/types-bundle-miniguide) on how to obtain type bundles for Substrate chains without relying on SQD tools.
 
 ### `setPrometheusPort(port: string | number)` {#set-prometheus-port}
 

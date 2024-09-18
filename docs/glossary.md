@@ -6,19 +6,19 @@ sidebar_position: 120
 
 ### Archives
 
-Deprecated term used for [Subsquid Network](/subsquid-network) and for the data sourcing service of the deprecated FireSquid SDK version. Occasionally refers to a chain-specific endpoint available from either source (e.g. "an Ethereum archive"). The new terminology is:
+Deprecated term used for [SQD Network](/subsquid-network) and for the data sourcing service of the deprecated FireSquid SDK version. Occasionally refers to a chain-specific endpoint available from either source (e.g. "an Ethereum archive"). The new terminology is:
 
- - "Archives" as an abstract collection of services for some networks is replaced by "[Subsquid Network](/subsquid-network)" (when referring to data location) or "Subsquid Network gateway" (when referring to the service)
- - "public Archives" are replaced by the [open private version](/subsquid-network/overview/#open-private-network) of Subsquid Network
- - "an archive" for a particular network is replaced by "a Subsquid Network gateway"
+ - "Archives" as an abstract collection of services for some networks is replaced by "[SQD Network](/subsquid-network)" (when referring to data location) or "SQD Network gateway" (when referring to the service)
+ - "public Archives" are replaced by the [open private version](/subsquid-network/overview/#open-private-network) of SQD Network
+ - "an archive" for a particular network is replaced by "a SQD Network gateway"
 
-Lists of gateways for open private Subsquid Network are available in these docs ([EVM](/subsquid-network/reference/evm-networks), [Substrate](/subsquid-network/reference/substrate-networks)) and via [`sqd gateways`](/squid-cli/gateways).
+Lists of gateways for open private SQD Network are available in these docs ([EVM](/subsquid-network/reference/evm-networks), [Substrate](/subsquid-network/reference/substrate-networks)) and via [`sqd gateways`](/squid-cli/gateways).
 
 **Not to be confused with [archive blockchain nodes](https://ethereum.org/developers/docs/nodes-and-clients/archive-nodes)**.
 
 ### `archive-registry`
 
-The deprecated NPM package `@subsquid/archive-registry` that was used to look up squid data sources by network aliases (with `lookupArchive()` and a small CLI). We now recommend using raw gateway URLs instead of `lookupArchive()` calls in processor configuration. The exploratory CLI is replaced by [`sqd gateways`](/squid-cli/gateways); lists of available network-specific gateways are also available as [Subsquid Network reference pages](/subsquid-network/reference).
+The deprecated NPM package `@subsquid/archive-registry` that was used to look up squid data sources by network aliases (with `lookupArchive()` and a small CLI). We now recommend using raw gateway URLs instead of `lookupArchive()` calls in processor configuration. The exploratory CLI is replaced by [`sqd gateways`](/squid-cli/gateways); lists of available network-specific gateways are also available as [SQD Network reference pages](/subsquid-network/reference).
 
 ### Block
 
@@ -26,7 +26,7 @@ An atomic state transition of a blockchain. Typically an ordered collection of t
 
 ### Call
 
-On [Substrate](#substrate), a call is a sub-routine changing the runtime state. An extrinsic consists of a root call which in turn may have sub-calls, thus calls executed by an extrinsic have parent-child relationship. For example, `util.batch` extrinsic has a single root call and multiple child calls. Subsquid processor is call-based rather than extrinsic based, as normally one is interested in specific calls changing the substrate state, no matter if it was part of a batch extrinsic, or it was wrapped in a sudo or proxy call. 
+On [Substrate](#substrate), a call is a sub-routine changing the runtime state. An extrinsic consists of a root call which in turn may have sub-calls, thus calls executed by an extrinsic have parent-child relationship. For example, `util.batch` extrinsic has a single root call and multiple child calls. SQD processor is call-based rather than extrinsic based, as normally one is interested in specific calls changing the substrate state, no matter if it was part of a batch extrinsic, or it was wrapped in a sudo or proxy call. 
 
 ### Cloud (former Aquarium)
 
@@ -95,7 +95,7 @@ A project consisting of an [ETL](#etl) for extracting and transforming on-chain 
 
 ### Squid processor
 
-The [ETL](#etl) part of the squid. Extracts on-chain data from an [Subsquid Network](/subsquid-network) gateway and/or directly from chain RPC, then transforms and optionally enriches it with external data. Saves the result into a target [data sink](/sdk/reference/store).
+The [ETL](#etl) part of the squid. Extracts on-chain data from an [SQD Network](/subsquid-network) gateway and/or directly from chain RPC, then transforms and optionally enriches it with external data. Saves the result into a target [data sink](/sdk/reference/store).
 
 ### Squid API
 

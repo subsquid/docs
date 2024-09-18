@@ -4,13 +4,13 @@ title: Solana API
 description: Access the data of Solana blockchain
 ---
 
-# Solana Subsquid Network API
+# Solana SQD Network API
 
 :::warning
-The Solana API of Subsquid Network is currently in beta. Breaking changes may be introduced in the future releases.
+The Solana API of SQD Network is currently in beta. Breaking changes may be introduced in the future releases.
 :::
 
-Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/faq)) network of _workers_. The main gateway URL points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks on each dataset it serves.
+SQD Network API distributes the requests over a ([potentially decentralized](/subsquid-network/faq)) network of _workers_. The main gateway URL points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks on each dataset it serves.
 
 Suppose you want to retrieve an output of some [query](#worker-api) on a block range starting at `firstBlock` (can be the genesis block) and ending at the highest available block. Proceed as follows:
 
@@ -132,7 +132,7 @@ Suppose we want data on all successful Solana instructions starting block 241974
    - Observe that we received the data up to and including block 241974599. **Note:** the last block of the batch will be returned even if it has no matching data.
 
 6. To get the rest of the data, update the current height to 241974600 and go to step 3.
-   - Note how the worker URL you're getting while repeating step 3 occasionally points to a different host than before. This is how data storage and reads are distributed across the Subsquid Network.
+   - Note how the worker URL you're getting while repeating step 3 occasionally points to a different host than before. This is how data storage and reads are distributed across the SQD Network.
 
 7. Repeat steps 3 through 6 until the dataset height of 243004249 reached.
 

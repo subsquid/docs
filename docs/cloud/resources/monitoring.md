@@ -16,14 +16,14 @@ The processor metrics are available at `https://${org}.subsquid.io/${squid_name}
 
 The metrics are documented inline. They include some values reflecting the squid health:
 - `sqd_processor_last_block`. The last processed block.
-- `sqd_processor_chain_height`. Current chain height as reported by the RPC endpoint (when [RPC ingestion](/sdk/resources/unfinalized-blocks) is enabled) or by [Subsquid Network](/subsquid-network) (when it is disabled).
+- `sqd_processor_chain_height`. Current chain height as reported by the RPC endpoint (when [RPC ingestion](/sdk/resources/unfinalized-blocks) is enabled) or by [SQD Network](/subsquid-network) (when it is disabled).
 
 Inspect the metrics endpoint for a full list.
 
 ## Postgres metrics
 
-Postgres metrics will be available in the future Subsquid Cloud releases. 
+Postgres metrics will be available in the future SQD Cloud releases. 
 
 ## API metrics
 
-API metrics will be available in the future Subsquid Cloud releases. 
+API metrics will be available in the future SQD Cloud releases. 

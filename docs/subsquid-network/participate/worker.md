@@ -1,7 +1,7 @@
 ---
 sidebar_position: 20
 title: Run a worker
-description: Serve Subsquid Network data
+description: Serve SQD Network data
 ---
 
 # Run a worker
@@ -31,7 +31,7 @@ You can run a worker from a Docker image or from its source code. Note that you'
 
 1. Pick a location for worker data. It should be able to accommodate at least 1Tb. Do not create the data folder manually, just find a place for it.
 
-2. Pick a location for your Subsquid Network key file. The location must be outside of the data directory.
+2. Pick a location for your SQD Network key file. The location must be outside of the data directory.
 
    ⚠️  **Warning:** Ensure that that the key will not be deleted accidentally and cannot be accessed by unauthorized parties. [Or else](#key-loss).
 3. Create a new directory for installation files and save the [`setup_worker.sh`](https://cdn.subsquid.io/worker/setup_worker.sh) script in it:

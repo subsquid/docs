@@ -21,7 +21,7 @@ See [this repository](https://github.com/subsquid-labs/belopash-typeorm-store-ex
 
 ## DipDup
 
-[DipDup](https://dipdup.io) is a Python indexing framework that can use [Subsquid Network](/subsquid-network) as a data source. It offers
+[DipDup](https://dipdup.io) is a Python indexing framework that can use [SQD Network](/subsquid-network) as a data source. It offers
 
 * SQLite, PostgreSQL and TimescaleDB data sinks
 * GraphQL APIs based on Hasura

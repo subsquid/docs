@@ -54,4 +54,4 @@ Processor logs can be inspected once the squid is deployed to Cloud:
 sqd logs <name>@<version> -f --level <level>
 ```
 
-See [CLI Reference](/squid-cli/logs) or `sqd logs --help` for a full list of log options supported by Subsquid Cloud.
+See [CLI Reference](/squid-cli/logs) or `sqd logs --help` for a full list of log options supported by SQD Cloud.

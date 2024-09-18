@@ -1,12 +1,12 @@
 {
   "position": 23,
-  "label": "Subsquid Cloud",
+  "label": "SQD Cloud",
   "collapsible": true,
   "collapsed": true,
   "className": "red",
   "link": {
     "type": "generated-index",
     "slug": "/cloud",
-    "title": "Deploy your indexers to Subsquid Cloud"
+    "title": "Deploy your indexers to SQD Cloud"
   }
 }

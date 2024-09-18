@@ -3,17 +3,17 @@
 
 Manage account secrets
 
-The secrets are [exposed as a context](/cloud/resources/env-variables/#secrets), and are accessible to all the squids deployed by the current Subsquid Cloud [organization](/cloud/resources/organizations).
+The secrets are [exposed as a context](/cloud/resources/env-variables/#secrets), and are accessible to all the squids deployed by the current SQD Cloud [organization](/cloud/resources/organizations).
 
 * [`sqd secrets:ls`](#sqd-secretsls)
 * [`sqd secrets:rm NAME`](#sqd-secretsrm-name)
 * [`sqd secrets:set NAME VALUE`](#sqd-secretsset-name-value)
 
-All `sqd secrets` commands require specifying an [organization](/cloud/resources/organizations) with the `-o/--org` flag when invoked by accounts with more than one organization. Subsquid Cloud users with just one organization can omit this flag.
+All `sqd secrets` commands require specifying an [organization](/cloud/resources/organizations) with the `-o/--org` flag when invoked by accounts with more than one organization. SQD Cloud users with just one organization can omit this flag.
 
 ## `sqd secrets:ls`
 
-List all secrets for the current Subsquid Cloud account
+List all secrets for the current SQD Cloud account
 
 ```
 USAGE

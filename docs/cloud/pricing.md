@@ -4,7 +4,7 @@ title: Pricing
 description: Subscription types and pay-as-you-go prices
 ---
 
-# Subsquid Cloud Pricing
+# SQD Cloud Pricing
 
 :::tip
 Use our [cost calculator](https://subsquid.io/subsquid-cloud#calculator) if you need a quick estimate
@@ -16,7 +16,7 @@ Each account gets a playground [organization](/cloud/resources/organizations) wh
 
 ## Billing
 
-Subsquid bills [organizations](/cloud/resources/organizations) for the resources used by their squids. To deploy production-ready squids and [configure](/cloud/reference/scale) their resources, the organization must have a [Professional status](/cloud/resources/organizations/#professional-organizations). All such organizations receive the following perks:
+SQD bills [organizations](/cloud/resources/organizations) for the resources used by their squids. To deploy production-ready squids and [configure](/cloud/reference/scale) their resources, the organization must have a [Professional status](/cloud/resources/organizations/#professional-organizations). All such organizations receive the following perks:
 
  - unmetered GraphQL API requests
  - deploying any number of pay-as-you-go [dedicated](/cloud/reference/scale/#dedicated) squids
@@ -30,7 +30,7 @@ We do provide enterprise discounts. If your use case requires a lot of resources
 
 ## Pay-as-you-go prices
 
-The pricing is based solely on the resources consumed by the squid, as the Subsquid Network data is provided free of charge. 
+The pricing is based solely on the resources consumed by the squid, as the SQD Network data is provided free of charge. 
 The total squid price is the sum of compute and database storage prices.
 
 Data egress is not billed.
@@ -92,7 +92,7 @@ We align with the [SLAs of the Google Cloud Platform](https://cloud.google.com/c
 | 90.00% - < 95.00%       | 25%         |
 | < 90.00%          | 100%       |
 
-Note that the SLA applies only to the provisioning of the Subsquid Cloud services (API availability, provisioning of compute resources) and DOES NOT apply to client code. In particular, if a squid is stuck due to a bug or an upstream Subsquid Network/RPC issue, the SLA discounts don't apply. Similarly, the client is responsible for provisioning compute profiles adequate to the expected traffic.
+Note that the SLA applies only to the provisioning of the SQD Cloud services (API availability, provisioning of compute resources) and DOES NOT apply to client code. In particular, if a squid is stuck due to a bug or an upstream SQD Network/RPC issue, the SLA discounts don't apply. Similarly, the client is responsible for provisioning compute profiles adequate to the expected traffic.
 
 For Enterprise plan customers, individual SLA terms may be negotiated. 
 
@@ -162,7 +162,7 @@ A squid writing parquet files to an external s3 bucket. No database or API is pr
 
 The transition to the paid plans will take place in September 2023 to enable smooth onboarding. 
 The existing Cloud users will be able to see the usage and the provisional billing for September, with a full rebate of the total invoice. 
-The grace period ends on October 1st, 2023 with the payment rails enabled in the Subsquid Cloud app.
+The grace period ends on October 1st, 2023 with the payment rails enabled in the SQD Cloud app.
 
 ## FAQ
 

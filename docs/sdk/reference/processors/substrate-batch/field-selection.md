@@ -72,7 +72,7 @@ processor.run(db, async ctx => {
   }
 })
 ```
-Disabling unused fields will improve sync performance, as the disabled fields will not be fetched from Subsquid Network.
+Disabling unused fields will improve sync performance, as the disabled fields will not be fetched from SQD Network.
 
 ## Data item types and field selectors
 

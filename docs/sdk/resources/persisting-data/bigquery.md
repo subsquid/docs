@@ -51,9 +51,9 @@ The dataset must be created prior to running the processor.
 
 Tables are made out of statically typed columns. Available types are listed on the [reference page](/sdk/reference/store/bigquery).
 
-## Deploying to Subsquid Cloud
+## Deploying to SQD Cloud
 
-We discourage uploading any sensitive data with squid code when [deploying](/cloud) to Subsquid Cloud. To pass your [credentials JSON](https://cloud.google.com/docs/authentication/application-default-credentials#GAC) to your squid, create a [Cloud secret](/cloud/resources/env-variables/#secrets) variable populated with its contents:
+We discourage uploading any sensitive data with squid code when [deploying](/cloud) to SQD Cloud. To pass your [credentials JSON](https://cloud.google.com/docs/authentication/application-default-credentials#GAC) to your squid, create a [Cloud secret](/cloud/resources/env-variables/#secrets) variable populated with its contents:
 ```bash
 sqd secrets set GAC_JSON_FILE < creds.json
 ```
@@ -74,4 +74,4 @@ deploy:
 
 ## Examples
 
-An end-to-end example geared towards local runs can be found in [this repo](https://github.com/subsquid-labs/squid-bigquery-example). Look at [this branch](https://github.com/subsquid-labs/squid-bigquery-example/tree/cloud-secrets) for an example of a squid made for deployment to Subsquid Cloud.
+An end-to-end example geared towards local runs can be found in [this repo](https://github.com/subsquid-labs/squid-bigquery-example). Look at [this branch](https://github.com/subsquid-labs/squid-bigquery-example/tree/cloud-secrets) for an example of a squid made for deployment to SQD Cloud.

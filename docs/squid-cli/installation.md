@@ -9,7 +9,7 @@ Squid CLI is a command line tool for
 
 - scaffolding new squids from templates
 - running SDK tools and scripts defined in `commands.json` in a cross-platform way
-- managing squid deployments in [Subsquid Cloud](/cloud) (former Aquarium)
+- managing squid deployments in [SQD Cloud](/cloud) (former Aquarium)
 
 The CLI is distributed as a [`npm` package](https://www.npmjs.com/package/@subsquid/cli). 
 
@@ -29,10 +29,10 @@ sqd --version
 Make sure the output looks like `@subsquid/cli@<version>`.
 
 :::info
-The next steps are **optional** for building and running squids. A key is required to enable the CLI commands managing the [Subsquid Cloud](/cloud) deployments.
+The next steps are **optional** for building and running squids. A key is required to enable the CLI commands managing the [SQD Cloud](/cloud) deployments.
 :::
 
-## 1. Obtain a Subsquid Cloud deployment key
+## 1. Obtain a SQD Cloud deployment key
 
 Sign in to [Cloud](https://app.subsquid.io/), and obtain (or refresh) the deployment key page by clicking at the profile picture > "Deployment key":
 

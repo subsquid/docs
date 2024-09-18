@@ -16,7 +16,7 @@ Here is an incomplete list:
 
 ### How does Squid SDK handle unfinalized blocks?
 
-The Subsquid Network only serves finalized blocks and is typically ~1000 blocks behind the tip. The most recent blocks, as well as the unfinalized blocks are seamlessly handled by the SDK from a complementary RPC data source, set by the `chain` config. Potential chain reorgs are automatically handled under the hood. See [Indexing unfinalized blocks](/sdk/resources/unfinalized-blocks) for details.
+The SQD Network only serves finalized blocks and is typically ~1000 blocks behind the tip. The most recent blocks, as well as the unfinalized blocks are seamlessly handled by the SDK from a complementary RPC data source, set by the `chain` config. Potential chain reorgs are automatically handled under the hood. See [Indexing unfinalized blocks](/sdk/resources/unfinalized-blocks) for details.
 
 ### What is the latency for the data served by the squid? 
 
@@ -42,4 +42,4 @@ Squids that store their data in [file-based datasets](/sdk/resources/persisting-
 
 ### Is there a healthcheck endpoint for the indexer?
 
-Yes, the processor exposes the key prometheus metrics at the `${process.env.PROMETHEUS_PORT}/metric` endpoint. The squids deployed to the Subsquid Cloud also publicly explose the metrics, see [Monitoring in the Cloud](/cloud/resources/monitoring/)
+Yes, the processor exposes the key prometheus metrics at the `${process.env.PROMETHEUS_PORT}/metric` endpoint. The squids deployed to the SQD Cloud also publicly explose the metrics, see [Monitoring in the Cloud](/cloud/resources/monitoring/)

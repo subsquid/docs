@@ -96,7 +96,7 @@ query {
 
 #### **Supported Scalar Types**
 
-Subsquid supports the following scalar types:
+SQD supports the following scalar types:
 
 * String
 * Int

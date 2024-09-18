@@ -1,7 +1,7 @@
 ---
 sidebar_position: 10
 title: Overview
-description: Subsquid Network and the products built around it
+description: SQD Network and the products built around it
 ---
 
 # Overview
@@ -9,11 +9,11 @@ description: Subsquid Network and the products built around it
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The Subsquid ecosystem is built around [Subsquid Network](/subsquid-network) - a decentralized query engine and a horizontally-scalable data lake for batch queries. Currently, Subsquid Network serves raw historical on-chain data from [EVM](/subsquid-network/reference/evm-networks)- and [non-EVM](/subsquid-network/reference/substrate-networks) networks using a custom REST-like API. In the future, it will additionally support general-purpose SQL queries and an ever-growing collection of structured data sets derived from on- and off- chain data.
+The SQD ecosystem is built around [SQD Network](/subsquid-network) - a decentralized query engine and a horizontally-scalable data lake for batch queries. Currently, SQD Network serves raw historical on-chain data from [EVM](/subsquid-network/reference/evm-networks)- and [non-EVM](/subsquid-network/reference/substrate-networks) networks using a custom REST-like API. In the future, it will additionally support general-purpose SQL queries and an ever-growing collection of structured data sets derived from on- and off- chain data.
 
-## Subsquid Network
+## SQD Network
 
-[Subsquid Network](/subsquid-network) API currently provides:
+[SQD Network](/subsquid-network) API currently provides:
 
 - raw event logs
 - transaction data (with receipts)
@@ -22,17 +22,17 @@ The Subsquid ecosystem is built around [Subsquid Network](/subsquid-network) - a
 
 It supports all major [EVM](/subsquid-network/reference/evm-networks) and [Substrate](/subsquid-network/reference/substrate-networks) networks, with more in the works. [Let us know](https://t.me/HydraDevs) if you'd like us to support some other network.
 
-Currently there are two deployments of Subsquid Network:
+Currently there are two deployments of SQD Network:
 
-1. Production-ready [private cluster](/subsquid-network/overview/#open-private-network) running on Subsquid infrastructure (formerly known as Subsquid Archives). Access to the cluster is free and public.
+1. Production-ready [private cluster](/subsquid-network/overview/#open-private-network) running on SQD infrastructure (formerly known as Subsquid Archives). Access to the cluster is free and public.
 2. A [decentralized permissionless network](/subsquid-network/overview/#permissionless-public-network), currently a testnet.
 
 User-facing [API](/subsquid-network/reference) between these two is identical. Use it directly whenever you need historical blockchain data older than about 6-24 hours in either **(1)** high volume or **(2)** filtered form.
 
 <details>
-<summary>Example use cases for the Subsquid Network direct API</summary>
+<summary>Example use cases for the SQD Network direct API</summary>
 
-- boost the performance of existing pipelines by replacing per-block RPC requests with batch-requests to Subsquid Network
+- boost the performance of existing pipelines by replacing per-block RPC requests with batch-requests to SQD Network
 - non-Typescript indexers, mobile SDKs
 - high-performance data pipelines for raw historical data
 - a high-performance data source for tools like ApeWorkX, Cryo
@@ -42,13 +42,13 @@ User-facing [API](/subsquid-network/reference) between these two is identical. U
 
 </details>
 
-For real-time use cases such as app-specific APIs use [Squid SDK](/sdk): it'll use Subsquid Network to sync quickly, then seamlessly switch to real-time data. If you already have a subgraph indexer, you also have an option to [run it against the network](/subgraphs-support).
+For real-time use cases such as app-specific APIs use [Squid SDK](/sdk): it'll use SQD Network to sync quickly, then seamlessly switch to real-time data. If you already have a subgraph indexer, you also have an option to [run it against the network](/subgraphs-support).
 
 ## Squid SDK
 
-[Squid SDK](/sdk) is a powerful Typescript toolkit for building indexers on top of Subsquid Network, featuring
+[Squid SDK](/sdk) is a powerful Typescript toolkit for building indexers on top of SQD Network, featuring
 
-- [High-level libraries](/sdk/reference/processors) for extracting and filtering the Subsquid Network data in what can be though of as Extract-Transform-Load (ETL) pipelines
+- [High-level libraries](/sdk/reference/processors) for extracting and filtering the SQD Network data in what can be though of as Extract-Transform-Load (ETL) pipelines
 - [Ergonomic tools](/sdk/resources/tools/typegen) for decoding and normalizing raw data and efficiently accessing [network state](/sdk/resources/tools/typegen/state-queries)
 - Pluggable [data sinks](/sdk/reference/store) to save data into Postgres, files (local or s3) or BigQuery
 - An expressive [GraphQL server](/sdk/resources/serving-graphql#openreader) with a schema-based [config](/sdk/reference/schema-file)
@@ -61,7 +61,7 @@ The SDK is a go-to choice for production solutions and prototypes of
 2. low-cost, highly performant in-house data pipelines
 
 that can work in real time setting (\<1s chain latency). Take a look at the list of [concrete, real-world applications](/sdk/faq/#real-world-applications) for which Squid SDK was a good fit.
-## Subsquid Cloud
+## SQD Cloud
 
 A Platform-as-a-Service for deploying Squid SDK indexers, featuring
 
@@ -85,7 +85,7 @@ A Platform-as-a-Service for deploying Squid SDK indexers, featuring
 
 ```mdx-code-block
 </TabItem>
-<TabItem value="network" label="Subsquid Network">
+<TabItem value="network" label="SQD Network">
 ```
 
 - See the lists of supported networks on [EVM](/subsquid-network/reference/evm-networks) or [Substrate](/subsquid-network/reference/substrate-networks)
@@ -94,7 +94,7 @@ A Platform-as-a-Service for deploying Squid SDK indexers, featuring
 
 ```mdx-code-block
 </TabItem>
-<TabItem value="cloud" label="Subsquid Cloud">
+<TabItem value="cloud" label="SQD Cloud">
 ```
 
 - Learn how to [deploy your squid](/cloud/overview)
@@ -107,7 +107,7 @@ A Platform-as-a-Service for deploying Squid SDK indexers, featuring
 <TabItem value="other" label="Other">
 ```
 
-- [Run subgraphs](/subgraphs-support) using Subsquid Network data
+- [Run subgraphs](/subgraphs-support) using SQD Network data
 - Learn about [third party tools](/external-tools) for using with SDK or for building standalone indexers
 
 ```mdx-code-block

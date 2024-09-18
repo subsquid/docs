@@ -1,26 +1,26 @@
 ---
 sidebar_position: 90
-title: Subsquid vs The Graph
-description: Comparison of Subsquid and The Graph
+title: SQD vs The Graph
+description: Comparison of SQD and The Graph
 ---
 
-# Subsquid vs The Graph
+# SQD vs The Graph
 
 [The Graph](https://thegraph.com) is an indexing protocol and framework for EVM chains. In The Graph, indexing projects are called subgraphs. A Graph indexing node is a black-box that executes subgraphs compiled into WASM. The data is sourced directly from an archival blockchain node, and the processed data is stored in a built-in Postgres database.
 
-On the contrary, Subsquid employs a radically open modular architecture with: 
-- a separated layer for efficient data extraction and batch queries ([Subsquid Network](/subsquid-network/))  
+On the contrary, SQD employs a radically open modular architecture with: 
+- a separated layer for efficient data extraction and batch queries ([SQD Network](/subsquid-network/))  
 - a client-side libraries for data transformation and presentation. 
 
-The data transformation and presentation is enabled by a growing list of tools and SDKs that consume the raw data from Subsquid Network:
+The data transformation and presentation is enabled by a growing list of tools and SDKs that consume the raw data from SQD Network:
 - Typescript based [Squid SDK](/sdk/) offers pluggable data targets for both online and offline use-cases
 - Python-based [DipDup SDK](https://dipdup.io/docs/quickstart-evm?ref=blog.subsquid.io)
-- Subgraphs (via [Subsquid Firehose adapter](/subgraphs-support/))
+- Subgraphs (via [SQD Firehose adapter](/subgraphs-support/))
 - ApeWorx (via [ape-subsquid plugin](/apeworx))
 
 ## Feature matrix
 
-|                                 |  Subsquid Network + Squid SDK     |            The Graph                     |
+|                                 |  SQD Network + Squid SDK     |            The Graph                     |
 |:-------------------------------:|:-------------------------:|:----------------------------------------:|
 |  Programming language           |     Typescript            |    AssemblyScript (compiled to WASM)     |
 |  Indexing speed                 |     ~1k-50k bps           |       ~100-150 bps                       |
@@ -39,11 +39,11 @@ The data transformation and presentation is enabled by a growing list of tools a
 |  Hosted service                 |  Yes                      |       Yes (to be sunset)                 |
 |  Secret env variables           |  Yes                      |          No                              |
 |  Payment                        |  [Fiat, subscription-based](/cloud/pricing) |   GRT, pay-per-query                     |
-|  Decentralization               |  Decentralized data sourcing via [Subsquid Network](/subsquid-network), with opt-in decentralized data targets (Kwil DB, Ceramic) and processing (via Lava, in development)  |  The Graph network   |
+|  Decentralization               |  Decentralized data sourcing via [SQD Network](/subsquid-network), with opt-in decentralized data targets (Kwil DB, Ceramic) and processing (via Lava, in development)  |  The Graph network   |
 
 ## Architecture difference
 
-![Subsquid vs The Graph](</img/thegraph-vs-subsquid.png>)
+![SQD vs The Graph](</img/thegraph-vs-subsquid.png>)
 
 By design, The Graph indexing node is a black-box that executes subgraphs compiled into WASM. The data is sourced directly from the archival node and local IPFS, and the processed data is stored in a built-in Postgres database. The data stored in the database is considered to be "sealed", so that no external process can modify or read the data except through the GraphQL interface. 
 

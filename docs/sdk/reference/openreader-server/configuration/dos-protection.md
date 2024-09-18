@@ -22,7 +22,7 @@ To enable the protection, add the corresponding flags to `serve` and `serve:prod
   },
 ...
 ```
-When deploying to [Subsquid Cloud](/cloud), make sure to use `serve:prod` to start the GraphQL `api` service in the [deployment manifest](/cloud/reference/manifest/#deploy):
+When deploying to [SQD Cloud](/cloud), make sure to use `serve:prod` to start the GraphQL `api` service in the [deployment manifest](/cloud/reference/manifest/#deploy):
 
 ```yaml title="squid.yaml"
 # ...

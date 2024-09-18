@@ -1,7 +1,7 @@
 ---
 sidebar_position: 10
 title: Overview
-description: Flavors of Subsquid Network
+description: Flavors of SQD Network
 ---
 
 import Tabs from '@theme/Tabs';
@@ -9,11 +9,11 @@ import TabItem from '@theme/TabItem';
 
 # Overview
 
-Subsquid Network is a distributed query engine and data lake that the Subsquid ecosystem is built around.
+SQD Network is a distributed query engine and data lake that the SQD ecosystem is built around.
 
-Currently it serves historical blockchain data for 80+ networks. Compared to data access using a conventional chain node RPC, Subsquid Network allows one to access data at near zero cost, in a more granular fashion and from multiple blocks at once, thanks to its rich batching and filtering capabilities.
+Currently it serves historical blockchain data for 80+ networks. Compared to data access using a conventional chain node RPC, SQD Network allows one to access data at near zero cost, in a more granular fashion and from multiple blocks at once, thanks to its rich batching and filtering capabilities.
 
-There are currently two independent instances of Subsquid Network:
+There are currently two independent instances of SQD Network:
 
 1. A decentralized permissionless network **(testnet)**
 
@@ -25,19 +25,19 @@ used by 400+ indexers in production.
 
 Both variants are freely accessible to public using the same [API](/subsquid-network/reference).
 
-If you are a network developer and would like to see your chain supported by Subsquid, please fill a [form](https://forms.gle/ioVNFiPjZgvUNunY9) or contact us in [SquidDevs Telegram chat](https://t.me/HydraDevs).
+If you are a network developer and would like to see your chain supported by SQD, please fill a [form](https://forms.gle/ioVNFiPjZgvUNunY9) or contact us in [SquidDevs Telegram chat](https://t.me/HydraDevs).
 
 ## Permissionless public network
 
-The decentralized version of Subsquid Network is currently a testnet. It serves data for a (growing) subset of networks supported by the [private cluster](#open-private-network). Each request is routed to the network node responsible for the appropriate subset of data via a local p2p gateway.
+The decentralized version of SQD Network is currently a testnet. It serves data for a (growing) subset of networks supported by the [private cluster](#open-private-network). Each request is routed to the network node responsible for the appropriate subset of data via a local p2p gateway.
 
 You can read more about the testnet [here](/subsquid-network/faq).
 
 ## Open private network
 
-Subsquid's private data lake (formerly known as Archives) is a production-ready fork of early Subsquid Network that runs on Subsquid infrastructure. It provides a stand-in for the permissionless Subsquid Network until it matures; its [API](/subsquid-network/reference) is identical to that of p2p gateways of the public network.
+SQD's private data lake (formerly known as Archives) is a production-ready fork of early SQD Network that runs on SQD infrastructure. It provides a stand-in for the permissionless SQD Network until it matures; its [API](/subsquid-network/reference) is identical to that of p2p gateways of the public network.
 
-The gateway of this private network is public and free to query. URLs of gateways of supported networks are available via [`sqd gateways ls`](/squid-cli/gateways) and on the [Subsquid Network reference pages](/subsquid-network/reference).
+The gateway of this private network is public and free to query. URLs of gateways of supported networks are available via [`sqd gateways ls`](/squid-cli/gateways) and on the [SQD Network reference pages](/subsquid-network/reference).
 
 ```mdx-code-block
 <Tabs>

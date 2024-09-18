@@ -4,13 +4,13 @@ title: Starknet API
 description: Access the Starknet data
 ---
 
-# Starknet Subsquid Network API
+# Starknet SQD Network API
 
 :::warning
-The Starknet API of Subsquid Network is currently in beta. Breaking changes may be introduced in the future releases.
+The Starknet API of SQD Network is currently in beta. Breaking changes may be introduced in the future releases.
 :::
 
-Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/faq)) network of _workers_. The main gateway URL points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks on each dataset it serves.
+SQD Network API distributes the requests over a ([potentially decentralized](/subsquid-network/faq)) network of _workers_. The main gateway URL points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks on each dataset it serves.
 
 Suppose you want to retrieve an output of some [query](#worker-api) on a block range starting at `firstBlock` (can be the genesis block) and ending at the highest available block. Proceed as follows:
 
@@ -116,7 +116,7 @@ Suppose we want data on all txs sent by `Layerswap`/`0x19252b1deef483477c4d30cfc
    - Observe that we received the data up to and including block 617979.
 
 6. To get the rest of the data, update the current height to 617980 and go to step 3.
-   - Note how the worker URL you're getting while repeating step 3 points to a different host than before. This is how data storage and reads are distributed across the Subsquid Network.
+   - Note how the worker URL you're getting while repeating step 3 points to a different host than before. This is how data storage and reads are distributed across the SQD Network.
 
 7. Repeat steps 3 through 6 until the dataset height of 632494 is reached.
 

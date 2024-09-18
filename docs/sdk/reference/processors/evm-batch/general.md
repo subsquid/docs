@@ -22,14 +22,14 @@ Certain configuration methods are required:
 
 Here's how to choose the data sources depending on your use case:
 
- * If you need real-time data and your network [has a Subsquid Network gateway](/subsquid-network/reference/evm-networks), use both [`setGateway()`](#set-gateway) and [`setRpcEndpoint()`](#set-rpc-endpoint). The processor will obtain as much data as is currently available from the network, then switch to ingesting recent data from the RPC endpoint.
- * If you can tolerate your data being several thousands of blocks behind the chain head, you do not want to use a RPC endpoint and your network [has a Subsquid Network gateway](/subsquid-network/reference/evm-networks), use [`setGateway()`](#set-gateway) only.
- * If your EVM network does not have a Subsquid Network gateway, use [`setRpcEndpoint()`](#set-rpc-endpoint) only. You can use this regime to [work with local development nodes](/sdk/tutorials/evm-local).
+ * If you need real-time data and your network [has a SQD Network gateway](/subsquid-network/reference/evm-networks), use both [`setGateway()`](#set-gateway) and [`setRpcEndpoint()`](#set-rpc-endpoint). The processor will obtain as much data as is currently available from the network, then switch to ingesting recent data from the RPC endpoint.
+ * If you can tolerate your data being several thousands of blocks behind the chain head, you do not want to use a RPC endpoint and your network [has a SQD Network gateway](/subsquid-network/reference/evm-networks), use [`setGateway()`](#set-gateway) only.
+ * If your EVM network does not have a SQD Network gateway, use [`setRpcEndpoint()`](#set-rpc-endpoint) only. You can use this regime to [work with local development nodes](/sdk/tutorials/evm-local).
  * If your squid uses [direct RPC queries](/sdk/resources/tools/typegen/state-queries/?typegen=evm) then [`setRpcEndpoint()`](#set-rpc-endpoint) is a hard requirement. You can reduce the RPC usage by adding a Network data source with [`setGateway()`](#set-gateway). Further, if you can tolerate a latency of a few thousands of blocks, you can disable RPC ingestion with [`setRpcDataIngestionSettings({ disabled: true })`](#set-rpc-data-ingestion-settings). In this scenario RPC will only be used for the queries you explicitly make in your code.
 
 ### `setGateway(url: string | GatewaySettings)` {#set-gateway}
 
-Adds a [Subsquid Network](/subsquid-network) data source. The argument is either a string URL of a Subsquid Network gateway or
+Adds a [SQD Network](/subsquid-network) data source. The argument is either a string URL of a SQD Network gateway or
 ```ts
 {
   url: string // gateway URL
@@ -58,7 +58,7 @@ type ChainRpc = string | {
 Setting `maxBatchCallSize` to `1` disables batching completely.
 
 :::tip
-We recommend using private endpoints for better performance and stability of your squids. For Subsquid Cloud deployments you can use the [RPC addon](/cloud/resources/rpc-proxy). If you use an external private RPC, keep the endpoint URL in a [Cloud secret](/cloud/resources/env-variables#secrets).
+We recommend using private endpoints for better performance and stability of your squids. For SQD Cloud deployments you can use the [RPC addon](/cloud/resources/rpc-proxy). If you use an external private RPC, keep the endpoint URL in a [Cloud secret](/cloud/resources/env-variables#secrets).
 :::
 
 ### `setDataSource(ds: {archive?: string, chain?: ChainRpc})` (deprecated) {#set-data-source}

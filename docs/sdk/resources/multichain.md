@@ -38,7 +38,7 @@ To do this, run one [processor](/sdk/overview) per source network:
      ...
      ```
      [Full example](https://github.com/subsquid-labs/multichain-transfers-example/blob/master/commands.json)
-   - If you are going to use [`sqd run`](/squid-cli/run) for local runs or deploy your squid to [Subsquid Cloud](/cloud), list your processors at the `deploy.processor` section of your [deployment manifest](/cloud/reference/manifest/#processor):
+   - If you are going to use [`sqd run`](/squid-cli/run) for local runs or deploy your squid to [SQD Cloud](/cloud), list your processors at the `deploy.processor` section of your [deployment manifest](/cloud/reference/manifest/#processor):
      ```yaml
      deploy:
        processor:

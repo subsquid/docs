@@ -39,9 +39,9 @@ To enable subscriptions, add the `--subscriptions` flag to `serve` and `serve:pr
 ```
 A `ws` endpoint will be available the usual `localhost:<GQL_PORT>/graphql` URL.
 
-## Subsquid Cloud deployments
+## SQD Cloud deployments
 
-For Subsquid Cloud deployments, make sure to use the updated `serve:prod` command in the [deployment manifest](/cloud/reference/manifest/#deploy):
+For SQD Cloud deployments, make sure to use the updated `serve:prod` command in the [deployment manifest](/cloud/reference/manifest/#deploy):
 
 ```yaml title="squid.yaml"
 # ...

@@ -14,7 +14,7 @@ USAGE
   $ sqd auth
 
 OPTIONS
-  -k, --key=key  (required) Subsquid Cloud deployment key. Log in to https://app.subsquid.io to create or update your key.
+  -k, --key=key  (required) SQD Cloud deployment key. Log in to https://app.subsquid.io to create or update your key.
 ```
 
 _See code: [src/commands/auth.ts](https://github.com/subsquid/squid-cli/tree/master/src/commands/auth.ts)_

@@ -41,7 +41,7 @@ Instead of replicating Web2 approaches the permissionless and decentralized natu
 - Trust-minimized queries: the data can be audited, and all clients can verify the query result
 - Low maintenance cost: the price per query should be negligible  
 
-The Subsquid Network is built to satisfy all the above properties, thanks to its architecture where: 
+The SQD Network is built to satisfy all the above properties, thanks to its architecture where: 
 
 - The raw data is uploaded into permanent storage by the data providers, which act as oracles but for "big data"
 - The data is compressed and distributed among the network nodes
@@ -51,13 +51,13 @@ The Subsquid Network is built to satisfy all the above properties, thanks to its
 
 With the recent advances in in-process databases like DuckDB and an ever-decreasing price of quality SSD storage, the operational cost of a single node handling 1Tb of data is as low as 35/mo [1] and will likely decline further in the future. 
 
-In the first stage, the Subsquid Network only supports simple queries that can be resolved by querying the local data of a suitable node. This already provides a fundamentally new primitive for on-chain data availability, fully eliminating the need to maintain expensive archival blockchain nodes to access historical blockchain data. 
+In the first stage, the SQD Network only supports simple queries that can be resolved by querying the local data of a suitable node. This already provides a fundamentally new primitive for on-chain data availability, fully eliminating the need to maintain expensive archival blockchain nodes to access historical blockchain data. 
 
 After the bootstrapping period, the network will be expanded with an additional query planning and execution layer supporting general-purpose SQL queries inspired by Apache Calcite and DataFusion.
 
 ## Design Overview
 
-The below actors all participate in the Subsquid Network:
+The below actors all participate in the SQD Network:
 
 - Data Providers
 - Workers 
@@ -71,9 +71,9 @@ The below actors all participate in the Subsquid Network:
 
 ### Data Providers
 
-Data Providers produce data to be served by Subsquid Network. Currently, the focus is on on-chain data, and data providers are blockchains and L2s. At the moment, Subsquid only supports EVM- and Substrate chains, but we plan on adding support for Cosmos and Solana in the near future.
+Data Providers produce data to be served by SQD Network. Currently, the focus is on on-chain data, and data providers are blockchains and L2s. At the moment, SQD only supports EVM- and Substrate chains, but we plan on adding support for Cosmos and Solana in the near future.
 
-Data providers are responsible for ensuring the quality and timely provision of data. During the bootstrapping phase, Subsquid Labs GmbH acts as the sole data provider for the Subsquid Network, serving as a proxy for chains from which the data is ingested block-by-block. The ingested data is validated by comparing hashes. It's then split into small compressed chunks and saved into persistent storage, from which the chunks are randomly distributed between the workers.
+Data providers are responsible for ensuring the quality and timely provision of data. During the bootstrapping phase, Subsquid Labs GmbH acts as the sole data provider for the SQD Network, serving as a proxy for chains from which the data is ingested block-by-block. The ingested data is validated by comparing hashes. It's then split into small compressed chunks and saved into persistent storage, from which the chunks are randomly distributed between the workers.
 
 ![image](https://user-images.githubusercontent.com/8627422/255241118-9ba68865-c088-42ac-a01b-f961d1ed564b.png)
 
@@ -81,7 +81,7 @@ The metadata is saved on-chain and is updated by the data provider each time a n
 
 The data provider is incentivized to provide consistent and valid data, and it is their responsibility to make the data available in persistent storage. During the bootstrap phase, the persistent storage used by Subsquid Labs is an S3-compatible service with backups pinned to IPFS. As the network matures, more data providers and storage options will be added, with data providers being vetted by on-chain governance and known trusted parties. 
 
-Data providers pay on-chain subscription fees to the network to make data available and to have it served by workers. These fees are sent to the Subsquid Network treasury. 
+Data providers pay on-chain subscription fees to the network to make data available and to have it served by workers. These fees are sent to the SQD Network treasury. 
 
 ### Scheduler
 
@@ -142,7 +142,7 @@ If 100 SQD are locked for 3 years, the virtual yield is `12% * 3` APY, so the op
 
 ## Query Validation
 
-The Subsquid Network provides economic guarantees for the validity of the queried data, with the added possibility of validating specific queries on-chain. All query responses are signed by the worker who  executed the query, acting as a commitment to the query response. Anyone can submit such a response on-chain, and if it is deemed incorrect, the worker bond is slashed. The smart contract validation logic may be dataset-specific depending on the nature of the data being queried, with the following options:
+The SQD Network provides economic guarantees for the validity of the queried data, with the added possibility of validating specific queries on-chain. All query responses are signed by the worker who  executed the query, acting as a commitment to the query response. Anyone can submit such a response on-chain, and if it is deemed incorrect, the worker bond is slashed. The smart contract validation logic may be dataset-specific depending on the nature of the data being queried, with the following options:
 
 - Proof by Authority: a white-listed set of on-chain identities decides on the validity of the response. 
 - Optimistic on-chain: after the validation request is submitted, anyone can submit a claim proving the query response is incorrect. For example, assuming the original query was "Return transactions matching the filter `X` in the block range `[Y, Z]`" and the response is some set of transactions `T.` During the validation window, anyone can submit a Merkle proof for some transaction `t` matching the filter `X` yet not in `T.` If no such proofs are submitted during the decision window, the response is considered valid.
@@ -155,9 +155,9 @@ Since submitting each query for on-chain validation on-chain is costly and not f
 
 ## SQD Token
 
-SQD is the ERC-20 protocol token that is native to the Subsquid Network ecosystem. The token smart contract is to be deployed on the Ethereum mainnet and bridged to Arbitrum One. This strategy seeks to ensure the blockchain serves as a reliable, censorship-resistant, and verifiably impartial ledger, facilitating reward settlements and managing access to network resources.
+SQD is the ERC-20 protocol token that is native to the SQD Network ecosystem. The token smart contract is to be deployed on the Ethereum mainnet and bridged to Arbitrum One. This strategy seeks to ensure the blockchain serves as a reliable, censorship-resistant, and verifiably impartial ledger, facilitating reward settlements and managing access to network resources.
 
-The SQD token is a critical component of the Subsquid ecosystem. Use cases for the SQD token are focused on streamlining and securing network operations in a permissionless manner:
+The SQD token is a critical component of the SQD ecosystem. Use cases for the SQD token are focused on streamlining and securing network operations in a permissionless manner:
 
 1) Alignment of incentives for infrastructure providers: SQD is used to reward node operators that contribute computation and storage resources to the network.
 
@@ -167,7 +167,7 @@ The SQD token is a critical component of the Subsquid ecosystem. Use cases for t
 
 4) Network decision making: SQD tokenholders can participate in governance, and are enabled to vote on protocol changes and other proposals.
 
-The SQD token’s innovative curation component allows the Subsquid community to delegate SQD to Node Operators of their choice, ensuring trustlessness. SQD’s utility as a tool for adjusting rate limits is unique in increasing trustless performance, by locking SQD tokens, without having to pay a centralized provider for quicker or more efficient data access.
+The SQD token’s innovative curation component allows the SQD community to delegate SQD to Node Operators of their choice, ensuring trustlessness. SQD’s utility as a tool for adjusting rate limits is unique in increasing trustless performance, by locking SQD tokens, without having to pay a centralized provider for quicker or more efficient data access.
 
 
 ## Appendix I -- Metadata

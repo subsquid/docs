@@ -9,7 +9,7 @@ description: |-
 Store all your sensitive inputs (API keys, passwords etc) as [secrets](#secrets).
 :::
 
-Subsquid Cloud supports adding environment variables to squid deployments. The variables can be defined as key-value pairs at any of the `env:` sections of the [manifest](/cloud/reference/manifest).
+SQD Cloud supports adding environment variables to squid deployments. The variables can be defined as key-value pairs at any of the `env:` sections of the [manifest](/cloud/reference/manifest).
 
 For example, here is how to add a variable that will be visible only to the [squid processor](/cloud/reference/manifest/#processor):
 ```yaml title="squid.yaml"

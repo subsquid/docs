@@ -6,7 +6,7 @@ description: Tools that generate squids from ABIs
 
 # Squid generation tools
 
-Subsquid provides [tools](https://github.com/subsquid/squid-gen) for generating ready-to-use squids that index events and function calls of smart contracts. EVM/Solidity and WASM/ink! smart contracts are supported. The tools can be configured to make squids that save data to a [PostgreSQL database](/sdk/resources/persisting-data/typeorm/) or to a [file-based dataset](/sdk/resources/persisting-data/file/). All that is required is NodeJS, [Squid CLI](/squid-cli/installation/) and, if your squid will be using a database, Docker.
+SQD provides [tools](https://github.com/subsquid/squid-gen) for generating ready-to-use squids that index events and function calls of smart contracts. EVM/Solidity and WASM/ink! smart contracts are supported. The tools can be configured to make squids that save data to a [PostgreSQL database](/sdk/resources/persisting-data/typeorm/) or to a [file-based dataset](/sdk/resources/persisting-data/file/). All that is required is NodeJS, [Squid CLI](/squid-cli/installation/) and, if your squid will be using a database, Docker.
 
 Squid generation procedure is very similar for both contract types. Here are the steps:
 
@@ -68,13 +68,13 @@ Squid generation procedure is very similar for both contract types. Here are the
    - for PostgreSQL-based squids you can also connect to the database with `PGPASSWORD=postgres psql -U postgres -p 23798 -h localhost squid` and take a look at the contents;
    - if it is storing data to a file-based dataset, wait for the first filesystem sync then verify that all the expected files are present and contain the expected data. If your squid produces data at a low rate, you may have to tweak the [`chunkSizeMb` setting](/sdk/resources/persisting-data/file/#overview) and/or add a [`ctx.store.setForceFlush()`](/sdk/resources/persisting-data/file/#setforceflush) call to manually write dataset chunks at appropriate intervals.
 
-At this point your squid is ready. You can run it on your own infrastructure or [deploy it to Subsquid Cloud](/cloud/).
+At this point your squid is ready. You can run it on your own infrastructure or [deploy it to SQD Cloud](/cloud/).
 
 ## Configuration
 
 A valid config for the `squid-gen config` is a YAML file with the following sections:
 
-* **archive** is an endpoint URL of a [Subsquid Network](/subsquid-network/overview/) gateway. Find an appropriate gateway at the [Supported networks](/subsquid-network/reference/evm-networks/) page or with [`sqd gateways`](/squid-cli/gateways).
+* **archive** is an endpoint URL of a [SQD Network](/subsquid-network/overview/) gateway. Find an appropriate gateway at the [Supported networks](/subsquid-network/reference/evm-networks/) page or with [`sqd gateways`](/squid-cli/gateways).
 
 * **target** section describes how the scraped data should be stored. Set
    ```yaml
@@ -100,7 +100,7 @@ Currently the only [file-based data target type](/sdk/resources/persisting-data/
 
 Support for `file-store` is in alpha stage. Known caveats:
 
-* If a S3 URL is used, then the S3 region, endpoint and user credentials will be [taken from the default environment variables](/sdk/reference/store/file/s3-dest/). Fill your `.env` file and/or set your [Subsquid Cloud secrets](/cloud/resources/env-variables/) accordingly.
+* If a S3 URL is used, then the S3 region, endpoint and user credentials will be [taken from the default environment variables](/sdk/reference/store/file/s3-dest/). Fill your `.env` file and/or set your [SQD Cloud secrets](/cloud/resources/env-variables/) accordingly.
 
 * Unlike their PostgreSQL-powered equivalents, the squids that use `file-store` may not write their data often. You may have to configure the `chunkSizeMb` parameter of the `Database` class and/or call [`ctx.store.setForceFlush()`](/sdk/resources/persisting-data/file/#setforceflush) when appropriate to strike an acceptable balance between the lag of the indexed data and the number of files in the resulting dataset. See [Filesystem store overview](/sdk/resources/persisting-data/file/) for details.
 
