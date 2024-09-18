@@ -1,0 +1,12 @@
+{
+    "position": 20,
+    "label": "Configuration",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/sdk/reference/openreader-server/configuration",
+      "title": "Configuring and extending the server"
+    }
+}

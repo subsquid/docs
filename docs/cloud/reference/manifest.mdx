@@ -50,7 +50,7 @@ For a successful build the following files and folders **must** be present in th
 The `db` and `assets` folders are added to the build context if present in the squid folder. See [Project structure](/sdk/how-to-start/layout) for more info.
 
 Under the hood, Cloud builds a Docker image and runs a docker container for each service (`api`, `processor`, `migrate`) using the same image.
-See [Self-hosting](/sdk/resources/basics/self-hosting) for instructions on how to build and run the Docker image locally.
+See [Self-hosting](/sdk/resources/self-hosting) for instructions on how to build and run the Docker image locally.
 Even though the squid services (`api`, `processor`, `migrate`) use the same single container image, the exec command is different and can is defined by the `deploy:` section as explained below.
 
 ### `cmd:`

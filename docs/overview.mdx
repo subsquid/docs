@@ -51,8 +51,8 @@ For real-time use cases such as app-specific APIs use [Squid SDK](/sdk): it'll u
 - [High-level libraries](/sdk/reference/processors) for extracting and filtering the Subsquid Network data in what can be though of as Extract-Transform-Load (ETL) pipelines
 - [Ergonomic tools](/sdk/resources/tools/typegen) for decoding and normalizing raw data and efficiently accessing [network state](/sdk/resources/tools/typegen/state-queries)
 - Pluggable [data sinks](/sdk/reference/store) to save data into Postgres, files (local or s3) or BigQuery
-- Expressive [GraphQL server](/sdk/resources/graphql-server) with a schema-based [config](/sdk/reference/schema-file)
-- Seamless handling of [unfinalized blocks and chain reorganizations](/sdk/resources/basics/unfinalized-blocks) for real-time data ingestion
+- An expressive [GraphQL server](/sdk/resources/serving-graphql#openreader) with a schema-based [config](/sdk/reference/schema-file)
+- Seamless handling of [unfinalized blocks and chain reorganizations](/sdk/resources/unfinalized-blocks) for real-time data ingestion
 - rapid data extraction and decoding [for local analytics](/sdk/tutorials/file-csv)
 
 The SDK is a go-to choice for production solutions and prototypes of
@@ -81,7 +81,7 @@ A Platform-as-a-Service for deploying Squid SDK indexers, featuring
 - Learn about [squid components](/sdk/overview), [combining them](/sdk/how-to-start/squid-from-scratch) or follow the [end-to-end development guide](/sdk/how-to-start/squid-development)
 - Explore [tutorials](/sdk/tutorials) or [examples](/sdk/examples)
 - Learn how to [migrate from The Graph](/sdk/resources/migrate/migrate-subgraph)
-- Explore the [GraphQL server options](/sdk/resources/graphql-server) including custom extensions, caching and DoS protection in production
+- Explore the [GraphQL server options](/sdk/resources/serving-graphql)
 
 ```mdx-code-block
 </TabItem>

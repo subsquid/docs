@@ -16,7 +16,7 @@ Here is an incomplete list:
 
 ### How does Squid SDK handle unfinalized blocks?
 
-The Subsquid Network only serves finalized blocks and is typically ~1000 blocks behind the tip. The most recent blocks, as well as the unfinalized blocks are seamlessly handled by the SDK from a complementary RPC data source, set by the `chain` config. Potential chain reorgs are automatically handled under the hood. See [Indexing unfinalized blocks](/sdk/resources/basics/unfinalized-blocks) for details.
+The Subsquid Network only serves finalized blocks and is typically ~1000 blocks behind the tip. The most recent blocks, as well as the unfinalized blocks are seamlessly handled by the SDK from a complementary RPC data source, set by the `chain` config. Potential chain reorgs are automatically handled under the hood. See [Indexing unfinalized blocks](/sdk/resources/unfinalized-blocks) for details.
 
 ### What is the latency for the data served by the squid? 
 
@@ -24,11 +24,11 @@ Since the ArrowSquid release, the Squid SDK has the option to ingest unfinalized
 
 ### How do I enable GraphQL subscriptions for local runs?
 
-Add `--subscription` flag to the `serve` command defined in `commands.json`. See [Subscriptions](/sdk/resources/graphql-server/subscriptions) for details.
+Add `--subscription` flag to the `serve` command defined in `commands.json`. See [Subscriptions](/sdk/reference/openreader-server/configuration/subscriptions) for details.
 
 ### How do squids keep track of their sync progress?
 
-Depends on the data sink used. Squid processors that use [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm) keep their state in a [schema](https://www.postgresql.org/docs/current/sql-createschema.html), not in a table. By default the schema is called `squid_processor` (name must be overridden in [multiprocessor squids](/sdk/resources/basics/multichain)). You can view it with
+Depends on the data sink used. Squid processors that use [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm) keep their state in a [schema](https://www.postgresql.org/docs/current/sql-createschema.html), not in a table. By default the schema is called `squid_processor` (name must be overridden in [multiprocessor squids](/sdk/resources/multichain)). You can view it with
 ```sql
 select * from squid_processor.status;
 ```

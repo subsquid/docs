@@ -1,0 +1,12 @@
+{
+    "position": 80,
+    "label": "OpenReader",
+    "collapsible": true,
+    "collapsed": true,
+    "className": "red",
+    "link": {
+      "type": "generated-index",
+      "slug": "/sdk/reference/openreader-server",
+      "title": "An open source GraphQL server built by SQD"
+    }
+}

@@ -6,7 +6,7 @@ Run a squid locally according to the [deployment manifest](/cloud/reference/mani
 * [sqd run PATH](#sqd-run-path)
 
 Notes:
- - The command is especially useful for running [multichain squids](/sdk/resources/basics/multichain), as it runs all services in the same terminal and handles failures gracefully.
+ - The command is especially useful for running [multichain squids](/sdk/resources/multichain), as it runs all services in the same terminal and handles failures gracefully.
 
 ## `sqd run PATH`
 

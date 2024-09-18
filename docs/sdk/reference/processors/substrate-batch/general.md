@@ -15,7 +15,7 @@ The following setters configure the global settings of `SubstrateBatchProcessor`
 
 Calling [`setRpcEndpoint()`](#set-rpc-endpoint) is a hard requirement on Substrate, as chain RPC is used to retrieve chain metadata. Adding a [Subsquid Network gateway](/subsquid-network/reference/substrate-networks) with [`setGateway()`](#set-gateway) is optional but highly recommended, as it greatly reduces RPC usage.
 
-To reduce it further, you can explicitly disable [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) by calling [`setRpcDataIngestionSettings({ disabled: true })`](#set-rpc-data-ingestion-settings): in this scenario the RPC will only be used for metadata retrieval and to perform any [direct RPC queries](/sdk/resources/tools/typegen/state-queries/?typegen=substrate) you might be doing in your squid code. This will, however, introduce a delay of a few thousands of blocks between the chain head and the highest block available to your squid.
+To reduce it further, you can explicitly disable [RPC ingestion](/sdk/resources/unfinalized-blocks) by calling [`setRpcDataIngestionSettings({ disabled: true })`](#set-rpc-data-ingestion-settings): in this scenario the RPC will only be used for metadata retrieval and to perform any [direct RPC queries](/sdk/resources/tools/typegen/state-queries/?typegen=substrate) you might be doing in your squid code. This will, however, introduce a delay of a few thousands of blocks between the chain head and the highest block available to your squid.
 
 ### `setGateway(url: string | GatewaySettings)` {#set-gateway}
 
@@ -31,7 +31,7 @@ See [Substrate gateways](/subsquid-network/reference/substrate-networks).
 ### `setRpcEndpoint(rpc: ChainRpc)` {#set-rpc-endpoint}
 
 Adds a RPC data source. If added, it will be used for
- - [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) (unless explicitly disabled with [`setRpcDataIngestionSettings()`](#set-rpc-data-ingestion-settings))
+ - [RPC ingestion](/sdk/resources/unfinalized-blocks) (unless explicitly disabled with [`setRpcDataIngestionSettings()`](#set-rpc-data-ingestion-settings))
  - any [direct RPC queries](/sdk/resources/tools/typegen/state-queries/?typegen=substrate) you make in your squid code
 
 A node RPC endpoint can be specified as a string URL or as an object:
@@ -57,7 +57,7 @@ Replaced by [`setGateway()`](#set-gateway) and [`setRpcEndpoint()`](#set-rpc-end
 
 ### `setRpcDataIngestionSetting(settings: RpcDataIngestionSettings)` {#set-rpc-data-ingestion-settings}
 
-Specify the [RPC ingestion](/sdk/resources/basics/unfinalized-blocks) settings.
+Specify the [RPC ingestion](/sdk/resources/unfinalized-blocks) settings.
 ```ts
 type RpcDataIngestionSettings = {
   disabled?: boolean

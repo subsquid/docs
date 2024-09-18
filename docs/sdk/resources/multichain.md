@@ -6,7 +6,7 @@ description: Combine data from multiple chains
 
 # Multichain indexing
 
-Squids can extract data from multiple chains into a shared data sink. If the data is [stored to Postgres](/sdk/resources/persisting-data/typeorm) it can then be served as a unified multichain [GraphQL API](/sdk/resources/graphql-server).
+Squids can extract data from multiple chains into a shared data sink. If the data is [stored to Postgres](/sdk/resources/persisting-data/typeorm) it can then be served as a unified multichain [GraphQL API](/sdk/resources/serving-graphql).
 
 To do this, run one [processor](/sdk/overview) per source network:
 
@@ -69,7 +69,7 @@ Also ensure that
     async (ctx) => { // ...
   ```
 
-2. [Schema](/sdk/reference/schema-file) and [GraphQL API](/sdk/resources/graphql-server) are shared among the processors.
+2. [Schema](/sdk/reference/schema-file) and [GraphQL API](/sdk/resources/serving-graphql) are shared among the processors.
 
 ### Handling concurrency
 
@@ -79,7 +79,7 @@ Also ensure that
 
 - To avoid cross-chain data dependencies, use per-chain records for volatile data. E.g. if you track account balances across multiple chains you can avoid overlaps by storing the balance for each chain in a different table row.
 
-  When you need to combine the records (e.g. get a total of all balaces across chains) use a [custom resolver](/sdk/resources/graphql-server/custom-resolvers) to do it on the GraphQL server side.
+  When you need to combine the records (e.g. get a total of all balaces across chains) use a [custom resolver](/sdk/reference/openreader-server/configuration/custom-resolvers) to do it on the GraphQL server side.
 
 - It is OK to use cross-chain [entities](/sdk/reference/schema-file/entities) to simplify aggregation. Just don't store any data in them:
   ```graphql

@@ -1,0 +1,12 @@
+{
+  "position": 30,
+  "label": "Core API",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "slug": "/sdk/reference/openreader-server/api",
+    "title": "Core queries exposed by the OpenReader API"
+  }
+}

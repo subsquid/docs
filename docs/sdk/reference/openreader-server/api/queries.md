@@ -29,7 +29,7 @@ query {
   }
 }
 ```
-or, using a [newer](/sdk/resources/graphql-server/overview/#supported-queries) and [more advanced](/sdk/reference/openreader/paginate-query-results) `{entityName}sConnection` query
+or, using a [newer](/sdk/reference/openreader-server/overview/#supported-queries) and [more advanced](/sdk/reference/openreader-server/api/paginate-query-results) `{entityName}sConnection` query
 
 ```graphql
 query {
