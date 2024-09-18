@@ -10,7 +10,12 @@ It is common (although not required) for squids to serve GraphQL APIs. Historica
 
 ## PostGraphile
 
-[PostGraphile](https://www.graphile.org/postgraphile/) is an open-source tool that builds powerful, extensible and performant GraphQL APIs from PostgreSQL schemas.
+[PostGraphile](https://www.graphile.org/postgraphile/) is an open-source tool that builds powerful, extensible and performant GraphQL APIs from PostgreSQL schemas. Its pros include:
+
+- aggregations;
+- reliable support for subscriptions;
+- capability for deep API customization;
+- organization of API customization code into plugins.
 
 The recommended way of integrating PostGraphile into squid projects is by making a dedicated entry point at `src/api.ts`. A complete example squid implementing this approach is available in [this repository](https://github.com/subsquid-labs/squid-postgraphile-example/).
 
@@ -20,7 +25,15 @@ As per usual with PostGraphile installations, you can freely extend it with plug
 
 ## Hasura
 
-[Hasura](https://hasura.io) is a powerful open-source GraphQL engine geared towards exposing multiple data sources via a single API. You can integrate it with your squid in two ways:
+[Hasura](https://hasura.io) is a powerful open-source GraphQL engine. You can use it to:
+
+- expose multiple data sources of different kinds (various databases, APIs etc) via a single API;
+- reliably serve subscriptions;
+- perform aggregations;
+- deeply customize your CRUD API.
+
+You can integrate Hasura with your squid in two ways:
+
 1. **Use Hasura to gather data from multiple sources, including your squid.**
 
    For this scenario we recommend separating your Hasura instance from your squid, which should consist of just one service, [the processor](/sdk/reference/processors/architecture), plus the database. Supply your database credentials to Hasura, then configure it to produce the desired API.
