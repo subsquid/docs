@@ -94,12 +94,12 @@ const config = {
     },
     algolia: {
       // The application ID provided by Algolia
-      appId: '39MDW9KQHD',
+      appId: 'CC68QB8337',
 
       // Public API key: it is safe to commit it
-      apiKey: 'f16aec2cb7c62cfd322b20dd9e142c5c',
+      apiKey: '82a0e1e951725e9afa0a0f608ddc1803',
 
-      indexName: 'subsquid',
+      indexName: 'sqd',
 
       // Optional: see doc section below
       contextualSearch: true,
