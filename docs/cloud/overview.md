@@ -7,9 +7,9 @@ description: >-
 
 # Deployment workflow
 
-Here we show how to deploy a production-ready indexer ("squid") to Subsquid Cloud. See [Development flow](/sdk/how-to-start/squid-development) and the rest of the [Indexing SDK](/sdk) section for more info on how to develop one of these.
+Here we show how to deploy a production-ready indexer ("squid") to SQD Cloud. See [Development flow](/sdk/how-to-start/squid-development) and the rest of the [Indexing SDK](/sdk) section for more info on how to develop one of these.
 
-**Pre-requisites:** Docker, [Subsquid CLI](/squid-cli/installation)
+**Pre-requisites:** Docker, [Squid CLI](/squid-cli/installation)
 
 ## 1. Prepare the squid for deployment
 
@@ -18,11 +18,11 @@ Make sure that the squid is ready for deployment. This includes:
 - Verifying that the squid is working as expected locally.
 - Ensuring that the squid is free of any major performance issues. See [Best practices](/cloud/resources/best-practices) for guidance.
 - Updating the `squid.yaml` file (a.k.a. "deployment manifest") with the correct values for your use case.
-- Setting up Subsquid Cloud secrets if necessary.
+- Setting up SQD Cloud secrets if necessary.
 
-## 2. Register a Subsquid account
+## 2. Register a SQD account
 
-You can register a Subsquid account by visiting the [Subsquid cloud](https://app.subsquid.io). Click `Create an account` and fill in the required information, or sign in with your GitHub or Google account.
+You can register a SQD account by visiting the [SQD cloud](https://app.subsquid.io). Click `Create an account` and fill in the required information, or sign in with your GitHub or Google account.
 
 ## 3. Edit the `squid.yaml` file
 
@@ -51,12 +51,12 @@ deploy:
 
 ### 3.2. Using addons
 
-Subsquid provides RPC and database addons that can be used with your squid deployment. Enable your addons in the `deploy.addons` section.
+SQD provides RPC and database addons that can be used with your squid deployment. Enable your addons in the `deploy.addons` section.
 
 
 #### `rpc` addon
 
-For real time data you can use the [`rpc` addon](/cloud/resources/rpc-proxy). First, open the `RPC endpoints` tab in the Subsquid cloud sidebar and copy the URL of the chosen endpoint.
+For real time data you can use the [`rpc` addon](/cloud/resources/rpc-proxy). First, open the `RPC endpoints` tab in the SQD cloud sidebar and copy the URL of the chosen endpoint.
 
 ![RPC addon tab](./overview-rpc-page.png)
 
@@ -89,7 +89,7 @@ export const processor = new EvmBatchProcessor().setRpcEndpoint(
 // ...the rest of the processor configuration
 ```
 
-This configuration will use the Arbitrum RPC endpoint provided by Subsquid.
+This configuration will use the Arbitrum RPC endpoint provided by SQD.
 
 #### `database` addon
 
@@ -189,7 +189,7 @@ For all deployment options, check out the [deployment manifest](/cloud/reference
 
 ## 4. Set any required secrets
 
-If your squid uses any sensitive data such as a private URL or an access key, you need to store it in a [Subsquid Cloud secret](/cloud/resources/env-variables/#secrets). You can do this by going to the `Secrets` tab in the Subsquid cloud sidebar and adding the required values.
+If your squid uses any sensitive data such as a private URL or an access key, you need to store it in a [SQD Cloud secret](/cloud/resources/env-variables/#secrets). You can do this by going to the `Secrets` tab in the SQD cloud sidebar and adding the required values.
 
 ![secrets tab](./overview-secret1.png)
 
@@ -199,12 +199,12 @@ Alternatively, use [`sqd secrets`](/squid-cli/secrets).
 
 ## 5. Deploy the squid
 
-To deploy the squid to the cloud, open `Squids` in the sidebar and press the `Deploy a squid` button in the Subsquid cloud.
+To deploy the squid to the cloud, open `Squids` in the sidebar and press the `Deploy a squid` button in the SQD cloud.
 
 ![deploy tab](./overview-deploy2.png)
 
-You will be prompted to install the Subsquid CLI if you haven't already. Follow the instructions to install the CLI.
-Next, set up your auth key as shown in the Subsquid cloud.
+You will be prompted to install the Squid CLI if you haven't already. Follow the instructions to install the CLI.
+Next, set up your auth key as shown in the SQD cloud.
 Type the squid name to be the same as in the `squid.yaml` file.
 
 Finally, deploy the squid:
@@ -219,9 +219,9 @@ sqd deploy --org <your_organization> <path_to_squid_project_root>
 Take a look at [logging page](/cloud/resources/logging) for tips on emitting and reading logs.
 :::
 
-After deploying the squid, you can monitor its status in Subsquid Cloud. You can see the logs, metrics, and other information about the squid in the Cloud dashboard.
+After deploying the squid, you can monitor its status in SQD Cloud. You can see the logs, metrics, and other information about the squid in the Cloud dashboard.
 
-Open the monitoring tab in the Subsquid cloud sidebar to see the status of your squid.
+Open the monitoring tab in the SQD cloud sidebar to see the status of your squid.
 
 Deployed quids are available in the `Squid` tab.
 
@@ -233,7 +233,7 @@ You can see memory usage, CPU usage, and other metrics in the monitoring tab. He
 
 ## 7. Use the squid
 
-If your squid uses a database, you'll have direct access. Take a look at the `DB access` tab of your squid's card in Subsquid Cloud console.
+If your squid uses a database, you'll have direct access. Take a look at the `DB access` tab of your squid's card in SQD Cloud console.
 
 If your squids serves a GraphQL API, you'll be able to access it via a deployment-based URL or via a permanent squid-specific URL that redirects to a particular deployment. See [Production alias](/cloud/resources/production-alias).
 

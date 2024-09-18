@@ -1,7 +1,7 @@
 ---
 title: Use with Ganache or Hardhat
 description: >-
-  Use Subsquid to index an Ethereum dev node
+  Use SQD to index an Ethereum dev node
 sidebar_position: 30
 ---
 
@@ -14,7 +14,7 @@ Here we show how it is possible to index an Ethereum development node running lo
 ## Pre-requisites
 
 - Either one of [Ganache](https://trufflesuite.com/ganache/) or [Hardhat](https://hardhat.org/)
-- [Subsquid CLI](/squid-cli/installation)
+- [Squid CLI](/squid-cli/installation)
 - Docker
 
 ## Setup
@@ -46,7 +46,7 @@ In a terminal, navigate to the squid project root folder. Prepare it by running
 rm README.md
 mv tsconfig.json tsconfig.json.save
 ```
-This will prevent collisions between Subsquid and Hardhat files.
+This will prevent collisions between SQD and Hardhat files.
 
 Next, run
 
@@ -226,7 +226,7 @@ node -r dotenv/config lib/main.js
 ```
 You should see the data of one (for Hardhat) or two (for Truffle+Ganache) contract deployment transactions printed to your terminal.
 
-Now you can develop a Subsquid-based indexer alongside your contracts. Head over to the [dedicated tutorial](/sdk/tutorials/bayc) for guidance on squid development. Use the **contract's ABI** ([here](#3-sample-contract) or [here](#1-truffle-project-sample-contract)) and contract **address** ([here](#5-deploy-the-contract) and [here](#3-deploy-a-smart-contract)) from previous steps and be mindful that the data source of the processor class needs to be set to the local node RPC endpoint, as in the example above:
+Now you can develop a SQD-based indexer alongside your contracts. Head over to the [dedicated tutorial](/sdk/tutorials/bayc) for guidance on squid development. Use the **contract's ABI** ([here](#3-sample-contract) or [here](#1-truffle-project-sample-contract)) and contract **address** ([here](#5-deploy-the-contract) and [here](#3-deploy-a-smart-contract)) from previous steps and be mindful that the data source of the processor class needs to be set to the local node RPC endpoint, as in the example above:
 
 ```typescript
 // ...

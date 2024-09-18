@@ -8,10 +8,10 @@ description: The folder layout of a squid project
 
 All files and folders except `package.json` are optional.
 
-- `package.json` -- Configuration file for dependencies and the build script (invoked with `npm run build`). Hard requirement for deploying to [Subsquid Cloud](/cloud).
+- `package.json` -- Configuration file for dependencies and the build script (invoked with `npm run build`). Hard requirement for deploying to [SQD Cloud](/cloud).
 - `package-lock.json` OR `yarn.lock` OR `pnpm-lock.yaml` -- Dependencies shrinkwrap. Required for [Cloud](/cloud) deployment, except those that [override the dependencies installation command](/cloud/reference/manifest/#cmd).
 - `tsconfig.json` -- Configuration of `tsc`. Required for most squids.
-- [Deployment manifest](/cloud/reference/manifest) (`squid.yaml` by default) -- Definitions of squid services used for running it locally with [`sqd run`](/squid-cli/run) and deploying to [Subsquid Cloud](/cloud).
+- [Deployment manifest](/cloud/reference/manifest) (`squid.yaml` by default) -- Definitions of squid services used for running it locally with [`sqd run`](/squid-cli/run) and deploying to [SQD Cloud](/cloud).
 - `.squidignore` -- Files and patterns to be excluded when sending the squid code to the [Cloud](/cloud). When not supplied, some files will still be omitted: see the [reference page](/cloud/reference/squidignore) for details.
 - `schema.graphql` -- [The schema definition file](/sdk/reference/schema-file). Required if your squid [stores its data in PostgreSQL](/sdk/resources/persisting-data/typeorm).
 - `/src` -- The TypeScript source code folder for the squid processor.

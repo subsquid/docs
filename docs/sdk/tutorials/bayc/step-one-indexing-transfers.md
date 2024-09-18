@@ -9,7 +9,7 @@ sidebar_position: 10
 
 In this step-by-step tutorial we will build a squid that gets data about [Bored Ape Yacht Club](https://boredapeyachtclub.com) NFTs, their transfers and owners from the [Ethereum blockchain](https://ethereum.org), indexes the NFT metadata from [IPFS](https://ipfs.tech/) and regular HTTP URLs, stores all the data in a database and serves it over a GraphQL API. Here we do the first step: build a squid that indexes only the `Transfer` events emitted by the [BAYC token contract](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).
 
-Pre-requisites: Node.js, [Subsquid CLI](/squid-cli/installation), Docker.
+Pre-requisites: Node.js, [Squid CLI](/squid-cli/installation), Docker.
 
 ## Starting with a template
 
@@ -23,7 +23,7 @@ The resulting code can be found at [this commit](https://github.com/subsquid-lab
 
 ## Interfacing with the contract ABI
 
-First, we inspect which data is available for indexing. For EVM contracts, the metadata descrbing the shape of the smart contract logs, transactions and contract state methods is distributed as an [Application Binary Interface](https://docs.soliditylang.org/en/latest/abi-spec.html) (ABI) JSON file. For many popular contracts ABI files are published on Etherscan (as in the case of the BAYC NFT contract). Subsquid provides a [tool](/sdk/resources/tools/typegen/state-queries/?typegen=evm) for retrieving contract ABIs from Etherscan-like APIs and generating the boilerplate for retrieving and decoding the data. For the contract of interest, this can be done with
+First, we inspect which data is available for indexing. For EVM contracts, the metadata descrbing the shape of the smart contract logs, transactions and contract state methods is distributed as an [Application Binary Interface](https://docs.soliditylang.org/en/latest/abi-spec.html) (ABI) JSON file. For many popular contracts ABI files are published on Etherscan (as in the case of the BAYC NFT contract). SQD provides a [tool](/sdk/resources/tools/typegen/state-queries/?typegen=evm) for retrieving contract ABIs from Etherscan-like APIs and generating the boilerplate for retrieving and decoding the data. For the contract of interest, this can be done with
 ```bash
 npx squid-evm-typegen src/abi 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#bayc
 ```
@@ -42,7 +42,7 @@ Reading about [elsewhere](https://eips.ethereum.org/EIPS/eip-721) we learn that 
 
 ## Configuring the data filters
 
-A "squid processor" is the Node.js process and the [object that powers it](/sdk/overview/). Together they are responsible for retrieving filtered blockchain data from a specialized data lake ([Subsquid Network](/subsquid-network/overview)), transforming it and saving the result to a destination of choice. To configure the processor (object) to retrieve the `Transfer` events of the BAYC token contract, we initialize it like this:
+A "squid processor" is the Node.js process and the [object that powers it](/sdk/overview/). Together they are responsible for retrieving filtered blockchain data from a specialized data lake ([SQD Network](/subsquid-network/overview)), transforming it and saving the result to a destination of choice. To configure the processor (object) to retrieve the `Transfer` events of the BAYC token contract, we initialize it like this:
 ```typescript title="src/processor.ts"
 // ...
 import * as bayc from './abi/bayc'
@@ -72,8 +72,8 @@ export const processor = new EvmBatchProcessor()
 ```
 
 Here,
-* `'https://v2.archive.subsquid.io/network/ethereum-mainnet'` is the URL the public Subsquid Network gateway for Ethereum mainnet. Check out [Subsquid Network reference pages](/subsquid-network/reference) for lists of public gateways for all supported networks.
-* `'<eth_rpc_endpoint_url>'` is a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within Subsquid Network. Please use a private endpoint or Subsquid Cloud's [RPC addon](/cloud/resources/rpc-proxy) in production.
+* `'https://v2.archive.subsquid.io/network/ethereum-mainnet'` is the URL the public SQD Network gateway for Ethereum mainnet. Check out [SQD Network reference pages](/subsquid-network/reference) for lists of public gateways for all supported networks.
+* `'<eth_rpc_endpoint_url>'` is a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within SQD Network. Please use a private endpoint or SQD Cloud's [RPC addon](/cloud/resources/rpc-proxy) in production.
 * `setFinalityConfirmation(75)` call instructs the processor to consider blocks final after 75 confirmations when ingesting data from an RPC endpoint.
 * `12_287_507` is the block at which the BAYC token contract was deployed. Can be found on the [contract's Etherscan page](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).
 * The argument of [`addLog()`](/sdk/reference/processors/evm-batch/logs) is a set of filters that tells the processor to retrieve all event logs emitted by the BAYC contract with topic0 matching the hash of the full signature of the `Transfer` event. The hash is taken from the previously generated Typescript ABI.
@@ -91,7 +91,7 @@ processor.run(db, async (ctx) => {
 ```
 Here,
 * `db` is a [`Database` implementation](/sdk/resources/persisting-data/overview/) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm/) object here.
-* `ctx` is a [batch context](/sdk/reference/processors/architecture/#batch-context) object that exposes a batch of data retrieved from Subsquid Network or a RPC endpoint (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
+* `ctx` is a [batch context](/sdk/reference/processors/architecture/#batch-context) object that exposes a batch of data retrieved from SQD Network or a RPC endpoint (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`).
 
 Batch handler is where the raw on-chain data is decoded, transformed and persisted. This is the part we'll be concerned with for the rest of the tutorial.
 
@@ -131,7 +131,7 @@ The full code can be found at [this commit](https://github.com/subsquid-labs/bay
 
 ## Extending and persisting the data
 
-`TypeormDatabase` requires us to define a TypeORM data model to actually send the data to the database. In Subsquid, the same data model is also used by the GraphQL server to generate the API schema. To avoid any potential discrepancies, processor and GraphQL server rely on a shared data model description defined at `schema.graphql` in a GraphQL schema dialect fully documented [here](/sdk/reference/schema-file/).
+`TypeormDatabase` requires us to define a TypeORM data model to actually send the data to the database. In SQD, the same data model is also used by the GraphQL server to generate the API schema. To avoid any potential discrepancies, processor and GraphQL server rely on a shared data model description defined at `schema.graphql` in a GraphQL schema dialect fully documented [here](/sdk/reference/schema-file/).
 
 TypeORM code is generated from `schema.graphql` with the [`squid-typeorm-codegen`](/sdk/resources/persisting-data/typeorm) tool and must be regenerated every time the schema is changed. This is usually accompanied by regenerating the [database migrations](/sdk/resources/persisting-data/typeorm/) and recreating the database itself. The migrations are applied before every run of the processor, ensuring that whenever any TypeORM code within the processor attempts to access the database, the database is in a state that allows it to succeed.
 

@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 # Overview
 
-A _squid_ is an indexing project built with [Squid SDK](https://github.com/subsquid/squid-sdk) to retrieve and process blockchain data from the [Subsquid Network](/subsquid-network/overview)
+A _squid_ is an indexing project built with [Squid SDK](https://github.com/subsquid/squid-sdk) to retrieve and process blockchain data from the [SQD Network](/subsquid-network/overview)
 (either permissioned or decentralized instance). The Squid SDK is a set of open source Typescript libraries that retrieve, decode, transform and persist the data. It can also make the transformed data available via an API. All stages of the indexing pipeline, from the data extraction to transformation to persistence are performed on [batches of blocks](/sdk/resources/batch-processing) to maximize the indexing speed. Modular architecture of the SDK makes it possible to extend indexing projects (squids) with custom plugins and data targets.
 
 ## Required squid components
@@ -28,7 +28,7 @@ _Processor_ is the word used for
 
 ### Store
 
-A _store_ is an object that processors use to persist their data. Subsquid offers three store classes:
+A _store_ is an object that processors use to persist their data. SQD offers three store classes:
 
 * [`TypeormStore`](/sdk/resources/persisting-data/typeorm) for saving data to PostgreSQL, via
   - [`@subsquid/typeorm-store`](https://www.npmjs.com/package/@subsquid/typeorm-store)
@@ -55,7 +55,7 @@ A _typegen_ is a tool for generating utility code for technology-specific operat
   - decodes smart contract data
   - handles direct calls to contract methods
   - exposes useful constants such as event topics and function signature hashes
-  The generated code depends on [`@subsquid/evm-abi`](https://www.npmjs.com/package/@subsquid/evm-abi), Subsquid's own high performance, open source EVM codec.
+  The generated code depends on [`@subsquid/evm-abi`](https://www.npmjs.com/package/@subsquid/evm-abi), SQD's own high performance, open source EVM codec.
 
 ```mdx-code-block
 </TabItem>
@@ -85,13 +85,13 @@ Among other alternatives, SQD provides its own server called [OpenReader](/sdk/r
 <Tabs>
 <TabItem value="evm" label="On EVM">
 ```
-* [Squid CLI](/squid-cli/installation) is a utility for [retrieving squid templates](/squid-cli/init), managing [chains of commands](https://github.com/subsquid/squid-sdk/tree/master/util/commands) commonly used in development and running [all squid processes at once](/squid-cli/run). It can also be used for deploying to [Subsquid Cloud](/cloud).
+* [Squid CLI](/squid-cli/installation) is a utility for [retrieving squid templates](/squid-cli/init), managing [chains of commands](https://github.com/subsquid/squid-sdk/tree/master/util/commands) commonly used in development and running [all squid processes at once](/squid-cli/run). It can also be used for deploying to [SQD Cloud](/cloud).
 
 ```mdx-code-block
 </TabItem>
 <TabItem value="substrate" label="On Substrate">
 ```
-* [Squid CLI](/squid-cli/installation) is a utility for [retrieving squid templates](/squid-cli/init), managing [chains of commands](https://github.com/subsquid/squid-sdk/tree/master/util/commands) commonly used in development and running [all squid processes at once](/squid-cli/run). It can also be used for deploying to [Subsquid Cloud](/cloud).
+* [Squid CLI](/squid-cli/installation) is a utility for [retrieving squid templates](/squid-cli/init), managing [chains of commands](https://github.com/subsquid/squid-sdk/tree/master/util/commands) commonly used in development and running [all squid processes at once](/squid-cli/run). It can also be used for deploying to [SQD Cloud](/cloud).
 * [`@subsquid/ss58`](https://www.npmjs.com/package/@subsquid/ss58) handles encoding and decoding of SS58 addresses
 * [`@subsquid/frontier`](https://www.npmjs.com/package/@subsquid/frontier) decodes events and calls of the [Frontier EVM pallet](https://paritytech.github.io/frontier/frame/evm.html) to make them decodable with [`squid-evm-typegen`](/sdk/resources/tools/typegen/generation)
 

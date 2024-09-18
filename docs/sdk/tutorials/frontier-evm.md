@@ -86,7 +86,7 @@ The (re)generated entity classes can then be browsed at `src/model/generated`.
 
 ## ABI Definition and Wrapper
 
-Subsquid maintains [tools](/sdk/resources/tools/typegen/state-queries/?typegen=evm) for automated generation of TypeScript classes for handling EVM logs and transactions based on a [JSON ABI](https://docs.ethers.io/v5/api/utils/abi/) of the contract.
+SQD maintains [tools](/sdk/resources/tools/typegen/state-queries/?typegen=evm) for automated generation of TypeScript classes for handling EVM logs and transactions based on a [JSON ABI](https://docs.ethers.io/v5/api/utils/abi/) of the contract.
 
 For our squid we will need such a module for the [ERC-721](https://eips.ethereum.org/EIPS/eip-721)-compliant part of the contracts' interfaces. Once again, the template repository already includes it, but it is still important to explain what needs to be done in case one wants to index a different type of contract.
 
@@ -98,9 +98,9 @@ The results will be stored at `src/abi`. One module will be generated for each A
 
 ## Processor object and the batch handler
 
-Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to [Subsquid Network](/subsquid-network/overview) gateways at chain-specific URLs, to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Squid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to [SQD Network](/subsquid-network/overview) gateways at chain-specific URLs, to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
-`SubstrateBatchProcessor`s [expose methods](/sdk/reference/processors/substrate-batch) that "subscribe" them to specific data such as Substrate events and calls. There are also [specialized methods](/sdk/resources/substrate/frontier-evm) for subscribing to EVM logs and transactions by address. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the Subsquid Network gateway for [*batches*](/sdk/resources/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the gateway.
+`SubstrateBatchProcessor`s [expose methods](/sdk/reference/processors/substrate-batch) that "subscribe" them to specific data such as Substrate events and calls. There are also [specialized methods](/sdk/resources/substrate/frontier-evm) for subscribing to EVM logs and transactions by address. The actual data processing is then started by calling the `.run()` function. This will start generating requests to the SQD Network gateway for [*batches*](/sdk/resources/batch-processing) of data specified in the configuration, and will trigger the callback function, or *batch handler* (passed to `.run()` as second argument) every time a batch is returned by the gateway.
 
 It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 
@@ -143,7 +143,7 @@ contractMapping.set(astarCatsAddress, new Contract({
 
 The `src/processor.ts` file is where squids instantiate and configure their processor objects. We will use an instance of [`SubstrateBatchProcessor`](/sdk).
 
-We adapt the template code to handle two contracts instead of one and point the processor data source setting to the `astar` [Subsquid Network gateway URL](/subsquid-network/reference/substrate-networks). Here is the end result:
+We adapt the template code to handle two contracts instead of one and point the processor data source setting to the `astar` [SQD Network gateway URL](/subsquid-network/reference/substrate-networks). Here is the end result:
 
 ```ts title="src/processor.ts"
 import {assertNotNull} from '@subsquid/util-internal'
@@ -187,7 +187,7 @@ export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 ```
 
 :::warning
-This code expects to find an URL of a working Astar RPC endpoint in the `RPC_ENDPOINT` environment variable. Set it in the `.env` file and in [Subsquid Cloud secrets](/cloud/resources/env-variables) if and when you deploy your squid there. We tested the code using a public endpoint available at `wss://astar.public.blastapi.io`; for production, we recommend using private endpoints or our [RPC addon](/cloud/resources/rpc-proxy).
+This code expects to find an URL of a working Astar RPC endpoint in the `RPC_ENDPOINT` environment variable. Set it in the `.env` file and in [SQD Cloud secrets](/cloud/resources/env-variables) if and when you deploy your squid there. We tested the code using a public endpoint available at `wss://astar.public.blastapi.io`; for production, we recommend using private endpoints or our [RPC addon](/cloud/resources/rpc-proxy).
 :::
 
 ## Define the batch handler

@@ -1,7 +1,7 @@
 ---
-title: Subsquid Firehose
+title: SQD Firehose
 description: >-
-  Leverage the power of Subsquid Network data sync subgraphs
+  Leverage the power of SQD Network data sync subgraphs
 sidebar_position: 30
 ---
 
@@ -15,11 +15,11 @@ This tutorial uses alpha-quality software. If you encouter any issues while usin
 
 Developing and running [subgraphs](https://thegraph.com/docs/en/glossary/) is hard, as one has to run a full archival node, and for many networks it is not feasible to run a full archival node to at all. 
 
-**Subsquid Firehose** is an open-source lightweight adapter run as a side-car to a graph indexer node, ingesting and filtering the data directly from Subsquid Network instead of an RPC endpoint. However, since the network does not provide the real-time blocks, the most recent and unfinalized blocks are (optionally) ingested from a complementary RPC endpoint in a seamless way.
+**SQD Firehose** is an open-source lightweight adapter run as a side-car to a graph indexer node, ingesting and filtering the data directly from SQD Network instead of an RPC endpoint. However, since the network does not provide the real-time blocks, the most recent and unfinalized blocks are (optionally) ingested from a complementary RPC endpoint in a seamless way.
 
-Currently it is only possible to run subgraphs against a production-ready [permissioned Subsquid Network instance](/subsquid-network/overview/#open-private-network) (formerly known as Subsquid Archives). Running against the decentralized Subsquid Network is scheduled to be supported in Q2 2024 (see [Subsquid Network Overview](/subsquid-network/overview) to learn more about the difference).
+Currently it is only possible to run subgraphs against a production-ready [permissioned SQD Network instance](/subsquid-network/overview/#open-private-network) (formerly known as Subsquid Archives). Running against the decentralized SQD Network is scheduled to be supported in Q2 2024 (see [SQD Network Overview](/subsquid-network/overview) to learn more about the difference).
 
-The easiest way to run a subgraph with Subsquid Firehose to use our [graph-node-setup](https://github.com/subsquid-labs/graph-node-setup) repo. Here's how:
+The easiest way to run a subgraph with SQD Firehose to use our [graph-node-setup](https://github.com/subsquid-labs/graph-node-setup) repo. Here's how:
 
 1. Clone the repo and install the dependencies:
    ```bash
@@ -35,7 +35,7 @@ The easiest way to run a subgraph with Subsquid Firehose to use our [graph-node-
 
    ![Configuring the environment](subgraphs-support-configuration.gif)
 
-   You will be asked to select a network. You can pick any network from our [supported EVM networks](/subsquid-network/reference/evm-networks); networks that are not currently [supported by TheGraph](https://thegraph.com/docs/en/developing/supported-networks/) will be available their under Subsquid names.
+   You will be asked to select a network. You can pick any network from our [supported EVM networks](/subsquid-network/reference/evm-networks); networks that are not currently [supported by TheGraph](https://thegraph.com/docs/en/developing/supported-networks/) will be available their under SQD names.
 
    Optionally you can also provide an RPC endpoint. If you do, it will be used to sync a few thousands of blocks at the chain end, so it does not have to be a paid one. However, `firehose-grpc` does not limit its request rate yet, so using a public RPC might result in a cooldown.
 

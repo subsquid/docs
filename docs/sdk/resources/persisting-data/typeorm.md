@@ -128,9 +128,9 @@ npx squid-typeorm-migration apply
 
 **5. Update the squid in Cloud**
 
-If the squid is deployed to Subsquid Cloud, [update the deployed version](/squid-cli/deploy).
+If the squid is deployed to SQD Cloud, [update the deployed version](/squid-cli/deploy).
 
-### Subsquid Cloud deployment
+### SQD Cloud deployment
 
 By default, the TypeORM migrations are automatically applied by Cloud with the command `npx squid-typeorm-migration apply` before the squid services are started. For custom behavior, one can override the migration script using the optional `migrate:` section of [squid.yaml](/cloud/reference/manifest#deploy).
 

@@ -5,7 +5,7 @@ description: Use external APIs and IPFS from a squid
 
 # External APIs and IPFS
 
-Squid processor is a usual node.js process, so one can fetch data from external APIs or IPFS gateways within the `processor.run()` method. In squids deployed to [Subsquid Cloud](/cloud) one normally uses API calls in combination with API keys set via [secrets](/cloud/resources/env-variables).
+Squid processor is a usual node.js process, so one can fetch data from external APIs or IPFS gateways within the `processor.run()` method. In squids deployed to [SQD Cloud](/cloud) one normally uses API calls in combination with API keys set via [secrets](/cloud/resources/env-variables).
 
 ### Example
 

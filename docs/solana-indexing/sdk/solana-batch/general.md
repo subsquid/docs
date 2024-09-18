@@ -14,12 +14,12 @@ The method documentation is also available inline and can be accessed via sugges
 The following setters configure the global settings of `DataSourceBuilder` for Solana Procesor. They return the modified instance and can be chained.
 
 The only required configuration method is [`setGateway()`](#set-gateway). If you need real-time data, please also use [`setRpcEndpoint()`](#set-rpc).
- - If you add both a Subsquid Network gateway and an RPC endpoint, the processor will obtain as much data as is currently available from the gateway, then switch to ingesting recent data via RPC.
- - If you only add a Subsquid Network gateway, your data will be being several thousands of blocks behind the chain head most of the time.
+ - If you add both a SQD Network gateway and an RPC endpoint, the processor will obtain as much data as is currently available from the gateway, then switch to ingesting recent data via RPC.
+ - If you only add a SQD Network gateway, your data will be being several thousands of blocks behind the chain head most of the time.
 
 ### `setGateway(url: string | GatewaySettings)` {#set-gateway}
 
-Use a [Subsquid Network](/subsquid-network) gateway. The argument is either a string URL of the gateway or
+Use a [SQD Network](/subsquid-network) gateway. The argument is either a string URL of the gateway or
 
 ```ts
 {

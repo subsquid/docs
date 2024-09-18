@@ -4,13 +4,13 @@ title: Substrate API
 description: Access the data of Substrate blockchains
 ---
 
-# Substrate Subsquid Network API
+# Substrate SQD Network API
 
 :::warning
-The Substrate API of Subsquid Network is currently in beta. Breaking changes may be introduced in the future releases.
+The Substrate API of SQD Network is currently in beta. Breaking changes may be introduced in the future releases.
 :::
 
-Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/faq)) network of _workers_. The main gateway URL points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks on each dataset it serves.
+SQD Network API distributes the requests over a ([potentially decentralized](/subsquid-network/faq)) network of _workers_. The main gateway URL points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks on each dataset it serves.
 
 Suppose you want to retrieve an output of some [query](#worker-api) on a block range starting at `firstBlock` (can be the genesis block) and ending at the highest available block. Proceed as follows:
 
@@ -105,7 +105,7 @@ The returned worker is capable of processing `POST /` requests in which the `"fr
 - **type**: `"substrate"`
 - **fromBlock**: Block number to start from (inclusive).
 - **toBlock**: (optional) Block number to end on (inclusive). If this is not given, the query will go on for a fixed amount of time or until it reaches the height of the dataset.
-- **includeAllBlocks**: (optional) If true, Subsquid Network workers will include blocks that contain no data selected by data requests into their responses.
+- **includeAllBlocks**: (optional) If true, SQD Network workers will include blocks that contain no data selected by data requests into their responses.
 - **fields**: (optional) A [selector](#data-fields-selector) of data fields to retrieve. Common for all data items.
 - **events**: (optional) A list of [event requests](#events).
 - **calls**: (optional) A list of [call requests](#calls).

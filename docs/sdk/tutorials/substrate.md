@@ -10,7 +10,7 @@ sidebar_position: 40
 
 The goal of this tutorial is to guide you through creating a simple blockchain indexer ("squid") using Squid SDK. In this example we will query the [Crust storage network](https://crust.network). Our objective will be to observe which files have been added and deleted from the network. Additionally, our squid will be able to tell us the groups joined and the storage orders placed by a given account.
 
-We will start with the `substrate` squid template, then go on to run the project, define a schema, and generate TypeScript interfaces. From there, we will be able to interact directly with Subsquid Network, using the and the metadata service to get a Crust types bundle.
+We will start with the `substrate` squid template, then go on to run the project, define a schema, and generate TypeScript interfaces. From there, we will be able to interact directly with SQD Network, using the and the metadata service to get a Crust types bundle.
 
 We expect that experienced software developers should be able to complete this tutorial in around **10-15 minutes**.
 
@@ -111,7 +111,7 @@ This will automatically generate TypeScript entity classes for our schema. They 
 ## Generate TypeScript wrappers for events
 
 We generate these using the [squid-substrate-typegen](/sdk/tutorials/batch-processor-in-action) tool. Its configuration file is `typegen.json`; there, we need to
-1. Set the `"specVersions"` field to a valid source of Crust chain runtime metadata. We'll use an URL of Subsquid-maintained metadata service:
+1. Set the `"specVersions"` field to a valid source of Crust chain runtime metadata. We'll use an URL of SQD-maintained metadata service:
    ```json
    "specVersions": "https://v2.archive.subsquid.io/metadata/crust",
    ```
@@ -191,7 +191,7 @@ type Fields = SubstrateBatchProcessorFields<typeof processor>
 export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 ```
 This creates a processor that
- - Uses Subsquid Network as its main data source and a chain RPC for [real-time updates](/sdk/resources/unfinalized-blocks). URLs of the Subsquid Network gateways are available on [this page](/subsquid-network/reference/substrate-networks) and via [`sqd gateways`](/squid-cli/gateways). See [this page](/sdk/reference/processors/substrate-batch/general) for the reference on data sources configuration;
+ - Uses SQD Network as its main data source and a chain RPC for [real-time updates](/sdk/resources/unfinalized-blocks). URLs of the SQD Network gateways are available on [this page](/subsquid-network/reference/substrate-networks) and via [`sqd gateways`](/squid-cli/gateways). See [this page](/sdk/reference/processors/substrate-batch/general) for the reference on data sources configuration;
  - [Subscribes](/sdk/reference/processors/substrate-batch/data-requests) to `Market.FileSuccess`, `Swork.JoinGroupSuccess` and `Swork.WorksReportSuccess` events emitted at heights starting at 583000;
  - Additionally subscribes to calls that emitted the events and the corresponding extrinsics;
  - [Requests](/sdk/reference/processors/substrate-batch/field-selection) the `hash` data field for all retrieved extrinsics and the `timestamp` field for all block headers.

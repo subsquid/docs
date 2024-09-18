@@ -32,7 +32,7 @@ The addon supports additional PG config options:
 
 ## Direct access
 
-Subsquid Cloud enables direct read access to the deployed PG instances. Launch the [squid explorer](/squid-cli/explorer) with
+SQD Cloud enables direct read access to the deployed PG instances. Launch the [squid explorer](/squid-cli/explorer) with
 ```
 sqd explorer
 ```

@@ -1,12 +1,12 @@
 ---
 sidebar_position: 2
 title: Migrate from The Graph
-description: Migrate a subgraph to Subsquid
+description: Migrate a subgraph to SQD
 ---
 
 # Migrate from The Graph
 
-This guide walks through the steps to migrate a subgraph to Subsquid. In what follows we will convert the [Gravatar](https://github.com/graphprotocol/example-subgraph) subgraph into a squid and run it locally. Impatient readers may clone the squid from the [repo](https://github.com/subsquid-labs/gravatar-squid) and run it by following the instructions in README:
+This guide walks through the steps to migrate a subgraph to SQD. In what follows we will convert the [Gravatar](https://github.com/graphprotocol/example-subgraph) subgraph into a squid and run it locally. Impatient readers may clone the squid from the [repo](https://github.com/subsquid-labs/gravatar-squid) and run it by following the instructions in README:
 
 ```bash
 git clone https://github.com/subsquid-labs/gravatar-squid.git
@@ -19,7 +19,7 @@ At the same time, concepts of the [schema file](/sdk/reference/schema-file), [co
 There are some known limitations:
 - Many-to-Many entity relations should be [modeled explicitly](/sdk/reference/schema-file/entity-relations/#many-to-many-relations) as two many-to-one relations
 
-On top of the features provided by subgraphs, Squid SDK and Subsquid Cloud offer extra flexibility in developing tailored APIs and ETLs for on-chain data:
+On top of the features provided by subgraphs, Squid SDK and SQD Cloud offer extra flexibility in developing tailored APIs and ETLs for on-chain data:
 
 - Full control over the target database (Postgres), including custom migrations and ad-hoc queries in the handler
 - Custom target databases and data formats (e.g. CSV)
@@ -29,7 +29,7 @@ On top of the features provided by subgraphs, Squid SDK and Subsquid Cloud offer
 - [API versioning and aliasing](/cloud/resources/production-alias)
 - [API caching](/sdk/reference/openreader-server/configuration/caching)
 
-For a full feature set comparison, see [Subsquid vs The Graph](/sdk/subsquid-vs-thegraph).
+For a full feature set comparison, see [SQD vs The Graph](/sdk/subsquid-vs-thegraph).
 
 ## Squid setup 
 
@@ -83,7 +83,7 @@ npx squid-typeorm-migration apply
 
 ### 4. Generate typings from ABI
 
-Copy `./abis/Gravity.json` from the subgraph project and paste it to `./abi` folder in the subsquid project.
+Copy `./abis/Gravity.json` from the subgraph project and paste it to `./abi` folder in the squid project.
 To generate the typings, run:
 ```bash
 npx squid-evm-typegen ./src/abi ./abi/*.json --multicall
@@ -96,7 +96,7 @@ This command runs the `evm-typegen` tool that fetches the contract ABI by the ad
 
 ### 5. Subscribe to EVM logs
 
-While in The Graph data source is defined in the manifest file `subgraph.yaml`, in Subsquid subscriptions to EVM data, including logs, are performed at the processor object definition customarily located at `src/processor.ts`. The processor is configured directly by the code, unlike subgraphs which require handlers and events to be defined in the manifest file.
+While in The Graph data source is defined in the manifest file `subgraph.yaml`, in SQD subscriptions to EVM data, including logs, are performed at the processor object definition customarily located at `src/processor.ts`. The processor is configured directly by the code, unlike subgraphs which require handlers and events to be defined in the manifest file.
 
 ```ts file=src/processor.ts
 import { EvmBatchProcessor} from '@subsquid/evm-processor'
@@ -163,7 +163,7 @@ dataSources:
 
 ### 6. Transform and save the data
 
-In Subgraph data is saved in the `mapping.ts` file. The mapping function will receive an `ethereum.Block` as its only argument. In Subsquid, we set up the processor in `processor.ts` and save the data in the `main.ts`.
+In Subgraph data is saved in the `mapping.ts` file. The mapping function will receive an `ethereum.Block` as its only argument. In SQD, we set up the processor in `processor.ts` and save the data in the `main.ts`.
 
 We migrate the subgraph handlers that transform the event data into `Gravatar` objects. Instead of saving or updating gravatars one by one, `EvmBatchProcessor` receives an ordered batch of event items it is subscribed to. In our case we have only two kinds of logs -- emitted on gravatar creations and updates.
 
@@ -180,7 +180,7 @@ function extractData(evmLog: any): { id: bigint, owner: string, displayName: str
 }
 ```
 
-Next, we make a [batch handler](/sdk/reference/processors/architecture/#processorrun) collecting the updates from a single batch of EVM logs. To convert a `0x...` string into a byte array we use the `decodeHex` utility from Subsquid SDK.
+Next, we make a [batch handler](/sdk/reference/processors/architecture/#processorrun) collecting the updates from a single batch of EVM logs. To convert a `0x...` string into a byte array we use the `decodeHex` utility from Squid SDK.
 
 ```ts title="src/main.ts"
 import { TypeormDatabase } from '@subsquid/typeorm-store'
@@ -232,6 +232,6 @@ and inspect the auto-generated GraphQL API using an interactive playground at [h
 
 - Compare your API to that of subgraph using the [compareGraphQL](https://github.com/subsquid-labs/compareGraphQL) script
 - Have a closer look at [`EvmBatchProcessor`](/sdk)
-- Learn how to [deploy a squid to Subsquid Cloud](/cloud) for free
+- Learn how to [deploy a squid to SQD Cloud](/cloud) for free
 - Learn how to [index and query the contract state](/sdk/resources/tools/typegen/state-queries)
 - Inspect a more complex [Uniswap V3 squid](https://github.com/dariaag/uniswap-squid-arrow) which tracks Uniswap V3 trading data. It was migrated from the [Uniswap V3 subgraph](https://github.com/Uniswap/v3-subgraph). It takes only a few hours to sync from scratch on a local machine.

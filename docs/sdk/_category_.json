@@ -7,6 +7,6 @@
   "link": {
     "type": "generated-index",
     "slug": "/sdk",
-    "title": "Extract, transform, load and query historical blockchain data from Subsquid data lakes"
+    "title": "Extract, transform, load and query historical blockchain data from SQD data lakes"
   }
 }

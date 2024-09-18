@@ -22,7 +22,7 @@ By default, the service deployments are _collocated_ - that is, share resources 
 
 We recommend setting `dedicated: true` for all squids running in production.
 
-Squid deployment must be dedicated to be a subject of [Subsquid Cloud SLA](/cloud/pricing).
+Squid deployment must be dedicated to be a subject of [SQD Cloud SLA](/cloud/pricing).
 
 ## `addons:`
 

@@ -8,9 +8,9 @@ description: A step-by-step migration guide for Substrate
 
 This is a Substrate guide. EVM guide is available [here](/sdk/resources/migrate/migrate-to-arrowsquid).
 
-ArrowSquid refers to `@subsquid/substrate-processor` versions `3.x` and above. It is not compatible with the FireSquid [archive](/glossary/#archives) endpoints. Instead, the new version uses [Subsquid Network](/subsquid-network) gateways. See the [Supported networks](/subsquid-network/reference/substrate-networks) page.
+ArrowSquid refers to `@subsquid/substrate-processor` versions `3.x` and above. It is not compatible with the FireSquid [archive](/glossary/#archives) endpoints. Instead, the new version uses [SQD Network](/subsquid-network) gateways. See the [Supported networks](/subsquid-network/reference/substrate-networks) page.
 
-The main feature introduced by the ArrowSquid update is the new ability of the [processor](/sdk/overview) to ingest unfinalized blocks directly from a network node, instead of waiting for an archive to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows Subsquid-based APIs to become near real-time and respond to the on-chain activity with subsecond latency.
+The main feature introduced by the ArrowSquid update is the new ability of the [processor](/sdk/overview) to ingest unfinalized blocks directly from a network node, instead of waiting for an archive to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows SQD-based APIs to become near real-time and respond to the on-chain activity with subsecond latency.
 
 Other new features include the new streamlined processor configuration interface and automatic retrieval of execution traces. On the implementation side, the way in which data is fetched has been made more efficient.
 
@@ -36,7 +36,7 @@ If your squid uses [`file-store`](/sdk/resources/persisting-data/file), please u
 
 ## Step 2
 
-Replace the old `setDataSource()` processor configuration call with a combination of [setGateway()](/sdk/reference/processors/substrate-batch/general/#set-gateway) and [setRpcEndpoint()](/sdk/reference/processors/substrate-batch/general/#set-rpc-endpoint). Use a [public Subsquid Network gateway URL for your network](/subsquid-network/reference/substrate-networks). If your squid did not use an RPC endpoint before, find one for your network and set it with [setRpcEndpoint()](/sdk/reference/processors/substrate-batch/general/#set-rpc-endpoint). For Aleph Zero your edit might look like this:
+Replace the old `setDataSource()` processor configuration call with a combination of [setGateway()](/sdk/reference/processors/substrate-batch/general/#set-gateway) and [setRpcEndpoint()](/sdk/reference/processors/substrate-batch/general/#set-rpc-endpoint). Use a [public SQD Network gateway URL for your network](/subsquid-network/reference/substrate-networks). If your squid did not use an RPC endpoint before, find one for your network and set it with [setRpcEndpoint()](/sdk/reference/processors/substrate-batch/general/#set-rpc-endpoint). For Aleph Zero your edit might look like this:
 ```diff
  processor
 -  .setDataSource({
@@ -48,9 +48,9 @@ Replace the old `setDataSource()` processor configuration call with a combinatio
 +    rateLimit: 10
 +  })
 ```
-We recommend using a private RPC endpoint for the best performance, e.g. from [Dwellir](https://www.dwellir.com). For squids deployed to [Subsquid Cloud](/cloud/overview) you may also consider using our [RPC addon](/cloud/resources/rpc-proxy).
+We recommend using a private RPC endpoint for the best performance, e.g. from [Dwellir](https://www.dwellir.com). For squids deployed to [SQD Cloud](/cloud/overview) you may also consider using our [RPC addon](/cloud/resources/rpc-proxy).
 
-Your squid will work with just an RPC endpoint, but it will sync significantly slower. With a Subsquid Network gateway available the processor will only use RPC to retrieve metadata **and** sync the few most recent blocks not yet made available by the gateway; without it it will retrieve all data from the endpoint.
+Your squid will work with just an RPC endpoint, but it will sync significantly slower. With a SQD Network gateway available the processor will only use RPC to retrieve metadata **and** sync the few most recent blocks not yet made available by the gateway; without it it will retrieve all data from the endpoint.
 
 ## Step 3
 
@@ -145,7 +145,7 @@ const processor = new SubstrateBatchProcessor()
     }
   })
 ```
-Be aware that this operation will not increase the amount of data retrieved from the Subsquid Network gateway, since previously such coalescence was done under the hood and all fields were retrieved by the processor anyway. In fact, the amount of data should decrease due to a more efficient transfer mechanism employed by ArrowSquid.
+Be aware that this operation will not increase the amount of data retrieved from the SQD Network gateway, since previously such coalescence was done under the hood and all fields were retrieved by the processor anyway. In fact, the amount of data should decrease due to a more efficient transfer mechanism employed by ArrowSquid.
 
 There are two old field requests that have no direct equivalent in the new interface:
 

@@ -18,7 +18,7 @@ sqd init <your squid name here> --template ink
 Here we will use a simple test ERC20-type token contract deployed to [Shibuya](https://shibuya.subscan.io/) at `XnrLUQucQvzp5kaaWLG9Q3LbZw5DPwpGn69B5YcywSWVr5w`. Our squid will track all the token holders and account balances, together with the historical token transfers.
 
 :::info
-Subsquid SDK only supports WASM contracts executed by the [Contracts pallet](https://crates.parity.io/pallet_contracts/index.html) natively. The pallet is enabled by the following network runtimes:
+Squid SDK only supports WASM contracts executed by the [Contracts pallet](https://crates.parity.io/pallet_contracts/index.html) natively. The pallet is enabled by the following network runtimes:
 - `Astar` (a `Polkadot` parachain)
 - `Shibuya` (`Astar` testnet)
 - `Shiden` (`Kusama`-cousin of `Astar`)
@@ -108,7 +108,7 @@ npx squid-typeorm-migration apply
 
 The `Contracts` pallet stores the contract execution logs (calls and events) in a binary format. The decoding of this data is contract-specific and is done with the help of an ABI file typically published by the contract developer. ABI for ERC20 contracts like the one we're indexing can be found [here](https://raw.githubusercontent.com/subsquid-labs/squid-wasm-template/master/abi/erc20.json).
 
-Download that file to the `abi` folder and install the following two tools from Subsquid SDK:
+Download that file to the `abi` folder and install the following two tools from Squid SDK:
 
 - `@subsquid/ink-abi` -- A performant library for decoding binary ink! contract data.
 - `@subsquid/ink-typegen` -- A tool for making TypeScript modules for handling contract event and call data based on ABIs of contracts.
@@ -126,7 +126,7 @@ The generated `src/abi/erc20.ts` module defines interfaces to represent WASM dat
 
 ## Define the processor object
 
-Subsquid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to [Subsquid Network](/subsquid-network/overview) gateways at chain-specific URLs to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
+Squid SDK provides users with the [`SubstrateBatchProcessor` class](/sdk). Its instances connect to [SQD Network](/subsquid-network/overview) gateways at chain-specific URLs to get chain data and apply custom transformations. The indexing begins at the starting block and keeps up with new blocks after reaching the tip.
 
 `SubstrateBatchProcessor`s [exposes methods](/sdk/reference/processors/substrate-batch) to "subscribe" them to specific data such as Substrate events, extrinsics, storage items etc. The `Contracts` pallet emits `ContractEmitted` events wrapping the logs emitted by the WASM contracts. Processor [allows one](/sdk/resources/substrate/ink) to subscribe to such events emitted by a specific contract.
 
@@ -190,7 +190,7 @@ export type ProcessorContext<Store> = DataHandlerContext<Store, Fields>
 
 ## Define the batch handler
 
-Once requested, the events can be processed by calling the `.run()` function that starts generating requests to Subsquid Network for [*batches*](/sdk/resources/batch-processing) of data.
+Once requested, the events can be processed by calling the `.run()` function that starts generating requests to SQD Network for [*batches*](/sdk/resources/batch-processing) of data.
 
 Every time a batch is returned by the Network, it will trigger the callback function, or *batch handler* (passed to `.run()` as second argument). It is in this callback function that all the mapping logic is expressed. This is where chain data decoding should be implemented, and where the code to save processed data on the database should be defined.
 

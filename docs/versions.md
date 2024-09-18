@@ -6,7 +6,7 @@ sidebar_class_name: hidden
 
 ## Current
 
-Restructured [documentation](/) covering Subsquid Network, Squid SDK and Subsquid Cloud as separate products. All older versions have been removed.
+Restructured [documentation](/) covering SQD Network, Squid SDK and SQD Cloud as separate products. All older versions have been removed.
 
 If you came here looking for information on migrating from the old FireSquid SDK release, here are the guides:
  - [EVM guide](/sdk/resources/migrate/migrate-to-arrowsquid)

@@ -9,11 +9,11 @@ sidebar_position: 25
 
 ## Objective
 
-This tutorial describes how to use the Subsquid indexing framework for saving processed blockchain data to local CSV files. The intent is to show how Subsquid SDK can be used for data analytics prototyping.
+This tutorial describes how to use the SQD indexing framework for saving processed blockchain data to local CSV files. The intent is to show how Squid SDK can be used for data analytics prototyping.
 
-File-based data formats like CSV are convenient for data analysis, especially in the early prototyping stages. This convenience motivated Subsquid Team to develop some extensions to allow saving processed data to file-based storage.
+File-based data formats like CSV are convenient for data analysis, especially in the early prototyping stages. This convenience motivated SQD Team to develop some extensions to allow saving processed data to file-based storage.
 
-We chose MATIC transactions on Ethereum mainnet for this example. This selection provides enough data to highlight the performance of the Subsquid framework and is interesting from a data analysis standpoint.
+We chose MATIC transactions on Ethereum mainnet for this example. This selection provides enough data to highlight the performance of the SQD framework and is interesting from a data analysis standpoint.
 
 An article about this demo project [has been published on Medium](https://link.medium.com/1NPC1S2czxb). The project source code can be found in the [`local-csv-indexing` repository](https://github.com/subsquid-labs/local-csv-indexing).
 
@@ -25,12 +25,12 @@ As of 2023-12-17, the `local-csv-indexing` repo is mostly still sound, but alrea
 
 ## Pre-requisites
 
-- [Subsquid CLI](/squid-cli/installation)
+- [Squid CLI](/squid-cli/installation)
 - (optional) Python
 
 ## Setup
 
-Let's start by creating a new blockchain indexer, or "squid" in Subsquid terminology. In a terminal, launch this command:
+Let's start by creating a new blockchain indexer, or "squid" in SQD terminology. In a terminal, launch this command:
 
 ```bash
 sqd init local-csv-indexing -t evm
@@ -50,7 +50,7 @@ To be able to index transfers of a token, it's necessary to know the address and
 
 Luckily, both of these can be found on block explorers like [Etherscan](https://medium.com/r/?url=https%3A%2F%2Fetherscan.io%2Ftoken%2F0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0).
 
-The indexer needs the ABI for locating the contract events or functions in the EVM execution trace and decoding their inputs. Subsquid SDK has a handy command to generate some boilerplate TypeScript code to achieve this:
+The indexer needs the ABI for locating the contract events or functions in the EVM execution trace and decoding their inputs. Squid SDK has a handy command to generate some boilerplate TypeScript code to achieve this:
 
 ```bash
 npx squid-evm-typegen src/abi 0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0#matic
@@ -203,6 +203,6 @@ If you want to learn how to analyze this data using Python and Pandas, refer to 
 
 [//]: # (!!!! Update the benchmark figure)
 
-The purpose of this project was to demonstrate how to use Subsquid's indexing framework for data analytics prototyping: the indexer was able to ingest all this data, process it, and dump it to local CSV files in roughly 20 minutes (figure out of date). The simple Python script in the project's repository shows how to read multiple CSV files, and perform some data analysis with Pandas.
+The purpose of this project was to demonstrate how to use SQD's indexing framework for data analytics prototyping: the indexer was able to ingest all this data, process it, and dump it to local CSV files in roughly 20 minutes (figure out of date). The simple Python script in the project's repository shows how to read multiple CSV files, and perform some data analysis with Pandas.
 
-Subsquid Team seeks feedback on this new tool. If you want to share any thoughts or have any suggestions, feel free to reach out to us at [the SquidDevs Telegram channel](https://t.me/HydraDevs).
+SQD Team seeks feedback on this new tool. If you want to share any thoughts or have any suggestions, feel free to reach out to us at [the SquidDevs Telegram channel](https://t.me/HydraDevs).

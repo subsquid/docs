@@ -6,7 +6,7 @@ description: Delegate your tokens to workers
 
 # Delegate
 
-The easiest way to participate in Subsquid Network is to delegate your `SQD` tokens to one of the workers. Here's how to do it.
+The easiest way to participate in SQD Network is to delegate your `SQD` tokens to one of the workers. Here's how to do it.
 
 1. Go to [network.subsquid.io](https://network.subsquid.io).
 

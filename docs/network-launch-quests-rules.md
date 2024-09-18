@@ -4,13 +4,13 @@ sidebar_class_name: hidden
 
 # Rules
 
-**Subsquid Testnet App Rules & Motivation**
+**SQD Testnet App Rules & Motivation**
 
-**Introduction:** Welcome to the initial phase of the Subsquid testnet. As we embark on this journey, it's essential to understand that this is a testing phase. There might be occasional downtimes or outages. These challenges are crucial for us, as they will guide our efforts to strengthen the decentralized network, ensuring its robustness and resilience.
+**Introduction:** Welcome to the initial phase of the SQD testnet. As we embark on this journey, it's essential to understand that this is a testing phase. There might be occasional downtimes or outages. These challenges are crucial for us, as they will guide our efforts to strengthen the decentralized network, ensuring its robustness and resilience.
 
 **Our Motivation:**
-1. **Reliability Assessment:** We aim to evaluate the reliability and resilience of the Subsquid network, especially under significant load.
-2. **Cybersecurity Evaluation:** It's crucial to test the Subsquid network's resilience against potential cybersecurity threats.
+1. **Reliability Assessment:** We aim to evaluate the reliability and resilience of the SQD network, especially under significant load.
+2. **Cybersecurity Evaluation:** It's crucial to test the SQD network's resilience against potential cybersecurity threats.
 3. **Community Engagement:** We want to recognize our most active and loyal testnet participants.
 4. **Developer Collaboration:** This testnet will help us identify highly engaged developers, opening doors for potential future collaborations.
 
@@ -21,7 +21,7 @@ sidebar_class_name: hidden
     - These quests revolve around social media activities. Examples include linking accounts from platforms like Twitter, Discord, and GitHub.
     - Stay alert! New quests will be introduced throughout the test period. Regularly visit the quest page to stay updated.
 2. **Tech Quests:**
-    - Tech quests involve deploying squids on local machines and generating a specific number of queries directed at the Subsquid testnet.
+    - Tech quests involve deploying squids on local machines and generating a specific number of queries directed at the SQD testnet.
     - Follow the provided instructions and monitor your query progress directly on the quest page.
 3. **Special Quests:**
     - These quests are for those with a deep understanding of blockchain indexing.

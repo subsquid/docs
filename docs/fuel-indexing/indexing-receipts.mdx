@@ -1,7 +1,7 @@
 ---
 title: "Indexing Fuel Network Data"
 description: >-
-  Indexing Fuel Network data with Subsquid SDK.
+  Indexing Fuel Network data with Squid SDK.
 sidebar_position: 10
 ---
 
@@ -44,13 +44,13 @@ const dataSource = new DataSourceBuilder()
 ```
 
 Here,
-* `https://v2.archive.subsquid.io/network/fuel-testnet` is the address for the public Subsquid Network gateway for Fuel testnet. Check out [Subsquid Networks reference pages](/subsquid-network/reference) for lists of public gateways for all supported networks.
+* `https://v2.archive.subsquid.io/network/fuel-testnet` is the address for the public SQD Network gateway for Fuel testnet. Check out [SQD Networks reference pages](/subsquid-network/reference) for lists of public gateways for all supported networks.
 * The argument of [`addReceipt()`](/fuel-indexing/fuel-datasource/receipts) is a set of filters that tells the processor to retrieve all receipts of type `LOG`.
 * The argument of [`setFields()`](/fuel-indexing/fuel-datasource/field-selection) specifies the exact fields we need for every data item type. In this case we request `contract` and `receiptType` for receipt data items.
 
 See also [`FuelDataSource` reference](/fuel-indexing/fuel-datasource) and the comments in `main.ts` of the `fuel-example` repo.
 
-With a data source it becomes possible to retrieve filtered blockchain data from [Subsquid Network](/subsquid-network/overview), transform it and save the result to a destination of choice.
+With a data source it becomes possible to retrieve filtered blockchain data from [SQD Network](/subsquid-network/overview), transform it and save the result to a destination of choice.
 ## Decoding the event data
 
 The other part the squid processor (the ingester process of the indexer) is the callback function used to process batches of the filtered data, the [batch handler](/sdk/reference/processors/architecture/#processorrun). In Fuel Squid SDK it is typically defined within a `run()` call, like this:

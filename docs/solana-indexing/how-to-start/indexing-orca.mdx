@@ -22,7 +22,7 @@ npm ci
 
 ## Interfacing with the Whirlpool program
 
-First, we inspect the data available for indexing. In Solana, most programs use the [Anchor framework](https://www.anchor-lang.com/). Anchor makes the metadata describing the shape of the instructions, transactions and contract variables available as an [Interface Definition Language](https://www.quicknode.com/guides/solana-development/anchor/what-is-an-idl) (IDL) JSON file. For many popular programs (including Whirlpool) IDL files are published on-chain. Subsquid provides a [tool](/solana-indexing/sdk/typegen) for retrieving program IDLs and generating boilerplate ABI code for data decoding. This can be done with
+First, we inspect the data available for indexing. In Solana, most programs use the [Anchor framework](https://www.anchor-lang.com/). Anchor makes the metadata describing the shape of the instructions, transactions and contract variables available as an [Interface Definition Language](https://www.quicknode.com/guides/solana-development/anchor/what-is-an-idl) (IDL) JSON file. For many popular programs (including Whirlpool) IDL files are published on-chain. SQD provides a [tool](/solana-indexing/sdk/typegen) for retrieving program IDLs and generating boilerplate ABI code for data decoding. This can be done with
 
 ```bash
 npx squid-solana-typegen src/abi whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc#whirlpool
@@ -75,7 +75,7 @@ import * as whirlpool from './abi/whirpool'
 import {Exchange} from './model'
 
 const dataSource = new DataSourceBuilder()
-  // Provide Subsquid Network Gateway URL.
+  // Provide SQD Network Gateway URL.
   .setGateway('https://v2.archive.subsquid.io/network/solana-mainnet')
   .setRpc(process.env.SOLANA_NODE == null ? undefined : {
     client: new SolanaRpcClient({
@@ -132,15 +132,15 @@ const dataSource = new DataSourceBuilder()
 ```
 
 Here,
-* `'https://v2.archive.subsquid.io/network/solana-mainnet'` is the address for the public Subsquid Network gateway for Solana mainnet. The only other Solana-compatible dataset currently available is Eclipse Testnet, with the gateway at `'https://v2.archive.subsquid.io/network/eclipse-testnet'`. Many other networks are available on EVM and Substrate - see [Subsquid Networks reference pages](/subsquid-network/reference).
-* `'process.env.SOLANA_NODE'` is an environment variable pointing at a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within Subsquid Network.
-* `240_000_000` is first Solana block currently indexed by Subsquid.
+* `'https://v2.archive.subsquid.io/network/solana-mainnet'` is the address for the public SQD Network gateway for Solana mainnet. The only other Solana-compatible dataset currently available is Eclipse Testnet, with the gateway at `'https://v2.archive.subsquid.io/network/eclipse-testnet'`. Many other networks are available on EVM and Substrate - see [SQD Networks reference pages](/subsquid-network/reference).
+* `'process.env.SOLANA_NODE'` is an environment variable pointing at a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within SQD Network.
+* `240_000_000` is first Solana block currently indexed by SQD.
 * The argument of [`addInstruction()`](/solana-indexing/sdk/solana-batch/instructions) is a set of filters that tells the processor to retrieve all data on the swap instruction of the Whirlpool program with discriminator matching the hash of the `<namespace>:<instruction>` of the swap instruction.
 * The argument of [`setFields()`](/solana-indexing/sdk/solana-batch/field-selection) specifies the exact fields we need for every data item type.
 
 See [`SolanaDataSource` reference](/solana-indexing/sdk/solana-batch) for more options.
 
-With a data source it becomes possible to retrieve filtered blockchain data from [Subsquid Network](/subsquid-network/overview), transform it and save the result to a destination of choice.
+With a data source it becomes possible to retrieve filtered blockchain data from [SQD Network](/subsquid-network/overview), transform it and save the result to a destination of choice.
 ## Decoding the event data
 
 The other part the squid processor (the ingester process of the indexer) is the callback function used to process batches of the filtered data, the [batch handler](/sdk/reference/processors/architecture/#processorrun). In Solana Squid SDK it is typically defined within a `run()` call, like this:
