@@ -66,7 +66,7 @@ type RpcDataIngestionSettings = {
 }
 ```
 Here,
- * `disabled`: Explicitly disables data ingestion from an RPC endpoint.
+ * `disabled`: Explicitly disables data ingestion from an RPC endpoint. **RPC endpoint is still required on Substrate because `SubstrateBatchProcessor` relies on it for metadata.** The only effect of this setting is to have the processor stop once it reaches the max SQD Network dataset height.
  * `headPollInterval`: Poll interval for new blocks in milliseconds. Poll mechanism is used to get new blocks via HTTP connections. Default: 5000.
  * `newHeadTimeout`: When ingesting from a websocket, this setting specifies the timeout in milliseconds after which the connection will be reset and subscription re-initiated if no new blocks were received. Default: no timeout.
 
