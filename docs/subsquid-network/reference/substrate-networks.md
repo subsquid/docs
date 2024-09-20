@@ -69,7 +69,6 @@ const processor = new SubstrateBatchProcessor()
 | Kintsugi                    | https://v2.archive.subsquid.io/network/kintsugi               |
 | Kusama                      | https://v2.archive.subsquid.io/network/kusama                 |
 | Litentry                    | https://v2.archive.subsquid.io/network/litentry               |
-| Litmus                      | https://v2.archive.subsquid.io/network/litmus                 |
 | Moonbase                    | https://v2.archive.subsquid.io/network/moonbase-substrate     |
 | Moonbeam                    | https://v2.archive.subsquid.io/network/moonbeam-substrate     |
 | Moonriver                   | https://v2.archive.subsquid.io/network/moonriver-substrate    |
