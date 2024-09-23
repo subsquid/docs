@@ -163,7 +163,7 @@ Transaction {
 
 See the [block headers section](#block-headers) for the definition of `BlockHeader`.
 
-`l1*` fields can only be requested for networks from [this list](/dead). Requesting them for other networks may cause the HTTP 500 responses.
+`l1*` fields can only be requested for networks from [this list](/subsquid-network/reference/networks/#l1-fields-availability). Requesting them for other networks may cause the HTTP 500 responses.
 
 ### State diffs
 
@@ -295,7 +295,7 @@ BlockHeader{
 }
 ```
 
-The `l1BlockNumber` field can only be requested for networks from [this list](/dead). Requesting it for other networks may cause the HTTP 500 responses.
+The `l1BlockNumber` field can only be requested for networks from [this list](/subsquid-network/reference/networks/#l1-fields-availability). Requesting it for other networks may cause the HTTP 500 responses.
 
 ## A complete example
 
