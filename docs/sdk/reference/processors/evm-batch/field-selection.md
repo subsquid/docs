@@ -147,6 +147,14 @@ Transaction {
   type?: number
   status?: number
   sighash: string
+  // limited availability (see below)
+  l1Fee?: bigint
+  l1FeeScalar?: number
+  l1GasPrice?: bigint
+  l1GasUsed?: bigint
+  l1BlobBaseFee?: bigint
+  l1BlobBaseFeeScalar?: number
+  l1BaseFeeScalar?: number
 }
 ```
 `status` field contains the value returned by [`eth_getTransactionReceipt`](https://geth.ethereum.org/docs/interacting-with-geth/rpc/batch): `1` for successful transactions, `0` for failed ones and `undefined` for chains and block ranges not compliant with the post-Byzantinum hard fork EVM specification (e.g. 0-4,369,999 on Ethereum).
@@ -154,6 +162,8 @@ Transaction {
 `type` field is populated similarly. For example, on Ethereum `0` is returned for Legacy txs, `1` for EIP-2930 and `2` for EIP-1559. Other networks may have a different set of types.
 
 See the [block headers section](#block-headers) for the definition of `BlockHeader`.
+
+`l1*` fields can only be requested for networks from [this list](/dead). Requesting them for other networks may cause the HTTP 500 responses.
 
 ### State diffs
 
@@ -194,8 +204,6 @@ processor.setFields({
 })
 ```
 The full `Trace` type with all its possible (sub)fields looks like this:
-
-[//]: # (???? extra attention to any interface changes here)
 
 ```ts
 Trace {
@@ -282,8 +290,12 @@ BlockHeader{
   gasLimit: bigint
   gasUsed: bigint
   baseFeePerGas?: bigint
+  // limited availability (see below)
+  l1BlockNumber: number
 }
 ```
+
+The `l1BlockNumber` field can only be requested for networks from [this list](/dead). Requesting it for other networks may cause the HTTP 500 responses.
 
 ## A complete example
 
