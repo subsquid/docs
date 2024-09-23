@@ -120,7 +120,7 @@ While the set of handler subscriptions is static and defined at the processor cr
 
 ## Caveats
 
-* If your use case does not require any Substrate-specific data (e.g. extrinsic hashes), use [`EvmBatchProcessor`](/sdk/reference/processors/evm-batch) instead. EVM-only SQD Network gateways are [available](/subsquid-network/reference/evm-networks) for all major EVM-on-Substrate chains.
+* If your use case does not require any Substrate-specific data (e.g. extrinsic hashes), use [`EvmBatchProcessor`](/sdk/reference/processors/evm-batch) instead. EVM-only SQD Network gateways are [available](/subsquid-network/reference/networks/#evm--ethereum-compatible) for all major EVM-on-Substrate chains.
 
 * Passing `[]` as a set of parameter values _selects no data_. Pass `undefined` for a wildcard selection:
   ```typescript 

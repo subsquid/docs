@@ -28,7 +28,7 @@ Suppose you want to retrieve an output of some [query](#worker-api) on a block r
 
 7. Repeat steps 3-6 until all the required data is retrieved.
 
-Main URLs of EVM gateways are available on the [Supported networks page](/subsquid-network/reference/evm-networks).
+URLs of public EVM gateways are available on the [Supported networks page](/subsquid-network/reference/networks/#evm--ethereum-compatible).
 
 Implementation examples:
 
@@ -36,7 +36,7 @@ Implementation examples:
 
 <summary>Manual fetch with cURL</summary>
 
-Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` from block 16_000_000. We begin by finding the main URL for the Ethereum Mainnet gateway on the [Supported networks page](/subsquid-network/reference/evm-networks). Then we have to:
+Suppose we want data on Ethereum txs to `vitalik.eth`/`0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` from block 16_000_000. We begin by finding the main URL for the Ethereum Mainnet gateway on the [Supported networks page](/subsquid-network/reference/networks/#evm--ethereum-compatible). Then we have to:
 
 1. Verify that the dataset has reached the required height:
 

@@ -105,7 +105,7 @@ The plugin supports the following [low-level queries](https://docs.apeworx.io/ap
 
 * [`BlockQuery`](https://docs.apeworx.io/ape/stable/methoddocs/api.html#ape.api.query.BlockQuery)
 * [`ContractEventQuery`](https://docs.apeworx.io/ape/stable/methoddocs/api.html#ape.api.query.ContractEventQuery)
-* [`ContractCreationQuery`](https://docs.apeworx.io/ape/stable/methoddocs/api.html#ape.api.query.ContractCreationQuery) (only for [networks with traces support](/subsquid-network/reference/evm-networks))
+* [`ContractCreationQuery`](https://docs.apeworx.io/ape/stable/methoddocs/api.html#ape.api.query.ContractCreationQuery) (only for [networks with traces support](/subsquid-network/reference/networks/#evm--ethereum-compatible))
 * [`AccountTransactionQuery`](https://docs.apeworx.io/ape/stable/methoddocs/api.html#ape.api.query.AccountTransactionQuery)
 
 The following queries are **NOT** supported:

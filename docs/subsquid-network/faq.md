@@ -55,7 +55,7 @@ Historical blockchain data optimized for batch access. Network API is used by Sq
 
 ### What chains are currently supported by SQD’s decentralized data lake and SDK?
 
-SQD Network currently supports EVM ([full list](/subsquid-network/reference/evm-networks/)), Substrate-based chains ([full list](/subsquid-network/reference/substrate-networks/)), [Solana](/solana-indexing/), [Fuel](/fuel-indexing/), [Starknet](/subsquid-network/reference/starknet-api/) and Tron (in beta). More ecosystems will be integrated in the near future -- feel free to request in [SquidDevs](https://t.me/HydraDevs). 
+SQD Network currently supports EVM / Ethereum-compatible chains, Substrate-based chains, Solana, Fuel and Starknet ([full list](/subsquid-network/reference/networks)). More ecosystems will be integrated in the near future -- feel free to request in [SquidDevs](https://t.me/HydraDevs).
 
 ### How can I add a new chain to be indexed by SQD Network?
 

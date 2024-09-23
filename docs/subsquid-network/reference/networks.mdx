@@ -1,8 +1,8 @@
 ---
 sidebar_position: 10
 description: >-
-  Public EVM gateways
-title: EVM networks
+  Datasets for various blockchains
+title: Public gateways
 ---
 
 export const FromBlockTooltip = ({children, tip}) => (
@@ -36,16 +36,17 @@ export const ExceptOnBlocksTooltip = ({children, gapStart, gapEnd}) => (
   </div>
 )
 
-# EVM gateways
+# Public gateways
 
-## From the open private network
+## EVM / Ethereum-compatible
 
-This page lists the public EVM gateways available from the [open private network](/subsquid-network/overview/#open-private-network). If you are developing a squid, supply the gateway URL of your network to [`setGateway()`](/sdk/reference/processors/evm-batch/general/#set-gateway) `EvmBatchProcessor` configuration method, for example:
+This section lists public EVM gateways available from the [open private network](/subsquid-network/overview/#open-private-network). If you are developing a squid, supply the gateway URL of your network to [`setGateway()`](/sdk/reference/processors/evm-batch/general/#set-gateway) `EvmBatchProcessor` configuration method, for example:
 
 ```ts
 const processor = new EvmBatchProcessor()
   .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
 ```
+See [EVM API](/subsquid-network/reference/evm-api) if you're looking to interface with one of these gateways directly.
 
 | Network                        | Chain ID    | State diffs                                            | Traces                                                                                 | Gateway URL                                                          |
 |:------------------------------:|:-----------:|:------------------------------------------------------:|:--------------------------------------------------------------------------------------:|:--------------------------------------------------------------------:|
@@ -145,8 +146,159 @@ const processor = new EvmBatchProcessor()
 | Zora                           | 7777777     | ✓                                                      | ✓                                                                                      | https://v2.archive.subsquid.io/network/zora-mainnet                  |
 | Zora Sepolia                   | 999999999   |                                                        |                                                                                        | https://v2.archive.subsquid.io/network/zora-sepolia                  |
 
-(*) Only for EVM data. For Substrate/ink! data use the corresponding [Substrate gateway](/subsquid-network/reference/substrate-networks).
+(*) Only for EVM data. For Substrate and ink! data use the corresponding [Substrate gateway](#substrate-based).
 
 (!) Genesis block for Bitfinity Testnet is 2760000.
 
 (!!) Genesis block for Neon EVM Devnet is 177455580.
+
+### L1 fields availability
+
+[Extra information](/dead) about L1 consequences of transactions is available for select Layer 2 EVM networks:
+ - Optimism Sepolia
+ - Base
+ - Base Sepolia
+ - Zora
+ - Zora Sepolia
+ - Scroll (`l1Fee` only)
+ - Scroll Sepolia (`l1Fee` only)
+
+## Substrate-based
+
+This section lists public Substrate gateways of the [open private network](/subsquid-network/overview/#open-private-network). Gateway URLs should be used with the [`setGateway()`](/sdk/reference/processors/substrate-batch/general/#set-gateway) `SubstrateBatchProcessor` configuration method, for example:
+
+```typescript
+const processor = new SubstrateBatchProcessor()
+  .setGateway('https://v2.archive.subsquid.io/network/phala')
+  .setRpcEndpoint('https://api.phala.network/rpc') // required on Substrate
+```
+See [Substate API](/subsquid-network/reference/substrate-api) if you're looking to interface with one of these gateways directly.
+
+| Network                     | Gateway URL                                                   |
+|:---------------------------:|:-------------------------------------------------------------:|
+| Acala                       | https://v2.archive.subsquid.io/network/acala                  |
+| Acurast Canary              | https://v2.archive.subsquid.io/network/acurast-canary         |
+| Agung                       | https://v2.archive.subsquid.io/network/agung                  |
+| Aleph Zero                  | https://v2.archive.subsquid.io/network/aleph-zero             |
+| Aleph Zero Testnet          | https://v2.archive.subsquid.io/network/aleph-zero-testnet     |
+| Amplitude                   | https://v2.archive.subsquid.io/network/amplitude              |
+| Asset Hub Kusama (*)        | https://v2.archive.subsquid.io/network/asset-hub-kusama       |
+| Asset Hub Polkadot (*)      | https://v2.archive.subsquid.io/network/asset-hub-polkadot     |
+| Asset Hub Rococo            | https://v2.archive.subsquid.io/network/asset-hub-rococo       |
+| Astar                       | https://v2.archive.subsquid.io/network/astar-substrate        |
+| Avail Mainnet (**)          | https://v2.archive.subsquid.io/network/avail                  |
+| Basilisk                    | https://v2.archive.subsquid.io/network/basilisk               |
+| Bifrost Kusama              | https://v2.archive.subsquid.io/network/bifrost-kusama         |
+| Bifrost Polkadot            | https://v2.archive.subsquid.io/network/bifrost-polkadot       |
+| Bittensor                   | https://v2.archive.subsquid.io/network/bittensor              |
+| Bittensor Testnet           | https://v2.archive.subsquid.io/network/bittensor-testnet      |
+| Bridge Hub Kusama           | https://v2.archive.subsquid.io/network/bridge-hub-kusama      |
+| Bridge Hub Polkadot         | https://v2.archive.subsquid.io/network/bridge-hub-polkadot    |
+| Bridge Hub Rococo           | https://v2.archive.subsquid.io/network/bridge-hub-rococo      |
+| Bridge Hub Westend          | https://v2.archive.subsquid.io/network/bridge-hub-westend     |
+| Centrifuge                  | https://v2.archive.subsquid.io/network/centrifuge             |
+| Cere                        | https://v2.archive.subsquid.io/network/cere                   |
+| Chainfliip                  | https://v2.archive.subsquid.io/network/chainflip              |
+| Clover                      | https://v2.archive.subsquid.io/network/clover                 |
+| Collectives Polkadot        | https://v2.archive.subsquid.io/network/collectives-polkadot   |
+| Collectives Westend         | https://v2.archive.subsquid.io/network/collectives-westend    |
+| Darwinia Crab               | https://v2.archive.subsquid.io/network/darwinia-crab          |
+| Crust                       | https://v2.archive.subsquid.io/network/crust                  |
+| Dancebox                    | https://v2.archive.subsquid.io/network/dancebox               |
+| Darwinia                    | https://v2.archive.subsquid.io/network/darwinia               |
+| Data Avail (Avail Goldberg) | https://v2.archive.subsquid.io/network/data-avail             |
+| Eden                        | https://v2.archive.subsquid.io/network/eden                   |
+| Enjin Canary Matrix         | https://v2.archive.subsquid.io/network/enjin-canary-matrix    |
+| Enjin Matrix                | https://v2.archive.subsquid.io/network/enjin-matrix           |
+| Equilibrium                 | https://v2.archive.subsquid.io/network/equilibrium            |
+| Foucoco                     | https://v2.archive.subsquid.io/network/foucoco                |
+| Frequency                   | https://v2.archive.subsquid.io/network/frequency              |
+| Gemini 3h                   | https://v2.archive.subsquid.io/network/gemini-3h              |
+| HydraDX                     | https://v2.archive.subsquid.io/network/hydradx                |
+| Integritee Network          | https://v2.archive.subsquid.io/network/integritee             |
+| Interlay                    | https://v2.archive.subsquid.io/network/interlay               |
+| Invarch Parachain           | https://v2.archive.subsquid.io/network/invarch-parachain      |
+| Invarch Tinkernet           | https://v2.archive.subsquid.io/network/invarch-tinkernet      |
+| Joystream                   | https://v2.archive.subsquid.io/network/joystream              |
+| Karura                      | https://v2.archive.subsquid.io/network/karura                 |
+| Khala                       | https://v2.archive.subsquid.io/network/khala                  |
+| Kilt                        | https://v2.archive.subsquid.io/network/kilt                   |
+| Kintsugi                    | https://v2.archive.subsquid.io/network/kintsugi               |
+| Kusama                      | https://v2.archive.subsquid.io/network/kusama                 |
+| Litentry                    | https://v2.archive.subsquid.io/network/litentry               |
+| Moonbase                    | https://v2.archive.subsquid.io/network/moonbase-substrate     |
+| Moonbeam                    | https://v2.archive.subsquid.io/network/moonbeam-substrate     |
+| Moonriver                   | https://v2.archive.subsquid.io/network/moonriver-substrate    |
+| Paseo                       | https://v2.archive.subsquid.io/network/paseo                  |
+| Peaq                        | https://v2.archive.subsquid.io/network/peaq-mainnet-substrate |
+| Pendulum                    | https://v2.archive.subsquid.io/network/pendulum               |
+| Phala                       | https://v2.archive.subsquid.io/network/phala                  |
+| Phala Testnet               | https://v2.archive.subsquid.io/network/phala-testnet          |
+| Picasso                     | https://v2.archive.subsquid.io/network/picasso                |
+| Polimec                     | https://v2.archive.subsquid.io/network/polimec                |
+| Polkadex                    | https://v2.archive.subsquid.io/network/polkadex               |
+| Polkadot                    | https://v2.archive.subsquid.io/network/polkadot               |
+| Polymesh                    | https://v2.archive.subsquid.io/network/polymesh               |
+| Reef                        | https://v2.archive.subsquid.io/network/reef                   |
+| Reef Testnet                | https://v2.archive.subsquid.io/network/reef-testnet           |
+| Robonomics                  | https://v2.archive.subsquid.io/network/robonomics             |
+| Rococo                      | https://v2.archive.subsquid.io/network/rococo                 |
+| Rolimec                     | https://v2.archive.subsquid.io/network/rolimec                |
+| Shibuya                     | https://v2.archive.subsquid.io/network/shibuya-substrate      |
+| Shiden                      | https://v2.archive.subsquid.io/network/shiden-substrate       |
+| Sora                        | https://v2.archive.subsquid.io/network/sora-mainnet           |
+| Subsocial Parachain         | https://v2.archive.subsquid.io/network/subsocial-parachain    |
+| Ternoa                      | https://v2.archive.subsquid.io/network/ternoa                 |
+| Turing                      | https://v2.archive.subsquid.io/network/turing-mainnet         |
+| Turing Avail                | https://v2.archive.subsquid.io/network/turing-avail           |
+| Vara                        | https://v2.archive.subsquid.io/network/vara                   |
+| Vara Testnet                | https://v2.archive.subsquid.io/network/vara-testnet           |
+| Westend                     | https://v2.archive.subsquid.io/network/westend                |
+| Zeitgeist                   | https://v2.archive.subsquid.io/network/zeitgeist              |
+| Zeitgeist Testnet           | https://v2.archive.subsquid.io/network/zeitgeist-testnet      |
+
+(*) Asset Hub networks for Polkadot and Kusama were formerly known as Statemint and Statemine, respectively
+
+(**) The Avail Mainnet dataset starts at block 1
+
+## Solana and compatibles
+
+This section lists public gateways of the [open private network](/subsquid-network/overview/#open-private-network) that serve data of Solana and compatible networks. Gateway URLs should be used with the [`setGateway()`](/solana-indexing/sdk/solana-batch/general/#set-gateway) `SolanaDataSource` configuration method, for example:
+
+```typescript
+const dataSource = new SolanaDataSource()
+  .setGateway('https://v2.archive.subsquid.io/network/solana-mainnet')
+```
+Read more about Solana indexing in the [dedicated section](/solana-indexing).
+
+See [Solana API](/solana-indexing/network-api/solana-api) if you're looking to interface with one of these gateways directly.
+
+| Network                     | Gateway URL                                                   |
+|:---------------------------:|:-------------------------------------------------------------:|
+| Solana (*)                  | https://v2.archive.subsquid.io/network/solana-mainnet         |
+| Eclipse Testnet             | https://v2.archive.subsquid.io/network/eclipse-testnet        |
+
+(*) Solana data is available starting from block (_not slot!_) 240000000.
+
+## Fuel
+
+SQD's [open private network](/subsquid-network/overview/#open-private-network) serves Fuel Network data via the following gateway:
+```
+https://v2.archive.subsquid.io/network/fuel-testnet
+```
+Gateway URL should be used with the [`setGateway()`](/fuel-indexing/fuel-datasource/general/#set-gateway) `FuelDataSource` configuration method:
+```typescript
+const dataSource = new FuelDataSource()
+  .setGateway('https://v2.archive.subsquid.io/network/fuel-testnet')
+```
+Read more about Fuel indexing in the [dedicated section](/fuel-indexing).
+
+See [Fuel API](/fuel-indexing/network-api/fuel-api) if you're looking to interface with the Fuel gateway directly.
+
+## Starknet
+
+SQD's [open private network](/subsquid-network/overview/#open-private-network) serves Starknet data via the following gateway:
+```
+https://v2.archive.subsquid.io/network/starknet-mainnet
+```
+See [Starknet API](/solana-indexing/network-api/solana-api) to learn how to interface with it.

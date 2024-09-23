@@ -709,11 +709,11 @@ const urlList = [
     },
     {
         "from": "/evm-indexing/supported-networks",
-        "to": "/subsquid-network/reference/evm-networks"
+        "to": "/subsquid-network/reference/networks"
     },
     {
         "from": "/substrate-indexing/supported-networks",
-        "to": "/subsquid-network/reference/substrate-networks"
+        "to": "/subsquid-network/reference/networks"
     },
     {
         "from": "/evm-indexing/configuration/caveats",

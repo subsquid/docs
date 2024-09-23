@@ -72,7 +72,7 @@ export const processor = new EvmBatchProcessor()
 ```
 
 Here,
-* `'https://v2.archive.subsquid.io/network/ethereum-mainnet'` is the URL the public SQD Network gateway for Ethereum mainnet. Check out [SQD Network reference pages](/subsquid-network/reference) for lists of public gateways for all supported networks.
+* `'https://v2.archive.subsquid.io/network/ethereum-mainnet'` is the URL the public SQD Network gateway for Ethereum mainnet. Check out the exhaustive [SQD Network gateways list](/subsquid-network/reference/networks).
 * `'<eth_rpc_endpoint_url>'` is a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within SQD Network. Please use a private endpoint or SQD Cloud's [RPC addon](/cloud/resources/rpc-proxy) in production.
 * `setFinalityConfirmation(75)` call instructs the processor to consider blocks final after 75 confirmations when ingesting data from an RPC endpoint.
 * `12_287_507` is the block at which the BAYC token contract was deployed. Can be found on the [contract's Etherscan page](https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d).

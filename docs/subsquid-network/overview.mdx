@@ -17,11 +17,7 @@ There are currently two independent instances of SQD Network:
 
 1. A decentralized permissionless network **(testnet)**
 
-2. A permissioned network run by Subsquid Labs GmbH, formerly known as **Subsquid Archives**. It's been
-used by 400+ indexers in production.
-
-   * [Supported EVM networks](/subsquid-network/reference/evm-networks)
-   * [Supported Substrate networks](/subsquid-network/reference/substrate-networks)
+2. A permissioned network run by Subsquid Labs GmbH, formerly known as **Subsquid Archives**. It's been used by 400+ indexers in production. [List of supported networks](/subsquid-network/reference/networks).
 
 Both variants are freely accessible to public using the same [API](/subsquid-network/reference).
 
@@ -37,7 +33,7 @@ You can read more about the testnet [here](/subsquid-network/faq).
 
 SQD's private data lake (formerly known as Archives) is a production-ready fork of early SQD Network that runs on SQD infrastructure. It provides a stand-in for the permissionless SQD Network until it matures; its [API](/subsquid-network/reference) is identical to that of p2p gateways of the public network.
 
-The gateway of this private network is public and free to query. URLs of gateways of supported networks are available via [`sqd gateways ls`](/squid-cli/gateways) and on the [SQD Network reference pages](/subsquid-network/reference).
+The gateway of this private network is public and free to query. URLs of gateways of supported networks are available via [`sqd gateways ls`](/squid-cli/gateways) and from the exhaustive [public gateways list](/subsquid-network/reference/networks).
 
 ```mdx-code-block
 <Tabs>
@@ -55,7 +51,7 @@ const processor = new EvmBatchProcessor()
   .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
 ```
 
-See the [EVM gateways](/subsquid-network/reference/evm-networks/) page.
+See [EVM gateways](/subsquid-network/reference/networks/#evm--ethereum-compatible).
 
 
 ```mdx-code-block
@@ -74,7 +70,7 @@ const processor = new SubstrateBatchProcessor()
   .setGateway('https://v2.archive.subsquid.io/network/phala')
 ```
 
-See the [Substrate gateways](/subsquid-network/reference/substrate-networks/) page.
+See [Substrate gateways](/subsquid-network/reference/networks/#substrate-based).
 
 
 ```mdx-code-block

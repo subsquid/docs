@@ -28,7 +28,7 @@ Suppose you want to retrieve an output of some [query](#worker-api) on a block r
 
 7. Repeat steps 3-6 until all the required data is retrieved.
 
-Main URLs of EVM gateways are available on the [Supported networks page](/subsquid-network/reference/substrate-networks).
+Main URLs of EVM gateways are available on the [Supported networks page](/subsquid-network/reference/networks).
 
 Implementation example:
 

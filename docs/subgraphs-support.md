@@ -35,7 +35,7 @@ The easiest way to run a subgraph with SQD Firehose to use our [graph-node-setup
 
    ![Configuring the environment](subgraphs-support-configuration.gif)
 
-   You will be asked to select a network. You can pick any network from our [supported EVM networks](/subsquid-network/reference/evm-networks); networks that are not currently [supported by TheGraph](https://thegraph.com/docs/en/developing/supported-networks/) will be available their under SQD names.
+   You will be asked to select a network. You can pick any network from our [supported EVM networks](/subsquid-network/reference/networks/#evm--ethereum-compatible); networks that are not currently [supported by TheGraph](https://thegraph.com/docs/en/developing/supported-networks/) will be available their under SQD names.
 
    Optionally you can also provide an RPC endpoint. If you do, it will be used to sync a few thousands of blocks at the chain end, so it does not have to be a paid one. However, `firehose-grpc` does not limit its request rate yet, so using a public RPC might result in a cooldown.
 

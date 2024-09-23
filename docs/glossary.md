@@ -12,13 +12,13 @@ Deprecated term used for [SQD Network](/subsquid-network) and for the data sourc
  - "public Archives" are replaced by the [open private version](/subsquid-network/overview/#open-private-network) of SQD Network
  - "an archive" for a particular network is replaced by "a SQD Network gateway"
 
-Lists of gateways for open private SQD Network are available in these docs ([EVM](/subsquid-network/reference/evm-networks), [Substrate](/subsquid-network/reference/substrate-networks)) and via [`sqd gateways`](/squid-cli/gateways).
+List of gateways for the open private SQD Network is available in [these docs](/subsquid-network/reference/networks) and via [`sqd gateways`](/squid-cli/gateways).
 
 **Not to be confused with [archive blockchain nodes](https://ethereum.org/developers/docs/nodes-and-clients/archive-nodes)**.
 
 ### `archive-registry`
 
-The deprecated NPM package `@subsquid/archive-registry` that was used to look up squid data sources by network aliases (with `lookupArchive()` and a small CLI). We now recommend using raw gateway URLs instead of `lookupArchive()` calls in processor configuration. The exploratory CLI is replaced by [`sqd gateways`](/squid-cli/gateways); lists of available network-specific gateways are also available as [SQD Network reference pages](/subsquid-network/reference).
+The deprecated NPM package `@subsquid/archive-registry` that was used to look up squid data sources by network aliases (with `lookupArchive()` and a small CLI). We now recommend using raw gateway URLs instead of `lookupArchive()` calls in processor configuration. The exploratory CLI is replaced by [`sqd gateways`](/squid-cli/gateways); list of available network-specific gateways is also [available in these docs](/subsquid-network/reference/networks).
 
 ### Block
 

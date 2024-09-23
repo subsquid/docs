@@ -8,7 +8,7 @@ description: A step-by-step migration guide for Substrate
 
 This is a Substrate guide. EVM guide is available [here](/sdk/resources/migrate/migrate-to-arrowsquid).
 
-ArrowSquid refers to `@subsquid/substrate-processor` versions `3.x` and above. It is not compatible with the FireSquid [archive](/glossary/#archives) endpoints. Instead, the new version uses [SQD Network](/subsquid-network) gateways. See the [Supported networks](/subsquid-network/reference/substrate-networks) page.
+ArrowSquid refers to `@subsquid/substrate-processor` versions `3.x` and above. It is not compatible with the FireSquid [archive](/glossary/#archives) endpoints. Instead, the new version uses [SQD Network](/subsquid-network) gateways. See the [Supported networks](/subsquid-network/reference/networks/#substrate-based) page.
 
 The main feature introduced by the ArrowSquid update is the new ability of the [processor](/sdk/overview) to ingest unfinalized blocks directly from a network node, instead of waiting for an archive to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows SQD-based APIs to become near real-time and respond to the on-chain activity with subsecond latency.
 
@@ -36,7 +36,7 @@ If your squid uses [`file-store`](/sdk/resources/persisting-data/file), please u
 
 ## Step 2
 
-Replace the old `setDataSource()` processor configuration call with a combination of [setGateway()](/sdk/reference/processors/substrate-batch/general/#set-gateway) and [setRpcEndpoint()](/sdk/reference/processors/substrate-batch/general/#set-rpc-endpoint). Use a [public SQD Network gateway URL for your network](/subsquid-network/reference/substrate-networks). If your squid did not use an RPC endpoint before, find one for your network and set it with [setRpcEndpoint()](/sdk/reference/processors/substrate-batch/general/#set-rpc-endpoint). For Aleph Zero your edit might look like this:
+Replace the old `setDataSource()` processor configuration call with a combination of [setGateway()](/sdk/reference/processors/substrate-batch/general/#set-gateway) and [setRpcEndpoint()](/sdk/reference/processors/substrate-batch/general/#set-rpc-endpoint). Use a [public SQD Network gateway URL for your network](/subsquid-network/reference/networks/#substrate-based). If your squid did not use an RPC endpoint before, find one for your network and set it with [setRpcEndpoint()](/sdk/reference/processors/substrate-batch/general/#set-rpc-endpoint). For Aleph Zero your edit might look like this:
 ```diff
  processor
 -  .setDataSource({

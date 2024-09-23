@@ -143,7 +143,7 @@ contractMapping.set(astarCatsAddress, new Contract({
 
 The `src/processor.ts` file is where squids instantiate and configure their processor objects. We will use an instance of [`SubstrateBatchProcessor`](/sdk).
 
-We adapt the template code to handle two contracts instead of one and point the processor data source setting to the `astar` [SQD Network gateway URL](/subsquid-network/reference/substrate-networks). Here is the end result:
+We adapt the template code to handle two contracts instead of one and point the processor data source setting to the `astar` [SQD Network gateway URL](/subsquid-network/reference/networks). Here is the end result:
 
 ```ts title="src/processor.ts"
 import {assertNotNull} from '@subsquid/util-internal'

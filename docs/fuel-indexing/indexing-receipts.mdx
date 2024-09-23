@@ -44,7 +44,7 @@ const dataSource = new DataSourceBuilder()
 ```
 
 Here,
-* `https://v2.archive.subsquid.io/network/fuel-testnet` is the address for the public SQD Network gateway for Fuel testnet. Check out [SQD Networks reference pages](/subsquid-network/reference) for lists of public gateways for all supported networks.
+* `https://v2.archive.subsquid.io/network/fuel-testnet` is the address for the public SQD Network gateway for Fuel testnet. Check out the exhaustive [public gateways list](/subsquid-network/reference/networks).
 * The argument of [`addReceipt()`](/fuel-indexing/fuel-datasource/receipts) is a set of filters that tells the processor to retrieve all receipts of type `LOG`.
 * The argument of [`setFields()`](/fuel-indexing/fuel-datasource/field-selection) specifies the exact fields we need for every data item type. In this case we request `contract` and `receiptType` for receipt data items.
 

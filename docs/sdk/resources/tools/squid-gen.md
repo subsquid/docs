@@ -74,7 +74,7 @@ At this point your squid is ready. You can run it on your own infrastructure or 
 
 A valid config for the `squid-gen config` is a YAML file with the following sections:
 
-* **archive** is an endpoint URL of a [SQD Network](/subsquid-network/overview/) gateway. Find an appropriate gateway at the [Supported networks](/subsquid-network/reference/evm-networks/) page or with [`sqd gateways`](/squid-cli/gateways).
+* **archive** is an endpoint URL of a [SQD Network](/subsquid-network/overview/) gateway. Find an appropriate gateway at the [Supported networks](/subsquid-network/reference/networks/#evm--ethereum-compatible) page or with [`sqd gateways`](/squid-cli/gateways).
 
 * **target** section describes how the scraped data should be stored. Set
    ```yaml

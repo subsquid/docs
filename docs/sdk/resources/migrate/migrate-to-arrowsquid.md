@@ -8,7 +8,7 @@ description: A step-by-step migration guide for EVM
 
 This is a EVM guide. Substrate guide is available [here](/sdk/resources/migrate/migrate-to-arrowsquid-on-substrate).
 
-ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`. ArrowSquid is not compatible with the FireSquid [archive](/glossary/#archives) endpoints. Instead, it uses [SQD Network](/subsquid-network) gateways (see the [Supported EVM networks](/subsquid-network/reference/evm-networks/) page).
+ArrowSquid refers to the versions `@subsquid/evm-processor@1.x` and `@subsquid/substrate-processor@3.x`. ArrowSquid is not compatible with the FireSquid [archive](/glossary/#archives) endpoints. Instead, it uses [SQD Network](/subsquid-network) gateways (see the [Supported EVM networks](/subsquid-network/reference/networks/#evm--ethereum-compatible) page).
 
 The main feature introduced by the ArrowSquid update on EVM is the new ability of the [processor](/sdk/overview) to ingest unfinalized blocks directly from a network node, instead of waiting for the archive to ingest and serve it first. The processor can now handle forks and rewrite the contents of its database if it happens to have indexed orphaned blocks. This allows SQD-based APIs to become near real-time and respond to the on-chain activity with subsecond latency.
 
@@ -36,7 +36,7 @@ If your squid uses [`file-store`](/sdk/resources/persisting-data/file), please u
 
 ## Step 2
 
-Replace the old `setDataSource()` processor configuration call with a combination of [setGateway()](/sdk/reference/processors/evm-batch/general/#set-gateway) and [setRpcEndpoint()](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint). Use a [public SQD Network gateway URL for your network](/subsquid-network/reference/evm-networks). If your squid did not use an RPC endpoint before, find one for your network and set it with [setRpcEndpoint()](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint). Also [configure](/sdk/reference/processors/evm-batch/general/#set-finality-confirmation) the network-specific number of transaction confirmations sufficient for finality. For Ethereum mainnet your edit might look like this:
+Replace the old `setDataSource()` processor configuration call with a combination of [setGateway()](/sdk/reference/processors/evm-batch/general/#set-gateway) and [setRpcEndpoint()](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint). Use a [public SQD Network gateway URL for your network](/subsquid-network/reference/networks/#evm--ethereum-compatible). If your squid did not use an RPC endpoint before, find one for your network and set it with [setRpcEndpoint()](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint). Also [configure](/sdk/reference/processors/evm-batch/general/#set-finality-confirmation) the network-specific number of transaction confirmations sufficient for finality. For Ethereum mainnet your edit might look like this:
 ```diff
  processor
 -  .setDataSource({
