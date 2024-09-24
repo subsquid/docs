@@ -716,6 +716,14 @@ const urlList = [
         "to": "/subsquid-network/reference/networks"
     },
     {
+        "from": "/subsquid-network/reference/evm-networks",
+        "to": "/subsquid-network/reference/networks"
+    },
+    {
+        "from": "/subsquid-network/reference/substrate-networks",
+        "to": "/subsquid-network/reference/networks"
+    },
+    {
         "from": "/evm-indexing/configuration/caveats",
         "to": "/sdk/troubleshooting"
     },
