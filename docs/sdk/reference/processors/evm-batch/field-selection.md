@@ -87,8 +87,6 @@ Here we describe the data item types as functions of the field selectors. Unless
 * Fields that can be disabled by `setFields()`. E.g. a `topics` field will be fetched for logs by default, but can be disabled by setting `topics: false` within the `log` field selector.
 * Fields that can be requested by `setFields()`. E.g. a `transactionHash` field will only be available in logs if the `log` field selector sets `transactionHash: true`.
 
-[//]: # (!!!! update with final defaults and capabilities)
-
 ### Logs
 
 `Log` data items may have the following fields:
@@ -163,7 +161,7 @@ Transaction {
 
 See the [block headers section](#block-headers) for the definition of `BlockHeader`.
 
-`l1*` fields can only be requested for networks from [this list](/subsquid-network/reference/networks/#l1-fields-availability). Requesting them for other networks may cause the HTTP 500 responses.
+`l1*` fields can only be requested for networks from [this list](/subsquid-network/reference/networks/#l1-fields-availability). Requesting them for other networks may cause HTTP 500 responses.
 
 ### State diffs
 
@@ -295,7 +293,7 @@ BlockHeader{
 }
 ```
 
-The `l1BlockNumber` field can only be requested for networks from [this list](/subsquid-network/reference/networks/#l1-fields-availability). Requesting it for other networks may cause the HTTP 500 responses.
+The `l1BlockNumber` field can only be requested for networks from [this list](/subsquid-network/reference/networks/#l1-fields-availability). Requesting it for other networks may cause HTTP 500 responses.
 
 ## A complete example
 

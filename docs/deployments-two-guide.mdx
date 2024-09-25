@@ -10,7 +10,7 @@ The new deployments system is built on two new concepts:
 
 * **Slot:** Given a squid name and an [organization](/cloud/resources/organizations), slot name uniquely identifies a squid deployment.
   - If you don't provide a slot name on deployment, Cloud will generate one for you.
-  - Deploying to the same slot twice results in an error.
+  - Deploying to an already occupied slot redeploys (i.e. replaces the code and restarts all services, optionally erasing the database).
 * **Tags:** A way to mark deployments.
   Tags rules:
   - Each tag can be assigned to only one deployment among those that have the same name + organization. Assigning an existing tag _moves_ it.
