@@ -7,7 +7,7 @@ const { urlList } = require('./redirectRules');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Subsquid',
+  title: 'SQD',
   tagline: 'This documentation provides information for all degrees of expertise, varying from complete beginner, to those who only need a refresher on specific commands.',
   url: 'https://docs.sqd.dev/',
   baseUrl: '/',
