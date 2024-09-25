@@ -33,9 +33,6 @@ The main gateway URL for Fuel Testnet is
 ```
 https://v2.archive.subsquid.io/network/fuel-testnet
 ```
-:::tip
-Consult the [Beta 5 page](/fuel-indexing/beta5) for gateway URL and info on differences in data fields if you want data for that network.
-:::
 
 Implementation examples:
 
