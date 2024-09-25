@@ -234,6 +234,30 @@ body code {
     font-size: 15px;
 }
 
+body h1 code {
+    font-size: inherit;
+}
+
+body h2 code {
+    font-size: inherit;
+}
+
+body h3 code {
+    font-size: inherit;
+}
+
+body h4 code {
+    font-size: inherit;
+}
+
+body h5 code {
+    font-size: inherit;
+}
+
+body h6 code {
+    font-size: inherit;
+}
+
 .markdown h1:not(:where(.onboarding-homepage *)) {
     font-family: var(--ifm-heading-font-family);
     font-style: normal;
