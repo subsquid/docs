@@ -13,6 +13,8 @@ Over the last 6 months we've seen hundreds of teams deploy thousands of squids t
 
 [I’ll read the story later, let me see what I can do with it!](/deployments-two-guide/)
 
+<img src="https://github.com/user-attachments/assets/c32acb2f-51be-4047-b817-277eb8fe7eda" width=50% height=100%>
+
 ## Why the change?
 
 When we initially built the original deployment flow versions felt appropriate. A simple number you could increment on each deployment if necessary. This worked well in simple scenarios, but over time this gradually became more difficult to manage for those of you with any kind of deployment complexity.
