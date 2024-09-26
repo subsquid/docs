@@ -11,7 +11,7 @@ Over the last 6 months we've seen hundreds of teams deploy thousands of squids t
 * **Slots:** Forget incrementing a single version number! Versions will be retired and replaced by slots, a customisable identifier for each deployment.
 * **Tags:** Remembering which squid is which just got a lot easier! Now you can create and assign multiple custom tags to any deployment. As a result we'll be retiring the [Production alias](/cloud/resources/production-alias) feature. Now tags act as aliases, making it possible to create, identify and consume endpoints.
 
-[I’ll read the story later, let me see the change log!](/deployments-two-changelog/#before-vs-after)
+[I’ll read the story later, let me see what I can do with it!](/deployments-two-guide/)
 
 ## Why the change?
 
@@ -66,6 +66,10 @@ The tagging system can be used for any custom workflow that your team needs. We 
 
 ## FAQs
 
+#### Do I need to redeploy anything?
+
+No.
+
 #### We really like versions, they work well for us, do we need to change our workflow?
 
 No, you don't need to change your workflow at all! Your version will be migrated into the new slot field, and slots are a just an arbitrary string between 2 and 6 characters in length. Our goal was to expand functionality rather than remove it.
@@ -97,6 +101,8 @@ The upgrades are available in Preview today. To make use of them you will need t
 3. Try breaking all the new features!
 
 #### Where can I learn more about these updates?
+
+Learn how to use these new features [here](/deployments-two-guide/).
 
 To read about the indepth details of the changes please head [here](/deployments-two-changelog).
 
