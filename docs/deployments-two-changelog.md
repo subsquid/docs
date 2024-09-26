@@ -107,12 +107,6 @@ sqd --version
 
 ## FAQ
 
-#### Why use tags?
-
-Tags create URLs that persist across deployments. Reassign tags to switch between API versions with zero downtime.
-
-You can have multiple tags per squid name. This aids in organizing your deployments and in collaborative development.
-
 #### How can I add a tag to my already existing squid?
 
 Use the `sqd tags add` command:
@@ -148,4 +142,4 @@ See [Backwards compatibility](#backwards-compatibility) for details.
 
 ## Why did you make these changes?
 
-[Take a look at release notes.](/deployments-two-release-notes)
+[Take a look at the release notes.](/deployments-two-release-notes)
