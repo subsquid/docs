@@ -68,7 +68,7 @@ The tagging system can be used for any custom workflow that your team needs. We 
 
 #### Do I need to redeploy anything?
 
-No.
+No. But we suggest you take a look at the [Backwards compatibility](/deployments-two-changelog/#backwards-compatibility) section in our changelog.
 
 #### We really like versions, they work well for us, do we need to change our workflow?
 
