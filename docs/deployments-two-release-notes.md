@@ -104,8 +104,6 @@ The upgrades are available in Preview today. To make use of them you will need t
 
 #### Where can I learn more about these updates?
 
-Learn how to use these new features [here](/deployments-two-guide/).
-
-To read about the indepth details of the changes please head [here](/deployments-two-changelog).
+Learn how to use these new features [here](/deployments-two-guide/). To read about the indepth details of the changes please head [here](/deployments-two-changelog).
 
 We'd love to hear your feedback on these changes. Tag us on twitter [@helloSQD](https://x.com/helloSQD) or come talk to us in [Telegram](https://t.me/HydraDevs).
