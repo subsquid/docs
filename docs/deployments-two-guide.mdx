@@ -8,7 +8,7 @@ You've probably read the SQD Cloud Deployments 2.0 [Release Notes](/deployments-
 
 The new deployments system is built on two new concepts:
 
-* **Slot:** Given a squid name and an [organization](/cloud/resources/organizations), slot name uniquely identifies a squid deployment.
+* **Slots:** Given a squid name and an [organization](/cloud/resources/organizations), slot name uniquely identifies a squid deployment.
   - Slots directly replace versions from the old workflow. Unlike versions, they are identified by short strings, not numbers.
   - You can specify a slot on deployment or omit it. In the latter case the Cloud will create a new slot with a random identifier.
   - Deploying to an already occupied slot will result in updating the initial deployment.
