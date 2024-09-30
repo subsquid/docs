@@ -4,7 +4,7 @@ sidebar_class_name: hidden
 
 # Deployments 2.0 - Сhangelog
 
-Take a look at the [release notes](/deployments-two-release-notes) to better understand the motivation behind these changed, or at the [guide](/deployments-two-guide) to learn about some possible real-world workflows.
+Take a look at the [release notes](/deployments-two-release-notes) to better understand the motivation behind these changes, or at the [guide](/deployments-two-guide) to learn about some possible real-world workflows.
 
 ## Concepts
 
