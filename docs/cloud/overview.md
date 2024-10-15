@@ -125,6 +125,8 @@ scale:
     replicas: 3
 ```
 
+This approach works if you use [OpenReader](/sdk/resources/serving-graphql/#openreader) (the default in most current examples) or [PostGraphile](/sdk/resources/serving-graphql/#postgraphile). If your squid uses a dedicated [Hasura instance](/sdk/resources/serving-graphql/#hasura) for its GraphQL needs, consult the [`hasura` addon page](/cloud/reference/hasura).
+
 ### 3.4. Processor scale
 
 Next, set the scale of the indexer processor. You can set the profile to `small`, `medium`, or `large`.
