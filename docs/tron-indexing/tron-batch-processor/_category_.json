@@ -1,0 +1,12 @@
+{
+  "position": 20,
+  "label": "TronBatchProcessor",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "slug": "/tron-indexing/tron-batch-processor",
+    "title": "TronBatchProcessor reference documentation"
+  }
+}

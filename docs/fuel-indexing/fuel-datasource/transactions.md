@@ -29,9 +29,9 @@ Get some _or all_ transactions on the network. `options` has the following struc
 
 Data requests:
 
-- `type` sets the type of the transaction. Transaction type has the following options: `'Script' | 'Create' | 'Mint' | 'Upgrade' | 'Upload'`. Leave it undefined to subscribe to all transactions.
+- `type` sets the type of the transaction: `'Script' | 'Create' | 'Mint' | 'Upgrade' | 'Upload'`. Leave it undefined to subscribe to all transactions.
 
-Enabling the `receipts` and/or `inputs` and `outputs` flags will cause the processor to retrieve receipts, inputs and outputs that occured as a result of each selected transaction. The data will be added to the appropriate iterables within the [block data](/fuel-indexing/fuel-datasource/context-interfaces). You can also call `augmentBlock()` from `@subsquid/fuel-objects` on the block data to populate the convenience reference fields like `transaction.receipts`.
+Enabling the `receipts` and/or `inputs` and `outputs` flags will cause the processor to retrieve receipts, inputs and outputs that occurred as a result of each selected transaction. The data will be added to the appropriate iterables within the [block data](/fuel-indexing/fuel-datasource/context-interfaces). You can also call `augmentBlock()` from `@subsquid/fuel-objects` on the block data to populate the convenience reference fields like `transaction.receipts`.
 
 Note that transactions can also be requested by the other `FuelDataSource` methods as related data.
 

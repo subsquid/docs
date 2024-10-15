@@ -4,17 +4,17 @@ title: Tron API
 description: Access Tron data
 ---
 
-# Tron Subsquid Network API
+# Tron SQD Network API
 
 :::warning
-The Tron API of Subsquid Network is currently in beta. Breaking changes may be introduced in the future releases.
+The Tron API of SQD Network is currently in beta. Breaking changes may be introduced in the future releases.
 :::
 
-[Open private Subsquid Network](/subsquid-network/overview/#open-private-network) offers access to Tron data. The gateway is at
+[Open private SQD Network](/subsquid-network/overview/#open-private-network) offers access to Tron data. The gateway is at
 ```
 https://v2.archive.subsquid.io/network/tron-mainnet
 ```
-Subsquid Network API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. The main gateway URL points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks.
+SQD Network API distributes the requests over a ([potentially decentralized](/subsquid-network/public)) network of _workers_. The main gateway URL points at a _router_ that provides URLs of workers that do the heavy lifting. Each worker has its own range of blocks.
 
 Suppose you want to retrieve an output of some [query](#worker-api) on a block range starting at `firstBlock` (can be the genesis block) and ending at the highest available block. Proceed as follows:
 
@@ -186,7 +186,7 @@ Full code [here](https://gist.github.com/eldargab/2e007a293ac9f82031d023f1af581a
 
 <summary><code>GET</code> <code><b>/height</b></code> <code>(get height of the dataset)</code></summary>
 
-**Example response:** `16576911`.
+**Example response:** `65900614`.
 
 </details>
 

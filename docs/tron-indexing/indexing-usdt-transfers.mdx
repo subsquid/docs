@@ -1,0 +1,155 @@
+---
+title: Indexing USDT on Tron
+description: >-
+  Indexing Tron data with Squid SDK
+sidebar_position: 10
+---
+
+# Indexing USDT on Tron
+
+In this tutorial we will look into a squid that indexes USDT transfers on the [Tron Network](https://tron.network).
+
+Pre-requisites: Node.js v20 or newer, Git, Docker.
+
+## Download the project
+
+Begin by retrieving the template and installing the dependencies:
+```bash
+git clone https://github.com/subsquid-labs/tron-example
+cd tron-example
+npm ci
+```
+
+## TronBatchProcessor configuration
+
+[Squid processor](/sdk/reference/processors/architecture) is a term with two meanings:
+
+1. The process responsible for retrieving and transforming the data.
+
+2. The main object implementing that process.
+
+On Tron, [`TronBatchProcessor`](/tron-indexing/tron-batch-processor) is the class that should be used for processor objects. Our first step is to create the processor and configure it to fetch USDT transfers data:
+
+```typescript title="src/main.ts"
+// Note that the address is in lowercase hex and has no leading `0x`.
+// This is the format used throughout the SQD Tron stack.
+const USDT_ADDRESS = 'a614f803b6fd780986a42c78ec9c7f77e6ded13c'
+const TRANSFER_TOPIC = 'ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
+
+const processor = new TronBatchProcessor()
+  // The SQD Network gateway URL - this is where the bulk of data will
+  // be coming from.
+  .setGateway('https://v2.archive.subsquid.io/network/tron-mainnet')
+  // SQD Network is always about N blocks behind the head.
+  // We must use regular HTTP API endpoint to get through the last mile
+  // and stay on top of the chain.
+  // This is a limitation, and we promise to lift it in the future!
+  .setHttpApi({
+    // Ankr public endpoint is heavily rate-limited so expect many 429 errors
+    url: 'https://rpc.ankr.com/http/tron',
+    strideConcurrency: 1,
+    strideSize: 1,
+  })
+  // We request data items via `.addXxx()` methods.
+  // Each `.addXxx()` method accepts item selection criteria
+  // and also allows to request related items.
+  .addLog({
+    // select logs
+    where: {
+      address: [USDT_ADDRESS],
+      topic0: [TRANSFER_TOPIC]
+    },
+    // for each log selected above load related transactions
+    include: {
+      transaction: true
+    }
+  })
+  // For each data item we can specify a set of fields we want to fetch.
+  // Accurate selection of only the required fields can have a notable
+  // positive impact on performance when data is sourced from SQD Network.
+  .setFields({
+    block: {
+      timestamp: true,
+    },
+    transaction: {
+      hash: true
+    },
+    log: {
+      address: true,
+      data: true,
+      topics: true
+    }
+  })
+```
+
+See also [`TronBatchProcessor` reference](/tron-indexing/tron-batch-processor).
+
+The next step is to configure data decoding and transformation.
+
+## Processing the data
+
+The other part of the squid processor configuration is the callback function used to process batches of filtered data, the [batch handler](/sdk/reference/processors/architecture/#processorrun). It is typically defined within a `processor.run()` call, like this:
+```typescript
+processor.run(database, async ctx => {
+  ...
+}
+```
+Here,
+* `processor` is the object described in the previous section
+* `database` is a [`Database` implementation](/sdk/resources/persisting-data/overview) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm/) object here.
+* `ctx` is the [batch context](/sdk/reference/processors/architecture/#batch-context) object that exposes a batch of data (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`). See [Block data for Tron](/tron-indexing/tron-datasource/context-interfaces) for details on how the data batches are presented.
+
+Batch handler is where the raw on-chain data is decoded, transformed and persisted. Here is our definition:
+```typescript title="src/main.ts"
+processor.run(new TypeormDatabase(), async ctx => {
+  let transfers: Transfer[] = []
+
+  for (let block of ctx.blocks) {
+    for (let log of block.logs) {
+      if (log.address == USDT_ADDRESS &&
+          log.topics?.[0] === TRANSFER_TOPIC) {
+        assert(log.data, 'USDT transfers always carry data')
+        let tx = log.getTransaction()
+        // `0x` prefixes make log data compatible with EVM codec
+        let event = {
+          topics: log.topics.map(t => '0x' + t),
+          data: '0x' + log.data
+        }
+        let {from, to, value} = erc20.events.Transfer.decode(event)
+
+        transfers.push(new Transfer({
+          id: log.id,
+          blockNumber: block.header.height,
+          timestamp: new Date(block.header.timestamp),
+          tx: tx.hash,
+          from,
+          to,
+          amount: value
+        }))
+      }
+    }
+  }
+
+  await ctx.store.insert(transfers)
+})
+```
+This goes through all the logs in the block, verifies that they originate from `USDT_ADDRESS` and have a `TRANSFER_TOPIC` as the first topic, decodes the log and saves a `Transfer` record with the obtained data to the database. See [Prepare the store](/sdk/how-to-start/squid-development/#store) for more details on how the database interface works.
+
+:::info
+Notice that we used the SQD EVM codec and [`squid-evm-typegen`](/sdk/resources/tools/typegen/generation/?typegen=evm)-generated module to decode events. Since Tron events are fully EVM-compatible, this is the recommended way.
+
+This tooling requires that the hex values are prefixed with `0x`, as shown above.
+:::
+
+At this point the squid is ready for its first test run. Execute
+```bash
+npx tsc
+docker compose up -d
+npx squid-typeorm-migration apply
+node -r dotenv/config lib/main.js
+```
+You can verify that the data is being stored in the database by running
+```bash
+docker exec "$(basename "$(pwd)")-db-1" psql -U postgres -c "SELECT * FROM transfer LIMIT 100"
+```
+Full code can be found [here](https://github.com/subsquid-labs/tron-example).

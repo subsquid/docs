@@ -1,0 +1,12 @@
+{
+  "position": 100,
+  "label": "Network API",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "slug": "/tron-indexing/network-api",
+    "title": "SQD Network API documentation for Tron"
+  }
+}
