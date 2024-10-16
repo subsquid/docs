@@ -18,6 +18,7 @@ To create an organization, click on the organizations dropdown menu in the upper
 A playground organization is created for each account on its first login. There, you can deploy one squid for development or prototyping, free of charge.
 
 Playground squids cannot be used in production, as they are [collocated](/cloud/reference/scale/#dedicated) and run on [spot VMs](https://cloud.google.com/spot-vms). Expect 3-5 minutes of downtime once every few days. Other limitations include:
+ - squid manifests with the [`scale:` section](/cloud/reference/scale) are forbidden;
  - 10 GB of database storage;
  - 500k monthly requests to the [built-in RPC service](/cloud/resources/rpc-proxy).
 
