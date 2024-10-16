@@ -292,18 +292,36 @@ See [Solana API](/solana-indexing/network-api/solana-api) if you're looking to i
 
 ## Fuel
 
-SQD's [open private network](/subsquid-network/overview/#open-private-network) serves Fuel Network data via the following gateway:
-```
-https://v2.archive.subsquid.io/network/fuel-testnet
-```
+SQD's [open private network](/subsquid-network/overview/#open-private-network) serves Fuel Network data via the following gateways:
+
+| Network                     | Gateway URL                                                   |
+|:---------------------------:|:-------------------------------------------------------------:|
+| Fuel Mainnet                | https://v2.archive.subsquid.io/network/fuel-mainnet           |
+| Fuel Testnet                | https://v2.archive.subsquid.io/network/fuel-testnet           |
+
 Gateway URL should be used with the [`setGateway()`](/fuel-indexing/fuel-datasource/general/#set-gateway) `FuelDataSource` configuration method:
 ```typescript
 const dataSource = new FuelDataSource()
-  .setGateway('https://v2.archive.subsquid.io/network/fuel-testnet')
+  .setGateway('https://v2.archive.subsquid.io/network/fuel-mainnet')
 ```
 Read more about Fuel indexing in the [dedicated section](/fuel-indexing).
 
-See [Fuel API](/fuel-indexing/network-api/fuel-api) if you're looking to interface with the Fuel gateway directly.
+See [Fuel API](/fuel-indexing/network-api/fuel-api) if you're looking to interface with any of the Fuel gateways directly.
+
+## Tron
+
+SQD's [open private network](/subsquid-network/overview/#open-private-network) serves Tron data via the following gateway:
+```
+https://v2.archive.subsquid.io/network/tron-mainnet
+```
+Gateway URL should be used with the [`setGateway()`](/tron-indexing/tron-batch-processor/general/#set-gateway) `TronBatchProcessor` configuration method:
+```typescript
+const processor = new TronBatchProcessor()
+  .setGateway('https://v2.archive.subsquid.io/network/tron-mainnet')
+```
+Read more about Tron indexing in the [dedicated section](/tron-indexing).
+
+See [Tron API](/tron-indexing/network-api/tron-api) if you're looking to interface with the Tron gateway directly.
 
 ## Starknet
 
