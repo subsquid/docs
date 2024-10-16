@@ -1,8 +1,10 @@
 ---
-sidebar_position: 60
-title: Production alias
-description: Switch between versions without downtime
+sidebar_class_name: hidden
 ---
+
+:::danger
+Production aliasing feature is deprecated in `@subsquid/cli>=3.0.0`. Use [Slots and tags](/cloud/resources/slots-and-tags) instead.
+:::
 
 # Alias to the production endpoint
 

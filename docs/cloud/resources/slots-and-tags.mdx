@@ -1,12 +1,36 @@
 ---
-sidebar_class_name: hidden
+sidebar_position: 60
+title: Slots and tags
+description: Manage multiple squid deployments
 ---
 
-# Guide to Deployments 2.0
+# Slots and tags
 
-You've probably read the SQD Cloud Deployments 2.0 [Release Notes](/deployments-two-release-notes), and now you’re ready to dive deeper into how it works. So let's get started!
+## Tl;dr
 
-The new deployments system is built on two new concepts:
+If your squid serves a GraphQL API and your goal here is to be able to migrate the API to a new deployment without a downtime, follow these steps:
+
+1. Remove `slot` and `version` lines from your [squid manifest](/cloud/reference/manifest).
+
+2. Deploy you squid:
+   ```bash
+   sqd deploy .
+   ```
+
+3. Go to the [squids screen of the Cloud app](https://app.subsquid.io/squids) and note the slot name:
+
+   ![Slot location](./slots-and-tags-slot-location.png)
+
+   Expect a random-looking lowercase-alphanumeric string of six characters.
+
+4. Tag your squid with a `production` tag:
+   ```bash
+   sqd tags add production -n my-squid -s 
+   ```
+
+## Intro
+
+Starting with `@subsquid/cli>=3.0.0` SQD Cloud is using a new deployment system based on the following concepts:
 
 * **Slots:** Given a squid name and an [organization](/cloud/resources/organizations), slot name uniquely identifies a squid deployment.
   - Slots directly replace versions from the old workflow. Unlike versions, they are identified by short strings, not numbers.
@@ -53,7 +77,7 @@ As you develop your squid you will sometimes need to re-sync it from scratch. Wi
    ```
    `fj0anc` is the slot name that Cloud automatically assigned to your squid deployment. Here's how this deployment looks like in [the app](https://app.subsquid.io/squids):
 
-   ![First squid](./deployments-two-guide-first-squid.png)
+   ![First squid](./slots-and-tags-first-squid.png)
 
    At this stage you can already access your deployment's API via a slot-based URL. However, that API will go down if we reset the deployment's database. Instead, let us use a tag-based URL that can be redirected to an API of another deployment.
 
@@ -71,7 +95,7 @@ As you develop your squid you will sometimes need to re-sync it from scratch. Wi
 
 1. Make one more deployment of your squid. For that you can just re-run `sqd deploy .`: since no slot, version or tag is supplied in the manifest, the Cloud will automatically create a new slot for you. Your Cloud deployments might now look like this:
 
-   ![Second squid](./deployments-two-guide-second-squid.png)
+   ![Second squid](./slots-and-tags-second-squid.png)
 
 2. Wait for your new deployment to sync, then test its API using its slot-based (_canonical_) URL:
    ```
@@ -106,7 +130,7 @@ sqd deploy . --add-tag production-v1
 ```
 This will produce exactly the same result. Here's how it may look like in the Cloud app:
 
-![Two major versions](./deployments-two-guide-two-major-versions.png)
+![Two major versions](./slots-and-tags-two-major-versions.png)
 
 Now you have two independent APIs accessible by tag-based URLs and you can perform [zero-downtime updates](#zero-downtime-updates) on each.
 
@@ -114,7 +138,7 @@ Now you have two independent APIs accessible by tag-based URLs and you can perfo
 
 In the [previous section](#multiple-major-versions) we considered the situation when multiple tags are used to denote major versions of the API. However, the exact same approach can be used to separate, for example, development from production:
 
-![Development and production](./deployments-two-guide-development-and-production.png)
+![Development and production](./slots-and-tags-development-and-production.png)
 
 When working on your development deployment, you’ll likely need to perform a variety of operations on it, frequently and without the concern of downtime. For that, all Squid CLI commands allow addressing deployments by tag. For example, to access logs of your `development` deployment use
 
