@@ -6,60 +6,14 @@ description: Manage multiple squid deployments
 
 # Slots and tags
 
-## Tl;dr
-
-If you used SQD Cloud before the slots and tags update, check out the [changelog](/cloud/reference/deployments-two-changelog).
-
-If your squid serves a GraphQL API and your goal here is to be able to migrate the API to a new deployment without a downtime, follow these steps:
-
-1. Remove `slot` and `version` lines from your [squid manifest](/cloud/reference/manifest).
-
-2. Deploy you squid:
-   ```bash
-   sqd deploy .
-   ```
-
-3. Go to the [squids screen of the Cloud app](https://app.subsquid.io/squids) and note the slot name:
-
-   ![Slot location](./slots-and-tags-slot-location.png)
-
-   Expect a random-looking lowercase-alphanumeric string of six characters.
-
-4. Tag your squid with a `production` tag:
-   ```bash
-   sqd tags add production -n my-squid -s ueylhx
-   ```
-   The choice of the tag name is arbitrary.
-
-5. Use the URL that contains `:production` in your frontend app. In this example the URL is
-   ```
-   https://my-organization.squids.live/my-squid:production/api/graphql
-   ```
-
-When you need to replace the deployment that serves the API:
-
-1. Deploy the new version with
-   ```bash
-   sqd deploy .
-   ```
-
-2. Wait for it to sync and do any tests necessary.
-
-3. Note the slot name of the new deployment. Let's suppose it's `rxrk5v`.
-
-4. Assign the `production` tag to it:
-   ```bash
-   sqd tags add production -n my-squid -s rxrk5v
-   ```
-
-Now the API at the `:production` URL is served by the new deployment.
-
-## Intro
+:::tip
+If you used SQD Cloud before the slots and tags update, you may want to take a look at the [changelog](/cloud/reference/deployments-two-changelog).
+:::
 
 Starting with `@subsquid/cli>=3.0.0` SQD Cloud is using a new deployment system based on the following concepts:
 
 * **Slots:** Given a squid name and an [organization](/cloud/resources/organizations), slot name uniquely identifies a squid deployment.
-  - Slots directly replace versions from the old workflow. Unlike versions, they are identified by short strings, not numbers.
+  - Slots are identified by short strings. They directly replace versions from the old workflow, which were identified by numbers.
   - You can specify a slot on deployment or omit it. In the latter case the Cloud will create a new slot with a random identifier.
   - Deploying to an already occupied slot will result in updating the initial deployment.
 * **Tags:** A way to label deployments.
@@ -80,9 +34,11 @@ Both tags and slots can be specified in squid manifest as well as via command li
 The functionality in this section mirrors the now-deprecated [production aliases](/cloud/resources/production-alias).
 :::
 
-As you develop your squid you will sometimes need to re-sync it from scratch. With tags you can do this without a maintenance downtime. Here's how:
+As you develop your squid you will sometimes need to re-sync it from scratch. With tags you can do this without a maintenance downtime.
 
-1. Take your squid (or the [the EVM template](https://github.com/subsquid-labs/squid-evm-template/) if you just want something to test this with) and open its manifest (`squid.yaml` by default). Remove any deployment references:
+**Here is how to prepare your squid on its initial deployment:**
+
+1. Go to your squid project (or the [EVM template](https://github.com/subsquid-labs/squid-evm-template/) if you just want something to test this with) and open the squid manifest (`squid.yaml` by default). Remove any deployment references:
 
    * `version:` (old)
    * `slot:` (new)
@@ -187,12 +143,12 @@ This may serve as a safeguard, preventing accidental deployments to production o
 
 Now that you've seen how slots and tags can help you with some common tasks, you may want to use them to design new workflows uniquely suitable for the needs of your project. Here are some resources that may help you with that:
 
-- The output of `sqd <command> --help` commands, especially of
+- [Squid CLI documentation](/squid-cli), particularly the [`sqd deploy` page](/squid-cli/deploy). Most of it is also available via
   ```bash
   sqd deploy --help
   ```
   All the flags you can use to refer to deployments and to disable protective user prompts are described there.
 
-- The detailed [changelog](/deployments-two-changelog) that (for now) doubles as the reference documentation page. It describes the new system by comparing it to the old one that was based on versions and [production aliases](/cloud/resources/production-alias).
+- The detailed [changelog](/cloud/reference/deployments-two-changelog) that (for now) doubles as the reference documentation page. It describes the new system by comparing it to the old one that was based on versions and [production aliases](/cloud/resources/production-alias).
 
 - If you used the old system or witnessed the migration of your organization, you may want to take a look at the [Backwards compatibility](/deployments-two-changelog/#backwards-compatibility) section of the changelog.
