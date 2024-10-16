@@ -28,10 +28,10 @@ Suppose you want to retrieve an output of some [query](#worker-api) on a block r
 
 7. Repeat steps 3-6 until all the required data is retrieved.
 
-The main gateway URL for Fuel Testnet is
+The main gateway URL for Fuel Mainnet is
 
 ```
-https://v2.archive.subsquid.io/network/fuel-testnet
+https://v2.archive.subsquid.io/network/fuel-mainnet
 ```
 
 Implementation examples:
@@ -40,12 +40,12 @@ Implementation examples:
 
 <summary>Manually with cURL</summary>
 
-Suppose we want data on Fuel receipts from block `1000000`. We begin by finding the main URL for the Fuel Testnet dataset. Then we have to:
+Suppose we want data on Fuel receipts from block `1000000`. We begin by finding the main URL for the Fuel Mainnet dataset. Then we have to:
 
 1. Retrieve the dataset height from the router with
 
    ```bash
-   curl https://v2.archive.subsquid.io/network/fuel-testnet/height
+   curl https://v2.archive.subsquid.io/network/fuel-mainnet/height
    ```
 
    Output
@@ -59,7 +59,7 @@ Suppose we want data on Fuel receipts from block `1000000`. We begin by finding 
 3. Query the router for an URL of a worker that has the data for`currentBlock`
 
    ```bash
-   curl https://v2.archive.subsquid.io/network/fuel-testnet/1000000/worker
+   curl https://v2.archive.subsquid.io/network/fuel-mainnet/1000000/worker
    ```
 
    Output

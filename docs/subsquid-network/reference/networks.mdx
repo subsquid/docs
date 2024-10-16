@@ -294,12 +294,12 @@ See [Solana API](/solana-indexing/network-api/solana-api) if you're looking to i
 
 SQD's [open private network](/subsquid-network/overview/#open-private-network) serves Fuel Network data via the following gateway:
 ```
-https://v2.archive.subsquid.io/network/fuel-testnet
+https://v2.archive.subsquid.io/network/fuel-mainnet
 ```
 Gateway URL should be used with the [`setGateway()`](/fuel-indexing/fuel-datasource/general/#set-gateway) `FuelDataSource` configuration method:
 ```typescript
 const dataSource = new FuelDataSource()
-  .setGateway('https://v2.archive.subsquid.io/network/fuel-testnet')
+  .setGateway('https://v2.archive.subsquid.io/network/fuel-mainnet')
 ```
 Read more about Fuel indexing in the [dedicated section](/fuel-indexing).
 

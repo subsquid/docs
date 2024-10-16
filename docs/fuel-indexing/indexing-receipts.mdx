@@ -25,9 +25,9 @@ npm ci
 "Data source" is a component that defines what data should be retrieved and where to get it. To configure the data source to retrieve the data produced by the `receipt` field of the fuel transaction, we initialize it like this:
 ```typescript title="src/main.ts"
 const dataSource = new DataSourceBuilder()
-  .setGateway('https://v2.archive.subsquid.io/network/fuel-testnet')
+  .setGateway('https://v2.archive.subsquid.io/network/fuel-mainnet')
   .setGraphql({
-    url: 'https://testnet.fuel.network/v1/graphql',
+    url: 'https://mainnet.fuel.network/v1/graphql',
     strideConcurrency: 3,
     strideSize: 50
   })
@@ -44,7 +44,7 @@ const dataSource = new DataSourceBuilder()
 ```
 
 Here,
-* `https://v2.archive.subsquid.io/network/fuel-testnet` is the address for the public SQD Network gateway for Fuel testnet. Check out the exhaustive [public gateways list](/subsquid-network/reference/networks).
+* `https://v2.archive.subsquid.io/network/fuel-mainnet` is the address for the public SQD Network gateway for Fuel mainnet. Check out the exhaustive [public gateways list](/subsquid-network/reference/networks).
 * The argument of [`addReceipt()`](/fuel-indexing/fuel-datasource/receipts) is a set of filters that tells the processor to retrieve all receipts of type `LOG`.
 * The argument of [`setFields()`](/fuel-indexing/fuel-datasource/field-selection) specifies the exact fields we need for every data item type. In this case we request `contract` and `receiptType` for receipt data items.
 
