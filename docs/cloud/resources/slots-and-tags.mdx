@@ -8,6 +8,8 @@ description: Manage multiple squid deployments
 
 ## Tl;dr
 
+If you used SQD Cloud before the slots and tags update, check out the [changelog](/cloud/reference/deployments-two-changelog).
+
 If your squid serves a GraphQL API and your goal here is to be able to migrate the API to a new deployment without a downtime, follow these steps:
 
 1. Remove `slot` and `version` lines from your [squid manifest](/cloud/reference/manifest).
@@ -25,8 +27,32 @@ If your squid serves a GraphQL API and your goal here is to be able to migrate t
 
 4. Tag your squid with a `production` tag:
    ```bash
-   sqd tags add production -n my-squid -s 
+   sqd tags add production -n my-squid -s ueylhx
    ```
+   The choice of the tag name is arbitrary.
+
+5. Use the URL that contains `:production` in your frontend app. In this example the URL is
+   ```
+   https://my-organization.squids.live/my-squid:production/api/graphql
+   ```
+
+When you need to replace the deployment that serves the API:
+
+1. Deploy the new version with
+   ```bash
+   sqd deploy .
+   ```
+
+2. Wait for it to sync and do any tests necessary.
+
+3. Note the slot name of the new deployment. Let's suppose it's `rxrk5v`.
+
+4. Assign the `production` tag to it:
+   ```bash
+   sqd tags add production -n my-squid -s rxrk5v
+   ```
+
+Now the API at the `:production` URL is served by the new deployment.
 
 ## Intro
 
