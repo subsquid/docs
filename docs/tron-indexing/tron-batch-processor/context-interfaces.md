@@ -24,6 +24,7 @@ export interface Block<F extends FieldSelection = {}> {
 
 The exact fields available in each data item type are inferred from the `setFields()` call argument. The method is documented on the [field selection](/tron-indexing/tron-batch-processor/field-selection) page:
 
-- [`Transaction` section](/fuel-indexing/fuel-datasource/field-selection#transaction);
-- [`Log` section](/fuel-indexing/fuel-datasource/field-selection#log);
-- [`InternalTransaction` section](/fuel-indexing/fuel-datasource/field-selection#internal-transaction).
+- [`Transaction` section](/tron-indexing/tron-batch-processor/field-selection/#transaction);
+- [`Log` section](/tron-indexing/tron-batch-processor/field-selection/#log);
+- [`InternalTransaction` section](/tron-indexing/tron-batch-processor/field-selection/#internal-transaction).
+- [`BlockHeader` section](/tron-indexing/tron-batch-processor/field-selection/#block-header)

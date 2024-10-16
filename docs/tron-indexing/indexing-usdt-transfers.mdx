@@ -97,7 +97,7 @@ processor.run(database, async ctx => {
 Here,
 * `processor` is the object described in the previous section
 * `database` is a [`Database` implementation](/sdk/resources/persisting-data/overview) specific to the target data sink. We want to store the data in a PostgreSQL database and present with a GraphQL API, so we provide a [`TypeormDatabase`](/sdk/resources/persisting-data/typeorm/) object here.
-* `ctx` is the [batch context](/sdk/reference/processors/architecture/#batch-context) object that exposes a batch of data (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`). See [Block data for Tron](/tron-indexing/tron-datasource/context-interfaces) for details on how the data batches are presented.
+* `ctx` is the [batch context](/sdk/reference/processors/architecture/#batch-context) object that exposes a batch of data (at `ctx.blocks`) and any data persistence facilities derived from `db` (at `ctx.store`). See [Block data for Tron](/tron-indexing/tron-batch-processor/context-interfaces) for details on how the data batches are presented.
 
 Batch handler is where the raw on-chain data is decoded, transformed and persisted. Here is our definition:
 ```typescript title="src/main.ts"

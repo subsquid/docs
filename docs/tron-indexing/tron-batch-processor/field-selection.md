@@ -19,7 +19,7 @@ Set the fields to be retrieved for data items of each supported type. The `optio
 }
 ```
 
-Every field selector is a collection of boolean fields that map to the fields of data items within the batch context [iterables](/fuel-indexing/fuel-datasource/context-interfaces). Defining a field of a field selector of a given type and setting it to true will cause the processor to populate the corresponding field of all data items of that type. Here is a definition of a processor that requests `hash` and `fee` fields for transactions and the `data` field for logs:
+Every field selector is a collection of boolean fields that map to the fields of data items within the batch context [iterables](/tron-indexing/tron-batch-processor/context-interfaces). Defining a field of a field selector of a given type and setting it to true will cause the processor to populate the corresponding field of all data items of that type. Here is a definition of a processor that requests `hash` and `fee` fields for transactions and the `data` field for logs:
 
 ```ts
 const processor = new TronBatchProcessor().setFields({
@@ -52,7 +52,7 @@ processor
   })
 ```
 
-The `hash` and `fee` fields will be available both within the data items of the `transactions` iterable of [block data](/fuel-indexing/fuel-datasource/context-interfaces) and within the transaction items populating the `.transaction` field of log data items:
+The `hash` and `fee` fields will be available both within the data items of the `transactions` iterable of [block data](/tron-indexing/tron-batch-processor/context-interfaces) and within the transaction items populating the `.transaction` field of log data items:
 
 ```ts
 processor.run(database, async (ctx) => {
