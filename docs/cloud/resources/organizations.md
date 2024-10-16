@@ -38,7 +38,7 @@ Once an organization is upgraded you can deploy as many squids as you requre. [`
 
 ## Working with organizations
 
-When your account has access to more than one organization, it is necessary to specify one when [listing](/squid-cli/ls), [exploring](/squid-cli/explorer) or [deploying](/squid-cli/deploy) (with some exceptions) your squids, as well as when [setting secrets](/squid-cli/secrets). Do it with the `--org/-o` flag:
+When your account has access to more than one organization, it is necessary to specify one when [listing](/squid-cli/list) or [deploying](/squid-cli/deploy) (with some exceptions) your squids, as well as when [setting secrets](/squid-cli/secrets). Do it with the `--org/-o` flag:
 
 ```bash
 sqd secrets ls -o my-organization
@@ -46,7 +46,6 @@ sqd secrets rm SECRET --org my-organization
 sqd secrets set SECRET --org my-organization
 
 sqd ls -o my-organization
-sqd explorer -o my-organization
 sqd deploy . -o my-organization
 ```
 

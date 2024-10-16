@@ -1,20 +1,20 @@
 `sqd logs`
 ==========
 
-Fetch squid logs
+Fetch logs from a squid deployed to the Cloud
 
-* [`sqd logs NAME`](#sqd-logs-name)
+* [`sqd logs`](#sqd-logs)
 
-## `sqd logs NAME`
+## `sqd logs`
 
-Fetch squid logs
+Fetch logs from a squid deployed to the Cloud
 
 ```
 USAGE
-  $ sqd logs NAME
-
-ARGUMENTS
-  NAME  name@version
+  $ sqd logs [--interactive] [--since <value>] [--search <value>] [-f | -p <value>]
+    [-r [<org>/]<name>(@<slot>|:<tag>) | -o <code> | [-s <slot> -n <name>] | [-t <tag> ]]
+    [-c processor|query-node|api|db-migrate|db...]
+    [-l error|debug|info|warning...] [--since <value>]
 
 FLAGS
   -c, --container=<option>...  Container name
@@ -22,16 +22,21 @@ FLAGS
   -f, --follow                 Follow
   -l, --level=<option>...      Log level
                                <options: error|debug|info|warning>
-  -o, --org=<value>            Organization
   -p, --pageSize=<value>       [default: 100] Logs page size
-  -s, --search=<value>         Filter by content
+      --[no-]interactive       Disable interactive mode
+      --search=<value>         Filter by content
       --since=<value>          [default: 1d] Filter by date/interval
 
-DESCRIPTION
-  Fetch logs from a squid deployed to the Cloud
+SQUID FLAGS
+  -n, --name=<name>                               Name of the squid
+  -r, --reference=[<org>/]<name>(@<slot>|:<tag>)  Fully qualified reference of the squid.
+                                                  It can include the organization, name,
+                                                  slot, or tag
+  -s, --slot=<slot>                               Slot of the squid
+  -t, --tag=<tag>                                 Tag of the squid
 
-ALIASES
-  $ sqd squid logs
+ORG FLAGS
+  -o, --org=<code>  Code of the organization
 ```
 
 Notes:

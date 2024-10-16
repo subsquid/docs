@@ -1,5 +1,13 @@
+---
+sidebar_class_name: hidden
+---
+
 `sqd explorer`
 ==========
+
+:::danger
+`sqd explorer` is disabled in `@subsquid/cli>=3.0.0`. If you've been using it, please let us know in the [SquidDevs Telegram channel](https://t.me/HydraDevs).
+:::
 
 Visual explorer of deployed squids
 

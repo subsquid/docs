@@ -1,27 +1,24 @@
 `sqd init`
 ==========
 
-Create a squid from a template
+Setup a new squid project from a template or github repo
 
 * [`sqd init NAME`](#sqd-init-name)
 
 ## `sqd init NAME`
 
-Create a squid from template
+Setup a new squid project from a template or github repo
 
 ```
 USAGE
-  $ sqd init NAME
+  $ sqd init NAME [--interactive] [-t <value>] [-d <value>] [-r]
 
 ARGUMENTS
-  NAME  The squid name. It must contain only alphanumeric or dash ("-") 
-        symbols and must not start with "-". Squid names are globally 
-        unique.
+  NAME  The squid name. It must contain only alphanumeric or dash ("-") symbols and must not start with "-".
 
-OPTIONS
-  -d, --dir=dir
-      The target location for the squid. If omitted, a new folder NAME 
-      is created.
+FLAGS
+  -d, --dir=<value>
+      The target location for the squid. If omitted, a new folder NAME is created.
 
   -r, --remove
       Clean up the target directory if it exists
@@ -38,6 +35,9 @@ OPTIONS
       - ink  A template for indexing Ink! smart contracts
       - ink-abi  A template to auto-generate a squid from an ink! contract ABI
       - frontier-evm  A template for indexing Frontier EVM chains, like Moonbeam and Astar.
+
+  --[no-]interactive
+      Disable interactive mode
 ```
 
 _See code: [src/commands/init.ts](https://github.com/subsquid/squid-cli/tree/master/src/commands/init.ts)_

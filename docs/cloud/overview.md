@@ -259,4 +259,4 @@ Squid deployments are organized with [slots and tags](/cloud/resources/slots-and
 - Browse the [`sqd` CLI documentation](/squid-cli) to learn how to perform common squid maintenance tasks.
   + [create or update a deployment](/squid-cli/deploy)
   + [tag a deployment](/squid-cli/tags)
-  + [kill a deployment](/squid-cli/rm)
+  + [kill a deployment](/squid-cli/remove)
