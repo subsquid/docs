@@ -11,12 +11,12 @@ description: >-
 The method documentation is also available inline and can be accessed via suggestions in most IDEs.
 :::
 
-The following setters configure the global settings of `DataSourceBuilder` for Fuel Procesor. They return the modified instance and can be chained.
+The following setters configure the global settings of `TronBatchProcessor`. They return the modified instance and can be chained.
 
-The only required configuration method is [`setGateway()`](#set-gateway). If you need real-time data, please also use [`setGraphql()`](#set-graphql).
+The only requirement is to specify at least one data souce via [`setGateway()`](#set-gateway) or [`setHttpApi()](#set-http-api). If you need real-time data, providing an HTTP API data source is a hard requirement.
 
-- If you add both a SQD Network gateway and an RPC endpoint, the processor will obtain as much data as is currently available from the gateway, then switch to ingesting recent data via RPC.
-- If you only add a SQD Network gateway, your data will be being several thousands of blocks behind the chain head most of the time.
+- If you add both an SQD Network gateway and an HTTP API endpoint, the processor will obtain as much data as is currently available from the gateway, then switch to ingesting recent data via HTTP API.
+- If you only add an SQD Network gateway, your data will be being several thousands of blocks behind the chain head most of the time.
 
 ### `setGateway(url: string | GatewaySettings)` {#set-gateway}
 
@@ -29,16 +29,17 @@ Use a [SQD Network](/subsquid-network) gateway. The argument is either a string 
 }
 ```
 
-### `setGraphql(settings?: GraphqlSettings)` {#set-graphql}
+### `setHttpApi(settings?: HttpApiSettings)` {#set-http-api}
 
-We must use regular GraphQL endpoint to get through the last mile and stay on top of the chain. This is a limitation, and we promise to lift it in the future.
+We must use a regular HTTP API endpoint to get through the last mile and stay on top of the chain. This is a limitation, and we promise to lift it in the future.
 
 ```ts
-type GraphqlSettings = {
-  url: "https://testnet.fuel.network/v1/graphql";
-  strideSize?: number; // `getBlock` batch call size, default 5
-  strideConcurrency?: number; // num of concurrent connections, default 10
-};
+interface HttpApiSettings = {
+  url: string
+  strideConcurrency?: // num of concurrent connections, default 2
+  strideSize?: number // query size, default 10
+  headPollInterval?: number // milliseconds, default 1000
+}
 ```
 
 ### `setBlockRange({from: number, to?: number})` {#set-block-range}
@@ -50,3 +51,7 @@ Note that block ranges can also be specified separately for each data request. T
 ### `includeAllBlocks(range?: {from: number, to?: number})` {#include-all-blocks}
 
 By default, processor will fetch only blocks which contain requested items. This method modifies such behavior to fetch all chain blocks. Optionally a range of blocks can be specified for which the setting should be effective.
+
+### `setPrometheusPort(port: string | number)` {#set-prometheus-port}
+
+Sets the port for a built-in prometheus health metrics server (serving at `http://localhost:${port}/metrics`). By default, the value of PROMETHEUS_PORT environment variable is used. When it is not set, processor will pick an ephemeral port.
