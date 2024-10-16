@@ -3,7 +3,7 @@
 
 Fetch logs from a squid deployed to the Cloud
 
-* [`sqd logs`](#sqd-logs)
+* [`sqd logs`](#sqd-logs-1)
 
 ## `sqd logs`
 

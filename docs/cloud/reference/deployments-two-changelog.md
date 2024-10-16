@@ -124,7 +124,7 @@ Here are the measures we've taken to make the migration smoother:
 
 #### Do I need to redeploy anything?
 
-No. But we suggest you take a look at the [Backwards compatibility](/deployments-two-changelog/#backwards-compatibility) section.
+No. But we suggest you take a look at the [Backwards compatibility](#backwards-compatibility) section.
 
 #### We really like versions, they work well for us, do we need to change our workflow?
 

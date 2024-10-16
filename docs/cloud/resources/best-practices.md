@@ -29,6 +29,6 @@ Batch handler data filtering used to be compulsory before the release of `@subsq
   1. Deploy your squid to a [Professional organization](/cloud/resources/organizations/#professional-organizations).
   2. Use [`dedicated: true`](/cloud/reference/scale/#dedicated) in the `scale:` section of the manifest.
   3. Make sure that your [`scale:` section](/cloud/reference/scale) requests a sufficient but not excessive amount of resources.
-  4. Once you deploy, set a [production alias URL](/cloud/resources/production-alias) to simplify subsequent updates. Use it and not API URLs of squid versions to access your API e.g. from your frontend app.
+  4. Set your deployment up for [zero downtime updates](/cloud/resources/slots-and-tags/#zero-downtime-updates). Use a tag-based URL and and not slot-based URLs to access your API e.g. from your frontend app.
   5. Make sure to use [secrets](/cloud/resources/env-variables/#secrets) for all sensitive data you might've used in your code. The most common type of such data is API keys and URLs containing them.
   6. Follow the recommendations from the [Cloud logging page](/cloud/resources/logging).

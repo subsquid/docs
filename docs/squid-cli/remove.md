@@ -3,7 +3,7 @@
 
 Remove a squid deployed to the Cloud
 
-* [`sqd remove`](#sqd-remove)
+* [`sqd remove`](#sqd-remove-1)
 
 ## `sqd remove`
 

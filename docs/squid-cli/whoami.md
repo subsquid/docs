@@ -3,7 +3,7 @@
 
 Show the user details for the current Cloud account
 
-* [`sqd whoami`](#sqd-whoami)
+* [`sqd whoami`](#sqd-whoami-1)
 
 ## `sqd whoami`
 

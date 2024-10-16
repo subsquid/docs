@@ -3,7 +3,7 @@
 
 Restart a squid deployed to the Cloud
 
-* [`sqd restart`](#sqd-restart)
+* [`sqd restart`](#sqd-restart-1)
 
 ## `sqd restart`
 
