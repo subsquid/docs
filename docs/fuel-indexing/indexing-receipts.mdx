@@ -1,11 +1,11 @@
 ---
-title: "Indexing Fuel Network Data"
+title: Indexing Fuel Network data
 description: >-
   Indexing Fuel Network data with Squid SDK.
 sidebar_position: 10
 ---
 
-# Indexing the Transaction Receipts
+# Indexing transaction receipts
 
 In this step-by-step tutorial we will look into a squid that indexes [Fuel Network](https://fuel.network/) data.
 
@@ -53,7 +53,7 @@ See also [`FuelDataSource` reference](/fuel-indexing/fuel-datasource) and the co
 With a data source it becomes possible to retrieve filtered blockchain data from [SQD Network](/subsquid-network/overview), transform it and save the result to a destination of choice.
 ## Decoding the event data
 
-The other part the squid processor (the ingester process of the indexer) is the callback function used to process batches of the filtered data, the [batch handler](/sdk/reference/processors/architecture/#processorrun). In Fuel Squid SDK it is typically defined within a `run()` call, like this:
+The other part of the squid processor (the ingester process of the indexer) is the callback function used to process batches of the filtered data, the [batch handler](/sdk/reference/processors/architecture/#processorrun). In Fuel Squid SDK it is typically defined within a `run()` call, like this:
 ```typescript
 import {run} from '@subsquid/batch-processor'
 

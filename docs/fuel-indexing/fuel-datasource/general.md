@@ -35,7 +35,7 @@ We must use regular GraphQL endpoint to get through the last mile and stay on to
 
 ```ts
 type GraphqlSettings = {
-  url: "https://testnet.fuel.network/v1/graphql";
+  url: string // e.g. https://testnet.fuel.network/v1/graphql
   strideSize?: number; // `getBlock` batch call size, default 5
   strideConcurrency?: number; // num of concurrent connections, default 10
 };

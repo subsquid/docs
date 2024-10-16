@@ -81,7 +81,7 @@ const dataSource = new DataSourceBuilder()
 run(dataSource, database, async (ctx) => {
   for (let block of ctx.blocks) {
     for (let txn of block.transactions) {
-      let signatures = txn.hash; // ERROR: no such field
+      let hash = txn.hash; // ERROR: no such field
     }
   }
 });
@@ -475,7 +475,7 @@ ContractCreated {
 
 `BlockHeader` data items may have the following fields:
 ```ts
-export interface BlockHeader {
+BlockHeader {
 	// independent of field selectors
   hash: string
   height: number
@@ -498,7 +498,7 @@ export interface BlockHeader {
 ```
 Request the fields with eponymous field request flags.
 
-### A complete example
+## A complete example
 
 ```ts
 import { run } from "@subsquid/batch-processor";

@@ -1,0 +1,12 @@
+{
+  "position": 29,
+  "label": "Tron indexing",
+  "collapsible": true,
+  "collapsed": true,
+  "className": "red",
+  "link": {
+    "type": "generated-index",
+    "slug": "/tron-indexing",
+    "title": "Index Tron with SQD"
+  }
+}
