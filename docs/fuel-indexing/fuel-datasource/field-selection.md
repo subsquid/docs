@@ -508,9 +508,9 @@ import { TypeormDatabase } from "@subsquid/typeorm-store";
 import { Contract } from "./model";
 
 const dataSource = new DataSourceBuilder()
-  .setGateway("https://v2.archive.subsquid.io/network/fuel-testnet")
+  .setGateway("https://v2.archive.subsquid.io/network/fuel-mainnet")
   .setGraphql({
-    url: "https://testnet.fuel.network/v1/graphql",
+    url: "https://mainnet.fuel.network/v1/graphql",
   })
   .setFields({
     transaction: {
