@@ -7,7 +7,7 @@ description: Subscription types and pay-as-you-go prices
 # SQD Cloud Pricing
 
 :::tip
-Use our [cost calculator](https://subsquid.io/subsquid-cloud#calculator) if you need a quick estimate
+Use our [cost calculator](https://www.sqd.dev/cloud#calculator) if you need a quick estimate
 :::
 
 ## Free squids
