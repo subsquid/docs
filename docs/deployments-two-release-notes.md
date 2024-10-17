@@ -68,6 +68,14 @@ The tagging system can be used for any custom workflow that your team needs. We 
 
 ## FAQs
 
+#### How do I get full access to the new features?
+
+Just update your Squid CLI to `>=3.0.0`. It's in `@latest`:
+
+```bash
+npm install -g @subsquid/cli@latest
+```
+
 #### Do I need to redeploy anything?
 
 No. But we suggest you take a look at the [Backwards compatibility](/cloud/reference/deployments-two-changelog/#backwards-compatibility) section in our changelog.
@@ -84,23 +92,9 @@ No, they are completely optional, and purely to identify and alias the squids en
 
 Tags serve two key roles. Firstly as a labelling mechanism, this allows teams to explicitly describe what each squid does and what stage it's at in development. Secondly as a way to preserve urls across slots. Tags act as an alias by creating a unqiue endpoint for each tag. This allows you to migrate a consistent endpoint across slots with ease.
 
-#### Will any of my endpoints change when this is released?
+#### Did any of my endpoints change on this release?
 
-No. Every endpoint will remain unchanged.
-
-#### How to get started?
-
-The upgrades are available in Preview today. To make use of them you will need to
-
-1. Install a new version of the cli locally
-
-    ```npm install -g @subsquid/cli@beta```
-
-2. Enable preview on SQD Cloud
-
-    https://app.subsquid.io/preview
-
-3. Try breaking all the new features!
+No. Every endpoint remains unchanged.
 
 #### Where can I learn more about these updates?
 
