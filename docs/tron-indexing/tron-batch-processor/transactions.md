@@ -56,16 +56,19 @@ Selection of the exact fields to be retrieved for each transaction and the optio
 
 #### Example
 
-**DOES NOT WORK**
+This requests `TransferContract` txs where owner is `41da9964294c8689bfee2778606e485221625496bf`, plus their logs, on block 64000675.
 
-This requests `TransferContract` txs where owner is `c4db2c9dfbcb6aa344793f1dda7bd656598a06d8`, plus their logs.
 ```ts
 processor.addTransferTransaction({
   where: {
-    owner: [ 'c4db2c9dfbcb6aa344793f1dda7bd656598a06d8' ]
+    owner: [ '41da9964294c8689bfee2778606e485221625496bf' ]
   },
   include: {
     logs: true
+  },
+  range: {
+    from: 64000675,
+    to: 64000675
   }
 })
 ```
@@ -113,7 +116,22 @@ Selection of the exact fields to be retrieved for each transaction and the optio
 
 #### Example
 
-TBA
+This requests `TransferAssetContract` txs where owner is `4170d66a855afef04753f06c4d6210d6b77708cdb0`, plus their internal txs, on block 64000000.
+
+```ts
+processor.addTransferTransaction({
+  where: {
+    owner: [ '4170d66a855afef04753f06c4d6210d6b77708cdb0' ]
+  },
+  include: {
+    internalTransactions: true
+  },
+  range: {
+    from: 64000000,
+    to: 64000000
+  }
+})
+```
 
 ### `addTriggerSmartContractTransaction(options)` {#add-trigger-smart-contract-transaction}
 
@@ -158,7 +176,15 @@ Selection of the exact fields to be retrieved for each transaction and the optio
 
 #### Example
 
-TBA
+This requests `TriggerSmartContract` txs made directly to the USDT contract (`41a614f803b6fd780986a42c78ec9c7f77e6ded13c`).
+
+```ts
+processor.addTriggerSmartContractTransaction({
+  where: {
+    contract: [ '41a614f803b6fd780986a42c78ec9c7f77e6ded13c' ]
+  }
+})
+```
 
 ### `addTransaction(options)` {#add-transaction}
 
