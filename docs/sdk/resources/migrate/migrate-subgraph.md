@@ -26,7 +26,7 @@ On top of the features provided by subgraphs, Squid SDK and SQD Cloud offer extr
 - Arbitrary code execution in the data handler
 - [Extension of the GraphQL API](/sdk/reference/openreader-server/configuration/custom-resolvers) with arbitrary SQL
 - [Secret environment variables](/cloud/resources/env-variables), allowing to seamlessly use private third-party JSON-RPC endpoints and integrate with external APIs
-- [API versioning and aliasing](/cloud/resources/production-alias)
+- [Deployment slots and tags](/cloud/resources/slots-and-tags)
 - [API caching](/sdk/reference/openreader-server/configuration/caching)
 
 For a full feature set comparison, see [SQD vs The Graph](/sdk/subsquid-vs-thegraph).

@@ -18,6 +18,7 @@ To create an organization, click on the organizations dropdown menu in the upper
 A playground organization is created for each account on its first login. There, you can deploy one squid for development or prototyping, free of charge.
 
 Playground squids cannot be used in production, as they are [collocated](/cloud/reference/scale/#dedicated) and run on [spot VMs](https://cloud.google.com/spot-vms). Expect 3-5 minutes of downtime once every few days. Other limitations include:
+ - squid manifests with the [`scale:` section](/cloud/reference/scale) are forbidden;
  - 10 GB of database storage;
  - 500k monthly requests to the [built-in RPC service](/cloud/resources/rpc-proxy).
 
@@ -37,7 +38,7 @@ Once an organization is upgraded you can deploy as many squids as you requre. [`
 
 ## Working with organizations
 
-When your account has access to more than one organization, it is necessary to specify one when [listing](/squid-cli/ls), [exploring](/squid-cli/explorer) or [deploying](/squid-cli/deploy) (with some exceptions) your squids, as well as when [setting secrets](/squid-cli/secrets). Do it with the `--org/-o` flag:
+When your account has access to more than one organization, it is necessary to specify one when [listing](/squid-cli/list) or [deploying](/squid-cli/deploy) (with some exceptions) your squids, as well as when [setting secrets](/squid-cli/secrets). Do it with the `--org/-o` flag:
 
 ```bash
 sqd secrets ls -o my-organization
@@ -45,7 +46,6 @@ sqd secrets rm SECRET --org my-organization
 sqd secrets set SECRET --org my-organization
 
 sqd ls -o my-organization
-sqd explorer -o my-organization
 sqd deploy . -o my-organization
 ```
 

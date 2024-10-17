@@ -11,7 +11,7 @@ Over the last 6 months we've seen hundreds of teams deploy thousands of squids t
 * **Slots:** Forget incrementing a single version number! Versions will be retired and replaced by slots, a customisable identifier for each deployment.
 * **Tags:** Remembering which squid is which just got a lot easier! Now you can create and assign multiple custom tags to any deployment. As a result we'll be retiring the [Production alias](/cloud/resources/production-alias) feature. Now tags act as aliases, making it possible to create, identify and consume endpoints.
 
-[I’ll read the story later, let me see what I can do with it!](/deployments-two-guide/)
+[I’ll read the story later, let me see what I can do with it!](/cloud/resources/slots-and-tags)
 
 ![](https://github.com/user-attachments/assets/c32acb2f-51be-4047-b817-277eb8fe7eda)
 
@@ -70,7 +70,7 @@ The tagging system can be used for any custom workflow that your team needs. We 
 
 #### Do I need to redeploy anything?
 
-No. But we suggest you take a look at the [Backwards compatibility](/deployments-two-changelog/#backwards-compatibility) section in our changelog.
+No. But we suggest you take a look at the [Backwards compatibility](/cloud/reference/deployments-two-changelog/#backwards-compatibility) section in our changelog.
 
 #### We really like versions, they work well for us, do we need to change our workflow?
 
@@ -104,8 +104,8 @@ The upgrades are available in Preview today. To make use of them you will need t
 
 #### Where can I learn more about these updates?
 
-Learn how to use these new features [here](/deployments-two-guide/). 
+Learn how to use these new features [here](/cloud/resources/slots-and-tags).
 
-To read about the indepth details of the changes please head [here](/deployments-two-changelog).
+To read about the indepth details of the changes please head [here](/cloud/reference/deployments-two-changelog).
 
 We'd love to hear your feedback on these changes. Tag us on twitter [@helloSQD](https://x.com/helloSQD) or come talk to us in [Telegram](https://t.me/HydraDevs).

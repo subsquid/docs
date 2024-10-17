@@ -24,9 +24,17 @@ Make sure that the squid is ready for deployment. This includes:
 
 You can register a SQD account by visiting the [SQD cloud](https://app.subsquid.io). Click `Create an account` and fill in the required information, or sign in with your GitHub or Google account.
 
-## 3. Edit the `squid.yaml` file
+## 3. Create a professional organization
 
-### 3.1. Basic configuration
+Once you're logged in, create a new [organization](/cloud/resources/organizations) and upgrade it to [professional](/cloud/resources/organizations/#professional-organizations) by attaching a valid credit card in the "Billing" tab.
+
+![Create an organization](./overview-create-org.png)
+
+You can skip this step, but then you will only be able to deploy to your account's [playground](/cloud/resources/organizations/#playgrounds). Playground squids are a trial / development solution with limited functionality; they are not suitable for use in production.
+
+## 4. Edit the `squid.yaml` file
+
+### 4.1. Basic configuration
 
 First, set squid name, description, and other metadata in the [header section](/cloud/reference/manifest/#header) of the `squid.yaml` file.
 
@@ -49,10 +57,11 @@ deploy:
     cmd: ["sqd", "serve:prod"]
 ```
 
-### 3.2. Using addons
+Note that the `processor` and `api` commands are [commands.json](/squid-cli/commands-json)-based. This is optional.
 
-SQD provides RPC and database addons that can be used with your squid deployment. Enable your addons in the `deploy.addons` section.
+### 4.2. Using addons
 
+SQD Cloud addons enable extra services for your squid. Enable them in the `deploy.addons` section.
 
 #### `rpc` addon
 
@@ -91,9 +100,9 @@ export const processor = new EvmBatchProcessor().setRpcEndpoint(
 
 This configuration will use the Arbitrum RPC endpoint provided by SQD.
 
-#### `database` addon
+#### `postgres` addon
 
-You can also opt in to use the [`database` addon](/cloud/reference/pg). Add `postgres:` to the `deploy.addons` section:
+For squids that [write their data to PostgreSQL](/sdk/resources/persisting-data/typeorm) use the [`postgres` addon](/cloud/reference/pg):
 
 ```yaml
 deploy:
@@ -110,9 +119,13 @@ scale:
       profile: medium
 ```
 
-### 3.3. Services
+#### `hasura` addon
 
-Squids come with a GraphQL service out-of-the-box. You can enable or disable the service by adding or removing the `deploy.api` section of the `squid.yaml` file. In the `scale` section you can also set the scale and number of replicas for the service.
+If your squid [uses a dedicated Hasura instance](/sdk/resources/serving-graphql/#hasura), configure the [`hasura` addon](/cloud/reference/hasura) to supply it.
+
+### 4.3. API scale
+
+Squids come with a GraphQL service out-of-the-box. You can enable or disable the service by adding or removing the `deploy.api` section of the `squid.yaml` file. In the [`scale.api` section](/cloud/reference/scale/#api) you can also set the scale and number of replicas.
 
 ```yaml
 deploy:
@@ -125,9 +138,11 @@ scale:
     replicas: 3
 ```
 
-### 3.4. Processor scale
+This approach works if you use [OpenReader](/sdk/resources/serving-graphql/#openreader) (the default in most current examples) or [PostGraphile](/sdk/resources/serving-graphql/#postgraphile). If your squid uses a dedicated [Hasura instance](/sdk/resources/serving-graphql/#hasura) for its GraphQL needs, consult the [`hasura` addon page](/cloud/reference/hasura).
 
-Next, set the scale of the indexer processor. You can set the profile to `small`, `medium`, or `large`.
+### 4.4. Processor scale
+
+Next, set the scale of the indexer processor. See [this reference section](/cloud/reference/scale/#processor) to learn about your options.
 
 ```yaml
 scale:
@@ -135,7 +150,7 @@ scale:
     profile: medium
 ```
 
-### 3.5. Dedicated deployment
+### 4.5. Dedicated deployment
 
 By default, all squids are collocated, meaning that the squid shares resources with other collocated squids. In this case, computing resources might not be available at all times.
 
@@ -150,7 +165,7 @@ scale:
   dedicated: true
 ```
 
-### 3.6. The resulting `squid.yaml`
+### 4.6. The resulting `squid.yaml`
 
 Here is an example of a `squid.yaml` file with all the options set:
 
@@ -187,7 +202,7 @@ scale:
 
 For all deployment options, check out the [deployment manifest](/cloud/reference/manifest) page.
 
-## 4. Set any required secrets
+## 5. Set any required secrets
 
 If your squid uses any sensitive data such as a private URL or an access key, you need to store it in a [SQD Cloud secret](/cloud/resources/env-variables/#secrets). You can do this by going to the `Secrets` tab in the SQD cloud sidebar and adding the required values.
 
@@ -197,7 +212,7 @@ If your squid uses any sensitive data such as a private URL or an access key, yo
 
 Alternatively, use [`sqd secrets`](/squid-cli/secrets).
 
-## 5. Deploy the squid
+## 6. Deploy the squid
 
 To deploy the squid to the cloud, open `Squids` in the sidebar and press the `Deploy a squid` button in the SQD cloud.
 
@@ -210,10 +225,10 @@ Type the squid name to be the same as in the `squid.yaml` file.
 Finally, deploy the squid:
 
 ```bash
-sqd deploy --org <your_organization> <path_to_squid_project_root>
+sqd deploy <path_to_squid_project_root>
 ```
 
-## 6. Monitor the squid
+## 7. Monitor the squid
 
 :::tip
 Take a look at [logging page](/cloud/resources/logging) for tips on emitting and reading logs.
@@ -231,13 +246,17 @@ You can see memory usage, CPU usage, and other metrics in the monitoring tab. He
 
 ![monitoring tab](./overview-monitor.png)
 
-## 7. Use the squid
+## 8. Use the squid
 
 If your squid uses a database, you'll have direct access. Take a look at the `DB access` tab of your squid's card in SQD Cloud console.
 
-If your squids serves a GraphQL API, you'll be able to access it via a deployment-based URL or via a permanent squid-specific URL that redirects to a particular deployment. See [Production alias](/cloud/resources/production-alias).
+Squid deployments are organized with [slots and tags](/cloud/resources/slots-and-tags). This structure enables a rich variety of workflows, notably including [zero downtime updates](/cloud/resources/slots-and-tags/#zero-downtime-updates) of squid GraphQL APIs. We recommend that you use this workflow for all production squids.
 
 ## What's next?
 
-- See how to [update](/squid-cli/deploy) or [kill](/squid-cli/rm) a deployed squid version.
-- Learn about [organizations](/cloud/resources/organizations) and [pricing](/cloud/pricing).
+- Take a look at our [pricing](/cloud/pricing).
+- Learn more about [organizations](/cloud/resources/organizations) and the [slots and tags system](/cloud/resources/slots-and-tags).
+- Browse the [`sqd` CLI documentation](/squid-cli) to learn how to perform common squid maintenance tasks.
+  + [create or update a deployment](/squid-cli/deploy)
+  + [tag a deployment](/squid-cli/tags)
+  + [kill a deployment](/squid-cli/remove)

@@ -1,23 +1,5 @@
-`sqd prod`
-==========
+---
+sidebar_class_name: hidden
+---
 
-Assign squid version to the production endpoint
-
-* [`sqd prod NAMEANDVERSION`](#sqd-prod-nameandversion)
-
-## `sqd prod NAMEANDVERSION`
-
-Assign a squid version to the production endpoint
-
-```
-USAGE
-  $ sqd prod NAMEANDVERSION
-
-ARGUMENTS
-  NAMEANDVERSION  name@version
-
-ALIASES
-  $ sqd squid:prod
-```
-
-_See code: [src/commands/prod.ts](https://github.com/subsquid/squid-cli/tree/master/src/commands/prod.ts)_
+`sqd prod` and the production aliases system are deprecated starting from `@subsquid/cli@3.0.0`. Zero downtime updates are now handled by the [slots and tags system](/cloud/resources/slots-and-tags). See also the [changelog](/cloud/reference/deployments-two-changelog) for a comparison between production aliases and the new system.

@@ -1,15 +1,19 @@
 ---
-sidebar_class_name: hidden
+sidebar_position: 60
+title: Slots and tags
+description: Manage multiple squid deployments
 ---
 
-# Guide to Deployments 2.0
+# Slots and tags
 
-You've probably read the SQD Cloud Deployments 2.0 [Release Notes](/deployments-two-release-notes), and now you’re ready to dive deeper into how it works. So let's get started!
+:::tip
+If you used SQD Cloud before the slots and tags update, you may want to take a look at the [changelog](/cloud/reference/deployments-two-changelog).
+:::
 
-The new deployments system is built on two new concepts:
+Starting with `@subsquid/cli>=3.0.0` SQD Cloud is using a new deployment system based on the following concepts:
 
 * **Slots:** Given a squid name and an [organization](/cloud/resources/organizations), slot name uniquely identifies a squid deployment.
-  - Slots directly replace versions from the old workflow. Unlike versions, they are identified by short strings, not numbers.
+  - Slots are identified by short strings. They directly replace versions from the old workflow, which were identified by numbers.
   - You can specify a slot on deployment or omit it. In the latter case the Cloud will create a new slot with a random identifier.
   - Deploying to an already occupied slot will result in updating the initial deployment.
 * **Tags:** A way to label deployments.
@@ -30,9 +34,11 @@ Both tags and slots can be specified in squid manifest as well as via command li
 The functionality in this section mirrors the now-deprecated [production aliases](/cloud/resources/production-alias).
 :::
 
-As you develop your squid you will sometimes need to re-sync it from scratch. With tags you can do this without a maintenance downtime. Here's how:
+As you develop your squid you will sometimes need to re-sync it from scratch. With tags you can do this without a maintenance downtime.
 
-1. Take your squid (or the [the EVM template](https://github.com/subsquid-labs/squid-evm-template/) if you just want something to test this with) and open its manifest (`squid.yaml` by default). Remove any deployment references:
+**Here is how to prepare your squid on its initial deployment:**
+
+1. Go to your squid project (or the [EVM template](https://github.com/subsquid-labs/squid-evm-template/) if you just want something to test this with) and open the squid manifest (`squid.yaml` by default). Remove any deployment references:
 
    * `version:` (old)
    * `slot:` (new)
@@ -53,7 +59,7 @@ As you develop your squid you will sometimes need to re-sync it from scratch. Wi
    ```
    `fj0anc` is the slot name that Cloud automatically assigned to your squid deployment. Here's how this deployment looks like in [the app](https://app.subsquid.io/squids):
 
-   ![First squid](./deployments-two-guide-first-squid.png)
+   ![First squid](./slots-and-tags-first-squid.png)
 
    At this stage you can already access your deployment's API via a slot-based URL. However, that API will go down if we reset the deployment's database. Instead, let us use a tag-based URL that can be redirected to an API of another deployment.
 
@@ -71,7 +77,7 @@ As you develop your squid you will sometimes need to re-sync it from scratch. Wi
 
 1. Make one more deployment of your squid. For that you can just re-run `sqd deploy .`: since no slot, version or tag is supplied in the manifest, the Cloud will automatically create a new slot for you. Your Cloud deployments might now look like this:
 
-   ![Second squid](./deployments-two-guide-second-squid.png)
+   ![Second squid](./slots-and-tags-second-squid.png)
 
 2. Wait for your new deployment to sync, then test its API using its slot-based (_canonical_) URL:
    ```
@@ -106,7 +112,7 @@ sqd deploy . --add-tag production-v1
 ```
 This will produce exactly the same result. Here's how it may look like in the Cloud app:
 
-![Two major versions](./deployments-two-guide-two-major-versions.png)
+![Two major versions](./slots-and-tags-two-major-versions.png)
 
 Now you have two independent APIs accessible by tag-based URLs and you can perform [zero-downtime updates](#zero-downtime-updates) on each.
 
@@ -114,7 +120,7 @@ Now you have two independent APIs accessible by tag-based URLs and you can perfo
 
 In the [previous section](#multiple-major-versions) we considered the situation when multiple tags are used to denote major versions of the API. However, the exact same approach can be used to separate, for example, development from production:
 
-![Development and production](./deployments-two-guide-development-and-production.png)
+![Development and production](./slots-and-tags-development-and-production.png)
 
 When working on your development deployment, you’ll likely need to perform a variety of operations on it, frequently and without the concern of downtime. For that, all Squid CLI commands allow addressing deployments by tag. For example, to access logs of your `development` deployment use
 
@@ -137,12 +143,12 @@ This may serve as a safeguard, preventing accidental deployments to production o
 
 Now that you've seen how slots and tags can help you with some common tasks, you may want to use them to design new workflows uniquely suitable for the needs of your project. Here are some resources that may help you with that:
 
-- The output of `sqd <command> --help` commands, especially of
+- [Squid CLI documentation](/squid-cli), particularly the [`sqd deploy` page](/squid-cli/deploy). Most of it is also available via
   ```bash
   sqd deploy --help
   ```
   All the flags you can use to refer to deployments and to disable protective user prompts are described there.
 
-- The detailed [changelog](/deployments-two-changelog) that (for now) doubles as the reference documentation page. It describes the new system by comparing it to the old one that was based on versions and [production aliases](/cloud/resources/production-alias).
+- The detailed [changelog](/cloud/reference/deployments-two-changelog) that (for now) doubles as the reference documentation page. It describes the new system by comparing it to the old one that was based on versions and [production aliases](/cloud/resources/production-alias).
 
-- If you used the old system or witnessed the migration of your organization, you may want to take a look at the [Backwards compatibility](/deployments-two-changelog/#backwards-compatibility) section of the changelog.
+- If you used the old system or witnessed the migration of your organization, you may want to take a look at the [Backwards compatibility](/cloud/reference/deployments-two-changelog/#backwards-compatibility) section of the changelog.

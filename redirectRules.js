@@ -854,6 +854,14 @@ const urlList = [
     {
         "from": "/sdk/resources/basics/unfinalized-blocks",
         "to": "/sdk/resources/unfinalized-blocks"
+    },
+    {
+        "from": "/squid-cli/ls",
+        "to": "/squid-cli/list"
+    },
+    {
+        "from": "/squid-cli/rm",
+        "to": "/squid-cli/remove"
     }
 ]
 

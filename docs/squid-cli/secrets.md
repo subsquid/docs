@@ -5,51 +5,64 @@ Manage account secrets
 
 The secrets are [exposed as a context](/cloud/resources/env-variables/#secrets), and are accessible to all the squids deployed by the current SQD Cloud [organization](/cloud/resources/organizations).
 
-* [`sqd secrets:ls`](#sqd-secretsls)
-* [`sqd secrets:rm NAME`](#sqd-secretsrm-name)
-* [`sqd secrets:set NAME VALUE`](#sqd-secretsset-name-value)
+* [`sqd secrets list`](#sqd-secrets-list)
+* [`sqd secrets remove NAME`](#sqd-secrets-remove-name)
+* [`sqd secrets set NAME VALUE`](#sqd-secrets-set-name-value)
 
-All `sqd secrets` commands require specifying an [organization](/cloud/resources/organizations) with the `-o/--org` flag when invoked by accounts with more than one organization. SQD Cloud users with just one organization can omit this flag.
+## `sqd secrets list`
 
-## `sqd secrets:ls`
-
-List all secrets for the current SQD Cloud account
+List organization secrets in the Cloud
 
 ```
 USAGE
-  $ sqd secrets:ls [-o <value>]
+  $ sqd secrets list [--interactive] [-o <value>]
 
-ARGUMENTS
-  NAME  The secret name
+FLAGS
+  -o, --org=<value>       Organization
+      --[no-]interactive  Disable interactive mode
+
+ALIASES
+  $ sqd secrets ls
 ```
 
 _See code: [src/commands/secrets/ls.ts](https://github.com/subsquid/squid-cli/tree/master/src/commands/secrets/ls.ts)_
 
-## `sqd secrets:rm NAME`
+## `sqd secrets remove NAME`
 
-Remove a secret
+Delete an organization secret in the Cloud
 
 ```
 USAGE
-  $ sqd secrets:rm NAME [-o <value>]
+  $ sqd secrets remove NAME [--interactive] [-o <value>]
 
 ARGUMENTS
   NAME  The secret name
+
+FLAGS
+  -o, --org=<value>       Organization
+      --[no-]interactive  Disable interactive mode
+
+ALIASES
+  $ sqd secrets rm
 ```
 
 _See code: [src/commands/secrets/rm.ts](https://github.com/subsquid/squid-cli/tree/master/src/commands/secrets/rm.ts)_
 
-## `sqd secrets:set NAME VALUE`
+## `sqd secrets set NAME VALUE`
 
-Add or update a secret in the Cloud. If value is not specified, it is read from standard input. The secret will be exposed as an environment variable with the given name to all the squids in the organization. NOTE: The changes take affect only after a squid is restarted or updated.
+Add or update an organization secret in the Cloud. If value is not specified, it is read from standard input. The secret will be exposed as an environment variable with the given name to all the squids in the organization. NOTE: The changes take affect only after a squid is restarted or updated.
 
 ```
 USAGE
-  $ sqd secrets:set NAME VALUE [-o <value>]
+  $ sqd secrets set NAME VALUE [--interactive] [-o <value>]
 
 ARGUMENTS
   NAME   The secret name
   VALUE  The secret value
+
+FLAGS
+  -o, --org=<value>       Organization
+      --[no-]interactive  Disable interactive mode
 ```
 
 _See code: [src/commands/secrets/set.ts](https://github.com/subsquid/squid-cli/tree/master/src/commands/secrets/set.ts)_

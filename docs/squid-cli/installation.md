@@ -36,8 +36,7 @@ The next steps are **optional** for building and running squids. A key is requir
 
 Sign in to [Cloud](https://app.subsquid.io/), and obtain (or refresh) the deployment key page by clicking at the profile picture > "Deployment key":
 
-![Cloud deployment key page](./deployment-key.png)
-
+![Cloud deployment key page](./installation-deployment-key.png)
 
 ## 2. Authenticate Squid CLI
 
