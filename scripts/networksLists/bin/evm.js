@@ -43,7 +43,7 @@ async function evmNetworksRows(networksJson) {
 
 	const minirows = networksJson.map(a => ({
 		network: nameMapping(a),
-		chainId: a.chainId.toString(),
+		chainId: a.chainId != null ? a.chainId.toString() : '',
 		url: a.providers.find(p => p.provider==='subsquid' && p.release==='ArrowSquid')?.dataSourceUrl
 	}))
 
