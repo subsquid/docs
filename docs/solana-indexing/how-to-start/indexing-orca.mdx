@@ -84,7 +84,7 @@ const dataSource = new DataSourceBuilder()
     }),
     strideConcurrency: 10 // max concurrent RPC connections
   })
-  .setBlockRange({from: 240_000_000})
+  .setBlockRange({from: 254_625_450})
   .setFields({
     block: {
       timestamp: true
@@ -134,7 +134,7 @@ const dataSource = new DataSourceBuilder()
 Here,
 * `'https://v2.archive.subsquid.io/network/solana-mainnet'` is the address for the public SQD Network gateway for Solana mainnet. The only other Solana-compatible dataset currently available is Eclipse Testnet, with the gateway at `'https://v2.archive.subsquid.io/network/eclipse-testnet'`. Many other networks are available on EVM and Substrate - see the exhaustive [public networks list](/subsquid-network/reference/networks).
 * `'process.env.SOLANA_NODE'` is an environment variable pointing at a public RPC endpoint we chose to use in this example. When an endpoint is available, the processor will begin ingesting data from it once it reaches the highest block available within SQD Network.
-* `240_000_000` is first Solana block currently indexed by SQD.
+* `254_625_450` is first Solana block currently indexed by SQD.
 * The argument of [`addInstruction()`](/solana-indexing/sdk/solana-batch/instructions) is a set of filters that tells the processor to retrieve all data on the swap instruction of the Whirlpool program with discriminator matching the hash of the `<namespace>:<instruction>` of the swap instruction.
 * The argument of [`setFields()`](/solana-indexing/sdk/solana-batch/field-selection) specifies the exact fields we need for every data item type.
 
