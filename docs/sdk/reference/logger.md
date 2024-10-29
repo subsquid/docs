@@ -51,7 +51,31 @@ since all processor context loggers inherit the processor-level namespace `sqd:p
 Processor logs can be inspected once the squid is deployed to Cloud:
 
 ```bash
-sqd logs <name>@<version> -f --level <level>
+sqd logs -n <name> -s <slot> -f --level=<level>
 ```
+or
+```bash
+sqd logs -n <name> -t <tag> -f --level=<level>
+```
+<details>
+
+<summary>For older version-based deployments...</summary>
+
+...the slot string is `v${version}`, so use
+```bash
+sqd logs -n <name> -s v<version> -f --level=<level>
+```
+Check out the [Slots and tags guide](/cloud/resources/slots-and-tags) to learn more.
+
+</details>
+
+The available levels are:
+ * `info`
+ * `warning`
+ * `debug`
+ * `error` - will fetch messages emitted by
+   - `ctx.log.error`
+   - `ctx.log.fatal`
+   - `ctx.log.trace`
 
 See [CLI Reference](/squid-cli/logs) or `sqd logs --help` for a full list of log options supported by SQD Cloud.

@@ -10,8 +10,23 @@ SQD Cloud automatically collects the logs emitted by the squid processor, its AP
 
 To inspect and follow the squid logs from all the squid services, use [`sqd logs`](/squid-cli/logs):
 ```bash
-sqd logs <name>@<version> -f
+sqd logs -n <name> -s <slot> -f
 ```
+or
+```bash
+sqd logs -n <name> -t <tag> -f
+```
+<details>
+
+<summary>For older version-based deployments...</summary>
+
+...the slot string is `v${version}`, so use
+```bash
+sqd logs -n <name> -s v<version> -f
+```
+Check out the [Slots and tags guide](/cloud/resources/slots-and-tags) to learn more.
+
+</details>
 
 There are additional flags to filter the logs:
 - `-f` to follow the logs

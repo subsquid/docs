@@ -41,5 +41,9 @@ ORG FLAGS
 
 Notes:
  * `--since` accepts the notation of the [`ms` library](https://www.npmjs.com/package/ms): 1d, 10h, 1m.
+ * With `--level=error` `sqd` will fetch logs emitted by three different calls to the [SDK Logger](/sdk/reference/logger), namely
+   - `ctx.log.error`
+   - `ctx.log.fatal`
+   - `ctx.log.trace`
 
 _See code: [src/commands/logs.ts](https://github.com/subsquid/squid-cli/tree/master/src/commands/logs.ts)_
