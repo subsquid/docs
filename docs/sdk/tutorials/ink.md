@@ -41,7 +41,7 @@ cd ink-tutorial
 and run it:
 
 ```bash
-npm ci
+npm i
 npm run build
 docker compose up -d
 npx squid-typeorm-migration apply

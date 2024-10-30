@@ -36,7 +36,7 @@ cd substrate-crust-tutorial
 Now you can follow the [quickstart](/sdk/how-to-start/squid-development) guide to get the project up and running. Here is a summary:
 
 ```bash
-npm ci
+npm i
 npm run build
 docker compose up -d
 npx squid-typeorm-migration apply

@@ -160,7 +160,7 @@ processor.run(db, async (ctx) => {
 Install the dependencies and build
 
 ```bash
-npm ci
+npm i
 npm run build
 ```
 

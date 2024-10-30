@@ -26,7 +26,7 @@ We will start with the [`frontier-evm` squid template](https://github.com/subsqu
 ```bash
 sqd init astar-evm-tutorial --template frontier-evm
 cd astar-tutorial
-npm ci
+npm i
 ```
 
 ## Define Entity Schema
