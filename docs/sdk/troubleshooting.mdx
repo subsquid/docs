@@ -68,7 +68,7 @@ PostgreSQL doesn't support storing `NULL (\0x00)` characters in text fields. Usu
 <details>
 <summary>API queries are too slow</summary>
 
-- Make sure all the necessary fields are [indexed](/sdk/reference/schema-file/indexes-and-constraints/)
+- Make sure all the necessary fields are [indexed](/sdk/reference/schema-file/indexes-and-constraints/). The best way to do that is to perform the [query optimization procedure](/cloud/resources/query-optimization/).
 - Annotate the schema and [set reasonable limits](/sdk/reference/openreader-server/configuration/dos-protection/) for the incoming queries to protect against DoS attacks
 
 </details>

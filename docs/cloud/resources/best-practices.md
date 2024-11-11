@@ -17,6 +17,7 @@ Batch handler data filtering used to be compulsory before the release of `@subsq
 :::
 
 * If your squid [saves its data to a database](/sdk/resources/persisting-data/typeorm), make sure your [schema](/sdk/reference/schema-file) has [`@index` decorators](/sdk/reference/schema-file/indexes-and-constraints) for all entities that will be looked up frequently.
+  - Follow the [queries optimization procedure](/cloud/resources/query-optimization) for best results.
 
 * If your squid serves a [GraphQL API](/sdk/resources/serving-graphql)
   1. Do not use [OpenReader](/sdk/resources/serving-graphql/#openreader) if your application uses subscriptions. Instead, use [PostGraphile](/sdk/resources/serving-graphql/#postgraphile) or [Hasura](/sdk/resources/serving-graphql/#hasura).
