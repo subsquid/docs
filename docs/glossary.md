@@ -87,7 +87,7 @@ A file describing the target data schema for a squid, normally called `schema.gr
 
 ### State
 
-A key-value map defining the internal worldview of a EVM contract of a Substrate runtime at a specific point in time. The consensus algorithm ensures that the honest majority of the nodes agree on the runtime state. 
+A key-value map defining the internal worldview of an EVM contract of a Substrate runtime at a specific point in time. The consensus algorithm ensures that the honest majority of the nodes agree on the runtime state.
 
 ### Storage
 
