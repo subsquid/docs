@@ -50,17 +50,11 @@ const config = {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-        gtag: {
-          trackingID: 'G-6JBS6RNP90',
-        },
       }),
     ],
   ],
 
   themeConfig:  /** @type {import('@docusaurus/preset-classic').ThemeConfig} */ ({
-    hotjar: {
-      applicationId: 3348787,
-    },
     navbar: {
       logo: {
         alt: 'Subsquids',
@@ -115,7 +109,6 @@ const config = {
   }),
 
   plugins: [
-    'docusaurus-plugin-hotjar',
     [
         '@docusaurus/plugin-client-redirects', {
             redirects: urlList
