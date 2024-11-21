@@ -58,6 +58,8 @@ Full profile descriptions are available [here](/cloud/reference/scale/#api) for 
 - `small`: `0.08$/hr`
 - `medium`: `0.16$/hr`
 - `large`: `0.33$/hr`
+- `xlarge`: `0.66$/hr`
+- `2xlarge`: `1.32$/hr`
 
 Profiles are described [here](/cloud/reference/pg/#scaling). Combine with the [cost of storage](/cloud/pricing/#storage) to get the full price of maintaining the database.
 
