@@ -41,7 +41,7 @@ The `postgres` add-on supports storage and compute resource scaling by extending
 | Name        | Description  | Type      |Default value  | Optional   |  
 |:-----------:|:------------:|:---------:|:--------------:|:----------:|
 | `storage`           | Volume size for the postgres container  |  [memory resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory) | `10G`        |   Optional     |
-| `profile`  | Log queries executing longer than the given threshold, ms              |  `small` \| `medium` \| `large` |`small`          |   Optional     |
+| `profile`  | Allocated resources profile      |  `small` \| `medium` \| `large` \| `xlarge` \| `2xlarge`  |`small`          |   Optional     |
 
 The profile specifications for a `postgres` service are as follows:
 
@@ -50,6 +50,8 @@ The profile specifications for a `postgres` service are as follows:
 |`small`| 0.2 | `768Mi` | 1 | `2Gi` |
 | `medium`| 0.5 | `1.5Gi` | 2 | `4Gi` |
 | `large` | 1 | `3Gi`| 4 | `4Gi` |
+| `xlarge` | - | -| 8 | `16Gi` |
+| `2xlarge` | - | - | 16 | `32Gi` |
 
 
 ## Examples
