@@ -51,17 +51,15 @@ The profile specifications for API service replicas are as follows:
 
 | Name        | Description  | Type      |Default value  | Optional   |  
 |:-----------:|:------------:|:---------:|:--------------:|:----------:|
-| `profile`  | Allocated resources profile      |  `small` \| `medium` \| `large` \| `xlarge` \| `2xlarge`  |`small`          |   Optional     |
+| `profile`  | Allocated resources profile      |  `small` \| `medium` \| `large`  |`small`          |   Optional     |
 
 The profile specifications for a processor service are as follows:
 
 | Profile | colocated vCPU (max) | colocated RAM (max) | dedicated vCPU (requested) | dedicated RAM (max) |
 |:----:|:----:|:-------:|:-----:|:------:|
-|`small`| 0.2 | `768Mi` | 1 | `2Gi` |
-| `medium`| 0.5 | `1.5Gi` | 2 | `4Gi` |
-| `large` | 1 | `3Gi`| 4 | `4Gi` |
-| `xlarge` | - | -| 8 | `16Gi` |
-| `2xlarge` | - | - | 16 | `32Gi` |
+|`small`| 0.2 | `768Mi` | 0.5 | `768Mi` |
+| `medium`| 0.5 | `1.5Gi` | 1 |  `1.5Gi` |
+| `large` | 1 | `3Gi`| 2 | `3Gi` |
 
 
 ## Example
