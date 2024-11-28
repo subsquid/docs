@@ -2,6 +2,7 @@
 sidebar_position: 3
 title: ArrowSquid for EVM
 description: A step-by-step migration guide for EVM
+sidebar_class_name: hidden
 ---
 
 # Migrate to ArrowSquid (EVM)

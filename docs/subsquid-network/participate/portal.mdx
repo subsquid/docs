@@ -133,6 +133,14 @@ Please copy your peer ID.
   docker compose logs -f
   ```
 
+## Using your portal
+
+Assuming that you're running your portal locally, it'll expose its dataset-specific APIs at URL such as this one:
+```
+http://localhost:port/datasets/dataset-slug
+```
+You can now get any squid (e.g. one of the [templates](/sdk/how-to-start/squid-development/#templates) or [examples](/sdk/examples)), tweak it to [source data from your portal](/subsquid-network/participate/portal) and run it.
+
 ## High throughput portals
 
 The recommended way to make a portal that can serve a large number of requests is deploy multiple portals associated with a single wallet:

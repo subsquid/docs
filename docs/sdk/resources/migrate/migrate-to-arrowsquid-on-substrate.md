@@ -2,6 +2,7 @@
 sidebar_position: 5
 title: ArrowSquid for Substrate
 description: A step-by-step migration guide for Substrate
+sidebar_class_name: hidden
 ---
 
 # Migrate to ArrowSquid (Substrate)
