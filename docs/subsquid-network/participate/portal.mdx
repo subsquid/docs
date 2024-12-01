@@ -7,45 +7,22 @@ sidebar_class_name: hidden
 
 # Self-host a portal
 
-Running a portal enables you to access SQD Network data without relying on any centralized services. You can run a private portal for your own needs, or make a high-throughput public portal.
+:::info
+SQD Network portals are currently in beta. Please report any bugs or suggestions to [Squid Devs](https://t.me/HydraDevs).
+:::
+
+Running a portal enables you to access the [permissionless SQD Network](/subsquid-network/overview) data without relying on any centralized services. You can run a private portal for your own needs, or make a high-throughput public portal.
 
 In either scenario you will need
 
-* a working Docker installation
-* some `SQD` tokens (in your wallet or in a special vesting contract)
-* some Arbitrum ETH (for gas)
+* A working Docker installation
+* 10000 or more `SQD` tokens
+   + You won't have to spend the tokens, but you will need to keep them locked while you're using your portal. The more tokens you lock, the more bandwidth you get.
+   + For the minimum amount of 10000 `SQD` you'll get enough bandwidth to run a few squids. If you expect heavier workloads, read the [Token requirements and compute units](#staking-requirements-and-compute-units) section to estimate the required sum.
+   + The tokens can be in your wallet or in an SQD-issued vesting contract.
+* Some Arbitrum ETH (for gas)
 
 Hardware requirements depend on how the portal will be used. A private portal with a single user can run on a laptop.
-
-## Token locking requirements and compute units {#staking-requirements-and-compute-units}
-
-All portals have to be registered on-chain and have some `SQD` locked by their owner's wallet to begin serving requests. Amount of locked tokens and duration of the lockup determine the portal's bandwidth.
-
-The minimum token locking requirement for a portal is XXX SQD. This should be enough for simple user cases like making a private portal for grabbing some data to do analytics. If you expect heavier workloads, read on.
-
-The exact rate limiting mechanism is based on partitioning time into [_epochs_](/subsquid-network/faq/#epoch). Workers periodically [checks](https://arbiscan.io/address/0x4cf58097d790b193d22ed633bf8b15c9bc4f0da7#readContract#F4) if a new epoch has started (once every 30 seconds by default). When a worker receives its first (on the current epoch) request from a portal, it makes an [on-chain query](https://arbiscan.io/address/0x8a90a1ce5fa8cf71de9e6f76b7d3c0b72feb8c4b#readProxyContract#F6) for how many _compute units_ (CUs) are available for requests from the portal. The contract computes the number of CUs based on all locked tokens associated with the portal. The worker keeps the number and decrements it by one every time it receives more requests from the same portal. When the CUs are exhausted it begins replying to any new requests from the portal with HTTP 429 errors, which the portal forwards to the user. The cycle repeats once the worker detects that a new epoch has begun.
-
-At present, any single data request to worker spends 1 CU. See e.g. [EVM worker API](/subsquid-network/reference/evm-api/#worker-api) to get an idea as to what the requests may look like. Portal concatenates the workers' responses into a single data stream.
-
-By default, the contract allocates the same amount of CUs for each worker, namely
-```
-(SQD_AMOUNT * EPOCH_LENGTH * BOOST_FACTOR) / (NUM_WORKERS * NUM_PORTALS)
-```
-per epoch. Here,
- * `EPOCH_LENGTH` is 50000 Arbitrum blocks.
- * `BOOST_FACTOR` depends on the duration of the lockup, varying from 1 (lockups under 60 days) to 3 (720 or more days). See [Data consumers](/subsquid-network/whitepaper/#data-consumers) and [Boosters](/subsquid-network/whitepaper/#boosters) sections of the whitepaper.
- * `NUM_WORKERS` is the [number of workers active on the network](https://arbiscan.io/address/0x36e2b147db67e76ab67a4d07c293670ebefcae4e#readContract#F6).
- * `NUM_PORTALS` is the number of portals associated with the owner wallet.
-
-:::info
-It is possible to allocate CUs to workers selectively, e.g. to get more bandwidth on some datasets that are served by a subset workers. Currently there's only a low-level interface for this feature. If you're interested, please let us know in [SquidDevs Telegram chat](https://t.me/HydraDevs).
-:::
-
-For example, if you expect your portal to make up to 36k requests to any worker at any epoch, and the network currently has 1000 workers, you will need to lock 30000 SQD if you choose the shortest locking duration and 10000 SQD if you lock for two years or more.
-
-:::tip
-By default, your portal will go down at the end of the lock period. To prevent that, enable the "Auto-extension" option when locking. This will cause your `SQD` to be immediately relocked once the locking period ends. In this setup you have to unlock then wait for the end of the current locking period to withdraw your tokens.
-:::
 
 ## Setting up a portal {#portal-setup}
 
@@ -102,13 +79,10 @@ Please copy your peer ID.
 
 * Clone the portal repo and enter the folder.
   ```bash
-  git clone https://github.com/subsquid/query-portal
-  cd query-portal
+  git clone https://github.com/subsquid/sqd-portal
+  cd sqd-portal
   ```
 * Prepare the environment. Begin with
-  ```bash
-  cp config.yml.mainnet config.yml
-  ```
   ```bash
   cp mainnet.env .env
   ```
@@ -135,11 +109,117 @@ Please copy your peer ID.
 
 ## Using your portal
 
-Assuming that you're running your portal locally, it'll expose its dataset-specific APIs at URL such as this one:
+A working portal exposes its dataset-specific APIs via URLs such as this one:
 ```
-http://localhost:port/datasets/dataset-slug
+http://<host>:8000/datasets/<dataset-slug>
 ```
+Here, `<dataset-slug>` is the last path segment of the network-specific gateway URL found on [this page](/subsquid-network/reference/networks). For example, a local portal will expose its Ethereum dataset API at
+```
+http://localhost:8000/datasets/ethereum-mainnet
+```
+
 You can now get any squid (e.g. one of the [templates](/sdk/how-to-start/squid-development/#templates) or [examples](/sdk/examples)), tweak it to [source data from your portal](/subsquid-network/participate/portal) and run it.
+
+## Token requirements and compute units {#staking-requirements-and-compute-units}
+
+The minimum token locking requirement for a portal is 10000 `SQD`. This should be enough for simple user cases like running 2-3 squid or grabbing some data for analytics. If you expect heavier workloads, read on.
+
+The rate limiting mechanism of SQD Network relies on the concept of a _compute unit_, or CU for short. CUs do not map directly to the amount of data fetched by a portal; instead, they (roughly) represent the amount of work that the network does internally while serving the portal's requests.
+
+<details>
+<summary>The definition of CU</summary>
+
+SQD Network datasets are partitioned by the block number. Dataset chunks are randomly distributed among [worker nodes](/subsquid-network/participate/worker).
+
+When an SQD portal receives a data request, the following happens:
+
+1. The portal forwards the request to several workers that hold the chunks of the relevant dataset.
+
+2. The workers are executing the request separately on each chunk.
+
+3. Workers send the results back to the portal. For lightweight queries they send one response for each dataset chunk; however, if any response ends up being larger than 100 Mbytes, it's split into several parts.
+
+4. The portal concatenates the workers' replies and serves a continuous stream of data to the user.
+
+Each response made by any of the workers in step 3 spends exactly 1 CU.
+
+</details>
+
+Currently there is no tool available for estimating the number of CUs that a query needs before actually running it. However, on EVM you can use the following formula to get an [order of magnitude](https://en.wikipedia.org/wiki/Order_of_magnitude) estimate:
+
+```
+10^-5 * range_length_blocks * transactions_per_block
+```
+Notes:
+ - This assumes lightweight queries - that is, queries that fetch much less data than the total dataset size. For heavyweight queries multiply the estimate by a factor of 2-5.
+ - This is a rough estimate. Multiply it by ten to get a somewhat safe figure. If you want to minimize your `SQD` lockup, start at that safe figure, then measure the actual amount of CU you spend and reduce the lockup accordingly.
+ - If your network has an Etherscan-style explorer, you can estimate the `transactions_per_block` by visiting its front page, reading the "Transactions" stat and dividing it by the "Last finalized block" height.
+
+<details>
+<summary>How the estimate is made</summary>
+
+For a lightweight query, the amount of CU spent on it is determined by how many dataset chunks the network needs to look at to process it. The ingester makes chunks of roughly the same size within each dataset. Since the amount of data per block is roughly proportional to the number of transactions in the said block, we can assume that the number of chunks in any given range is proportional to the number of transactions per block.
+
+Extrapolating from the Ethereum dataset, we get
+```
+num_chunks_in_range = range_length * (eth_chunks / eth_height) * (chain_txs_per_block / eth_txs_per_block)
+```
+Here,
+ - `eth_chunks` = 3.1e4
+ - `eth_height` = 2.1e7
+ - `eth_txs_per_block` = 1.2e2
+
+Multiplying all the known values together and rounding to one decimal digit, we get the `1e-5` coefficient of the final formula.
+
+The implicit assumption here is that all EVM datasets have the same chunk size as Ethereum. This does not hold: the chunk sizes vary, but are generally kept within the range of 50-1000 Mbytes. Ethereum chunk size is roughly 500 Mbytes; therefore we can expect the estimate to be off by a factor of 0.5-10, which is within the "order of magnitude" definition.
+
+Heavyweight queries scale in the same way, but may spend more than one CU per chunk. The heaviest possible queries (fetching the whole dataset) on Ethereum consume roughly 5 CUs per chunk.
+
+</details>
+
+Each locked `SQD` generates one spendable CU once per [epoch](/subsquid-network/faq/#epoch). Therefore, if your query needs X CUs once per Y epochs, you need to lock up at least `X/Y` `SQD`.
+
+#### Example
+
+Suppose your query traverses the last 1M blocks of the Binance Smart Chain and you want to run it once every hour.
+
+* Visiting [bscscan.com](https://bscscan.com) we find that there's a total of 6.4B txs made over 44M blocks. We can roughly estimate the chain density at 150 txs/block.
+* We can now estimate the cost of each query to be on the order of `10^-5 * 10^6 * 150 = 1500` CU.
+* When ran once every 60 minutes or 3 epochs at 20 min per epoch, such queries would require roughly `1500 / 3 = 500` `SQD` locked up.
+* Finally we apply the recommended margins:
+  + For lightweight queries it is 10x and the final sum amounts to 5000 `SQD` - less than the global minimum lockup of 10000.
+  + If you're running extremely heavy queries, the recommended margin is 50x and the final recommended lockup is 25000 `SQD`. Use this value as a starting point and iterate if you'd like to minimize your lockup.
+
+<!--
+
+<details>
+<summary>The exact rate limiting mechanism</summary>
+
+Once every minute, each worker fetches a full list of portals and the amount of CUs available for each one.
+
+[check](https://arbiscan.io/address/0x4cf58097d790b193d22ed633bf8b15c9bc4f0da7#readContract#F4) if a new epoch has started (once every 30 seconds by default). When a worker receives its first (on the current epoch) request from a portal, it makes an [on-chain query](https://arbiscan.io/address/0x8a90a1ce5fa8cf71de9e6f76b7d3c0b72feb8c4b#readProxyContract#F6) for how many _compute units_ (CUs) are available for requests from the portal. The contract computes the number of CUs based on all locked tokens associated with the portal. The worker keeps the number and decrements it by one every time it receives more requests from the same portal. When the CUs are exhausted it begins replying to any new requests from the portal with HTTP 429 errors, which the portal forwards to the user. The cycle repeats once the worker detects that a new epoch has begun.
+
+At present, any single data request to worker spends 1 CU. See e.g. [EVM worker API](/subsquid-network/reference/evm-api/#worker-api) to get an idea as to what the requests may look like. Portal concatenates the workers' responses into a single data stream.
+
+By default, the contract allocates the same amount of CUs for each worker, namely
+```
+(SQD_AMOUNT * EPOCH_LENGTH * BOOST_FACTOR) / (NUM_WORKERS * NUM_PORTALS)
+```
+per epoch. Here,
+ * `EPOCH_LENGTH` is 50000 Arbitrum blocks.
+ * `BOOST_FACTOR` depends on the duration of the lockup, varying from 1 (lockups under 60 days) to 3 (720 or more days). See [Data consumers](/subsquid-network/whitepaper/#data-consumers) and [Boosters](/subsquid-network/whitepaper/#boosters) sections of the whitepaper.
+ * `NUM_WORKERS` is the [number of workers active on the network](https://arbiscan.io/address/0x36e2b147db67e76ab67a4d07c293670ebefcae4e#readContract#F6).
+ * `NUM_PORTALS` is the number of portals associated with the owner wallet.
+
+</details>
+
+For example, if you expect your portal to make up to 36k requests to any worker at any epoch, and the network currently has 1000 workers, you will need to lock 30000 SQD if you choose the shortest locking duration and 10000 SQD if you lock for two years or more.
+
+:::tip
+By default, your portal will go down at the end of the lock period. To prevent that, enable the "Auto-extension" option when locking. This will cause your `SQD` to be immediately relocked once the locking period ends. In this setup you have to unlock then wait for the end of the current locking period to withdraw your tokens.
+:::
+
+-->
 
 ## High throughput portals
 
@@ -160,3 +240,7 @@ If you lose your key file you won't be able to run your portal until you get a n
 If your key file get stolen the perpetrator will be able to cause connectivity issues for your portal, effectively causing a downtime.
 
 If any of that happens, unregister your portal (on the ["Portals" tab of network.subsquid.io](https://network.subsquid.io/portals)), then generate a new key file and register the new portal peer ID.
+
+#### My portal is slower than I expected. How do I examine its throttling stats?
+
+TBA

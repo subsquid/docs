@@ -17,7 +17,7 @@ Benefits include:
 
  - **Reduced reliance on centralized services:**
    * The permissionless SQD Network consists of [over 1200](https://arbiscan.io/address/0x36e2b147db67e76ab67a4d07c293670ebefcae4e#readContract#F6) nodes [ran by independent operators](/subsquid-network/participate/worker), with a total capacity of roughly 1.1Pb. This allows for a great deal of redundancy.
-   * You can [query the network without relying on any centralized services](/subsquid-network/participate/portal). You can also use a public portal ran by the SQD team to just try it out.
+   * You can [query the network without relying on any centralized services](/subsquid-network/participate/portal). You can also use the public portal ran by the SQD team to just try it out.
  - **Improved speed:** The permissionless version of SQD Network has a lot more bandwidth than the open private network; moreover, portals use the available bandwidth more effectively than gateways. Data fetching was 5-10 times faster in some of our tests. For squids that are not bottlenecked by write operations this will translate into better sync performance.
  - **Simplified API:** compared to the [request-response approach](/subsquid-network/reference/evm-api) used by gateways, portals use a simpler stream-based API.
  - **Being future-proof:** all future development will be focused on portals and the permissionless SQD Network.
@@ -26,7 +26,7 @@ Here are the steps to migrate:
 
 ## Step 1
 
-Install the `portal-api` version of `@subsquid/evm-processor`:
+Navigate to your squid's folder and install the `portal-api` version of `@subsquid/evm-processor`:
 ```bash
 npm i @subsquid/evm-processor@portal-api
 ```
@@ -39,10 +39,13 @@ Obtain an URL of an SQD portal for your dataset.
     * [enable the preview mode](https://app.subsquid.io/preview)
     * navigate to [the portals page](https://app.subsquid.io/portal)
     * click on the tile of your network and follow the instructions
-   Once you're done you should be able to run your (now portal-powered) squid both locally and in the Cloud. You can skip [step 3](#step-3).
+
+   Once you're done you should be able to run your (now portal-powered) squid both locally and in the Cloud. You can skip [step 3](#step-3) - it should be already done.
+
  - If you want to use a private portal:
     * [set it up](/subsquid-network/participate/portal)
     * get your portal's [dataset-specific API URL](/subsquid-network/participate/portal/#using-your-portal) for the network you're interested in
+
  - If you don't have an SQD Cloud account and just want to see a portal in action, you can use the following URL template:
    ```
    https://portal.sqd.dev/datasets/<dataset-slug>
