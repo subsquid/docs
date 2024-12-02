@@ -41,6 +41,13 @@ The page should update to display the amount of `SQD` you locked and the duratio
 
 Now you have some locked tokens associated with your wallet and are ready to set up the portal itself.
 
+:::tip
+By default, your portal will go down at the end of the lock period. To prevent that, click the "Auto Extension" switch and confirm the transaction after locking. This will cause your `SQD` to be immediately relocked once the locking period ends. In this setup you have to unlock then wait for the end of the current locking period to withdraw your tokens.
+
+![Auto extension switch](<./portal_auto_extension.png>)
+
+:::
+
 #### Step 2: Wait for your stake to become active
 
 This will happen at the beginning of the next [epoch](/subsquid-network/faq/#epoch), that is, at some point during the next 20 minutes. The page will change to show that your lockup is now active:
@@ -74,8 +81,6 @@ Please copy your peer ID.
   Once done, click "Confirm" and confirm the transaction in your wallet.
 
 #### Step 5: Run your portal {#run-portal}
-
-* Wait for your portal to become active.
 
 * Clone the portal repo and enter the folder.
   ```bash
@@ -214,10 +219,6 @@ per epoch. Here,
 </details>
 
 For example, if you expect your portal to make up to 36k requests to any worker at any epoch, and the network currently has 1000 workers, you will need to lock 30000 SQD if you choose the shortest locking duration and 10000 SQD if you lock for two years or more.
-
-:::tip
-By default, your portal will go down at the end of the lock period. To prevent that, enable the "Auto-extension" option when locking. This will cause your `SQD` to be immediately relocked once the locking period ends. In this setup you have to unlock then wait for the end of the current locking period to withdraw your tokens.
-:::
 
 -->
 
