@@ -36,7 +36,7 @@ Omit the `where` field to subscribe to all logs network-wide.
 
 **Related data** can be requested via the `include` field:
 
-- `transaction = true`: will retrieve the parent transacton for each selected log.
+- `transaction = true`: will retrieve the parent transaction for each selected log.
 
 The data will be added to the `.transactions` iterable within [block data](/tron-indexing/tron-batch-processor/context-interfaces) and made available via the `.transaction` field of each log item.
 
