@@ -7,7 +7,7 @@ description: >-
 # Gear support
 
 :::info
-SQD Network has gateways for two networks that use Gear Protocol: **Vara** and **Vara Testnet**. Here are their endopint URLs:
+SQD Network has gateways for two networks that use Gear Protocol: **Vara** and **Vara Testnet**. Here are their endpoint URLs:
 ```
 https://v2.archive.subsquid.io/network/vara
 ```
