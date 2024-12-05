@@ -19,7 +19,7 @@ The SQD Portal is a decentralized, streaming-based data retrieval solution desig
 ## What You Can Do
 
 
-### **1. Explore the Public Portal**
+### 1. Explore the Public Portal
 
 - Access data for 100+ EVM networks during the closed beta. Public Portal supports filtering only by logs at the moment. We aim to include all full filtering capabilities in the general availability release ([reference](https://docs.sqd.dev/subsquid-network/reference/evm-api/)) and other VMs as well.
 - **Login here**: [https://portal-ui.sqd.dev/](https://portal-ui.sqd.dev/)
@@ -27,7 +27,7 @@ The SQD Portal is a decentralized, streaming-based data retrieval solution desig
 	- **Password**: `portal2025`
 
 
-### **2. Migrate to the Cloud Portal**
+### 2. Migrate to the Cloud Portal
 
 - Transition from centralized archives to the Cloud Portal.
 - **Start here**: [Cloud Portal Migration Details](https://docs.sqd.dev/sdk/resources/migrate/migrate-to-portal/)
@@ -35,7 +35,7 @@ The SQD Portal is a decentralized, streaming-based data retrieval solution desig
 	- Redeem by contacting us on [Telegram](https://t.me/+JHrJZPz34kRjYmFk) after migrating your squid/s by the 31st of December 2024.
 
 
-### **3. Set Up a Self-Hosted Portal**
+### 3. Set Up a Self-Hosted Portal
 
 - Take full control of your data infrastructure by running your own Portal.
 - **Setup Guide**: [Self-Hosting Instructions](https://docs.sqd.dev/subsquid-network/participate/portal/)
