@@ -1,0 +1,79 @@
+---
+sidebar_position: 1000
+title: Migrate to the Cloud portal
+description: Get data from the permissionless SQD Network
+sidebar_class_name: hidden
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Migrate to the Cloud portal
+
+:::info
+SQD Network portals are currently in beta. Please report any bugs or suggestions to [Squid Devs](https://t.me/HydraDevs).
+:::
+
+This guide walks you through replacing a gateway of the [open private version of SQD Network](/subsquid-network/overview/#open-private-network) with a *portal* of the [permissionless SQD Network](/subsquid-network/overview/#permissionless-public-network) as the primary source of data for your Cloud squids.
+
+Benefits include:
+
+ - **Reduced reliance on centralized services:** The permissionless SQD Network consists of [over 1200](https://arbiscan.io/address/0x36e2b147db67e76ab67a4d07c293670ebefcae4e#readContract#F6) nodes [ran by independent operators](/subsquid-network/participate/worker)
+ - **Improved stability:** With a total capacity of roughly 1.1Pb, the permissionless SQD Network allows for a great deal of redundancy.
+ - **Improved speed:** The permissionless version of SQD Network has a lot more bandwidth than the open private network; moreover, portals use the available bandwidth more effectively than gateways. Data fetching was 5-10 times faster in some of our tests. For squids that are not bottlenecked by write operations this will translate into better sync performance.
+ - **Being future-proof:** all future development will be focused on portals and the permissionless SQD Network.
+
+SQD team operates two independent portals that serve the needs of Cloud users:
+ * The dedicated **Cloud portal** is only visible from within the Cloud, ensuring stable performance for squids deployed there.
+ * The **public portal** can be accessed from anywhere for easy experimentation and local development.
+
+Here are the steps to migrate:
+
+## Step 1
+
+Navigate to your squid's folder and install the `portal-api` version of the processor package:
+
+```mdx-code-block
+<Tabs queryString="step-1-tech">
+<TabItem value="evm" label="EVM">
+```
+
+```bash
+npm i @subsquid/evm-processor@portal-api
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="substrate" label="Substrate">
+```
+
+```bash
+npm i @subsquid/substrate-processor@portal-api
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+## Step 2
+
+Follow the network-specific instructions from the Cloud:
+
+ * [enable the preview mode](https://app.subsquid.io/preview)
+ * navigate to [the portals page](https://app.subsquid.io/portal)
+ * click on the tile of your network to see the instructions
+
+Once you're done, your squid will use the Cloud portal when deployed and the public portal for local runs.
+
+## Step 3
+
+Evaluate the performance of your new data source by re-syncing your squid. Follow the zero-downtime update procedure:
+
+1. Deploy your squid into a new slot.
+
+2. Wait for it to sync, observing the improved data fetching.
+
+3. Assign your production tag to the new deployment to redirect the GraphQL requests there.
+
+See [this section](/cloud/resources/slots-and-tags/#zero-downtime-updates) for details.
