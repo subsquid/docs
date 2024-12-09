@@ -59,7 +59,7 @@ Among other things, this enables a development process that uses the service for
    This will add and populate the `RPC_ETH_HTTP` variable for Cloud deployments.
 
 
-3. Configure the processor to use the URL from from `RPC_ETH_HTTP`:
+3. Configure the processor to use the URL from `RPC_ETH_HTTP`:
    ```ts
    import {EvmBatchProcessor} from '@subsquid/evm-processor'
    import {assertNotNull} from '@subsquid/util-internal'
