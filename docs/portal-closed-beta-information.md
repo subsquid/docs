@@ -30,7 +30,7 @@ The SQD Portal is a decentralized, streaming-based data retrieval solution desig
 ### 2. Migrate to the Cloud Portal
 
 - Transition from centralized archives to the Cloud Portal.
-- **Start here**: [Cloud Portal Migration Details](https://docs.sqd.dev/sdk/resources/migrate/migrate-to-portal/)
+- **Start here**: [Cloud Portal Migration Details](https://docs.sqd.dev/cloud/resources/migrate-to-portal/)
 - **Get $100 in SQD Cloud credits**:
 	- Redeem by contacting us on [Telegram](https://t.me/+JHrJZPz34kRjYmFk) after migrating your squid/s by the 31st of December 2024.
 
