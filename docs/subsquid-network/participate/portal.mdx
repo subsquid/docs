@@ -8,7 +8,7 @@ sidebar_class_name: hidden
 # Self-host a portal
 
 :::info
-SQD Network portals are currently in beta. Please report any bugs or suggestions to [Squid Devs](https://t.me/HydraDevs).
+SQD Network portals are currently in closed beta. Please report any bugs or suggestions to the SQD Portal chat or to [Squid Devs](https://t.me/HydraDevs).
 :::
 
 Running a portal enables you to access the [permissionless SQD Network](/subsquid-network/overview) data without relying on any centralized services. You can run a private portal for your own needs, or make a high-throughput public portal.
@@ -22,7 +22,10 @@ In either scenario you will need
    + The tokens can be in your wallet or in an SQD-issued vesting contract.
 * Some Arbitrum ETH (for gas)
 
-Hardware requirements depend on how the portal will be used. A private portal with a single user can run on a laptop.
+Portal hardware requirements:
+ * at least 8Gb of unused RAM
+
+The rest of the hardware requirements depend on how the portal will be used. A private portal with a single user can run on a laptop, provided that it has enough RAM.
 
 ## Setting up a portal {#portal-setup}
 
@@ -48,27 +51,21 @@ By default, your portal will go down at the end of the lock period. To prevent t
 
 :::
 
-#### Step 2: Wait for your stake to become active
+#### Step 2: Generate a peer ID {#generate-peer-id}
 
-This will happen at the beginning of the next [epoch](/subsquid-network/faq/#epoch), that is, at some point during the next 20 minutes. The page will change to show that your lockup is now active:
-
-![Lockup active](<./portal_lock_active.png>)
-
-#### Step 3: Generate a peer ID {#generate-peer-id}
-
-SQD Network is a decentralized peer-to-peer system. Portals are a type of peers participating in it. Like all peers, your portal requires a private key and a public unique identifier: the *peer ID*. Generate these with
+SQD Network is a decentralized peer-to-peer system. Portals are a type of peers participating in it. Like all peers, your portal requires a private key and a public unique identifier: the *peer ID*. Generate one of these with
 ```bash
-docker run --rm subsquid/rpc-node:0.2.5 keygen > <KEY_PATH>
+docker run --rm subsquid/rpc-node:0.2.5 keygen > <KEY_FILE_PATH>
 ```
-The key will be written to the binary file at `<KEY_PATH>`. You will see your peer ID in the output:
+The key will be written to the binary file at `<KEY_FILE_PATH>`. You will see your peer ID in the output:
 ```
 Your peer ID: <THIS IS WHAT YOU NEED TO COPY>
 ```
 Please copy your peer ID.
 
-⚠️ **Note:** Please make sure that the generated file is safe and secure at `<KEY_PATH>` (i.e. it will not be deleted accidentally and cannot be accessed by unauthorized parties). [Or else](#key-loss).
+⚠️ **Note:** Please make sure that the generated file is safe and secure at `<KEY_FILE_PATH>` (i.e. it will not be deleted accidentally and cannot be accessed by unauthorized parties). [Or else](#key-loss).
 
-#### Step 4: Register your portal {#register-peer-id}
+#### Step 3: Register your portal {#register-peer-id}
 
 * Go to the [portals page](https://network.subsquid.io/portals) and click the "Add portal" button.
   ![Add portal button](<./portal_registration_button.png>)
@@ -80,7 +77,7 @@ Please copy your peer ID.
 
   Once done, click "Confirm" and confirm the transaction in your wallet.
 
-#### Step 5: Run your portal {#run-portal}
+#### Step 4: Run your portal {#run-portal}
 
 * Clone the portal repo and enter the folder.
   ```bash
@@ -93,7 +90,7 @@ Please copy your peer ID.
   ```
   then set the path to your key file:
   ```bash
-  echo KEY_PATH=<KEY_PATH> >> .env
+  echo KEY_PATH=<KEY_FILE_PATH> >> .env
   ```
 
   ⚠️ **Warning:** Be careful when supplying the path to the key you created at step 4. If you make a mistake here, a new random key will be automatically created there and your node will attempt to operate with a new (unregistered) peer ID - unsuccessfully.
@@ -106,11 +103,24 @@ Please copy your peer ID.
   ```bash
   cargo run --release
   ```
+  ⚠️  Tested on `cargo-1.82.0`; may not work on older versions.
+
+  ⚠️  If you get a `Could not find protoc` error, please install the Protobuf compiler. E.g. on Ubuntu run
+  ```bash
+  apt-get install protobuf-compiler
+  ```
 
 * If you're running the Docker image you can watch the logs with
   ```bash
   docker compose logs -f
   ```
+
+#### Step 5: Wait for your stake to become active
+
+This will happen at the beginning of the next [epoch](/subsquid-network/faq/#epoch), that is, at some point during the next 20 minutes. The page will change to show that your lockup is now active:
+
+![Lockup active](<./portal_lock_active.png>)
+
 
 ## Using your portal
 
@@ -120,7 +130,7 @@ http://<host>:8000/datasets/<dataset-slug>
 ```
 Here, `<dataset-slug>` is the last path segment of the network-specific gateway URL found on [this page](/subsquid-network/reference/networks). For example, a local portal will expose its Ethereum dataset API at
 ```
-http://localhost:8000/datasets/ethereum-mainnet
+http://127.0.0.1:8000/datasets/ethereum-mainnet
 ```
 
 You can now get any squid (e.g. one of the [templates](/sdk/how-to-start/squid-development/#templates) or [examples](/sdk/examples)), tweak it to [source data from your portal](/subsquid-network/participate/portal) and run it.
@@ -149,6 +159,12 @@ When an SQD portal receives a data request, the following happens:
 Each response made by any of the workers in step 3 spends exactly 1 CU.
 
 </details>
+
+The more `SQD` you lock and the greater the lockup period is, the more CUs you get. Currently, each locked `SQD` generates 1-3 CU at the beginning of each [epoch](/subsquid-network/faq/#epoch). Here's how the number of CUs per `SQD` changes with the lockup period:
+
+![image](https://github.com/subsquid/subsquid-network-contracts/assets/8627422/a1ab5ce1-da58-4cdc-aac5-90728be23b9e)
+
+In principle, any valid amount of locked `SQD`s generates an infinite amount of CUs. However, if the rate at which your queries consume CUs exceeds the rate at which they are produced, your app will be throttled. To avoid that, you may want to understand how much CUs your queries spend.
 
 Currently there is no tool available for estimating the number of CUs that a query needs before actually running it. However, on EVM you can use the following formula to get an [order of magnitude](https://en.wikipedia.org/wiki/Order_of_magnitude) estimate:
 
@@ -182,7 +198,11 @@ Heavyweight queries scale in the same way, but may spend more than one CU per ch
 
 </details>
 
-Each locked `SQD` generates one spendable CU once per [epoch](/subsquid-network/faq/#epoch). Therefore, if your query needs X CUs once per Y epochs, you need to lock up at least `X/Y` `SQD`.
+Now, if your queries consume `X` CUs each and you run them once per `Y` epochs, you need to lock up at least this much `SQD`:
+```
+X / (Y * boost_factor)
+```
+Here, `boost_factor` is a multiplier ranging from 1 to 3 depending on the lockup length (see the graph above).
 
 #### Example
 
@@ -190,47 +210,23 @@ Suppose your query traverses the last 1M blocks of the Binance Smart Chain and y
 
 * Visiting [bscscan.com](https://bscscan.com) we find that there's a total of 6.4B txs made over 44M blocks. We can roughly estimate the chain density at 150 txs/block.
 * We can now estimate the cost of each query to be on the order of `10^-5 * 10^6 * 150 = 1500` CU.
-* When ran once every 60 minutes or 3 epochs at 20 min per epoch, such queries would require roughly `1500 / 3 = 500` `SQD` locked up.
+* When ran once every 60 minutes or 3 epochs at 20 min per epoch, such queries would require roughly `1500 / 3 = 500` `SQD` locked up. This assumes a short lockup (under 60 days).
 * Finally we apply the recommended margins:
   + For lightweight queries it is 10x and the final sum amounts to 5000 `SQD` - less than the global minimum lockup of 10000.
   + If you're running extremely heavy queries, the recommended margin is 50x and the final recommended lockup is 25000 `SQD`. Use this value as a starting point and iterate if you'd like to minimize your lockup.
-
-<!--
-
-<details>
-<summary>The exact rate limiting mechanism</summary>
-
-Once every minute, each worker fetches a full list of portals and the amount of CUs available for each one.
-
-[check](https://arbiscan.io/address/0x4cf58097d790b193d22ed633bf8b15c9bc4f0da7#readContract#F4) if a new epoch has started (once every 30 seconds by default). When a worker receives its first (on the current epoch) request from a portal, it makes an [on-chain query](https://arbiscan.io/address/0x8a90a1ce5fa8cf71de9e6f76b7d3c0b72feb8c4b#readProxyContract#F6) for how many _compute units_ (CUs) are available for requests from the portal. The contract computes the number of CUs based on all locked tokens associated with the portal. The worker keeps the number and decrements it by one every time it receives more requests from the same portal. When the CUs are exhausted it begins replying to any new requests from the portal with HTTP 429 errors, which the portal forwards to the user. The cycle repeats once the worker detects that a new epoch has begun.
-
-At present, any single data request to worker spends 1 CU. See e.g. [EVM worker API](/subsquid-network/reference/evm-api/#worker-api) to get an idea as to what the requests may look like. Portal concatenates the workers' responses into a single data stream.
-
-By default, the contract allocates the same amount of CUs for each worker, namely
-```
-(SQD_AMOUNT * EPOCH_LENGTH * BOOST_FACTOR) / (NUM_WORKERS * NUM_PORTALS)
-```
-per epoch. Here,
- * `EPOCH_LENGTH` is 50000 Arbitrum blocks.
- * `BOOST_FACTOR` depends on the duration of the lockup, varying from 1 (lockups under 60 days) to 3 (720 or more days). See [Data consumers](/subsquid-network/whitepaper/#data-consumers) and [Boosters](/subsquid-network/whitepaper/#boosters) sections of the whitepaper.
- * `NUM_WORKERS` is the [number of workers active on the network](https://arbiscan.io/address/0x36e2b147db67e76ab67a4d07c293670ebefcae4e#readContract#F6).
- * `NUM_PORTALS` is the number of portals associated with the owner wallet.
-
-</details>
-
-For example, if you expect your portal to make up to 36k requests to any worker at any epoch, and the network currently has 1000 workers, you will need to lock 30000 SQD if you choose the shortest locking duration and 10000 SQD if you lock for two years or more.
-
--->
+    - If you'd like to reduce the amount of `SQD` even further, one option is to lock the tokens up for longer: with a two-year long lockup heavy queries you'll get three times the CUs and the final recommended lockup will be 10000 even for heavy queries.
 
 ## High throughput portals
 
 The recommended way to make a portal that can serve a large number of requests is deploy multiple portals associated with a single wallet:
 
 1. Use a single wallet to register as many peer IDs as you need portal instances.
+
 2. Make one `SQD` lockup for all your portal instances. See [Token locking requirements and compute units](#staking-requirements-and-compute-units) to get an idea of how large your stake should be.
+
 3. Run portals in parallel, balancing traffic between the instances.
 
-If you plan to automate running your portal instances, you may find [this helm chart](https://github.com/subsquid/query-portal/tree/master/chart) useful.
+If you plan to automate running your portal instances, you may find [this helm chart](https://github.com/subsquid/sqd-portal/tree/master/chart) useful.
 
 ## Troubleshooting
 
@@ -244,4 +240,8 @@ If any of that happens, unregister your portal (on the ["Portals" tab of network
 
 #### My portal is slower than I expected. How do I examine its throttling stats?
 
-TBA
+The stats are exposed at `/metrics`. For a local portal, take a look at the output of
+```
+curl http://127.0.0.1:8000/metrics | grep throttled
+```
+The lower the value of `portal_stream_throttled_ratio_sum`, the better.
