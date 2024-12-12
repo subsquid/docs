@@ -11,13 +11,13 @@ import TabItem from '@theme/TabItem';
 
 SQD Network is a distributed query engine and data lake that the SQD ecosystem is built around.
 
-Currently it serves historical blockchain data for 80+ networks. Compared to data access using a conventional chain node RPC, SQD Network allows one to access data at near zero cost, in a more granular fashion and from multiple blocks at once, thanks to its rich batching and filtering capabilities.
+Currently it serves historical blockchain data for 190+ networks. Compared to data access using a conventional chain node RPC, SQD Network allows one to access data at near zero cost, in a more granular fashion and from multiple blocks at once, thanks to its rich streaming and filtering capabilities.
 
 There are currently two independent instances of SQD Network:
 
-1. A decentralized permissionless network **(testnet)**
+1. A decentralized permissionless network.
 
-2. A permissioned network run by Subsquid Labs GmbH, formerly known as **Subsquid Archives**. It's been used by 400+ indexers in production. [List of supported networks](/subsquid-network/reference/networks).
+2. A permissioned network ran by Subsquid Labs GmbH. It's been used by 400+ indexers in production. [List of supported networks](/subsquid-network/reference/networks).
 
 Both variants are freely accessible to public using the same [API](/subsquid-network/reference).
 
@@ -25,13 +25,15 @@ If you are a network developer and would like to see your chain supported by SQD
 
 ## Permissionless public network
 
-The decentralized version of SQD Network is currently a testnet. It serves data for a (growing) subset of networks supported by the [private cluster](#open-private-network). Each request is routed to the network node responsible for the appropriate subset of data via a local p2p gateway.
+The decentralized version of SQD Network is now in the mainnet phase. It serves data for almost [all networks](/subsquid-network/reference/networks) supported by the [private cluster](#open-private-network), with the (temporary) exception of Solana.
 
-You can read more about the testnet [here](/subsquid-network/faq).
+The most recent version of the data access node, SQD portal, fetches data chunks from multiple worker nodes in parallel and exposes a streaming API. It is now in a closed beta.
+
+You can participate in the public network by [running a worker](/subsquid-network/participate/worker) or reward good workers by [delegating SQD tokens](/subsquid-network/participate/delegate) and sharing in profits.
 
 ## Open private network
 
-SQD's private data lake (formerly known as Archives) is a production-ready fork of early SQD Network that runs on SQD infrastructure. It provides a stand-in for the permissionless SQD Network until it matures; its [API](/subsquid-network/reference) is identical to that of p2p gateways of the public network.
+SQD's private data lake (formerly known as Archives) is a production-ready fork of early SQD Network that runs on SQD infrastructure. It provides a stand-in for the permissionless SQD Network until it matures; its [API](/subsquid-network/reference) shares many similarities with the SQD portal API.
 
 The gateway of this private network is public and free to query. URLs of gateways of supported networks are available via [`sqd gateways list`](/squid-cli/gateways) and from the exhaustive [public gateways list](/subsquid-network/reference/networks).
 
@@ -44,7 +46,7 @@ List all supported networks:
 ```bash
 sqd gateways list -t evm
 ```
-Usage in [squids](/sdk) within [`EvmBatchProcessor` configuration](/sdk/reference/processors/evm-batch/general/#set-gateway):
+Usage in [squids'](/sdk) [`EvmBatchProcessor` configuration](/sdk/reference/processors/evm-batch/general/#set-gateway):
 
 ```ts
 const processor = new EvmBatchProcessor()
@@ -63,7 +65,7 @@ List all supported networks:
 ```bash
 sqd gateways list -t substrate
 ```
-Usage in [squids](/sdk) within [`SubstrateBatchProcessor` configuration](/sdk/reference/processors/substrate-batch/general):
+Usage in [squids'](/sdk) [`SubstrateBatchProcessor` configuration](/sdk/reference/processors/substrate-batch/general):
 
 ```ts
 const processor = new SubstrateBatchProcessor()
