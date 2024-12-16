@@ -29,6 +29,14 @@ SQD team operates two independent portals that serve the needs of Cloud users:
  * The dedicated **Cloud Portal** is only visible from within the Cloud, ensuring stable performance for squids deployed there.
  * The **Public Portal** can be accessed from anywhere for easy experimentation and local development.
 
+:::info
+We're currently experimenting with tightening the data request complexity limits that may become a part of this release. If you see an HTTP 400 error with a message like this:
+```
+Couldn't parse query: query contains X item requests, but only 50 is allowed
+```
+where `X` is some number above 50, or any other HTTP 400 response, please let us know.
+:::
+
 Here are the steps to migrate:
 
 ## Step 1
