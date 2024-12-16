@@ -1,5 +1,7 @@
 ---
 sidebar_class_name: hidden
+pagination_next: null
+pagination_prev: null
 ---
 
 # SQD Boost Program
