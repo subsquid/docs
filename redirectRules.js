@@ -862,6 +862,14 @@ const urlList = [
     {
         "from": "/squid-cli/rm",
         "to": "/squid-cli/remove"
+    },
+    {
+        "from": "/sdk/resources/migrate/migrate-to-portal",
+        "to": "/migrate-to-portal-sdk"
+    },
+    {
+        "from": "/cloud/resources/migrate-to-portal",
+        "to": "/migrate-to-portal-cloud"
     }
 ]
 

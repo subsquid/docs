@@ -3,6 +3,8 @@ sidebar_position: 1
 title: Source data from a portal
 description: Get data from the permissionless SQD Network  
 sidebar_class_name: hidden
+pagination_next: null
+pagination_prev: null
 ---
 
 # Source data from a portal
