@@ -1,5 +1,6 @@
 ---
 sidebar_class_name: hidden
+recommendations: false
 ---
 
 # SQD Portal Closed Beta Instructions
