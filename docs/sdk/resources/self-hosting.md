@@ -13,15 +13,14 @@ Many tips from our [best practices guide](/cloud/resources/best-practices) apply
 To deploy a squid locally or on-premises, use the following Dockerfile template to build a single image for both `api` and `processor` services:
 
 ```dockerfile title="Dockerfile"
-FROM node:16-alpine AS node
+FROM node:20-alpine AS node
 FROM node AS node-with-gyp
-RUN apk add g++ make python3
 FROM node-with-gyp AS builder
 WORKDIR /squid
 ADD package.json .
 ADD package-lock.json .
 # remove if needed
-ADD assets assets 
+ADD assets assets
 # remove if needed
 ADD db db
 # remove if needed
@@ -69,8 +68,6 @@ if you're using an older Docker version.
 Once can the run the squid services with the freshly built image. Here is a sample `docker-compose` file:
 
 ```yaml
-version: "3"
-
 services:
   db:
     image: postgres:15
@@ -78,11 +75,10 @@ services:
       POSTGRES_DB: squid
       POSTGRES_PASSWORD: postgres
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready", "-d", "db_prod"]
-      interval: 30s
-      timeout: 60s
+      test: ["CMD-SHELL", "pg_isready", "-d", "squid"]
+      interval: 5s
+      timeout: 5s
       retries: 5
-      start_period: 80s
     # Uncomment for logging all SQL statements
     # command: ["postgres", "-c", "log_statement=all"]
   api:
@@ -98,7 +94,8 @@ services:
       - "4350:4350"
     command: ["sqd", "serve:prod"]
     depends_on:
-      - db
+      db:
+        condition: service_healthy
   processor:
     image: my-squid
     environment:
@@ -106,12 +103,14 @@ services:
       - DB_PORT=5432
       - DB_HOST=db
       - DB_PASS=postgres
+      # any other variables that your squid processor may be using
     ports:
       # prometheus metrics exposed at port 3000
       - "3000:3000"
     command: ["sqd", "process:prod"]
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 ```
 
 Note that `sqd serve:prod` and `sqd process:prod` commands are defined in the [`commands.json` file](/squid-cli/commands-json).
