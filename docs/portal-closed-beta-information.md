@@ -14,7 +14,7 @@ The SQD Portal is a decentralized, streaming-based data retrieval solution desig
 
 #### Key Features
 
-- **Fully Decentralized**: Powered by 1,400+ independent worker nodes.
+- **Fully Decentralized**: Powered by 1,600+ independent worker nodes.
 - **30x Replication**: Redundant data storage for maximum reliability, capable of querying up to **20 million blocks per second**.
 - **Faster Performance**: A new Rust-based query engine now leverages parallelized queries and incorporates numerous query execution performance optimizations, delivering an overall **10-50x performance boost** compared to the centralized Archives.
 
@@ -24,6 +24,7 @@ The SQD Portal is a decentralized, streaming-based data retrieval solution desig
 ### 1. Explore the Public Portal
 
 - Access data for 100+ EVM networks during the closed beta. Public Portal supports filtering only by logs at the moment. We aim to include all full filtering capabilities in the general availability release ([reference](https://docs.sqd.dev/subsquid-network/reference/evm-api/)) and other VMs as well.
+- Note: The current Public Portal rate limit is 20 requests per 10 seconds.
 - **Login here**: [https://portal-ui.sqd.dev/](https://portal-ui.sqd.dev/)
 	- **Username**: `sqd`
 	- **Password**: `portal2025`
