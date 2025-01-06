@@ -288,7 +288,7 @@ const dataSource = new DataSourceBuilder()
      }),
      strideConcurrency: 10,
   })
-  .setBlockRange({ from: 254_625_450 });
+  .setBlockRange({ from: 259_984_950 });
   .setFields({
     block: {
       timestamp: false
