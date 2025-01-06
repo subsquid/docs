@@ -111,8 +111,30 @@ Most commonly, the session is left by a squid itself after an unclean terminatio
    const db = new Database({
      // ...
      abortAllProjectSessionsOnStartup: true,
-     datasetRegion: 'region-us'.
+     datasetRegion: 'region-us'
    })
    ```
 
    This method **will** cause data loss if, at the moment when the squid starts, some other app happens to be writing data anywhere in the project using the sessions mechanism.
+
+### Error 413 (Request Entity Too Large)
+
+Squid produced too much data per batch per table and BigQuery refused to handle it. Begin by finding out which table causes the issue (e.g. by counting `insert()` calls), then enable pagination for that table:
+
+```ts
+const db = new Database({
+  bq: new BigQuery(), // set GOOGLE_APPLICATION_CREDENTIALS at .env
+  dataset: `${projectId}.${datasetId}`,
+  tables: {
+    TransfersTable: new Table(
+      'transfers',
+      {
+        from: Column(Types.String()),
+        to: Column(Types.String()),
+        value: Column(Types.BigNumeric(38))
+      },
+      5000 // <- page size for the insert operation
+    )
+  },
+  ...
+```
