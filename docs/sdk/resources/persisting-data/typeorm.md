@@ -98,37 +98,43 @@ npx squid-typeorm-migration apply
 
 In some rare cases it is possible to update the schema without dropping the database and restarting the squid from a blank state. The most important case is adding an index to an entity field. More complex changes are usually not feasible.
 
-**1. Update schema.graphql** 
+Updating a running squid requires that you add an incremental migration.
+
+**1. Ensure that your local database is running and has the same schema as the database of your Cloud squid**
+
+In most situations re-creating the database container and applying existing migrations should be enough:
+```bash
+docker compose down
+docker compose up -d
+npx squid-typeorm-migration apply
+```
+
+**2. Update schema.graphql**
 
 For example, [add an index](/sdk/reference/schema-file/indexes-and-constraints)
 
-**2. Regenerate the model classes and build the code**
+**3. Regenerate the model classes and build the code**
 
 ```bash
 npx squid-typeorm-codegen
 npm run build
 ```
 
-**3. Create a new database migration**
-
-Make sure the local database is running.
+**4. Add a new database migration**
 
 ```bash
-docker compose up -d
 npx squid-typeorm-migration generate
 ```
-
-**4. Apply the database migration**
-
-Inspect the new migration in `db/migrations` and apply it:
-
-```bash
-npx squid-typeorm-migration apply
-```
+This will create a new file in `db/migrations`. You may want to examine it before proceeding to the next step.
 
 **5. Update the squid in Cloud**
 
 If the squid is deployed to SQD Cloud, [update the deployed version](/squid-cli/deploy).
+
+If you're self-hosting it, update your remote codebase and run
+```bash
+npx squid-typeorm-migration apply
+```
 
 ### SQD Cloud deployment
 
