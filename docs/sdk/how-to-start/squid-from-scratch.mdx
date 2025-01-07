@@ -34,17 +34,12 @@ To make the indexer, follow these steps:
      npm init
      ```
    * add `.gitignore`
-     ```bash
-     touch .gitignore
-     ```
-
      ```bash title=".gitignore"
-     /node_modules
-     package-lock.json
-     .env
+     node_modules
+     lib
      ```
 
-2. install the packages:
+2. Install the packages:
    ```bash
    npm i dotenv typeorm @subsquid/evm-processor @subsquid/typeorm-store @subsquid/typeorm-migration @subsquid/graphql-server @subsquid/evm-abi
    ```
@@ -89,9 +84,9 @@ To make the indexer, follow these steps:
      ```bash title=".env"
      DB_NAME=squid
      DB_PORT=23798
+     RPC_ETH_HTTP=https://rpc.ankr.com/eth
      ```
      ```yaml title="docker-compose.yaml"
-     version: "3"
      services:
        db:
          image: postgres:15
@@ -118,13 +113,23 @@ To make the indexer, follow these steps:
      npx squid-typeorm-migration apply
      ```
 
-7. [Generate utility classes](/sdk/resources/tools/typegen/generation) for decoding [USDT contract](https://etherscan.io/address/0xdac17f958d2ee523a2206206994597c13d831ec7) data based on its ABI downloaded from Etherscan:
-   ```bash
-   npx \
-   squid-evm-typegen \
-   src/abi \
-   0xdAC17F958D2ee523a2206206994597C13D831ec7#usdt
-   ```
+7. [Generate utility classes](/sdk/resources/tools/typegen/generation) for decoding [USDT contract](https://etherscan.io/address/0xdac17f958d2ee523a2206206994597c13d831ec7) data based on its ABI.
+
+   - Create an `./abi` folder:
+     ```bash
+     mkdir abi
+     ```
+
+   - Find the ABI at the ["Contract" tab of the contract page on Etherscan](https://etherscan.io/address/0xdAC17F958D2ee523a2206206994597C13D831ec7#code). Scroll down a bit:
+     ![Getting ABI from Etherscan](./squid-from-scratch-abi-fetching.png)
+
+   - Copy the ABI, then paste to a new file at `./abi/usdt.json`.
+
+   - Run the utility classes generator:
+     ```bash
+     npx squid-evm-typegen src/abi ./abi/*
+     ```
+
    The utility classes are now available at `src/abi/usdt.ts`
 
 8. Tie all the generated code together with a `src/main.ts` executable with the following code blocks:
@@ -140,7 +145,6 @@ To make the indexer, follow these steps:
      const processor = new EvmBatchProcessor()
        .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
        .setRpcEndpoint({
-         // set RPC endpoint in .env
          url: process.env.RPC_ETH_HTTP,
          rateLimit: 10
        })
@@ -181,13 +185,20 @@ To make the indexer, follow these steps:
    ```
 
 10. In a separate terminal, configure the GraphQL port and start the GraphQL server:
-   ```diff title=".env"
-    DB_NAME=squid
-    DB_PORT=23798
-   +GQL_PORT=4350
-   ```
-   ```bash
-   npx squid-graphql-server
-   ```
+    ```diff title=".env"
+     DB_NAME=squid
+     DB_PORT=23798
+     RPC_ETH_HTTP=https://rpc.ankr.com/eth
+    +GRAPHQL_SERVER_PORT=4350
+    ```
+    ```bash
+    npx squid-graphql-server
+    ```
 
 The finished GraphQL API with GraphiQL is available at [localhost:4350/graphql](http://localhost:4350/graphql).
+
+Final code for this mini-tutorial is available in [this repo](https://github.com/subsquid-labs/squid-from-scratch).
+
+:::tip
+The commands listed here are often abbreviated as [custom `sqd` commands](/squid-cli/commands-json) in squids. If you'd like to do that too you can use the [`commands.json` file of the EVM template](https://github.com/subsquid-labs/squid-evm-template/blob/main/commands.json) as a starter.
+:::
