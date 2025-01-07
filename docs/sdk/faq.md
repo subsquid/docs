@@ -43,3 +43,15 @@ Squids that store their data in [file-based datasets](/sdk/resources/persisting-
 ### Is there a healthcheck endpoint for the indexer?
 
 Yes, the processor exposes the key prometheus metrics at the `${process.env.PROMETHEUS_PORT}/metric` endpoint. The squids deployed to the SQD Cloud also publicly explose the metrics, see [Monitoring in the Cloud](/cloud/resources/monitoring/)
+
+### Do squids have a debug mode?
+
+Yes. To see all debug messages, set the `SQD_DEBUG` anv variable to `*`:
+```bash title=".env"
+SQD_DEBUG=*
+```
+You can also enable debug messages just for a specific namespace. For example,
+```bash title=".env"
+SQD_DEBUG=sqd:processor:archive
+```
+will show only the messages related to your squid's queries to the SQD Network.
