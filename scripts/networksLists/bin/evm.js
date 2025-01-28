@@ -35,6 +35,7 @@ async function evmNetworksRows(networksJson) {
 			case 'bitfinity-testnet':
 				return `${arch.chainName} (!)`
 			case 'crossfi-testnet':
+			case 'crossfi-mainnet':
 				return `${arch.chainName} (!!)`
 			case 'neon-devnet':
 				return `${arch.chainName} (!!!)`
