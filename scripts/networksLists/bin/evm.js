@@ -31,14 +31,18 @@ async function evmNetworksRows(networksJson) {
 			case 'moonriver':
 			case 'shibuya-testnet':
 			case 'shiden-mainnet':
-				return `${arch.chainName} (*)`
-			case 'bitfinity-testnet':
 				return `${arch.chainName} (!)`
+			case 'bitfinity-testnet':
+				return `${arch.chainName} (*1)`
+			case 'bittensor-mainnet-evm':
+				return `${arch.chainName} (*2)`
+			case 'bittensor-testnet-evm':
+				return `${arch.chainName} (*3)`
 			case 'crossfi-testnet':
 			case 'crossfi-mainnet':
-				return `${arch.chainName} (!!)`
+				return `${arch.chainName} (*4)`
 			case 'neon-devnet':
-				return `${arch.chainName} (!!!)`
+				return `${arch.chainName} (*5)`
 			default:
 				return arch.chainName
 		}
