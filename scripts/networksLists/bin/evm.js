@@ -41,8 +41,10 @@ async function evmNetworksRows(networksJson) {
 			case 'crossfi-testnet':
 			case 'crossfi-mainnet':
 				return `${arch.chainName} (*4)`
-			case 'neon-devnet':
+			case 'hyperliquid-testnet':
 				return `${arch.chainName} (*5)`
+			case 'neon-devnet':
+				return `${arch.chainName} (*6)`
 			default:
 				return arch.chainName
 		}
