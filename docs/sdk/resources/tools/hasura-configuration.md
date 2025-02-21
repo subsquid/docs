@@ -40,7 +40,7 @@ The tool uses your squid's [TypeORM models](/sdk/reference/schema-file/intro/#ty
    docker compose down
    docker compose up -d
    rm -r db
-   npm squid-typeorm-migration generate
+   npx squid-typeorm-migration generate
    ```
 
 You can turn off your database after doing that - Hasura configuration tool does not use it to make its initial configuration
