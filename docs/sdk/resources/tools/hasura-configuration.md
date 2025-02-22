@@ -6,6 +6,10 @@ description: Configure Hasura for your squid
 
 # Hasura configuration tool
 
+:::info
+For info on migrating to `@subsquid/hasura-configuration>=2.0.0` see [this page](/sdk/resources/migrate/migrate-to-hasura-configuration-tool-v2).
+:::
+
 [`@subsquid/hasura-configuration`](https://www.npmjs.com/package/@subsquid/hasura-configuration) is a tool for managing Hasura configuration in [PostgreSQL-powered squids](/sdk/resources/persisting-data/typeorm). Install it with
 ```bash
 npm i @subsquid/hasura-configuration
