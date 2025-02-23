@@ -38,6 +38,10 @@ export const ExceptOnBlocksTooltip = ({children, gapStart, gapEnd}) => (
 
 # Public gateways
 
+:::info
+Starting today (2025-02-23) all open private network gateways are rate limited at 50 requests per 10 seconds per IP. Higher bandwidths will soon become available via the public network.
+:::
+
 ## EVM / Ethereum-compatible
 
 This section lists public EVM gateways available from the [open private network](/subsquid-network/overview/#open-private-network). If you are developing a squid, supply the gateway URL of your network to [`setGateway()`](/sdk/reference/processors/evm-batch/general/#set-gateway) `EvmBatchProcessor` configuration method, for example:
