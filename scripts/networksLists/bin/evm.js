@@ -82,11 +82,31 @@ async function evmNetworksRows(networksJson) {
 	}
 
 	getArchiveCapabilities = require('../lib/getArchiveCapabilities')
-	const booleanCaps = await Promise.all(minirows.map(r => getArchiveCapabilities(r.url)))
+	const booleanCaps = await processArrayWithDelay(r => getArchiveCapabilities(r.url), minirows, 1000)
+
 	const stringCaps = booleanCaps.map((c, i) => Object.fromEntries(Object.entries(c).map(([k, v]) => [k, capsMapping(networksJson[i].network, k, v)])))
 
 	return minirows.map((r, i) => ({
 		...r,
 		...stringCaps[i]
 	}))
+}
+
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function processArrayWithDelay(asyncFunction, array, delay, index = 0, output = []) {
+	if (index >= array.length) {
+		return Promise.resolve(output); // Return the output array when done
+	}
+
+	const value = array[index];
+	return asyncFunction(value)
+		.then((result) => {
+			console.error(`Processed ${value.network}`);
+			output.push(result); // Add the result to the output array
+			return sleep(delay); // Sleep after the async function completes
+		})
+		.then(() => processArrayWithDelay(asyncFunction, array, delay, index + 1, output)); // Process the next value
 }
