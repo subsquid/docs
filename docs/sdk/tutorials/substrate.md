@@ -347,7 +347,12 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
 Squid projects automatically manage the database connection and schema via an [ORM abstraction](https://en.wikipedia.org/wiki/Object%E2%80%93relational\_mapping) provided by [TypeORM](https://typeorm.io). Previously we changed the data schema at `schema.graphql` and reflected these changes in our Typescript code using `npx squid-typeorm-codegen`. Here, we [apply the corresponding changes to the database itself](/sdk/resources/persisting-data/typeorm).
 
-We begin by making sure that the database is at blank state:
+First, we'll need to compile our updated project code. Do this with:
+```bash
+npm run build
+```
+
+Next we ensure that the database is at blank state:
 ```bash
 docker compose down
 docker compose up -d
