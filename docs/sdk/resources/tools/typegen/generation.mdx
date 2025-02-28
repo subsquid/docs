@@ -27,11 +27,12 @@ The tool takes a JSON ABIs as an input. Those can be specified in three ways:
    ```bash
    npx squid-evm-typegen ./src/abi ./abi/*.json --multicall
    ```
+   You can get JSON ABIs for explorer (Etherscan, Bscscan etc) verified contract by visiting the contract page, going to the "Contract" tab and scrolling down to the "Contract ABI" section. _Do not use the "Export ABI" function!_ Copy the contents to the clipboard and paste them to a new JSON file.
 
-2. as a contract address (to fetch the ABI from Etherscan API). Once can pass multiple addresses at once.
+2. **(requires an Etherscan API key)** as a contract address. One can pass multiple addresses at once.
 
    ```bash
-   npx squid-evm-typegen src/abi 0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413
+   npx squid-evm-typegen --etherscan-api-key <your_key> src/abi 0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413
    ```
 
 :::info
