@@ -211,9 +211,9 @@ In both cases, the log line you are looking for should look like this
 
 Depending on your connection quality, you might want to tune the `S3_TIMEOUT` and `CONCURRENT_DOWNLOADS` environment variables in the `.env` file. If you encounter this error frequently,  try to set `S3_TIMEOUT` to `180`. If it still doesn't help, set `CONCURRENT_DOWNLOADS` to `1` and `S3_READ_TIMEOUT` to `30`.
 
-#### Worker crashes with the message `Trying to collect logs up to ...`
+#### I see `Unable to get assignment: deadline has elapsed` in the worker logs {#assignment-timeouts}
 
-Something is wrong with your local data. Stop the worker, remove the entire data directory, and start it again.
+This should only be an issue on version 2.0.2. As a workaround please set `ASSIGNMENT_FETCH_TIMEOUT_SEC=90` in the `.env` file and restart.
 
 #### I see an `Insufficient peers...` error in the worker logs
 
