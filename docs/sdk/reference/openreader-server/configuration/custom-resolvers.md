@@ -110,6 +110,11 @@ LOG.info('created a dedicated logger for my-resolver')
 
 `LOG` here is a [logger object](/sdk/reference/logger) identical to `ctx.log` interface-wise.
 
+## Interaction with global settings
+
+* `--max-response-size` used for [DoS protection](/sdk/reference/openreader-server/configuration/dos-protection) is ignored in custom resolvers.
+* [Caching](/sdk/reference/openreader-server/configuration/caching) works on custom queries in exactly the same way as it does on the schema-derived queries.
+
 ## Troubleshooting
 
 #### `Reflect.getMetadata is not a function`
