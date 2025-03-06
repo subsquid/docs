@@ -148,6 +148,16 @@
       "url": "https://github.com/subsquid-labs/uniswapv3-squid"
     },
     {
+      "title": "Drip.trade events on Hyperliquid",
+      "description": "Simple squid indexing an NFT exchange on HL.",
+      "tags": [
+        "EVM",
+        "Postgres+GraphQL",
+        "Hot blocks"
+      ],
+      "url": "https://github.com/subsquid-labs/hyperliquid-drip-trade-example"
+    },
+    {
       "title": "All txs for 1.4M wallets",
       "description": "Fetching txs data in bulk, filtering the output.",
       "tags": [
