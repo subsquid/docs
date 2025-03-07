@@ -1,6 +1,6 @@
 const help =
 `This script expects the RPC chains JSON at its stdin. Supply it e.g. with\n
- $ curl -s -H 'Authorization: Bearer <your_token>' https://app.subsquid.io/api/rpc/<your_org>/chains | node scripts/networksLists/bin/rpcProxy.js\n
+ $ curl -s -H 'Authorization: Bearer <your_token>' https://app.subsquid.io/api/orgs/<your_org>/rpc/chains | node scripts/networksLists/bin/rpcProxy.js\n
 Consult your browser's dev console at https://app.subsquid.io/rpc to get the token.`
 
 if (process.argv[2] === '--help') {
@@ -28,13 +28,14 @@ process.stdin.on('end', () => {
 })
 
 function makeRpcProxyTables(allChains) {
-	const uncategorizedNetworks = allChains.filter(r => r.type!='evm' && r.type!='substrate')
+	const uncategorizedNetworks = allChains.filter(r => r.type!='evm' && r.type!='substrate' && r.type!='solana')
 	if (uncategorizedNetworks.length > 0) {
 		console.error('Found uncategorized networks', uncategorizedNetworks)
 	}
 	return [
 		makeRpcProxyTable(allChains.filter(r => r.type=='evm')),
-		makeRpcProxyTable(allChains.filter(r => r.type=='substrate'))
+		makeRpcProxyTable(allChains.filter(r => r.type=='substrate')),
+		makeRpcProxyTable(allChains.filter(r => r.type=='solana'))
 	].join('\n\n')
 }
 

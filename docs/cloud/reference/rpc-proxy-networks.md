@@ -31,6 +31,7 @@ See the [RPC addon guide](/cloud/resources/rpc-proxy) for details.
 | Base                  | `base.http`                          |
 | Base Goerli           | `base-goerli.http`                   |
 | Base Sepolia          | `base-sepolia.http`                  |
+| Berachain             | `berachain.http`                     |
 | Blast L2              | `blast-l2.http`                      |
 | BSC                   | `bsc.http`                           |
 | BSC Testnet           | `bsc-testnet.http`                   |
@@ -64,8 +65,21 @@ See the [RPC addon guide](/cloud/resources/rpc-proxy) for details.
 | Scroll Sepolia        | `scroll-sepolia.http`                |
 | Shibuya               | `shibuya.http`                       |
 | Shiden                | `shiden.http`                        |
+| Sonic                 | `sonic-mainnet.http`                 |
+| Unichain              | `unichain.http`                      |
+| Unichain Sepolia      | `unichain-sepolia.http`              |
 | zkSync                | `zksync.http`                        |
 | zkSync Sepolia        | `zksync-sepolia.http`                |
+
+</details>
+
+<details>
+
+<summary>Available Solana networks</summary>
+
+| Network name | network.protocol |
+|:------------:|:----------------:|
+| Solana       | `solana.http`    |
 
 </details>
 
