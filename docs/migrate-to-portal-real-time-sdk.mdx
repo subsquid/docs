@@ -1,0 +1,192 @@
+---
+sidebar_class_name: hidden
+pagination_next: null
+pagination_prev: null
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Source real time data from a portal
+
+:::info
+SQD Network portals are currently in beta. Please report any bugs or suggestions to the SQD Portal chat or to [Squid Devs](https://t.me/HydraDevs).
+:::
+
+The newest version of SQD Network portal serves real time data. It can replace both gateways of the open private version of SQD Network and RPC endpoints. Currently it only supports Solana ([more on Solana indexing in SQD](/solana-indexing)).
+
+Here are the steps to migrate:
+
+## Step 0: Procur a portal endpoint URL
+
+TBA.
+```
+https://portal.tethys.sqd.dev/datasets/solana-beta
+```
+can be used in internal tests.
+
+## Step 1: Install @portal-api packages
+
+**A.** Enter your squid's folder.
+
+**B.** Remove both your lock file and the `node_modules` folder:
+
+```mdx-code-block
+<Tabs queryString="package-manager">
+<TabItem value="npm" label="NPM">
+```
+```bash
+rm -r node_modules package-lock.json
+```
+```mdx-code-block
+</TabItem>
+<TabItem value="yarn" label="Yarn">
+```
+```bash
+rm -r node_modules yarn.lock
+```
+```mdx-code-block
+</TabItem>
+<TabItem value="pnpm" label="PNPM">
+```
+```bash
+rm -r node_modules pnpm-lock.yaml
+```
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+**C.** Upgrade all SQD packages that have a `@portal-api` version to it:
+```bash
+npx --yes npm-check-updates --filter "@subsquid/*" --target "@portal-api" --upgrade
+```
+
+**D.** Freeze the versions of `@portal-api` packages by removing any version range specifiers (`^`, `~`, `<`, `>`, `>=`, `<=`) preceding the package versions. Here's a script:
+```bash
+sed -i -e 's/[\^~=<>]*\([0-9\.]*-portal-api\.[0-9a-f]\{6\}\)/\1/g' package.json
+```
+
+<details>
+<summary>You can also do it manually</summary>
+
+Here's an example edit:
+```diff
+   "dependencies": {
+-    "@subsquid/batch-processor": "^1.0.0-portal-api.18ef40",
++    "@subsquid/batch-processor": "1.0.0-portal-api.18ef40",
+     "@subsquid/borsh": "^0.2.0",
+-    "@subsquid/solana-objects": ">=0.0.3-portal-api.18ef40",
+-    "@subsquid/solana-stream": "<1.0.0-portal-api.18ef40",
++    "@subsquid/solana-objects": "0.0.3-portal-api.18ef40",
++    "@subsquid/solana-stream": "1.0.0-portal-api.18ef40",
+     "@subsquid/typeorm-migration": "^1.3.0",
+-    "@subsquid/typeorm-store": "~1.6.0-portal-api.18ef40",
++    "@subsquid/typeorm-store": "1.6.0-portal-api.18ef40",
+     "dotenv": "^16.4.7",
+     "pg": "^8.13.1",
+     "typeorm": "^0.3.20"
+   },
+   "devDependencies": {
+-    "@subsquid/solana-typegen": "^0.4.1-portal-api.18ef40",
++    "@subsquid/solana-typegen": "0.4.1-portal-api.18ef40",
+     "@types/node": "^22.13.1",
+     "typescript": "~5.7.3"
+   }
+```
+
+</details>
+
+**E.** Install the dependencies:
+
+```mdx-code-block
+<Tabs queryString="package-manager">
+<TabItem value="npm" label="NPM">
+```
+```bash
+npm install
+```
+```mdx-code-block
+</TabItem>
+<TabItem value="yarn" label="Yarn">
+```
+```bash
+yarn install
+```
+```mdx-code-block
+</TabItem>
+<TabItem value="pnpm" label="PNPM">
+```
+```bash
+pnpm install
+```
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+## Step 2: Update your code
+
+The changes will depend on your chain's ecosystem:
+
+```mdx-code-block
+<Tabs queryString="ecosystem">
+<TabItem value="solana" label="Solana">
+```
+
+**A.** Replace all exising data sources with the portal:
+
+```diff
++  .setPortal('https://portal.tethys.sqd.dev/datasets/solana-beta')
+-  .setGateway('https://v2.archive.subsquid.io/network/solana-mainnet')
+-  .setRpc({
+-    client: new SolanaRpcClient({
+-      url: process.env.SOLANA_NODE
+-    })
+-  })
+```
+Also, please remove any mentions of `SolanaRpcClient`, for example:
+```diff
+-import {DataSourceBuilder, SolanaRpcClient} from '@subsquid/solana-stream'
++import {DataSourceBuilder} from '@subsquid/solana-stream'
+```
+**B.** Replace any block height literals with **slot number** literals.
+
+```diff
++  .setBlockRange({from: 325000000})
+-  .setBlockRange({from: 303262650})
+```
+TBA add a convenient converter
+
+**C.** If you used the `slot` field of block headers anywhere in your code, replace it with `.number`:
+
+```diff
+-  slot: block.header.slot,
++  slot: block.header.number,
+```
+
+**D.** If you need the block height (for example to stay compatible with your old code) request it in the `.setFields` call:
+
+```diff
+   .setFields({
+     block: { // block header fields
+       timestamp: true,
++      height: true
+     },
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="evm" label="EVM">
+```
+TBA
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+Your squid is ready to use.
+
+## What's next?
+
+You can run your squid locally or deploy it to the Cloud (TBA).
