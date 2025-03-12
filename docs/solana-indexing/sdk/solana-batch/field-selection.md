@@ -138,6 +138,10 @@ Instruction {
   hasDroppedLogMessages: boolean
 }
 ```
+Here, _instruction address_ is an array of tree indices addressing the instruction in the call tree:
+ - Top level instructions get addresses `[0]`, `[1]`, ..., `[N-1]`, where N is the number of top level instructions in the transaction.
+ - An address of length 2 indicates an inner instruction directly called by one of the top level instructions. For example, `[3, 0]` is the first inner instruction called by the fourth top level instruction.
+ - Addresses of length 3 or more indicate inner instructions invoked by other inner instructions.
 
 ### Transaction
 
