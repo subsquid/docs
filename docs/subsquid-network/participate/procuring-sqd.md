@@ -33,7 +33,7 @@ Participating in SQD Network usually requires some amount of SQD tokens. This pa
 
 Bridge tokens to Arbitrum One using:
 - [IceCreamSwap bridge](https://icecreamswap.com/bridge?chain=base) for moving tokens around quickly
-- Native [Base->Eth](https://bridge.base.org) and [Eth->Arbitrum](https://bridge.arbitrum.io/?destinationChain=arbitrum-one&sourceChain=ethereum&token=0x1337420ded5adb9980cfc35f8f2b054ea86f8ab1) bridges if you want minimal fees and don't mind waiting for 6-7 days.
+- Native [Base->Eth](https://superbridge.app/base) and [Eth->Arbitrum](https://bridge.arbitrum.io/?destinationChain=arbitrum-one&sourceChain=ethereum&token=0x1337420ded5adb9980cfc35f8f2b054ea86f8ab1) bridges if you want minimal fees and don't mind waiting for 7 days.
 
 ## Centralized exchanges
 
