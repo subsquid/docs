@@ -6,6 +6,10 @@ description: Operate a node that routes data requests
 
 # Run a gateway
 
+:::warning
+Public SQD Network gateways are now deprecated. The new (also decentralized) way to access the data will be announced soon.
+:::
+
 Running a gateway enables you to access SQD Network data without relying on any centralized services. You can run a private gateway for your own needs, or make a high-throughput public gateway.
 
 In either scenario you will need
