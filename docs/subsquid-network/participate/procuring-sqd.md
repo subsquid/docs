@@ -13,6 +13,7 @@ Participating in SQD Network usually requires some amount of SQD tokens. This pa
 1. The correct SQD token contracts are
    - on Arbitrum: [0x1337420dED5ADb9980CFc35f8f2B054ea86f8aB1](https://arbiscan.io/address/0x1337420dED5ADb9980CFc35f8f2B054ea86f8aB1)
    - on Base: [0xd4554BEa546EFa83C1E6B389ecac40EA999B3E78](https://basescan.org/address/0xd4554bea546efa83c1e6b389ecac40ea999b3e78)
+   - on Ethereum: [0x1337420dED5ADb9980CFc35f8f2B054ea86f8aB1](https://etherscan.io/token/0x1337420ded5adb9980cfc35f8f2b054ea86f8ab1)
 
 2. To be accessible for the SQD Network contracts the tokens must be on the Arbitrum One network.
 
@@ -28,7 +29,11 @@ Participating in SQD Network usually requires some amount of SQD tokens. This pa
 
 ## Buy on Base
 
-Coming very soon!
+[Buy SQD on Aerodrome](https://aerodrome.finance/swap?from=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913&to=0xd4554bea546efa83c1e6b389ecac40ea999b3e78&chain0=8453&chain1=8453).
+
+Bridge tokens to Arbitrum One using:
+- [IceCreamSwap bridge](https://icecreamswap.com/bridge?chain=base) for moving tokens around quickly
+- Native [Base->Eth](https://bridge.base.org) and [Eth->Arbitrum](https://bridge.arbitrum.io/?destinationChain=arbitrum-one&sourceChain=ethereum&token=0x1337420ded5adb9980cfc35f8f2b054ea86f8ab1) bridges if you want minimal fees and don't mind waiting for 6-7 days.
 
 ## Centralized exchanges
 
