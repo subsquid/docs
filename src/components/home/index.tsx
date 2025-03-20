@@ -167,7 +167,7 @@ export default function Home(): JSX.Element {
                 <p className="text-fg-base--muted font-light">
                     The Squid SDK is open source. Accessing the data from the SQD Network is free until the mainnet launch, and 
                     afterwards is projected to be in the range of $1-$5 for a terabyte of extracted data.
-                    The SQD Cloud offers a free playgroud space for developing indexers and a hosted service
+                    The SQD Cloud offers a free playground space for developing indexers and a hosted service
                     for production-ready indexing pipelines. The pay-as-you-go pricing only accounts 
                     for the actual compute and storage resources consumed by the indexer, 
                     see <a href="/cloud/pricing">for the pricing details</a>. 
