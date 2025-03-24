@@ -36,7 +36,7 @@ See [Postgres add-on](/cloud/reference/pg) for details.
 
 | Name        | Description  | Type      |Default value  | Optional   |  
 |:-----------:|:------------:|:---------:|:--------------:|:----------:|
-| `profile`  | Allocated resources profile              |  `small` \| `medium` \| `large` |`small`          |   Optional     |
+| `profile`  | Allocated resources profile              |  `small` \| `medium` \| `large` \| `xlarge` \| `2xlarge` | `small`         |   Optional     |
 | `replicas`  | The number of gateway replicas. The API requests are distributed between the replicas in the round-robin fashion        | Number    |  `1`          |   Optional     |
 
 The profile specifications for API service replicas are as follows:
@@ -46,12 +46,14 @@ The profile specifications for API service replicas are as follows:
 |`small`| 0.2 | `768Mi` | 0.5 | `768Mi` |
 | `medium`| 0.5 | `1.5Gi` | 1 |  `1.5Gi` |
 | `large` | 1 | `3Gi`| 2 | `3Gi` |
+| `xlarge` | - | - | 4 | `6Gi` |
+| `2xlarge` | - | - | 8 | `12Gi` |
 
 ### `processor:`
 
 | Name        | Description  | Type      |Default value  | Optional   |  
 |:-----------:|:------------:|:---------:|:--------------:|:----------:|
-| `profile`  | Allocated resources profile      |  `small` \| `medium` \| `large`  |`small`          |   Optional     |
+| `profile`  | Allocated resources profile      |  `small` \| `medium` \| `large` \| `xlarge` \| `2xlarge` | `small`         |   Optional     |
 
 The profile specifications for a processor service are as follows:
 
@@ -60,6 +62,8 @@ The profile specifications for a processor service are as follows:
 |`small`| 0.2 | `768Mi` | 0.5 | `768Mi` |
 | `medium`| 0.5 | `1.5Gi` | 1 |  `1.5Gi` |
 | `large` | 1 | `3Gi`| 2 | `3Gi` |
+| `xlarge` | - | - | 4 | `6Gi` |
+| `2xlarge` | - | - | 8 | `12Gi` |
 
 
 ## Example
