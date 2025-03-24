@@ -48,6 +48,8 @@ Dedicated squids have separate [compute profiles](/cloud/reference/scale/#servic
 - `small`: `0.04$/hr` 
 - `medium`: `0.08$/hr`
 - `large`: `0.15$/hr`
+- `xlarge`: `0.30$/hr`
+- `2xlarge`: `0.60$/hr`
 
 API and processor are configured and billed separately. Also, if you use API replicas your cost is multiplied by the number of replicas. For example, running a small processor plus two replicas of medium API costs `0.04+2*0.08=0.20$/hr`.
 
