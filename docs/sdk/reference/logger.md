@@ -41,7 +41,7 @@ SQD_DEBUG=sqd:processor:mapping
 
 The namespace selector supports wildcards, so one can also enable internal debug logs of `@subsquid/substrate-processor` with
 ```
-SQD_DEBUG=sqd:processor:*
+SQD_DEBUG=sqd:processor*
 ```
 since all processor context loggers inherit the processor-level namespace `sqd:processor`.
 
