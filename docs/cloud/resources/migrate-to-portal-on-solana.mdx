@@ -7,23 +7,33 @@ pagination_prev: null
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Source real time data from a portal
+# Migrate to the Cloud portal
+
+## For users on Solana
 
 :::info
-SQD Network portals are currently in beta. Please report any bugs or suggestions to the SQD Portal chat or to [Squid Devs](https://t.me/HydraDevs).
+SQD Network portals are currently in beta. Please report any bugs or suggestions to the [SQD Portal Beta chat](https://t.me/+JHrJZPz34kRjYmFk) or to [Squid Devs](https://t.me/HydraDevs).
 :::
 
 The newest version of SQD Network portal serves real time data. It can replace both gateways of the open private version of SQD Network and RPC endpoints. Currently it only supports Solana ([more on Solana indexing in SQD](/solana-indexing)).
+
+:::info
+We're currently experimenting with tightening the data request complexity limits. If you see an HTTP 400 error with a message like this:
+```
+Couldn't parse query: query contains X item requests, but only 50 is allowed
+```
+where `X` is some number above 50, or any other HTTP 400 response, please let us know.
+:::
 
 Here are the steps to migrate:
 
 ## Step 0: Procur a portal endpoint URL
 
-TBA.
+You want
 ```
-https://portal.tethys.sqd.dev/datasets/solana-beta
+https://portal.sqd.dev/datasets/solana-beta
 ```
-can be used in internal tests.
+Dedicated Cloud Solana portal with real time support is TBA.
 
 ## Step 1: Install @portal-api packages
 
@@ -127,13 +137,6 @@ pnpm install
 
 ## Step 2: Update your code
 
-The changes will depend on your chain's ecosystem:
-
-```mdx-code-block
-<Tabs queryString="ecosystem">
-<TabItem value="solana" label="Solana">
-```
-
 **A.** Replace all exising data sources with the portal:
 
 ```diff
@@ -150,6 +153,7 @@ Also, please remove any mentions of `SolanaRpcClient`, for example:
 -import {DataSourceBuilder, SolanaRpcClient} from '@subsquid/solana-stream'
 +import {DataSourceBuilder} from '@subsquid/solana-stream'
 ```
+
 **B.** Replace any block height literals with **slot number** literals.
 
 ```diff
@@ -175,18 +179,47 @@ TBA add a convenient converter
      },
 ```
 
-```mdx-code-block
-</TabItem>
-<TabItem value="evm" label="EVM">
-```
-TBA
-```mdx-code-block
-</TabItem>
-</Tabs>
-```
-
 Your squid is ready to use.
+
+## Step 3: testing
+
+We highly recommend that all Portal Beta users test their migrated squids by re-syncing them. This will allow you to make sure that everything works as expected for the whole length of the chain and catch any bugs early.
+
+<details>
+<summary>A workaround that allows continuous operation without a resync (not recommended)</summary>
+
+Assuming your squid is version-controlled and has one processor:
+
+1. Commit your updated squid code.
+
+2. Stop your Cloud squid deployment.
+
+   1. Reset your repo to the state before the updates.
+
+   2. Add the `to` field to the argument of the [`.setBlockRange`](/solana-indexing/sdk/solana-batch/general/#set-block-range) `DataSourceBuilder` call (likely in `./src/main.ts`). Set it to the current slot number.
+
+   3. [Update your deployment](/squid-cli/deploy)
+
+   4. Take a look at your squid's logs. It should be repeatedly terminating (due to having nothing to do) and restarting.
+
+3. Connect to the squid's database and update the `height` field of the [status schema](/sdk/faq/#how-do-squids-keep-track-of-their-sync-progress) to contain **slot** instead of the block height of the block mentioned there.
+
+4. Verify that the `height` field updated successfully by re-reading the status schema.
+
+5. Reset your codebase to its updated version and redeploy your squid again.
+
+</details>
+
+To resync your squid, follow the zero-downtime update procedure:
+
+1. Deploy your squid into a new slot.
+
+2. Wait for it to sync, observing the improved data fetching.
+
+3. Assign your production tag to the new deployment to redirect the GraphQL requests there.
+
+See [this section](/cloud/resources/slots-and-tags/#zero-downtime-updates) for details.
 
 ## What's next?
 
-You can run your squid locally or deploy it to the Cloud (TBA).
+Take a look at the [Soldexer project](https://soldexer.ai) for a peek at the new client architecture and the most detailed and up-to-date documentation on the updated Portal API.

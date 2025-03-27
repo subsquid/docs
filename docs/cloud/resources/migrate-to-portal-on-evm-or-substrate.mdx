@@ -1,0 +1,134 @@
+---
+sidebar_position: 1000
+title: Portal for EVM+Substrate
+description: EVM/Substrate data from the permissionless SQD Network
+sidebar_class_name: hidden
+pagination_next: null
+pagination_prev: null
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Migrate to the Cloud portal
+
+## For users on EVM and Substrate networks
+
+:::info
+SQD Network portals are currently in beta. Please report any bugs or suggestions to the [SQD Portal Beta chat](https://t.me/+JHrJZPz34kRjYmFk) or to [Squid Devs](https://t.me/HydraDevs).
+:::
+
+This guide walks you through replacing a gateway of the [open private version of SQD Network](/subsquid-network/overview/#open-private-network) with a *portal* of the [permissionless SQD Network](/subsquid-network/overview/#permissionless-public-network) as the primary source of data for your Cloud squids.
+<!--
+Benefits include:
+
+ - **Reduced reliance on centralized services:** The permissionless SQD Network consists of [over 1400](https://arbiscan.io/address/0x36e2b147db67e76ab67a4d07c293670ebefcae4e#readContract#F6) nodes [ran by independent operators](/subsquid-network/participate/worker)
+ - **Improved stability:** With a total capacity of roughly 1.1Pb, the permissionless SQD Network allows for a great deal of redundancy.
+ - **Improved speed:** The permissionless version of SQD Network has a lot more bandwidth than the open private network; moreover, portals use the available bandwidth more effectively than gateways. Data fetching was 5-10 times faster in some of our tests. For squids that are not bottlenecked by write operations this will translate into better sync performance.
+ - **Being future-proof:** All future development will be focused on portals and the permissionless SQD Network. Open private network will be sunset around May 2025.
+-->
+SQD team operates two independent portals that serve the needs of Cloud users:
+ * The dedicated **Cloud Portal** is only visible from within the Cloud, ensuring stable performance for squids deployed there.
+ * The **Public Portal** can be accessed from anywhere for easy experimentation and local development.
+
+:::info
+We're currently experimenting with tightening the data request complexity limits. If you see an HTTP 400 error with a message like this:
+```
+Couldn't parse query: query contains X item requests, but only 50 is allowed
+```
+where `X` is some number above 50, or any other HTTP 400 response, please let us know.
+:::
+
+Here are the steps to migrate:
+
+## Step 1: update to @latest packages
+
+**A.** Enter your squid's folder.
+
+**B.** Remove both your lock file and the `node_modules` folder:
+
+```mdx-code-block
+<Tabs queryString="package-manager">
+<TabItem value="npm" label="NPM">
+```
+```bash
+rm -r node_modules package-lock.json
+```
+```mdx-code-block
+</TabItem>
+<TabItem value="yarn" label="Yarn">
+```
+```bash
+rm -r node_modules yarn.lock
+```
+```mdx-code-block
+</TabItem>
+<TabItem value="pnpm" label="PNPM">
+```
+```bash
+rm -r node_modules pnpm-lock.yaml
+```
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+**C.** Upgrade all SQD packages to the `@latest` major version:
+```bash
+npx --yes npm-check-updates --filter "@subsquid/*" --upgrade
+```
+
+**D.** Install the dependencies:
+
+```mdx-code-block
+<Tabs queryString="package-manager">
+<TabItem value="npm" label="NPM">
+```
+```bash
+npm install
+```
+```mdx-code-block
+</TabItem>
+<TabItem value="yarn" label="Yarn">
+```
+```bash
+yarn install
+```
+```mdx-code-block
+</TabItem>
+<TabItem value="pnpm" label="PNPM">
+```
+```bash
+pnpm install
+```
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+## Step 2: tell your code to use the Portal
+
+Follow the network-specific instructions from the Cloud:
+
+ * navigate to [the Portal's page](https://app.subsquid.io/portal)
+ * click on the tile of your network to see the instructions
+
+Once you're done, your squid will use the Cloud Portal when deployed and the public portal for local runs.
+
+## Step 3 (recommended): testing
+
+If you just want to update your squid code to use the Portal-enabled SDK version you can simply redeploy your squid here and be done. No need to re-sync.
+
+However, for the duration of this beta we strongly recommend that you re-sync your squid. This will allow you to make sure everything is working as it should and evaluate the improved data source performance. Follow the zero-downtime update procedure:
+
+1. Deploy your squid into a new slot.
+
+2. Wait for it to sync, observing the improved data fetching.
+
+3. Assign your production tag to the new deployment to redirect the GraphQL requests there.
+
+See [this section](/cloud/resources/slots-and-tags/#zero-downtime-updates) for details.
+
+## What's next?
+
+Stay hyped for news on the introduction of real time data to EVM and Substate - it is coming soon.
