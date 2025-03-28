@@ -18,7 +18,7 @@ SQD Portal can supply both historical and real-time data seamlessly, eliminating
 #### Key Features
 
 - **Fully Decentralized**: Powered by 1,600+ independent worker nodes.
-- **30x Replication**: Redundant data storage for maximum reliability, capable of querying up to **20 million blocks per second**.
+- **12x Replication**: Redundant data storage for maximum reliability, capable of querying up to **20 million blocks per second**.
 - **Improved Performance**: A new Rust-based query engine now leverages parallelized queries and incorporates numerous query execution performance optimizations, delivering an overall **10-50x performance boost** compared to the centralized gateways.
   + Note that the performance improvement only affects data retrieval. If your application has another bottleneck (typically the database) you may only see a moderate gain in indexing speed.
 - **Real-time Capability**: Portal is now capable of streaming real-time data, including unfinalized blocks.
