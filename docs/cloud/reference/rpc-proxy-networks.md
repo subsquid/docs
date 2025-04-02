@@ -75,16 +75,6 @@ See the [RPC addon guide](/cloud/resources/rpc-proxy) for details.
 
 <details>
 
-<summary>Available Solana networks</summary>
-
-| Network name | network.protocol |
-|:------------:|:----------------:|
-| Solana       | `solana.http`    |
-
-</details>
-
-<details>
-
 <summary>Available Substrate networks</summary>
 
 | Network name         | network.protocol            |
