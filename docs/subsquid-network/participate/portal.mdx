@@ -11,6 +11,10 @@ sidebar_class_name: hidden
 SQD Network portals are currently in closed beta. Please report any bugs or suggestions to the SQD Portal chat or to [Squid Devs](https://t.me/HydraDevs).
 :::
 
+:::warning
+If you want to use your private portal to index Solana, please read the [Using your Portal - On Solana](#on-solana) section before committing.
+:::
+
 Running a portal enables you to access the [permissionless SQD Network](/subsquid-network/overview) data without relying on any centralized services. You can run a private portal for your own needs, or make a high-throughput public portal.
 
 In either scenario you will need
@@ -23,7 +27,7 @@ In either scenario you will need
 * Some Arbitrum ETH (for gas)
 
 Portal hardware requirements:
- * at least 8Gb of unused RAM
+ * at least 25Gb of unused RAM (we're working to reduce this)
 
 The rest of the hardware requirements depend on how the portal will be used. A private portal with a single user can run on a laptop, provided that it has enough RAM.
 
@@ -124,6 +128,20 @@ This will happen at the beginning of the next [epoch](/subsquid-network/faq/#epo
 
 ## Using your portal
 
+Portal serves a new version of API that's not compatible with `@latest` SDK and the old gateways. Update your packages with
+```bash
+npx --yes npm-check-updates --filter "@subsquid/*" --target "@portal-api" --upgrade
+```
+then freeze the versions of `@portal-api` packages at the new ones, either by removing any version range specifiers (`^`, `~`, `<`, `>`, `>=`, `<=`) preceding the package versions or by running
+```bash
+sed -i -e 's/[\^~=<>]*\([0-9\.]*-portal-api\.[0-9a-f]\{6\}\)/\1/g' package.json
+```
+to do the same thing automatically. Finally, reinstall all packages from scratch:
+```bash
+rm -r node_modules package-lock.json
+npm i
+```
+
 A working portal exposes its dataset-specific APIs via URLs such as this one:
 ```
 http://<host>:8000/datasets/<dataset-slug>
@@ -133,7 +151,78 @@ Here, `<dataset-slug>` is the last path segment of the network-specific gateway 
 http://127.0.0.1:8000/datasets/ethereum-mainnet
 ```
 
-You can now get any squid (e.g. one of the [templates](/sdk/how-to-start/squid-development/#templates) or [examples](/sdk/examples)), tweak it to [source data from your portal](/subsquid-network/participate/portal) and run it.
+### On EVM
+
+You should be able to simply replace the `setGateway` call with `setPortal` and get exactly the same behavior as before:
+```diff
++  .setPortal('http://127.0.0.1:8000/datasets/ethereum-mainnet')
+-  .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
+```
+If your squid [uses RPC to ingest unfinalized blocks](/sdk/resources/unfinalized-blocks), `@subsquid/evm-processor@portal-api` will smoothly transition to that regime as it catches up to the network.
+
+### On Solana
+
+Solana SDK in its `@portal-api` version is capable of ingesting real-time data from portal, but is no longer capable of ingesting it from RPC. Since real-time Solana data is not yet available for private portals, that means that _at the moment it is not possible to get real-time Solana data if the private portal is used as the main data source_. This will be fixed soon, but as of 2025-03-04 this is one limitation we have.
+
+If you just want to try ingesting historical Solana data you can take a look at the `portal-api` branch of our Solana template:
+```bash
+git clone https://github.com/subsquid-labs/solana-example/
+cd solana-example
+git checkout portal-api
+npm i
+npm run build
+docker compose up -d
+npx squid-typeorm-migration apply
+node -r dotenv/config lib/main.js
+```
+If the last command fails due to an HTTP 400 response, try raising the lowest block at described in [this comment](https://github.com/subsquid-labs/solana-example/blob/6ed90f7ec346a56effe29fde91eb918e149a558b/src/main.ts#L15-L17).
+
+<details>
+<summary>If you want to migrate an existing squid, here's a full instruction</summary>
+**A.** Replace all exising data sources with the portal:
+
+```diff
++  .setPortal('https://portal.tethys.sqd.dev/datasets/solana-beta')
+-  .setGateway('https://v2.archive.subsquid.io/network/solana-mainnet')
+-  .setRpc({
+-    client: new SolanaRpcClient({
+-      url: process.env.SOLANA_NODE
+-    })
+-  })
+```
+Also, please remove any mentions of `SolanaRpcClient`, for example:
+```diff
+-import {DataSourceBuilder, SolanaRpcClient} from '@subsquid/solana-stream'
++import {DataSourceBuilder} from '@subsquid/solana-stream'
+```
+**B.** Replace any block height literals with **slot number** literals.
+
+```diff
++  .setBlockRange({from: 325000000})
+-  .setBlockRange({from: 303262650})
+```
+A convenient converter from block heights to slot numbers is TBA; for now bisecting the block range is your best bet. To get block height by slot number use this script:
+```bash
+SLOT_NUMBER=320276063 curl --request POST --url https://api.mainnet-beta.solana.com --header 'accept: application/json' --header 'content-type: application/json' --data "{\"id\": 1, \"jsonrpc\": \"2.0\", \"method\": \"getBlock\", \"params\": [${SLOT_NUMBER}, {\"encoding\": \"jsonParsed\", \"maxSupportedTransactionVersion\": 0}]}" | jq | grep blockHeight
+```
+
+**C.** If you used the `slot` field of block headers anywhere in your code, replace it with `.number`:
+
+```diff
+-  slot: block.header.slot,
++  slot: block.header.number,
+```
+
+**D.** If you need the block height (for example to stay compatible with your old code) request it in the `.setFields` call:
+
+```diff
+   .setFields({
+     block: { // block header fields
+       timestamp: true,
++      height: true
+     },
+```
+</details>
 
 ## Token requirements and compute units {#staking-requirements-and-compute-units}
 
