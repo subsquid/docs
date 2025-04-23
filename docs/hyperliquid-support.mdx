@@ -8,17 +8,75 @@ pagination_prev: null
 
 ## Overview
 
-SQD is a decentralized hyper-scalable data platform optimized for providing efficient, permissionless access to large volumes of data. It currently serves historical on-chain data, including event logs, transaction receipts, traces, and per-transaction state diffs. SQD offers a powerful toolkit for creating custom data extraction and processing pipelines, achieving an indexing speed of up to 150k blocks per second.
+SQD is a decentralized hyper-scalable data platform optimized for providing efficient, permissionless access to large volumes of data. SQD offers a powerful toolkit for creating custom data extraction and processing pipelines from over 200 networks, achieving an indexing speed of up to 150k blocks per second.
 
-SQD has been supporting Hyperliquid as one of the few providers since the very beginning. We currently support:
-- HyperEVM Testnet 
-- HyperEVM Mainnet
-- HyperCore L1 Mainnet - coming soon
+### Supported Networks
 
-You can find the full list with the latest information here: https://docs.sqd.ai/subsquid-network/reference/networks/
+- **HyperEVM Testnet**
+- **HyperEVM Mainnet**
+- **HyperCore L1 Mainnet** *(coming soon)*
 
+See the full, always-up-to-date network list:
+[docs.sqd.ai/subsquid-network/reference/networks](https://docs.sqd.ai/subsquid-network/reference/networks/)
 
+## Quickstart: Drip.trade Events on HyperEVM
+
+This example shows how to index the NFT marketplace Drip.trade on Hyperliquid using SQD.
+
+It captures:
+- `ItemSold` events (direct NFT sales)
+- `BidAccepted` events (successful bids)
+
+### Prerequisites
+- **Node.js**
+- **Docker**
+- Basic terminal skills
+
+### 🧪 Setup & Run
+
+```bash
+# 0. Install the SQD CLI tool globally
+npm i -g @subsquid/cli
+
+# 1. Initialize the Drip.trade example project
+sqd init hyperliquid-drip-trade -t https://github.com/subsquid-labs/hyperliquid-drip-trade-example
+cd hyperliquid-drip-trade
+
+# 2. Install Node.js dependencies
+npm ci
+
+# 3. Set up environment variables
+mv .env.example .env
+
+# 4. Start a Postgres container
+sqd up
+
+# 5. Start the processor to fetch and transform data
+sqd process
+
+# 6. In a new terminal, launch the GraphQL server
+sqd serve
+```
+Explore the data in the GraphQL playground at: http://localhost:4350/graphql
+
+This example shows how to build a custom on-chain indexer with SQD. It connects to the HyperEVM network starting from block #377,808, where the Drip.trade contract was deployed.
+
+It pulls data using:
+- Archive endpoint: https://v2.archive.subsquid.io/network/hyperliquid-mainnet
+- RPC endpoint: https://rpc.hyperliquid.xyz/evm
+
+You can find the full Quickstart example on GitHub: [https://github.com/subsquid-labs/hyperliquid-drip-trade-example](https://github.com/subsquid-labs/hyperliquid-drip-trade-example)
+
+## Learn more
+
+To learn more about our SDK, visit:
+[docs.sqd.ai/sdk](https://docs.sqd.ai/sdk)
+
+For information about hosting your indexer using SQD Cloud, visit:
+[docs.sqd.ai/cloud](https://docs.sqd.ai/cloud)
+
+To see more examples, visit: [docs.sqd.ai/sdk/examples](https://docs.sqd.ai/sdk/examples) 
 
 ## Getting support
-Can't find what you're looking for? Reach out to us at our dedicated support channel on Telegram for SQD developers: link[https://t.me/HydraDevs].
+Need help or have questions? Join our dedicated Telegram support channel for SQD developers: [link](https://t.me/HydraDevs).
 
