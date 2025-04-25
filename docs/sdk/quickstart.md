@@ -170,7 +170,7 @@ The processor is a background process that continously fetches the data, decodes
 
 To run the processor, we first start a local Postgres where the decoded data is persisted (the template comes with a Docker compose file):
 ```bash
-docker compose up -d
+docker-compose up -d
 ```
 Processor will connect to Postgres using the connection parameters from `.env`.
 
