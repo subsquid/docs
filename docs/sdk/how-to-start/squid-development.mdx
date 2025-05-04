@@ -177,7 +177,7 @@ Test the template locally. The procedure varies depending on the data sink:
 ```
 1. Launch a PostgreSQL container with
    ```bash
-   docker compose up -d
+   docker-compose up -d
    ```
 
 2. Build the squid with
@@ -208,7 +208,7 @@ Test the template locally. The procedure varies depending on the data sink:
    ```
    in a separate terminal, then visit the [GraphiQL console](http://localhost:4350/graphql) to verify that the GraphQL API is up.
 
-When done, shut down and erase your database with `docker compose down`.
+When done, shut down and erase your database with `docker-compose down`.
 
 ```mdx-code-block
 </TabItem>
@@ -479,13 +479,13 @@ At `src/main.ts`, change the [`Database`](/sdk/resources/persisting-data/overvie
 
 4. Ensure that the squid has access to a blank database. The easiest way to do so is to start PostgreSQL in a Docker container with
    ```bash
-   docker compose up -d
+   docker-compose up -d
    ```
    If the container is running, stop it and erase the database with
    ```bash
-   docker compose down
+   docker-compose down
    ```
-   before issuing an `docker compose up -d`.
+   before issuing an `docker-compose up -d`.
 
    The alternative is to connect to an external database. See [this section](/sdk/reference/store/typeorm/#database-connection-parameters) to learn how to specify the connection parameters.
 
