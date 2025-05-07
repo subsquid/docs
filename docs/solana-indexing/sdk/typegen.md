@@ -20,24 +20,24 @@ Install with
 npm install @subsquid/solana-typegen
 ```
 
-The `squid-solana-typegen` tool generates TypeScript facades for Solana instructions and logs. It takes JSON IDLs as inputs. The IDLs  can be specified in three ways:
+The `@subsquid/solana-typegen` tool generates TypeScript facades for Solana instructions and logs. It takes JSON IDLs as inputs. The IDLs  can be specified in three ways:
 
 1. as a plain JSON file(s):
 
    ```bash
-   npx squid-solana-typegen src/abi whirlpool.json
+   npx @subsquid/solana-typegen src/abi whirlpool.json
    ```
 
    If you use this option, you can also place your JSON IDLs to the `idl` folder and run
 
    ```bash
-   npx squid-solana-typegen src/abi ./idl/*
+   npx @subsquid/solana-typegen src/abi ./idl/*
    ```
 
 2. load IDL from a Solana node and generate types:
 
    ```bash
-   npx squid-solana-typegen src/abi whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc#whirlpool
+   npx @subsquid/solana-typegen src/abi whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc#whirlpool
    ```
 
 ## Usage
