@@ -497,19 +497,19 @@ const urlList = [
     },
     {
         "from": "/quickstart/quickstart-substrate",
-        "to": "/sdk/how-to-start/squid-development"
+        "to": "/sdk/quickstart"
     },
     {
         "from": "/quickstart/quickstart-ethereum",
-        "to": "/sdk/how-to-start/squid-development"
+        "to": "/sdk/quickstart"
     },
     {
         "from": "/quickstart/quickstart-abi",
-        "to": "/sdk/resources/tools/squid-gen"
+        "to": "/sdk/quickstart"
     },
     {
         "from": "/quickstart",
-        "to": "/sdk/how-to-start/squid-development"
+        "to": "/sdk/quickstart"
     },
     {
         "from": "/store/postgres/schema-file/entities",
