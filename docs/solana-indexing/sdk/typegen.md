@@ -75,8 +75,7 @@ The generated utility modules have three intended uses:
            ins.d8 === whirlpool.instructions.swap.d8) {
 
          let decodedSwap = whirlpool.instructions.swap.decode(ins)
-         let decodedAccounts = whirlpool.instructions.swap.decodeAccounts(ins.accounts)
-         let decodedData = whirlpool.instructions.swap.decodeData(ins.data)
+         let { accounts, data } = decodedSwap
        }
      }
    }
