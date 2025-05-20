@@ -16,13 +16,13 @@ The manifest supports the following scaling options:
 
 ## `dedicated:` 
 
-Default: `dedicated: false`. 
+Default: `dedicated: true`.
 
-By default, the service deployments are _collocated_ - that is, share resources with other deployments - and so the allocation of full resources is not guaranteed. With `dedicated: true`, the resources are reserved in advance.
+When a dedicated profile is used, the resources that the squid requests are reserved in advance. **This is the new/current default** and is the recommended profile for production squids. Squid deployment must be dedicated to be a subject of [SQD Cloud SLA](/cloud/pricing).
 
-We recommend setting `dedicated: true` for all squids running in production.
+By setting `dedicated: false` you can request for your deployment to be _collocated_ - that is, share resources with other deployments. The allocation of full resources is not guaranteed for collocated squids.
 
-Squid deployment must be dedicated to be a subject of [SQD Cloud SLA](/cloud/pricing).
+All playground squids must use the collocated profile, that is, explicitly specify `dedicated: false`.
 
 ## `addons:`
 
@@ -83,7 +83,6 @@ deploy:
     cmd: [ "sqd", "serve:prod" ]
 
 scale:
-  dedicated: true
   addons:
     postgres:
       storage: 100G

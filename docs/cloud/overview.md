@@ -152,18 +152,14 @@ scale:
 
 ### 4.5. Dedicated deployment
 
-By default, all squids are collocated, meaning that the squid shares resources with other collocated squids. In this case, computing resources might not be available at all times.
+[Dedicated deployment profile](/cloud/reference/scale/#dedicated) is now the default, so if it isn't explicitly disabled in your manifest you don't need to do anything.
 
-:::danger
-We strongly discourage using collocated squids in production.
-:::
-
-To deploy a dedicated squid, you need to set the `dedicated` option to `true` in the `scale` section of the `squid.yaml` file.
-
+However, if you have a `dedicated: false` in your `scale:` section (e.g. because you previously deployed your squid to a [playground](/cloud/resources/organizations/#playgrounds)) you must either erase that or replace it with an explicit
 ```yaml
 scale:
   dedicated: true
 ```
+**We strongly discourage using collocated squids in production,** so be sure to check.
 
 ### 4.6. The resulting `squid.yaml`
 
@@ -186,8 +182,6 @@ deploy:
     cmd: ["sqd", "serve:prod"]
 
 scale:
-  # dedicated deployment
-  dedicated: true
   addons:
     postgres:
       storage: 100G
