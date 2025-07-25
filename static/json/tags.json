@@ -120,17 +120,16 @@
   ],
   "cards": [
     {
-      "title": "Uniswap v3 abridged",
-      "description": "Data on factory, pools and liquidity positions. No aggregates.",
+      "title": "Uniswap v4",
+      "description": "Data on factory, pools, liquidity positions and hooks",
       "tags": [
         "EVM",
         "Postgres+GraphQL",
         "Hot blocks",
         "DEX",
-        "ERC20",
-        "Two-pass"
+        "ERC20"
       ],
-      "url": "https://github.com/subsquid-labs/uniswapv3-abridged-squid"
+      "url": "https://github.com/SQD-Boost/uniswap-v4-squid"
     },
     {
       "title": "Uniswap v3 full",
