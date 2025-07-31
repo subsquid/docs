@@ -67,6 +67,10 @@ As a non-coder, you will be able to participate in the SQD Network directly by [
 
 Additionally you can drive the growth of the SQD Network by helping to cultivate a vibrant community, amplifying the network's reach through social media and other platforms.
 
+### Does participating in SQD Network require committing my tokens?
+
+Yes. If you delegate your SQD or register a worker, your tokens will be locked for a period of 50000 Ethereum blocks, starting at the end of the current [epoch](#epoch).
+
 ### What is SQD’s roadmap?
 
 You can find the up-to-date roadmap [here](https://www.sqd.dev/roadmap).
