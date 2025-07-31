@@ -6,6 +6,10 @@ description: Delegate your tokens to workers
 
 # Delegate
 
+:::info
+By delegating you're committing your tokens for a period of 50000 Ethereum blocks (a bit less than seven days) + the time until the end of the current [epoch](/subsquid-network/faq/#epoch) (20 minutes or less). Withdrawal will not be possible during that time.
+:::
+
 The easiest way to participate in SQD Network is to delegate your `SQD` tokens to one of the workers. Here's how to do it.
 
 1. Go to [network.subsquid.io](https://network.subsquid.io).
@@ -28,15 +32,19 @@ The easiest way to participate in SQD Network is to delegate your `SQD` tokens t
 
 ## Undelegating
 
-1. Go to [network.subsquid.io](https://network.subsquid.io).
+1. Wait for your delegation lockup period to expire if you haven't already. The period is 50000 Ethereum block, starting at the first block following the end of the [epoch](/subsquid-network/faq/#epoch) when you delegated the tokens. So, roughly 7 days.
 
-2. Go to the "Delegate" tab. You should see your delegation there.
+2. Go to [network.subsquid.io](https://network.subsquid.io).
 
-3. If you delegated recently, the "Undelegate" button might be inactive. This indicates that your delegation is not yet be available for withdrawal. Wait until the current [epoch](/subsquid-network/faq/#epoch) ends (should take up to ~20 minutes).
+3. Go to the "Delegate" tab. You should see your delegation there.
 
-4. Once the "Undelegate" button is active, click it. You should see a form like this one:
+4. Click the "Undelegate" button. You should see a form like this one:
 
    ![Undelegation form](./delegate_undelegate.png)
+
+   :::info
+   An inactive "Undelegate" button likely indicates the delegation lockup period still haven't passed.
+   :::
 
 5. Enter the `SQD` amount you want to withdraw, click the large new "Undelegate" button and confirm the transaction.
 

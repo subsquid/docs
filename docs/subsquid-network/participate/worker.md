@@ -70,6 +70,10 @@ Proceed to [Worker registration](#registration).
 
 ## Worker registration {#registration}
 
+:::info
+By registering a worker you're committing your tokens for a period of 50000 Ethereum blocks (a bit less than seven days) + the time until the end of the current [epoch](/subsquid-network/faq/#epoch) (20 minutes or less). Withdrawal will not be possible during that time.
+:::
+
 Before you run a worker node, you need to register it on-chain using our web application. Here are the steps to do this:
 
 1. Go to [https://network.subsquid.io](https://network.subsquid.io).
