@@ -32,7 +32,7 @@ The easiest way to participate in SQD Network is to delegate your `SQD` tokens t
 
 ## Undelegating
 
-1. Wait for your delegation lockup period to expire if you haven't already. The period is 50000 Ethereum block, starting at the first block following the end of the [epoch](/subsquid-network/faq/#epoch) when you delegated the tokens. So, roughly 7 days.
+1. Wait for your delegation lockup period to expire if you haven't already. The period is 50000 Ethereum block, starting at the first block following the end of the [epoch](/subsquid-network/faq/#epoch) when you delegated the tokens. So, roughly **7 days**.
 
 2. Go to [network.subsquid.io](https://network.subsquid.io).
 
