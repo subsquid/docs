@@ -13,6 +13,8 @@ deploy:
     rpc:
       - eth-goerli.http
 ```
+The RPC endpoint URL will become available at the `RPC_ETH_GOERLI_HTTP` env variable.
+
 See the [RPC addon guide](/cloud/resources/rpc-proxy) for details.
 
 <details>
