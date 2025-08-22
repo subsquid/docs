@@ -25,7 +25,7 @@ npm i
 First, we inspect the data available for indexing. In Solana, most programs use the [Anchor framework](https://www.anchor-lang.com/). Anchor makes the metadata describing the shape of the instructions, transactions and contract variables available as an [Interface Definition Language](https://www.quicknode.com/guides/solana-development/anchor/what-is-an-idl) (IDL) JSON file. For many popular programs (including Whirlpool) IDL files are published on-chain. SQD provides a [tool](/solana-indexing/sdk/typegen) for retrieving program IDLs and generating boilerplate ABI code for data decoding. This can be done with
 
 ```bash
-npx squid-solana-typegen src/abi whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc#whirlpool
+npx @subsquid/solana-typegen src/abi whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc#whirlpool
 ```
 Here, `src/abi` is the destination folder and the `whirlpool` suffix sets the base name for the generated file.
 
