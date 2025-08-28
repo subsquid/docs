@@ -8,6 +8,10 @@ description: Serve SQD Network data
 
 ## Requirements
 
+:::danger
+We strongly advise against using Hetzner for running Subsquid Network nodes.
+:::
+
 To run a single worker you'll need:
 
 * 4 vCPU
