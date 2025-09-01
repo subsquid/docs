@@ -14,11 +14,15 @@ Solana typegen:
 - exposes useful constants such as program IDs and instruction discriminators
 - provides functions that simplify selecting data items based on accounts
 
-Install with
+Install it with
 
 ```bash
 npm install @subsquid/solana-typegen
 ```
+
+:::tip
+Replace `npx squid-solana-typegen` with `npx @subsquid/solana-typegen` if you don't want to install the package.
+:::
 
 The `squid-solana-typegen` tool generates TypeScript facades for Solana instructions and logs. It takes JSON IDLs as inputs. The IDLs  can be specified in three ways:
 
