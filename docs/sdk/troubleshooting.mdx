@@ -14,7 +14,23 @@ Many issues can be resolved by following the [best practices guide](/cloud/resou
 ## Processor
 
 <details>
-<summary>`Error: data out-of-bounds` `ethers` errors on EVM</summary>
+<summary>I'm running a processor against a low block time, high data rate network (e.g. Arbitrum) and the latency is no good</summary>
+
+The default HTTP polling mechanism occasionally fails to keep up with the chain head on such networks. For latency-critical applications please use WSS RPC endpoints.
+
+</details>
+
+<details>
+<summary>I'm calling `processor.run()` from inside of my app and it shuts down the parent process</summary>
+
+`processor.run()` is designed to be used as a top level call and we don't recommend using it in other ways. Running the processor as a child process is usually preferable.
+
+If you absolutely have to do it, set the `SQUID_PROCESSOR_EXIT_DISABLED` to `false`.
+
+</details>
+
+<details>
+<summary>`Error: data out-of-bounds` errors on EVM</summary>
 
 * Usually this means that you're using the decoder on the wrong data. Make sure that the decoder receives _only_ the data you intend it to.
 

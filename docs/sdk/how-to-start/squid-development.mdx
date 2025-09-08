@@ -15,7 +15,7 @@ Feel free to also use the template-specific `sqd` scripts defined in [`commands.
 
 ## Prepare the environment
 
-- Node v16.x or newer
+- Node v20.x or newer
 - Git
 - [Squid CLI](/squid-cli/installation)
 - Docker (if your squid will store its data to PostgreSQL)
@@ -324,6 +324,7 @@ Edit the definition of `const processor` to
    - It is possible to [use RPC](/sdk/reference/processors/evm-batch/general/#set-rpc-endpoint) as the only data source, but [adding](/sdk/reference/processors/evm-batch/general/#set-gateway) a [SQD Network](/subsquid-network/reference/networks/#evm--ethereum-compatible) data source will make your squid sync much faster.
    - RPC is a hard requirement if you're building a real-time API.
    - If you're using RPC as one of your data sources, make sure to [set the number of finality confirmations](/sdk/reference/processors/evm-batch/general/#set-finality-confirmation) so that [hot blocks ingestion](/sdk/resources/unfinalized-blocks) works properly.
+   - On low block time, high data rate networks (e.g. Arbitrum) use WSS endpoints if latency is critical.
 2. Request all [event logs](/sdk/reference/processors/evm-batch/logs/), [transactions](/sdk/reference/processors/evm-batch/transactions/), [execution traces](/sdk/reference/processors/evm-batch/traces) and [state diffs](/sdk/reference/processors/evm-batch/state-diffs/) that your task requires, with any necessary related data (e.g. parent transactions for event logs).
 
 3. [Select all data fields](/sdk/reference/processors/evm-batch/field-selection) necessary for your task (e.g. `gasUsed` for transactions).

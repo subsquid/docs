@@ -18,9 +18,19 @@ Here is an incomplete list:
 
 The SQD Network only serves finalized blocks and is typically ~1000 blocks behind the tip. The most recent blocks, as well as the unfinalized blocks are seamlessly handled by the SDK from a complementary RPC data source, set by the `chain` config. Potential chain reorgs are automatically handled under the hood. See [Indexing unfinalized blocks](/sdk/resources/unfinalized-blocks) for details.
 
+### I want to call `processor.run()` from somewhere inside my app. Is that possible?
+
+`processor.run()` is designed to be the top-level call and will try to control execution at the process level. For example, if a finite block range is specified in the processor config it will shutdown the parent process with `process.exit()` when it reaches the end.
+
+For this reason we do not recommend to use `processor.run()` as a regular function in your applications. It is usually preferable to run the processor as a child process.
+
+If you absolutely have to do it, please set the `SQUID_PROCESSOR_EXIT_DISABLED` environment variable to `false`.
+
 ### What is the latency for the data served by the squid? 
 
-Since the ArrowSquid release, the Squid SDK has the option to ingest unfinalized blocks directly from an RPC endpoint, making the indexing real-time. 
+Since the ArrowSquid release, the Squid SDK has the option to ingest unfinalized blocks directly from an RPC endpoint, making the indexing real-time.
+
+Typically this is achieved by polling HTTP RPCs, but that becomes unfeasible for some low block time, high data rate networks such as Arbitrum. For latency-critical applications on such networks please use WSS RPC endpoints.
 
 ### How do I enable GraphQL subscriptions for local runs?
 

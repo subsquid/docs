@@ -16,6 +16,8 @@ Here is a list of items to check out before you deploy your squid for use in pro
 Batch handler data filtering used to be compulsory before the release of `@subsquid/evm-processor@1.13.0`. Now it is optional but highly recommended.
 :::
 
+* For low block time, high data rate networks (e.g. Arbitrum) use a WSS RPC for best latency.
+
 * If your squid [saves its data to a database](/sdk/resources/persisting-data/typeorm), make sure your [schema](/sdk/reference/schema-file) has [`@index` decorators](/sdk/reference/schema-file/indexes-and-constraints) for all entities that will be looked up frequently.
   - Follow the [queries optimization procedure](/cloud/resources/query-optimization) for best results.
 
