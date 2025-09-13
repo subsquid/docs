@@ -1,6 +1,6 @@
 const help =
 `This script expects the RPC chains JSON at its stdin. Supply it e.g. with\n
- $ curl -s -H 'Authorization: Bearer <your_token>' https://app.subsquid.io/api/orgs/<your_org>/rpc/chains | node scripts/networksLists/bin/rpcProxy.js\n
+ $ curl -s -H 'Authorization: Bearer <your_token>' https://app.subsquid.io/api/v1/orgs/<your_org>/rpc/chains | node scripts/networksLists/bin/rpcProxy.js\n
 Consult your browser's dev console at https://app.subsquid.io/rpc to get the token.`
 
 if (process.argv[2] === '--help') {
