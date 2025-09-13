@@ -56,6 +56,7 @@ See the [RPC addon guide](/cloud/resources/rpc-proxy) for details.
 | opBNB                 | `opbnb.http`                         |
 | opBNB                 | `opbnb-testnet.http`                 |
 | Optimism              | `optimism.http`                      |
+| Optimism Sepolia      | `optimism-sepolia.http`              |
 | Optimism Goerli       | `optimism-goerli.http`               |
 | Polygon               | `polygon.http`                       |
 | Polygon Amoy          | `polygon-amoy-testnet.http`          |
