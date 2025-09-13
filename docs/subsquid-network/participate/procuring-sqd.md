@@ -14,6 +14,7 @@ Participating in SQD Network usually requires some amount of SQD tokens. This pa
    - on Arbitrum: [0x1337420dED5ADb9980CFc35f8f2B054ea86f8aB1](https://arbiscan.io/address/0x1337420dED5ADb9980CFc35f8f2B054ea86f8aB1)
    - on Base: [0xd4554BEa546EFa83C1E6B389ecac40EA999B3E78](https://basescan.org/address/0xd4554bea546efa83c1e6b389ecac40ea999b3e78)
    - on Ethereum: [0x1337420dED5ADb9980CFc35f8f2B054ea86f8aB1](https://etherscan.io/token/0x1337420ded5adb9980cfc35f8f2b054ea86f8ab1)
+   - on Binance: [0xe50e3d1a46070444f44df911359033f2937fcc13](https://bscscan.com/address/0xe50e3d1a46070444f44df911359033f2937fcc13)
 
 2. To be accessible for the SQD Network contracts the tokens must be on the Arbitrum One network.
 
