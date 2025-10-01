@@ -7,7 +7,7 @@ description: Delegate your tokens to workers
 # Delegate
 
 :::info
-By delegating you're committing your tokens for a period of 50000 Ethereum blocks (a bit less than seven days) + the time until the end of the current [epoch](/subsquid-network/faq/#epoch) (20 minutes or less). Withdrawal will not be possible during that time.
+By delegating you're committing your tokens for a period of 99999 Ethereum blocks (a bit less than two weeks) + the time until the end of the current [epoch](/subsquid-network/faq/#epoch) (20 minutes or less). Withdrawal will not be possible during that time.
 :::
 
 The easiest way to participate in SQD Network is to delegate your `SQD` tokens to one of the workers. Here's how to do it.
@@ -32,7 +32,7 @@ The easiest way to participate in SQD Network is to delegate your `SQD` tokens t
 
 ## Undelegating
 
-1. Wait for your delegation lockup period to expire if you haven't already. The period is 50000 Ethereum block, starting at the first block following the end of the [epoch](/subsquid-network/faq/#epoch) when you delegated the tokens. So, roughly **7 days**.
+1. Wait for your delegation lockup period to expire if you haven't already. The period is 99999 Ethereum block, starting at the first block following the end of the [epoch](/subsquid-network/faq/#epoch) when you delegated the tokens. So, roughly **14 days**.
 
 2. Go to [network.subsquid.io](https://network.subsquid.io).
 
@@ -47,6 +47,8 @@ The easiest way to participate in SQD Network is to delegate your `SQD` tokens t
    :::
 
 5. Enter the `SQD` amount you want to withdraw, click the large new "Undelegate" button and confirm the transaction.
+
+6. Receive your tokens.
 
 ## Maximizing the rewards
 

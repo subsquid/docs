@@ -69,7 +69,7 @@ Additionally you can drive the growth of the SQD Network by helping to cultivate
 
 ### Does participating in SQD Network require committing my tokens?
 
-Yes. If you delegate your SQD or register a worker, your tokens will be locked for a period of 50000 Ethereum blocks, starting at the end of the current [epoch](#epoch).
+Yes. If you delegate your SQD or register a worker, your tokens will be locked for a period of 99999 Ethereum blocks, starting at the end of the current [epoch](#epoch).
 
 ### What is SQD’s roadmap?
 
