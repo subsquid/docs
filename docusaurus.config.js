@@ -106,6 +106,7 @@ const config = {
 
       //... other Algolia params
     },
+    image: 'img/preview.jpg'
   }),
 
   plugins: [
