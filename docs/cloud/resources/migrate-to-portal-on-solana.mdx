@@ -31,7 +31,7 @@ Here are the steps to migrate:
 
 You want
 ```
-https://portal.sqd.dev/datasets/solana-beta
+https://portal.sqd.dev/datasets/solana-mainnet
 ```
 Dedicated Cloud Solana portal with real time support is TBA.
 
@@ -140,7 +140,12 @@ pnpm install
 **A.** Replace all exising data sources with the portal:
 
 ```diff
-+  .setPortal('https://portal.sqd.dev/datasets/solana-beta')
++  .setPortal({
++    url: 'https://portal.sqd.dev/datasets/solana-mainnet',
++      http: {
++        retryAttempts: Infinity
++      }
++   })
 -  .setGateway('https://v2.archive.subsquid.io/network/solana-mainnet')
 -  .setRpc({
 -    client: new SolanaRpcClient({

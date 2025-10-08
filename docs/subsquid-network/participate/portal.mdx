@@ -155,7 +155,12 @@ http://127.0.0.1:8000/datasets/ethereum-mainnet
 
 You should be able to simply replace the `setGateway` call with `setPortal` and get exactly the same behavior as before:
 ```diff
-+  .setPortal('http://127.0.0.1:8000/datasets/ethereum-mainnet')
++  .setPortal({
++    url: 'http://127.0.0.1:8000/datasets/ethereum-mainnet',
++    http: {
++      retryAttempts: Infinity
++    }
++  })
 -  .setGateway('https://v2.archive.subsquid.io/network/ethereum-mainnet')
 ```
 If your squid [uses RPC to ingest unfinalized blocks](/sdk/resources/unfinalized-blocks), `@subsquid/evm-processor@portal-api` will smoothly transition to that regime as it catches up to the network.
@@ -183,7 +188,12 @@ If the last command fails due to an HTTP 400 response, try raising the lowest bl
 **A.** Replace all exising data sources with the portal:
 
 ```diff
-+  .setPortal('https://portal.tethys.sqd.dev/datasets/solana-beta')
++  .setPortal({
++    url: 'http://127.0.0.1:8000/datasets/solana-mainnet',
++    http: {
++      retryAttempts: Infinity
++    }
++  })
 -  .setGateway('https://v2.archive.subsquid.io/network/solana-mainnet')
 -  .setRpc({
 -    client: new SolanaRpcClient({
