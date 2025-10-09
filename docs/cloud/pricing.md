@@ -162,12 +162,6 @@ A squid writing parquet files to an external s3 bucket. No database or API is pr
 | Storage      |          | `$25` |
 | **Total**       |      | **`$40`** |
 
-## Transition to the Paid Plans
-
-The transition to the paid plans will take place in September 2023 to enable smooth onboarding. 
-The existing Cloud users will be able to see the usage and the provisional billing for September, with a full rebate of the total invoice. 
-The grace period ends on October 1st, 2023 with the payment rails enabled in the SQD Cloud app.
-
 ## FAQ
 
 **Q**: What is the difference between collocated and dedicated squids? Why are collocated squids much cheaper?
