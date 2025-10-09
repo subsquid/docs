@@ -77,6 +77,8 @@ Also ensure that
 
 - The alternative isolation level is `READ COMMITTED`. At this level data dependencies will not cause the processors to crash, but the execution is not guaranteed to be deterministic unless the sets of records that different processors read/write do not overlap.
 
+  Please take a look at [Postgres' documentation page on transaction isolation](https://www.postgresql.org/docs/current/transaction-iso.html) for further information.
+
 - To avoid cross-chain data dependencies, use per-chain records for volatile data. E.g. if you track account balances across multiple chains you can avoid overlaps by storing the balance for each chain in a different table row.
 
   When you need to combine the records (e.g. get a total of all balaces across chains) use a [custom resolver](/sdk/reference/openreader-server/configuration/custom-resolvers) to do it on the GraphQL server side.
