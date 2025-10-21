@@ -18,11 +18,11 @@ This guide lets you replace a gateway of the [open private version of SQD Networ
 Benefits include:
 
  - **Reduced reliance on centralized services:**
-   * The permissionless SQD Network consists of [over 1200](https://arbiscan.io/address/0x36e2b147db67e76ab67a4d07c293670ebefcae4e#readContract#F6) nodes [ran by independent operators](/subsquid-network/participate/worker), with a total capacity of roughly 1.1Pb. This allows for a great deal of redundancy.
+   * The permissionless SQD Network consists of [over 2400](https://arbiscan.io/address/0x36e2b147db67e76ab67a4d07c293670ebefcae4e#readContract#F6) nodes [ran by independent operators](/subsquid-network/participate/worker), with a total capacity of roughly 2Pb. This allows for a great deal of redundancy.
    * You can [query the network without relying on any centralized services](/subsquid-network/participate/portal). You can also use the public portal ran by the SQD team to just try it out.
  - **Improved speed:** The permissionless version of SQD Network has a lot more bandwidth than the open private network; moreover, portals use the available bandwidth more effectively than gateways. Data fetching was 5-10 times faster in some of our tests. For squids that are not bottlenecked by write operations this will translate into better sync performance.
  - **Simplified API:** compared to the [request-response approach](/subsquid-network/reference/evm-api) used by gateways, portals offer a simpler stream-based API.
- - **Being future-proof:** All future development will be focused on portals and the permissionless SQD Network. Open private network will be sunset around May 2025.
+ - **Being future-proof:** All future development will be focused on portals and the permissionless SQD Network. 
 
 Here are the steps to migrate:
 
