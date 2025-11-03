@@ -47,13 +47,6 @@ Cloud users can now switch from centralized gateways to our dedicated Cloud Port
   - A working Docker installation.
   - Some Arbitrum ETH for gas.
 
-
-### 4. Explore the Public Portal
-
-Public Portal allows access to nearly all the datasets that were available from the centralized gateways. Use it for development and tests.
-
-Browse EVM datasets at [portal-ui.sqd.dev](https://portal-ui.sqd.dev/). Solana [(and compatible SVM networks)](/subsquid-network/reference/networks/#solana-and-compatibles) and Substrate datasets will be available soon.
-
 ----
 
 If you have any questions or feedback for us, please reach out to us on Telegram. We have created a special group for Portal Beta participants: [link](https://t.me/+JHrJZPz34kRjYmFk). 
