@@ -57,7 +57,7 @@ processor.addTransaction({to: ['0x6a2d262d56735dba19dd70682b39f6be9a931d98']})
 processor.addTransaction({sighash: ['0xa9059cbb']})
 ```
 
-3) Request all `transfer(address,uint256)` calls to the specified addresses, from block `6_000_000` onwards and fetch their inputs. Also retrieve all logs emitted by these calls.
+3) Request all `transfer(address,uint256)` _top-level_ calls to the specified addresses, from block `6_000_000` onwards and fetch their inputs. Also retrieve all logs emitted by these calls.
 ```ts
 processor
   .addTransaction({
@@ -79,6 +79,7 @@ processor
     }
   })
 ```
+Note that the calls made by other contracts will not be included. Look at [call traces](/sdk/reference/processors/evm-batch/traces/) to get this data.
 
 4) Mine all transactions to and from Vitalik Buterin's address [`vitalik.eth`](https://etherscan.io/address/vitalik.eth). Fetch the involved addresses, ETH value and hash for each transaction. Get execution traces with the [default fields](../field-selection/#transactions) for outgoing transactions.
 
