@@ -1,7 +1,7 @@
 `sqd tags`
 =============
 
-Manage squid deployements' tags. See the [slots and tags guide](/cloud/resources/slots-and-tags).
+Manage squid deployments' tags. See the [slots and tags guide](/cloud/resources/slots-and-tags).
 
 * [`sqd tags add`](#sqd-tags-add)
 * [`sqd tags remove`](#sqd-tags-remove)
