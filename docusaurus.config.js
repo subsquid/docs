@@ -65,11 +65,19 @@ const config = {
         {
           type: 'docsVersionDropdown',
           position: 'left',
-          dropdownItemsAfter: [{to: '/versions', label: 'All versions'}],
+          dropdownItemsAfter: [{ to: '/versions', label: 'All versions' }],
           dropdownActiveClassDisabled: true,
         },
       ],
       hideOnScroll: true
+    },
+    announcementBar: {
+      id: 'new_docs_banner',
+      content:
+        '<a target="_blank" rel="noopener noreferrer" href="https://beta.docs.sqd.dev">Try the new docs →</a>',
+      backgroundColor: '#3880EC',
+      textColor: '#FFFFFF',
+      isCloseable: true,
     },
     colorMode: {
       defaultMode: 'light'
@@ -111,9 +119,9 @@ const config = {
 
   plugins: [
     [
-        '@docusaurus/plugin-client-redirects', {
-            redirects: urlList
-        }
+      '@docusaurus/plugin-client-redirects', {
+        redirects: urlList
+      }
     ],
     async function tailWindCssPlugin(context, options) {
       return {
