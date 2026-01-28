@@ -19,9 +19,9 @@ It is common (although not required) for squids to serve GraphQL APIs. Historica
 
 The recommended way of integrating PostGraphile into squid projects is by making a dedicated entry point at `src/api.ts`. A complete example squid implementing this approach is available in [this repository](https://github.com/subsquid-labs/squid-postgraphile-example/).
 
-With this entry point in place, we [create a `sqd` command](https://github.com/subsquid-labs/squid-postgraphile-example/blob/f1fd1691eb59da2c9d57c475a71d0ed44cfed891/commands.json#L58) for running PostGraphile with [`commands.json`](/squid-cli/commands-json), then use it in the [`deploy.api` entry](https://github.com/subsquid-labs/squid-postgraphile-example/blob/f1fd1691eb59da2c9d57c475a71d0ed44cfed891/squid.yaml#L15) of [Squid manifest](/cloud/reference/manifest). Although none of this is required, this makes it easier to run the squid both locally (with [`sqd run`](/squid-cli/run)) and in the [Cloud](/cloud).
+With this entry point in place, we [create an `sqd` command](https://github.com/subsquid-labs/squid-postgraphile-example/blob/master/commands.json#L58) for running PostGraphile with [`commands.json`](/squid-cli/commands-json), then use it in the [`deploy.api` entry](https://github.com/subsquid-labs/squid-postgraphile-example/blob/master/squid.yaml#L15) of [Squid manifest](/cloud/reference/manifest). Although none of this is required, this makes it easier to run the squid both locally (with [`sqd run`](/squid-cli/run)) and in the [Cloud](/cloud).
 
-As per usual with PostGraphile installations, you can freely extend it with plugins, including your own. Here is an [example plugin for serving the `_squidStatus` queries](https://github.com/subsquid-labs/squid-postgraphile-example/blob/f1fd1691eb59da2c9d57c475a71d0ed44cfed891/src/api.ts#L11) from the standard Squid SDK GraphQL server schema. A plugin for making PostGraphile API fully compatible with [old APIs](/sdk/reference/openreader-server/api) served by OpenReader will be made available soon.
+As per usual with PostGraphile installations, you can freely extend it with plugins, including your own. Here is an [example plugin for serving the `_squidStatus` queries](https://github.com/subsquid-labs/squid-postgraphile-example/blob/master/src/api.ts#L11) from the standard Squid SDK GraphQL server schema.
 
 ## Hasura
 
