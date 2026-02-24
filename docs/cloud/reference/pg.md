@@ -6,7 +6,13 @@ description: Provision and scale postgres for a squid
 
 # Postgres add-on
 
-To provision a postgres instance, add the `addons.postgres:` section to the deployment manifest. The add-on deploys a Postgres 14 instance and [injects variables](#variable-shadowing) with database connection params into the environment of the `api` and `processor` squid services.
+:::info
+Postgres instances provisioned by SQD Cloud only have basic functionality by default. Do not use them to store data that can't be recovered via an indexer resync. Use [zero-downtime updates](/cloud/resources/slots-and-tags/#zero-downtime-updates) to avoid sync-related downtimes.
+
+Advanced capabilities such as snapshots, replication, high-availability setup, increased number of direct connections etc are avialable on Enterprise plans. If you're interested please [let us know](https://t.me/HydraDevs).
+:::
+
+To provision a Postgres instance, add the `addons.postgres:` section to the deployment manifest. The add-on deploys a Postgres instance and [injects variables](#variable-shadowing) with database connection params into the environment of the `api` and `processor` squid services.
 
 ## Variable shadowing
 
@@ -33,6 +39,10 @@ The addon supports additional PG config options:
 ## Direct access
 
 SQD Cloud enables direct read access to the deployed PG instances. Go to the "DB access" tab of your squid deployment's card in the [Cloud web app](https://app.subsquid.io/squids) to get the PG connection string.
+
+:::info
+Outside of Enterprise plans, the number of direct connections one can open to the database is capped for optimal performance. Please avoid using more than ten (10) connections in your setups.
+:::
 
 ## Scaling
 
