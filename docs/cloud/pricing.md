@@ -10,6 +10,10 @@ description: Subscription types and pay-as-you-go prices
 Use our [cost calculator](https://www.sqd.dev/cloud#calculator) if you need a quick estimate
 :::
 
+:::info Important Pricing Update
+**Effective April 1, 2026**, Cloud hosting and RPC pricing will increase. See our [pricing update announcement](/cloud/pricing-update-april-2026) for complete details on the changes.
+:::
+
 ## Free squids
 
 Each account gets a playground [organization](/cloud/resources/organizations) where a single free squid can be deployed. Certain limitations apply; check the [playground organization](/cloud/resources/organizations/#playgrounds) section for details.
@@ -21,7 +25,7 @@ SQD bills [organizations](/cloud/resources/organizations) for the resources used
  - unmetered GraphQL API requests
  - deploying any number of pay-as-you-go [dedicated](/cloud/reference/scale/#dedicated) squids
  - deploying any number of pay-as-you-go [collocated](/cloud/reference/scale/#dedicated) squids
- - free 2M [RPC addon](/cloud/resources/rpc-proxy) requests monthly + just `$2/1M` afterwards
+ - free 2M [RPC addon](/cloud/resources/rpc-proxy) requests monthly + just `$2/1M` afterwards (increasing to `$5/1M` on [April 1, 2026](/cloud/pricing-update-april-2026#rpc-addon-pricing))
  - priority support 
 
 Other resources used by squids are priced as described below. Billing typically occurs on the first day of each month.
@@ -37,7 +41,7 @@ Data egress is not billed.
 
 ### Storage
 
-Database storage is billed at `0.5$/mo` per Gigabyte, both for dedicated and collocated squids.
+Database storage is billed at `0.5$/mo` per Gigabyte (until March 31, 2026), both for dedicated and collocated squids. See the [pricing update announcement](/cloud/pricing-update-april-2026) for new pricing effective April 1, 2026.
 
 ### Compute for dedicated squids
 
@@ -45,7 +49,9 @@ Dedicated squids have separate [compute profiles](/cloud/reference/scale/#servic
 
 #### API/Processor
 
-- `small`: `0.04$/hr` 
+Pricing until March 31, 2026:
+
+- `small`: `0.04$/hr`
 - `medium`: `0.08$/hr`
 - `large`: `0.15$/hr`
 - `xlarge`: `0.30$/hr`
@@ -53,9 +59,13 @@ Dedicated squids have separate [compute profiles](/cloud/reference/scale/#servic
 
 API and processor are configured and billed separately. Also, if you use API replicas your cost is multiplied by the number of replicas. For example, running a small processor plus two replicas of medium API costs `0.04+2*0.08=0.20$/hr`.
 
+See the [pricing update announcement](/cloud/pricing-update-april-2026) for new pricing effective April 1, 2026.
+
 Full profile descriptions are available [here](/cloud/reference/scale/#api) for the API and [here](/cloud/reference/scale/#processor) for the processor.
 
 #### Database
+
+Pricing until March 31, 2026:
 
 - `small`: `0.08$/hr`
 - `medium`: `0.16$/hr`
@@ -64,6 +74,8 @@ Full profile descriptions are available [here](/cloud/reference/scale/#api) for 
 - `2xlarge`: `1.32$/hr`
 
 Profiles are described [here](/cloud/reference/pg/#scaling). Combine with the [cost of storage](/cloud/pricing/#storage) to get the full price of maintaining the database.
+
+See the [pricing update announcement](/cloud/pricing-update-april-2026) for new pricing effective April 1, 2026.
 
 ### Hibernated squids
 
@@ -77,12 +89,14 @@ For multi-processor squids each processor is charged separately according to the
 
 Collocated squids share compute resources and thus their performance is NOT guaranteed. We do not recommend using
 collocated squids in production, but it's a good fit for development and testing.
-Compute is billed at a flat rate of `$0.02/hr` (`~$15/mo`) per each collocated squid (API + processor + DB).
+Compute is billed at a flat rate of `$0.02/hr` (`~$15/mo`) per each collocated squid (API + processor + DB) until March 31, 2026.
 It is not possible to additionally configure a collocated squid except for the storage.
+
+See the [pricing update announcement](/cloud/pricing-update-april-2026) for new pricing effective April 1, 2026.
 
 ### RPC requests
 
-The premium plan already includes a package of 2M requests per month. Above that, it is `$2/1M` requests. 
+The premium plan already includes a package of 2M requests per month. Above that, it is `$2/1M` requests (until March 31, 2026). See the [pricing update announcement](/cloud/pricing-update-april-2026#rpc-addon-pricing) for new pricing effective April 1, 2026. 
 
 ## SLAs
 
