@@ -7,33 +7,11 @@ pagination_prev: null
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Migrate to the Cloud portal
+# Migrate a Solana squid to public Portal
 
-## For users on Solana
-
-:::info
-SQD Network portals are currently in beta. Please report any bugs or suggestions to the [SQD Portal Beta chat](https://t.me/+JHrJZPz34kRjYmFk) or to [Squid Devs](https://t.me/HydraDevs).
-:::
-
-The newest version of SQD Network portal serves real time data. It can replace both gateways of the open private version of SQD Network and RPC endpoints. Currently it only supports Solana ([more on Solana indexing in SQD](/solana-indexing)).
-
-:::info
-We're currently experimenting with tightening the data request complexity limits. If you see an HTTP 400 error with a message like this:
-```
-Couldn't parse query: query contains X item requests, but only 50 is allowed
-```
-where `X` is some number above 50, or any other HTTP 400 response, please let us know.
-:::
+The newest version of the SQD Network portal serves real time data. It can replace both gateways of the open private version of SQD Network and RPC endpoints.
 
 Here are the steps to migrate:
-
-## Step 0: Procur a portal endpoint URL
-
-You want
-```
-https://portal.sqd.dev/datasets/solana-mainnet
-```
-Dedicated Cloud Solana portal with real time support is TBA.
 
 ## Step 1: Install @portal-api packages
 
@@ -188,7 +166,7 @@ Your squid is ready to use.
 
 ## Step 3: testing
 
-We highly recommend that all Portal Beta users test their migrated squids by re-syncing them. This will allow you to make sure that everything works as expected for the whole length of the chain and catch any bugs early.
+We highly recommend that all squids migrated to Portal are tested by re-syncing them. This will allow you to make sure that everything works as expected for the whole length of the chain and catch any bugs early.
 
 <details>
 <summary>A workaround that allows continuous operation without a resync (not recommended)</summary>

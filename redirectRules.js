@@ -870,6 +870,10 @@ const urlList = [
     {
         "from": "/cloud/resources/migrate-to-portal",
         "to": "/migrate-to-portal-cloud"
+    },
+    {
+        "from": "/cloud/resources/migrate-to-portal-on-solana",
+        "to": "/migrate-to-portal-on-solana"
     }
 ]
 
