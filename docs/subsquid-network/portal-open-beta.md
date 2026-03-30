@@ -43,7 +43,7 @@ Cloud users can now switch from centralized gateways to our dedicated Cloud Port
 - Take complete control of your data infrastructure by running your own Portal.
 - **Setup Guide**: [Self-Hosting Instructions](/subsquid-network/participate/portal)
 - **Requirements**
-  - Minimum 10,000 SQD tokens.
+  - Minimum 1,000,000 SQD tokens.
   - A working Docker installation.
   - Some Arbitrum ETH for gas.
 

@@ -8,11 +8,7 @@ sidebar_class_name: hidden
 # Self-host a portal
 
 :::info
-SQD Network portals are currently in closed beta. Please report any bugs or suggestions to the SQD Portal chat or to [Squid Devs](https://t.me/HydraDevs).
-:::
-
-:::warning
-If you want to use your private portal to index Solana, please read the [Using your Portal - On Solana](#on-solana) section before committing.
+Token requirement has been raised from 10,000 to 1,000,000 SQD in Q1 2026.
 :::
 
 Running a portal enables you to access the [permissionless SQD Network](/subsquid-network/overview) data without relying on any centralized services. You can run a private portal for your own needs, or make a high-throughput public portal.
@@ -20,9 +16,9 @@ Running a portal enables you to access the [permissionless SQD Network](/subsqui
 In either scenario you will need
 
 * A working Docker installation
-* 10000 or more `SQD` tokens
+* 1,000,000 or more `SQD` tokens
    + You won't have to spend the tokens, but you will need to keep them locked while you're using your portal. The more tokens you lock, the more bandwidth you get.
-   + For the minimum amount of 10000 `SQD` you'll get enough bandwidth to run a few squids. If you expect heavier workloads, read the [Token requirements and compute units](#staking-requirements-and-compute-units) section to estimate the required sum.
+   + For the minimum amount of 1,000,000 `SQD` you'll get enough bandwidth for most tasks. More details in [Token requirements and compute units](#staking-requirements-and-compute-units) section to estimate the required sum.
    + The tokens can be in your wallet or in an SQD-issued vesting contract.
 * Some Arbitrum ETH (for gas)
 
@@ -237,7 +233,7 @@ SLOT_NUMBER=320276063 curl --request POST --url https://api.mainnet-beta.solana.
 
 ## Token requirements and compute units {#staking-requirements-and-compute-units}
 
-The minimum token locking requirement for a portal is 10000 `SQD`. This should be enough for simple user cases like running 2-3 squid or grabbing some data for analytics. If you expect heavier workloads, read on.
+The minimum token locking requirement for a portal is 1,000,000 `SQD`. This should be enough for most workloads. If you want to know the exact capabilities this gives you, read on.
 
 The rate limiting mechanism of SQD Network relies on the concept of a _compute unit_, or CU for short. CUs do not map directly to the amount of data fetched by a portal; instead, they (roughly) represent the amount of work that the network does internally while serving the portal's requests.
 
@@ -303,18 +299,6 @@ Now, if your queries consume `X` CUs each and you run them once per `Y` epochs, 
 X / (Y * boost_factor)
 ```
 Here, `boost_factor` is a multiplier ranging from 1 to 3 depending on the lockup length (see the graph above).
-
-#### Example
-
-Suppose your query traverses the last 1M blocks of the Binance Smart Chain and you want to run it once every hour.
-
-* Visiting [bscscan.com](https://bscscan.com) we find that there's a total of 6.4B txs made over 44M blocks. We can roughly estimate the chain density at 150 txs/block.
-* We can now estimate the cost of each query to be on the order of `10^-5 * 10^6 * 150 = 1500` CU.
-* When ran once every 60 minutes or 3 epochs at 20 min per epoch, such queries would require roughly `1500 / 3 = 500` `SQD` locked up. This assumes a short lockup (under 60 days).
-* Finally we apply the recommended margins:
-  + For lightweight queries it is 10x and the final sum amounts to 5000 `SQD` - less than the global minimum lockup of 10000.
-  + If you're running extremely heavy queries, the recommended margin is 50x and the final recommended lockup is 25000 `SQD`. Use this value as a starting point and iterate if you'd like to minimize your lockup.
-    - If you'd like to reduce the amount of `SQD` even further, one option is to lock the tokens up for longer: with a two-year long lockup heavy queries you'll get three times the CUs and the final recommended lockup will be 10000 even for heavy queries.
 
 ## High throughput portals
 
